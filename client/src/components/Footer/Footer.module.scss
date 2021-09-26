@@ -1,0 +1,256 @@
+@import "../../common/styles/Variables.scss";
+
+.footer {
+  background-color: #e9e9e9;
+  color: $primary-text;
+
+  &__bltop {
+    display: flex;
+    align-items: center;
+    padding: $pm-10 $pm-10;
+    margin: 0 $pm-48;
+
+    &--left {
+      display: flex;
+      align-items: center;
+      flex: 0 0 75%;
+      max-width: 75%;
+
+      & > img {
+        cursor: pointer;
+        max-width: 15%;
+      }
+
+      & > ul {
+        list-style: none;
+        display: flex;
+        gap: 15px;
+        margin-top: $pm-16;
+
+        & > li {
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+          font-size: 14px;
+          position: relative;
+
+          & > a {
+            color: $primary-text;
+            font-size: 16px;
+          }
+
+          & > a:hover {
+            color: $third-text;
+            text-decoration: underline;
+          }
+        }
+
+        & > li:after {
+          content: "";
+          position: absolute;
+          width: 1px;
+          height: 68%;
+          background-color: #5d677a;
+          top: 6px;
+          right: -7px;
+        }
+
+        & > li:last-child:after {
+          width: 0;
+          height: 0;
+        }
+      }
+    }
+
+    &--right {
+      flex: 0 0 25%;
+      justify-content: flex-end;
+      align-items: center;
+      max-width: 25%;
+      display: flex;
+
+      & > div {
+        margin: 0 $pm-10 0 0;
+        font-size: 16px;
+      }
+
+      & > a {
+        align-items: center;
+        background-color: $primary-text;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        height: 2.125rem;
+        justify-content: center;
+        margin-right: $pm-10;
+        width: 2.125rem;
+        transition: all 0.3s ease-in-out;
+      }
+
+      & > a:hover {
+        background-color: $third-text;
+      }
+
+      & > img {
+        width: 106px;
+        height: 40px;
+        display: inline-block;
+      }
+    }
+  }
+
+  &__blbottom {
+    margin: 0 $pm-48;
+    &--top {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid $primary-text;
+      padding: $pm-10 0;
+
+      & > div {
+        flex: 0 0 25%;
+        & > h3 {
+          text-transform: uppercase;
+          color: #182642;
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        & > ul {
+          list-style: none;
+          padding: 0;
+
+          & > li {
+            & > a {
+              color: $primary-text;
+              font-size: 16px;
+            }
+
+            & > a:hover {
+              color: $third-text;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    &--bottom {
+      text-align: center;
+      font-size: 16px;
+      padding: $pm-20 0;
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1024px) {
+  .footer {
+    display: block;
+    &__bltop {
+      margin: 0 0;
+
+      &--right {
+        & > div {
+          display: none;
+        }
+      }
+    }
+
+    &__blbottom {
+      margin: 0 $pm-16;
+      &--top {
+        & > div {
+          flex: 0 0 33.33%;
+          & > h3 {
+            font-size: 16px;
+          }
+
+          & > ul > li > a {
+            font-size: 16px;
+          }
+        }
+      }
+
+      &--bottom {
+        font-size: 15px;
+        padding: $pm-20 0;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 800px) {
+  .footer {
+    display: block;
+    &__bltop {
+      margin: 0 0;
+      &--left {
+        display: none;
+      }
+
+      &--right {
+        justify-content: center;
+        max-width: 100%;
+        flex: 0 0 100%;
+      }
+    }
+
+    &__blbottom {
+      margin: 0 $pm-16;
+      &--top {
+        & > div {
+          flex: 0 0 33.33%;
+          & > h3 {
+            font-size: 15px;
+          }
+
+          & > ul > li > a {
+            font-size: 15px;
+          }
+        }
+      }
+
+      &--bottom {
+        font-size: 14px;
+        padding: $pm-20 0;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 600px) {
+  .footer {
+    &__bltop {
+      margin: 0 0;
+      &--left {
+        display: none;
+      }
+
+      &--right {
+        justify-content: center;
+        max-width: 100%;
+        flex: 0 0 100%;
+      }
+    }
+
+    &__blbottom {
+      margin: 0 $pm-16;
+      &--top {
+        & > div {
+          flex: 0 0 50%;
+          & > h3 {
+            font-size: 14px;
+          }
+
+          & > ul > li > a {
+            font-size: 14px;
+          }
+        }
+      }
+
+      &--bottom {
+        font-size: 12px;
+        padding: $pm-20 0;
+      }
+    }
+  }
+}

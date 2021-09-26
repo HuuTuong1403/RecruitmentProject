@@ -1,0 +1,155 @@
+@import "../../common/styles/Variables.scss";
+
+.header {
+  align-items: center;
+  background-color: $fifth-color;
+  display: flex;
+  height: $h-header;
+  justify-content: space-between;
+  border-bottom: 1px solid #e8e8e8;
+
+  &__logo {
+    cursor: pointer;
+    padding: 0 $pm-48;
+  }
+
+  &__block-right {
+    align-items: center;
+    display: flex;
+    gap: 15px;
+    text-align: center;
+  }
+
+  &__link {
+    border-right: 1px solid #e8e8e8;
+    color: $primary-text;
+    font-size: 16px;
+    font-weight: 400;
+    padding-right: 15px;
+
+    &--person {
+      font-size: 20px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    &--emp {
+      background-color: #324554;
+      color: $second-text;
+      padding: 17px;
+      text-transform: uppercase;
+      transition: all 0.3s ease-in-out;
+    }
+
+    &--emp > span:last-child {
+      color: #999999;
+      font-size: 14px;
+      font-weight: 400;
+      text-transform: none;
+    }
+
+    &--emp:hover {
+      background-color: #333;
+      color: $second-text;
+    }
+  }
+
+  &__link:hover {
+    color: #f79d25;
+  }
+
+  &__lang {
+    color: $primary-text;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    padding-right: 5px;
+  }
+
+  &__ic {
+    &--menu {
+      display: none;
+      cursor: pointer;
+    }
+    &--flag {
+      margin-right: 5px;
+      width: 1.25rem !important;
+    }
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .header {
+    display: block;
+    height: calc(100% - 97%);
+    position: relative;
+
+    &__block-right {
+      background-color: #fff;
+      display: none;
+      text-align: start;
+    }
+
+    &__block-right > a {
+      padding: 10px;
+    }
+
+    &__lang {
+      border-bottom: 1px solid #e8e8e8;
+      padding: 10px;
+    }
+
+    &__link {
+      border-bottom: 1px solid #e8e8e8;
+      border-right: 0px;
+      display: block;
+
+      &--emp {
+        display: grid;
+        padding: 10px;
+      }
+
+      &--emp > br {
+        display: none;
+      }
+    }
+
+    &__logo {
+      max-width: 42%;
+      padding: 0 $pm-16;
+    }
+
+    &__ic {
+      &--menu {
+        display: block;
+        font-size: $pm-32;
+        position: absolute;
+        right: 5%;
+        top: 5%;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 800px) {
+  .header {
+    height: calc(100% - 97%);
+    position: relative;
+
+    &__logo {
+      max-width: 85%;
+      padding: 0 $pm-16;
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1024px) {
+  .header {
+    height: calc(100% - 97%);
+    position: relative;
+
+    &__logo {
+      padding: 0 $pm-16;
+    }
+  }
+}

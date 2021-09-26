@@ -1,19 +1,15 @@
-import "./App.css";
 import { ToastContainer } from "react-toastify";
-import notification from "components/Notification";
+import Header from "components/Header/Header";
+import { withTranslation } from "react-i18next";
+import Footer from "components/Footer/Footer"
 
 function App() {
-  const handleSuccess = () => {
-    notification("ok", "success");
-  };
-  const handleError = () => {
-    notification("ok", "error");
-  };
 
   return (
     <div>
-      <button onClick={handleSuccess}>Success</button>
-      <button onClick={handleError}>Error</button>
+      <Header />
+      <div style={{height: "100vh"}}></div>
+      <Footer />
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -30,4 +26,4 @@ function App() {
   );
 }
 
-export default App;
+export default withTranslation()(App);
