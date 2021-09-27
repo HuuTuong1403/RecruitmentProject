@@ -1,0 +1,194 @@
+@import "../../../../common/styles/Variables.scss";
+
+.banner {
+  margin-top: $pm-10;
+  height: 60vh;
+  background-image: url("../../../../assets/images/home_banner1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__top {
+    color: white;
+    text-align: center;
+    width: 80%;
+
+    &--title {
+      font-size: $text-4xl;
+      font-weight: 700;
+    }
+
+    &--content {
+      font-weight: 400;
+      font-size: $text-base;
+    }
+
+    &--search {
+      display: flex;
+      align-items: center;
+      border-radius: 30px;
+      padding: $pm-10;
+      background-color: rgba(255, 255, 255, 0.3);
+      margin-top: $pm-10;
+      border-radius: 20px;
+      width: 100%;
+      gap: 20px;
+
+      & > div:first-child {
+        width: 60%;
+
+        & > span {
+          border-radius: 20px;
+        }
+
+        & > span > input {
+          padding: 4px;
+        }
+      }
+
+      & > div:not(:first-child):not(:last-child) {
+        width: 25%;
+        color: $primary-text;
+        text-align: start;
+      }
+
+      & > div:last-child {
+        width: 10%;
+
+        & > button {
+          padding: 6px 12px;
+          border: none;
+          border-radius: 20px;
+          cursor: pointer;
+          background-color: $second-color;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            background-color: #333;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .banner {
+    height: 45vh;
+    &__top {
+      width: 90%;
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1024px) {
+  .banner {
+    height: 35vh;
+
+    &__top {
+      width: 90%;
+
+      &--title {
+        font-size: $text-3xl;
+      }
+
+      &--search {
+        & > div:last-child {
+          width: 15%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 800px) {
+  .banner {
+    height: 30vh;
+
+    &__top {
+      width: 90%;
+
+      &--title {
+        font-size: $text-3xl;
+      }
+
+      &--search {
+        & > div:first-child {
+          width: 50%;
+        }
+        & > div:last-child {
+          width: 20%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 350px) and (max-width: 600px) {
+  .banner {
+    height: 45vh;
+
+    &__top {
+      width: 90%;
+
+      &--title {
+        font-size: $text-xl;
+      }
+
+      &--search {
+        flex-wrap: wrap;
+        & > div:first-child {
+          width: 100%;
+          margin-bottom: $pm-12;
+        }
+        & > div:not(:first-child):not(:last-child) {
+          width: 100%;
+          margin-bottom: $pm-12;
+        }
+        & > div:last-child {
+          width: 100%;
+
+          & > button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .banner {
+    height: 55vh;
+
+    &__top {
+      width: 90%;
+
+      &--title {
+        font-size: $text-base;
+      }
+
+      &--search {
+        flex-wrap: wrap;
+        & > div:first-child {
+          width: 100%;
+          margin-bottom: $pm-12;
+        }
+        & > div:not(:first-child):not(:last-child) {
+          width: 100%;
+          margin-bottom: $pm-12;
+        }
+        & > div:last-child {
+          width: 100%;
+
+          & > button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

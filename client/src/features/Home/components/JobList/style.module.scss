@@ -1,0 +1,14 @@
+@import "../../../../common/styles/Variables.scss";
+
+.joblist {
+  background-color: $third-color;
+  padding: $pm-20;
+
+  &__container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: $pm-24;
+    background-color: $fifth-color;
+  }
+}

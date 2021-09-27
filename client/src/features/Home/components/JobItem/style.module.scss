@@ -1,0 +1,81 @@
+@import "../../../../common/styles/Variables.scss";
+
+.jobitem {
+  width: 30%;
+  background-color: $fifth-color;
+  border: 1px solid #e8e8e8;
+  color: $primary-text;
+  transition: all 0.3s ease-in-out;
+  margin: $pm-6 $pm-6;
+
+  &:hover {
+    background-color: $third-color;
+  }
+
+  &__container {
+    margin: $pm-6 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--logo {
+      margin-left: $pm-16;
+      width: 70px;
+      height: 70px;
+      padding: $pm-6;
+      border: 1px solid #e5e5e5;
+      border-radius: 5px;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      & > img {
+        max-width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &--detail {
+      width: 75%;
+
+      &--namejob {
+        color: $primary-text;
+        font-weight: 700;
+        font-size: $text-base;
+
+        &:hover {
+          color: $third-text;
+        }
+      }
+
+      &--namecompany {
+        color: $primary-text;
+        font-size: $text-sm;
+
+        &:hover {
+          color: $primary-text;
+        }
+      }
+
+      & > div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &--salary {
+        color: #008563;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
+
+      &--location {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
+    }
+  }
+}

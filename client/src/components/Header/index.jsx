@@ -1,8 +1,8 @@
 import MSTLogo from "assets/images/mst_logo.png";
-import classes from "./Header.module.scss";
+import classes from "./styles.module.scss";
 import { IoPersonCircle, IoMenu } from "react-icons/io5";
 import { Menu, Dropdown } from "antd";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useWindowSize } from "../../common/hook/useWindowSize";
@@ -78,13 +78,13 @@ const Header = () => {
         />
       </div>
       <div style={styleResize} className={classes["header__block-right"]}>
-        <a href="/" className={classes["header__link"]}>
+        <Link to={`/home/sign-in`} className={classes["header__link"]}>
           <IoPersonCircle className={classes["header__link--person"]} />
           {t("signin")}
-        </a>
-        <a href="/" className={classes["header__link"]}>
+        </Link>
+        <Link to="/home/sign-up" className={classes["header__link"]}>
           {t("signup")}
-        </a>
+        </Link>
         <Dropdown overlay={menu} className={classes["header__lang"]}>
           <div>{lang.slice(0, 2).toUpperCase()}</div>
         </Dropdown>

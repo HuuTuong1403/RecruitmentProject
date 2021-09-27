@@ -1,15 +1,11 @@
 import { ToastContainer } from "react-toastify";
-import Header from "components/Header/Header";
 import { withTranslation } from "react-i18next";
-import Footer from "components/Footer/Footer"
+import Routers from './routers'
 
 function App() {
-
   return (
     <div>
-      <Header />
-      <div style={{height: "100vh"}}></div>
-      <Footer />
+      <Routers />
       <ToastContainer
         position="top-right"
         autoClose={5000}
