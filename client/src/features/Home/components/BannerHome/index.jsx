@@ -1,8 +1,7 @@
 import classes from "./style.module.scss";
-import { Input } from "antd";
-import { BsSearch } from "react-icons/bs";
+import { Input } from "reactstrap";
 import Select from "react-select";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const BannerHome = () => {
   const options = [
@@ -11,17 +10,13 @@ const BannerHome = () => {
     { value: "vanilla", label: "Vanilla" },
   ];
 
-  const [searchKey, setSearchKey] = useState("");
   const [searchProvince, setSearchProvince] = useState("");
+  const searchKeyRef = useRef();
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(searchKey);
+    console.log(searchKeyRef.current.value);
     console.log(searchProvince);
-  };
-
-  const changeSearchHandler = ({ target: { value } }) => {
-    setSearchKey(value);
   };
 
   const changeProvinceHandler = (selectedOption) => {
@@ -47,13 +42,17 @@ const BannerHome = () => {
         >
           <div>
             <Input
-              onChange={changeSearchHandler}
-              prefix={<BsSearch />}
+              innerRef={searchKeyRef}
+              // onChange={changeSearchHandler}
               placeholder="Tìm kiếm theo từ khóa"
             />
           </div>
           <div>
-            <Select onChange={changeProvinceHandler} options={options} />
+            <Select
+              placeholder={"Chọn tỉnh thành..."}
+              onChange={changeProvinceHandler}
+              options={options}
+            />
           </div>
           <div>
             <button type="submit">Tìm kiếm</button>

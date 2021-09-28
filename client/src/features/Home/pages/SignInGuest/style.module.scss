@@ -1,0 +1,117 @@
+@import "../../../../common/styles/Variables.scss";
+
+.signin {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapped {
+    &--title {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: $text-2xl;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    &--content {
+      text-align: center;
+    }
+
+    &--form {
+      width: 100%;
+
+      &--link {
+        text-align: right;
+        margin-bottom: 8px;
+      }
+
+      & > button {
+        width: 100%;
+        padding: 8px 0;
+        border: none;
+        background-color: $primary-color;
+        color: white;
+        text-transform: uppercase;
+        border-radius: 20px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background-color: #324554;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    &--social {
+      margin: 30px 0;
+      text-align: center;
+
+      &--line {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+
+        &::before {
+          background: #e9e9e9;
+          content: "";
+          height: 1px;
+          left: 50%;
+          position: absolute;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          width: 100%;
+          z-index: -1;
+        }
+
+        & > span {
+          background: #ffffff;
+          color: #5d677a;
+          font-size: 14px;
+          font-weight: 400;
+          text-transform: uppercase;
+          width: 40%;
+        }
+      }
+
+      &--google {
+        margin: 20px 0;
+
+        & > button {
+          width: 100%;
+          padding: 8px 0;
+          border: none;
+          background-color: #dd4b39;
+          color: white;
+          border-radius: 20px;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            background-color: #bf0000;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      &--signup {
+        font-weight: 700;
+
+        & > span {
+          font-weight: 400;
+        }
+
+        & > a {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

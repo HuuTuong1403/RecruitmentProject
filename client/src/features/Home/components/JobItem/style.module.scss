@@ -1,24 +1,25 @@
 @import "../../../../common/styles/Variables.scss";
 
 .jobitem {
-  width: 30%;
+  width: 90%;
   background-color: $fifth-color;
   border: 1px solid #e8e8e8;
   color: $primary-text;
   transition: all 0.3s ease-in-out;
-  margin: $pm-6 $pm-6;
+  margin: $pm-6 $pm-6 $pm-10 $pm-6;
 
   &:hover {
     background-color: $third-color;
   }
 
   &__container {
-    margin: $pm-6 0;
+    padding: $pm-6 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     &--logo {
+      min-width: 25%;
       margin-left: $pm-16;
       width: 70px;
       height: 70px;
@@ -37,7 +38,8 @@
     }
 
     &--detail {
-      width: 75%;
+      width: 70%;
+      padding-left: $pm-10;
 
       &--namejob {
         color: $primary-text;
@@ -75,6 +77,93 @@
         display: flex;
         align-items: center;
         font-size: 14px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1024px) {
+  .jobitem {
+    min-width: 90%;
+    margin: $pm-4 $pm-4 $pm-16 $pm-4;
+
+    &__container {
+      margin: $pm-4 0;
+
+      &--logo {
+        width: 75px;
+        height: 75px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+  .jobitem {
+    min-width: 70%;
+    margin: $pm-4 $pm-4;
+
+    &__container {
+      margin: $pm-4 0;
+    }
+  }
+}
+
+@media screen and (min-width: 350px) and (max-width: 600px) {
+  .jobitem {
+    min-width: 90%;
+
+    &__container {
+      &--logo {
+        width: 65px;
+        height: 65px;
+        max-width: 25%;
+      }
+
+      &--detail {
+        max-width: 65%;
+        &--namejob {
+          font-size: 14px;
+        }
+        &--namecompany {
+          font-size: 12px;
+        }
+        &--salary {
+          font-size: 12px;
+        }
+        &--location {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .jobitem {
+    min-width: 90%;
+
+    &__container {
+      &--logo {
+        width: 50px;
+        height: 50px;
+        min-width: 25%;
+      }
+
+      &--detail {
+        min-width: 60%;
+        &--namejob {
+          font-size: 12px;
+        }
+        &--namecompany {
+          font-size: 10px;
+        }
+        &--salary {
+          font-size: 10px;
+        }
+        &--location {
+          font-size: 10px;
+        }
       }
     }
   }

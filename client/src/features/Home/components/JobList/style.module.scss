@@ -8,7 +8,68 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    padding: $pm-24;
+    padding: 0 0 $pm-24 0;
     background-color: $fifth-color;
+
+    &--title {
+      display: inline;
+      width: 100%;
+      font-weight: 600;
+      color: $primary-text;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 24px;
+      background-color: #e8e8e8;
+      text-transform: uppercase;
+      position: relative;
+
+      &--all {
+        position: absolute;
+        right: 1%;
+        top: 25%;
+        font-size: 14px;
+        text-transform: none;
+        color: $primary-text;
+
+        &:hover,
+        &:focus {
+          color: $third-text;
+        }
+
+        &::after {
+          content: "→";
+          margin-left: 5px;
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1024px) {
+  .joblist {
+    padding: $pm-20;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  .joblist {
+    padding: $pm-20;
+
+    &__container {
+      &--title {
+        font-size: 14px;
+
+        &--all {
+          right: 1%;
+          top: 20%;
+          font-size: 12px;
+
+          &::after {
+            font-size: 15px;
+          }
+        }
+      }
+    }
   }
 }
