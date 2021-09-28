@@ -1,15 +1,18 @@
 import classes from "./style.module.scss";
 import JobItem from "../JobItem";
 import Slider from "react-slick";
+import { useTranslation } from "react-i18next";
 
 const JobList = (props) => {
+  const { t } = useTranslation();
+
   return (
     <div className={classes.joblist}>
       <div className={classes.joblist__container}>
         <div className={classes["joblist__container--title"]}>
-          <div>Tin tuyển dụng, việc làm tốt nhất</div>
+          <div>{t("home-news-recruiment")}</div>
           <a className={classes["joblist__container--title--all"]} href="/">
-            Xem tất cả
+            {t("seeAll")}
           </a>
         </div>
         <Slider style={{ width: "85%" }} {...settings}>

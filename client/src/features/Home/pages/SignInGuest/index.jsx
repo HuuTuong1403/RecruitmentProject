@@ -1,20 +1,24 @@
-import AuthComponent from "features/Home/components/AuthComponent";
-import { useForm } from "react-hook-form";
-import classes from "./style.module.scss";
-import InputField from "../../../../custom-fields/InputField";
-import { schemaLogin } from "../../../../common/constants/schema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { FiLock, FiUser } from "react-icons/fi";
 import { FaGoogle } from "react-icons/fa";
+import { FiLock, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { schemaSignInUser } from "common/constants/schema";
+import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { yupResolver } from "@hookform/resolvers/yup";
+import AuthComponent from "features/Home/components/AuthComponent";
+import classes from "./style.module.scss";
+import InputField from "custom-fields/InputField";
 
 const SignInGuest = () => {
+  const { t } = useTranslation();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schemaLogin),
+    mode: "all",
+    resolver: yupResolver(schemaSignInUser),
   });
 
   const onSubmit = (data) => {
@@ -26,16 +30,15 @@ const SignInGuest = () => {
       <div className={classes.signin}>
         <div className={classes.signin__wrapped}>
           <div className={classes["signin__wrapped--content"]}>
-            Hãy kết nối với chúng tôi để tìm được công việc bạn yêu thích phù
-            hợp với kỹ năng và tiêu chí bạn quan tâm
+            {t("content-signin")}
           </div>
-          <div className={classes["signin__wrapped--title"]}>Đăng nhập</div>
+          <div className={classes["signin__wrapped--title"]}>{t("signin")}</div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className={classes["signin__wrapped--form"]}
           >
             <InputField
-              placeholder="Vui lòng nhập username/email/số điện thoại"
+              placeholder={t("phd-username-signin")}
               {...register("username")}
               errors={errors.username?.message}
               icon={<FiUser />}
@@ -43,32 +46,32 @@ const SignInGuest = () => {
 
             <InputField
               type="password"
-              placeholder="Vui lòng nhập mật khẩu"
+              placeholder={t("phd-pass-signin")}
               {...register("password")}
               errors={errors.password?.message}
               icon={<FiLock />}
             />
 
             <div className={classes["signin__wrapped--form--link"]}>
-              <Link to="/">Quên mật khẩu</Link>
+              <Link to="/">{t("forgotpass")}</Link>
             </div>
 
-            <button type="submit">Đăng nhập</button>
+            <button type="submit">{t("signin")}</button>
           </form>
 
           <div className={classes["signin__wrapped--social"]}>
             <div className={classes["signin__wrapped--social--line"]}>
-              <span>Hoặc có thể đăng nhập</span>
+              <span>{t("or-signin")}</span>
             </div>
             <div className={classes["signin__wrapped--social--google"]}>
               <button>
                 <FaGoogle />
-                <span> Đăng nhập bằng Google</span>
+                <span> {t("signin-google")}</span>
               </button>
             </div>
             <div className={classes["signin__wrapped--social--signup"]}>
-              <span>Bạn chưa có tài khoản? </span>
-              <Link to="/home/sign-up">Đăng ký</Link>
+              <span>{t("no-account")} </span>
+              <Link to="/home/sign-up">{t("signup")}</Link>
             </div>
           </div>
         </div>

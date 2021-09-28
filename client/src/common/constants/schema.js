@@ -1,14 +1,34 @@
 import * as yup from "yup";
 
-export const schemaLogin = yup
+export const schemaSignInUser = yup
   .object({
-    username: yup.string().required("Tên đăng nhập không được trống"),
+    username: yup.string().required("error-username-required"),
     password: yup
       .string()
-      .required("Mật khẩu không được trống")
+      .required("error-pass-required")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-        "Mật khẩu phải có ít nhất 8 kí tự, chữ thường, chữ hoa và số"
+        "error-pass-pattern"
+      ),
+  })
+  .required();
+
+export const schemaSignUpUser = yup
+  .object({
+    username: yup.string().required("error-username-required"),
+    password: yup
+      .string()
+      .required("error-pass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
+      ),
+    rePassword: yup
+      .string()
+      .required("error-pass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
       ),
   })
   .required();

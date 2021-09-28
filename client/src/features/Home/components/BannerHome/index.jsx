@@ -2,6 +2,7 @@ import classes from "./style.module.scss";
 import { Input } from "reactstrap";
 import Select from "react-select";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const BannerHome = () => {
   const options = [
@@ -9,7 +10,7 @@ const BannerHome = () => {
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
   ];
-
+  const { t } = useTranslation()
   const [searchProvince, setSearchProvince] = useState("");
   const searchKeyRef = useRef();
 
@@ -31,10 +32,10 @@ const BannerHome = () => {
     <div className={classes.banner}>
       <div className={classes.banner__top}>
         <div className={classes["banner__top--title"]}>
-          Hãy tìm công việc thích hợp cho bạn
+          {t("find-job-for-you")}
         </div>
         <div className={classes["banner__top--content"]}>
-          Tìm kiếm việc làm chỉ trong vài phút
+          {t("search-minute")}
         </div>
         <form
           className={classes["banner__top--search"]}
@@ -44,18 +45,18 @@ const BannerHome = () => {
             <Input
               innerRef={searchKeyRef}
               // onChange={changeSearchHandler}
-              placeholder="Tìm kiếm theo từ khóa"
+              placeholder={t("search-key")}
             />
           </div>
           <div>
             <Select
-              placeholder={"Chọn tỉnh thành..."}
+              placeholder={t("choose-province")}
               onChange={changeProvinceHandler}
               options={options}
             />
           </div>
           <div>
-            <button type="submit">Tìm kiếm</button>
+            <button type="submit">{t("search")}</button>
           </div>
         </form>
       </div>

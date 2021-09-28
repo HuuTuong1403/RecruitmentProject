@@ -3,15 +3,16 @@ import classes from "./style.module.scss";
 import LogInAnimation from "../../../../assets/lottie/login.json";
 import RegisterAnimation from "../../../../assets/lottie/register.json";
 import { useRouteMatch } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const AuthComponent = (props) => {
   const { url } = useRouteMatch();
-
+  const { t } = useTranslation();
   return (
     <section className={classes.auth}>
       <div className={classes.auth__container}>
         <div className={classes["auth__container--title"]}>
-          Chào mừng bạn đến với MST Company
+          {t("welcome-to-MST")}
         </div>
         <div className={classes["auth__container--wrapped"]}>
           <div className={classes["auth__container--wrapped--column-left"]}>
