@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800&display=swap");
 @import "react-toastify/dist/ReactToastify.css";
-@import "antd/dist/antd.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 * {
   box-sizing: border-box;
@@ -18,4 +18,15 @@ body {
 p {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+a {
+  color: #5d677a;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #f79d25;
+  text-decoration: underline;
 }

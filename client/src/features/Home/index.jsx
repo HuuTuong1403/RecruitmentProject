@@ -8,12 +8,13 @@ import SignUpGuest from "./pages/SignUpGuest";
 import NotFoundPage from "../../components/404";
 
 const HomePage = () => {
-  const { path, url } = useRouteMatch();
+  const { url } = useRouteMatch();
+
   return (
     <Fragment>
       <Header />
       <Switch>
-        <Route exact path={`${path}`} component={HomeGuest} />
+        <Route exact path={`${url}`} component={HomeGuest} />
         <Route path={`${url}/sign-in`} component={SignInGuest} />
         <Route path={`${url}/sign-up`} component={SignUpGuest} />
         <Route path="*">

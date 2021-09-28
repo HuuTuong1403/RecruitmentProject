@@ -1,70 +1,61 @@
 import classes from "./style.module.scss";
 import JobItem from "../JobItem";
+import Slider from "react-slick";
 
-const DUMMY_JOB = [
-  {
-    id: 1,
-    name: "Customer Service Manager asdkasdkamskdm",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 2,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 3,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 4,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 5,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 6,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 7,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 8,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 9,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-];
-
-const JobList = () => {
+const JobList = (props) => {
   return (
     <div className={classes.joblist}>
       <div className={classes.joblist__container}>
-        {DUMMY_JOB.map((job) => {
-          return (
-            <JobItem
-              key={job.id}
-              nameJob={job.name}
-              nameCompany={job.company}
-            />
-          );
-        })}
+        <div className={classes["joblist__container--title"]}>
+          <div>Tin tuyển dụng, việc làm tốt nhất</div>
+          <a className={classes["joblist__container--title--all"]} href="/">
+            Xem tất cả
+          </a>
+        </div>
+        <Slider style={{ width: "85%" }} {...settings}>
+          {props.lists.map((job) => {
+            return <JobItem key={job.id} job={job} />;
+          })}
+        </Slider>
       </div>
     </div>
   );
+};
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 3,
+  autoplay: true,
+  pauseOnHover: true,
+  rows: 3,
+  responsive: [
+    {
+      breakpoint: 1240,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        rows: 3,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        rows: 3,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
 
 export default JobList;

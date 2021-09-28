@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.8.1",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "antd": "^4.16.13",
     "axios": "^0.21.4",
+    "bootstrap": "^5.1.1",
     "i18next": "^21.1.0",
     "lottie-react": "^2.1.0",
     "query-string": "^7.0.1",
@@ -24,6 +25,8 @@
     "react-select": "^4.3.1",
     "react-slick": "^0.28.1",
     "react-toastify": "^8.0.2",
+    "reactstrap": "^8.10.0",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.9"
   },

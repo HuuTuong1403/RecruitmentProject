@@ -5,6 +5,8 @@ import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const JobItem = (props) => {
+  const { name, nameCompany } = props.job;
+
   return (
     <div className={classes.jobitem}>
       <div className={classes.jobitem__container}>
@@ -17,7 +19,7 @@ const JobItem = (props) => {
               className={classes["jobitem__container--detail--namejob"]}
               to="/home"
             >
-              {props.nameJob}
+              {name}
             </Link>
           </div>
           <div>
@@ -25,7 +27,7 @@ const JobItem = (props) => {
               className={classes["jobitem__container--detail--namecompany"]}
               to="/home"
             >
-              {props.nameCompany}
+              {nameCompany}
             </Link>
           </div>
           <div className={classes["jobitem__container--detail--salary"]}>

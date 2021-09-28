@@ -51,6 +51,7 @@
     &--emp:hover {
       background-color: #333;
       color: $second-text;
+      text-decoration: none;
     }
   }
 
@@ -64,6 +65,18 @@
     font-size: 16px;
     font-weight: 400;
     padding-right: 5px;
+
+    & > button {
+      background-color: transparent !important;
+      color: $primary-text;
+      border: none;
+
+      &:hover,
+      &:focus {
+        color: $primary-text !important;
+        outline: none !important;
+      }
+    }
   }
 
   &__ic {

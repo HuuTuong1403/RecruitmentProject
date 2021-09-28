@@ -1,6 +1,8 @@
 import { ToastContainer } from "react-toastify";
 import { withTranslation } from "react-i18next";
 import Routers from './routers'
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   return (
