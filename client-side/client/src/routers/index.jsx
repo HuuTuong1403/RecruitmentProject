@@ -3,11 +3,12 @@ import { Suspense } from "react";
 import NotFoundPage from "components/404";
 import { routes } from "./routes";
 import { PATH } from "common/constants/path";
+import LoadingSuspense from "components/Loading";
 
 const Routers = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSuspense height="100vh" showText={true} />}>
         <Switch>
           <Redirect exact from="/" to={PATH.home} />
           {routes.map((route, index) => {

@@ -1,0 +1,73 @@
+@import "../../../../common/styles/Variables.scss";
+
+.changepass {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapped {
+    &--title {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: $text-2xl;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    &--content {
+      text-align: center;
+    }
+
+    &--form {
+      width: 100%;
+
+      &--label {
+        font-size: 14px;
+        margin-left: 5px;
+        margin-bottom: 5px;
+      }
+
+      & > button {
+        width: 100%;
+        padding: 8px 0;
+        border: none;
+        background-color: $primary-color;
+        color: white;
+        text-transform: uppercase;
+        border-radius: 20px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background-color: #324554;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .changepass {
+    &__wrapped {
+      &--content {
+        margin-top: 10px;
+      }
+
+      &--title {
+        font-size: $text-xl;
+        margin: 10px 0;
+      }
+
+      &--form {
+        & > button {
+          margin-bottom: 10px;
+          font-size: $text-base;
+        }
+      }
+    }
+  }
+}

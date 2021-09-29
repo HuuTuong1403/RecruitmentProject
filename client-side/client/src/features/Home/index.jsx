@@ -8,6 +8,7 @@ import { lazy } from "react";
 const SignInGuest = lazy(() => import("./pages/SignInGuest"));
 const SignUpGuest = lazy(() => import("./pages/SignUpGuest"));
 const HomeGuest = lazy(() => import("./pages/HomeGuest"));
+const ForgotPass = lazy(() => import("./pages/ForgotPass"));
 
 const HomePage = () => {
   const { url } = useRouteMatch();
@@ -19,6 +20,7 @@ const HomePage = () => {
         <Route exact path={`${url}`} component={HomeGuest} />
         <Route path={`${url}/sign-in`} component={SignInGuest} />
         <Route path={`${url}/sign-up`} component={SignUpGuest} />
+        <Route path={`${url}/forgot-pass`} component={ForgotPass} />
         <Route path="*">
           <NotFoundPage />
         </Route>

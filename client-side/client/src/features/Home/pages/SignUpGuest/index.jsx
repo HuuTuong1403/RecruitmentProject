@@ -62,9 +62,9 @@ const SignUpGuest = () => {
             />
             <InputField
               type="password"
-              placeholder={"Re-password"}
-              {...register("rePassword")}
-              errors={errors.rePassword?.message}
+              placeholder={"Confirm Password"}
+              {...register("confirmPassword")}
+              errors={errors.confirmPassword?.message}
             />
 
             <button type="submit">{t("signup")}</button>

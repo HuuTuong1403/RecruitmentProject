@@ -1,0 +1,88 @@
+@import "../../../../common/styles/Variables.scss";
+
+.sendmail {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapped {
+    &--title {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: $text-2xl;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    &--content {
+      text-align: center;
+    }
+
+    & > div:last-child {
+      margin-top: 10px;
+
+      &::before {
+        content: "←";
+        margin-right: 5px;
+        font-size: 17px;
+      }
+
+      &:hover,
+      &:focus {
+        color: $third-text;
+      }
+    }
+
+    &--form {
+      width: 100%;
+
+      &--label {
+        font-size: 14px;
+        margin-left: 5px;
+        margin-bottom: 5px;
+      }
+
+      & > button {
+        width: 100%;
+        padding: 8px 0;
+        border: none;
+        background-color: $primary-color;
+        color: white;
+        text-transform: uppercase;
+        border-radius: 20px;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background-color: #324554;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .sendmail {
+    &__wrapped {
+      &--content {
+        margin-top: 10px;
+        font-size: $text-sm;
+      }
+
+      &--title {
+        font-size: $text-lg;
+        margin: 10px 0;
+      }
+
+      &--form {
+        & > button {
+          font-size: $text-sm;
+        }
+      }
+    }
+  }
+}

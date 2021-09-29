@@ -1,105 +1,28 @@
+import LoadingSuspense from "components/Loading";
 import BannerHome from "features/Home/components/BannerHome";
 import JobList from "features/Home/components/JobList";
-import { Fragment } from "react";
-
-const DUMMY_JOB = [
-  {
-    id: 1,
-    name: "Customer Service Manager asdkasdkamskdmajsdkasnkdnaskdnakjsndkjn",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 2,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 3,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 4,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 5,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 6,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 7,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 8,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 9,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 10,
-    name: "Customer Service Manager asdkasdkamskdmajsdkasnkdnaskdnakjsndkjn",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 11,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 12,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 13,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 14,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 15,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 16,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 17,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-  {
-    id: 18,
-    name: "Customer Service Manager",
-    company: "Công ty cổ phần dịch vụ MST",
-  },
-];
+import {
+  selectJobsHome,
+  selectLoadingHome,
+} from "features/Home/slices/selectors";
+import { fetchJobsAsync } from "features/Home/slices/thunks";
+import { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const HomeGuest = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchJobsAsync());
+  }, [dispatch]);
+
+  const jobs = useSelector(selectJobsHome);
+  const loading = useSelector(selectLoadingHome);
+
   return (
     <Fragment>
       <BannerHome />
-      <JobList lists={DUMMY_JOB} />
+      {loading ? <LoadingSuspense height="40vh" showText={false} /> : <JobList lists={jobs} />}
     </Fragment>
   );
 };

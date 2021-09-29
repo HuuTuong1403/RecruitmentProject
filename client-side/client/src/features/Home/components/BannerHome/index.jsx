@@ -3,6 +3,7 @@ import { Input } from "reactstrap";
 import Select from "react-select";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import ReactTypingEffect from "react-typing-effect";
 
 const BannerHome = () => {
   const options = [
@@ -10,7 +11,7 @@ const BannerHome = () => {
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
   ];
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [searchProvince, setSearchProvince] = useState("");
   const searchKeyRef = useRef();
 
@@ -32,7 +33,13 @@ const BannerHome = () => {
     <div className={classes.banner}>
       <div className={classes.banner__top}>
         <div className={classes["banner__top--title"]}>
-          {t("find-job-for-you")}
+          <ReactTypingEffect
+            text={[`${t("find-job-for-you")}`, `${t("slogan-banner-2")}`]}
+            cursorRenderer={(cursor) => <div>{cursor}</div>}
+            eraseDelay={500}
+            eraseSpeed={50}
+            speed={100}
+          />
         </div>
         <div className={classes["banner__top--content"]}>
           {t("search-minute")}
@@ -44,7 +51,6 @@ const BannerHome = () => {
           <div>
             <Input
               innerRef={searchKeyRef}
-              // onChange={changeSearchHandler}
               placeholder={t("search-key")}
             />
           </div>

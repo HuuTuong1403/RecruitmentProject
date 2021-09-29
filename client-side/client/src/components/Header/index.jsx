@@ -7,7 +7,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useWindowSize } from "../../common/hook/useWindowSize";
@@ -61,13 +61,21 @@ const Header = () => {
         />
       </div>
       <div style={styleResize} className={classes["header__block-right"]}>
-        <Link to={`/home/sign-in`} className={classes["header__link"]}>
+        <NavLink
+          activeClassName={classes["header__link--active"]}
+          to={`/home/sign-in`}
+          className={classes["header__link"]}
+        >
           <IoPersonCircle className={classes["header__link--person"]} />
           {t("signin")}
-        </Link>
-        <Link to="/home/sign-up" className={classes["header__link"]}>
+        </NavLink>
+        <NavLink
+          activeClassName={classes["header__link--active"]}
+          to="/home/sign-up"
+          className={classes["header__link"]}
+        >
           {t("signup")}
-        </Link>
+        </NavLink>
         <Dropdown
           isOpen={dropdownOpen}
           toggle={toggleDropdown}

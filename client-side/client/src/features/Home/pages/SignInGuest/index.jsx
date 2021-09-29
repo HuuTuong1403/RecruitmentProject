@@ -53,7 +53,7 @@ const SignInGuest = () => {
             />
 
             <div className={classes["signin__wrapped--form--link"]}>
-              <Link to="/">{t("forgotpass")}</Link>
+              <Link to="/home/forgot-pass">{t("forgotpass")}</Link>
             </div>
 
             <button type="submit">{t("signin")}</button>
