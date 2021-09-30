@@ -13,6 +13,10 @@
     padding: 0 $pm-48;
   }
 
+  &__home {
+    cursor: pointer;
+  }
+
   &__block-right {
     align-items: center;
     display: flex;
@@ -38,7 +42,7 @@
     }
 
     &--emp {
-      background-color: #324554;
+      background-color: #fcb616;
       color: $second-text;
       padding: 15.2px;
       text-transform: uppercase;
@@ -46,21 +50,21 @@
     }
 
     &--emp > span:last-child {
-      color: #999999;
+      color: rgb(243, 235, 235);
       font-size: 14px;
       font-weight: 400;
       text-transform: none;
     }
 
     &--emp:hover {
-      background-color: #333;
+      background-color: #f79d25;
       color: $second-text;
       text-decoration: none;
     }
   }
 
   &__link:hover {
-    color: #f79d25;
+    color: #fcb716c0;
   }
 
   &__lang {

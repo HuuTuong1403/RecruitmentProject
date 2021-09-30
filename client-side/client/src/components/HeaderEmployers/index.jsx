@@ -1,6 +1,6 @@
 import MSTLogo from "assets/images/mst_logo.png";
 import classes from "./style.module.scss";
-import { IoPersonCircle, IoMenu } from "react-icons/io5";
+import { IoPersonCircle, IoMenu, IoHome } from "react-icons/io5";
 import {
   Dropdown,
   DropdownToggle,
@@ -13,7 +13,7 @@ import { useState } from "react";
 import { useWindowSize } from "../../common/hook/useWindowSize";
 import ReactCountryFlag from "react-country-flag";
 
-const Header = () => {
+const HeaderEmployers = () => {
   const history = useHistory();
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(localStorage.getItem("lang") || "en-ES");
@@ -24,7 +24,7 @@ const Header = () => {
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
 
   const clickLogoHandler = () => {
-    history.push("/");
+    history.push("/employers");
   };
 
   const toggleMenuHandler = () => {
@@ -59,11 +59,17 @@ const Header = () => {
           alt="MST LOGO"
           className={classes.header__logo}
         />
+        <NavLink
+          className={classes.header__home}
+          to="/employers"
+        >
+          <IoHome />
+        </NavLink>
       </div>
       <div style={styleResize} className={classes["header__block-right"]}>
         <NavLink
           activeClassName={classes["header__link--active"]}
-          to={`/home/sign-in`}
+          to="/employers/sign-in"
           className={classes["header__link"]}
         >
           <IoPersonCircle className={classes["header__link--person"]} />
@@ -71,7 +77,7 @@ const Header = () => {
         </NavLink>
         <NavLink
           activeClassName={classes["header__link--active"]}
-          to="/home/sign-up"
+          to="/employers/sign-up"
           className={classes["header__link"]}
         >
           {t("signup")}
@@ -107,10 +113,10 @@ const Header = () => {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <Link to="/employers" className={classes["header__link--emp"]}>
-          <span>{t("employers")}</span>
+        <Link to="/" className={classes["header__link--emp"]}>
+          <span>{t("jobseekers-site")}</span>
           <br />
-          <span>{t("postjobs")}</span>
+          <span>{t("searchjobs")}</span>
         </Link>
       </div>
       <div className={classes["header__ic--menu"]}>
@@ -120,4 +126,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderEmployers;

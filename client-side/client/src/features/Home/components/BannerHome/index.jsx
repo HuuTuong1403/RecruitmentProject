@@ -1,9 +1,10 @@
 import classes from "./style.module.scss";
-import { Input } from "reactstrap";
 import Select from "react-select";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactTypingEffect from "react-typing-effect";
+import InputField from "custom-fields/InputField";
+import { FaSearch } from "react-icons/fa";
 
 const BannerHome = () => {
   const options = [
@@ -19,6 +20,7 @@ const BannerHome = () => {
     e.preventDefault();
     console.log(searchKeyRef.current.value);
     console.log(searchProvince);
+    searchKeyRef.current.value = "";
   };
 
   const changeProvinceHandler = (selectedOption) => {
@@ -49,9 +51,10 @@ const BannerHome = () => {
           onSubmit={searchSubmitHandler}
         >
           <div>
-            <Input
-              innerRef={searchKeyRef}
+            <InputField
+              ref={searchKeyRef}
               placeholder={t("search-key")}
+              icon={<FaSearch />}
             />
           </div>
           <div>

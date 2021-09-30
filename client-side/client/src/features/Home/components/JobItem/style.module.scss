@@ -98,13 +98,31 @@
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 768px) {
+@media screen and (min-width: 600px) and (max-width: 790px) {
   .jobitem {
     min-width: 70%;
     margin: $pm-4 $pm-4;
 
     &__container {
       margin: $pm-4 0;
+
+      &--detail {
+        max-width: 65%;
+
+        &--namejob {
+          font-size: 14px;
+        }
+
+        &--namecompany {
+          font-size: 12px;
+        }
+        &--salary {
+          font-size: 12px;
+        }
+        &--location {
+          font-size: 12px;
+        }
+      }
     }
   }
 }

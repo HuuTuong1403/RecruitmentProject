@@ -3,10 +3,8 @@
 .banner {
   margin-top: $pm-10;
   height: 60vh;
-  background-image: url("../../../../assets/images/home_banner1.jpg");
-  background-repeat: no-repeat;
+  background: url("/assets/images/banner-home.jpg") center center no-repeat;
   background-size: cover;
-  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,6 +34,13 @@
       border-radius: 20px;
       width: 100%;
       gap: 20px;
+
+      & > div > div {
+        margin-bottom: 0;
+        & > div {
+          color: $primary-text;
+        }
+      }
 
       & > div:first-child {
         width: 60%;

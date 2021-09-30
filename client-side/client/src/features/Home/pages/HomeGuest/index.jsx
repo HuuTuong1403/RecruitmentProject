@@ -22,7 +22,13 @@ const HomeGuest = () => {
   return (
     <Fragment>
       <BannerHome />
-      {loading ? <LoadingSuspense height="40vh" showText={false} /> : <JobList lists={jobs} />}
+      {loading ? (
+        <LoadingSuspense height="40vh" showText={false} />
+      ) : !jobs ? (
+        <div>No see jobs</div>
+      ) : (
+        <JobList lists={jobs} />
+      )}
     </Fragment>
   );
 };

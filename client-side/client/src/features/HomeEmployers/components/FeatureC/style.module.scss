@@ -1,0 +1,98 @@
+@import "../../../../common/styles/Variables.scss";
+
+.featureC {
+  margin: $pm-48 0;
+  box-shadow: 0 3px 20px #88888829;
+  padding-bottom: 20px;
+
+  &__wrapped {
+    max-width: 1170px;
+    margin: 0 auto;
+
+    &--title {
+      font-weight: 600;
+      font-size: 24px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    &--bottom {
+      display: flex;
+      flex-wrap: wrap;
+
+      & > li {
+        width: 27%;
+        text-align: center;
+        margin: 0 3%;
+        padding: 10px;
+        transition: all 0.25s linear;
+
+        &:hover,
+        &:focus {
+          box-shadow: 0 3px 20px #88888829;
+          transform: scale(1.1);
+        }
+
+        & > p:nth-child(3) {
+          font-weight: 300;
+          color: #666;
+          font-size: 14px;
+        }
+
+        & > p:nth-child(2) {
+          font-size: 18px;
+          font-weight: 400;
+          margin-bottom: 10px;
+        }
+
+        & > p:nth-child(1) {
+          text-align: center;
+          margin-bottom: 20px;
+
+          & > span {
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            border-radius: 50%;
+            justify-content: center;
+            color: #2c53d2;
+            font-size: 2em;
+            transition: all 0.2s ease-in-out;
+
+            &:hover {
+              background-color: #2c53d2;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .featureC {
+    &__wrapped {
+      max-width: 96%;
+
+      &--title {
+        margin-bottom: 30px;
+        font-size: 21px;
+      }
+
+      &--bottom {
+        & > li {
+          width: 100%;
+          margin: 0px 0 20px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

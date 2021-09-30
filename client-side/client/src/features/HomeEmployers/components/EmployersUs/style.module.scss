@@ -1,0 +1,81 @@
+@import "../../../../common/styles/Variables.scss";
+
+.employerUs {
+  margin-top: $pm-48 0;
+  box-shadow: 0 3px 20px #88888829;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+
+  &__wrapped {
+    &--title {
+      font-weight: 600;
+      font-size: 24px;
+      padding-top: 20px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    &--block {
+      max-width: 1170px;
+      margin: 0 auto;
+
+      & > ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        & > li {
+          padding: 10px;
+          border: 1px solid #ccc;
+          width: 150px;
+          height: 65px;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          margin: 15px 1% 15px 0;
+
+          & > img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .employerUs {
+    &__wrapped {
+      &--title {
+        margin-bottom: 30px;
+        font-size: 21px;
+      }
+
+      &--block {
+        max-width: 96%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .employerUs {
+    &__wrapped {
+      &--title {
+        margin-bottom: 30px;
+        font-size: 21px;
+      }
+
+      &--block {
+        max-width: 96%;
+
+        & > ul {
+          justify-content: space-evenly;
+        }
+      }
+    }
+  }
+}

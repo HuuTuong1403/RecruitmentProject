@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800&display=swap");
 @import "react-toastify/dist/ReactToastify.css";
 @import "bootstrap/dist/css/bootstrap.min.css";
+@import "animate.css/animate.min.css";
 
 * {
   box-sizing: border-box;
@@ -29,4 +30,12 @@ a {
 a:hover {
   color: #f79d25;
   text-decoration: underline;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
