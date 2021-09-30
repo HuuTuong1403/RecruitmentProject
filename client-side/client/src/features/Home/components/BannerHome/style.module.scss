@@ -125,6 +125,12 @@
         & > div:first-child {
           width: 50%;
         }
+
+        & > div:not(:first-child):not(:last-child) {
+          & > div {
+            white-space: nowrap;
+          }
+        }
         & > div:last-child {
           width: 20%;
         }
@@ -141,7 +147,14 @@
       width: 90%;
 
       &--title {
-        font-size: $text-xl;
+        font-size: $text-lg;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &--content {
+        font-size: $text-base;
       }
 
       &--search {
@@ -174,7 +187,14 @@
       width: 90%;
 
       &--title {
-        font-size: $text-base;
+        font-size: 15px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &--content {
+        font-size: $text-sm;
       }
 
       &--search {

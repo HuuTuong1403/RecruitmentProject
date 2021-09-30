@@ -142,7 +142,7 @@
   }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .footer {
     display: block;
     &__bltop {
@@ -160,6 +160,7 @@
       &--top {
         & > div {
           flex: 0 0 33.33%;
+          margin-bottom: 15px;
           & > h3 {
             font-size: 16px;
           }
@@ -178,7 +179,7 @@
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 800px) {
+@media screen and (max-width: 800px) {
   .footer {
     display: block;
     &__bltop {
@@ -199,6 +200,7 @@
       &--top {
         & > div {
           flex: 0 0 33.33%;
+          margin-bottom: 15px;
           & > h3 {
             font-size: 15px;
           }
@@ -217,7 +219,7 @@
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .footer {
     &__bltop {
       margin: 0 0;
@@ -237,6 +239,7 @@
       &--top {
         & > div {
           flex: 0 0 50%;
+          margin-bottom: 15px;
           & > h3 {
             font-size: 14px;
           }
