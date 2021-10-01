@@ -139,15 +139,7 @@ const employerSchema = new mongoose.Schema(
       type: String,
     },
     CompanyType: {
-      Type: String,
-    },
-    WorkingTime: {
-      Finish: {
-        type: String,
-      },
-      Start: {
-        type: String,
-      },
+      type: String,
     },
   },
   {

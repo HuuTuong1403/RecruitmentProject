@@ -1,80 +1,97 @@
 const mongoose = require('mongoose');
-
+const addressSchema = require('./addressModel');
+const salarySchema = new mongoose.Schema(
+  {
+    max: {
+      type: Number,
+    },
+    min: {
+      type: Number,
+    },
+    type: {
+      type: String,
+      default: 'negotiation',
+      trim: true,
+    },
+  },
+  { _id: false }
+);
 const jobSchema = new mongoose.Schema(
   {
-    Address: {
-      City: {
+    companyName: {
+      type: String,
+      required: [true, 'Company must have a name'],
+      trim: true,
+    },
+    companyType: {
+      type: String,
+    },
+    companyWebsite: {
+      type: String,
+      trim: true,
+    },
+    logo: {
+      type: String,
+    },
+    ot: {
+      type: Boolean,
+      default: false,
+    },
+    scale: {
+      type: String,
+      default: 'Over 50',
+    },
+    workingTime: {
+      finish: {
         type: String,
       },
-      Country: {
-        type: String,
-      },
-      District: {
-        type: String,
-      },
-      Street: {
-        type: String,
-        trim: true,
-      },
-      Ward: {
+      start: {
         type: String,
       },
     },
-    Benifits: {
+    location: {
+      type: addressSchema,
+    },
+    benifits: {
       type: String,
       required: [true, 'Job must have benifit'],
       trim: true,
     },
-    Candidate: [String],
-    Description: {
+    candidate: [String],
+    description: {
       type: String,
       required: [true, 'Job must have description'],
       trim: true,
     },
-    JobTitle: {
+    jobTitle: {
       type: String,
       required: [true, 'Job must have Tttle'],
       trim: true,
     },
-    Position: {
+    position: {
       type: String,
       trim: true,
     },
-    PriorityLevel: {
+    priorityLevel: {
       type: String,
       default: 'Normal',
     },
-    Reason: {
+    reason: {
       type: String,
       trim: true,
     },
-    Requirements: {
-      type: String,
-      required: [true, 'Job must have requirements'],
-      trim: true,
-    },
-    Responsibilities: {
+    requirements: {
       type: String,
       required: [true, 'Job must have requirements'],
       trim: true,
     },
-    Salary: {
-      type: {
-        Max: {
-          type: Number,
-        },
-        Min: {
-          type: Number,
-        },
-        Type: {
-          type: String,
-          default: 'negotiation',
-          trim: true,
-        },
-      },
+    responsibilities: {
+      type: String,
+      trim: true,
     },
-    Skills: [String],
-    Status: {
+    salary: salarySchema,
+    skills: [String],
+    status: {
       type: String,
       default: 'unapproval',
     },
