@@ -6,4 +6,5 @@ const customJobQuery = require('./../middlewares/customJobQuery');
 jobRouter
   .route('/')
   .get(customJobQuery.customJobQuery, jobController.getAllJob);
+
 module.exports = jobRouter;

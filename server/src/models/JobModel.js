@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const addressSchema = require('./addressModel');
+
+const finishDate = new Date();
+finishDate.setDate(finishDate.getDate() + 7);
+
 const salarySchema = new mongoose.Schema(
   {
     max: {
@@ -95,10 +99,31 @@ const jobSchema = new mongoose.Schema(
       type: String,
       default: 'unapproval',
     },
+    finishDate: {
+      type: Date,
+      default: finishDate,
+    },
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+jobSchema.virtual('aboutCreated').get(function () {
+  const timeAgoMilisecond = Date.now() - this.createdAt;
+  const timeAgoSecond = timeAgoMilisecond / 1000;
+  var timeResult = null;
+  if (timeAgoSecond < 60) {
+    timeResult = timeAgoSecond.toFixed(0) + ' seconds ago';
+  } else if (timeAgoSecond < 3600) {
+    timeResult = (timeAgoSecond / 60).toFixed(0) + ' minutes ago';
+  } else if (timeAgoSecond < 864000) {
+    timeResult = (timeAgoSecond / 3600).toFixed(0) + ' hours ago';
+  } else {
+    timeResult = (timeAgoSecond / 864000).toFixed(0) + ' days ago';
+  }
+  return timeResult;
+});
 const Job = mongoose.model('Job', jobSchema);
 module.exports = Job;
