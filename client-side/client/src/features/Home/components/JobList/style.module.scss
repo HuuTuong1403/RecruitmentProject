@@ -23,6 +23,13 @@
       text-transform: uppercase;
       position: relative;
 
+      & > div {
+        max-width: 70%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
       &--all {
         position: absolute;
         right: 1%;
@@ -52,13 +59,35 @@
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .joblist {
     padding: $pm-20;
 
     &__container {
       &--title {
         font-size: 14px;
+
+        &--all {
+          right: 1%;
+          top: 20%;
+          font-size: 12px;
+
+          &::after {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .joblist {
+    padding: $pm-20;
+
+    &__container {
+      &--title {
+        font-size: 12px;
 
         &--all {
           right: 1%;

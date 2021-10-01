@@ -43,6 +43,7 @@
     }
 
     &--social {
+      text-align: center;
       font-weight: 700;
       margin-top: 20px;
 
@@ -52,6 +53,16 @@
 
       & > a {
         text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .signup {
+    &__wrapped {
+      &--social {
+        font-size: $text-sm;
       }
     }
   }
