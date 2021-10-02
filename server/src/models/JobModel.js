@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
+
 const addressSchema = require('./addressModel');
 
 const finishDate = new Date();
@@ -69,8 +71,11 @@ const jobSchema = new mongoose.Schema(
     },
     jobTitle: {
       type: String,
-      required: [true, 'Job must have Tttle'],
+      required: [true, 'Job must have title'],
       trim: true,
+    },
+    slug: {
+      type: String,
     },
     position: {
       type: String,
@@ -124,6 +129,13 @@ jobSchema.virtual('aboutCreated').get(function () {
     timeResult = (timeAgoSecond / 864000).toFixed(0) + ' days ago';
   }
   return timeResult;
+});
+//DOCUMENT MIDDLEWARE: run before .save() and .create()
+jobSchema.pre('save', async function (next) {
+  this.slug = slugify(`${this.jobTitle} ${this.companyName} ${this._id}`, {
+    lower: true,
+  });
+  next();
 });
 const Job = mongoose.model('Job', jobSchema);
 module.exports = Job;

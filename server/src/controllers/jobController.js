@@ -25,5 +25,25 @@ class jobController {
       });
     }
   };
+  getJob = async (req, res) => {
+    try {
+      const features = new APIFeatures(Job.findById(req.params.id), {
+        fields: `-__v,-status,-candidate,-priorityLevel,-updatedAt`,
+      }).limitFields();
+      const job = await features.query;
+      res.status(200).json({
+        status: 'success',
+        data: {
+          job,
+        },
+      });
+    } catch {
+      console.log(err);
+      res.status(400).json({
+        status: 'fail',
+        message: err,
+      });
+    }
+  };
 }
 module.exports = new jobController();
