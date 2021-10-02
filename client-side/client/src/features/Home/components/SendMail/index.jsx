@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import ButtonField from "custom-fields/ButtonField";
 
 const SendMailForgot = (props) => {
   const { t } = useTranslation();
@@ -44,7 +45,15 @@ const SendMailForgot = (props) => {
             errors={errors.email?.message}
           />
 
-          <button type="submit">{t("confirm-email")}</button>
+          <ButtonField
+            type="submit"
+            backgroundcolor="#0a426e"
+            backgroundcolorhover="#324554"
+            color="#fff"
+            width="100%"
+          >
+            {t("confirm-email")}
+          </ButtonField>
         </form>
 
         <div>

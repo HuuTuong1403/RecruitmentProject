@@ -31,15 +31,21 @@ const Header = () => {
     setToggle((prevState) => (prevState = !prevState));
   };
 
+  const toggleMenuChildClick = () => {
+    setToggle(false);
+  };
+
   const changeLangViHandler = () => {
     i18n.changeLanguage("vi-VN");
     setLang("vi-VN");
+    setToggle(false);
     localStorage.setItem("lang", "vi-VN");
   };
 
   const changeLangEnHandler = () => {
     i18n.changeLanguage("en-ES");
     setLang("en-ES");
+    setToggle(false);
     localStorage.setItem("lang", "en-ES");
   };
 
@@ -65,6 +71,7 @@ const Header = () => {
           activeClassName={classes["header__link--active"]}
           to={`/home/sign-in`}
           className={classes["header__link"]}
+          onClick={toggleMenuChildClick}
         >
           <IoPersonCircle className={classes["header__link--person"]} />
           {t("signin")}
@@ -73,6 +80,7 @@ const Header = () => {
           activeClassName={classes["header__link--active"]}
           to="/home/sign-up"
           className={classes["header__link"]}
+          onClick={toggleMenuChildClick}
         >
           {t("signup")}
         </NavLink>

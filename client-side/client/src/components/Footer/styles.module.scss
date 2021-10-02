@@ -18,13 +18,13 @@
 
       & > img {
         cursor: pointer;
-        max-width: 15%;
       }
 
       & > ul {
         list-style: none;
         display: flex;
         gap: 15px;
+        margin-left: $pm-20;
         margin-top: $pm-16;
 
         & > li {

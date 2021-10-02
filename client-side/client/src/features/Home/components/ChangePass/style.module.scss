@@ -27,25 +27,6 @@
         margin-left: 5px;
         margin-bottom: 5px;
       }
-
-      & > button {
-        width: 100%;
-        padding: 8px 0;
-        border: none;
-        background-color: $primary-color;
-        color: white;
-        text-transform: uppercase;
-        border-radius: 20px;
-        transition: all 0.3s ease-in-out;
-
-        &:hover {
-          background-color: #324554;
-        }
-
-        &:focus {
-          outline: none;
-        }
-      }
     }
   }
 }

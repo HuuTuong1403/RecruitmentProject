@@ -1,4 +1,4 @@
-import AuthComponent from "features/Home/components/AuthComponent";
+import AuthComponent from "components/AuthComponent";
 import ChangePassForgot from "features/Home/components/ChangePass";
 import SendMailForgot from "features/Home/components/SendMail";
 import { useLocation } from "react-router";

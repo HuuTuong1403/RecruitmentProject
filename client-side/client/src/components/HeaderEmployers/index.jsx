@@ -34,13 +34,19 @@ const HeaderEmployers = () => {
   const changeLangViHandler = () => {
     i18n.changeLanguage("vi-VN");
     setLang("vi-VN");
+    setToggle(false);
     localStorage.setItem("lang", "vi-VN");
   };
 
   const changeLangEnHandler = () => {
     i18n.changeLanguage("en-ES");
     setLang("en-ES");
+    setToggle(false);
     localStorage.setItem("lang", "en-ES");
+  };
+
+  const toggleMenuChildClick = () => {
+    setToggle(false);
   };
 
   const styleResize =
@@ -59,10 +65,7 @@ const HeaderEmployers = () => {
           alt="MST LOGO"
           className={classes.header__logo}
         />
-        <NavLink
-          className={classes.header__home}
-          to="/employers"
-        >
+        <NavLink className={classes.header__home} to="/employers">
           <IoHome />
         </NavLink>
       </div>
@@ -71,6 +74,7 @@ const HeaderEmployers = () => {
           activeClassName={classes["header__link--active"]}
           to="/employers/sign-in"
           className={classes["header__link"]}
+          onClick={toggleMenuChildClick}
         >
           <IoPersonCircle className={classes["header__link--person"]} />
           {t("signin")}
@@ -79,6 +83,7 @@ const HeaderEmployers = () => {
           activeClassName={classes["header__link--active"]}
           to="/employers/sign-up"
           className={classes["header__link"]}
+          onClick={toggleMenuChildClick}
         >
           {t("signup")}
         </NavLink>

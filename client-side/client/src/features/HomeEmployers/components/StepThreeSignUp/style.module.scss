@@ -1,0 +1,110 @@
+@import "../../../../common/styles/Variables.scss";
+
+.stepthree {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: $text-2xl;
+  font-weight: 700;
+  margin: 15px 0;
+
+  &__select-scale {
+    margin-bottom: 10px;
+
+    &--select > div {
+      border-radius: 20px;
+    }
+
+    &--select > div + div {
+      border-radius: 0px;
+    }
+
+    & > p {
+      color: red;
+      margin-top: 8px;
+      font-size: 13px;
+      font-style: italic;
+    }
+  }
+
+  &__form {
+    & > p {
+      color: red;
+      margin-top: 8px;
+      font-size: 13px;
+      font-style: italic;
+    }
+  }
+
+  &__check-box {
+    padding: $pm-10 0;
+    & > label {
+      font-size: $text-base;
+    }
+
+    & > input {
+      margin: 0 $pm-6 0 $pm-10;
+      vertical-align: middle;
+    }
+  }
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__image {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid #e8e8e8;
+    margin: $pm-10 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > img {
+      max-width: 100%;
+      width: 150px;
+      height: 50px;
+      border-radius: 10px;
+    }
+  }
+
+  &__upload {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #e8e8e8;
+    font-size: $text-base;
+    padding: 5px 0;
+    border-radius: 20px;
+
+    & > label {
+      cursor: pointer;
+    }
+
+    &--icon {
+      font-size: 20px;
+      margin-left: $pm-4;
+    }
+  }
+
+  &__actions {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .stepthree {
+    font-size: $text-lg;
+
+    &__check-box {
+      & > label {
+        font-size: $text-base;
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+@import "../../../../common/styles/Variables.scss";
+
+.stepone {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: $text-2xl;
+  font-weight: 700;
+  margin: 15px 0;
+}
+
+@media screen and (max-width: 500px) {
+  .stepone {
+    font-size: $text-lg;
+  }
+}
