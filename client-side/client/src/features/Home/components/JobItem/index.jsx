@@ -4,13 +4,13 @@ import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const JobItem = (props) => {
-  const { jobName, companyName, salary, location, logoCompany } = props.job;
+  const { jobTitle, companyName, salary, location, logo } = props.job;
 
   return (
     <div className={classes.jobitem}>
       <div className={classes.jobitem__container}>
         <div className={classes["jobitem__container--logo"]}>
-          <img src={logoCompany} alt="Logo" />
+          <img src={logo} alt="Logo" />
         </div>
         <div className={classes["jobitem__container--detail"]}>
           <div>
@@ -18,7 +18,7 @@ const JobItem = (props) => {
               className={classes["jobitem__container--detail--namejob"]}
               to="/home"
             >
-              {jobName}
+              {jobTitle}
             </Link>
           </div>
           <div>
@@ -30,12 +30,16 @@ const JobItem = (props) => {
             </Link>
           </div>
           <div className={classes["jobitem__container--detail--salary"]}>
-            <BiDollarCircle />
-            <div>{salary}</div>
+            <BiDollarCircle style={{ marginRight: "5px" }} />
+            <div>
+              {salary.min
+                ? `${salary.min} - ${salary.max} ${salary.type}`
+                : `${salary.type}`}
+            </div>
           </div>
           <div className={classes["jobitem__container--detail--location"]}>
             <MdLocationOn />
-            <div>{location}</div>
+            <div>{location.city}</div>
           </div>
         </div>
       </div>

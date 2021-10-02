@@ -9,9 +9,18 @@ import classes from "./style.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addInfoSignUp } from "features/HomeEmployers/slices";
 import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
+import {
+  selectedDistricts,
+  selectedProvinces,
+  selectedWards,
+} from "features/Home/slices/selectors";
 import { FaBuilding } from "react-icons/fa";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import Select from "react-select";
+import {
+  fetchDistrictsByProvinceAsync,
+  fetchWardsByDistrictsAsync,
+} from "features/Home/slices/thunks";
 
 const options = [
   { value: "", label: "Chọn số nhân viên" },
@@ -32,32 +41,57 @@ const StepTwoSignUp = (props) => {
   const { onBackStep, onNextStep } = props;
   const dispatch = useDispatch();
   const infoSignUp = useSelector(selectInfoSignUp);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
+    setValue,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaSignUpStep2),
   });
 
+  const provinces = useSelector(selectedProvinces).map((province) => ({
+    value: province.code,
+    label: province.name,
+  }));
+  const newProvinces = [
+    { value: "", label: "Chọn tỉnh/thành phố" },
+    ...provinces,
+  ];
+  const districts = useSelector(selectedDistricts).map((district) => ({
+    value: district.code,
+    label: district.name,
+  }));
+  const newDistrict = [{ value: "", label: "Chọn quận/huyện" }, ...districts];
+  const wards = useSelector(selectedWards).map((ward) => ({
+    value: ward.code,
+    label: ward.name,
+  }));
+  const newWard = [{ value: "", label: "Chọn phường/xã" }, ...wards];
+
+  const { Address } = infoSignUp;
+
   const submitStep2Handler = (data) => {
-    if (
-      infoSignUp.companyName === data.companyName &&
-      infoSignUp.scale === data.scale &&
-      infoSignUp.websiteCompany === data.websiteCompany &&
-      infoSignUp.province === data.province &&
-      infoSignUp.district === data.district &&
-      infoSignUp.ward === data.ward &&
-      infoSignUp.address === data.address
-    ) {
-      onNextStep();
-    } else {
-      dispatch(addInfoSignUp({ ...infoSignUp, ...data }));
-      onNextStep();
-    }
+    const { province, district, ward, address, ...newData } = data;
+    const provinceLabel = newProvinces.find(
+      (c) => c.value === Number(province)
+    );
+    const districtLabel = newDistrict.find((c) => c.value === Number(district));
+    const wardLabel = newWard.find((c) => c.value === Number(ward));
+
+    const dataLabel = {
+      ...newData,
+      Address: {
+        province: provinceLabel,
+        district: districtLabel,
+        ward: wardLabel,
+        address: address,
+      },
+    };
+    dispatch(addInfoSignUp({ ...infoSignUp, ...dataLabel }));
+    onNextStep();
   };
 
   return (
@@ -105,15 +139,24 @@ const StepTwoSignUp = (props) => {
           <Controller
             control={control}
             name="province"
-            defaultValue={infoSignUp?.province}
+            defaultValue={Number(Address?.province.value)}
             render={({ field: { onChange, value } }) => (
               <Select
                 className={classes["steptwo__select-scale--select"]}
                 placeholder="Chọn tỉnh/thành phố"
-                value={options.find((c) => c.value === value)}
-                options={options}
+                value={newProvinces.find((c) => c.value === value)}
+                options={newProvinces}
                 onChange={(selectedOption) => {
                   onChange(selectedOption.value);
+                  if (selectedOption.value !== "") {
+                    setValue("district", "", { shouldValidate: true });
+                    setValue("ward", "", { shouldValidate: true });
+                    dispatch(
+                      fetchDistrictsByProvinceAsync({
+                        code: selectedOption.value,
+                      })
+                    );
+                  }
                 }}
               />
             )}
@@ -125,15 +168,24 @@ const StepTwoSignUp = (props) => {
           <Controller
             control={control}
             name="district"
-            defaultValue={infoSignUp?.district}
+            defaultValue={Number(Address?.district.value)}
             render={({ field: { onChange, value } }) => (
               <Select
+                isDisabled={districts.length <= 1}
                 className={classes["steptwo__select-scale--select"]}
                 placeholder="Chọn quận/huyện"
-                value={options.find((c) => c.value === value)}
-                options={options}
+                value={newDistrict.find((c) => c.value === value)}
+                options={newDistrict}
                 onChange={(selectedOption) => {
                   onChange(selectedOption.value);
+                  if (selectedOption.value !== "") {
+                    setValue("ward", "", { shouldValidate: true });
+                    dispatch(
+                      fetchWardsByDistrictsAsync({
+                        code: selectedOption.value,
+                      })
+                    );
+                  }
                 }}
               />
             )}
@@ -145,13 +197,14 @@ const StepTwoSignUp = (props) => {
           <Controller
             control={control}
             name="ward"
-            defaultValue={infoSignUp?.ward}
+            defaultValue={Number(Address?.ward.value)}
             render={({ field: { onChange, value } }) => (
               <Select
+                isDisabled={wards.length <= 1}
                 className={classes["steptwo__select-scale--select"]}
                 placeholder="Chọn phường xã"
-                value={options.find((c) => c.value === value)}
-                options={options}
+                value={newWard.find((c) => c.value === value)}
+                options={newWard}
                 onChange={(selectedOption) => {
                   onChange(selectedOption.value);
                 }}
@@ -164,7 +217,7 @@ const StepTwoSignUp = (props) => {
         <InputField
           placeholder="Vui lòng địa chỉ công ty"
           {...register("address")}
-          defaultValue={infoSignUp?.address}
+          defaultValue={Address?.address}
           errors={errors.address?.message}
         />
 

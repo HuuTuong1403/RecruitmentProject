@@ -13,6 +13,7 @@ import InputField from "custom-fields/InputField";
 import Select from "react-select";
 import { MdFileUpload } from "react-icons/md";
 import notification from "components/Notification";
+import { useHistory } from "react-router-dom";
 
 const options = [
   { value: "", label: "Chọn loại doanh nghiệp" },
@@ -28,6 +29,7 @@ const StepThreeSignUp = (props) => {
   const [imgSrc, setImgSrc] = useState("");
   const [errorImg, setErrorImg] = useState(null);
   const logo = useRef();
+  const history = useHistory();
 
   const {
     register,
@@ -40,15 +42,10 @@ const StepThreeSignUp = (props) => {
   });
 
   const submitStep3Handler = (item) => {
-    if (
-      infoSignUp.Type === item.Type &&
-      infoSignUp.OT === item.OT &&
-      infoSignUp.TIN === item.TIN
-    ) {
-      notification("Đăng ký tài khoản thành công", "success");
-    } else {
-      dispatch(addInfoSignUp({ ...infoSignUp, ...item }));
-    }
+    dispatch(addInfoSignUp({ ...infoSignUp, ...item }));
+    notification("Đăng ký tài khoản thành công", "success");
+    // dispatch(addInfoSignUp({}));
+    history.push("/employers/sign-in");
   };
 
   const chooseImageHandler = () => {

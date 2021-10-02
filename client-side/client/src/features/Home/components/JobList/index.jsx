@@ -2,9 +2,12 @@ import classes from "./style.module.scss";
 import JobItem from "../JobItem";
 import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { selectJobsHome } from "features/Home/slices/selectors";
 
 const JobList = (props) => {
   const { t } = useTranslation();
+  const jobs = useSelector(selectJobsHome);
 
   return (
     <div className={classes.joblist}>
@@ -16,8 +19,8 @@ const JobList = (props) => {
           </a>
         </div>
         <Slider style={{ width: "85%" }} {...settings}>
-          {props.lists.map((job) => {
-            return <JobItem key={job.id} job={job} />;
+          {jobs.map((job) => {
+            return <JobItem key={job._id} job={job} />;
           })}
         </Slider>
       </div>

@@ -5,16 +5,14 @@ import { useTranslation } from "react-i18next";
 import ReactTypingEffect from "react-typing-effect";
 import InputField from "custom-fields/InputField";
 import { FaSearch } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { selectedProvinces } from "features/Home/slices/selectors";
 
 const BannerHome = () => {
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
   const { t } = useTranslation();
   const [searchProvince, setSearchProvince] = useState("");
   const searchKeyRef = useRef();
+  const provinces = useSelector(selectedProvinces);
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
@@ -61,7 +59,10 @@ const BannerHome = () => {
             <Select
               placeholder={t("choose-province")}
               onChange={changeProvinceHandler}
-              options={options}
+              options={provinces.map((province) => ({
+                label: province.name,
+                value: province.code,
+              }))}
             />
           </div>
           <div>

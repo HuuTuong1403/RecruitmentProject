@@ -1,0 +1,74 @@
+@import "src/common/styles/Variables.scss";
+
+.searchList {
+  padding: $pm-10 0;
+  &__container {
+    padding: 0 $pm-48;
+
+    &--job-found {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: $pm-20;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #e5e5e5;
+      align-items: center;
+
+      & > div:first-child {
+        font-size: $text-xl;
+        font-weight: 700;
+        margin-left: $pm-10;
+      }
+
+      & > div:last-child {
+        font-size: $text-base;
+        margin-right: $pm-10;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .searchList {
+    padding: $pm-10 0;
+    &__container {
+      padding: 0 $pm-20;
+
+      &--job-found {
+        margin-bottom: $pm-20;
+        & > div:first-child {
+          font-size: $text-lg;
+          font-weight: 700;
+          margin-left: $pm-8;
+        }
+
+        & > div:last-child {
+          font-size: $text-base;
+          margin-right: $pm-8;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .searchList {
+    padding: $pm-10 0;
+    &__container {
+      padding: 0 $pm-20;
+
+      &--job-found {
+        margin-bottom: $pm-20;
+        & > div:first-child {
+          font-size: $text-sm;
+          font-weight: 700;
+          margin-left: $pm-6;
+        }
+
+        & > div:last-child {
+          font-size: $text-xs;
+          margin-right: $pm-6;
+        }
+      }
+    }
+  }
+}

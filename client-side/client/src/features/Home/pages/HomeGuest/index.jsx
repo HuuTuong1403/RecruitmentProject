@@ -5,7 +5,10 @@ import {
   selectJobsHome,
   selectLoadingHome,
 } from "features/Home/slices/selectors";
-import { fetchJobsAsync } from "features/Home/slices/thunks";
+import {
+  fetchJobsAsync,
+  fetchProvincesAsync,
+} from "features/Home/slices/thunks";
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -14,6 +17,10 @@ const HomeGuest = () => {
 
   useEffect(() => {
     dispatch(fetchJobsAsync());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchProvincesAsync());
   }, [dispatch]);
 
   const jobs = useSelector(selectJobsHome);
@@ -27,7 +34,7 @@ const HomeGuest = () => {
       ) : !jobs ? (
         <div>No see jobs</div>
       ) : (
-        <JobList lists={jobs} />
+        <JobList />
       )}
     </Fragment>
   );

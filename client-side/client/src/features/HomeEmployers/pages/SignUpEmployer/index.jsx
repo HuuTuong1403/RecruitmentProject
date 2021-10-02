@@ -5,16 +5,21 @@ import { Link } from "react-router-dom";
 import StepOneSignUp from "features/HomeEmployers/components/StepOneSignUp";
 import StepTwoSignUp from "features/HomeEmployers/components/StepTwoSignUp";
 import StepThreeSignUp from "features/HomeEmployers/components/StepThreeSignUp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addInfoSignUp } from "features/HomeEmployers/slices";
 import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
+import { fetchProvincesAsync } from "features/Home/slices/thunks";
 
 const SignUpEmployer = () => {
   const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const dispatch = useDispatch();
   const infoSignUp = useSelector(selectInfoSignUp);
+
+  useEffect(() => {
+    dispatch(fetchProvincesAsync());
+  }, [dispatch]);
 
   const onSubmitHandler = (data) => {
     if (infoSignUp) {

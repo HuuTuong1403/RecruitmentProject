@@ -4,13 +4,12 @@ import queryString from "query-string";
 const axiosClient = axios.create({
   // baseURL: process.env.SERVER_API_URL,
   timeout: 20000,
-  baseURL: "http://localhost:3004/",
+  baseURL: "https://mst-recruitment.herokuapp.com/api/v1/",
   headers: {
     "content-type": "application/json",
     "Access-Control-Allow-Origin": "*",
   },
   paramsSerializer: (params) => {
-    console.log(params);
     return queryString.stringify(params);
   },
 });

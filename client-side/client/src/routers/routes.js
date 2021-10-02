@@ -1,8 +1,9 @@
 import { lazy } from "react";
 import { PATH } from "common/constants/path";
 
-const HomePage = lazy(() => import("../features/Home"));
-const EmployersHomePage = lazy(() => import("../features/HomeEmployers"));
+const HomePage = lazy(() => import("features/Home"));
+const EmployersHomePage = lazy(() => import("features/HomeEmployers"));
+const JobsPage = lazy(() => import("features/Jobs"));
 
 export const routes = [
   {
@@ -13,6 +14,11 @@ export const routes = [
   {
     children: <EmployersHomePage />,
     path: PATH.employer,
+    exact: false,
+  },
+  {
+    children: <JobsPage />,
+    path: PATH.jobs,
     exact: false,
   },
 ];
