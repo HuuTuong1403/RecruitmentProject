@@ -1,35 +1,21 @@
 const mongoose = require('mongoose');
+const addressSchema = require('./addressModel');
 
 const employerSchema = new mongoose.Schema(
   {
-    Usename: {
+    username: {
       type: String,
       unique: [true, "Usename is duplicated. Let's try another username"],
       trim: true,
     },
-    Password: {
+    password: {
       type: String,
       trim: true,
     },
-    Address: {
-      City: {
-        type: String,
-      },
-      Country: {
-        type: String,
-      },
-      District: {
-        type: String,
-      },
-      Street: {
-        type: String,
-        trim: true,
-      },
-      Ward: {
-        type: String,
-      },
+    address: {
+      type: addressSchema,
     },
-    CompanyName: {
+    companyName: {
       type: String,
       required: [true, 'You must fill out company name'],
       unique: [
@@ -38,35 +24,35 @@ const employerSchema = new mongoose.Schema(
       ],
       trim: true,
     },
-    CompanyWebsite: {
+    companyWebsite: {
       type: String,
       trim: true,
     },
-    Email: {
+    email: {
       type: String,
       required: [true, 'Account must have a email'],
       unique: [true, "Email is duplicated. Let's try another email"],
       trim: true,
     },
-    EntryTest: [String],
-    Event: [String],
+    entryTest: [String],
+    event: [String],
     isEmailVerified: {
       type: Boolean,
       default: false,
     },
-    Jobs: [String],
-    Logo: {
+    jobs: [String],
+    logo: {
       type: String,
     },
-    OT: {
+    ot: {
       type: Boolean,
       default: false,
     },
-    Scale: {
+    scale: {
       type: String,
       default: 'Over 50',
     },
-    Phone: {
+    phone: {
       type: String,
       required: [true, 'Account must have a phone number'],
       unique: [
@@ -75,34 +61,34 @@ const employerSchema = new mongoose.Schema(
       ],
       trim: true,
     },
-    RegisteredServicePackages: [
+    registeredServicePackages: [
       {
-        ServicePackageName: {
+        servicePackageName: {
           type: String,
           required: [true, 'Service package must have a name'],
           trim: true,
         },
-        Description: {
+        description: {
           type: String,
           trim: true,
         },
-        PostType: {
+        postType: {
           type: String,
           required: [true, 'Service package must have a post type'],
         },
-        Price: {
+        price: {
           type: Number,
         },
-        Quantity: {
+        quantity: {
           type: Number,
         },
-        Status: {
+        status: {
           type: String,
           default: 'Unpaid',
         },
       },
     ],
-    Reviews: [
+    reviews: [
       {
         Improvement: {
           type: String,
@@ -131,23 +117,15 @@ const employerSchema = new mongoose.Schema(
         },
       },
     ],
-    Status: {
+    status: {
       type: String,
       default: 'unapproval',
     },
     TIN: {
       type: String,
     },
-    CompanyType: {
-      Type: String,
-    },
-    WorkingTime: {
-      Finish: {
-        type: String,
-      },
-      Start: {
-        type: String,
-      },
+    companyType: {
+      type: String,
     },
   },
   {
