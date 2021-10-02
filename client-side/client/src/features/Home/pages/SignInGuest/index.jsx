@@ -5,9 +5,10 @@ import { schemaSignInUser } from "common/constants/schema";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
-import AuthComponent from "features/Home/components/AuthComponent";
+import AuthComponent from "components/AuthComponent";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import ButtonField from "custom-fields/ButtonField";
 
 const SignInGuest = () => {
   const { t } = useTranslation();
@@ -55,8 +56,15 @@ const SignInGuest = () => {
             <div className={classes["signin__wrapped--form--link"]}>
               <Link to="/home/forgot-pass">{t("forgotpass")}</Link>
             </div>
-
-            <button type="submit">{t("signin")}</button>
+            <ButtonField
+              type="submit"
+              backgroundcolor="#0a426e"
+              backgroundcolorhover="#324554"
+              color="#fff"
+              width="100%"
+            >
+              {t("signin")}
+            </ButtonField>
           </form>
 
           <div className={classes["signin__wrapped--social"]}>
@@ -64,10 +72,15 @@ const SignInGuest = () => {
               <span>{t("or-signin")}</span>
             </div>
             <div className={classes["signin__wrapped--social--google"]}>
-              <button>
+              <ButtonField
+                backgroundcolor="#dd4b39"
+                backgroundcolorhover="#bf0000"
+                color="#fff"
+                width="100%"
+              >
                 <FaGoogle />
                 <span> {t("signin-google")}</span>
-              </button>
+              </ButtonField>
             </div>
             <div className={classes["signin__wrapped--social--signup"]}>
               <span>{t("no-account")} </span>

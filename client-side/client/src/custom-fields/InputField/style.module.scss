@@ -59,5 +59,9 @@
     &__noneicon {
       font-size: 13px;
     }
+    &__suffix,
+    &__prefix {
+      top: 2px;
+    }
   }
 }

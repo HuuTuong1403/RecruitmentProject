@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputField from "custom-fields/InputField";
 import { useHistory, useLocation, Redirect } from "react-router-dom";
+import ButtonField from "custom-fields/ButtonField";
 
 const ChangePassForgot = () => {
   const { t } = useTranslation();
@@ -69,7 +70,15 @@ const ChangePassForgot = () => {
             errors={errors.confirmPassword?.message}
           />
 
-          <button type="submit">{t("changepass")}</button>
+          <ButtonField
+            type="submit"
+            backgroundcolor="#0a426e"
+            backgroundcolorhover="#324554"
+            color="#fff"
+            width="100%"
+          >
+            {t("changepass")}
+          </ButtonField>
         </form>
       </div>
     </div>

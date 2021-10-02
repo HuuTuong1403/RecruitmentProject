@@ -119,6 +119,9 @@
 
       &--title {
         font-size: $text-3xl;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       &--search {
@@ -148,9 +151,6 @@
 
       &--title {
         font-size: $text-lg;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
       }
 
       &--content {
@@ -188,9 +188,6 @@
 
       &--title {
         font-size: 15px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
       }
 
       &--content {

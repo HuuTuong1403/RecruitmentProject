@@ -2,6 +2,7 @@ import Lottie from "lottie-react";
 import classes from "./style.module.scss";
 import LogInAnimation from "assets/lottie/login.json";
 import RegisterAnimation from "assets/lottie/register.json";
+import EmployersLogin from "assets/lottie/employers-login.json";
 import { useRouteMatch } from "react-router";
 import { useTranslation } from "react-i18next";
 
@@ -28,6 +29,12 @@ const AuthComponent = (props) => {
                 alt="ForgotPassImage"
                 style={{ maxWidth: "100%" }}
               />
+            )}
+            {url === "/employers/sign-in" && (
+              <Lottie animationData={EmployersLogin} />
+            )}
+            {url === "/employers/sign-up" && (
+              <Lottie animationData={EmployersLogin} />
             )}
           </div>
           <div className={classes["auth__container--wrapped--column-right"]}>

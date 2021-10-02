@@ -26,25 +26,6 @@
         text-align: right;
         margin-bottom: 8px;
       }
-
-      & > button {
-        width: 100%;
-        padding: 8px 0;
-        border: none;
-        background-color: $primary-color;
-        color: white;
-        text-transform: uppercase;
-        border-radius: 20px;
-        transition: all 0.3s ease-in-out;
-
-        &:hover {
-          background-color: #324554;
-        }
-
-        &:focus {
-          outline: none;
-        }
-      }
     }
 
     &--social {
@@ -81,24 +62,6 @@
 
       &--google {
         margin: 20px 0;
-
-        & > button {
-          width: 100%;
-          padding: 8px 0;
-          border: none;
-          background-color: #dd4b39;
-          color: white;
-          border-radius: 20px;
-          transition: all 0.3s ease-in-out;
-
-          &:hover {
-            background-color: #bf0000;
-          }
-
-          &:focus {
-            outline: none;
-          }
-        }
       }
 
       &--signup {
@@ -120,9 +83,6 @@
   .signin {
     &__wrapped {
       &--social {
-        margin: 30px 0;
-        text-align: center;
-
         &--line {
           & > span {
             width: 50%;
@@ -137,9 +97,6 @@
   .signin {
     &__wrapped {
       &--social {
-        margin: 30px 0;
-        text-align: center;
-
         &--line {
           & > span {
             width: 40%;
@@ -175,7 +132,6 @@
       }
       &--social {
         margin: 15px 0;
-        text-align: center;
 
         &--line {
           & > span {

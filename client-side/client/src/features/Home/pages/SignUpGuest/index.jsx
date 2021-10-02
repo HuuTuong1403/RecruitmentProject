@@ -1,11 +1,12 @@
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import { useForm } from "react-hook-form";
-import AuthComponent from "features/Home/components/AuthComponent";
+import AuthComponent from "components/AuthComponent";
 import InputField from "custom-fields/InputField";
 import { schemaSignUpUser } from "common/constants/schema";
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
+import ButtonField from "custom-fields/ButtonField";
 
 const SignUpGuest = () => {
   const { t } = useTranslation();
@@ -66,8 +67,15 @@ const SignUpGuest = () => {
               {...register("confirmPassword")}
               errors={errors.confirmPassword?.message}
             />
-
-            <button type="submit">{t("signup")}</button>
+            <ButtonField
+              type="submit"
+              backgroundcolor="#0a426e"
+              backgroundcolorhover="#324554"
+              color="#fff"
+              width="100%"
+            >
+              {t("signup")}
+            </ButtonField>
           </form>
           <div className={classes["signup__wrapped--social"]}>
             <span>{t("have-account")} </span>

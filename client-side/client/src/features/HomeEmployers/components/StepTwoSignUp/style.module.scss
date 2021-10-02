@@ -1,0 +1,40 @@
+@import "../../../../common/styles/Variables.scss";
+
+.steptwo {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: $text-2xl;
+  font-weight: 700;
+  margin: 15px 0;
+
+  &__select-scale {
+    margin-bottom: 10px;
+
+    &--select > div {
+      border-radius: 20px;
+    }
+
+    &--select > div + div {
+      border-radius: 0px;
+    }
+
+    & > p {
+      color: red;
+      margin-top: 8px;
+      font-size: 13px;
+      font-style: italic;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .steptwo {
+    font-size: $text-lg;
+  }
+}
