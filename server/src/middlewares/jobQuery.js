@@ -14,11 +14,17 @@ exports.customJobQuery = (req, res, next) => {
     skills = skills.split(',');
     req.query.skills = { $in: skills };
   }
+  if (req.query['location%city']) {
+    req.query['location%city'] = {
+      $regex: req.query['location%city'],
+      $options: 'si',
+    };
+  }
   const qurStr = JSON.stringify(req.query);
   if (subObjectPatten.test(qurStr)) {
     const subObject = qurStr.replace(/\b(%)\b/g, (match) => '.');
     req.query = JSON.parse(subObject);
   }
-  console.log(req.query);
+  // console.log(req.query);
   next();
 };
