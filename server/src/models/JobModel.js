@@ -108,6 +108,10 @@ const jobSchema = new mongoose.Schema(
       type: Date,
       default: finishDate,
     },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
   },
   {
     timestamps: true,
@@ -123,12 +127,17 @@ jobSchema.virtual('aboutCreated').get(function () {
     timeResult = timeAgoSecond.toFixed(0) + ' seconds ago';
   } else if (timeAgoSecond < 3600) {
     timeResult = (timeAgoSecond / 60).toFixed(0) + ' minutes ago';
-  } else if (timeAgoSecond < 864000) {
+  } else if (timeAgoSecond < 86400) {
     timeResult = (timeAgoSecond / 3600).toFixed(0) + ' hours ago';
   } else {
-    timeResult = (timeAgoSecond / 864000).toFixed(0) + ' days ago';
+    timeResult = (timeAgoSecond / 86400).toFixed(0) + ' days ago';
   }
   return timeResult;
+});
+jobSchema.virtual('isNew').get(function () {
+  const timeAgoMilisecond = Date.now() - this.createdAt;
+  const timeAgoSecond = timeAgoMilisecond / 1000;
+  return timeAgoSecond < 86400 ? true : false;
 });
 //DOCUMENT MIDDLEWARE: run before .save() and .create()
 jobSchema.pre('save', async function (next) {

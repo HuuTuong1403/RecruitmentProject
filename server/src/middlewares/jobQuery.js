@@ -14,6 +14,11 @@ exports.customJobQuery = (req, res, next) => {
     skills = skills.split(',');
     req.query.skills = { $in: skills };
   }
+  if (req.query.createdAt) {
+    let date = new Date();
+    date.setDate(date.getDate() - req.query.createdAt);
+    req.query.createdAt = { gte: date };
+  }
   if (req.query['location%city']) {
     req.query['location%city'] = {
       $regex: req.query['location%city'],
@@ -25,6 +30,6 @@ exports.customJobQuery = (req, res, next) => {
     const subObject = qurStr.replace(/\b(%)\b/g, (match) => '.');
     req.query = JSON.parse(subObject);
   }
-  // console.log(req.query);
+  console.log(req.query);
   next();
 };
