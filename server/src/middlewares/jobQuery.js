@@ -25,6 +25,7 @@ exports.customJobQuery = (req, res, next) => {
       $options: 'si',
     };
   }
+  req.query.fields = `jobTitle,companyName,salary,location,skills,createdAt,finishDate,slug`;
   const qurStr = JSON.stringify(req.query);
   if (subObjectPatten.test(qurStr)) {
     const subObject = qurStr.replace(/\b(%)\b/g, (match) => '.');
