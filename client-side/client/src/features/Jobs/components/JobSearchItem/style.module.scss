@@ -8,6 +8,18 @@
     overflow: hidden;
     padding: 15px;
     border: 1px solid #e5e5e5;
+    position: relative;
+
+    &--new {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: 1px 8px;
+      background-color: red;
+      color: white;
+      border-top-left-radius: 10px;
+      font-size: 14px;
+    }
 
     &--image {
       height: 165px;

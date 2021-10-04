@@ -39,3 +39,11 @@ li {
   margin: 0;
   padding: 0;
 }
+
+.css-9gakcf-option {
+  background-color: white !important;
+  color: black !important;
+}
+.css-9gakcf-option:hover {
+  background-color: #deebff !important;
+}
