@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 const addressSchema = require('./addressModel');
 
 const employerSchema = new mongoose.Schema(
@@ -17,7 +18,7 @@ const employerSchema = new mongoose.Schema(
     },
     companyName: {
       type: String,
-      required: [true, 'You must fill out company name'],
+      required: [true, 'Please tell us your company name'],
       unique: [
         true,
         "Company name is duplicated. Let's try another company name",
@@ -30,9 +31,10 @@ const employerSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true, 'Account must have a email'],
+      required: [true, 'Please provide your email'],
       unique: [true, "Email is duplicated. Let's try another email"],
       trim: true,
+      validate: [validate.isEmail, 'Please provide your valid emal'],
     },
     entryTest: [String],
     event: [String],
@@ -54,11 +56,19 @@ const employerSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: [true, 'Account must have a phone number'],
+      required: [true, 'Please provide your number phone'],
       unique: [
         true,
         "Phone number is duplicated. Let's try another phone number",
       ],
+      validate: {
+        validator: function (val) {
+          return val.test(
+            /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
+          );
+        },
+        message: 'Number phone {VALUE} is invalid. Please try again.',
+      },
       trim: true,
     },
     registeredServicePackages: [
@@ -77,6 +87,9 @@ const employerSchema = new mongoose.Schema(
           required: [true, 'Service package must have a post type'],
         },
         price: {
+          type: Number,
+        },
+        paidPrice: {
           type: Number,
         },
         quantity: {

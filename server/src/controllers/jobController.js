@@ -19,7 +19,7 @@ class jobController {
     });
   });
   getJob = catchAsync(async (req, res, next) => {
-    const features = new APIFeatures(Job.findById(req.params.id), {
+    const features = new APIFeatures(Job.findOne(req.query), {
       fields: `-__v,-status,-candidate,-priorityLevel,-updatedAt`,
     }).limitFields();
     const job = await features.query;

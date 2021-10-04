@@ -100,6 +100,14 @@ const jobSchema = new mongoose.Schema(
     },
     salary: salarySchema,
     skills: [String],
+    level: {
+      type: String,
+      required: [true, 'A job must have a level'],
+      enum: {
+        values: ['intern', 'fresher', 'junior', 'senior'],
+        message: 'level is either: inter, fresher, junior, senior',
+      },
+    },
     status: {
       type: String,
       default: 'unapproval',
