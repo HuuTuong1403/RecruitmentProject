@@ -13,6 +13,10 @@ const employerSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    passwordConfirm: {
+      type: String,
+      trim: true,
+    },
     address: {
       type: addressSchema,
     },
