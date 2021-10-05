@@ -7,26 +7,35 @@ import InputField from "custom-fields/InputField";
 import { FaSearch } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { selectedProvinces } from "features/Home/slices/selectors";
+import { useHistory } from "react-router";
 
 const BannerHome = () => {
   const { t } = useTranslation();
-  const [searchProvince, setSearchProvince] = useState("");
+  const [searchProvince, setSearchProvince] = useState("Tất cả");
   const searchKeyRef = useRef();
-  const provinces = useSelector(selectedProvinces);
+  const history = useHistory();
+  const provinces = useSelector(selectedProvinces).map((province) => ({
+    label: province.name,
+  }));
+
+  const newProvinces = [{ label: "Tất cả" }, ...provinces];
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
-    console.log(searchKeyRef.current.value);
-    console.log(searchProvince);
-    searchKeyRef.current.value = "";
+    const text = searchKeyRef.current.value;
+    if (text === "" && searchProvince === "Tất cả") {
+      history.push(`/jobs/search?type=all`);
+    } else {
+      history.push(
+        `/jobs/search?${text === "" ? "" : `jobTitle=${text}&`}${
+          searchProvince === "Tất cả" ? "" : `location%city=${searchProvince}&`
+        }`
+      );
+    }
   };
 
   const changeProvinceHandler = (selectedOption) => {
-    const selectedValue = selectedOption
-      ? selectedOption.value
-      : selectedOption;
-
-    setSearchProvince(selectedValue);
+    setSearchProvince(selectedOption.label);
   };
 
   return (
@@ -59,10 +68,10 @@ const BannerHome = () => {
             <Select
               placeholder={t("choose-province")}
               onChange={changeProvinceHandler}
-              options={provinces.map((province) => ({
-                label: province.name,
-                value: province.code,
-              }))}
+              options={newProvinces}
+              value={newProvinces.filter((province) => {
+                return province.label === searchProvince;
+              })}
             />
           </div>
           <div>

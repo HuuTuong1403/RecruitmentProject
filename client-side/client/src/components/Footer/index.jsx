@@ -3,6 +3,7 @@ import MSTLogo from "assets/images/mst_logo.png";
 import DK from "assets/images/dk.png";
 import { FaFacebookF } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -48,7 +49,7 @@ const Footer = () => {
                 <a href="/">{t("newjobs")}</a>
               </li>
               <li>
-                <a href="/">{t("searchjobs")}</a>
+                <Link to="/jobs/search?type=all">{t("searchjobs")}</Link>
               </li>
             </ul>
           </div>
@@ -72,16 +73,24 @@ const Footer = () => {
             <h3>{t("jobsinprovince")}</h3>
             <ul>
               <li>
-                <a href="/">{t("jobsinHCM")}</a>
+                <Link to="/jobs/search?location%city=Thành%20phố%20Hồ%20Chí%20Minh">
+                  {t("jobsinHCM")}
+                </Link>
               </li>
               <li>
-                <a href="/">{t("jobsinDN")}</a>
+                <Link to="/jobs/search?location%city=Thành%20phố%20Đà%20Nẵng">
+                  {t("jobsinDN")}
+                </Link>
               </li>
               <li>
-                <a href="/">{t("jobsinHN")}</a>
+                <Link to="/jobs/search?location%city=Thành%20phố%20Hà%20Nội">
+                  {t("jobsinHN")}
+                </Link>
               </li>
               <li>
-                <a href="/">{t("jobsinHP")}</a>
+                <Link to="/jobs/search?location%city=Thành%20phố%20Hải%20Phòng">
+                  {t("jobsinHP")}
+                </Link>
               </li>
             </ul>
           </div>

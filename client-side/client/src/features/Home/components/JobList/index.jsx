@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { selectJobsHome } from "features/Home/slices/selectors";
+import { Link } from "react-router-dom";
 
 const JobList = (props) => {
   const { t } = useTranslation();
@@ -14,9 +15,12 @@ const JobList = (props) => {
       <div className={classes.joblist__container}>
         <div className={classes["joblist__container--title"]}>
           <div>{t("home-news-recruiment")}</div>
-          <a className={classes["joblist__container--title--all"]} href="/">
+          <Link
+            className={classes["joblist__container--title--all"]}
+            to="/jobs/search?type=all"
+          >
             {t("seeAll")}
-          </a>
+          </Link>
         </div>
         <Slider style={{ width: "85%" }} {...settings}>
           {jobs.map((job) => {
