@@ -1,4 +1,5 @@
 const JobSeeker = require('./../models/job-seekerModel');
+const SystemManager = require('./../models/system-managerModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Token = require('./../services/token');
@@ -21,11 +22,10 @@ class authController {
     });
   });
   loginJobSeeker = catchAsync(async (req, res, next) => {
-    const { username, email, phone, password } = req.body;
+    const { username, email, phone, ...loginPassword } = req.body;
     var jobSeeker = undefined;
-
     //Check if login information is exists
-    if (!password || (!username && !email && !phone)) {
+    if (!loginPassword.password || (!username && !email && !phone)) {
       return next(new AppError('Please provide enough login information', 400));
     }
 
@@ -41,14 +41,17 @@ class authController {
     }
     if (
       !jobSeeker ||
-      !(await jobSeeker.correctPassword(password, jobSeeker.password))
+      !(await jobSeeker.correctPassword(
+        loginPassword.password,
+        jobSeeker.password
+      ))
     ) {
       return next(
         new AppError('Incorrect login information, please try again'),
         401
       );
     }
-
+    jobSeeker.password = undefined;
     //Everything ok, send token to client
     const token = Token.signToken(jobSeeker._id);
     res.status(200).json({
@@ -56,6 +59,21 @@ class authController {
       token,
       data: {
         JobSeeker: jobSeeker,
+      },
+    });
+  });
+  signUpSystemManager = catchAsync(async (req, res, next) => {
+    const newSystemManager = await SystemManager.create({
+      email: req.body.email,
+      fullname: req.body.fullname,
+      password: req.body.password,
+      passwordConfirm: req.body.passwordConfirm,
+      username: req.body.username,
+    });
+    res.status(201).json({
+      status: 'success',
+      data: {
+        systemManager: newSystemManager,
       },
     });
   });

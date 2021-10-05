@@ -1,6 +1,6 @@
 const express = require('express');
 const systemManagerRouter = express.Router();
-const systemManagerController = require('./../controllers/systemManagerController');
+const systemManagerController = require('../controllers/systemManagerController');
 
 systemManagerRouter
   .route('/manage/employer')

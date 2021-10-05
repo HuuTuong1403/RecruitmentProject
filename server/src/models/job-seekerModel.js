@@ -7,18 +7,15 @@ const jobSeekerSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: [true, 'Tell us your email'],
-      unique: [true, "Email is duplicated. Let's try another email"],
+      required: [true, 'Hãy nhập email của bạn'],
+      unique: [true, 'Email bị trùng. Vui lòng thử email khác'],
       trim: true,
-      validate: [validator.isEmail, 'Please provide your valid email'],
+      validate: [validator.isEmail, 'Vui lòng cung cấp email hợp lệ'],
     },
     phone: {
       type: String,
-      required: [true, 'Tell us your number phone'],
-      unique: [
-        true,
-        "Phone number is duplicated. Let's try another phone number",
-      ],
+      required: [true, 'Hãy nhập số điện thoại'],
+      unique: [true, 'Số điện thoại bị trùng. Vui lòng thử số điện thoại khác'],
       trim: true,
       validate: {
         validator: function (val) {
@@ -26,25 +23,25 @@ const jobSeekerSchema = new mongoose.Schema(
             /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
           );
         },
-        message: 'Number phone {VALUE} is invalid. Please try again.',
+        message: 'Số điện thoại {VALUE} là không hợp lệ. Vui lòng thử lại.',
       },
     },
     fullname: {
       type: String,
-      required: [true, 'Please provide your fullname'],
+      required: [true, 'Hãy nhập họ và tên của bạn'],
       trim: true,
     },
     username: {
       type: String,
-      required: [true, 'Please provide your username'],
-      unique: [true, "Usename is duplicated. Let's try another username"],
+      required: [true, 'Vui lòng nhập username'],
+      unique: [true, 'Username bị trùng. Vui lòng thử lại username khác'],
       trim: true,
       minlength: 8,
       maxlength: 32,
     },
     password: {
       type: String,
-      required: [true, 'Please provide your password'],
+      required: [true, 'Vui lòng nhập password của bạn'],
       trim: true,
       minlength: 8,
       maxlength: 32,
@@ -52,13 +49,13 @@ const jobSeekerSchema = new mongoose.Schema(
     },
     passwordConfirm: {
       type: String,
-      required: [true, 'You must confirm your password'],
+      required: [true, 'Vui lòng nhập lại password của bạn'],
       trim: true,
       validate: {
         validator: function (el) {
           return el === this.password;
         },
-        message: 'Password are not the same',
+        message: 'Password không giống nhau',
       },
     },
     DOB: {
@@ -69,6 +66,7 @@ const jobSeekerSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
+      default: 'http://cdn.onlinewebfonts.com/svg/img_258083.png',
     },
     google: {
       type: String,

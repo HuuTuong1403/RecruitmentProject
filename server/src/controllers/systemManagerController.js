@@ -29,7 +29,7 @@ class systemManagerController {
         return next(new AppError('No employer found with id', 404));
       }
       if (employer) {
-        res.status(200).json({
+        return res.status(200).json({
           status: 'success',
           data: {
             employer,
@@ -65,4 +65,5 @@ class systemManagerController {
     });
   });
 }
+
 module.exports = new systemManagerController();

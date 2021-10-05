@@ -7,7 +7,7 @@ const employerSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      unique: [true, "Usename is duplicated. Let's try another username"],
+      unique: [true, 'Usename đã bị trùng, hãy thử lại username khác'],
       trim: true,
     },
     password: {
@@ -22,11 +22,8 @@ const employerSchema = new mongoose.Schema(
     },
     companyName: {
       type: String,
-      required: [true, 'Please tell us your company name'],
-      unique: [
-        true,
-        "Company name is duplicated. Let's try another company name",
-      ],
+      required: [true, 'Hãy nhập tên công ty của bạn'],
+      unique: [true, 'Tên công ty bị trùng. Vui lòng thử tên khác'],
       trim: true,
     },
     companyWebsite: {
@@ -35,10 +32,10 @@ const employerSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: [true, 'Please provide your email'],
-      unique: [true, "Email is duplicated. Let's try another email"],
+      required: [true, 'Hãy nhập email của bạn'],
+      unique: [true, 'Email bị trùng. Hãy thử email khác'],
       trim: true,
-      validate: [validator.isEmail, 'Please provide your valid emal'],
+      validate: [validator.isEmail, 'Hãy nhập email hợp lệ'],
     },
     entryTest: [String],
     event: [String],
@@ -60,18 +57,15 @@ const employerSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      required: [true, 'Please provide your number phone'],
-      unique: [
-        true,
-        "Phone number is duplicated. Let's try another phone number",
-      ],
+      required: [true, 'Hãy nhập số điện thoại của bạn'],
+      unique: [true, 'Số điện thoại bị trùng. Hãy thử lại số điện thoại khác'],
       validate: {
         validator: function (val) {
           return val.match(
             /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
           );
         },
-        message: 'Number phone {VALUE} is invalid. Please try again.',
+        message: 'Số điện thoại: {VALUE} không hợp lệ. Hãy thử nhập lại.',
       },
       trim: true,
     },
@@ -79,7 +73,7 @@ const employerSchema = new mongoose.Schema(
       {
         servicePackageName: {
           type: String,
-          required: [true, 'Service package must have a name'],
+          required: [true, 'Tên gói dịch vụ là bắt buộc'],
           trim: true,
         },
         description: {
@@ -88,7 +82,7 @@ const employerSchema = new mongoose.Schema(
         },
         postType: {
           type: String,
-          required: [true, 'Service package must have a post type'],
+          required: [true, 'Gói dịch vụ phải có loại bài đăng'],
         },
         price: {
           type: Number,
@@ -121,12 +115,12 @@ const employerSchema = new mongoose.Schema(
         },
         Reviewer: {
           type: String,
-          required: [true, 'Reviewer must be assigned'],
+          required: [true, 'Người review phải được gán'],
           trim: true,
         },
         Title: {
           type: String,
-          required: [true, 'Review must have a title'],
+          required: [true, 'Bài review phải có tiêu đề'],
           trim: true,
         },
         Total: {

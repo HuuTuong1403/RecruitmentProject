@@ -8,13 +8,13 @@ const handleCastErrorDB = (err) => {
 const handleDuplicateFieldsDB = (err) => {
   const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
 
-  const message = `Duplicate field value: ${value}. Please use another value!`;
+  const message = `Trường giá trị bị trùng: ${value}. Hãy sử dụng giá trị khác!`;
   return new AppError(message, 400);
 };
 const handleValidationErrorDB = (err) => {
   const errors = Object.values(err.errors).map((el) => el.message);
 
-  const message = `Invalid input data. ${errors.join('. ')}`;
+  const message = `Giá trị nhập vào không hợp lệ. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
 const sendErrorDev = (err, res) => {
