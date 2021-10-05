@@ -43,9 +43,9 @@ const jobSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    scale: {
-      type: String,
-      default: 'Over 50',
+    quantity: {
+      type: Number,
+      default: 30,
     },
     workingTime: {
       finish: {

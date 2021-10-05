@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 const addressSchema = require('./addressModel');
 
 const employerSchema = new mongoose.Schema(
@@ -12,10 +13,9 @@ const employerSchema = new mongoose.Schema(
     password: {
       type: String,
       trim: true,
-    },
-    passwordConfirm: {
-      type: String,
-      trim: true,
+      minlength: 8,
+      maxlength: 32,
+      select: false,
     },
     address: {
       type: addressSchema,
@@ -38,7 +38,7 @@ const employerSchema = new mongoose.Schema(
       required: [true, 'Please provide your email'],
       unique: [true, "Email is duplicated. Let's try another email"],
       trim: true,
-      validate: [validate.isEmail, 'Please provide your valid emal'],
+      validate: [validator.isEmail, 'Please provide your valid emal'],
     },
     entryTest: [String],
     event: [String],
@@ -67,7 +67,7 @@ const employerSchema = new mongoose.Schema(
       ],
       validate: {
         validator: function (val) {
-          return val.test(
+          return val.match(
             /^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/
           );
         },
@@ -144,10 +144,31 @@ const employerSchema = new mongoose.Schema(
     companyType: {
       type: String,
     },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+employerSchema.virtual('role').get(function () {
+  return 'employer';
+});
+employerSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+  this.passwordConfirm = undefined;
+  next();
+});
+employerSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 const Employer = mongoose.model('Employer', employerSchema);
 module.exports = Employer;
