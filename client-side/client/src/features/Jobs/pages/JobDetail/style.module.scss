@@ -169,23 +169,23 @@ p {
             flex: 0 0 100%;
 
             & > div:nth-child(1) {
-              font-size: $text-3xl;
+              font-size: $text-xl;
             }
             & > div:nth-child(2) {
-              font-size: $text-xl;
+              font-size: $text-lg;
               margin: $pm-4 0;
             }
 
             & > a {
-              font-size: $text-xl;
+              font-size: $text-lg;
               margin: $pm-4 0;
             }
             & > div:nth-child(4) {
-              font-size: $text-xl;
+              font-size: $text-lg;
               margin: $pm-4 0;
             }
             & > div:nth-child(5) {
-              font-size: $text-xl;
+              font-size: $text-lg;
               margin: $pm-4 0;
             }
           }
@@ -221,7 +221,7 @@ p {
 
         &--title {
           margin: $pm-20 0 $pm-8 0;
-          font-size: $text-3xl;
+          font-size: $text-lg;
         }
 
         &--title:first-child {
@@ -230,14 +230,14 @@ p {
 
         &--content {
           margin-left: $pm-8;
-          font-size: $text-2xl;
+          font-size: $text-lg;
         }
 
         &--table {
           position: relative;
           top: 0;
           margin-top: $pm-10;
-          font-size: $text-2xl;
+          font-size: $text-lg;
 
           &--top {
             padding: 8px;
@@ -294,7 +294,7 @@ p {
             flex: 0 0 100%;
 
             & > div:nth-child(1) {
-              font-size: $text-2xl;
+              font-size: $text-xl;
             }
             & > div:nth-child(2) {
               font-size: $text-lg;
@@ -346,7 +346,7 @@ p {
 
         &--title {
           margin: $pm-20 0 $pm-8 0;
-          font-size: $text-2xl;
+          font-size: $text-xl;
         }
 
         &--title:first-child {
@@ -355,7 +355,7 @@ p {
 
         &--content {
           margin-left: $pm-8;
-          font-size: $text-lg;
+          font-size: $text-base;
         }
 
         &--table {
@@ -509,10 +509,6 @@ p {
   .container {
     flex-wrap: wrap;
     font-size: $text-base;
-
-    &__card-skill:last-child {
-      margin-top: $pm-8;
-    }
   }
 }
 

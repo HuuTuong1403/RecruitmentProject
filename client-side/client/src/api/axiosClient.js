@@ -16,11 +16,12 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
   async (config) => {
-    //Handle token here
+    const token = localStorage.getItem("token");
+    if (token) config.headers.authorization = `Bearer ${token}`;
     return config;
   },
   (err) => {
-    console.log(err);
+    return Promise.reject(err);
   }
 );
 
@@ -32,7 +33,8 @@ axiosClient.interceptors.response.use(
     return res;
   },
   (err) => {
-    throw err;
+    if (err.response && err.response.data) return err.response.data;
+    return Promise.reject(err);
   }
 );
 

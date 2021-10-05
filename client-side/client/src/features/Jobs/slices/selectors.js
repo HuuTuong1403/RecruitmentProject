@@ -9,3 +9,7 @@ export const selectedStatus = (state) => {
 export const selectedJobDetail = (state) => {
   return state?.job?.jobDetail;
 };
+
+export const selectedSkills = (state) => {
+  return state?.job?.skills;
+};

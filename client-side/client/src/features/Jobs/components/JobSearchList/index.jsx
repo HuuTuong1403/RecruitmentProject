@@ -5,8 +5,10 @@ import { selectedJobs, selectedStatus } from "features/Jobs/slices/selectors";
 import LoadingSuspense from "components/Loading";
 import { Fragment } from "react";
 import NotFoundSearch from "../NotFoundSearch";
+import { useTranslation } from "react-i18next";
 
 const JobSearchList = () => {
+  const { t } = useTranslation();
   const jobsSearch = useSelector(selectedJobs);
   const loading = useSelector(selectedStatus);
 
@@ -20,10 +22,10 @@ const JobSearchList = () => {
             <div className={classes["searchList__container--job-found"]}>
               <div>
                 {jobsSearch.length === 0
-                  ? "Không tìm thấy công việc"
-                  : `${jobsSearch.length} công việc đã tìm thấy`}
+                  ? `${t("No job found")}`
+                  : `${jobsSearch.length} ${t("jobs found")}`}
               </div>
-              <div>Sắp xếp theo</div>
+              <div>{t("sort by")}</div>
             </div>
             {jobsSearch.length === 0 ? (
               <NotFoundSearch />

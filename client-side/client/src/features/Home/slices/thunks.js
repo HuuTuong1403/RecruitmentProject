@@ -4,6 +4,7 @@ import {
   fetchProvinces,
   fetchDistricts,
   fetchWards,
+  signInGuest,
 } from "../api/home.api";
 
 export const fetchJobsAsync = createAsyncThunk("home/fetchJobs", async () => {
@@ -32,5 +33,13 @@ export const fetchWardsByDistrictsAsync = createAsyncThunk(
   async ({ code }) => {
     const res = await fetchWards({ code });
     return res.data.ward;
+  }
+);
+
+export const signInGuestAsync = createAsyncThunk(
+  "home/signInGuest",
+  async (payload) => {
+    const res = await signInGuest(payload);
+    return res;
   }
 );

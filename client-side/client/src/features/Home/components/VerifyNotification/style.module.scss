@@ -1,0 +1,17 @@
+@import "common/styles/Variables.scss";
+
+.verifyEmail {
+  &__title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: $text-2xl;
+    font-weight: 700;
+    margin: $pm-20 0;
+  }
+
+  &__content {
+    text-align: center;
+    margin: $pm-20 0;
+    font-size: $text-lg;
+  }
+}

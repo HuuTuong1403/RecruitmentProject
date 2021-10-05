@@ -1,5 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchJobsAll, fetchJobsSearch, fetchJobDetail } from "../api/jobs.api";
+import {
+  fetchJobsAll,
+  fetchJobsSearch,
+  fetchJobDetail,
+  fetchSkills,
+} from "../api/jobs.api";
 
 export const fetchJobsSearchAsync = createAsyncThunk(
   "jobs/fetchJobsSearch",
@@ -22,5 +27,13 @@ export const fetchJobDetailAsync = createAsyncThunk(
   async (payload) => {
     const res = await fetchJobDetail(payload);
     return res.data.job;
+  }
+);
+
+export const fetchSkillsAsync = createAsyncThunk(
+  "jobs/fetchSkills",
+  async () => {
+    const res = await fetchSkills();
+    return res.data;
   }
 );

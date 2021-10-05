@@ -22,20 +22,6 @@ import {
   fetchWardsByDistrictsAsync,
 } from "features/Home/slices/thunks";
 
-const options = [
-  { value: "", label: "Chọn số nhân viên" },
-  { value: "Ít hơn 10", label: "Ít hơn 10" },
-  { value: "10 - 20", label: "10 - 20" },
-  { value: "25 - 99", label: "25 - 99" },
-  { value: "100 - 499", label: "100 - 499" },
-  { value: "500 - 999", label: "500 - 999" },
-  { value: "1.000 - 4.999", label: "1.000 - 4.999" },
-  { value: "5.000 - 9.999", label: "5.000 - 9.999" },
-  { value: "10.000 - 19.999", label: "10.000 - 19.999" },
-  { value: "20.000 - 49.999", label: "20.000 - 49.999" },
-  { value: "Hơn 50.000", label: "Hơn 50.000" },
-];
-
 const StepTwoSignUp = (props) => {
   const { t } = useTranslation();
   const { onBackStep, onNextStep } = props;
@@ -56,30 +42,27 @@ const StepTwoSignUp = (props) => {
     value: province.code,
     label: province.name,
   }));
-  const newProvinces = [
-    { value: "", label: "Chọn tỉnh/thành phố" },
-    ...provinces,
-  ];
+  provinces.unshift({ value: "", label: `${t("choose-province")}` });
+
   const districts = useSelector(selectedDistricts).map((district) => ({
     value: district.code,
     label: district.name,
   }));
-  const newDistrict = [{ value: "", label: "Chọn quận/huyện" }, ...districts];
+  districts.unshift({ value: "", label: `${t("choose-district")}` });
+
   const wards = useSelector(selectedWards).map((ward) => ({
     value: ward.code,
     label: ward.name,
   }));
-  const newWard = [{ value: "", label: "Chọn phường/xã" }, ...wards];
+  wards.unshift({ value: "", label: `${t("choose-ward")}` });
 
   const { Address } = infoSignUp;
 
   const submitStep2Handler = (data) => {
     const { province, district, ward, address, ...newData } = data;
-    const provinceLabel = newProvinces.find(
-      (c) => c.value === Number(province)
-    );
-    const districtLabel = newDistrict.find((c) => c.value === Number(district));
-    const wardLabel = newWard.find((c) => c.value === Number(ward));
+    const provinceLabel = provinces.find((c) => c.value === Number(province));
+    const districtLabel = districts.find((c) => c.value === Number(district));
+    const wardLabel = wards.find((c) => c.value === Number(ward));
 
     const dataLabel = {
       ...newData,
@@ -94,14 +77,28 @@ const StepTwoSignUp = (props) => {
     onNextStep();
   };
 
+  const options = [
+    { value: "", label: `${t("phd-select-scale")}` },
+    { value: "Ít hơn 10", label: `${t("little than")} 10` },
+    { value: "10 - 20", label: "10 - 20" },
+    { value: "25 - 99", label: "25 - 99" },
+    { value: "100 - 499", label: "100 - 499" },
+    { value: "500 - 999", label: "500 - 999" },
+    { value: "1.000 - 4.999", label: "1.000 - 4.999" },
+    { value: "5.000 - 9.999", label: "5.000 - 9.999" },
+    { value: "10.000 - 19.999", label: "10.000 - 19.999" },
+    { value: "20.000 - 49.999", label: "20.000 - 49.999" },
+    { value: "Hơn 50.000", label: `${t("more than")} 50.000` },
+  ];
+
   return (
     <Fragment>
       <div className={classes.steptwo}>
-        {t("Bước 2: Thông tin doanh nghiệp")}
+        {t("Step")} 2: {t("business information")}
       </div>
       <form onSubmit={handleSubmit(submitStep2Handler)}>
         <InputField
-          placeholder="Vui lòng nhập tên công ty của bạn"
+          placeholder={t("phd-companyName")}
           {...register("companyName")}
           defaultValue={infoSignUp?.companyName}
           errors={errors.companyName?.message}
@@ -116,7 +113,7 @@ const StepTwoSignUp = (props) => {
             render={({ field: { onChange, value } }) => (
               <Select
                 className={classes["steptwo__select-scale--select"]}
-                placeholder="Chọn số nhân viên công ty"
+                placeholder={t("phd-select-scale")}
                 value={options.find((c) => c.value === value)}
                 options={options}
                 onChange={(selectedOption) => {
@@ -125,11 +122,11 @@ const StepTwoSignUp = (props) => {
               />
             )}
           />
-          {errors.scale?.message && <p>{errors.scale?.message}</p>}
+          {errors.scale?.message && <p>{t(`${errors.scale?.message}`)}</p>}
         </div>
 
         <InputField
-          placeholder="Vui lòng nhập website công ty"
+          placeholder={t("phd-companyWebsite")}
           {...register("websiteCompany")}
           defaultValue={infoSignUp?.websiteCompany}
           errors={errors.websiteCompany?.message}
@@ -143,9 +140,9 @@ const StepTwoSignUp = (props) => {
             render={({ field: { onChange, value } }) => (
               <Select
                 className={classes["steptwo__select-scale--select"]}
-                placeholder="Chọn tỉnh/thành phố"
-                value={newProvinces.find((c) => c.value === value)}
-                options={newProvinces}
+                placeholder={t("choose-province")}
+                value={provinces.find((c) => c.value === value)}
+                options={provinces}
                 onChange={(selectedOption) => {
                   onChange(selectedOption.value);
                   if (selectedOption.value !== "") {
@@ -161,7 +158,7 @@ const StepTwoSignUp = (props) => {
               />
             )}
           />
-          {errors.province?.message && <p>{errors.province?.message}</p>}
+          {errors.province?.message && <p>{t(`${errors.province?.message}`)}</p>}
         </div>
 
         <div className={classes["steptwo__select-scale"]}>
@@ -173,9 +170,9 @@ const StepTwoSignUp = (props) => {
               <Select
                 isDisabled={districts.length <= 1}
                 className={classes["steptwo__select-scale--select"]}
-                placeholder="Chọn quận/huyện"
-                value={newDistrict.find((c) => c.value === value)}
-                options={newDistrict}
+                placeholder={t("choose-district")}
+                value={districts.find((c) => c.value === value)}
+                options={districts}
                 onChange={(selectedOption) => {
                   onChange(selectedOption.value);
                   if (selectedOption.value !== "") {
@@ -190,7 +187,7 @@ const StepTwoSignUp = (props) => {
               />
             )}
           />
-          {errors.district?.message && <p>{errors.district?.message}</p>}
+          {errors.district?.message && <p>{t(`${errors.district?.message}`)}</p>}
         </div>
 
         <div className={classes["steptwo__select-scale"]}>
@@ -202,20 +199,20 @@ const StepTwoSignUp = (props) => {
               <Select
                 isDisabled={wards.length <= 1}
                 className={classes["steptwo__select-scale--select"]}
-                placeholder="Chọn phường xã"
-                value={newWard.find((c) => c.value === value)}
-                options={newWard}
+                placeholder={t("choose-ward")}
+                value={wards.find((c) => c.value === value)}
+                options={wards}
                 onChange={(selectedOption) => {
                   onChange(selectedOption.value);
                 }}
               />
             )}
           />
-          {errors.ward?.message && <p>{errors.ward?.message}</p>}
+          {errors.ward?.message && <p>{t(`${errors.ward?.message}`)}</p>}
         </div>
 
         <InputField
-          placeholder="Vui lòng địa chỉ công ty"
+          placeholder={t("phd-companyAddress")}
           {...register("address")}
           defaultValue={Address?.address}
           errors={errors.address?.message}
@@ -231,7 +228,7 @@ const StepTwoSignUp = (props) => {
             onClick={onBackStep}
           >
             <IoMdArrowBack style={{ marginRight: "10px" }} />
-            {t("Quay lại")}
+            {t("back")}
           </ButtonField>
           <ButtonField
             type="submit"

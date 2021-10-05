@@ -28,3 +28,12 @@ export const fetchJobDetail = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchSkills = async () => {
+  try {
+    const res = await axiosClient.get("skills");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -5,8 +5,10 @@ import { BiDollarCircle } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const JobSearchItem = (props) => {
+  const { t } = useTranslation();
   const {
     logo,
     jobTitle,
@@ -24,7 +26,9 @@ const JobSearchItem = (props) => {
   return (
     <div className={classes.searchItem}>
       <div className={classes.searchItem__figure}>
-        {isNew && <div className={classes["searchItem__figure--new"]}>Mới</div>}
+        {isNew && (
+          <div className={classes["searchItem__figure--new"]}>{t("New")}</div>
+        )}
         <div className={classes["searchItem__figure--image"]}>
           <Link to="/">
             <img src={logo} alt="" />
@@ -49,7 +53,7 @@ const JobSearchItem = (props) => {
           <div className={classes["searchItem__figure--figcaption--salary"]}>
             <div>
               <BiDollarCircle style={{ marginRight: "5px" }} />
-              Lương:{" "}
+              {`${t("Salary")}`}:{" "}
               {salary.min
                 ? `${salary.min} - ${salary.max} ${salary.type}`
                 : `${salary.type}`}
@@ -60,7 +64,7 @@ const JobSearchItem = (props) => {
             </div>
           </div>
           <div className={classes["searchItem__figure--figcaption--skill"]}>
-            <div>Các kỹ năng: </div>
+            <div>{t("Skill")}: </div>
             {skills.map((skill, index) => {
               return (
                 <div key={index}>
@@ -72,11 +76,11 @@ const JobSearchItem = (props) => {
           <div className={classes["searchItem__figure--figcaption--date"]}>
             <div>
               <IoMdCalendar style={{ marginRight: "5px", fontSize: "18px" }} />
-              Ngày đăng: {moment(createdAt).format("DD/MM/yyyy")}
+              {t("post date")}: {moment(createdAt).format("DD/MM/yyyy")}
             </div>
             <div>
               <IoMdCalendar style={{ marginRight: "5px", fontSize: "18px" }} />
-              Ngày hết hạn: {moment(finishDate).format("DD/MM/yyyy")}
+              {t("expiration date")}: {moment(finishDate).format("DD/MM/yyyy")}
             </div>
           </div>
         </div>

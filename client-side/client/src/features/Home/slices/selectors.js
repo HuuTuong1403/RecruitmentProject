@@ -14,4 +14,8 @@ export const selectedWards = (state) => {
   return state?.home?.wards;
 };
 
+export const selectedUser = (state) => {
+  return state?.home?.user;
+};
+
 export const selectLoadingHome = (state) => state?.home?.status;

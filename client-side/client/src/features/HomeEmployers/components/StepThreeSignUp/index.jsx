@@ -14,12 +14,7 @@ import Select from "react-select";
 import { MdFileUpload } from "react-icons/md";
 import notification from "components/Notification";
 import { useHistory } from "react-router-dom";
-
-const options = [
-  { value: "", label: "Chọn loại doanh nghiệp" },
-  { value: "Outsourcing", label: "Outsourcing" },
-  { value: "Product", label: "Product" },
-];
+import { signUpEmployer } from "features/HomeEmployers/api/homeEmployer.api";
 
 const StepThreeSignUp = (props) => {
   const { t } = useTranslation();
@@ -41,11 +36,32 @@ const StepThreeSignUp = (props) => {
     resolver: yupResolver(schemaSignUpStep3),
   });
 
-  const submitStep3Handler = (item) => {
+  const submitStep3Handler = async (item) => {
     dispatch(addInfoSignUp({ ...infoSignUp, ...item }));
-    notification("Đăng ký tài khoản thành công", "success");
-    // dispatch(addInfoSignUp({}));
-    history.push("/employers/sign-in");
+    const signUpEmployerObj = {
+      email: infoSignUp.email,
+      phone: infoSignUp.phone,
+      companyName: infoSignUp.companyName,
+      scale: infoSignUp.scale,
+      companyWebsite: infoSignUp.websiteCompany,
+      city: infoSignUp.Address.province.label,
+      district: infoSignUp.Address.district.label,
+      ward: infoSignUp.Address.ward.label,
+      street: infoSignUp.Address.address,
+      companyType: item.Type,
+      OT: item.OT,
+      TIN: item.TIN,
+    };
+    console.log(signUpEmployerObj);
+    const result = await signUpEmployer(signUpEmployerObj);
+    console.log(result);
+    if (result.status === "success") {
+      notification(`${t("Successful account registration")}`, "success");
+      dispatch(addInfoSignUp({}));
+      history.push("/employers/sign-in");
+    } else {
+      notification(`${result.message}`, "error");
+    }
   };
 
   const chooseImageHandler = () => {
@@ -57,33 +73,41 @@ const StepThreeSignUp = (props) => {
     ];
 
     if (logo.current?.files.length === 0) {
-      setErrorImg("Vui lòng chọn logo doanh nghiệp");
+      setErrorImg(`${t("error-choose-logo")}`);
       return;
     }
 
     if (!validImageTypes.includes(logo.current.files[0]?.type)) {
-      setErrorImg("Vui lòng chọn tệp hình ảnh jpg, jpeg, png, svg");
+      setErrorImg(`${t("error-file-type")}`);
       return;
     }
 
     if (logo.current.files[0]?.size >= 5000000) {
-      setErrorImg("Tệp hình ảnh quá lớn");
+      setErrorImg(`${t("error-file-size")}`);
       return;
     }
     setErrorImg(null);
     setImgSrc(URL.createObjectURL(logo.current.files[0]));
   };
 
+  const options = [
+    { value: "", label: `${t("phd-companyType")}` },
+    { value: "Outsourcing", label: "Outsourcing" },
+    { value: "Product", label: "Product" },
+  ];
+
   return (
     <Fragment>
-      <div className={classes.stepthree}>{t("Bước 3: Thông tin đại diện")}</div>
+      <div className={classes.stepthree}>
+        {t("Step")} 3: {t("Representative information")}
+      </div>
       <form
         className={classes.stepthree__form}
         onSubmit={handleSubmit(submitStep3Handler)}
       >
         <InputField
           type="text"
-          placeholder={t("Vui lòng nhập mã số thuế")}
+          placeholder={t("phd-taxCode")}
           {...register("TIN")}
           defaultValue={infoSignUp?.TIN}
           errors={errors.TIN?.message}
@@ -97,7 +121,7 @@ const StepThreeSignUp = (props) => {
             render={({ field: { onChange, value } }) => (
               <Select
                 className={classes["stepthree__select-scale--select"]}
-                placeholder="Chọn loại doanh nghiệp"
+                placeholder={t("phd-companyType")}
                 value={options.find((c) => c.value === value)}
                 options={options}
                 onChange={(selectedOption) => {
@@ -106,11 +130,11 @@ const StepThreeSignUp = (props) => {
               />
             )}
           />
-          {errors.Type?.message && <p>{errors.Type?.message}</p>}
+          {errors.Type?.message && <p>{t(`${errors.Type?.message}`)}</p>}
         </div>
 
         <div className={classes["stepthree__check-box"]}>
-          <label htmlFor="OT">Làm việc ngoài giờ (OT)?: </label>
+          <label htmlFor="OT">{t("Work overtime")} (OT)?: </label>
           <input
             name="OT"
             type="checkbox"
@@ -118,12 +142,12 @@ const StepThreeSignUp = (props) => {
             defaultChecked={infoSignUp?.OT}
             id="OT"
           />
-          <span>Có</span>
+          <span>{t("Yes")}</span>
         </div>
 
         <div className={classes.stepthree__upload}>
           <label htmlFor="logo">
-            Tải logo doanh nghiệp
+            {t("Upload business logo")}
             <MdFileUpload className={classes["stepthree__upload--icon"]} />
           </label>
           <input
@@ -153,7 +177,7 @@ const StepThreeSignUp = (props) => {
             onClick={onBackStep}
           >
             <IoMdArrowBack style={{ marginRight: "10px" }} />
-            {t("Quay lại")}
+            {t("back")}
           </ButtonField>
           <ButtonField
             type="submit"

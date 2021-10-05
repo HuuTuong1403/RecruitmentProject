@@ -9,9 +9,22 @@ import AuthComponent from "components/AuthComponent";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import ButtonField from "custom-fields/ButtonField";
+import { useDispatch } from "react-redux";
+import { signInGuestAsync } from "features/Home/slices/thunks";
+import notification from "components/Notification";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const SignInGuest = () => {
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem("token");
+    if (isLoggedIn) history.push("/home");
+  });
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [isVerify, setIsVerify] = useState(null);
+
+  const history = useHistory();
 
   const {
     register,
@@ -22,8 +35,27 @@ const SignInGuest = () => {
     resolver: yupResolver(schemaSignInUser),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (dataLogIn) => {
+    setIsVerify(null);
+    const result = await dispatch(signInGuestAsync(dataLogIn));
+    const { data, status } = result.payload;
+
+    if (status === "success") {
+      const { isEmailVerified } = data?.JobSeeker;
+      if (isEmailVerified) {
+        notification("Đăng nhập thành công", "success");
+        history.push("/");
+      } else {
+        setIsVerify(
+          "Tài khoản chưa được xác thực. Vui lòng kiểm tra lại hộp thư"
+        );
+      }
+    } else {
+      notification(
+        "Thông tin đăng nhập không chính xác. Vui lòng thử lại",
+        "error"
+      );
+    }
   };
 
   return (
@@ -34,6 +66,9 @@ const SignInGuest = () => {
             {t("content-signin")}
           </div>
           <div className={classes["signin__wrapped--title"]}>{t("signin")}</div>
+          {isVerify && (
+            <div className={classes["signin__wrapped--verify"]}>{isVerify}</div>
+          )}
           <form
             onSubmit={handleSubmit(onSubmit)}
             className={classes["signin__wrapped--form"]}

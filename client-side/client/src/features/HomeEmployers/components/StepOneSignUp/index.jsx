@@ -28,7 +28,9 @@ const StepOneSignUp = (props) => {
 
   return (
     <Fragment>
-      <div className={classes.stepone}>{t("Bước 1: Thông tin liên hệ")}</div>
+      <div className={classes.stepone}>
+        {t("Step")} 1: {t("Contact Info")}
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <InputField
           type="email"

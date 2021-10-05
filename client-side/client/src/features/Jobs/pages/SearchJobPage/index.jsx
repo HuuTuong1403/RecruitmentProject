@@ -1,7 +1,10 @@
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import JobSearchList from "features/Jobs/components/JobSearchList";
 import SearchHeader from "features/Jobs/components/SearchHeader";
-import { fetchJobsSearchAsync } from "features/Jobs/slices/thunks";
+import {
+  fetchJobsSearchAsync,
+  fetchSkillsAsync,
+} from "features/Jobs/slices/thunks";
 import { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -14,12 +17,14 @@ const SearchJobPage = () => {
   const location = query.get("location%city");
   const salary = query.get("salary%min[gte]");
   const createAt = query.get("createAt");
+  const skills = query.get("skills")
 
   let filter = clearNullObject({
     jobTitle,
     "location%city": location,
     "salary%min[gte]": salary,
     createAt,
+    skills
   });
 
   useEffect(() => {
@@ -27,10 +32,14 @@ const SearchJobPage = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (jobTitle || location || salary || createAt) {
+    if (jobTitle || location || salary || createAt || skills) {
       dispatch(fetchJobsSearchAsync({ filter }));
     }
   });
+
+  useEffect(() => {
+    dispatch(fetchSkillsAsync());
+  }, [dispatch]);
 
   return (
     <Fragment>
