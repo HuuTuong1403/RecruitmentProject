@@ -15,6 +15,8 @@ import ReactCountryFlag from "react-country-flag";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { logoutJobSeeker } from "features/Home/slices";
+import notification from "components/Notification";
+import { MdSettings } from "react-icons/md";
 
 const Header = () => {
   const history = useHistory();
@@ -23,12 +25,16 @@ const Header = () => {
   const [toggle, setToggle] = useState(false);
   const [width] = useWindowSize();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownHover, setDropDownHover] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
   const dispatch = useDispatch();
+
   const clickLogoHandler = () => {
     history.push("/");
   };
+
+  const hoverProfileHandler = () => setDropDownHover((prevState) => !prevState);
 
   const toggleMenuHandler = () => {
     setToggle((prevState) => (prevState = !prevState));
@@ -54,6 +60,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logoutJobSeeker());
+    notification("Đăng xuất thành công", "success");
   };
 
   const styleResize =
@@ -85,15 +92,56 @@ const Header = () => {
             {t("signin")}
           </NavLink>
         ) : (
-          <NavLink
-            activeClassName={classes["header__link--active"]}
-            to={`/jobseekers`}
-            className={classes["header__link"]}
-            onClick={toggleMenuChildClick}
-          >
-            <IoPersonCircle className={classes["header__link--person"]} />
-            {user.fullname}
-          </NavLink>
+          <div>
+            <Dropdown
+              isOpen={dropdownHover}
+              toggle={hoverProfileHandler}
+              onMouseEnter={hoverProfileHandler}
+              onMouseLeave={hoverProfileHandler}
+              className={classes["header__lang"]}
+            >
+              <DropdownToggle caret>
+                <Link
+                  to={`/jobseekers/my-profile`}
+                  onClick={toggleMenuChildClick}
+                >
+                  <IoPersonCircle className={classes["header__link--person"]} />
+                  {user.fullname}
+                </Link>
+              </DropdownToggle>
+              <DropdownMenu>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/my-profile`}
+                >
+                  Quản lý hồ sơ
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/job-alert`}
+                >
+                  Thông báo việc làm
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/setting-account`}
+                >
+                  <MdSettings className={classes["header__link--person"]} />
+                  Cài đặt
+                </Link>
+                <Link
+                  to="/"
+                  className={classes["header__lang--profile"]}
+                  onClick={logoutHandler}
+                >
+                  <RiLogoutCircleRLine
+                    className={classes["header__link--person"]}
+                  />
+                  {t("Đăng xuất")}
+                </Link>
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         )}
         {!user && (
           <NavLink
@@ -104,16 +152,6 @@ const Header = () => {
           >
             {t("signup")}
           </NavLink>
-        )}
-        {user && (
-          <a
-            href="/"
-            className={classes["header__link"]}
-            onClick={logoutHandler}
-          >
-            <RiLogoutCircleRLine className={classes["header__link--person"]} />
-            {t("Đăng xuất")}
-          </a>
         )}
         <Dropdown
           isOpen={dropdownOpen}

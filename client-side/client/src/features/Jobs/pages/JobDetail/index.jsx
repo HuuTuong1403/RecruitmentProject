@@ -16,6 +16,7 @@ import ButtonField from "custom-fields/ButtonField";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import notification from "components/Notification";
+import { AiOutlineHeart } from "react-icons/ai";
 
 const JobDetail = () => {
   const { slug } = useParams();
@@ -56,6 +57,15 @@ const JobDetail = () => {
       console.log("Đã ứng tuyển");
     } else {
       notification("Vui lòng đăng nhập để ứng tuyển cho công việc", "error");
+      history.push("/home/sign-in");
+    }
+  };
+
+  const saveJobHandler = () => {
+    if (user) {
+      console.log("Đã lưu tin");
+    } else {
+      notification("Vui lòng đăng nhập để sử dụng chức năng này", "error");
       history.push("/home/sign-in");
     }
   };
@@ -110,6 +120,17 @@ const JobDetail = () => {
                   )}
                 </div>
                 <div>
+                  <ButtonField
+                    backgroundcolor="rgba(0,0,0,.08)"
+                    backgroundcolorhover="#324554"
+                    color="#999"
+                    type="button"
+                    onClick={saveJobHandler}
+                  >
+                    <AiOutlineHeart style={{ marginRight: "8px" }} />
+                    {t("Save Job")}
+                  </ButtonField>
+
                   <ButtonField
                     backgroundcolor="#0a426e"
                     backgroundcolorhover="#324554"

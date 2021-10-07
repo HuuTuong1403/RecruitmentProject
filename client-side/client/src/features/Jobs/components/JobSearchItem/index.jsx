@@ -6,9 +6,15 @@ import { MdLocationOn } from "react-icons/md";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import { AiOutlineHeart } from "react-icons/ai";
+import notification from "components/Notification";
+import { useHistory } from "react-router-dom";
 
 const JobSearchItem = (props) => {
   const { t } = useTranslation();
+  const history = useHistory();
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const {
     logo,
     jobTitle,
@@ -22,6 +28,15 @@ const JobSearchItem = (props) => {
     slug,
     isNew,
   } = props.job;
+
+  const saveJobHandler = () => {
+    if (user) {
+      console.log("Đã lưu");
+    } else {
+      notification("Vui lòng đăng nhập để sử dụng chức năng này", "error");
+      history.push("/home/sign-in");
+    }
+  };
 
   return (
     <div className={classes.searchItem}>
@@ -49,6 +64,10 @@ const JobSearchItem = (props) => {
               <FaBuilding style={{ marginRight: "5px" }} />
               {companyName}
             </Link>
+            <div onClick={saveJobHandler}>
+              <AiOutlineHeart style={{ marginRight: "5px" }} />
+              <span>{t("Save Job")}</span>
+            </div>
           </div>
           <div className={classes["searchItem__figure--figcaption--salary"]}>
             <div>

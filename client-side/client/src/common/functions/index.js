@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export const clearNullObject = (object) => {
   for (var key in object) {
     if (
@@ -9,4 +11,10 @@ export const clearNullObject = (object) => {
     }
   }
   return object;
+};
+
+export const ScrollTop = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 };

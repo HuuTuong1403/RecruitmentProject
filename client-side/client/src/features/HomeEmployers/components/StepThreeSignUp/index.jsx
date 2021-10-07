@@ -54,13 +54,15 @@ const StepThreeSignUp = (props) => {
     };
     console.log(signUpEmployerObj);
     const result = await signUpEmployer(signUpEmployerObj);
-    console.log(result);
     if (result.status === "success") {
       notification(`${t("Successful account registration")}`, "success");
       dispatch(addInfoSignUp({}));
       history.push("/employers/sign-in");
     } else {
-      notification(`${result.message}`, "error");
+      notification(
+        `${result.message ?? "Đăng ký tài khoản thất bại"}`,
+        "error"
+      );
     }
   };
 

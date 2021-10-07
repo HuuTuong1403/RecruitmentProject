@@ -5,3 +5,7 @@ export const selectedJobSeekerProfile = (state) => {
 export const selectedStatus = (state) => {
   return state?.jobSeeker?.status;
 };
+
+export const selectJobs = (state) => {
+  return state?.jobSeeker?.jobs;
+};

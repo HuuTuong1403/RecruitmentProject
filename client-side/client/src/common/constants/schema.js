@@ -109,3 +109,29 @@ export const schemaSignUpStep3 = yup
     Type: yup.string().required("error-companyType"),
   })
   .required();
+
+export const schemaChangePassSignIn = yup
+  .object({
+    oldPassword: yup
+      .string()
+      .required("error-pass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
+      ),
+    newPassword: yup
+      .string()
+      .required("error-pass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
+      )
+      .notOneOf(
+        [yup.ref("oldPassword"), null],
+        "Mật khẩu mới không được giống mật khẩu cũ"
+      ),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),
+  })
+  .required();

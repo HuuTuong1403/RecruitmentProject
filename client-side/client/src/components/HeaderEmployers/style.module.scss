@@ -39,22 +39,22 @@
     }
 
     &--emp {
-      background-color: #fcb616;
-      color: $second-text;
+      background-color: #fcb616 !important;
+      color: $second-text !important;
       padding: 15.2px;
       text-transform: uppercase;
       transition: all 0.3s ease-in-out;
     }
 
     &--emp > span:last-child {
-      color: rgb(243, 235, 235);
+      color: rgb(243, 235, 235) !important;
       font-size: 14px;
       font-weight: 400;
       text-transform: none;
     }
 
     &--emp:hover {
-      background-color: #f79d25;
+      background-color: #f79d25 !important;
       color: $second-text;
       text-decoration: none;
     }

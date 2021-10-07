@@ -3,6 +3,7 @@ import { BiDollarCircle } from "react-icons/bi";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 
+
 const JobItem = (props) => {
   const { jobTitle, companyName, salary, location, logo, slug } = props.job;
 
@@ -37,10 +38,12 @@ const JobItem = (props) => {
                 : `${salary.type}`}
             </div>
           </div>
-          <div className={classes["jobitem__container--detail--location"]}>
-            <MdLocationOn />
-            <div>{location.city}</div>
-          </div>
+          {location.city && (
+            <div className={classes["jobitem__container--detail--location"]}>
+              <MdLocationOn style={{ marginRight: "5px" }} />
+              <span>{location.city}</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
