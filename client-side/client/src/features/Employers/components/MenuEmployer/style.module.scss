@@ -11,7 +11,11 @@ a:hover {
   text-decoration: underline;
 }
 
-.sliderJobSeeker {
+.menuIcon {
+  font-size: $text-xl !important;
+}
+
+.sliderEmployer {
   display: flex;
 
   ::-webkit-scrollbar {
@@ -85,7 +89,10 @@ a:hover {
 }
 
 @media screen and (max-width: 800px) {
-  .sliderJobSeeker {
+  .menuIcon {
+    font-size: $text-lg !important;
+  }
+  .sliderEmployer {
     &__menuHeader {
       text-align: center;
       padding: $pm-20 0;
@@ -95,7 +102,10 @@ a:hover {
 }
 
 @media screen and (max-width: 540px) {
-  .sliderJobSeeker {
+  .menuIcon {
+    font-size: $text-base !important;
+  }
+  .sliderEmployer {
     &__menuHeader {
       text-align: center;
       padding: $pm-20 0;

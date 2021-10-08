@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import notification from "components/Notification";
 import { AiOutlineHeart } from "react-icons/ai";
+import { useTitle } from "common/hook/useTitle";
 
 const JobDetail = () => {
   const { slug } = useParams();
@@ -52,11 +53,13 @@ const JobDetail = () => {
     finishDate,
   } = jobDetail;
 
+  useTitle(jobTitle ?? "");
+
   const applyNowHandler = () => {
     if (user) {
       console.log("Đã ứng tuyển");
     } else {
-      notification("Vui lòng đăng nhập để ứng tuyển cho công việc", "error");
+      notification(`${t("Please sign in to perform this function")}`, "error");
       history.push("/home/sign-in");
     }
   };
@@ -65,7 +68,7 @@ const JobDetail = () => {
     if (user) {
       console.log("Đã lưu tin");
     } else {
-      notification("Vui lòng đăng nhập để sử dụng chức năng này", "error");
+      notification(`${t("Please sign in to perform this function")}`, "error");
       history.push("/home/sign-in");
     }
   };

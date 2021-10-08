@@ -1,7 +1,7 @@
 import classes from "./style.module.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaChangePassSignIn } from "common/constants/schema";
+import { schemaChangePassEmployer } from "common/constants/schema";
 import InputField from "custom-fields/InputField";
 import { FiLock } from "react-icons/fi";
 import ButtonField from "custom-fields/ButtonField";
@@ -9,11 +9,12 @@ import { ScrollTop } from "common/functions";
 import { useTranslation } from "react-i18next";
 import { useTitle } from "common/hook/useTitle";
 
-const UserSettingPage = () => {
+const SettingPage = () => {
   ScrollTop();
-  const { t } = useTranslation();
 
+  const { t } = useTranslation();
   useTitle(`${t("Settings")}`);
+
   const {
     register,
     handleSubmit,
@@ -21,7 +22,7 @@ const UserSettingPage = () => {
     reset,
   } = useForm({
     mode: "all",
-    resolver: yupResolver(schemaChangePassSignIn),
+    resolver: yupResolver(schemaChangePassEmployer),
   });
 
   const submitChangePassHandler = (data) => {
@@ -37,16 +38,16 @@ const UserSettingPage = () => {
   };
 
   return (
-    <div className={classes.userSetting}>
-      <div className={classes.userSetting__wrapped}>
-        <div className={classes["userSetting__wrapped--title"]}>
-          {t("Job Seeker account settings")}
+    <div className={classes.employerSetting}>
+      <div className={classes.employerSetting__wrapped}>
+        <div className={classes["employerSetting__wrapped--title"]}>
+          {t("Employer account settings")}
         </div>
-        <div className={classes["userSetting__wrapped--subTitle1"]}>
+        <div className={classes["employerSetting__wrapped--subTitle1"]}>
           {t("Change login password")}
         </div>
         <form
-          className={classes["userSetting__wrapped--changePass"]}
+          className={classes["employerSetting__wrapped--changePass"]}
           onSubmit={handleSubmit(submitChangePassHandler)}
         >
           <div>
@@ -81,7 +82,9 @@ const UserSettingPage = () => {
               />
             </div>
             <div
-              className={classes["userSetting__wrapped--changePass--actions"]}
+              className={
+                classes["employerSetting__wrapped--changePass--actions"]
+              }
             >
               <ButtonField
                 type="submit"
@@ -108,4 +111,4 @@ const UserSettingPage = () => {
   );
 };
 
-export default UserSettingPage;
+export default SettingPage;

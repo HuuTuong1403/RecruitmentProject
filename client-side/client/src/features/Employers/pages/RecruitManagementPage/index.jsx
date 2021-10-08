@@ -1,15 +1,15 @@
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 
-const ForgotPassEmployer = () => {
+const RecruitManagementPage = () => {
   const { t } = useTranslation();
-  useTitle(`${t("forgotpass")}`);
+  useTitle(`${t("recruitment manager")}`);
 
   return (
     <div>
-      <h1>Forgot Pass</h1>
+      <h3>Recruit Management</h3>
     </div>
   );
 };
 
-export default ForgotPassEmployer;
+export default RecruitManagementPage;

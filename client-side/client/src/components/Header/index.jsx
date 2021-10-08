@@ -60,7 +60,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logoutJobSeeker());
-    notification("Đăng xuất thành công", "success");
+    notification(`${t("Log out successful")}`, "success");
   };
 
   const styleResize =
@@ -114,20 +114,26 @@ const Header = () => {
                   className={classes["header__lang--profile"]}
                   to={`/jobseekers/my-profile`}
                 >
-                  Quản lý hồ sơ
+                  {t("Account Management")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
                   to={`/jobseekers/job-alert`}
                 >
-                  Thông báo việc làm
+                  {t("My Job Alerts")}
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/job-saved`}
+                >
+                  {t("My Jobs")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
                   to={`/jobseekers/setting-account`}
                 >
                   <MdSettings className={classes["header__link--person"]} />
-                  Cài đặt
+                  {t("Settings")}
                 </Link>
                 <Link
                   to="/"
@@ -137,7 +143,7 @@ const Header = () => {
                   <RiLogoutCircleRLine
                     className={classes["header__link--person"]}
                   />
-                  {t("Đăng xuất")}
+                  {t("Log out")}
                 </Link>
               </DropdownMenu>
             </Dropdown>

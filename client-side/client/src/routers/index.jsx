@@ -2,7 +2,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Suspense } from "react";
 import NotFoundPage from "components/404";
 import { routes, privateRoutes } from "./routes";
-import { PATH, pathJobSeeker } from "common/constants/path";
+import { PATH, pathJobSeeker, pathEmployer } from "common/constants/path";
 import LoadingSuspense from "components/Loading";
 import PrivateRoute from "./privateRoutes";
 
@@ -16,6 +16,11 @@ const Routers = () => {
             exact
             from={pathJobSeeker.jobseekers}
             to={pathJobSeeker.myProfile}
+          />
+          <Redirect
+            exact
+            from={pathEmployer.dashboard}
+            to={pathEmployer.myProfile}
           />
           <Redirect exact from={PATH.jobs} to="/jobs/search?type=all" />
           {privateRoutes.map((privateRoute, index) => {

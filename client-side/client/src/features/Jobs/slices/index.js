@@ -56,15 +56,12 @@ export const jobSlice = createSlice({
     },
     [fetchSkillsAsync.pending]: (state) => {
       state.skills = [];
-      state.status = true;
     },
     [fetchSkillsAsync.fulfilled]: (state, action) => {
       state.skills = action?.payload;
-      state.status = false;
     },
     [fetchSkillsAsync.rejected]: (state) => {
       state.skills = [];
-      state.status = false;
     },
   },
 });

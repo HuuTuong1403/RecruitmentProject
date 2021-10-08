@@ -57,7 +57,9 @@ const Footer = () => {
             <h3>{t("employers")}</h3>
             <ul>
               <li>
-                <a href="/">{t("postjobs")}</a>
+                <Link to={"/employers/dashboard/post-job"}>
+                  {t("postjobs")}
+                </Link>
               </li>
             </ul>
           </div>

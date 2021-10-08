@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { PATH, pathJobSeeker } from "common/constants/path";
+import { PATH, pathJobSeeker, pathEmployer } from "common/constants/path";
 
 const HomePage = lazy(() => import("features/Home"));
 const EmployersHomePage = lazy(() => import("features/HomeEmployers"));
@@ -35,7 +35,7 @@ export const privateRoutes = [
   {
     component: DashboardEmployersPage,
     exact: false,
-    path: PATH.business,
+    path: pathEmployer.dashboard,
     role: "Employers",
   },
 ];

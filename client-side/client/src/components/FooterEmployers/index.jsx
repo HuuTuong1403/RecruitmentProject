@@ -5,6 +5,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { MdPhone } from "react-icons/md";
 import { IoMdMail } from "react-icons/io";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const FooterEmployers = () => {
   const { t } = useTranslation();
@@ -87,7 +88,7 @@ const FooterEmployers = () => {
                 <a href="/">{t("Manage candidate profiles")}</a>
               </li>
               <li>
-                <a href="/">{t("postjobs")}</a>
+                <Link to="/employers/dashboard/post-job">{t("postjobs")}</Link>
               </li>
             </ul>
           </div>

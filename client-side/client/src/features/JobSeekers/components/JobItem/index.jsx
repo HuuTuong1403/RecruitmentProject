@@ -97,7 +97,8 @@ const JobItem = (props) => {
                 <IoMdCalendar
                   style={{ marginRight: "5px", fontSize: "18px" }}
                 />
-                {t("Ngày nộp hồ sơ")}: {moment(finishDate).format("DD/MM/yyyy")}
+                {t("Submission date")}:{" "}
+                {moment(finishDate).format("DD/MM/yyyy")}
               </div>
             )}
           </div>
@@ -111,7 +112,7 @@ const JobItem = (props) => {
                 width="20%"
               >
                 <MdDeleteForever style={{ marginRight: "5px" }} />
-                <span>{t("Bỏ lưu")}</span>
+                <span>{t("Unsave")}</span>
               </ButtonField>
             )}
           </div>

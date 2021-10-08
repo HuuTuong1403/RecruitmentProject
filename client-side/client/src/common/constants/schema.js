@@ -114,22 +114,42 @@ export const schemaChangePassSignIn = yup
   .object({
     oldPassword: yup
       .string()
-      .required("error-pass-required")
+      .required("error-currentPass-required")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
         "error-pass-pattern"
       ),
     newPassword: yup
       .string()
-      .required("error-pass-required")
+      .required("error-newPass-required")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
         "error-pass-pattern"
       )
-      .notOneOf(
-        [yup.ref("oldPassword"), null],
-        "Mật khẩu mới không được giống mật khẩu cũ"
+      .notOneOf([yup.ref("oldPassword"), null], "error-newPassSameCurrentPass"),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),
+  })
+  .required();
+
+export const schemaChangePassEmployer = yup
+  .object({
+    oldPassword: yup
+      .string()
+      .required("error-currentPass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
       ),
+    newPassword: yup
+      .string()
+      .required("error-newPass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
+      )
+      .notOneOf([yup.ref("oldPassword"), null], "error-newPassSameCurrentPass"),
     confirmNewPassword: yup
       .string()
       .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),

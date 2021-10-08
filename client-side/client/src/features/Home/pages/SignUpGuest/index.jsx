@@ -12,6 +12,7 @@ import notification from "components/Notification";
 import { Fragment, useState, useEffect } from "react";
 import VerifyNotification from "features/Home/components/VerifyNotification";
 import { useHistory } from "react-router-dom";
+import { useTitle } from "common/hook/useTitle";
 
 const SignUpGuest = () => {
   useEffect(() => {
@@ -21,6 +22,8 @@ const SignUpGuest = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const [step, setStep] = useState(1);
+
+  useTitle(`${t("Register for a job seeker account quickly")}`);
 
   const {
     register,

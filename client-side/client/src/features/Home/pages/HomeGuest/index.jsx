@@ -1,3 +1,4 @@
+import { useTitle } from "common/hook/useTitle";
 import LoadingSuspense from "components/Loading";
 import BannerHome from "features/Home/components/BannerHome";
 import JobList from "features/Home/components/JobList";
@@ -10,10 +11,16 @@ import {
   fetchProvincesAsync,
 } from "features/Home/slices/thunks";
 import { Fragment, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 
 const HomeGuest = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  
+  useTitle(
+    `${t("MST - The system to connect employers and IT industry candidates")}`
+  );
 
   useEffect(() => {
     dispatch(fetchJobsAsync());

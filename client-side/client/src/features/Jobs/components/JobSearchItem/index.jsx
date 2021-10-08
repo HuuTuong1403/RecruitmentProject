@@ -33,7 +33,7 @@ const JobSearchItem = (props) => {
     if (user) {
       console.log("Đã lưu");
     } else {
-      notification("Vui lòng đăng nhập để sử dụng chức năng này", "error");
+      notification(`${t("Please sign in to perform this function")}`, "error");
       history.push("/home/sign-in");
     }
   };

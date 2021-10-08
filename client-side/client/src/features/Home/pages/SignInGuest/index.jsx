@@ -14,6 +14,7 @@ import { signInGuestAsync } from "features/Home/slices/thunks";
 import notification from "components/Notification";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useTitle } from "common/hook/useTitle";
 
 const SignInGuest = () => {
   useEffect(() => {
@@ -23,8 +24,9 @@ const SignInGuest = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [isVerify, setIsVerify] = useState(null);
-
   const history = useHistory();
+
+  useTitle(`${t("Sign in as a job seeker")}`);
 
   const {
     register,

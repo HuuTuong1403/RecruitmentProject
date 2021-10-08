@@ -140,6 +140,7 @@ p {
 .container {
   display: flex;
   font-size: $text-lg;
+  row-gap: 8px;
 
   &__card-skill {
     padding: 3px 6px;
@@ -633,9 +634,5 @@ p {
   .container {
     flex-wrap: wrap;
     font-size: $text-sm;
-
-    &__card-skill:last-child {
-      margin-top: $pm-8;
-    }
   }
 }

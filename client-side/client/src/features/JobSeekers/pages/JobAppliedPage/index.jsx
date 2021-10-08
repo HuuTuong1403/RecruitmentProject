@@ -1,24 +1,28 @@
 import { ScrollTop } from "common/functions";
-
-import { selectJobs } from "features/JobSeekers/slices/selectors";
-import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
-import JobItem from "../../components/JobItem";
+import NotFoundJob from "features/JobSeekers/components/NotFoundJob";
+// import { selectJobs } from "features/JobSeekers/slices/selectors";
+// import { useSelector } from "react-redux";
+// import JobItem from "../../components/JobItem";
+import { useTitle } from "common/hook/useTitle";
 
 const JobAppliedPage = () => {
   ScrollTop();
-
-  const jobs = useSelector(selectJobs);
+  const { t } = useTranslation();
+  // const jobs = useSelector(selectJobs);
+  useTitle(`${t("Applied jobs")}`);
 
   return (
     <div className={classes.jobApplied}>
       <div className={classes.jobApplied__wrapped}>
         <div className={classes["jobApplied__wrapped--title"]}>
-          Danh sách việc làm đã ứng tuyển
+          {t("List of jobs applied")}
         </div>
-        {jobs?.map((item) => (
+        <NotFoundJob isApplied={true} />
+        {/* {jobs?.map((item) => (
           <JobItem isApplied={true} key={item.id} job={item} />
-        ))}
+        ))} */}
       </div>
     </div>
   );

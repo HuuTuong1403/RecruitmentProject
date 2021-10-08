@@ -3,6 +3,7 @@ import homeReducer from "features/Home/slices";
 import authEmployerReducer from "features/HomeEmployers/slices";
 import jobReducer from "features/Jobs/slices";
 import jobSeekerReducer from "features/JobSeekers/slices";
+import employerReducer from "features/Employers/slices";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     authEmployer: authEmployerReducer,
     job: jobReducer,
     jobSeeker: jobSeekerReducer,
+    employer: employerReducer,
   },
 });
 

@@ -99,6 +99,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
 
         & > div:first-child {
           color: #008563;
@@ -109,6 +110,8 @@
         margin: $pm-6 0;
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
+
         & > div {
           margin-right: 5px;
         }
@@ -169,7 +172,7 @@
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 440px) {
   .searchItem {
     margin-bottom: $pm-20;
 
@@ -188,6 +191,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
+            flex: 0 0 100%;
           }
         }
 
@@ -196,6 +200,16 @@
 
           & > a {
             font-size: $text-xs;
+          }
+        }
+
+        &--salary {
+          & > div {
+            flex: 0 0 100%;
+          }
+
+          & > div:last-child {
+            margin-top: $pm-6;
           }
         }
 

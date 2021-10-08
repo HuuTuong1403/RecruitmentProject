@@ -94,3 +94,12 @@ li {
 .ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
   font-size: 16px !important;
 }
+
+.ant-menu-item a:hover {
+  color: #f79d25 !important;
+}
+
+.ant-menu-item-selected a,
+.ant-menu-item-selected a:hover {
+  color: #fff !important;
+}

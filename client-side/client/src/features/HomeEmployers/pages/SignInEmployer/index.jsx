@@ -8,9 +8,23 @@ import AuthComponent from "components/AuthComponent";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import ButtonField from "custom-fields/ButtonField";
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import notification from "components/Notification";
+import { useTitle } from "common/hook/useTitle";
 
 const SignInEmployer = () => {
   const { t } = useTranslation();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const history = useHistory();
+
+  useTitle(`${t("Sign in as an employer")}`);
+  useEffect(() => {
+    if (user?.role === "jobseeker") {
+      notification(`${t("Please log out of the job seeker account")}`, "error");
+      history.goBack();
+    }
+  });
 
   const {
     register,
