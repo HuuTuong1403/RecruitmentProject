@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
@@ -81,6 +82,8 @@ const jobSeekerSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    authenToken: String,
+    authenTokenExpired: Date,
   },
   {
     timestamps: true,
@@ -105,6 +108,17 @@ jobSeekerSchema.methods.correctPassword = async function (
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+jobSeekerSchema.methods.createAuthenToken = function () {
+  const authenToken = crypto.randomBytes(23).toString('hex');
+
+  this.authenToken = crypto
+    .createHash('sha256')
+    .update(authenToken)
+    .digest('hex');
+
+  this.authenTokenExpired = Date.now() + 10 * 60 * 1000;
+  return authenToken;
 };
 const JobSeeker = mongoose.model('JobSeeker', jobSeekerSchema);
 module.exports = JobSeeker;

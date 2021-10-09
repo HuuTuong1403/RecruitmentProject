@@ -1,11 +1,15 @@
+const fs = require('fs');
 const JobSeeker = require('./../models/job-seekerModel');
 const SystemManager = require('./../models/system-managerModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Token = require('./../services/token');
+const Employer = require('./../models/employerModel');
+const sendEmail = require('./../services/email');
 
 class authController {
   signUpJobSeeker = catchAsync(async (req, res, next) => {
+    //1) Create job seeker
     const newJobSeeker = await JobSeeker.create({
       fullname: req.body.fullname,
       username: req.body.username,
@@ -14,12 +18,39 @@ class authController {
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
     });
-    res.status(201).json({
-      status: 'success',
-      data: {
-        JobSeeker: newJobSeeker,
-      },
-    });
+    //2) Generate the random authen token
+    const authenToken = newJobSeeker.createAuthenToken();
+    await newJobSeeker.save({ validateBeforeSave: false });
+    //3) Send it to job seeker's email
+    const authenURL = `${req.protocol}://${req.get(
+      'host'
+    )}/api/v1/job-seeker/authentication/${authenToken}`;
+    var confirmEmailFiles = fs.readFileSync(
+      `${__dirname}/../public/ConfirmEmail/ConfirmEmail.html`,
+      'utf-8'
+    );
+    const content = confirmEmailFiles.replace(/{%authenURL%}/g, authenURL);
+    try {
+      await sendEmail({
+        email: newJobSeeker.email,
+        subject:
+          '[MST-Recuitment] Xác thực tài khoản (Hợp lệ trong vòng 10 phút)',
+        content,
+      });
+      return res.status(201).json({
+        status: 'success',
+        data: {
+          JobSeeker: newJobSeeker,
+        },
+      });
+    } catch (err) {
+      return next(
+        new AppError(
+          'There was an error sending this email. Try again later!',
+          500
+        )
+      );
+    }
   });
   loginJobSeeker = catchAsync(async (req, res, next) => {
     const { username, email, phone, ...loginPassword } = req.body;
@@ -59,6 +90,33 @@ class authController {
       token,
       data: {
         JobSeeker: jobSeeker,
+      },
+    });
+  });
+  loginEmployer = catchAsync(async (req, res, next) => {
+    const { username, password } = req.body;
+    //Check if login information is exists
+    if (!username || !password) {
+      return next(new AppError('Please provide enough login information', 400));
+    }
+    //Check if login information is correct
+    const employer = await Employer.findOne({ username }).select('+password');
+    if (
+      !employer ||
+      !(await employer.correctPassword(password, employer.password))
+    ) {
+      return next(
+        new AppError('Incorrect login information, please try again'),
+        401
+      );
+    }
+    employer.password = undefined;
+    const token = Token.signToken(employer._id);
+    res.status(200).json({
+      status: 'success',
+      token,
+      data: {
+        Employer: employer,
       },
     });
   });

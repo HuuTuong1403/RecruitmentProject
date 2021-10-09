@@ -2,6 +2,7 @@ const Employer = require('./../models/employerModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
+const Token = require('./../services/token');
 class systemManagerController {
   getAllEmployer = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Employer.find(), {
@@ -45,18 +46,17 @@ class systemManagerController {
       password: req.body.password,
       status: 'approval',
     };
-    console.log(modifiedEmployer);
-    const employer = await Employer.findByIdAndUpdate(
-      req.params.id,
-      modifiedEmployer,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    const employer = await Employer.findById(req.params.id);
     if (!employer) {
       return next(new AppError('No employer found with id', 404));
     }
+    employer.username = req.body.username;
+    employer.password = req.body.password;
+    employer.status = 'approval';
+
+    await employer.save();
+    employer.password = undefined;
+
     res.status(200).json({
       status: 'success',
       data: {

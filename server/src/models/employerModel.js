@@ -7,7 +7,6 @@ const employerSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      unique: [true, 'Usename đã bị trùng, hãy thử lại username khác'],
       trim: true,
     },
     password: {
