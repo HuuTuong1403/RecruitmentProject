@@ -130,6 +130,7 @@ jobSeekerSchema.methods.createAuthenToken = function () {
   return authenToken;
 };
 jobSeekerSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
   this.passwordResetToken = crypto
     .createHash('sha256')
     .update(resetToken)

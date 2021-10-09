@@ -11,5 +11,8 @@ jobseekerRouter
 jobseekerRouter
   .route('/forgotPassword')
   .post(authController.forgotJobSeekerPassword);
+jobseekerRouter
+  .route('/resetPassword/:token')
+  .patch(authController.resetJobSeekerPassword);
 jobseekerRouter.route('/:id').get(jobSeekerController.getJobSeeker);
 module.exports = jobseekerRouter;

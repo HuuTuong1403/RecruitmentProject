@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
@@ -137,6 +138,11 @@ const employerSchema = new mongoose.Schema(
     companyType: {
       type: String,
     },
+    authenToken: String,
+    authenTokenExpired: Date,
+    passwordChangeAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   {
     timestamps: true,
@@ -153,11 +159,37 @@ employerSchema.pre('save', async function (next) {
   this.passwordConfirm = undefined;
   next();
 });
+employerSchema.pre('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangeAt = Date.now() - 1000;
+  next();
+});
 employerSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+employerSchema.methods.createAuthenToken = function () {
+  const authenToken = crypto.randomBytes(23).toString('hex');
+
+  this.authenToken = crypto
+    .createHash('sha256')
+    .update(authenToken)
+    .digest('hex');
+
+  this.authenTokenExpired = Date.now() + 10 * 60 * 1000;
+  return authenToken;
+};
+employerSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  return resetToken;
 };
 const Employer = mongoose.model('Employer', employerSchema);
 module.exports = Employer;
