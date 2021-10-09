@@ -17,6 +17,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.deploy-surge.sh
 
 npm-debug.log*
 yarn-debug.log*
