@@ -84,6 +84,9 @@ const jobSeekerSchema = new mongoose.Schema(
     },
     authenToken: String,
     authenTokenExpired: Date,
+    passwordChangeAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   {
     timestamps: true,
@@ -103,6 +106,12 @@ jobSeekerSchema.pre('save', async function (next) {
   this.passwordConfirm = undefined;
   next();
 });
+jobSeekerSchema.pre('save', async function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangeAt = Date.now() - 1000;
+  next();
+});
 jobSeekerSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
@@ -119,6 +128,14 @@ jobSeekerSchema.methods.createAuthenToken = function () {
 
   this.authenTokenExpired = Date.now() + 10 * 60 * 1000;
   return authenToken;
+};
+jobSeekerSchema.methods.createPasswordResetToken = function () {
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  return resetToken;
 };
 const JobSeeker = mongoose.model('JobSeeker', jobSeekerSchema);
 module.exports = JobSeeker;

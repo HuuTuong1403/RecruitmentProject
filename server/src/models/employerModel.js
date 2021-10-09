@@ -137,10 +137,6 @@ const employerSchema = new mongoose.Schema(
     companyType: {
       type: String,
     },
-    isEmailVerified: {
-      type: Boolean,
-      default: false,
-    },
   },
   {
     timestamps: true,

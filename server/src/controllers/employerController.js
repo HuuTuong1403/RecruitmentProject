@@ -1,7 +1,7 @@
 const Employer = require('./../models/employerModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
-
+const APIFeatures = require('./../utils/apiFeatures');
 class employerController {
   sendInformation = catchAsync(async (req, res, next) => {
     const newEmployer = await Employer.create({
@@ -24,6 +24,21 @@ class employerController {
       status: 'success',
       data: {
         Employer: newEmployer,
+      },
+    });
+  });
+  getEmployer = catchAsync(async (req, res, next) => {
+    const features = new APIFeatures(Employer.findById(req.params.id), {
+      fields: `-isEmailVerified,-__v,-entryTest,-event,-jobs,-registeredServicePackages,-reviews,-status,-updatedAt`,
+    }).limitFields();
+    const employer = await features.query;
+    if (!employer) {
+      return next(new AppError('ID không hợp lệ', 400));
+    }
+    res.status(200).json({
+      status: 'success',
+      data: {
+        Employer: employer,
       },
     });
   });
