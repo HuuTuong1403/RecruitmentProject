@@ -1,5 +1,5 @@
-import classes from "./style.module.scss";
 import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
 
 const NotFoundJob = (props) => {
   const { t } = useTranslation();

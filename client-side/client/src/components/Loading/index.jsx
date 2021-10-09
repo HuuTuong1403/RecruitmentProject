@@ -1,6 +1,6 @@
-import ReactTypingEffect from "react-typing-effect";
-import classes from "./style.module.scss";
 import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
+import ReactTypingEffect from "react-typing-effect";
 
 const LoadingSuspense = (props) => {
   const { t } = useTranslation();

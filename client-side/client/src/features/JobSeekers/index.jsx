@@ -1,23 +1,20 @@
+import { fetchJobsAsync, getDetailJobSeekerAsync } from "features/JobSeekers/slices/thunks";
 import { Fragment, useEffect, useState } from "react";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
-import NotFoundPage from "components/404";
-import UserProfilePage from "./pages/UserProfilePage";
-import JobNotificationPage from "./pages/JobNotificationPage";
 import { useDispatch } from "react-redux";
-import {
-  fetchJobsAsync,
-  getDetailJobSeekerAsync,
-} from "features/JobSeekers/slices/thunks";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import MenuJobSeeker from "./components/MenuJobSeeker";
-import UserSettingPage from "./pages/UserSettingPage";
-import JobSavedPage from "./pages/JobSavedPage";
-import JobAppliedPage from "./pages/JobAppliedPage";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import JobAppliedPage from "./pages/JobAppliedPage";
+import JobNotificationPage from "./pages/JobNotificationPage";
+import JobSavedPage from "./pages/JobSavedPage";
+import MenuJobSeeker from "./components/MenuJobSeeker";
+import NotFoundPage from "components/404";
 import notification from "components/Notification";
-import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import UserProfilePage from "./pages/UserProfilePage";
+import UserSettingPage from "./pages/UserSettingPage";
 
 const DashboardJobSeekersPage = () => {
   const { t } = useTranslation();

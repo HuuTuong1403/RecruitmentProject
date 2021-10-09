@@ -1,0 +1,76 @@
+@import "common/styles/Variables.scss";
+
+.forgotPassNotify {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapped {
+    &--title1 {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: $text-2xl;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    &--title2 {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: $text-xl;
+      font-weight: 600;
+      margin: 15px 0;
+    }
+
+    &--content1 {
+      font-size: $text-lg;
+      margin: 15px 0;
+    }
+
+    &--content2 {
+      font-size: $text-lg;
+      text-align: end;
+    }
+
+    &--content3 {
+      font-size: $text-lg;
+      text-align: end;
+
+      & > a {
+        color: $third-text;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .forgotPassNotify {
+    &__wrapped {
+      &--title1 {
+        font-size: $text-xl;
+        margin: $pm-10 0;
+      }
+
+      &--title2 {
+        font-size: $text-lg;
+        margin: $pm-10 0;
+      }
+
+      &--content1 {
+        font-size: $text-base;
+        margin: $pm-10 0;
+      }
+
+      &--content2 {
+        font-size: $text-sm;
+        text-align: start;
+      }
+
+      &--content3 {
+        font-size: $text-sm;
+        text-align: start;
+      }
+    }
+  }
+}

@@ -1,16 +1,13 @@
+import { clearNullObject } from "common/functions";
+import { fetchJobsSearchAsync, fetchSkillsAsync } from "features/Jobs/slices/thunks";
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
-import JobSearchList from "features/Jobs/components/JobSearchList";
-import SearchHeader from "features/Jobs/components/SearchHeader";
-import {
-  fetchJobsSearchAsync,
-  fetchSkillsAsync,
-} from "features/Jobs/slices/thunks";
 import { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { clearNullObject } from "common/functions";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
+import JobSearchList from "features/Jobs/components/JobSearchList";
+import SearchHeader from "features/Jobs/components/SearchHeader";
 
 const SearchJobPage = () => {
   const dispatch = useDispatch();
@@ -39,6 +36,7 @@ const SearchJobPage = () => {
         ${skills ? `${t("with skill")} ${skills}` : ""}`
       : `${t("Find all jobs, recruitment news")}`
   );
+
   useEffect(() => {
     if (jobTitle || location || salary || createdAt || skills) {
       dispatch(fetchJobsSearchAsync({ filter }));

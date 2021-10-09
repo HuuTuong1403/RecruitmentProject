@@ -3,13 +3,13 @@ import { schemaSendMail } from "common/constants/schema";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
+import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
-import ButtonField from "custom-fields/ButtonField";
 
 const SendMailForgot = (props) => {
   const { t } = useTranslation();
-
+  const { changeToNotify } = props;
   const {
     register,
     handleSubmit,
@@ -20,7 +20,7 @@ const SendMailForgot = (props) => {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    changeToNotify();
   };
 
   return (

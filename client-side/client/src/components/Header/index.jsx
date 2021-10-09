@@ -1,23 +1,23 @@
-import MSTLogo from "assets/images/mst_logo.png";
-import classes from "./style.module.scss";
-import { IoPersonCircle, IoMenu } from "react-icons/io5";
 import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { useHistory, NavLink, Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import { useWindowSize } from "../../common/hook/useWindowSize";
-import ReactCountryFlag from "react-country-flag";
-import { RiLogoutCircleRLine } from "react-icons/ri";
-import { useDispatch } from "react-redux";
+import { IoPersonCircle, IoMenu } from "react-icons/io5";
 import { logoutJobSeeker } from "features/Home/slices";
-import notification from "components/Notification";
 import { MdSettings } from "react-icons/md";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { useDispatch } from "react-redux";
+import { useHistory, NavLink, Link } from "react-router-dom";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useWindowSize } from "../../common/hook/useWindowSize";
+import classes from "./style.module.scss";
+import MSTLogo from "assets/images/mst_logo.png";
+import notification from "components/Notification";
+import ReactCountryFlag from "react-country-flag";
 
 const Header = () => {
   const history = useHistory();

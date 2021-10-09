@@ -1,24 +1,21 @@
-import { Link, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  selectedJobDetail,
-  selectedStatus,
-} from "features/Jobs/slices/selectors";
+import { AiOutlineHeart } from "react-icons/ai";
+import { FaBuilding } from "react-icons/fa";
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect } from "react";
-import LoadingSuspense from "components/Loading";
-import classes from "./style.module.scss";
-import { FaBuilding } from "react-icons/fa";
-import { MdLocationOn, MdOpenInBrowser } from "react-icons/md";
-import moment from "moment";
 import { IoMdCalendar } from "react-icons/io";
-import ButtonField from "custom-fields/ButtonField";
-import { useTranslation } from "react-i18next";
-import { useHistory } from "react-router-dom";
-import notification from "components/Notification";
-import { AiOutlineHeart } from "react-icons/ai";
-import { useTitle } from "common/hook/useTitle";
+import { Link, useParams } from "react-router-dom";
+import { MdLocationOn, MdOpenInBrowser } from "react-icons/md";
+import { selectedJobDetail, selectedStatus } from "features/Jobs/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useTitle } from "common/hook/useTitle";
+import { useTranslation } from "react-i18next";
+import ButtonField from "custom-fields/ButtonField";
+import classes from "./style.module.scss";
+import LoadingSuspense from "components/Loading";
+import moment from "moment";
+import notification from "components/Notification";
 
 const JobDetail = () => {
   const { slug } = useParams();

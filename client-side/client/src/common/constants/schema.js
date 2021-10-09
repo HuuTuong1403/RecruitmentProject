@@ -38,7 +38,7 @@ export const schemaSignUpUser = yup
   })
   .required();
 
-export const schemaChangePass = yup
+export const schemaChangePassJobSeeker = yup
   .object({
     password: yup
       .string()

@@ -1,20 +1,20 @@
 import "antd/dist/antd.css";
-import classes from "./style.module.scss";
-import { Menu, Layout } from "antd";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { RiLogoutCircleRLine } from "react-icons/ri";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutJobSeeker } from "features/Home/slices";
-import notification from "components/Notification";
-import { selectedStatus } from "features/JobSeekers/slices/selectors";
-import LoadingSuspense from "components/Loading";
-import { MdSettings } from "react-icons/md";
 import { AiFillDashboard } from "react-icons/ai";
-import { MdMenu } from "react-icons/md";
-import { useState } from "react";
 import { BsListCheck } from "react-icons/bs";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { logoutJobSeeker } from "features/Home/slices";
+import { MdMenu } from "react-icons/md";
+import { MdSettings } from "react-icons/md";
+import { Menu, Layout } from "antd";
 import { pathJobSeeker } from "common/constants/path";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { selectedStatus } from "features/JobSeekers/slices/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
+import LoadingSuspense from "components/Loading";
+import notification from "components/Notification";
 
 const MenuJobSeeker = (props) => {
   const { t } = useTranslation();

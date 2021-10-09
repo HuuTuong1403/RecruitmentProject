@@ -1,13 +1,13 @@
-import Footer from "components/Footer";
-import Header from "components/Header";
+import { fetchJobsAllAsync } from "./slices/thunks";
 import { Fragment, useEffect } from "react";
 import { Route, Switch, useRouteMatch, useLocation } from "react-router-dom";
-import SearchJobPage from "./pages/SearchJobPage";
-import NotFoundPage from "components/404";
-import { fetchJobsAllAsync } from "./slices/thunks";
-import { useDispatch } from "react-redux";
-import JobDetail from "./pages/JobDetail";
 import { ScrollTop } from "common/functions";
+import { useDispatch } from "react-redux";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import JobDetail from "./pages/JobDetail";
+import NotFoundPage from "components/404";
+import SearchJobPage from "./pages/SearchJobPage";
 
 const JobsPage = () => {
   ScrollTop();

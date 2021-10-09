@@ -1,7 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800&display=swap");
-@import "react-toastify/dist/ReactToastify.css";
-@import "bootstrap/dist/css/bootstrap.min.css";
 @import "animate.css/animate.min.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
+@import "react-toastify/dist/ReactToastify.css";
+@import "slick-carousel/slick/slick-theme.css";
+@import "slick-carousel/slick/slick.css";
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800&display=swap");
 
 * {
   box-sizing: border-box;

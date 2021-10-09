@@ -1,4 +1,4 @@
-const { Route, Redirect } = require("react-router-dom");
+import { Route, Redirect } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, role, ...rest }) => {
   const isLoggedIn = localStorage.getItem("token");

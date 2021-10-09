@@ -1,13 +1,7 @@
-import classes from "./style.module.scss";
-import {
-  FaBriefcase,
-  FaBuilding,
-  FaIdBadge,
-  FaSearch,
-  FaSeedling,
-} from "react-icons/fa";
 import { BiRadar } from "react-icons/bi";
+import { FaBriefcase, FaBuilding, FaIdBadge, FaSearch, FaSeedling } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
 
 const Statistic = () => {
   const { t } = useTranslation();

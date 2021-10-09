@@ -1,10 +1,10 @@
+import { Link } from "react-router-dom";
+import { selectJobsHome } from "features/Home/slices/selectors";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import JobItem from "../JobItem";
 import Slider from "react-slick";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
-import { selectJobsHome } from "features/Home/slices/selectors";
-import { Link } from "react-router-dom";
 
 const JobList = (props) => {
   const { t } = useTranslation();

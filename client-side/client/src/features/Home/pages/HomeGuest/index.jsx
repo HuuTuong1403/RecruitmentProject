@@ -1,18 +1,12 @@
+import { fetchJobsAsync, fetchProvincesAsync } from "features/Home/slices/thunks";
+import { Fragment, useEffect } from "react";
+import { selectJobsHome, selectLoadingHome } from "features/Home/slices/selectors";
+import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
-import LoadingSuspense from "components/Loading";
+import { useTranslation } from "react-i18next";
 import BannerHome from "features/Home/components/BannerHome";
 import JobList from "features/Home/components/JobList";
-import {
-  selectJobsHome,
-  selectLoadingHome,
-} from "features/Home/slices/selectors";
-import {
-  fetchJobsAsync,
-  fetchProvincesAsync,
-} from "features/Home/slices/thunks";
-import { Fragment, useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import LoadingSuspense from "components/Loading";
 
 const HomeGuest = () => {
   const dispatch = useDispatch();

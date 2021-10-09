@@ -1,33 +1,33 @@
-@import "../../common/styles/Variables.scss";
+@import "common/styles/Variables.scss";
 
 .auth {
-  padding: $pm-48;
   color: $primary-text;
+  padding: $pm-48;
 
   &__container {
     &--title {
-      text-align: center;
       font-size: $text-3xl;
       font-weight: 700;
       margin-bottom: 15px;
+      text-align: center;
     }
 
     &--wrapped {
       border: 1px solid #e8e8e8;
-      max-width: 1170px;
-      margin: auto;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
       display: flex;
+      margin: auto;
+      max-width: 1170px;
 
       &--column-left {
-        width: 50%;
-        display: flex;
         border-right: 1px solid #e8e8e8;
+        display: flex;
+        width: 50%;
       }
 
       &--column-right {
-        width: 50%;
         padding: 30px 50px;
+        width: 50%;
       }
     }
   }
@@ -61,15 +61,15 @@
           display: none;
         }
         &--column-right {
-          width: 100%;
           padding: 10px 30px;
+          width: 100%;
         }
       }
     }
   }
 }
 
-@media screen and (min-width: 350px) and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .auth {
     padding: $pm-20;
 
@@ -93,7 +93,7 @@
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 400px) {
   .auth {
     padding: $pm-16;
 
