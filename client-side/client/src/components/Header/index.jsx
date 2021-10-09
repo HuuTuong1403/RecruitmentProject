@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { logoutJobSeeker } from "features/Home/slices";
 import notification from "components/Notification";
 import { MdSettings } from "react-icons/md";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 
 const Header = () => {
   const history = useHistory();
@@ -26,7 +27,7 @@ const Header = () => {
   const [width] = useWindowSize();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownHover, setDropDownHover] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = selectJobSeekerLocal();
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
   const dispatch = useDispatch();
 

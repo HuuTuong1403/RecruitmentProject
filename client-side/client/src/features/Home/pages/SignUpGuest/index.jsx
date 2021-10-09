@@ -13,11 +13,12 @@ import { Fragment, useState, useEffect } from "react";
 import VerifyNotification from "features/Home/components/VerifyNotification";
 import { useHistory } from "react-router-dom";
 import { useTitle } from "common/hook/useTitle";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 
 const SignUpGuest = () => {
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("token");
-    if (isLoggedIn) history.push("/home");
+    const user = selectJobSeekerLocal()
+    if (user) history.push("/home");
   });
   const history = useHistory();
   const { t } = useTranslation();

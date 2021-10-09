@@ -11,8 +11,15 @@ import { addInfoSignUp } from "features/HomeEmployers/slices";
 import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { useTitle } from "common/hook/useTitle";
+import { useHistory } from "react-router-dom";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
 
 const SignUpEmployer = () => {
+  useEffect(() => {
+    const employer = selectEmployerLocal();
+    if (employer) history.push("/employers");
+  });
+  const history = useHistory();
   const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const dispatch = useDispatch();

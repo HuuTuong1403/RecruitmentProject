@@ -2,35 +2,76 @@ import { Link } from "react-router-dom";
 import classes from "./style.module.scss";
 import { IoPersonCircle } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
+import { RiFileList3Line } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
+import { Fragment } from "react";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
 
 const BannerHomeEmp = () => {
+  const { t } = useTranslation();
+  const employer = selectEmployerLocal();
+
   return (
     <section className={classes.bannerEmp}>
       <div className={classes.bannerEmp__wrapped}>
         <div className={classes.bannerEmp__container}>
           <div className={classes["bannerEmp__container--top"]}>
-            <h1>Đăng nhập dành cho nhà tuyển dụng</h1>
-            <p>Quản lý tin tuyển dụng và hồ sơ ứng viên</p>
-            <div>
-              <Link to="/employers/sign-in">
-                <IoPersonCircle
-                  className={classes["bannerEmp__container--top--icon"]}
-                />
-                Đăng nhập
-              </Link>
-            </div>
+            {employer ? (
+              <h1>
+                {t("Welcome back")}, {employer?.companyName}
+              </h1>
+            ) : (
+              <h1>{t("Login for employers")}</h1>
+            )}
+            <p>{t("Manage job postings and candidate profiles")}</p>
+            {employer ? (
+              <div>
+                <Link to="/employers/dashboard">
+                  <RiFileList3Line
+                    className={classes["bannerEmp__container--top--icon"]}
+                  />
+                  {t("Click here")}
+                </Link>
+              </div>
+            ) : (
+              <div>
+                <Link to="/employers/sign-in">
+                  <IoPersonCircle
+                    className={classes["bannerEmp__container--top--icon"]}
+                  />
+                  {t("signin")}
+                </Link>
+              </div>
+            )}
           </div>
           <div className={classes["bannerEmp__container--top"]}>
-            <h1>Hoặc đăng ký trở thành nhà tuyển dụng</h1>
-            <p>Tuyển dụng nhanh chóng, dễ dàng và hiệu quả</p>
-            <div>
-              <Link to="/employers/sign-up">
-                <FaEdit
-                  className={classes["bannerEmp__container--top--icon"]}
-                />
-                Đăng ký ngay
-              </Link>
-            </div>
+            {employer ? (
+              <Fragment>
+                <h1>{t("Or post a job posting looking for candidates")}</h1>
+                <p>{t("Post job and create free Entry Test")}</p>
+                <div>
+                  <Link to="/employers/dashboard/post-job">
+                    <FaEdit
+                      className={classes["bannerEmp__container--top--icon"]}
+                    />
+                    {t("Click here")}
+                  </Link>
+                </div>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <h1>{t("Or register to become an employer")}</h1>
+                <p>{t("Quick, easy and effective recruitment")}</p>
+                <div>
+                  <Link to="/employers/sign-up">
+                    <FaEdit
+                      className={classes["bannerEmp__container--top--icon"]}
+                    />
+                    {t("Register now")}
+                  </Link>
+                </div>
+              </Fragment>
+            )}
           </div>
         </div>
       </div>

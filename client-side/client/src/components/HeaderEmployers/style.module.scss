@@ -67,8 +67,15 @@
   &__lang {
     color: $primary-text;
     cursor: pointer;
+    padding-right: $pm-20;
     font-size: 16px;
     font-weight: 400;
+
+    &--profile {
+      width: 100%;
+      display: inline-block;
+      margin: $pm-10 0 $pm-10 $pm-8;
+    }
 
     & > button {
       background-color: transparent !important;

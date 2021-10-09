@@ -21,6 +21,12 @@
       margin: $pm-10 0;
     }
 
+    &--verified {
+      color: green;
+      text-align: center;
+      margin: $pm-10 0;
+    }
+
     &--content {
       text-align: center;
     }

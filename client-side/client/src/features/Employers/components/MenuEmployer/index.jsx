@@ -12,10 +12,16 @@ import { useState } from "react";
 import { pathEmployer } from "common/constants/path";
 import { IoIosPeople } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { selectedStatus } from "features/Employers/slices/selectors";
+import { logoutEmployer } from "features/HomeEmployers/slices";
+import LoadingSuspense from "components/Loading";
 
 const MenuEmployer = (props) => {
   const { t } = useTranslation();
   const location = useLocation();
+  const dispatch = useDispatch();
+  const loading = useSelector(selectedStatus);
   const { Sider } = Layout;
   const [width, setWidth] = useState("300");
   const [isShow, setIsShow] = useState(false);
@@ -33,6 +39,7 @@ const MenuEmployer = (props) => {
   };
 
   const logoutHandler = () => {
+    dispatch(logoutEmployer());
     notification(`${t("Log out successful")}`, "success");
   };
 
@@ -163,7 +170,15 @@ const MenuEmployer = (props) => {
           )}
         </Menu>
       </Sider>
-      <div className={classes.sliderEmployer__blockRight}>{props.children}</div>
+      {loading ? (
+        <div className={classes.loading}>
+          <LoadingSuspense height="100%" showText={false} />
+        </div>
+      ) : (
+        <div className={classes.sliderEmployer__blockRight}>
+          {props.children}
+        </div>
+      )}
     </div>
   );
 };

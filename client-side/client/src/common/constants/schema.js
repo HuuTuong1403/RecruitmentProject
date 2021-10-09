@@ -68,10 +68,10 @@ export const schemaSignInEmployer = yup
     password: yup
       .string()
       .required("error-pass-required")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-        "error-pass-pattern"
-      ),
+      // .matches(
+      //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      //   "error-pass-pattern"
+      // ),
   })
   .required();
 

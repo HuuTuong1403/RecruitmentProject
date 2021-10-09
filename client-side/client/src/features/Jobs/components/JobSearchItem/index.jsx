@@ -9,11 +9,12 @@ import { useTranslation } from "react-i18next";
 import { AiOutlineHeart } from "react-icons/ai";
 import notification from "components/Notification";
 import { useHistory } from "react-router-dom";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 
 const JobSearchItem = (props) => {
   const { t } = useTranslation();
   const history = useHistory();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = selectJobSeekerLocal();
 
   const {
     logo,

@@ -1,27 +1,32 @@
 import classes from "./style.module.scss";
 import { FaBullhorn, FaInfo } from "react-icons/fa";
 import { AiFillDashboard } from "react-icons/ai";
+import { useTranslation } from "react-i18next";
 
 const FeatureC = () => {
-  
+  const { t } = useTranslation();
+
   const features = [
     {
-      title: "Đăng tuyển miễn phí",
+      title: `${t("Post job for free")}`,
       icon: <FaBullhorn />,
-      content:
-        "Nếu bạn là nhà tuyển dụng bạn có thể đăng tin tuyển dụng hoàn toàn miễn phí và dễ dàng",
+      content: `${t(
+        "If you are an employer, you can post job postings for free and easily"
+      )}`,
     },
     {
-      title: "Thống kê số liệu",
+      title: `${t("Statistics")}`,
       icon: <FaInfo />,
-      content:
-        "Số liệu liên tục cập nhật. Giúp cho người dùng dễ dàng theo dõi việc làm đã đăng.",
+      content: `${t(
+        "Data is continuously updated. Make it easy for users to track posted jobs"
+      )}`,
     },
     {
-      title: "Bảng điều khiển",
+      title: `${t("Dashboard")}`,
       icon: <AiFillDashboard />,
-      content:
-        "Trở thành nhà tuyển dụng bạn sẽ trải nghiệm sử dụng bảng điều khiển để quản lý cho riêng mình",
+      content: `${t(
+        "As an employer, you will experience using the dashboard to manage your own"
+      )}`,
     },
   ];
 
@@ -29,7 +34,7 @@ const FeatureC = () => {
     <div className={classes.featureC}>
       <div className={classes.featureC__wrapped}>
         <div className={classes["featureC__wrapped--title"]}>
-          Các tính năng chính
+          {t("Main features")}
         </div>
         <ul className={classes["featureC__wrapped--bottom"]}>
           {features.map((item, index) => (

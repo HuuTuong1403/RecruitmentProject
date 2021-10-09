@@ -2,7 +2,6 @@ const { Route, Redirect } = require("react-router-dom");
 
 const PrivateRoute = ({ component: Component, role, ...rest }) => {
   const isLoggedIn = localStorage.getItem("token");
-  // const user = JSON.parse(localStorage.getItem("user"));
   return (
     <Route
       {...rest}

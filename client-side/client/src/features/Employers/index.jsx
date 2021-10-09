@@ -1,19 +1,42 @@
-import { Fragment } from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
-import NotFoundPage from "components/404";
-import EmployerProfilePage from "./pages/EmployersProfilePage";
-import PostJobPage from "./pages/PostJobPage";
-import { ScrollTop } from "common/functions";
-import HeaderEmployers from "components/HeaderEmployers";
-import FooterEmployers from "components/FooterEmployers";
-import MenuEmployer from "./components/MenuEmployer";
-import SettingPage from "./pages/SettingPage";
-import RecruitManagementPage from "./pages/RecruitManagementPage";
+import { Fragment, useEffect, useState } from "react";
+import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
 import CandidateProfileManagementPage from "./pages/CandidateProfileManagementPage";
+import EmployerProfilePage from "./pages/EmployersProfilePage";
+import FooterEmployers from "components/FooterEmployers";
+import HeaderEmployers from "components/HeaderEmployers";
+import MenuEmployer from "./components/MenuEmployer";
+import NotFoundPage from "components/404";
+import PostJobPage from "./pages/PostJobPage";
+import RecruitManagementPage from "./pages/RecruitManagementPage";
+import SettingPage from "./pages/SettingPage";
+import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import notification from "components/Notification";
+import { selectEmployerLocal } from "./slices/selectors";
+import { useDispatch } from "react-redux";
+import { getDetailEmployerAsync } from "./slices/thunks";
 
 const DashboardEmployersPage = () => {
-  ScrollTop();
+  const { t } = useTranslation();
+  const employer = selectEmployerLocal();
+  useEffect(() => {
+    if (!employer) {
+      notification(`${t("Please log out of the job seeker account")}`, "error");
+      history.push("/home");
+    }
+  });
+  const history = useHistory();
   const { url } = useRouteMatch();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const [checkLocation, setCheckLocation] = useState("");
+
+  useEffect(() => {
+    if (employer && checkLocation !== location.pathname) {
+      dispatch(getDetailEmployerAsync());
+      setCheckLocation(location.pathname);
+    }
+  }, [dispatch, checkLocation, location, employer]);
 
   return (
     <Fragment>

@@ -14,20 +14,33 @@ import MenuJobSeeker from "./components/MenuJobSeeker";
 import UserSettingPage from "./pages/UserSettingPage";
 import JobSavedPage from "./pages/JobSavedPage";
 import JobAppliedPage from "./pages/JobAppliedPage";
+import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import notification from "components/Notification";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 
 const DashboardJobSeekersPage = () => {
+  const { t } = useTranslation();
+  const user = selectJobSeekerLocal();
+  useEffect(() => {
+    if (!user) {
+      history.push("/home");
+      notification(`${t("Please log out of the employer account")}`, "error");
+    }
+  });
+  const history = useHistory();
   const { url } = useRouteMatch();
   const location = useLocation();
   const dispatch = useDispatch();
   const [checkLocation, setCheckLocation] = useState("");
 
   useEffect(() => {
-    if (checkLocation !== location.pathname) {
+    if (user && checkLocation !== location.pathname) {
       dispatch(getDetailJobSeekerAsync());
       dispatch(fetchJobsAsync());
       setCheckLocation(location.pathname);
     }
-  }, [dispatch, checkLocation, location]);
+  }, [dispatch, checkLocation, location, user]);
 
   return (
     <Fragment>

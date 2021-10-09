@@ -15,6 +15,18 @@
       margin: 15px 0;
     }
 
+    &--verify {
+      color: red;
+      text-align: center;
+      margin: $pm-10 0;
+    }
+
+    &--verified {
+      color: green;
+      text-align: center;
+      margin: $pm-10 0;
+    }
+
     &--content {
       text-align: center;
     }
