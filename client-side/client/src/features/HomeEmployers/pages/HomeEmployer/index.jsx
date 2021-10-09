@@ -4,8 +4,14 @@ import FeatureC from "features/HomeEmployers/components/FeatureC";
 import Statistic from "features/HomeEmployers/components/Statistic";
 import { Fragment } from "react";
 import ScrollAnimation from "react-animate-on-scroll";
+import { useTranslation } from "react-i18next";
+import { useTitle } from "common/hook/useTitle";
 
 const HomeEmployer = () => {
+  const { t } = useTranslation();
+
+  useTitle(`${t("Post job and create free Entry Test")}`);
+
   return (
     <Fragment>
       <BannerHomeEmp />

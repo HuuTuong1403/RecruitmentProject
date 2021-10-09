@@ -1,0 +1,105 @@
+@import "common/styles/Variables.scss";
+
+.employerSetting {
+  padding: $pm-10;
+
+  &__wrapped {
+    &--title {
+      font-size: $text-3xl;
+      font-weight: 700;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    &--subTitle1 {
+      font-size: $text-xl;
+      font-weight: 600;
+      padding: $pm-10 0;
+    }
+
+    &--changePass {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > div {
+        flex: 0 0 60%;
+
+        & > div > label {
+          font-size: $text-lg;
+          margin-bottom: $pm-6;
+          margin-left: $pm-4;
+        }
+      }
+
+      &--actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > button {
+          width: 48%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .employerSetting {
+    padding: $pm-4;
+
+    &__wrapped {
+      &--title {
+        font-size: $text-2xl;
+        text-align: center;
+      }
+
+      &--subTitle1 {
+        font-size: $text-xl;
+        text-align: center;
+      }
+
+      &--changePass {
+        & > div {
+          flex: 0 0 70%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .employerSetting {
+    padding: $pm-4;
+
+    &__wrapped {
+      &--title {
+        font-size: $text-xl;
+        text-align: center;
+      }
+
+      &--subTitle1 {
+        font-size: $text-lg;
+        text-align: center;
+      }
+
+      &--changePass {
+        & > div {
+          flex: 0 0 100%;
+
+          & > div > label {
+            font-size: $text-base;
+          }
+        }
+
+        &--actions {
+          flex-wrap: wrap;
+
+          & > button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

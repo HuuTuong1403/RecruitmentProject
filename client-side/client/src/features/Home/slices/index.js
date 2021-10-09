@@ -4,6 +4,7 @@ import {
   fetchProvincesAsync,
   fetchDistrictsByProvinceAsync,
   fetchWardsByDistrictsAsync,
+  signInGuestAsync,
 } from "./thunks";
 
 const initialState = {
@@ -12,52 +13,82 @@ const initialState = {
   districts: [],
   wards: [],
   status: false,
+  user: null,
 };
 
 export const homeSlice = createSlice({
   name: "home",
   initialState,
-  reducers: {},
+  reducers: {
+    logoutJobSeeker: (state) => {
+      state.user = null;
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    },
+  },
   extraReducers: {
-    [fetchJobsAsync.pending.toString()]: (state) => {
+    [fetchJobsAsync.pending]: (state) => {
       state.jobs = [];
       state.status = true;
     },
-    [fetchJobsAsync.fulfilled.toString()]: (state, action) => {
+    [fetchJobsAsync.fulfilled]: (state, action) => {
       state.jobs = action?.payload;
       state.status = false;
     },
-    [fetchJobsAsync.rejected.toString()]: (state) => {
+    [fetchJobsAsync.rejected]: (state) => {
       state.status = false;
     },
-    [fetchProvincesAsync.pending.toString()]: (state) => {
+    [fetchProvincesAsync.pending]: (state) => {
       state.provinces = [];
     },
-    [fetchProvincesAsync.fulfilled.toString()]: (state, action) => {
+    [fetchProvincesAsync.fulfilled]: (state, action) => {
       state.provinces = action?.payload;
     },
-    [fetchProvincesAsync.pending.toString()]: (state) => {
+    [fetchProvincesAsync.rejected]: (state) => {
       state.provinces = [];
     },
-    [fetchDistrictsByProvinceAsync.pending.toString()]: (state) => {
+    [fetchDistrictsByProvinceAsync.pending]: (state) => {
       state.districts = [];
     },
-    [fetchDistrictsByProvinceAsync.fulfilled.toString()]: (state, action) => {
+    [fetchDistrictsByProvinceAsync.fulfilled]: (state, action) => {
       state.districts = action?.payload;
     },
-    [fetchDistrictsByProvinceAsync.pending.toString()]: (state) => {
+    [fetchDistrictsByProvinceAsync.rejected]: (state) => {
       state.districts = [];
     },
-    [fetchWardsByDistrictsAsync.pending.toString()]: (state) => {
+    [fetchWardsByDistrictsAsync.pending]: (state) => {
       state.wards = [];
     },
-    [fetchWardsByDistrictsAsync.fulfilled.toString()]: (state, action) => {
+    [fetchWardsByDistrictsAsync.fulfilled]: (state, action) => {
       state.wards = action?.payload;
     },
-    [fetchWardsByDistrictsAsync.pending.toString()]: (state) => {
+    [fetchWardsByDistrictsAsync.rejected]: (state) => {
       state.wards = [];
+    },
+    [signInGuestAsync.pending]: (state) => {
+      state.status = true;
+      state.user = null;
+    },
+    [signInGuestAsync.fulfilled]: (state, action) => {
+      const { token, data } = action?.payload;
+      state.status = false;
+      if (token && data) {
+        if (data?.JobSeeker?.isEmailVerified) {
+          state.user = data?.JobSeeker;
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(state.user));
+        }
+      } else {
+        state.user = null;
+      }
+    },
+    [signInGuestAsync.rejected]: (state) => {
+      state.user = null;
+      state.status = false;
     },
   },
 });
+
+export const { logoutJobSeeker } = homeSlice.actions;
 
 export default homeSlice.reducer;

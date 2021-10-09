@@ -10,11 +10,14 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { selectedProvinces } from "features/Home/slices/selectors";
+import { selectedSkills } from "../../slices/selectors";
 
 const SearchHeader = () => {
-  const { t } = useTranslation();
   let query = new URLSearchParams(useLocation().search);
+  const history = useHistory();
+  const { t } = useTranslation();
 
+  const searchKey = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const type = query.get("type");
   const jobTitle = query.get("jobTitle");
@@ -22,21 +25,34 @@ const SearchHeader = () => {
     query.get("location%city") ?? "Tất cả"
   );
   const [selectSalary, setSelectSalary] = useState(
-    `${query.get("salary%min[gte]") ?? "Tất cả"}`
+    query.get("salary%min[gte]") ?? "Tất cả"
   );
   const [selectCreateDate, setSelectCreateDate] = useState(
-    `${query.get("createAt") ?? "Tất cả"}`
+    query.get("createAt") ?? "Tất cả"
   );
-
-  const searchKey = useRef();
-  const history = useHistory();
-
-  const provinces = useSelector(selectedProvinces).map((province, index) => {
+  const provinces = useSelector(selectedProvinces).map((province) => {
     return { label: province.name };
   });
-  const newProvinces = [{ label: "Tất cả" }, ...provinces];
+  provinces.unshift({ label: "Tất cả" });
+  const skills = useSelector(selectedSkills).map((skill, index) => {
+    return { value: index, label: skill };
+  });
 
-  const toggle = () => setIsOpen(!isOpen);
+  const querySkills =
+    query.get("skills") === null ? [] : query.get("skills").split(",");
+
+  const [selectSkill, setSelectSkill] = useState([]);
+
+  const [textSkill, setTextSkill] = useState("");
+
+  const changeSkillHandler = (option) => {
+    setSelectSkill(option);
+    const value = [];
+    option.forEach((skill) => {
+      value.push(skill.label);
+    });
+    setTextSkill(value.join(","));
+  };
 
   const changeProvinceHandler = (selectOption) => {
     setSelectProvince(selectOption.label);
@@ -53,30 +69,60 @@ const SearchHeader = () => {
   const deleteFilterHandler = () => {
     setSelectSalary("Tất cả");
     setSelectCreateDate("Tất cả");
+    setSelectSkill([]);
+    setTextSkill("");
+  };
+
+  const toggle = () => {
+    setSelectSkill(skills.filter((item) => querySkills.includes(item.label)));
+    setIsOpen(!isOpen);
   };
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
-    const text = searchKey.current.value;
+    const textKey = searchKey.current.value;
     if (
-      text === "" &&
+      textKey === "" &&
       selectProvince === "Tất cả" &&
       selectSalary === "Tất cả" &&
-      selectCreateDate === "Tất cả"
+      selectCreateDate === "Tất cả" &&
+      textSkill === ""
     ) {
       history.push("/jobs/search?type=all");
     } else {
+      const province =
+        selectProvince === "Tất cả" || selectProvince === ""
+          ? ""
+          : `location%city=${selectProvince}&`;
+      const keyword = textKey === "" ? "" : `jobTitle=${textKey}&`;
+      const salary =
+        selectSalary === "Tất cả" ? "" : `salary%min[gte]=${selectSalary}&`;
+      const skill = textSkill === "" ? "" : `skills=${textSkill}&`;
+      const date =
+        selectCreateDate === "Tất cả" ? "" : `createAt=${selectCreateDate}`;
       history.push(
-        `/jobs/search?${text === "" ? "" : `jobTitle=${text}&`}${
-          selectProvince === "Tất cả" || selectProvince === ""
-            ? ""
-            : `location%city=${selectProvince}&`
-        }${
-          selectSalary === "Tất cả" ? "" : `salary%min[gte]=${selectSalary}&`
-        }${selectCreateDate === "Tất cả" ? "" : `createAt=${selectCreateDate}`}`
+        `/jobs/search?${keyword}${province}${salary}${skill}${date}`
       );
     }
   };
+
+  const optionsSalry = [
+    { value: "Tất cả", label: `${t("all")}` },
+    { value: "500", label: `${t("From")} 500 USD` },
+    { value: "1000", label: `${t("From")} 1.000 USD` },
+    { value: "2000", label: `${t("From")} 2.000 USD` },
+    { value: "3000", label: `${t("From")} 3.000 USD` },
+    { value: "5000", label: `${t("From")} 5.000 USD` },
+  ];
+
+  const optionsDateCreate = [
+    { value: "Tất cả", label: `${t("all")}` },
+    { value: "1", label: `${t("1 day ago")}` },
+    { value: "3", label: `${t("3 days ago")}` },
+    { value: "7", label: `${t("1 week ago")}` },
+    { value: "14", label: `${t("2 weeks ago")}` },
+    { value: "30", label: `${t("1 month ago")}` },
+  ];
 
   return (
     <section className={classes.searchHeader}>
@@ -94,8 +140,8 @@ const SearchHeader = () => {
             <div className={classes["searchHeader__container--input-location"]}>
               <Select
                 placeholder={t("choose-province")}
-                options={newProvinces}
-                value={newProvinces.filter((province) => {
+                options={provinces}
+                value={provinces.filter((province) => {
                   return province.label === selectProvince;
                 })}
                 onChange={changeProvinceHandler}
@@ -126,7 +172,7 @@ const SearchHeader = () => {
           >
             <div className={classes["searchHeader__collapse--form--top"]}>
               <div>
-                <label>Mức lương</label>
+                <label>{t("Salary")}</label>
                 <Select
                   options={optionsSalry}
                   value={optionsSalry.filter((salary) => {
@@ -136,22 +182,25 @@ const SearchHeader = () => {
                 />
               </div>
               <div>
-                <label>Cấp độ</label>
+                <label>{t("Level")}</label>
                 <InputField placeholder={t("search-key")} icon={<FaSearch />} />
               </div>
               <div>
-                <label>Vị trí</label>
+                <label>{t("Position")}</label>
                 <InputField placeholder={t("search-key")} icon={<FaSearch />} />
               </div>
               <div>
-                <label>Skill</label>
+                <label>{t("Skill")}</label>
                 <Select
-                  placeholder={t("choose-province")}
-                  options={[{ value: "1", label: "test" }]}
+                  isMulti
+                  placeholder={t("choose skills")}
+                  options={skills}
+                  value={selectSkill}
+                  onChange={changeSkillHandler}
                 />
               </div>
               <div>
-                <label>Đăng trong vòng</label>
+                <label>{t("Jobs Posted Within")}</label>
                 <Select
                   options={optionsDateCreate}
                   value={optionsDateCreate.filter((date) => {
@@ -168,7 +217,7 @@ const SearchHeader = () => {
                 backgroundcolorhover="#333"
                 type="submit"
               >
-                {t("Xác nhận")}
+                {t("Confirm")}
               </ButtonField>
               <ButtonField
                 color="#e8e8e8"
@@ -177,7 +226,7 @@ const SearchHeader = () => {
                 type="button"
                 onClick={deleteFilterHandler}
               >
-                {t("Xóa bộ lọc")}
+                {t("Clear filters")}
               </ButtonField>
             </div>
           </form>
@@ -186,23 +235,5 @@ const SearchHeader = () => {
     </section>
   );
 };
-
-const optionsSalry = [
-  { value: "Tất cả", label: "Tất cả" },
-  { value: "500", label: "Từ 500 USD" },
-  { value: "1000", label: "Từ 1.000 USD" },
-  { value: "2000", label: "Từ 2.000 USD" },
-  { value: "3000", label: "Từ 3.000 USD" },
-  { value: "5000", label: "Từ 5.000 USD" },
-];
-
-const optionsDateCreate = [
-  { value: "Tất cả", label: "Tất cả" },
-  { value: "1", label: "1 ngày gần đây" },
-  { value: "3", label: "3 ngày gần đây" },
-  { value: "7", label: "1 tuần gần đây" },
-  { value: "14", label: "2 tuần gần đây" },
-  { value: "30", label: "1 tháng gần đây" },
-];
 
 export default SearchHeader;

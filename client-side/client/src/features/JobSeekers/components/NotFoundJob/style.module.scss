@@ -1,0 +1,27 @@
+@import "common/styles/Variables.scss";
+
+.notFoundJob {
+  background-color: #eee;
+  padding: $pm-10;
+  &__wrapped {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &--notify {
+      font-size: $text-xl;
+      font-weight: 600;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .notFoundJob {
+    &__wrapped {
+      &--notify {
+        font-size: $text-sm;
+        font-weight: 600;
+      }
+    }
+  }
+}

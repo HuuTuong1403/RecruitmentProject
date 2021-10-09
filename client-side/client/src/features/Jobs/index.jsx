@@ -7,8 +7,10 @@ import NotFoundPage from "components/404";
 import { fetchJobsAllAsync } from "./slices/thunks";
 import { useDispatch } from "react-redux";
 import JobDetail from "./pages/JobDetail";
+import { ScrollTop } from "common/functions";
 
 const JobsPage = () => {
+  ScrollTop();
   const { url } = useRouteMatch();
   const dispatch = useDispatch();
   let query = new URLSearchParams(useLocation().search);

@@ -3,12 +3,14 @@ import {
   fetchJobsSearchAsync,
   fetchJobsAllAsync,
   fetchJobDetailAsync,
+  fetchSkillsAsync,
 } from "./thunks";
 
 const initialState = {
   jobsSearch: [],
   status: false,
   jobDetail: {},
+  skills: [],
 };
 
 export const jobSlice = createSlice({
@@ -16,41 +18,50 @@ export const jobSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchJobsSearchAsync.pending.toString()]: (state) => {
+    [fetchJobsSearchAsync.pending]: (state) => {
       state.jobsSearch = [];
       state.status = true;
     },
-    [fetchJobsSearchAsync.fulfilled.toString()]: (state, action) => {
+    [fetchJobsSearchAsync.fulfilled]: (state, action) => {
       state.jobsSearch = action?.payload;
       state.status = false;
     },
-    [fetchJobsSearchAsync.rejected.toString()]: (state) => {
+    [fetchJobsSearchAsync.rejected]: (state) => {
       state.jobsSearch = [];
       state.status = false;
     },
-    [fetchJobsAllAsync.pending.toString()]: (state) => {
+    [fetchJobsAllAsync.pending]: (state) => {
       state.jobsSearch = [];
       state.status = true;
     },
-    [fetchJobsAllAsync.fulfilled.toString()]: (state, action) => {
+    [fetchJobsAllAsync.fulfilled]: (state, action) => {
       state.jobsSearch = action?.payload;
       state.status = false;
     },
-    [fetchJobsAllAsync.rejected.toString()]: (state) => {
+    [fetchJobsAllAsync.rejected]: (state) => {
       state.jobsSearch = [];
       state.status = false;
     },
-    [fetchJobDetailAsync.pending.toString()]: (state) => {
+    [fetchJobDetailAsync.pending]: (state) => {
       state.jobDetail = {};
       state.status = true;
     },
-    [fetchJobDetailAsync.fulfilled.toString()]: (state, action) => {
+    [fetchJobDetailAsync.fulfilled]: (state, action) => {
       state.jobDetail = action?.payload;
       state.status = false;
     },
-    [fetchJobDetailAsync.rejected.toString()]: (state) => {
+    [fetchJobDetailAsync.rejected]: (state) => {
       state.jobDetail = {};
       state.status = false;
+    },
+    [fetchSkillsAsync.pending]: (state) => {
+      state.skills = [];
+    },
+    [fetchSkillsAsync.fulfilled]: (state, action) => {
+      state.skills = action?.payload;
+    },
+    [fetchSkillsAsync.rejected]: (state) => {
+      state.skills = [];
     },
   },
 });

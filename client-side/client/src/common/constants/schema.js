@@ -32,7 +32,7 @@ export const schemaSignUpUser = yup
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
         "error-pass-pattern"
       ),
-    confirmPassword: yup
+    passwordConfirm: yup
       .string()
       .oneOf([yup.ref("password"), null], "error-confirm-pass"),
   })
@@ -93,21 +93,65 @@ export const schemaSignUpStep1 = yup
 
 export const schemaSignUpStep2 = yup
   .object({
-    companyName: yup.string().required("Tên công ty không được trống"),
-    scale: yup
-      .string()
-      .required("Vui lòng chọn số nhân viên doanh nghiệp của bạn"),
-    websiteCompany: yup.string().required("Website công ty không được trống"),
-    province: yup.string().required("Vui lòng chọn tỉnh/thành phố"),
-    district: yup.string().required("Vui lòng chọn quận/huyện"),
-    ward: yup.string().required("Vui lòng chọn phường/xã"),
-    address: yup.string().required("Địa chỉ không được trống"),
+    companyName: yup.string().required("error-companyName-required"),
+    scale: yup.string().required("error-select-scale"),
+    websiteCompany: yup.string().required("error-website-required"),
+    province: yup.string().required("error-select-province"),
+    district: yup.string().required("error-select-district"),
+    ward: yup.string().required("error-select-ward"),
+    address: yup.string().required("error-address"),
   })
   .required();
 
 export const schemaSignUpStep3 = yup
   .object({
-    TIN: yup.string().required("Vui lòng nhập mã số thuế"),
-    Type: yup.string().required("Vui lòng chọn loại doanh nghiệp"),
+    TIN: yup.string().required("error-taxCode"),
+    Type: yup.string().required("error-companyType"),
+  })
+  .required();
+
+export const schemaChangePassSignIn = yup
+  .object({
+    oldPassword: yup
+      .string()
+      .required("error-currentPass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
+      ),
+    newPassword: yup
+      .string()
+      .required("error-newPass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
+      )
+      .notOneOf([yup.ref("oldPassword"), null], "error-newPassSameCurrentPass"),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),
+  })
+  .required();
+
+export const schemaChangePassEmployer = yup
+  .object({
+    oldPassword: yup
+      .string()
+      .required("error-currentPass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
+      ),
+    newPassword: yup
+      .string()
+      .required("error-newPass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        "error-pass-pattern"
+      )
+      .notOneOf([yup.ref("oldPassword"), null], "error-newPassSameCurrentPass"),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),
   })
   .required();

@@ -39,3 +39,13 @@ export const fetchWards = async ({ code }) => {
     console.log(error);
   }
 };
+
+export const signUpGuest = async (payload) => {
+  const res = await axiosClient.post("job-seeker/signup", payload);
+  return res;
+};
+
+export const signInGuest = async (payload) => {
+  const res = await axiosClient.post("job-seeker/login", payload);
+  return res;
+};

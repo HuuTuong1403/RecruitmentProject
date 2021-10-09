@@ -1,7 +1,7 @@
 @import "../../common/styles/Variables.scss";
 
 .input {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   position: relative;
 
   &__inputfield {
@@ -32,7 +32,7 @@
 
   & > p {
     color: red;
-    margin-top: 8px;
+    margin-top: 6px;
     font-size: 13px;
     font-style: italic;
   }

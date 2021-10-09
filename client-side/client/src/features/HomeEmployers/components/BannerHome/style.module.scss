@@ -1,8 +1,7 @@
 @import "../../../../common/styles/Variables.scss";
 
 .bannerEmp {
-  background: url("/assets/images/bg-emp.jpg") center center
-    no-repeat;
+  background: url("/assets/images/bg-emp.jpg") center center no-repeat;
   height: 580px;
   background-size: cover;
 
@@ -24,6 +23,10 @@
       color: white;
       text-align: center;
       padding: $pm-32 0;
+
+      & > h1 {
+        color: #fff !important;
+      }
 
       &--icon {
         font-size: 24px;

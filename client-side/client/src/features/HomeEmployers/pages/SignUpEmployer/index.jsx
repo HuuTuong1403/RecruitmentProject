@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addInfoSignUp } from "features/HomeEmployers/slices";
 import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
+import { useTitle } from "common/hook/useTitle";
 
 const SignUpEmployer = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const SignUpEmployer = () => {
   const dispatch = useDispatch();
   const infoSignUp = useSelector(selectInfoSignUp);
 
+  useTitle(`${t("Register for an employer account quickly")}`);
   useEffect(() => {
     dispatch(fetchProvincesAsync());
   }, [dispatch]);
