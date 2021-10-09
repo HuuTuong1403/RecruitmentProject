@@ -10,16 +10,16 @@
 # #Start deploying via Surge
 # surge . mst-recruit.surge.sh
 
-cd ../../
+# cd ../../
 
-git fetch
+# git fetch
 
-git pull
+# git pull
 
-git status
+# git status
 
-git add .
+# git add .
 
-git commit -a -m "[Tuong]: Hide deploy"
+# git commit -a -m "[Tuong]: Hide deploy"
 
-git push origin main
+# git push origin main

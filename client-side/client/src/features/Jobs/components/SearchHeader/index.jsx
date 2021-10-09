@@ -28,7 +28,7 @@ const SearchHeader = () => {
     query.get("salary%min[gte]") ?? "Tất cả"
   );
   const [selectCreateDate, setSelectCreateDate] = useState(
-    query.get("createAt") ?? "Tất cả"
+    query.get("createdAt") ?? "Tất cả"
   );
   const provinces = useSelector(selectedProvinces).map((province) => {
     return { label: province.name };
@@ -99,7 +99,7 @@ const SearchHeader = () => {
         selectSalary === "Tất cả" ? "" : `salary%min[gte]=${selectSalary}&`;
       const skill = textSkill === "" ? "" : `skills=${textSkill}&`;
       const date =
-        selectCreateDate === "Tất cả" ? "" : `createAt=${selectCreateDate}`;
+        selectCreateDate === "Tất cả" ? "" : `createdAt=${selectCreateDate}`;
       history.push(
         `/jobs/search?${keyword}${province}${salary}${skill}${date}`
       );

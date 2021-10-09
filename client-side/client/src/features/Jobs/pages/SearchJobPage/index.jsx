@@ -19,28 +19,28 @@ const SearchJobPage = () => {
   const jobTitle = query.get("jobTitle");
   const location = query.get("location%city");
   const salary = query.get("salary%min[gte]");
-  const createAt = query.get("createAt");
+  const createdAt = query.get("createdAt");
   const skills = query.get("skills");
 
   let filter = clearNullObject({
     jobTitle,
     "location%city": location,
     "salary%min[gte]": salary,
-    createAt,
+    createdAt,
     skills,
   });
 
   useTitle(
-    jobTitle || location || salary || createAt || skills
+    jobTitle || location || salary || createdAt || skills
       ? `${t("Find a job")} ${jobTitle ? `${t("with")} ${jobTitle}` : ""} 
         ${location ? `${t("at")} ${location}` : ""} 
         ${salary ? `${t("from")} ${salary} USD` : ""}
-        ${createAt ? `${t("posted within")} ${createAt} ${t("day")}` : ""}
+        ${createdAt ? `${t("posted within")} ${createdAt} ${t("day")}` : ""}
         ${skills ? `${t("with skill")} ${skills}` : ""}`
       : `${t("Find all jobs, recruitment news")}`
   );
   useEffect(() => {
-    if (jobTitle || location || salary || createAt || skills) {
+    if (jobTitle || location || salary || createdAt || skills) {
       dispatch(fetchJobsSearchAsync({ filter }));
     }
   });
