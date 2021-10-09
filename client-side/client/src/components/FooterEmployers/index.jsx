@@ -82,13 +82,17 @@ const FooterEmployers = () => {
             <h3>{t("dashboard")}</h3>
             <ul>
               <li>
-                <a href="/">{t("recruitment manager")}</a>
-              </li>
-              <li>
-                <a href="/">{t("Manage candidate profiles")}</a>
-              </li>
-              <li>
                 <Link to="/employers/dashboard/post-job">{t("postjobs")}</Link>
+              </li>
+              <li>
+                <Link to="/employers/dashboard/recruit-manage">
+                  {t("recruitment manager")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/employers/dashboard/candidate-profiles">
+                  {t("Manage candidate profiles")}
+                </Link>
               </li>
             </ul>
           </div>

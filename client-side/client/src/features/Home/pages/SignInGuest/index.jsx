@@ -15,23 +15,36 @@ import notification from "components/Notification";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useTitle } from "common/hook/useTitle";
+import { useLocation } from "react-router-dom";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 
 const SignInGuest = () => {
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("token");
-    if (isLoggedIn) history.push("/home");
+    const user = selectJobSeekerLocal();
+    if (user) history.push("/home");
   });
+  let query = new URLSearchParams(useLocation().search);
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [isVerify, setIsVerify] = useState(null);
+  const employer = selectEmployerLocal();
+  const [isVerify, setIsVerify] = useState(query.get("isVerify") ?? null);
   const history = useHistory();
 
   useTitle(`${t("Sign in as a job seeker")}`);
+  useEffect(() => {
+    if (employer) {
+      notification(`${t("Please log out of the employer account")}`, "error");
+      history.goBack();
+    }
+  });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaSignInUser),
@@ -45,16 +58,22 @@ const SignInGuest = () => {
     if (status === "success") {
       const { isEmailVerified } = data?.JobSeeker;
       if (isEmailVerified) {
-        notification("Đăng nhập thành công", "success");
-        history.push("/");
+        notification(`${t("Signed in successfully")}`, "success");
+        history.push("/jobseekers");
       } else {
         setIsVerify(
-          "Tài khoản chưa được xác thực. Vui lòng kiểm tra lại hộp thư"
+          `${t(
+            "The account has not been activated. Please check your email inbox for activation"
+          )}`
         );
       }
     } else {
+      reset({
+        username: "",
+        password: "",
+      });
       notification(
-        "Thông tin đăng nhập không chính xác. Vui lòng thử lại",
+        `${t("Login information is incorrect. Please try again")}`,
         "error"
       );
     }
@@ -68,8 +87,19 @@ const SignInGuest = () => {
             {t("content-signin")}
           </div>
           <div className={classes["signin__wrapped--title"]}>{t("signin")}</div>
-          {isVerify && (
-            <div className={classes["signin__wrapped--verify"]}>{isVerify}</div>
+          {isVerify && isVerify !== "success" && (
+            <div className={classes["signin__wrapped--verify"]}>
+              <AiOutlineCloseCircle style={{ marginRight: "5px" }} />
+              {t(`${isVerify}`)}
+            </div>
+          )}
+          {isVerify === "success" && (
+            <div className={classes["signin__wrapped--verified"]}>
+              <AiOutlineCheckCircle style={{ marginRight: "5px" }} />
+              {t(
+                "Your account has been activated. Please login to use the system"
+              )}
+            </div>
           )}
           <form
             onSubmit={handleSubmit(onSubmit)}

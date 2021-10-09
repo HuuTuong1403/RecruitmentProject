@@ -7,39 +7,43 @@ import {
   FaSeedling,
 } from "react-icons/fa";
 import { BiRadar } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 const Statistic = () => {
+  const { t } = useTranslation();
+
   const statisticList = [
     {
       icon: <FaBriefcase />,
       statisticNum: "3.000+",
-      description: "Ứng viên đang bật tìm việc trung bình/thời điểm",
+      description: `${t("Candidates looking for a job at MST Company")}`,
     },
     {
       icon: <FaBuilding />,
       statisticNum: "9.000+",
-      description: "Doanh nghiệp đối tác sử dụng dịch vụ",
+      description: `${t("Partner businesses use the service")}`,
     },
     {
       icon: <BiRadar />,
       statisticNum: "18.000+",
-      description: "Nhà tuyển dụng sử dụng thường xuyên",
+      description: `${t("Employers use frequently")}`,
     },
     {
       icon: <FaIdBadge />,
       statisticNum: "20.000++",
-      description: "Ứng viên mới mỗi tháng",
+      description: `${t("New candidates every month")}`,
     },
     {
       icon: <FaSearch />,
       statisticNum: "300.000+",
-      description: "Lượt ứng viên truy cập hàng tháng",
+      description: `${t("Number of candidates accessing monthly")}`,
     },
     {
       icon: <FaSeedling />,
       statisticNum: "400.000+",
-      description:
-        "Ứng viên tiềm năng, trong đó có 60% là ứng viên có kinh nghiệm từ 2 năm trở lên",
+      description: `${t(
+        "Potential candidates, of which 60% are candidates with 2 years or more experience"
+      )}`,
     },
   ];
 
@@ -47,7 +51,7 @@ const Statistic = () => {
     <div className={classes.statistic}>
       <div className={classes.statistic__wrapped}>
         <div className={classes["statistic__wrapped--title"]}>
-          Những con số thống kê
+          {t("Statistics")}
         </div>
 
         <ul className={classes["statistic__wrapped--bottom"]}>

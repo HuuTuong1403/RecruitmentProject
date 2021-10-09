@@ -18,12 +18,13 @@ import { useHistory } from "react-router-dom";
 import notification from "components/Notification";
 import { AiOutlineHeart } from "react-icons/ai";
 import { useTitle } from "common/hook/useTitle";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 
 const JobDetail = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = selectJobSeekerLocal();
   const history = useHistory();
 
   useEffect(() => {

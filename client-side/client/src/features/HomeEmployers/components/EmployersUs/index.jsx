@@ -1,11 +1,14 @@
+import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 
 const EmployersUs = () => {
+  const { t } = useTranslation();
+
   return (
     <div className={classes.employerUs}>
       <div className={classes.employerUs__wrapped}>
         <p className={classes["employerUs__wrapped--title"]}>
-          Khách hàng của chúng tôi
+          {t("Our customer")}
         </p>
         <div className={classes["employerUs__wrapped--block"]}>
           <ul>

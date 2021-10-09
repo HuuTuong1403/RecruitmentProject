@@ -9,3 +9,7 @@ export const selectedStatus = (state) => {
 export const selectJobs = (state) => {
   return state?.jobSeeker?.jobs;
 };
+
+export const selectJobSeekerLocal = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};

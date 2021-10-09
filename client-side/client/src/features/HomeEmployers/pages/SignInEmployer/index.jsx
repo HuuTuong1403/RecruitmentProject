@@ -9,18 +9,31 @@ import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import ButtonField from "custom-fields/ButtonField";
 import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import notification from "components/Notification";
 import { useTitle } from "common/hook/useTitle";
+import { useDispatch } from "react-redux";
+import { signInEmployerAsync } from "features/HomeEmployers/slices/thunks";
+import { useLocation } from "react-router-dom";
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 
 const SignInEmployer = () => {
+  useEffect(() => {
+    const employer = selectEmployerLocal();
+    if (employer) history.push("/employers");
+  });
+  let query = new URLSearchParams(useLocation().search);
   const { t } = useTranslation();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = selectJobSeekerLocal();
   const history = useHistory();
+  const [isVerify, setIsVerify] = useState(query.get("isVerify") ?? null);
+  const dispatch = useDispatch();
 
   useTitle(`${t("Sign in as an employer")}`);
   useEffect(() => {
-    if (user?.role === "jobseeker") {
+    if (user) {
       notification(`${t("Please log out of the job seeker account")}`, "error");
       history.goBack();
     }
@@ -30,14 +43,39 @@ const SignInEmployer = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaSignInEmployer),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (dataLogIn) => {
+    const result = await dispatch(signInEmployerAsync(dataLogIn));
+    const { data, status } = result.payload;
+    if (status === "success") {
+      const { isEmailVerified } = data?.Employer;
+      if (isEmailVerified) {
+        notification(`${t("Signed in successfully")}`, "success");
+        history.push("/employers/dashboard");
+      } else {
+        setIsVerify(
+          `${t(
+            "The account has not been activated. Please check your email inbox for activation"
+          )}`
+        );
+      }
+    } else {
+      reset({
+        username: "",
+        password: "",
+      });
+      notification(
+        `${t("Login information is incorrect. Please try again")}`,
+        "error"
+      );
+    }
   };
+
   return (
     <AuthComponent>
       <div className={classes.signin_emp}>
@@ -48,6 +86,20 @@ const SignInEmployer = () => {
           <div className={classes["signin_emp__wrapped--title"]}>
             {t("signin")}
           </div>
+          {isVerify && isVerify !== "success" && (
+            <div className={classes["signin_emp__wrapped--verify"]}>
+              <AiOutlineCloseCircle style={{ marginRight: "5px" }} />
+              {t(`${isVerify}`)}
+            </div>
+          )}
+          {isVerify === "success" && (
+            <div className={classes["signin_emp__wrapped--verified"]}>
+              <AiOutlineCheckCircle style={{ marginRight: "5px" }} />
+              {t(
+                "Your account has been activated. Please login to use the system"
+              )}
+            </div>
+          )}
           <form
             onSubmit={handleSubmit(onSubmit)}
             className={classes["signin_emp__wrapped--form"]}
