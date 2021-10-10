@@ -141,7 +141,10 @@ class authController {
   });
   forgotJobSeekerPassword = catchAsync(async (req, res, next) => {
     //1) Get job seeker based on POST email
-    const jobSeeker = await JobSeeker.findOne({ email: req.body.email });
+    const jobSeeker = await JobSeeker.findOne({
+      email: req.body.email,
+      isEmailVerified: true,
+    });
     if (!jobSeeker) {
       return next(
         new AppError(`Không tìm thấy địa chỉ email trong hệ thống`, 404)
@@ -279,7 +282,10 @@ class authController {
   });
   forgotEmployerPassword = catchAsync(async (req, res, next) => {
     //1) Get employer based on POST email
-    const employer = await Employer.findOne({ email: req.body.email });
+    const employer = await Employer.findOne({
+      email: req.body.email,
+      isEmailVerified: true,
+    });
     if (!employer) {
       return next(
         new AppError(`Không tìm thấy địa chỉ email trong hệ thống`, 404)
@@ -289,7 +295,7 @@ class authController {
     const resetToken = employer.createPasswordResetToken();
     await employer.save({ validateBeforeSave: false });
     //3) Send it to employer's email
-    const resetURL = `https://mst-recruit.surge.sh/home/forgot-pass/${resetToken}`;
+    const resetURL = `https://mst-recruit.surge.sh/employers/forgot-pass/${resetToken}`;
     const content = resetPasswordFiles.replace(/{%resetURL%}/g, resetURL);
     try {
       await sendEmail({
@@ -314,7 +320,7 @@ class authController {
       );
     }
   });
-  reseEmployerPassword = catchAsync(async (req, res, next) => {
+  resetEmployerPassword = catchAsync(async (req, res, next) => {
     if (req.body.password != req.body.passwordConfirm) {
       return next(
         new AppError('Password và xác nhận password không giống nhau', 400)

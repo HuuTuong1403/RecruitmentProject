@@ -12,7 +12,7 @@ employerRouter
   .post(authController.forgotEmployerPassword);
 employerRouter
   .route('/resetPassword/:token')
-  .patch(authController.reseEmployerPassword);
+  .patch(authController.resetEmployerPassword);
 employerRouter.route('/').post(employerController.sendInformation);
 employerRouter.route('/:id').get(employerController.getEmployer);
 module.exports = employerRouter;

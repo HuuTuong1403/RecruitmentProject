@@ -41,11 +41,6 @@ class systemManagerController {
     return next(new AppError('Invalid ID', 400));
   });
   issueEmployer = catchAsync(async (req, res, next) => {
-    const modifiedEmployer = {
-      username: req.body.username,
-      password: req.body.password,
-      status: 'approval',
-    };
     const employer = await Employer.findById(req.params.id);
     if (!employer) {
       return next(new AppError('No employer found with id', 404));
