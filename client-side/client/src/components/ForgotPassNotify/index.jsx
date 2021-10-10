@@ -11,17 +11,15 @@ const ForgotPassNotify = () => {
           {t("forgotpass")}
         </div>
         <div className={classes["forgotPassNotify__wrapped--title2"]}>
-          Vui lòng kiểm tra email của bạn và làm theo hướng dẫn để tạo mật khẩu
-          mới
+          {t(
+            "Please check your email and follow the instructions to create a new password"
+          )}
         </div>
         <div className={classes["forgotPassNotify__wrapped--content1"]}>
-          “Nếu bạn sử dụng Gmail hoặc công ty bạn đang sử dụng dịch vụ email của
-          Google để đăng ký tài khoản, bạn hãy kiểm tra email trong các mục
-          Inbox/Hộp thư đến (Primary, Social, Promotions) và Spam. Hoặc dùng
-          công cụ tìm kiếm email để tìm tên email: mst.recruitment10@gmail.com.”
+          {t("Instruction forgot pass")}
         </div>
         <div className={classes["forgotPassNotify__wrapped--content2"]}>
-          Nếu bạn cần sự trợ giúp. Vui lòng liên hệ:
+          {t("If you need help. Please contact")}:
         </div>
         <div className={classes["forgotPassNotify__wrapped--content3"]}>
           Email:{" "}

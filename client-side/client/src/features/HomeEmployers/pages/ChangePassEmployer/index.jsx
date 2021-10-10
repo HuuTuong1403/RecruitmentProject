@@ -1,4 +1,5 @@
-import { schemaChangePassJobSeeker } from "common/constants/schema";
+import { resetPassEmployer } from "features/HomeEmployers/api/homeEmployer.api";
+import { schemaChangePassForgot } from "common/constants/schema";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
@@ -8,6 +9,7 @@ import AuthComponent from "components/AuthComponent";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import notification from "components/Notification";
 
 const ChangePassEmployer = () => {
   const { t } = useTranslation();
@@ -20,7 +22,7 @@ const ChangePassEmployer = () => {
     formState: { errors },
   } = useForm({
     mode: "all",
-    resolver: yupResolver(schemaChangePassJobSeeker),
+    resolver: yupResolver(schemaChangePassForgot),
   });
 
   useEffect(() => {
@@ -29,9 +31,21 @@ const ChangePassEmployer = () => {
     }
   });
 
-  const onSubmit = (data) => {
-    history.replace("/employers/sign-in");
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const result = await resetPassEmployer(data, token);
+      if (result.status === "success") {
+        notification(`${t("Password recovery successful")}`, "success");
+        history.replace("/employers/sign-in");
+      } else {
+        notification(`${t("Token is invalid or expired")}`, "error");
+      }
+    } catch (error) {
+      notification(
+        `${t("Error! An error occurred. Please try again later")}`,
+        "error"
+      );
+    }
   };
 
   return (
@@ -49,7 +63,9 @@ const ChangePassEmployer = () => {
             onSubmit={handleSubmit(onSubmit)}
             className={classes["changepassEmployer__wrapped--form"]}
           >
-            <div className={classes["changepassEmployer__wrapped--form--label"]}>
+            <div
+              className={classes["changepassEmployer__wrapped--form--label"]}
+            >
               {t("newpass")}:
             </div>
             <InputField
@@ -59,14 +75,16 @@ const ChangePassEmployer = () => {
               errors={errors.password?.message}
             />
 
-            <div className={classes["changepassEmployer__wrapped--form--label"]}>
+            <div
+              className={classes["changepassEmployer__wrapped--form--label"]}
+            >
               {t("confirm-pass")}:
             </div>
             <InputField
               type="password"
               placeholder={t("phd-confirm-pass")}
-              {...register("confirmPassword")}
-              errors={errors.confirmPassword?.message}
+              {...register("passwordConfirm")}
+              errors={errors.passwordConfirm?.message}
             />
 
             <ButtonField

@@ -5,7 +5,7 @@ import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import AuthComponent from "components/AuthComponent";
 import ForgotPassNotify from "components/ForgotPassNotify";
-import SendMailForgot from "components/SendMail";
+import SendMailForgot from "features/Home/components/SendMail";
 
 const ForgotPass = () => {
   useEffect(() => {

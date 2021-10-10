@@ -1,4 +1,5 @@
-import { schemaChangePassJobSeeker } from "common/constants/schema";
+import { resetPassword } from "features/Home/api/home.api";
+import { schemaChangePassForgot } from "common/constants/schema";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
@@ -8,6 +9,7 @@ import AuthComponent from "components/AuthComponent";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import notification from "components/Notification";
 
 const ChangePassForgot = () => {
   const { t } = useTranslation();
@@ -20,7 +22,7 @@ const ChangePassForgot = () => {
     formState: { errors },
   } = useForm({
     mode: "all",
-    resolver: yupResolver(schemaChangePassJobSeeker),
+    resolver: yupResolver(schemaChangePassForgot),
   });
 
   useEffect(() => {
@@ -29,9 +31,21 @@ const ChangePassForgot = () => {
     }
   });
 
-  const onSubmit = (data) => {
-    history.replace("/home/sign-in");
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const result = await resetPassword(data, token);
+      if (result.status === "success") {
+        notification(`${t("Password recovery successful")}`, "success");
+        history.push("/home/sign-in");
+      } else {
+        notification(`${t("Token is invalid or expired")}`, "error");
+      }
+    } catch (error) {
+      notification(
+        `${t("Error! An error occurred. Please try again later")}`,
+        "error"
+      );
+    }
   };
 
   return (
@@ -65,8 +79,8 @@ const ChangePassForgot = () => {
             <InputField
               type="password"
               placeholder={t("phd-confirm-pass")}
-              {...register("confirmPassword")}
-              errors={errors.confirmPassword?.message}
+              {...register("passwordConfirm")}
+              errors={errors.passwordConfirm?.message}
             />
 
             <ButtonField

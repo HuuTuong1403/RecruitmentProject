@@ -40,8 +40,6 @@ export const signInGuestAsync = createAsyncThunk(
   "home/signInGuest",
   async (payload) => {
     const res = await signInGuest(payload);
-    console.log(payload);
-    console.log(res);
     return res;
   }
 );

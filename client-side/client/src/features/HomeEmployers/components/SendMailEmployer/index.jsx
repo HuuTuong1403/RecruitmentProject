@@ -1,3 +1,4 @@
+import { forgotPassEmployer } from "features/HomeEmployers/api/homeEmployer.api";
 import { Link } from "react-router-dom";
 import { schemaSendMail } from "common/constants/schema";
 import { useForm } from "react-hook-form";
@@ -6,8 +7,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import notification from "components/Notification";
 
-const SendMailForgot = (props) => {
+const SendMailForgotEmployer = (props) => {
   const { t } = useTranslation();
   const { changeToNotify } = props;
   const {
@@ -19,24 +21,40 @@ const SendMailForgot = (props) => {
     resolver: yupResolver(schemaSendMail),
   });
 
-  const onSubmit = (data) => {
-    changeToNotify();
+  const onSubmit = async (data) => {
+    try {
+      const result = await forgotPassEmployer(data);
+      if (result.status === "success") {
+        notification(
+          `${t("Password recovery request has been sent successfully")}`,
+          "success"
+        );
+        changeToNotify();
+      } else {
+        notification(`${t("Email address not found in system")}`, "error");
+      }
+    } catch (error) {
+      notification(
+        `${t("Error! An error occurred. Please try again later")}`,
+        "error"
+      );
+    }
   };
 
   return (
-    <div className={classes.sendmail}>
-      <div className={classes.sendmail__wrapped}>
-        <div className={classes["sendmail__wrapped--content"]}>
+    <div className={classes.sendmailEmployer}>
+      <div className={classes.sendmailEmployer__wrapped}>
+        <div className={classes["sendmailEmployer__wrapped--content"]}>
           {t("content-sendmail")}
         </div>
-        <div className={classes["sendmail__wrapped--title"]}>
+        <div className={classes["sendmailEmployer__wrapped--title"]}>
           {t("forgotpass")}
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className={classes["sendmail__wrapped--form"]}
+          className={classes["sendmailEmployer__wrapped--form"]}
         >
-          <div className={classes["sendmail__wrapped--form--label"]}>
+          <div className={classes["sendmailEmployer__wrapped--form--label"]}>
             {t("label-email-send")}
           </div>
           <InputField
@@ -64,4 +82,4 @@ const SendMailForgot = (props) => {
   );
 };
 
-export default SendMailForgot;
+export default SendMailForgotEmployer;

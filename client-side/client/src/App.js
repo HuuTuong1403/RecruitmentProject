@@ -3,13 +3,12 @@ import { withTranslation } from "react-i18next";
 import Routers from "./routers";
 
 function App() {
-
   return (
     <div>
       <Routers />
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
