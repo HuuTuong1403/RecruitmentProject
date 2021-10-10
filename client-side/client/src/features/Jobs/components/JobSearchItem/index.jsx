@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom";
-import classes from "./style.module.scss";
-import { FaBuilding } from "react-icons/fa";
-import { BiDollarCircle } from "react-icons/bi";
-import { MdLocationOn } from "react-icons/md";
-import { IoMdCalendar, IoMdTime } from "react-icons/io";
-import moment from "moment";
-import { useTranslation } from "react-i18next";
 import { AiOutlineHeart } from "react-icons/ai";
-import notification from "components/Notification";
-import { useHistory } from "react-router-dom";
+import { BiDollarCircle } from "react-icons/bi";
+import { FaBuilding } from "react-icons/fa";
+import { IoMdCalendar, IoMdTime } from "react-icons/io";
+import { Link } from "react-router-dom";
+import { MdLocationOn } from "react-icons/md";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
+import moment from "moment";
+import notification from "components/Notification";
 
 const JobSearchItem = (props) => {
   const { t } = useTranslation();

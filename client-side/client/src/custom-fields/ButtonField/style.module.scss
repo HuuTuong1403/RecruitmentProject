@@ -1,12 +1,12 @@
-@import "../../common/styles/Variables.scss";
+@import "common/styles/Variables.scss";
 
 .button {
-  padding: 8px 0;
-  border: none;
-  text-transform: uppercase;
   border-radius: 20px;
-  transition: all 0.3s ease-in-out;
+  border: none;
   cursor: pointer;
+  padding: 8px 0;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
 
   &:focus,
   &:hover {
@@ -21,8 +21,8 @@
 
 @media screen and (max-width: 600px) {
   .button {
-    width: 100% !important;
-    margin-bottom: 10px;
     font-size: 14px;
+    margin-bottom: 10px;
+    width: 100% !important;
   }
 }

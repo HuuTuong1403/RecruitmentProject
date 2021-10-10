@@ -1,19 +1,19 @@
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
-import { useForm } from "react-hook-form";
-import AuthComponent from "components/AuthComponent";
-import InputField from "custom-fields/InputField";
-import { schemaSignUpUser } from "common/constants/schema";
-import { Link } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers/yup";
-import ButtonField from "custom-fields/ButtonField";
-import { signUpGuest } from "features/Home/api/home.api";
-import notification from "components/Notification";
 import { Fragment, useState, useEffect } from "react";
-import VerifyNotification from "features/Home/components/VerifyNotification";
+import { Link } from "react-router-dom";
+import { schemaSignUpUser } from "common/constants/schema";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { signUpGuest } from "features/Home/api/home.api";
+import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useTitle } from "common/hook/useTitle";
-import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { useTranslation } from "react-i18next";
+import { yupResolver } from "@hookform/resolvers/yup";
+import AuthComponent from "components/AuthComponent";
+import ButtonField from "custom-fields/ButtonField";
+import classes from "./style.module.scss";
+import InputField from "custom-fields/InputField";
+import notification from "components/Notification";
+import VerifyNotification from "features/Home/components/VerifyNotification";
 
 const SignUpGuest = () => {
   useEffect(() => {

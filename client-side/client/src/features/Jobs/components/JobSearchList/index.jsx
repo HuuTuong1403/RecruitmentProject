@@ -1,11 +1,11 @@
-import JobSearchItem from "../JobSearchItem";
-import classes from "./style.module.scss";
-import { useSelector } from "react-redux";
-import { selectedJobs, selectedStatus } from "features/Jobs/slices/selectors";
-import LoadingSuspense from "components/Loading";
 import { Fragment } from "react";
-import NotFoundSearch from "../NotFoundSearch";
+import { selectedJobs, selectedStatus } from "features/Jobs/slices/selectors";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
+import JobSearchItem from "../JobSearchItem";
+import LoadingSuspense from "components/Loading";
+import NotFoundSearch from "../NotFoundSearch";
 
 const JobSearchList = () => {
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
-import classes from "./style.module.scss";
 import { BiDollarCircle } from "react-icons/bi";
-import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { MdLocationOn } from "react-icons/md";
+import classes from "./style.module.scss";
 
 
 const JobItem = (props) => {

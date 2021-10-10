@@ -1,11 +1,11 @@
 import { lazy } from "react";
 import { PATH, pathJobSeeker, pathEmployer } from "common/constants/path";
 
-const HomePage = lazy(() => import("features/Home"));
-const EmployersHomePage = lazy(() => import("features/HomeEmployers"));
-const JobsPage = lazy(() => import("features/Jobs"));
-const DashboardJobSeekersPage = lazy(() => import("features/JobSeekers"));
 const DashboardEmployersPage = lazy(() => import("features/Employers"));
+const DashboardJobSeekersPage = lazy(() => import("features/JobSeekers"));
+const EmployersHomePage = lazy(() => import("features/HomeEmployers"));
+const HomePage = lazy(() => import("features/Home"));
+const JobsPage = lazy(() => import("features/Jobs"));
 
 export const routes = [
   {

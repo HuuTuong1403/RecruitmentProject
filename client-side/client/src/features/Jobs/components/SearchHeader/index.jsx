@@ -1,22 +1,21 @@
-import classes from "./style.module.scss";
-import InputField from "custom-fields/InputField";
-import { useTranslation } from "react-i18next";
-import { FaSearch } from "react-icons/fa";
-import Select from "react-select";
-import ButtonField from "custom-fields/ButtonField";
-import { FaFilter } from "react-icons/fa";
 import { Collapse } from "reactstrap";
-import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { FaFilter } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import { selectedProvinces } from "features/Home/slices/selectors";
 import { selectedSkills } from "../../slices/selectors";
+import { useHistory, useLocation } from "react-router-dom";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import ButtonField from "custom-fields/ButtonField";
+import classes from "./style.module.scss";
+import InputField from "custom-fields/InputField";
+import Select from "react-select";
 
 const SearchHeader = () => {
   let query = new URLSearchParams(useLocation().search);
   const history = useHistory();
   const { t } = useTranslation();
-
   const searchKey = useRef();
   const [isOpen, setIsOpen] = useState(false);
   const type = query.get("type");

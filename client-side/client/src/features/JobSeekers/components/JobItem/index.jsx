@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
-import classes from "./style.module.scss";
-import { FaBuilding } from "react-icons/fa";
 import { BiDollarCircle } from "react-icons/bi";
-import { MdLocationOn, MdDeleteForever } from "react-icons/md";
+import { FaBuilding } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
-import moment from "moment";
+import { Link } from "react-router-dom";
+import { MdLocationOn, MdDeleteForever } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import ButtonField from "custom-fields/ButtonField";
+import classes from "./style.module.scss";
+import moment from "moment";
 
 const JobItem = (props) => {
   const { t } = useTranslation();

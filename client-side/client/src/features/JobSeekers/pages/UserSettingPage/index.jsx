@@ -1,13 +1,13 @@
-import classes from "./style.module.scss";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schemaChangePassSignIn } from "common/constants/schema";
-import InputField from "custom-fields/InputField";
 import { FiLock } from "react-icons/fi";
-import ButtonField from "custom-fields/ButtonField";
+import { schemaChangePassSignIn } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
-import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
 import { useTitle } from "common/hook/useTitle";
+import { useTranslation } from "react-i18next";
+import { yupResolver } from "@hookform/resolvers/yup";
+import ButtonField from "custom-fields/ButtonField";
+import classes from "./style.module.scss";
+import InputField from "custom-fields/InputField";
 
 const UserSettingPage = () => {
   ScrollTop();

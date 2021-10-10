@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Input } from "reactstrap";
-import classes from "./style.module.scss";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Input } from "reactstrap";
+import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
+import React, { useState } from "react";
 
 const WrappedInput = React.forwardRef((props, ref) => {
   const { icon, errors } = props;

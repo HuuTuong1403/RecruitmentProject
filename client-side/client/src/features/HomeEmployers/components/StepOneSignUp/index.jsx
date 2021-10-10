@@ -1,15 +1,15 @@
-import InputField from "custom-fields/InputField";
-import ButtonField from "custom-fields/ButtonField";
-import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
-import { schemaSignUpStep1 } from "common/constants/schema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import classes from "./style.module.scss";
-import { MdPhone } from "react-icons/md";
-import { IoMdMail } from "react-icons/io";
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { IoMdMail } from "react-icons/io";
+import { MdPhone } from "react-icons/md";
+import { schemaSignUpStep1 } from "common/constants/schema";
 import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { yupResolver } from "@hookform/resolvers/yup";
+import ButtonField from "custom-fields/ButtonField";
+import classes from "./style.module.scss";
+import InputField from "custom-fields/InputField";
 
 const StepOneSignUp = (props) => {
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
-import classes from "./styles.module.scss";
-import animationData from "assets/lottie/pageNotFound.json";
-import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
+import animationData from "assets/lottie/pageNotFound.json";
+import classes from "./styles.module.scss";
+import Lottie from "lottie-react";
 
 const Page404 = () => {
   return (

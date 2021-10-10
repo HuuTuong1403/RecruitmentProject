@@ -1,26 +1,19 @@
-import InputField from "custom-fields/InputField";
-import ButtonField from "custom-fields/ButtonField";
-import { useTranslation } from "react-i18next";
-import { useForm, Controller } from "react-hook-form";
-import { schemaSignUpStep2 } from "common/constants/schema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Fragment } from "react";
-import classes from "./style.module.scss";
-import { useDispatch, useSelector } from "react-redux";
 import { addInfoSignUp } from "features/HomeEmployers/slices";
-import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
-import {
-  selectedDistricts,
-  selectedProvinces,
-  selectedWards,
-} from "features/Home/slices/selectors";
 import { FaBuilding } from "react-icons/fa";
+import { fetchDistrictsByProvinceAsync, fetchWardsByDistrictsAsync } from "features/Home/slices/thunks";
+import { Fragment } from "react";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
+import { schemaSignUpStep2 } from "common/constants/schema";
+import { selectedDistricts, selectedProvinces, selectedWards } from "features/Home/slices/selectors";
+import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
+import { yupResolver } from "@hookform/resolvers/yup";
+import ButtonField from "custom-fields/ButtonField";
+import classes from "./style.module.scss";
+import InputField from "custom-fields/InputField";
 import Select from "react-select";
-import {
-  fetchDistrictsByProvinceAsync,
-  fetchWardsByDistrictsAsync,
-} from "features/Home/slices/thunks";
 
 const StepTwoSignUp = (props) => {
   const { t } = useTranslation();

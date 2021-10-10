@@ -1,13 +1,13 @@
-import classes from "./style.module.scss";
-import Select from "react-select";
-import { useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ReactTypingEffect from "react-typing-effect";
-import InputField from "custom-fields/InputField";
 import { FaSearch } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { selectedProvinces } from "features/Home/slices/selectors";
 import { useHistory } from "react-router";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
+import InputField from "custom-fields/InputField";
+import ReactTypingEffect from "react-typing-effect";
+import Select from "react-select";
 
 const BannerHome = () => {
   const { t } = useTranslation();

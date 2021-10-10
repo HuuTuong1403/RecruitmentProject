@@ -1,25 +1,31 @@
-import AuthComponent from "components/AuthComponent";
-import ChangePassForgot from "features/Home/components/ChangePass";
-import SendMailForgot from "features/Home/components/SendMail";
-import { useLocation, useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
+import AuthComponent from "components/AuthComponent";
+import ForgotPassNotify from "components/ForgotPassNotify";
+import SendMailForgot from "components/SendMail";
 
 const ForgotPass = () => {
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("token");
-    if (isLoggedIn) history.push("/home");
+    const user = selectJobSeekerLocal();
+    if (user) history.push("/home");
   });
   const { t } = useTranslation();
   const history = useHistory();
-  let query = new URLSearchParams(useLocation().search);
-  let type = query.get("type");
+  const [isNotify, setIsNotify] = useState(false);
   useTitle(`${t("forgotpass")}`);
+
+  const changeToNotifyHandler = () => setIsNotify((prevState) => !prevState);
 
   return (
     <AuthComponent>
-      {type !== "change" ? <SendMailForgot /> : <ChangePassForgot />}
+      {!isNotify ? (
+        <SendMailForgot changeToNotify={changeToNotifyHandler} />
+      ) : (
+        <ForgotPassNotify />
+      )}
     </AuthComponent>
   );
 };

@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import classes from "./style.module.scss";
-import { IoPersonCircle } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
-import { RiFileList3Line } from "react-icons/ri";
-import { useTranslation } from "react-i18next";
 import { Fragment } from "react";
+import { IoPersonCircle } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { RiFileList3Line } from "react-icons/ri";
 import { selectEmployerLocal } from "features/Employers/slices/selectors";
+import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
 
 const BannerHomeEmp = () => {
   const { t } = useTranslation();

@@ -1,24 +1,24 @@
+import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { FaGoogle } from "react-icons/fa";
 import { FiLock, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { schemaSignInUser } from "common/constants/schema";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { signInGuestAsync } from "features/Home/slices/thunks";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AuthComponent from "components/AuthComponent";
+import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
-import ButtonField from "custom-fields/ButtonField";
-import { useDispatch } from "react-redux";
-import { signInGuestAsync } from "features/Home/slices/thunks";
 import notification from "components/Notification";
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { useTitle } from "common/hook/useTitle";
-import { useLocation } from "react-router-dom";
-import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
-import { selectEmployerLocal } from "features/Employers/slices/selectors";
-import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 
 const SignInGuest = () => {
   useEffect(() => {

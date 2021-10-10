@@ -1,20 +1,20 @@
 import { addInfoSignUp } from "features/HomeEmployers/slices";
 import { Fragment, useRef, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
+import { MdFileUpload } from "react-icons/md";
 import { schemaSignUpStep3 } from "common/constants/schema";
 import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
+import { signUpEmployer } from "features/HomeEmployers/api/homeEmployer.api";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
-import Select from "react-select";
-import { MdFileUpload } from "react-icons/md";
 import notification from "components/Notification";
-import { useHistory } from "react-router-dom";
-import { signUpEmployer } from "features/HomeEmployers/api/homeEmployer.api";
+import Select from "react-select";
 
 const StepThreeSignUp = (props) => {
   const { t } = useTranslation();

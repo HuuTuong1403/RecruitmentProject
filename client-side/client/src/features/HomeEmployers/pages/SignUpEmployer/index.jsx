@@ -1,18 +1,18 @@
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
-import AuthComponent from "components/AuthComponent";
-import { Link } from "react-router-dom";
-import StepOneSignUp from "features/HomeEmployers/components/StepOneSignUp";
-import StepTwoSignUp from "features/HomeEmployers/components/StepTwoSignUp";
-import StepThreeSignUp from "features/HomeEmployers/components/StepThreeSignUp";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { addInfoSignUp } from "features/HomeEmployers/slices";
-import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
-import { useTitle } from "common/hook/useTitle";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { selectEmployerLocal } from "features/Employers/slices/selectors";
+import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useTitle } from "common/hook/useTitle";
+import { useTranslation } from "react-i18next";
+import AuthComponent from "components/AuthComponent";
+import classes from "./style.module.scss";
+import StepOneSignUp from "features/HomeEmployers/components/StepOneSignUp";
+import StepThreeSignUp from "features/HomeEmployers/components/StepThreeSignUp";
+import StepTwoSignUp from "features/HomeEmployers/components/StepTwoSignUp";
 
 const SignUpEmployer = () => {
   useEffect(() => {

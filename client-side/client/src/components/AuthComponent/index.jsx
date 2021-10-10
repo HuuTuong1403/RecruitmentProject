@@ -1,10 +1,10 @@
-import Lottie from "lottie-react";
-import classes from "./style.module.scss";
-import LogInAnimation from "assets/lottie/login.json";
-import RegisterAnimation from "assets/lottie/register.json";
-import EmployersLogin from "assets/lottie/employers-login.json";
 import { useRouteMatch } from "react-router";
 import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
+import EmployersLogin from "assets/lottie/employers-login.json";
+import LogInAnimation from "assets/lottie/login.json";
+import Lottie from "lottie-react";
+import RegisterAnimation from "assets/lottie/register.json";
 
 const AuthComponent = (props) => {
   const { url } = useRouteMatch();
@@ -35,6 +35,13 @@ const AuthComponent = (props) => {
             )}
             {url === "/employers/sign-up" && (
               <Lottie animationData={EmployersLogin} />
+            )}
+            {url === "/employers/forgot-pass" && (
+              <img
+                src="https://res.cloudinary.com/university-of-education-technology/image/upload/v1632905416/nqu7stknbrswdvf3pouf.jpg"
+                alt="ForgotPassImage"
+                style={{ maxWidth: "100%" }}
+              />
             )}
           </div>
           <div className={classes["auth__container--wrapped--column-right"]}>

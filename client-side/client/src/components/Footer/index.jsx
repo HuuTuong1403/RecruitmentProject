@@ -1,9 +1,9 @@
-import classes from "./styles.module.scss";
-import MSTLogo from "assets/images/mst_logo.png";
-import DK from "assets/images/dk.png";
 import { FaFacebookF } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import classes from "./styles.module.scss";
+import DK from "assets/images/dk.png";
+import MSTLogo from "assets/images/mst_logo.png";
 
 const Footer = () => {
   const { t } = useTranslation();

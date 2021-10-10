@@ -1,4 +1,4 @@
-@import "../../common/styles/Variables.scss";
+@import "common/styles/Variables.scss";
 
 .input {
   margin-bottom: 10px;
@@ -6,50 +6,50 @@
 
   &__inputfield {
     border-radius: 20px;
-    text-indent: 20px;
     color: $primary-text;
     font-size: $text-base;
+    text-indent: 20px;
 
     &::placeholder {
-      opacity: 0.7;
       color: $primary-text;
+      opacity: 0.7;
       text-indent: $text-xl;
     }
   }
 
   &__noneicon {
     border-radius: 20px;
-    text-indent: 0;
     color: $primary-text;
     font-size: 16px;
+    text-indent: 0;
 
     &::placeholder {
-      text-indent: 0;
-      opacity: 0.7;
       color: $primary-text;
+      opacity: 0.7;
+      text-indent: 0;
     }
   }
 
   & > p {
     color: red;
-    margin-top: 8px;
     font-size: 13px;
     font-style: italic;
+    margin-top: 8px;
   }
 
   &__prefix {
+    font-size: $text-lg;
+    left: 10px;
     position: absolute;
     top: 4px;
-    left: 10px;
-    font-size: $text-lg;
   }
 
   &__suffix {
+    cursor: pointer;
+    font-size: $text-lg;
     position: absolute;
     right: 10px;
     top: 4px;
-    font-size: $text-lg;
-    cursor: pointer;
   }
 }
 

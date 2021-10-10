@@ -1,21 +1,21 @@
 import "antd/dist/antd.css";
-import classes from "./style.module.scss";
-import { Menu, Layout } from "antd";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { RiLogoutCircleRLine, RiFileList3Line } from "react-icons/ri";
-import { useTranslation } from "react-i18next";
-import notification from "components/Notification";
-import { MdSettings, MdAccountCircle } from "react-icons/md";
 import { AiFillDashboard } from "react-icons/ai";
-import { MdMenu } from "react-icons/md";
-import { useState } from "react";
-import { pathEmployer } from "common/constants/path";
-import { IoIosPeople } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { selectedStatus } from "features/Employers/slices/selectors";
+import { IoIosPeople } from "react-icons/io";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { logoutEmployer } from "features/HomeEmployers/slices";
+import { MdMenu } from "react-icons/md";
+import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { Menu, Layout } from "antd";
+import { pathEmployer } from "common/constants/path";
+import { RiLogoutCircleRLine, RiFileList3Line } from "react-icons/ri";
+import { selectedStatus } from "features/Employers/slices/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
+import notification from "components/Notification";
 
 const MenuEmployer = (props) => {
   const { t } = useTranslation();
