@@ -159,8 +159,15 @@ export const schemaChangePassEmployer = yup
 export const schemaPostJobEmployer = yup.object({
   jobTitle: yup.string().required("error-jobTitle-postJob"),
   address: yup.string().required("error-workplace-postJob"),
-  min: yup.string().required("error-minSalary-postJob"),
-  max: yup.string().required("error-maxSalary-postJob"),
+  min: yup
+    .string()
+    .required("error-minSalary-postJob")
+    .matches(/^\d+$/, "error-salary-number"),
+  max: yup
+    .string()
+    .required("error-maxSalary-postJob")
+    .matches(/^\d+$/, "error-salary-number")
+    .notOneOf([yup.ref("min"), null], "error-salary-minEqualMax"),
   description: yup.string().required("error-jobDescription-postJob"),
   requirements: yup.string().required("error-jobRequirement-postJob"),
   province: yup
