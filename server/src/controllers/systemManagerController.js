@@ -1,12 +1,19 @@
+const fs = require('fs');
 const Employer = require('./../models/employerModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const Token = require('./../services/token');
+const sendEmail = require('./../services/email');
+var issueAcountEmailFiles = fs.readFileSync(
+  `${__dirname}/../public/IssueAccount/IssueAccountEmail.html`,
+  'utf-8'
+);
 class systemManagerController {
   getAllEmployer = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Employer.find(), {
       status: 'unapproval',
+      isEmailVerified: 'true',
     })
       .sort()
       .limitFields();
@@ -50,14 +57,39 @@ class systemManagerController {
     employer.status = 'approval';
 
     await employer.save();
-    employer.password = undefined;
 
-    res.status(200).json({
-      status: 'success',
-      data: {
-        employer,
-      },
-    });
+    //Send email to employer
+    var content = issueAcountEmailFiles.replace(
+      /{%username%}/g,
+      req.body.username
+    );
+    content = content.replace(/{%password%}/g, req.body.password);
+    try {
+      await sendEmail({
+        email: employer.email,
+        subject: `[MST-Company] Yêu cầu cấp tài khoản cho công ty ${employer.companyName} thành công`,
+        content,
+      });
+      employer.password = undefined;
+      res.status(200).json({
+        status: 'success',
+        data: {
+          employer,
+        },
+      });
+    } catch (err) {
+      employer.username = undefined;
+      employer.password = undefined;
+      employer.status = 'unapproval';
+
+      await employer.save({ validateBeforeSave: false });
+      return next(
+        new AppError(
+          'There was an error sending this email. Try again later!',
+          500
+        )
+      );
+    }
   });
 }
 

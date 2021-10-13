@@ -3,6 +3,7 @@ const employerRouter = express.Router();
 const employerController = require('./../controllers/employerController');
 const authController = require('./../controllers/authController');
 
+
 employerRouter.route('/login').post(authController.loginEmployer);
 employerRouter
   .route('/authentication/:token')

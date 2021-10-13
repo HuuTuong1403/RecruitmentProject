@@ -10,7 +10,6 @@ const systemManagerSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      unique: [true, 'Email bị trùng. Vui lòng thử email khác'],
       trim: true,
       validate: [validator.isEmail, 'Vui lòng cung cấp email hợp lệ'],
     },
@@ -23,6 +22,7 @@ const systemManagerSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Vui lòng nhập mật khẩu'],
       trim: true,
+      select: false,
     },
     passwordConfirm: {
       type: String,
@@ -37,7 +37,6 @@ const systemManagerSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      unique: [true, 'Số điện thoại bị trùng. Hãy thử lại số điện thoại khác'],
       validate: {
         validator: function (val) {
           return val.match(
@@ -54,13 +53,20 @@ const systemManagerSchema = new mongoose.Schema(
       unique: [true, 'Usename bị trùng. Vui lòng thử lại username khác'],
       trim: true,
     },
+    authenToken: String,
+    authenTokenExpired: Date,
+    passwordChangeAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 systemManagerSchema.virtual('role').get(function () {
-  return 'systemAdmin';
+  return 'systemmanager';
 });
 systemManagerSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
@@ -76,6 +82,36 @@ systemManagerSchema.methods.correctPassword = async function (
   userPassword
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+systemManagerSchema.methods.createAuthenToken = function () {
+  const authenToken = crypto.randomBytes(23).toString('hex');
+
+  this.authenToken = crypto
+    .createHash('sha256')
+    .update(authenToken)
+    .digest('hex');
+
+  this.authenTokenExpired = Date.now() + 10 * 60 * 1000;
+  return authenToken;
+};
+systemManagerSchema.methods.createPasswordResetToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+  return resetToken;
+};
+systemManagerSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangeAt) {
+    const changedTimestamp = parseInt(
+      this.passwordChangeAt.getTime() / 1000,
+      10
+    );
+    return JWTTimestamp < changedTimestamp;
+  }
+  return false;
 };
 const SystemManager = mongoose.model('SystemManager', systemManagerSchema);
 module.exports = SystemManager;

@@ -1,13 +1,15 @@
 const fs = require('fs');
 const crypto = require('crypto');
-const JobSeeker = require('./../models/job-seekerModel');
-const SystemManager = require('./../models/system-managerModel');
+
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Token = require('./../services/token');
-const Employer = require('./../models/employerModel');
 const sendEmail = require('./../services/email');
 
+const JobSeeker = require('./../models/job-seekerModel');
+const SystemManager = require('./../models/system-managerModel');
+const Employer = require('./../models/employerModel');
+const SystemAdmin = require('./../models/system-adminModel');
 var confirmEmailFiles = fs.readFileSync(
   `${__dirname}/../public/ConfirmEmail/ConfirmEmail.html`,
   'utf-8'
@@ -358,6 +360,7 @@ class authController {
       passwordConfirm: req.body.passwordConfirm,
       username: req.body.username,
     });
+    newSystemManager.password = undefined;
     res.status(201).json({
       status: 'success',
       data: {
@@ -365,5 +368,178 @@ class authController {
       },
     });
   });
+  loginSystemManager = catchAsync(async (req, res, next) => {
+    const { username, password } = req.body;
+    //Check if login information is exists
+    if (!username || !password) {
+      return next(new AppError('Please provide enough login information', 400));
+    }
+    //Check if login information is correct
+    const systemManager = await SystemManager.findOne({ username }).select(
+      '+password'
+    );
+    if (
+      !systemManager ||
+      !(await systemManager.correctPassword(password, systemManager.password))
+    ) {
+      return next(
+        new AppError('Incorrect login information, please try again'),
+        401
+      );
+    }
+    systemManager.password = undefined;
+    const token = Token.signToken(systemManager._id);
+    res.status(200).json({
+      status: 'success',
+      token,
+      data: {
+        systemManager: systemManager,
+      },
+    });
+  });
+  signUpSystemAdmin = catchAsync(async (req, res, next) => {
+    const newSysteAdmin = await SystemAdmin.create({
+      email: req.body.email,
+      fullname: req.body.fullname,
+      password: req.body.password,
+      passwordConfirm: req.body.passwordConfirm,
+      username: req.body.username,
+    });
+    newSysteAdmin.password = undefined;
+    res.status(201).json({
+      status: 'success',
+      data: {
+        systemAdmin: newSysteAdmin,
+      },
+    });
+  });
+  loginSystemAdmin = catchAsync(async (req, res, next) => {
+    const { username, password } = req.body;
+    //Check if login information is exists
+    if (!username || !password) {
+      return next(new AppError('Please provide enough login information', 400));
+    }
+    //Check if login information is correct
+    const systemAdmin = await SystemAdmin.findOne({ username }).select(
+      '+password'
+    );
+    if (
+      !systemAdmin ||
+      !(await systemAdmin.correctPassword(password, systemAdmin.password))
+    ) {
+      return next(
+        new AppError('Incorrect login information, please try again'),
+        401
+      );
+    }
+    systemAdmin.password = undefined;
+    const token = Token.signToken(systemAdmin._id);
+    res.status(200).json({
+      status: 'success',
+      token,
+      data: {
+        systemAdmin,
+      },
+    });
+  });
+  protect = catchAsync(async (req, res, next) => {
+    let token;
+    //1) Getting token and check of it's there
+    if (
+      req.headers.authorization &&
+      req.headers.authorization.startsWith('Bearer')
+    ) {
+      token = req.headers.authorization.split(' ')[1];
+    }
+    if (!token) {
+      return next(
+        new AppError(
+          'Bạn không có quyền truy cập vào chức năng này. Vui lòng đăng nhập vào hệ thống',
+          401
+        )
+      );
+    }
+    //2) Verification token
+    const decoded = await Token.decodedToken(token);
+    //3) Check if user still exit
+    let freshUser = undefined;
+    freshUser = await SystemAdmin.findById(decoded.id);
+    if (freshUser) {
+      //4) Check if user change password after the token is issued
+      if (freshUser.changedPasswordAfter(decoded.iat)) {
+        return next(
+          new AppError(
+            'User recently changed password! Pleae log in again',
+            401
+          )
+        );
+      }
+      //GRANT ACCESS TO PROTECTED ROUTE
+      req.user = freshUser;
+      return next();
+    }
+    freshUser = await SystemManager.findById(decoded.id);
+    if (freshUser) {
+      //4) Check if user change password after the token is issued
+      if (freshUser.changedPasswordAfter(decoded.iat)) {
+        return next(
+          new AppError(
+            'User recently changed password! Pleae log in again',
+            401
+          )
+        );
+      }
+      //GRANT ACCESS TO PROTECTED ROUTE
+      req.user = freshUser;
+      return next();
+    }
+    freshUser = await Employer.findById(decoded.id);
+    if (freshUser) {
+      //4) Check if user change password after the token is issued
+      if (freshUser.changedPasswordAfter(decoded.iat)) {
+        return next(
+          new AppError(
+            'User recently changed password! Pleae log in again',
+            401
+          )
+        );
+      }
+      //GRANT ACCESS TO PROTECTED ROUTE
+      req.user = freshUser;
+      return next();
+    }
+    freshUser = await JobSeeker.findById(decoded.id);
+    if (freshUser) {
+      //4) Check if user change password after the token is issued
+      if (freshUser.changedPasswordAfter(decoded.iat)) {
+        return next(
+          new AppError(
+            'User recently changed password! Pleae log in again',
+            401
+          )
+        );
+      }
+      //GRANT ACCESS TO PROTECTED ROUTE
+      req.user = freshUser;
+      return next();
+    }
+    return next(
+      new AppError(
+        'The user belonging to this token does no longer exist.',
+        401
+      )
+    );
+  });
+  restrictTo = (...roles) => {
+    return (req, res, next) => {
+      if (!roles.includes(req.user.role)) {
+        return next(
+          new AppError('You do not have permission to perform this action'),
+          403
+        );
+      }
+      next();
+    };
+  };
 }
 module.exports = new authController();
