@@ -1,0 +1,23 @@
+@import "common/styles/Variables.scss";
+
+.signIn {
+  text-align: start;
+  padding: 0 $pm-20;
+
+  &__link {
+    text-align: end;
+    margin-bottom: $pm-10;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .signIn {
+    padding: 0 $pm-16;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .signIn {
+    padding: 0 $pm-12;
+  }
+}

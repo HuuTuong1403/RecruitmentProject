@@ -1,0 +1,28 @@
+@import "common/styles/Variables.scss";
+
+.button {
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+
+  &:focus,
+  &:hover {
+    outline: none;
+  }
+}
+
+.disabled {
+  background-color: grey !important;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 600px) {
+  .button {
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 100% !important;
+  }
+}

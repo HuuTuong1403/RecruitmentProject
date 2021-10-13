@@ -1,0 +1,199 @@
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
+import { IoPersonCircle, IoMenu } from "react-icons/io5";
+//   import { logoutJobSeeker } from "features/Home/slices";
+// import { MdSettings } from "react-icons/md";
+// import { RiLogoutCircleRLine } from "react-icons/ri";
+//   import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+//   import { useDispatch } from "react-redux";
+import { useHistory, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useWindowSize } from "../../common/hook/useWindowSize";
+import classes from "./style.module.scss";
+import MSTLogo from "assets/images/mst_logo.png";
+// import notification from "components/Notification";
+import ReactCountryFlag from "react-country-flag";
+
+const Header = () => {
+  const history = useHistory();
+  const { t, i18n } = useTranslation();
+  const [lang, setLang] = useState(localStorage.getItem("lang") || "en-ES");
+  const [toggle, setToggle] = useState(false);
+  const [width] = useWindowSize();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  //   const [dropdownHover, setDropDownHover] = useState(false);
+  // const user = selectJobSeekerLocal();
+  const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
+  // const dispatch = useDispatch();
+
+  const clickLogoHandler = () => {
+    history.push("/");
+  };
+
+  //   const hoverProfileHandler = () => setDropDownHover((prevState) => !prevState);
+
+  const toggleMenuHandler = () => {
+    setToggle((prevState) => (prevState = !prevState));
+  };
+
+  const toggleMenuChildClick = () => {
+    setToggle(false);
+  };
+
+  const changeLangViHandler = () => {
+    i18n.changeLanguage("vi-VN");
+    setLang("vi-VN");
+    setToggle(false);
+    localStorage.setItem("lang", "vi-VN");
+  };
+
+  const changeLangEnHandler = () => {
+    i18n.changeLanguage("en-ES");
+    setLang("en-ES");
+    setToggle(false);
+    localStorage.setItem("lang", "en-ES");
+  };
+
+  //   const logoutHandler = () => {
+  //     //   dispatch(logoutJobSeeker());
+  //     notification(`${t("Log out successful")}`, "success");
+  //   };
+
+  const styleResize =
+    width <= 768
+      ? toggle
+        ? { display: "block" }
+        : { display: "none" }
+      : { display: "flex" };
+
+  return (
+    <header className={classes.header}>
+      <div>
+        <img
+          onClick={clickLogoHandler}
+          src={MSTLogo}
+          alt="MST LOGO"
+          className={classes.header__logo}
+        />
+      </div>
+      <div style={styleResize} className={classes["header__block-right"]}>
+        <Dropdown
+          isOpen={dropdownOpen}
+          toggle={toggleDropdown}
+          className={classes["header__lang"]}
+        >
+          <DropdownToggle caret>
+            {lang.slice(0, 2).toUpperCase()}
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem>
+              <div onClick={changeLangViHandler}>
+                <ReactCountryFlag
+                  countryCode="VN"
+                  svg
+                  className={classes["header__ic--flag"]}
+                />
+                VI
+              </div>
+            </DropdownItem>
+            <DropdownItem>
+              <div onClick={changeLangEnHandler}>
+                <ReactCountryFlag
+                  countryCode="US"
+                  svg
+                  className={classes["header__ic--flag"]}
+                />
+                EN
+              </div>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+        <NavLink
+          activeClassName={classes["header__link--active"]}
+          to={`/`}
+          className={classes["header__link"]}
+          onClick={toggleMenuChildClick}
+        >
+          <IoPersonCircle className={classes["header__link--person"]} />
+          {t("signin")}
+        </NavLink>
+      </div>
+      <div className={classes["header__ic--menu"]}>
+        <IoMenu onClick={toggleMenuHandler} />
+      </div>
+    </header>
+  );
+};
+
+{
+  /* <Link to="/employers" className={classes["header__link--emp"]}>
+          <span>{t("employers")}</span>
+          <br />
+          <span>{t("postjobs")}</span>
+        </Link> */
+}
+
+{
+  /* <div>
+            <Dropdown
+              isOpen={dropdownHover}
+              toggle={hoverProfileHandler}
+              onMouseEnter={hoverProfileHandler}
+              onMouseLeave={hoverProfileHandler}
+              className={classes["header__lang"]}
+            >
+              <DropdownToggle caret>
+                <Link
+                  to={`/jobseekers/my-profile`}
+                  onClick={toggleMenuChildClick}
+                >
+                  <IoPersonCircle className={classes["header__link--person"]} />
+                   {user.fullname}
+                </Link>
+              </DropdownToggle>
+              <DropdownMenu>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/my-profile`}
+                >
+                  {t("Account Management")}
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/job-alert`}
+                >
+                  {t("My Job Alerts")}
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/job-saved`}
+                >
+                  {t("My Jobs")}
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/setting-account`}
+                >
+                  <MdSettings className={classes["header__link--person"]} />
+                  {t("Settings")}
+                </Link>
+                <Link
+                  to="/"
+                  className={classes["header__lang--profile"]}
+                  onClick={logoutHandler}
+                >
+                  <RiLogoutCircleRLine
+                    className={classes["header__link--person"]}
+                  />
+                  {t("Log out")}
+                </Link>
+              </DropdownMenu>
+            </Dropdown>
+          </div> */
+}
+export default Header;
