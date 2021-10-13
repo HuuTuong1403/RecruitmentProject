@@ -106,7 +106,7 @@ const HeaderEmployers = () => {
             >
               <DropdownToggle caret>
                 <Link
-                  to={`/jobseekers/my-profile`}
+                  to={`/employers/dashboard/my-profile`}
                   onClick={toggleMenuChildClick}
                 >
                   <IoPersonCircle className={classes["header__link--person"]} />

@@ -1,12 +1,11 @@
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Input } from "reactstrap";
-import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
-import React, { useState } from "react";
+import ErrorText from "components/ErrorText";
+import { useState, forwardRef } from "react";
 
-const WrappedInput = React.forwardRef((props, ref) => {
+const WrappedInput = forwardRef((props, ref) => {
   const { icon, errors } = props;
-  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
 
   const changeVisibleHandler = () => {
@@ -43,7 +42,7 @@ const WrappedInput = React.forwardRef((props, ref) => {
           )}
         </div>
       )}
-      {errors && <p>{t(errors)}</p>}
+      <ErrorText errors={errors} />
     </div>
   );
 });

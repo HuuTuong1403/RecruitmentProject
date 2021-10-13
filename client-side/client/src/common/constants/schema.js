@@ -155,3 +155,31 @@ export const schemaChangePassEmployer = yup
       .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),
   })
   .required();
+
+export const schemaPostJobEmployer = yup.object({
+  jobTitle: yup.string().required("error-jobTitle-postJob"),
+  address: yup.string().required("error-workplace-postJob"),
+  min: yup.string().required("error-minSalary-postJob"),
+  max: yup.string().required("error-maxSalary-postJob"),
+  description: yup.string().required("error-jobDescription-postJob"),
+  requirements: yup.string().required("error-jobRequirement-postJob"),
+  province: yup
+    .string()
+    .notOneOf(
+      ["Chọn tỉnh/thành...", "Choose province..."],
+      "error-select-province"
+    ),
+  district: yup
+    .string()
+    .notOneOf(
+      ["Chọn quận/huyện...", "Choose district..."],
+      "error-select-district"
+    ),
+  ward: yup
+    .string()
+    .notOneOf(["Chọn phường/xã...", "Choose ward..."], "error-select-ward"),
+  level: yup
+    .string()
+    .notOneOf(["Chọn cấp bậc...", "Choose level..."], "error-select-level"),
+  finishDate: yup.string().required("error-select-date-deadline"),
+});

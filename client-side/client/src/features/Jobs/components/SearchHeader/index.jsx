@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import LabelField from "custom-fields/LabelField";
 import Select from "react-select";
 
 const SearchHeader = () => {
@@ -90,9 +91,7 @@ const SearchHeader = () => {
       history.push("/jobs/search?type=all");
     } else {
       const province =
-        selectProvince === "Tất cả" || selectProvince === ""
-          ? ""
-          : `location%city=${selectProvince}&`;
+        selectProvince === "Tất cả" ? "" : `location%city=${selectProvince}&`;
       const keyword = textKey === "" ? "" : `jobTitle=${textKey}&`;
       const salary =
         selectSalary === "Tất cả" ? "" : `salary%min[gte]=${selectSalary}&`;
@@ -171,7 +170,7 @@ const SearchHeader = () => {
           >
             <div className={classes["searchHeader__collapse--form--top"]}>
               <div>
-                <label>{t("Salary")}</label>
+                <LabelField label={t("Salary")} />
                 <Select
                   options={optionsSalry}
                   value={optionsSalry.filter((salary) => {
@@ -181,15 +180,15 @@ const SearchHeader = () => {
                 />
               </div>
               <div>
-                <label>{t("Level")}</label>
+                <LabelField label={t("Level")} />
                 <InputField placeholder={t("search-key")} icon={<FaSearch />} />
               </div>
               <div>
-                <label>{t("Position")}</label>
+                <LabelField label={t("Position")} />
                 <InputField placeholder={t("search-key")} icon={<FaSearch />} />
               </div>
               <div>
-                <label>{t("Skill")}</label>
+                <LabelField label={t("Skill")} />
                 <Select
                   isMulti
                   placeholder={t("choose skills")}
@@ -199,7 +198,7 @@ const SearchHeader = () => {
                 />
               </div>
               <div>
-                <label>{t("Jobs Posted Within")}</label>
+                <LabelField label={t("Jobs Posted Within")} />
                 <Select
                   options={optionsDateCreate}
                   value={optionsDateCreate.filter((date) => {
