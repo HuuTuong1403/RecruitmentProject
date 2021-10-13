@@ -34,14 +34,6 @@ a:hover {
   text-decoration: underline;
 }
 
-ul,
-ol,
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 .css-9gakcf-option {
   background-color: white !important;
   color: black !important;
@@ -104,4 +96,8 @@ li {
 .ant-menu-item-selected a,
 .ant-menu-item-selected a:hover {
   color: #fff !important;
+}
+
+.ck.ck-editor__editable_inline {
+  height: 150px !important;
 }

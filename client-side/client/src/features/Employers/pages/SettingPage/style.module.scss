@@ -23,12 +23,6 @@
 
       & > div {
         flex: 0 0 60%;
-
-        & > div > label {
-          font-size: $text-lg;
-          margin-bottom: $pm-6;
-          margin-left: $pm-4;
-        }
       }
 
       &--actions {
@@ -86,10 +80,6 @@
       &--changePass {
         & > div {
           flex: 0 0 100%;
-
-          & > div > label {
-            font-size: $text-base;
-          }
         }
 
         &--actions {

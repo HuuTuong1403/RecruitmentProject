@@ -49,3 +49,16 @@ export const signInGuest = async (payload) => {
   const res = await axiosClient.post("job-seeker/login", payload);
   return res;
 };
+
+export const forgotPassJobSeeker = async (payload) => {
+  const res = await axiosClient.post("job-seeker/forgotPassword", payload);
+  return res;
+};
+
+export const resetPassword = async (payload, resetToken) => {
+  const res = await axiosClient.patch(
+    `job-seeker/resetPassword/${resetToken}`,
+    payload
+  );
+  return res;
+};

@@ -1,3 +1,5 @@
+import { fetchProvincesAsync } from "features/Home/slices/thunks";
+import { fetchSkillsAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect, useState } from "react";
 import { getDetailEmployerAsync } from "./slices/thunks";
 import { selectEmployerLocal } from "./slices/selectors";
@@ -35,8 +37,12 @@ const DashboardEmployersPage = () => {
     if (employer && checkLocation !== location.pathname) {
       dispatch(getDetailEmployerAsync());
       setCheckLocation(location.pathname);
+      if (location.pathname === `${url}/post-job`) {
+        dispatch(fetchProvincesAsync());
+        dispatch(fetchSkillsAsync());
+      }
     }
-  }, [dispatch, checkLocation, location, employer]);
+  }, [dispatch, checkLocation, location, employer, url]);
 
   return (
     <Fragment>

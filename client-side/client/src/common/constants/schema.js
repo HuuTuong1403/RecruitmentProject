@@ -7,7 +7,7 @@ export const schemaSignInUser = yup
       .string()
       .required("error-pass-required")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       ),
   })
@@ -29,7 +29,7 @@ export const schemaSignUpUser = yup
       .string()
       .required("error-pass-required")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       ),
     passwordConfirm: yup
@@ -38,16 +38,16 @@ export const schemaSignUpUser = yup
   })
   .required();
 
-export const schemaChangePassJobSeeker = yup
+export const schemaChangePassForgot = yup
   .object({
     password: yup
       .string()
       .required("error-pass-required")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       ),
-    confirmPassword: yup
+    passwordConfirm: yup
       .string()
       .oneOf([yup.ref("password"), null], "error-confirm-pass"),
   })
@@ -68,10 +68,10 @@ export const schemaSignInEmployer = yup
     password: yup
       .string()
       .required("error-pass-required")
-      // .matches(
-      //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-      //   "error-pass-pattern"
-      // ),
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        "error-pass-pattern"
+      ),
   })
   .required();
 
@@ -116,14 +116,14 @@ export const schemaChangePassSignIn = yup
       .string()
       .required("error-currentPass-required")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       ),
     newPassword: yup
       .string()
       .required("error-newPass-required")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       )
       .notOneOf([yup.ref("oldPassword"), null], "error-newPassSameCurrentPass"),
@@ -139,14 +139,14 @@ export const schemaChangePassEmployer = yup
       .string()
       .required("error-currentPass-required")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       ),
     newPassword: yup
       .string()
       .required("error-newPass-required")
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       )
       .notOneOf([yup.ref("oldPassword"), null], "error-newPassSameCurrentPass"),
@@ -155,3 +155,38 @@ export const schemaChangePassEmployer = yup
       .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),
   })
   .required();
+
+export const schemaPostJobEmployer = yup.object({
+  jobTitle: yup.string().required("error-jobTitle-postJob"),
+  address: yup.string().required("error-workplace-postJob"),
+  min: yup
+    .string()
+    .required("error-minSalary-postJob")
+    .matches(/^\d+$/, "error-salary-number"),
+  max: yup
+    .string()
+    .required("error-maxSalary-postJob")
+    .matches(/^\d+$/, "error-salary-number")
+    .notOneOf([yup.ref("min"), null], "error-salary-minEqualMax"),
+  description: yup.string().required("error-jobDescription-postJob"),
+  requirements: yup.string().required("error-jobRequirement-postJob"),
+  province: yup
+    .string()
+    .notOneOf(
+      ["Chọn tỉnh/thành...", "Choose province..."],
+      "error-select-province"
+    ),
+  district: yup
+    .string()
+    .notOneOf(
+      ["Chọn quận/huyện...", "Choose district..."],
+      "error-select-district"
+    ),
+  ward: yup
+    .string()
+    .notOneOf(["Chọn phường/xã...", "Choose ward..."], "error-select-ward"),
+  level: yup
+    .string()
+    .notOneOf(["Chọn cấp bậc...", "Choose level..."], "error-select-level"),
+  finishDate: yup.string().required("error-select-date-deadline"),
+});

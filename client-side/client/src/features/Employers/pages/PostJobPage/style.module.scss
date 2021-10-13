@@ -1,0 +1,164 @@
+@import "common/styles/Variables.scss";
+
+.postjob {
+  &__wrapped {
+    & > form {
+      padding: $pm-10;
+    }
+
+    &--title {
+      font-size: $text-3xl;
+      font-weight: 700;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    &--actions {
+      margin-top: $pm-12;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & > button {
+        width: 48%;
+      }
+    }
+  }
+  &__formGroup {
+    margin-top: $pm-20;
+
+    &--location {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      & > div {
+        flex: 0 0 48%;
+        height: 60px;
+
+        & > div > input {
+          border-radius: 5px;
+        }
+      }
+    }
+
+    &--salary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      & > div {
+        flex: 0 0 33%;
+        height: 60px;
+
+        & > div > input {
+          border-radius: 5px;
+        }
+      }
+    }
+
+    &--level-date {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      & > div {
+        flex: 0 0 48%;
+
+        & > div {
+          height: 60px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .postjob {
+    &__wrapped {
+      & > form {
+        padding: $pm-10 $pm-16;
+      }
+
+      &--title {
+        font-size: $text-2xl;
+        text-align: center;
+      }
+    }
+
+    &__formGroup {
+      margin-top: $pm-12;
+
+      &--labelTitle {
+        font-size: 15px;
+
+        & > span {
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .postjob {
+    &__wrapped {
+      & > form {
+        padding: $pm-8 $pm-16;
+      }
+
+      &--title {
+        font-size: $text-xl;
+        text-align: center;
+      }
+
+      &--actions {
+        flex-wrap: wrap;
+
+        & > button {
+          width: 100%;
+        }
+      }
+    }
+
+    &__formGroup {
+      margin-top: $pm-12;
+
+      &--labelTitle {
+        font-size: 14px;
+
+        & > span {
+          font-size: 10px;
+        }
+      }
+
+      &--location {
+        & > div {
+          flex: 0 0 100%;
+        }
+      }
+
+      &--salary {
+        & > div {
+          flex: 0 0 100%;
+        }
+      }
+
+      &--level-date {
+        & > div {
+          flex: 0 0 100%;
+
+          & > div {
+            height: 60px;
+          }
+        }
+
+        &--datePicker {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+}

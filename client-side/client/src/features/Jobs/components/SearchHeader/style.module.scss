@@ -84,14 +84,12 @@
         justify-content: space-between;
 
         & > div {
+          margin-right: $pm-14;
+          flex: 0 0 18%;
+
           & > div {
             margin-bottom: 0;
           }
-          & > label {
-            margin-bottom: 5px;
-          }
-          margin-right: $pm-14;
-          flex: 0 0 18%;
         }
       }
 
@@ -168,9 +166,6 @@
           & > div {
             flex: 0 0 45%;
             margin-bottom: $pm-10;
-            & > label {
-              margin-bottom: 0;
-            }
           }
         }
 

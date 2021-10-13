@@ -3,13 +3,21 @@ import { getDetailEmployerAsync } from "features/Employers/slices/thunks";
 
 const initialState = {
   employerDetail: null,
+  postJobData: null,
   status: false,
 };
 
 const employerSlice = createSlice({
   name: "employer",
   initialState,
-  reducers: {},
+  reducers: {
+    addDataPostJob: (state, action) => {
+      state.postJobData = { ...state.postJobData, ...action.payload };
+    },
+    resetDataPostJob: (state) => {
+      state.postJobData = null;
+    },
+  },
   extraReducers: {
     [getDetailEmployerAsync.pending]: (state) => {
       state.status = true;
@@ -25,4 +33,5 @@ const employerSlice = createSlice({
   },
 });
 
+export const { addDataPostJob, resetDataPostJob } = employerSlice.actions;
 export default employerSlice.reducer;

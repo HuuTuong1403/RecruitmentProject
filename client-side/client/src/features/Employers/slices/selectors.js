@@ -9,3 +9,7 @@ export const selectEmployerDetail = (state) => {
 export const selectedStatus = (state) => {
   return state?.employer?.status;
 };
+
+export const selectPostJobData = (state) => {
+  return state?.employer?.postJobData;
+};
