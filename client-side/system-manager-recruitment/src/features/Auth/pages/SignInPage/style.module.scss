@@ -1,5 +1,17 @@
 @import "common/styles/Variables.scss";
 
+a {
+  color: #5d677a;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  font-size: $text-base;
+}
+
+a:hover {
+  color: #f79d25;
+  text-decoration: underline;
+}
+
 .signIn {
   text-align: start;
   padding: 0 $pm-20;

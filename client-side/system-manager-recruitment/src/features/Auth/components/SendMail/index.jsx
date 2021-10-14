@@ -45,6 +45,9 @@ const SendMail = (props) => {
           backgroundcolorhover="#324554"
           color="#fff"
           width="100%"
+          radius="20px"
+          uppercase="true"
+          padding="10px"
         >
           {t("confirm email")}
         </ButtonField>

@@ -1,0 +1,83 @@
+@import "common/styles/Variables.scss";
+
+.tableEmployer {
+  &__approval {
+    padding: 5px 8px;
+    color: #fff;
+    background-color: green;
+    text-align: center;
+    border-radius: 20px;
+  }
+
+  &__unapproval {
+    padding: 5px 8px;
+    color: #fff;
+    background-color: red;
+    text-align: center;
+    border-radius: 20px;
+  }
+
+  &__companyName {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__email {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .tableEmployer {
+    &__approval {
+      font-size: $text-base;
+    }
+
+    &__unapproval {
+      font-size: $text-base;
+    }
+
+    &__companyName {
+      max-width: 130px;
+    }
+
+    &__email {
+      max-width: 140px;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .tableEmployer {
+    &__approval {
+      font-size: $text-xs;
+    }
+
+    &__unapproval {
+      font-size: $text-xs;
+    }
+
+    &__companyName {
+      max-width: 160px;
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .tableEmployer {
+    &__approval {
+      font-size: $text-xs;
+    }
+
+    &__unapproval {
+      font-size: $text-xs;
+    }
+
+    &__companyName {
+      max-width: 120px;
+    }
+  }
+}

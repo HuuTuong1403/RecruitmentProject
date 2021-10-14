@@ -3,7 +3,7 @@ import { signInAuthAsync } from "./thunks";
 
 const initialState = {
   systemManage: null,
-  state: false,
+  status: false,
 };
 
 export const systemManageSlice = createSlice({
@@ -27,7 +27,10 @@ export const systemManageSlice = createSlice({
       if (token && data) {
         state.systemManage = data?.systemManager;
         localStorage.setItem("token", token);
-        localStorage.setItem("systemManage", JSON.stringify(state.systemManage));
+        localStorage.setItem(
+          "systemManage",
+          JSON.stringify(state.systemManage)
+        );
       } else {
         state.systemManage = null;
       }

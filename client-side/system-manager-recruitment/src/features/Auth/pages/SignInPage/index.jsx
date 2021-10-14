@@ -1,3 +1,4 @@
+import "antd/dist/antd.css";
 import { FiLock, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { schemaSignIn } from "common/constants/schema";
@@ -14,11 +15,13 @@ import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
+import { useState } from "react";
 
 const SignInPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
   useTitle(`${t("Sign in as system management")}`);
 
   const {
@@ -32,12 +35,15 @@ const SignInPage = () => {
   });
 
   const handleSignIn = async (dataSignIn) => {
+    setLoading(true);
     const result = await dispatch(signInAuthAsync(dataSignIn));
     const { status } = result.payload;
     if (status === "success") {
+      setLoading(false);
       notification(`${t("Signed in successfully")}`, "success");
       history.push("/dashboard");
     } else {
+      setLoading(false);
       reset({
         username: "",
         password: "",
@@ -81,6 +87,10 @@ const SignInPage = () => {
             backgroundcolorhover="#324554"
             color="#fff"
             width="100%"
+            radius="20px"
+            uppercase="true"
+            padding="10px"
+            loading={loading}
           >
             {t("signin")}
           </ButtonField>

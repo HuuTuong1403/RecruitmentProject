@@ -1,0 +1,32 @@
+@import "common/styles/Variables.scss";
+
+.modalSignUp {
+  color: $primary-text;
+  &__wrapped {
+    &--title {
+      font-size: $text-xl;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &--actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & > div {
+        flex: 0 0 48%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .modalSignUp {
+    &__wrapped {
+      &--title {
+        font-size: $text-lg;
+      }
+    }
+  }
+}

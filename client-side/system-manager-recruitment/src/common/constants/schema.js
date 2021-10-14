@@ -36,3 +36,19 @@ export const schemaChangePassForgot = yup
       .oneOf([yup.ref("password"), null], "error-confirm-pass"),
   })
   .required();
+
+export const schemaSignUpEmployer = yup
+  .object({
+    username: yup.string().required("error-username-required"),
+    password: yup
+      .string()
+      .required("error-pass-required")
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        "error-pass-pattern"
+      ),
+    passwordConfirm: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "error-confirm-pass"),
+  })
+  .required();

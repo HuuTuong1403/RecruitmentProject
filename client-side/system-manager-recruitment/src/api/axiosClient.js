@@ -2,6 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 
 const axiosClient = axios.create({
+  timeout: 20000,
   baseURL: "https://mst-recruitment.herokuapp.com/api/v1/",
   headers: {
     "content-type": "application/json",
@@ -17,7 +18,7 @@ axiosClient.interceptors.request.use(
     return config;
   },
   (err) => {
-    console.log(err);
+    return Promise.reject(err);
   }
 );
 
@@ -29,7 +30,8 @@ axiosClient.interceptors.response.use(
     return res;
   },
   (err) => {
-    throw err;
+    if (err.response && err.response.data) return err.response.data;
+    return Promise.reject(err);
   }
 );
 

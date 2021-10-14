@@ -68,6 +68,9 @@ const ChangePassPage = () => {
             backgroundcolorhover="#324554"
             color="#fff"
             width="100%"
+            radius="20px"
+            uppercase="true"
+            padding="10px"
           >
             {t("change pass")}
           </ButtonField>
