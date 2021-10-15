@@ -1,11 +1,12 @@
-import { Fragment } from "react";
+import { Fragment, lazy } from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-import MenuSystemManage from "./components/MenuSystemManage";
 import EmployerDetailPage from "./pages/EmployerDetailPage";
-import EmployerManagerPage from "./pages/EmployerManagerPage";
-import ProfilePage from "./pages/ProfilePage";
-import SettingPage from "./pages/SettingPage";
-import StatisticPage from "./pages/StatisticPage";
+import MenuSystemManage from "./components/MenuSystemManage";
+
+const EmployerManagerPage = lazy(() => import("./pages/EmployerManagerPage"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const SettingPage = lazy(() => import("./pages/SettingPage"));
+const StatisticPage = lazy(() => import("./pages/StatisticPage"));
 
 const SystemManagerPage = () => {
   const { url } = useRouteMatch();
@@ -14,7 +15,6 @@ const SystemManagerPage = () => {
     <Fragment>
       <Switch>
         <MenuSystemManage>
-          <Route path={`${url}/my-profile`} component={ProfilePage} />
           <Route
             exact
             path={`${url}/employers`}
@@ -22,9 +22,10 @@ const SystemManagerPage = () => {
           />
           <Route
             exact
-            path={`${url}/employers/:id`}
+            path={`${url}/employers/view/:id`}
             component={EmployerDetailPage}
           />
+          <Route path={`${url}/my-profile`} component={ProfilePage} />
           <Route path={`${url}/setting`} component={SettingPage} />
           <Route path={`${url}/statistic`} component={StatisticPage} />
         </MenuSystemManage>

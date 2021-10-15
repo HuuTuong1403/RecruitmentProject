@@ -14,7 +14,6 @@ export const systemManagementSlice = createSlice({
   extraReducers: {
     [fetchAllEmployerAsync.pending]: (state) => {
       state.status = true;
-      state.employers = null;
     },
     [fetchAllEmployerAsync.fulfilled]: (state, action) => {
       state.status = false;
@@ -26,7 +25,6 @@ export const systemManagementSlice = createSlice({
     },
     [fetchEmployerDetailAsync.pending]: (state) => {
       state.status = true;
-      state.employer = null;
     },
     [fetchEmployerDetailAsync.fulfilled]: (state, action) => {
       state.status = false;

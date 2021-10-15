@@ -1,6 +1,7 @@
 import {
   selectEmployers,
   selectStatus,
+  selectEmployer,
 } from "features/SystemManager/slices/selectors";
 import { fetchAllEmployerAsync } from "features/SystemManager/slices/thunks";
 import { Fragment } from "react";
@@ -15,13 +16,22 @@ const EmployerManagerPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const employerList = useSelector(selectEmployers);
+  const employer = useSelector(selectEmployer);
   const loading = useSelector(selectStatus);
   useTitle(`${t("Employers Management")}`);
+
   useEffect(() => {
-    if (!employerList) {
+    if (employerList) {
+      if (employer) {
+        const test = employerList?.find((item) => item.id === employer?.id);
+        if (test?.status !== employer?.status) {
+          dispatch(fetchAllEmployerAsync());
+        }
+      }
+    } else {
       dispatch(fetchAllEmployerAsync());
     }
-  }, [dispatch, employerList]);
+  }, [dispatch, employer, employerList]);
 
   return (
     <Fragment>

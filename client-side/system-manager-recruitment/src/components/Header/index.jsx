@@ -47,20 +47,21 @@ const Header = (props) => {
           <NavLink
             activeClassName={classes["header__link--active"]}
             className={classes["header__link"]}
-            to="/dashboard/my-profile"
+            to="/dashboard/employers"
           >
-            {t("Account")}
+            {t("Employers")}
           </NavLink>
         </div>
         <div>
           <NavLink
             activeClassName={classes["header__link--active"]}
             className={classes["header__link"]}
-            to="/dashboard/employers"
+            to="/dashboard/my-profile"
           >
-            {t("Employers")}
+            {t("Account")}
           </NavLink>
         </div>
+
         <div>
           <NavLink
             activeClassName={classes["header__link--active"]}

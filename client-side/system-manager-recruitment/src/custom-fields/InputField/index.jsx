@@ -1,8 +1,8 @@
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Input } from "reactstrap";
+import { useState, forwardRef } from "react";
 import classes from "./style.module.scss";
 import ErrorText from "components/ErrorText";
-import { useState, forwardRef } from "react";
 
 const WrappedInput = forwardRef((props, ref) => {
   const { icon, errors } = props;

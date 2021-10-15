@@ -1,8 +1,8 @@
 export const pathSystemManager = {
-  home: "/",
   dashboard: "/dashboard",
-  myProfile: "/dashboard/my-profile",
   employerManager: "/dashboard/employers",
+  home: "/",
+  myProfile: "/dashboard/my-profile",
   settings: "/dashboard/setting",
   statistic: "/dashboard/statistic",
 };

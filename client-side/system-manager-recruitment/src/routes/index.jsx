@@ -17,7 +17,7 @@ const Routers = () => {
           <Redirect
             exact
             from={pathSystemManager.dashboard}
-            to={pathSystemManager.myProfile}
+            to={pathSystemManager.employerManager}
           />
           <PrivateRoute
             exact={false}
@@ -28,9 +28,7 @@ const Routers = () => {
             <AuthPage />
           </Route>
 
-          <Route path="*">
-            <NotFoundPage />
-          </Route>
+          <Route component={NotFoundPage}/>
         </Switch>
       </Suspense>
     </BrowserRouter>

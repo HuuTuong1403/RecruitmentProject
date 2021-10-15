@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
+import { useDispatch } from "react-redux";
+import { fetchEmployerDetailAsync } from "features/SystemManager/slices/thunks";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
@@ -14,6 +16,7 @@ import notification from "components/Notification";
 const ModalSignUp = (props) => {
   const { showModal, onCloseModal, id } = props;
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
   const {
@@ -33,9 +36,13 @@ const ModalSignUp = (props) => {
       password: dataSignUp.password,
     };
     const result = await issueAccountEmployer(payload);
-    console.log(result);
     if (result.status === "success") {
-      console.log(result);
+      dispatch(fetchEmployerDetailAsync(id));
+      notification(
+        `${t("Grant an account to a successful employer")}`,
+        "success"
+      );
+      onCloseModal();
       setLoading(false);
     } else {
       notification(result.message, "error");
