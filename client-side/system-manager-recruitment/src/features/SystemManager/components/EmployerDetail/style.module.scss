@@ -1,0 +1,251 @@
+@import "common/styles/Variables.scss";
+
+.employer {
+  padding: $pm-20 0;
+
+  &__approval {
+    text-align: center;
+    padding: 5px 8px;
+    background-color: #067951;
+    border-radius: 5px;
+    color: #fff;
+  }
+
+  &__wrapped {
+    padding: 0 $pm-20;
+
+    &--top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &--left {
+        width: 70%;
+        display: flex;
+        align-items: center;
+
+        & > div:first-child {
+          margin-right: $pm-10;
+          font-size: $text-xl;
+
+          & > svg {
+            cursor: pointer;
+            color: rgba(0, 0, 21, 0.5);
+            transition: all 0.25s ease-in-out;
+
+            &:hover {
+              color: $primary-color;
+            }
+          }
+        }
+
+        & > div:last-child {
+          font-size: $text-2xl;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+
+      &--right {
+        display: flex;
+        align-items: center;
+
+        & > div:first-child {
+          margin-right: $pm-10;
+        }
+      }
+    }
+
+    &--content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: $pm-20 0;
+
+      & > table {
+        flex: 0 0 70%;
+        color: $primary-text;
+        font-size: $text-lg;
+
+        & > tbody {
+          & > tr {
+            border-top: 1px solid #e8e8e8;
+            border-bottom: 1px solid #e8e8e8;
+
+            &:nth-of-type(odd) {
+              background-color: rgba(0, 0, 21, 0.05);
+            }
+
+            & > td {
+              padding: $pm-8 $pm-20;
+
+              &:first-child {
+                width: 40%;
+
+                & > svg {
+                  margin-right: $pm-4;
+                  font-size: $text-xl;
+                  color: $primary-color;
+                }
+              }
+
+              &:last-child {
+                width: 60%;
+                font-weight: 700;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .employer {
+    padding: $pm-10 0;
+
+    &__approval {
+      flex: 0 0 100%;
+    }
+
+    &__wrapped {
+      padding: 0 $pm-10;
+
+      &--top {
+        flex-wrap: wrap;
+        row-gap: 10px;
+
+        &--left {
+          width: 100%;
+
+          & > div:first-child {
+            margin-right: $pm-10;
+            font-size: $text-xl;
+          }
+
+          & > div:last-child {
+            font-size: $text-lg;
+          }
+        }
+
+        &--right {
+          width: 100%;
+          justify-content: space-between;
+
+          & > div {
+            flex: 0 0 48%;
+          }
+
+          & > div:first-child {
+            margin-right: 0;
+          }
+        }
+      }
+
+      &--content {
+        padding: $pm-16 0;
+
+        & > table {
+          flex: 0 0 100%;
+          font-size: $text-base;
+
+          & > tbody {
+            & > tr {
+              & > td {
+                padding: $pm-8 $pm-16;
+
+                &:first-child {
+                  width: 50%;
+
+                  & > svg {
+                    font-size: $text-lg;
+                  }
+                }
+
+                &:last-child {
+                  width: 50%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .employer {
+    padding: $pm-10 0;
+
+    &__approval {
+      flex: 0 0 100%;
+    }
+
+    &__wrapped {
+      padding: 0 $pm-10;
+
+      &--top {
+        flex-wrap: wrap;
+        row-gap: 10px;
+
+        &--left {
+          width: 100%;
+
+          & > div:first-child {
+            margin-right: $pm-10;
+            font-size: $text-xl;
+          }
+
+          & > div:last-child {
+            font-size: $text-lg;
+          }
+        }
+
+        &--right {
+          width: 100%;
+          justify-content: space-between;
+
+          & > div {
+            flex: 0 0 48%;
+          }
+
+          & > div:first-child {
+            margin-right: 0;
+          }
+        }
+      }
+
+      &--content {
+        padding: $pm-16 0;
+
+        & > table {
+          flex: 0 0 100%;
+          font-size: $text-sm;
+
+          & > tbody {
+            & > tr {
+              & > td {
+                padding: $pm-8 $pm-12;
+
+                &:first-child {
+                  width: 50%;
+
+                  & > svg {
+                    display: none;
+                  }
+                }
+
+                &:last-child {
+                  width: 50%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@import "common/styles/Variables.scss";
+
+.changePass {
+  text-align: start;
+  padding: 0 $pm-20;
+}
+
+@media screen and (max-width: 1024px) {
+  .changePass {
+    padding: 0 $pm-16;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .changePass {
+    padding: 0 $pm-12;
+  }
+}

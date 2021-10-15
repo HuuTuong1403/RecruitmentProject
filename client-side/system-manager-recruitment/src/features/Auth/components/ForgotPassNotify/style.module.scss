@@ -1,0 +1,85 @@
+@import "common/styles/Variables.scss";
+
+.forgotPassNotify {
+  text-align: start;
+  padding: 0 $pm-20;
+
+  &__title2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: $text-xl;
+    font-weight: 600;
+    margin: 15px 0;
+  }
+
+  &__content1 {
+    font-size: $text-lg;
+    margin: 15px 0;
+  }
+
+  &__content2 {
+    font-size: $text-lg;
+    text-align: end;
+  }
+
+  &__content3 {
+    font-size: $text-lg;
+    text-align: end;
+
+    & > a {
+      color: $third-text;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .forgotPassNotify {
+    padding: 0 $pm-8;
+
+    &__title2 {
+      font-size: $text-lg;
+      margin: $pm-10 0;
+    }
+
+    &__content1 {
+      font-size: $text-base;
+      margin: $pm-10 0;
+    }
+
+    &__content2 {
+      font-size: $text-sm;
+      text-align: end;
+    }
+
+    &__content3 {
+      font-size: $text-sm;
+      text-align: end;
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .forgotPassNotify {
+    padding: 0 $pm-8;
+
+    &__title2 {
+      font-size: $text-base;
+      margin: $pm-10 0;
+    }
+
+    &__content1 {
+      font-size: $text-sm;
+      margin: $pm-10 0;
+    }
+
+    &__content2 {
+      font-size: $text-sm;
+      text-align: start;
+    }
+
+    &__content3 {
+      font-size: $text-sm;
+      text-align: start;
+    }
+  }
+}

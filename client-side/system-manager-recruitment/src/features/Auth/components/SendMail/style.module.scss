@@ -1,0 +1,33 @@
+@import "common/styles/Variables.scss";
+
+.sendmail {
+  text-align: start;
+  padding: 0 $pm-20;
+
+  & > div:last-child {
+    margin-top: 10px;
+
+    &::before {
+      content: "←";
+      margin-right: 5px;
+      font-size: 17px;
+    }
+
+    &:hover,
+    &:focus {
+      color: $third-text;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .sendmail {
+    padding: 0 $pm-16;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .sendmail {
+    padding: 0 $pm-12;
+  }
+}

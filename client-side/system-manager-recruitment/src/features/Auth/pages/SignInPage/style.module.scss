@@ -1,0 +1,35 @@
+@import "common/styles/Variables.scss";
+
+a {
+  color: #5d677a;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  font-size: $text-base;
+}
+
+a:hover {
+  color: #f79d25;
+  text-decoration: underline;
+}
+
+.signIn {
+  text-align: start;
+  padding: 0 $pm-20;
+
+  &__link {
+    text-align: end;
+    margin-bottom: $pm-10;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .signIn {
+    padding: 0 $pm-16;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .signIn {
+    padding: 0 $pm-12;
+  }
+}

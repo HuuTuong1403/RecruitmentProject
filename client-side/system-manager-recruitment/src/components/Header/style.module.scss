@@ -1,0 +1,115 @@
+@import "common/styles/Variables.scss";
+
+.header {
+  align-items: center;
+  background-color: $fifth-color;
+  display: flex;
+  padding: $pm-12;
+  justify-content: space-between;
+  border-bottom: 1px solid #e8e8e8;
+  flex-wrap: wrap;
+  row-gap: 10px;
+
+  &__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    &--ic {
+      cursor: pointer;
+      & > svg {
+        font-size: 30px;
+        color: rgba(0, 0, 21, 0.5);
+        transition: all 0.25s ease-in-out;
+
+        &:focus,
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+
+  &__block-right {
+    align-items: center;
+    display: flex;
+    gap: 20px;
+    text-align: center;
+  }
+
+  &__lang {
+    color: $primary-text;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+
+    &--profile {
+      width: 100%;
+      display: inline-block;
+      margin: $pm-10 0 $pm-10 $pm-8;
+    }
+
+    & > button {
+      background-color: transparent !important;
+      color: $primary-text;
+      border: none;
+      padding: 0;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: $primary-text !important;
+        outline: none !important;
+      }
+    }
+  }
+
+  &__link {
+    font-size: $text-lg;
+
+    &--active {
+      color: $third-text;
+    }
+  }
+
+  &__ic {
+    &--flag {
+      margin-right: 5px;
+      width: 1.25rem !important;
+    }
+  }
+  &__icon {
+    font-size: $text-2xl;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .header {
+    padding: $pm-10;
+
+    &__menu {
+      &--ic {
+        & > svg {
+          font-size: 25px;
+        }
+      }
+
+      & > div:not(:first-child) {
+        display: none;
+      }
+    }
+
+    &__block-right {
+      gap: 20px;
+    }
+
+    &__link {
+      font-size: $text-base;
+    }
+
+    &__icon {
+      font-size: $text-2xl;
+    }
+  }
+}

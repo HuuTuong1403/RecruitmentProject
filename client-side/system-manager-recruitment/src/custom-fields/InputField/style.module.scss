@@ -1,0 +1,60 @@
+@import "common/styles/Variables.scss";
+
+.input {
+  margin-bottom: 10px;
+  position: relative;
+
+  &__inputfield {
+    border-radius: 20px;
+    color: $primary-text;
+    font-size: $text-base;
+    text-indent: 20px;
+
+    &::placeholder {
+      color: $primary-text;
+      opacity: 0.7;
+      text-indent: $text-xl;
+    }
+  }
+
+  &__noneicon {
+    border-radius: 20px;
+    color: $primary-text;
+    font-size: 16px;
+    text-indent: 0;
+
+    &::placeholder {
+      color: $primary-text;
+      opacity: 0.7;
+      text-indent: 0;
+    }
+  }
+
+  &__prefix {
+    font-size: $text-lg;
+    left: 10px;
+    position: absolute;
+    top: 4px;
+  }
+
+  &__suffix {
+    cursor: pointer;
+    font-size: $text-lg;
+    position: absolute;
+    right: 10px;
+    top: 4px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .input {
+    &__inputfield,
+    &__noneicon {
+      font-size: 13px;
+    }
+    &__suffix,
+    &__prefix {
+      top: 2px;
+    }
+  }
+}

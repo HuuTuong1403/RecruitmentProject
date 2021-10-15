@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import systemManageReducer from "features/Auth/slices";
+import systemManagementReducer from "features/SystemManager/slices";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    systemMange: systemManageReducer,
+    systemManagement: systemManagementReducer,
   },
 });
+
+export default store;
