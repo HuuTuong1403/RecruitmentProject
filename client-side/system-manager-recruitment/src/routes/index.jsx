@@ -1,9 +1,9 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { lazy } from "react";
 import { pathSystemManager } from "common/constants/path";
 import { Suspense } from "react";
 import LoadingSuspense from "components/Loading";
 import NotFoundPage from "components/404";
-import { lazy } from "react";
 import PrivateRoute from "./privateRoutes";
 
 const AuthPage = lazy(() => import("features/Auth"));

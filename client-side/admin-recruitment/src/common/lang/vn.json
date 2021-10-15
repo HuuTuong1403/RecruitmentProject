@@ -1,1 +1,21 @@
-{}
+{
+  "error-pass-pattern": "Mật khẩu phải có ít nhất 8 kí tự, chữ thường, chữ hoa, số và 1 kí tự đặc biệt",
+  "error-pass-required": "Mật khẩu không được trống",
+  "error-username-required": "Tên đăng nhập không được trống",
+  "phd-password": "Vui lòng nhập mật khẩu của bạn",
+  "phd-username": "Vui lòng nhập tên đăng nhập của bạn",
+  "Compulsory": "Bắt buộc",
+  "signin": "Đăng nhập",
+  "password": "Mật khẩu",
+  "username": "Tên đăng nhập",
+  "Sign in as administrator": "Đăng nhập với tư cách quản trị",
+  "Choose your language": "Chọn ngôn ngữ của bạn",
+  "Sign in with account and password": "Đăng nhập với tài khoản và mật khẩu",
+  "Back to sign in page": "Quay lại trang đăng nhập",
+  "Sorry, the page could not be found": "Rất tiếc, không tìm thấy trang",
+  "loading-suspense": "Đang tải...",
+  "This page does not exist or has an error due to an incorrect link.": "Trang này không tồn tại hoặc bị lỗi do đường link không chính xác.",
+  "wait-moment": "Vui lòng đợi giây lát...",
+  "Login information is incorrect. Please try again": "Thông tin đăng nhập không chính xác. Vui lòng thử lại",
+  "Signed in successfully": "Đăng nhập thành công"
+}

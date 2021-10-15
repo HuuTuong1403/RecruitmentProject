@@ -1,29 +1,37 @@
-import axios from 'axios'
-import queryString from 'query-string'
+import axios from "axios";
+import queryString from "query-string";
 
 const axiosClient = axios.create({
-    baseURL: process.env.SERVER_API_URL,
-    headers: {
-        'content-type': 'application/json',
-        "Access-Control-Allow-Origin": "*"
-    },
-    paramsSerializer: params => queryString.stringify(params)
-})
+  timeout: 20000,
+  baseURL: "https://mst-recruitment.herokuapp.com/api/v1/",
+  headers: {
+    "content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
+  paramsSerializer: (params) => queryString.stringify(params),
+});
 
-axiosClient.interceptors.request.use(async (config) => {
+axiosClient.interceptors.request.use(
+  async (config) => {
     //Handle token here
-    return config
-}, err => {
-    console.log(err)
-})
+    return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
 
-axiosClient.interceptors.response.use( res => {
-    if(res && res.data) {
-        return res.data
+axiosClient.interceptors.response.use(
+  (res) => {
+    if (res && res.data) {
+      return res.data;
     }
-    return res
-}, err => {
-    throw err
-})
+    return res;
+  },
+  (err) => {
+    if (err.response && err.response.data) return err.response.data;
+    return Promise.reject(err);
+  }
+);
 
-export default axiosClient
+export default axiosClient;

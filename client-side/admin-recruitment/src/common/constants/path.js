@@ -1,3 +1,5 @@
-export const PATH = {
+export const pathAdmin = {
   admin: "/",
+  dashboard: "/dashboard",
+  issueManager: "/manager",
 };
