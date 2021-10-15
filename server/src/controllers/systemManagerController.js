@@ -50,7 +50,10 @@ class systemManagerController {
   issueEmployer = catchAsync(async (req, res, next) => {
     const employer = await Employer.findById(req.params.id);
     if (!employer) {
-      return next(new AppError('No employer found with id', 404));
+      return next(new AppError('Không tìm thấy doanh nghiệp', 404));
+    }
+    if (!employer.isEmailVerified) {
+      return next(new AppError('Doanh nghiệp chưa xác thực email', 404));
     }
     employer.username = req.body.username;
     employer.password = req.body.password;
