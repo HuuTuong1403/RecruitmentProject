@@ -1,15 +1,13 @@
 import * as yup from "yup";
 
-export const schemaSignInUser = yup
+export const schemaSignIn = yup
   .object({
     username: yup.string().required("error-username-required"),
-    password: yup
-      .string()
-      .required("error-pass-required")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-        "error-pass-pattern"
-      ),
+    password: yup.string().required("error-pass-required"),
+    // .matches(
+    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+    //   "error-pass-pattern"
+    // ),
   })
   .required();
 

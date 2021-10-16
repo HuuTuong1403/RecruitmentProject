@@ -35,7 +35,7 @@ export const systemManageSlice = createSlice({
         state.systemManage = null;
       }
     },
-    [signInAuthAsync.pending]: (state) => {
+    [signInAuthAsync.rejected]: (state) => {
       state.status = false;
       state.systemManage = null;
     },

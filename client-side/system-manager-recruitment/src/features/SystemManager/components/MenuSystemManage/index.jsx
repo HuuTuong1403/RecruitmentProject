@@ -51,16 +51,16 @@ const MenuSystemManage = (props) => {
 
   const menuJobSeeker = [
     {
-      key: `${pathSystemManager.myProfile}`,
-      title: `${t("Account Management")}`,
-      icon: <MdAccountCircle className={classes.menuIcon} />,
+      key: `${pathSystemManager.employerManager}`,
+      title: `${t("Employers Management")}`,
+      icon: <BiBuildings className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
-      key: `${pathSystemManager.employerManager}`,
-      title: `${t("Employers Management")}`,
-      icon: <BiBuildings className={classes.menuIcon} />,
+      key: `${pathSystemManager.myProfile}`,
+      title: `${t("Account Management")}`,
+      icon: <MdAccountCircle className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },

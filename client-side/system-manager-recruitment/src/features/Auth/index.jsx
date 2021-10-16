@@ -5,6 +5,7 @@ import ChangeLang from "components/ChangeLang";
 import ChangePassPage from "./pages/ChangePass";
 import ForgotPassPage from "./pages/ForgotPassPage";
 import SignInPage from "./pages/SignInPage";
+import NotFoundPage from "components/404";
 
 const AuthPage = () => {
   const { url } = useRouteMatch();
@@ -22,6 +23,7 @@ const AuthPage = () => {
         <Route exact path={`${url}`} component={SignInPage} />
         <Route exact path={`/forgot-pass`} component={ForgotPassPage} />
         <Route exact path="/forgot-pass/:token" component={ChangePassPage} />
+        <Route component={NotFoundPage} />
       </Switch>
     </Fragment>
   );

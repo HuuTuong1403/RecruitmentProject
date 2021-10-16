@@ -78,7 +78,7 @@ const TableEmployer = (props) => {
         onRow={(record, rowIndex) => {
           return {
             onClick: (event) => {
-              history.push(`${url}/${record.key}`);
+              history.push(`${url}/view/${record.key}`);
             },
           };
         }}

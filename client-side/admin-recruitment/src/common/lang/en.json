@@ -1,1 +1,21 @@
-{}
+{
+  "error-pass-pattern": "Password minimum eight characters, uppercase letter, lowercase letter, number and one special character",
+  "error-pass-required": "Password is not empty",
+  "error-username-required": "Username is not empty",
+  "phd-password": "Please enter your password",
+  "phd-username": "Please enter your username",
+  "Compulsory": "Compulsory",
+  "signin": "Sign in",
+  "password": "Password",
+  "username": "Username",
+  "Sign in as administrator": "Sign in as administrator",
+  "Choose your language": "Choose your language",
+  "Sign in with account and password": "Sign in with account and password",
+  "Back to sign in page": "Back to sign in page",
+  "loading-suspense": "Loading...",
+  "Sorry, the page could not be found": "Sorry, the page could not be found",
+  "This page does not exist or has an error due to an incorrect link.": "This page does not exist or has an error due to an incorrect link.",
+  "wait-moment": "Please wait a moment...",
+  "Login information is incorrect. Please try again": "Login information is incorrect. Please try again",
+  "Signed in successfully": "Signed in successfully"
+}

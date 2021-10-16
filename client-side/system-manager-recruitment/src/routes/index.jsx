@@ -1,9 +1,9 @@
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { lazy } from "react";
 import { pathSystemManager } from "common/constants/path";
 import { Suspense } from "react";
 import LoadingSuspense from "components/Loading";
 import NotFoundPage from "components/404";
-import { lazy } from "react";
 import PrivateRoute from "./privateRoutes";
 
 const AuthPage = lazy(() => import("features/Auth"));
@@ -17,7 +17,7 @@ const Routers = () => {
           <Redirect
             exact
             from={pathSystemManager.dashboard}
-            to={pathSystemManager.myProfile}
+            to={pathSystemManager.employerManager}
           />
           <PrivateRoute
             exact={false}
@@ -28,9 +28,7 @@ const Routers = () => {
             <AuthPage />
           </Route>
 
-          <Route path="*">
-            <NotFoundPage />
-          </Route>
+          <Route component={NotFoundPage}/>
         </Switch>
       </Suspense>
     </BrowserRouter>
