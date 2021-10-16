@@ -145,7 +145,8 @@ class authController {
       jobSeeker,
       'fullname',
       'avatar',
-      'role'
+      'role',
+      'isEmailVerified'
     );
     //Everything ok, send token to client
     const token = Token.signToken(jobSeeker._id);
@@ -483,6 +484,7 @@ class authController {
       'avatar',
       'role'
     );
+    console.log(filteredSystemAdmin);
     const token = Token.signToken(systemAdmin._id);
     res.status(200).json({
       status: 'success',

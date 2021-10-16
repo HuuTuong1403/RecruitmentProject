@@ -14,5 +14,25 @@ jobseekerRouter
 jobseekerRouter
   .route('/resetPassword/:token')
   .patch(authController.resetJobSeekerPassword);
-jobseekerRouter.route('/:id').get(jobSeekerController.getJobSeeker);
+jobseekerRouter
+  .route('/updatePassword')
+  .patch(
+    authController.protect,
+    authController.restrictTo('jobseeker'),
+    jobSeekerController.updateJobSeekerPassword
+  );
+jobseekerRouter
+  .route('/updateMe')
+  .patch(
+    authController.protect,
+    authController.restrictTo('jobseeker'),
+    jobSeekerController.updateMe
+  );
+jobseekerRouter
+  .route('/')
+  .get(
+    authController.protect,
+    authController.restrictTo('jobseeker'),
+    jobSeekerController.getJobSeeker
+  );
 module.exports = jobseekerRouter;

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const systemAdminSchema = new mongoose.Schema(
   {
-    avartar: {
+    avatar: {
       type: String,
       default: 'http://cdn.onlinewebfonts.com/svg/img_258083.png',
     },
