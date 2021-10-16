@@ -110,6 +110,9 @@ const JobItem = (props) => {
                 backgroundcolorhover="#bf0000"
                 color="#fff"
                 width="20%"
+                radius="20px"
+                uppercase="true"
+                padding="8px"
               >
                 <MdDeleteForever style={{ marginRight: "5px" }} />
                 <span>{t("Unsave")}</span>

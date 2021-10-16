@@ -2,11 +2,13 @@ import { forgotPassJobSeeker } from "../../api/home.api";
 import { Link } from "react-router-dom";
 import { schemaSendMail } from "common/constants/schema";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 
 const SendMailForgot = (props) => {
@@ -20,20 +22,25 @@ const SendMailForgot = (props) => {
     mode: "all",
     resolver: yupResolver(schemaSendMail),
   });
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const result = await forgotPassJobSeeker(data);
       if (result.status === "success") {
+        setLoading(false);
         notification(
           `${t("Password recovery request has been sent successfully")}`,
           "success"
         );
         changeToNotify();
       } else {
+        setLoading(false);
         notification(`${t("Email address not found in system")}`, "error");
       }
     } catch (error) {
+      setLoading(false);
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
         "error"
@@ -54,9 +61,7 @@ const SendMailForgot = (props) => {
           onSubmit={handleSubmit(onSubmit)}
           className={classes["sendmail__wrapped--form"]}
         >
-          <div className={classes["sendmail__wrapped--form--label"]}>
-            {t("label-email-send")}
-          </div>
+          <LabelField label={t("label-email-send")} isCompulsory={true} />
           <InputField
             placeholder={t("phd-email-sendmail")}
             {...register("email")}
@@ -69,6 +74,10 @@ const SendMailForgot = (props) => {
             backgroundcolorhover="#324554"
             color="#fff"
             width="100%"
+            radius="20px"
+            uppercase="true"
+            padding="8px"
+            loading={loading}
           >
             {t("confirm-email")}
           </ButtonField>

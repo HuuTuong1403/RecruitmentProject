@@ -1,6 +1,6 @@
-import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 import { Fragment, lazy, useEffect } from "react";
 import { selectAdminLocal } from "features/Administrator/slices/selectors";
+import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 import ChangeLang from "components/ChangeLang";
 import NotFoundPage from "components/404";
 

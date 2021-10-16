@@ -1,12 +1,12 @@
+import { fetchEmployerDetailAsync } from "features/SystemManager/slices/thunks";
 import { issueAccountEmployer } from "features/SystemManager/api/systemManager.api";
 import { Modal } from "antd";
 import { schemaSignUpEmployer } from "common/constants/schema";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
-import { useDispatch } from "react-redux";
-import { fetchEmployerDetailAsync } from "features/SystemManager/slices/thunks";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
@@ -101,7 +101,6 @@ const ModalSignUp = (props) => {
                   radius="5px"
                   width="100%"
                   onClick={() => {
-                    onCloseModal();
                     reset();
                   }}
                 >

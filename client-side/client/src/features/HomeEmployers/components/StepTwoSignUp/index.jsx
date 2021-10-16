@@ -1,10 +1,17 @@
 import { addInfoSignUp } from "features/HomeEmployers/slices";
 import { FaBuilding } from "react-icons/fa";
-import { fetchDistrictsByProvinceAsync, fetchWardsByDistrictsAsync } from "features/Home/slices/thunks";
+import {
+  fetchDistrictsByProvinceAsync,
+  fetchWardsByDistrictsAsync,
+} from "features/Home/slices/thunks";
 import { Fragment } from "react";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
 import { schemaSignUpStep2 } from "common/constants/schema";
-import { selectedDistricts, selectedProvinces, selectedWards } from "features/Home/slices/selectors";
+import {
+  selectedDistricts,
+  selectedProvinces,
+  selectedWards,
+} from "features/Home/slices/selectors";
 import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
@@ -151,7 +158,9 @@ const StepTwoSignUp = (props) => {
               />
             )}
           />
-          {errors.province?.message && <p>{t(`${errors.province?.message}`)}</p>}
+          {errors.province?.message && (
+            <p>{t(`${errors.province?.message}`)}</p>
+          )}
         </div>
 
         <div className={classes["steptwo__select-scale"]}>
@@ -180,7 +189,9 @@ const StepTwoSignUp = (props) => {
               />
             )}
           />
-          {errors.district?.message && <p>{t(`${errors.district?.message}`)}</p>}
+          {errors.district?.message && (
+            <p>{t(`${errors.district?.message}`)}</p>
+          )}
         </div>
 
         <div className={classes["steptwo__select-scale"]}>
@@ -218,6 +229,9 @@ const StepTwoSignUp = (props) => {
             backgroundcolorhover="#bf0000"
             color="#fff"
             width="45%"
+            radius="20px"
+            uppercase="true"
+            padding="8px"
             onClick={onBackStep}
           >
             <IoMdArrowBack style={{ marginRight: "10px" }} />
@@ -228,6 +242,9 @@ const StepTwoSignUp = (props) => {
             backgroundcolor="#0a426e"
             backgroundcolorhover="#324554"
             color="#fff"
+            radius="20px"
+            uppercase="true"
+            padding="8px"
             width="45%"
           >
             {t("next")}

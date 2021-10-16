@@ -7,7 +7,7 @@
   &__inputfield {
     border-radius: 20px;
     color: $primary-text;
-    font-size: $text-base;
+    font-size: 15px;
     text-indent: 20px;
 
     &::placeholder {
@@ -20,7 +20,7 @@
   &__noneicon {
     border-radius: 20px;
     color: $primary-text;
-    font-size: 16px;
+    font-size: 14px;
     text-indent: 0;
 
     &::placeholder {
@@ -50,7 +50,7 @@
   .input {
     &__inputfield,
     &__noneicon {
-      font-size: 13px;
+      font-size: 14px;
     }
     &__suffix,
     &__prefix {

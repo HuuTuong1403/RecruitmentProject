@@ -8,10 +8,13 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import notification from "components/Notification";
+import { useState } from "react";
+import LabelField from "custom-fields/LabelField";
 
 const SendMailForgotEmployer = (props) => {
   const { t } = useTranslation();
   const { changeToNotify } = props;
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -22,18 +25,22 @@ const SendMailForgotEmployer = (props) => {
   });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const result = await forgotPassEmployer(data);
       if (result.status === "success") {
+        setLoading(false);
         notification(
           `${t("Password recovery request has been sent successfully")}`,
           "success"
         );
         changeToNotify();
       } else {
+        setLoading(false);
         notification(`${t("Email address not found in system")}`, "error");
       }
     } catch (error) {
+      setLoading(false);
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
         "error"
@@ -54,9 +61,7 @@ const SendMailForgotEmployer = (props) => {
           onSubmit={handleSubmit(onSubmit)}
           className={classes["sendmailEmployer__wrapped--form"]}
         >
-          <div className={classes["sendmailEmployer__wrapped--form--label"]}>
-            {t("label-email-send")}
-          </div>
+          <LabelField label={t("label-email-send")} isCompulsory={true} />
           <InputField
             placeholder={t("phd-email-sendmail")}
             {...register("email")}
@@ -69,13 +74,17 @@ const SendMailForgotEmployer = (props) => {
             backgroundcolorhover="#324554"
             color="#fff"
             width="100%"
+            radius="20px"
+            uppercase="true"
+            padding="8px"
+            loading={loading}
           >
             {t("confirm-email")}
           </ButtonField>
         </form>
 
         <div>
-          <Link to="/home/sign-in">{t("back-signin")}</Link>
+          <Link to="/employers/sign-in">{t("back-signin")}</Link>
         </div>
       </div>
     </div>

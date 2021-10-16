@@ -8,6 +8,7 @@ import {
 import { IoMenu } from "react-icons/io5";
 import { MdNotificationsNone } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import { pathAdmin } from "common/constants/path";
 import { selectAdminLocal } from "features/Administrator/slices/selectors";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -43,29 +44,42 @@ const Header = (props) => {
         <div className={classes["header__menu--ic"]}>
           <IoMenu onClick={isShow ? onOpen : onClose} />
         </div>
+        
         <div>
           <NavLink
             activeClassName={classes["header__link--active"]}
             className={classes["header__link"]}
-            to="/dashboard/statistic"
+            to={pathAdmin.statistic}
           >
             {t("Statistic")}
           </NavLink>
         </div>
+
         <div>
           <NavLink
             activeClassName={classes["header__link--active"]}
             className={classes["header__link"]}
-            to="/dashboard/issue-account"
+            to={pathAdmin.issueAccount}
           >
             {t("Issue Account")}
           </NavLink>
         </div>
+
         <div>
           <NavLink
             activeClassName={classes["header__link--active"]}
             className={classes["header__link"]}
-            to="/dashboard/my-profile"
+            to={pathAdmin.userManager}
+          >
+            {t("User Management")}
+          </NavLink>
+        </div>
+
+        <div>
+          <NavLink
+            activeClassName={classes["header__link--active"]}
+            className={classes["header__link"]}
+            to={pathAdmin.myProfile}
           >
             {t("Account")}
           </NavLink>
@@ -75,7 +89,7 @@ const Header = (props) => {
           <NavLink
             activeClassName={classes["header__link--active"]}
             className={classes["header__link"]}
-            to="/dashboard/setting"
+            to={pathAdmin.setting}
           >
             {t("Setting")}
           </NavLink>

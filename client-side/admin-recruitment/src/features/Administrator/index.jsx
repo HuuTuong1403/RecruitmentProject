@@ -3,10 +3,10 @@ import { Switch, Route, useRouteMatch } from "react-router-dom";
 import MenuSystemAdmin from "./components/MenuSystemAdmin";
 import NotFoundPage from "components/404";
 
+const IssueAccountPage = lazy(() => import("./pages/IssueAccountPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const SettingPage = lazy(() => import("./pages/SettingPage"));
 const StatisticPage = lazy(() => import("./pages/StatisticPage"));
-const IssueAccountPage = lazy(() => import("./pages/IssueAccountPage"));
 const UserManagementPage = lazy(() => import("./pages/UserManagementPage"));
 
 const AdministratorPage = () => {

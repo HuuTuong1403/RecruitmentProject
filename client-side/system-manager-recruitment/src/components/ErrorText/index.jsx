@@ -1,5 +1,5 @@
-import { useTranslation } from "react-i18next";
 import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 
 const ErrorText = (props) => {
