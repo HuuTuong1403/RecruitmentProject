@@ -4,6 +4,8 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const sendEmail = require('./../services/email');
+const FilterObject = require('./../utils/filterObject');
+
 var confirmEmailFiles = fs.readFileSync(
   `${__dirname}/../public/ConfirmEmail/ConfirmEmail.html`,
   'utf-8'
@@ -40,10 +42,24 @@ class employerController {
         subject: '[MST-Company] Xác thực tài khoản (Hợp lệ trong vòng 10 phút)',
         content,
       });
+      const filteredEmployer = FilterObject(
+        newEmployer,
+        'companyName',
+        'email',
+        'phone',
+        'logo',
+        'scale',
+        'companyWebsite',
+        'address',
+        'TIN',
+        'companyType',
+        'OT',
+        'role'
+      );
       return res.status(201).json({
         status: 'success',
         data: {
-          Employer: newEmployer,
+          Employer: filteredEmployer,
         },
       });
     } catch (err) {
@@ -56,7 +72,7 @@ class employerController {
     }
   });
   getEmployer = catchAsync(async (req, res, next) => {
-    const features = new APIFeatures(Employer.findById(req.params.id), {
+    const features = new APIFeatures(Employer.findById(req.user.id), {
       fields: `-isEmailVerified,-__v,-entryTest,-event,-jobs,-registeredServicePackages,-reviews,-status,-updatedAt`,
     }).limitFields();
     const employer = await features.query;

@@ -12,9 +12,9 @@ var issueAcountEmailFiles = fs.readFileSync(
 class systemManagerController {
   getAllEmployer = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Employer.find(), {
-      status: 'unapproval',
       isEmailVerified: 'true',
     })
+      .filter()
       .sort()
       .limitFields();
     const employers = await features.query;

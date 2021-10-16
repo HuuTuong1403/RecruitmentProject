@@ -5,6 +5,7 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Token = require('./../services/token');
 const sendEmail = require('./../services/email');
+const FilterObject = require('./../utils/filterObject');
 
 const JobSeeker = require('./../models/job-seekerModel');
 const SystemManager = require('./../models/system-managerModel');
@@ -43,10 +44,19 @@ class authController {
         subject: '[MST-Company] Xác thực tài khoản (Hợp lệ trong vòng 10 phút)',
         content,
       });
+      const filteredJobSeeker = FilterObject(
+        newJobSeeker,
+        'fullname',
+        'username',
+        'email',
+        'phone',
+        'avatar',
+        'role'
+      );
       return res.status(201).json({
         status: 'success',
         data: {
-          JobSeeker: newJobSeeker,
+          JobSeeker: filteredJobSeeker,
         },
       });
     } catch (err) {
@@ -131,13 +141,19 @@ class authController {
       );
     }
     jobSeeker.password = undefined;
+    const filteredJobSeeker = FilterObject(
+      jobSeeker,
+      'fullname',
+      'avatar',
+      'role'
+    );
     //Everything ok, send token to client
     const token = Token.signToken(jobSeeker._id);
     res.status(200).json({
       status: 'success',
       token,
       data: {
-        JobSeeker: jobSeeker,
+        JobSeeker: filteredJobSeeker,
       },
     });
   });
@@ -224,12 +240,18 @@ class authController {
       );
     }
     employer.password = undefined;
+    const filteredemployer = FilterObject(
+      employer,
+      'companyName',
+      'logo',
+      'role'
+    );
     const token = Token.signToken(employer._id);
     res.status(200).json({
       status: 'success',
       token,
       data: {
-        Employer: employer,
+        Employer: filteredemployer,
       },
     });
   });
@@ -361,10 +383,18 @@ class authController {
       username: req.body.username,
     });
     newSystemManager.password = undefined;
+    const filteredSystemManager = FilterObject(
+      newSystemManager,
+      'fullname',
+      'username',
+      'email',
+      'avatar',
+      'role'
+    );
     res.status(201).json({
       status: 'success',
       data: {
-        systemManager: newSystemManager,
+        systemManager: filteredSystemManager,
       },
     });
   });
@@ -388,12 +418,18 @@ class authController {
       );
     }
     systemManager.password = undefined;
+    const filteredSystemManager = FilterObject(
+      systemManager,
+      'fullname',
+      'avatar',
+      'role'
+    );
     const token = Token.signToken(systemManager._id);
     res.status(200).json({
       status: 'success',
       token,
       data: {
-        systemManager: systemManager,
+        systemManager: filteredSystemManager,
       },
     });
   });
@@ -406,10 +442,18 @@ class authController {
       username: req.body.username,
     });
     newSysteAdmin.password = undefined;
+    const filteredSystemAdmin = FilterObject(
+      newSysteAdmin,
+      'fullname',
+      'username',
+      'email',
+      'avatar',
+      'role'
+    );
     res.status(201).json({
       status: 'success',
       data: {
-        systemAdmin: newSysteAdmin,
+        systemAdmin: filteredSystemAdmin,
       },
     });
   });
@@ -433,12 +477,18 @@ class authController {
       );
     }
     systemAdmin.password = undefined;
+    const filteredSystemAdmin = FilterObject(
+      systemAdmin,
+      'fullname',
+      'avatar',
+      'role'
+    );
     const token = Token.signToken(systemAdmin._id);
     res.status(200).json({
       status: 'success',
       token,
       data: {
-        systemAdmin,
+        systemAdmin: filteredSystemAdmin,
       },
     });
   });
