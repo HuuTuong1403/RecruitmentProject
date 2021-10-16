@@ -1,7 +1,10 @@
 import { FiLock } from "react-icons/fi";
-import { schemaChangePassEmployer } from "common/constants/schema";
+import { schemaChangePass } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,12 +12,18 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import LabelField from "custom-fields/LabelField";
+import { updatePassEmployer } from "features/Employers/api/employer.api";
+import { logoutEmployer } from "features/HomeEmployers/slices";
+import notification from "components/Notification";
 
 const SettingPage = () => {
   ScrollTop();
 
   const { t } = useTranslation();
   useTitle(`${t("Settings")}`);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const {
     register,
@@ -23,19 +32,24 @@ const SettingPage = () => {
     reset,
   } = useForm({
     mode: "all",
-    resolver: yupResolver(schemaChangePassEmployer),
+    resolver: yupResolver(schemaChangePass),
   });
 
-  const submitChangePassHandler = (data) => {
-    console.log(data);
-  };
-
-  const handleResetChangePass = () => {
-    reset({
-      oldPassword: "",
-      newPassword: "",
-      confirmNewPassword: "",
-    });
+  const submitChangePassHandler = async (dataChangePass) => {
+    setLoading(true);
+    const result = await updatePassEmployer(dataChangePass);
+    if (result.status === 204) {
+      setLoading(false);
+      dispatch(logoutEmployer());
+      notification(
+        `${t("Change password successfully. Please re-login to the system")}`,
+        "success"
+      );
+      history.push("/employers/sign-in");
+    } else {
+      setLoading(false);
+      notification(result.message, "error");
+    }
   };
 
   return (
@@ -60,8 +74,8 @@ const SettingPage = () => {
               <InputField
                 type="password"
                 placeholder={t("Please enter your current password")}
-                {...register("oldPassword")}
-                errors={errors?.oldPassword?.message}
+                {...register("currentPassword")}
+                errors={errors?.currentPassword?.message}
                 icon={<FiLock />}
               />
             </div>
@@ -73,8 +87,8 @@ const SettingPage = () => {
               <InputField
                 type="password"
                 placeholder={t("Please enter a new password")}
-                {...register("newPassword")}
-                errors={errors?.newPassword?.message}
+                {...register("password")}
+                errors={errors?.password?.message}
                 icon={<FiLock />}
               />
             </div>
@@ -86,8 +100,8 @@ const SettingPage = () => {
               <InputField
                 type="password"
                 placeholder={t("Please enter confirm a new password")}
-                {...register("confirmNewPassword")}
-                errors={errors?.confirmNewPassword?.message}
+                {...register("passwordConfirm")}
+                errors={errors?.passwordConfirm?.message}
                 icon={<FiLock />}
               />
             </div>
@@ -104,6 +118,7 @@ const SettingPage = () => {
                 radius="20px"
                 uppercase="true"
                 padding="8px"
+                loading={loading}
               >
                 {t("Save")}
               </ButtonField>
@@ -115,7 +130,7 @@ const SettingPage = () => {
                 radius="20px"
                 uppercase="true"
                 padding="8px"
-                onClick={handleResetChangePass}
+                onClick={() => reset()}
               >
                 {t("Cancel")}
               </ButtonField>

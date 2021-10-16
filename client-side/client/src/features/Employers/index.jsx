@@ -21,12 +21,14 @@ import SettingPage from "./pages/SettingPage";
 const DashboardEmployersPage = () => {
   const { t } = useTranslation();
   const employer = selectEmployerLocal();
+
   useEffect(() => {
     if (!employer) {
       notification(`${t("Please log out of the job seeker account")}`, "error");
       history.push("/home");
     }
   });
+
   const history = useHistory();
   const { url } = useRouteMatch();
   const location = useLocation();
@@ -54,22 +56,23 @@ const DashboardEmployersPage = () => {
             path={`${url}/my-profile`}
             component={EmployerProfilePage}
           ></Route>
-          <Route path={`${url}/post-job`} component={PostJobPage}></Route>
+          <Route exact path={`${url}/post-job`} component={PostJobPage}></Route>
           <Route
+            exact
             path={`${url}/recruit-manage`}
             component={RecruitManagementPage}
           />
           <Route
+            exact
             path={`${url}/candidate-profiles`}
             component={CandidateProfileManagementPage}
           />
           <Route
+            exact
             path={`${url}/setting-account`}
             component={SettingPage}
           ></Route>
-          <Route path="*">
-            <NotFoundPage />
-          </Route>
+          <Route component={NotFoundPage} />
         </Switch>
       </MenuEmployer>
       <FooterEmployers />

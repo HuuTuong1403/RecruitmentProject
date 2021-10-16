@@ -43,7 +43,7 @@ const MenuEmployer = (props) => {
     notification(`${t("Log out successful")}`, "success");
   };
 
-  const menuJobSeeker = [
+  const menuEmployer = [
     {
       key: `${pathEmployer.myProfile}`,
       title: `${t("Account Management")}`,
@@ -104,7 +104,7 @@ const MenuEmployer = (props) => {
           showClose
             ? {
                 backgroundColor: "#fff",
-                maxHeight: "90vh",
+                maxHeight: "88vh",
                 overflowY: "auto",
                 overflowX: "hidden",
               }
@@ -135,7 +135,7 @@ const MenuEmployer = (props) => {
           style={{ fontSize: "16px" }}
           selectedKeys={[location.pathname]}
         >
-          {menuJobSeeker.map((item, index) =>
+          {menuEmployer.map((item, index) =>
             item?.subMenu ? (
               <SubMenu icon={item.icon} key={index} title={item.title}>
                 {item?.subMenu.map((subMenu) => (

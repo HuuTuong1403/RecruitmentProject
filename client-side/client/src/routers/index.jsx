@@ -11,7 +11,6 @@ const Routers = () => {
     <BrowserRouter>
       <Suspense fallback={<LoadingSuspense height="100vh" showText={true} />}>
         <Switch>
-          <Redirect exact from="/" to={PATH.home} />
           <Redirect
             exact
             from={pathJobSeeker.jobseekers}
@@ -22,6 +21,7 @@ const Routers = () => {
             from={pathEmployer.dashboard}
             to={pathEmployer.myProfile}
           />
+          <Redirect exact from="/" to={PATH.home} />
           <Redirect exact from={PATH.jobs} to="/jobs/search?type=all" />
           {privateRoutes.map((privateRoute, index) => {
             return (

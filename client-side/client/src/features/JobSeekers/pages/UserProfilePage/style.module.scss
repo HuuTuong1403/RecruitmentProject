@@ -1,0 +1,46 @@
+@import "common/styles/Variables.scss";
+
+.icon {
+  margin-right: 5px;
+  font-size: $text-lg;
+}
+
+.profile {
+  padding: $pm-10 0;
+
+  &__wrapped {
+    padding: 0 $pm-10;
+    &--title {
+      font-size: $text-3xl;
+      font-weight: 700;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    &--content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: $pm-14 0;
+    }
+
+    &--blockLeft {
+      flex: 0 0 65%;
+    }
+
+    &--blockRight {
+      flex: 0 0 30%;
+      text-align: center;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      padding: $pm-10 0;
+
+      &--group {
+        margin-top: $pm-8;
+        font-size: $text-base;
+        text-align: start;
+        margin-left: $pm-32;
+      }
+    }
+  }
+}

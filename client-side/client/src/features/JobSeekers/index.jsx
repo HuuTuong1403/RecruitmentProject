@@ -1,4 +1,7 @@
-import { fetchJobsAsync, getDetailJobSeekerAsync } from "features/JobSeekers/slices/thunks";
+import {
+  fetchJobsAsync,
+  getDetailJobSeekerAsync,
+} from "features/JobSeekers/slices/thunks";
 import { Fragment, useEffect, useState } from "react";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
@@ -25,6 +28,7 @@ const DashboardJobSeekersPage = () => {
       notification(`${t("Please log out of the employer account")}`, "error");
     }
   });
+  
   const history = useHistory();
   const { url } = useRouteMatch();
   const location = useLocation();
@@ -44,14 +48,20 @@ const DashboardJobSeekersPage = () => {
       <Header />
       <MenuJobSeeker>
         <Switch>
-          <Route path={`${url}/my-profile`} component={UserProfilePage} />
-          <Route path={`${url}/job-alert`} component={JobNotificationPage} />
-          <Route path={`${url}/job-saved`} component={JobSavedPage} />
-          <Route path={`${url}/job-applied`} component={JobAppliedPage} />
-          <Route path={`${url}/setting-account`} component={UserSettingPage} />
-          <Route path="*">
-            <NotFoundPage />
-          </Route>
+          <Route exact path={`${url}/my-profile`} component={UserProfilePage} />
+          <Route
+            exact
+            path={`${url}/job-alert`}
+            component={JobNotificationPage}
+          />
+          <Route exact path={`${url}/job-saved`} component={JobSavedPage} />
+          <Route exact path={`${url}/job-applied`} component={JobAppliedPage} />
+          <Route
+            exact
+            path={`${url}/setting-account`}
+            component={UserSettingPage}
+          />
+          <Route component={NotFoundPage} />
         </Switch>
       </MenuJobSeeker>
       <Footer />

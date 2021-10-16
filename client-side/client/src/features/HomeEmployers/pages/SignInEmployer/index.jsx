@@ -20,7 +20,7 @@ import notification from "components/Notification";
 const SignInEmployer = () => {
   useEffect(() => {
     const employer = selectEmployerLocal();
-    if (employer) history.push("/employers");
+    if (employer) history.push("/employers/dashboard");
   });
   const { t } = useTranslation();
   const user = selectJobSeekerLocal();
@@ -53,7 +53,6 @@ const SignInEmployer = () => {
     if (status === "success") {
       setLoading(false);
       notification(`${t("Signed in successfully")}`, "success");
-      history.push("/employers/dashboard");
     } else {
       setLoading(false);
       reset({

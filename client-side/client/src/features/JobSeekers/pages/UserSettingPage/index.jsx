@@ -1,19 +1,29 @@
 import { FiLock } from "react-icons/fi";
-import { schemaChangePassSignIn } from "common/constants/schema";
+import { logoutJobSeeker } from "features/Home/slices";
+import { schemaChangePass } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
+import { updatePassJobSeeker } from "features/JobSeekers/api/jobSeeker.api";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import notification from "components/Notification";
 
 const UserSettingPage = () => {
   ScrollTop();
-  const { t } = useTranslation();
 
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
   useTitle(`${t("Settings")}`);
+
   const {
     register,
     handleSubmit,
@@ -21,19 +31,24 @@ const UserSettingPage = () => {
     reset,
   } = useForm({
     mode: "all",
-    resolver: yupResolver(schemaChangePassSignIn),
+    resolver: yupResolver(schemaChangePass),
   });
 
-  const submitChangePassHandler = (data) => {
-    console.log(data);
-  };
-
-  const handleResetChangePass = () => {
-    reset({
-      oldPassword: "",
-      newPassword: "",
-      confirmNewPassword: "",
-    });
+  const submitChangePassHandler = async (dataChangePass) => {
+    setLoading(true);
+    const result = await updatePassJobSeeker(dataChangePass);
+    if (result.status === 204) {
+      setLoading(false);
+      dispatch(logoutJobSeeker());
+      notification(
+        `${t("Change password successfully. Please re-login to the system")}`,
+        "success"
+      );
+      history.push("/home/sign-in");
+    } else {
+      setLoading(false);
+      notification(result.message, "error");
+    }
   };
 
   return (
@@ -55,8 +70,8 @@ const UserSettingPage = () => {
               <InputField
                 type="password"
                 placeholder={t("Please enter your current password")}
-                {...register("oldPassword")}
-                errors={errors?.oldPassword?.message}
+                {...register("currentPassword")}
+                errors={errors?.currentPassword?.message}
                 icon={<FiLock />}
               />
             </div>
@@ -65,8 +80,8 @@ const UserSettingPage = () => {
               <InputField
                 type="password"
                 placeholder={t("Please enter a new password")}
-                {...register("newPassword")}
-                errors={errors?.newPassword?.message}
+                {...register("password")}
+                errors={errors?.password?.message}
                 icon={<FiLock />}
               />
             </div>
@@ -75,8 +90,8 @@ const UserSettingPage = () => {
               <InputField
                 type="password"
                 placeholder={t("Please enter confirm a new password")}
-                {...register("confirmNewPassword")}
-                errors={errors?.confirmNewPassword?.message}
+                {...register("passwordConfirm")}
+                errors={errors?.passwordConfirm?.message}
                 icon={<FiLock />}
               />
             </div>
@@ -91,6 +106,7 @@ const UserSettingPage = () => {
                 radius="20px"
                 uppercase="true"
                 padding="8px"
+                loading={loading}
               >
                 {t("Save")}
               </ButtonField>
@@ -102,7 +118,7 @@ const UserSettingPage = () => {
                 radius="20px"
                 uppercase="true"
                 padding="8px"
-                onClick={handleResetChangePass}
+                onClick={() => reset()}
               >
                 {t("Cancel")}
               </ButtonField>

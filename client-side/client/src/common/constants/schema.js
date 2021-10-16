@@ -110,49 +110,29 @@ export const schemaSignUpStep3 = yup
   })
   .required();
 
-export const schemaChangePassSignIn = yup
+export const schemaChangePass = yup
   .object({
-    oldPassword: yup
+    currentPassword: yup
       .string()
       .required("error-currentPass-required")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       ),
-    newPassword: yup
+    password: yup
       .string()
       .required("error-newPass-required")
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         "error-pass-pattern"
       )
-      .notOneOf([yup.ref("oldPassword"), null], "error-newPassSameCurrentPass"),
-    confirmNewPassword: yup
-      .string()
-      .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),
-  })
-  .required();
-
-export const schemaChangePassEmployer = yup
-  .object({
-    oldPassword: yup
-      .string()
-      .required("error-currentPass-required")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        "error-pass-pattern"
+      .notOneOf(
+        [yup.ref("currentPassword"), null],
+        "error-newPassSameCurrentPass"
       ),
-    newPassword: yup
+    passwordConfirm: yup
       .string()
-      .required("error-newPass-required")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        "error-pass-pattern"
-      )
-      .notOneOf([yup.ref("oldPassword"), null], "error-newPassSameCurrentPass"),
-    confirmNewPassword: yup
-      .string()
-      .oneOf([yup.ref("newPassword"), null], "error-confirm-pass"),
+      .oneOf([yup.ref("password"), null], "error-confirm-pass"),
   })
   .required();
 
@@ -188,5 +168,5 @@ export const schemaPostJobEmployer = yup.object({
   level: yup
     .string()
     .notOneOf(["Chọn cấp bậc...", "Choose level..."], "error-select-level"),
-  finishDate: yup.string().required("error-select-date-deadline"),
+  finishDate: yup.string().required("error-select-date-deadline").nullable(),
 });

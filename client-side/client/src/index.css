@@ -25,7 +25,7 @@ p {
 }
 
 a {
-  color: #5d677a;
+  color: #5d677a !important;
   text-decoration: none;
   font-size: 16px !important;
   transition: all 0.3s ease-in-out;
@@ -47,11 +47,17 @@ a:hover {
   background-color: #f79d25 !important;
 }
 
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:hover {
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:hover,
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:hover > svg {
   color: #f79d25 !important;
 }
 
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected > svg {
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item > svg {
+  color: #5d677a;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected > svg,
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected:hover > svg {
   color: #fff !important;
 }
 
@@ -66,6 +72,13 @@ a:hover {
 .ant-menu-vertical-right .ant-menu-item::after,
 .ant-menu-inline .ant-menu-item::after {
   border-right: 3px solid #0a426e !important;
+}
+
+.ant-menu-vertical .ant-menu-submenu,
+.ant-menu-vertical-left .ant-menu-submenu,
+.ant-menu-vertical-right .ant-menu-submenu,
+.ant-menu-inline .ant-menu-submenu {
+  color: #5d677a;
 }
 
 .ant-menu-light .ant-menu-item:hover,
