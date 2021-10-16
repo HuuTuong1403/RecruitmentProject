@@ -73,7 +73,7 @@ class employerController {
   });
   getEmployer = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Employer.findById(req.user.id), {
-      fields: `-isEmailVerified,-__v,-entryTest,-event,-jobs,-registeredServicePackages,-reviews,-status,-updatedAt`,
+      fields: `-isEmailVerified,-__v,-entryTest,-event,-jobs,-registeredServicePackages,-reviews,-status,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`,
     }).limitFields();
     const employer = await features.query;
     if (!employer) {
@@ -111,6 +111,61 @@ class employerController {
     res.status(204).json({
       status: 'success',
       message: 'Đổi mật khẩu thành công',
+    });
+  });
+  updateMe = catchAsync(async (req, res, next) => {
+    if (req.body.password || req.body.passwordConfirm) {
+      return next(
+        new AppError(
+          'This route is not for password update. Please use /updateMyPassword',
+          400
+        )
+      );
+    }
+    //2) Filtered out unwanted fields that are not allowed to be update
+    const filteredBody = FilterObject(
+      req.body,
+      'address',
+      'companyName',
+      'companyWebsite',
+      'logo',
+      'ot',
+      'scale',
+      'phone',
+      'TIN',
+      'companyType'
+    );
+    //3) Update job seeker document
+    const employer = await Employer.findByIdAndUpdate(
+      req.user.id,
+      filteredBody,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    const filteredEmployer = FilterObject(
+      employer,
+      'username',
+      'email',
+      'address',
+      'companyName',
+      'companyWebsite',
+      'logo',
+      'ot',
+      'scale',
+      'phone',
+      'TIN',
+      'companyType',
+      'createdAt',
+      'updatedAt',
+      'role'
+    );
+    res.status(200).json({
+      status: 'success',
+      data: {
+        jobSeeker: filteredEmployer,
+      },
     });
   });
 }

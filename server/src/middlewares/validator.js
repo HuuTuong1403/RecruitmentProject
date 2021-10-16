@@ -20,7 +20,9 @@ exports.isEmployerUsernameUnique = async (req, res, next) => {
 exports.checkSystemManagerUnique = async (req, res, next) => {
   if (req.body.email && req.body.phone) {
     var systemManager = undefined;
-    systemManager = await SystemManager.findOne({ email: req.body.email });
+    systemManager = await SystemManager.findOne({
+      email: req.body.email,
+    });
     if (systemManager) {
       return next(
         new AppError('Email bị trùng, vui lòng sử dụng email khác', 400)
@@ -41,7 +43,9 @@ exports.checkSystemManagerUnique = async (req, res, next) => {
 exports.checkSystemAdminUnique = async (req, res, next) => {
   var systemAdmin = undefined;
   if (req.body.email) {
-    systemAdmin = await SystemAdmin.findOne({ email: req.body.email });
+    systemAdmin = await SystemAdmin.findOne({
+      email: req.body.email,
+    });
     if (systemAdmin) {
       return next(
         new AppError('Email bị trùng, vui lòng sử dụng email khác', 400)
@@ -50,6 +54,60 @@ exports.checkSystemAdminUnique = async (req, res, next) => {
   }
   if (req.body.phone) {
     systemAdmin = await SystemAdmin.findOne({ phone: req.body.phone });
+    if (systemAdmin) {
+      return next(
+        new AppError(
+          'Số điện thoại bị trùng, vui lòng sử dụng số điện thoại khác',
+          400
+        )
+      );
+    }
+  }
+  next();
+};
+exports.checkUpdateSytemManager = async (req, res, next) => {
+  if (req.body.email && req.body.phone) {
+    var systemManager = undefined;
+    systemManager = await SystemManager.findOne({
+      email: req.body.email,
+      _id: { $ne: req.user.id },
+    });
+    if (systemManager) {
+      return next(
+        new AppError('Email bị trùng, vui lòng sử dụng email khác', 400)
+      );
+    }
+    systemManager = await SystemManager.findOne({
+      phone: req.body.phone,
+      _id: { $ne: req.user.id },
+    });
+    if (systemManager) {
+      return next(
+        new AppError(
+          'Số điện thoại bị trùng, vui lòng sử dụng số điện thoại khác',
+          400
+        )
+      );
+    }
+  }
+  next();
+};
+exports.checkUpdateSytemAdmin = async (req, res, next) => {
+  if (req.body.email && req.body.phone) {
+    var systemAdmin = undefined;
+    systemAdmin = await SystemAdmin.findOne({
+      email: req.body.email,
+      _id: { $ne: req.user.id },
+    });
+    if (systemAdmin) {
+      return next(
+        new AppError('Email bị trùng, vui lòng sử dụng email khác', 400)
+      );
+    }
+    systemAdmin = await SystemAdmin.findOne({
+      phone: req.body.phone,
+      _id: { $ne: req.user.id },
+    });
     if (systemAdmin) {
       return next(
         new AppError(

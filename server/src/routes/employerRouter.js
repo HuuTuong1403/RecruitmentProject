@@ -21,6 +21,13 @@ employerRouter
     employerController.updateEmployerPassword
   );
 employerRouter
+  .route('/updateMe')
+  .patch(
+    authController.protect,
+    authController.restrictTo('employer'),
+    employerController.updateMe
+  );
+employerRouter
   .route('/')
   .post(employerController.sendInformation)
   .get(

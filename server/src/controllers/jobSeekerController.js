@@ -76,7 +76,6 @@ class JobSeekerController {
       'DOB',
       'phone',
       'address',
-      'avatar',
       'email',
       'username',
       'avatar',

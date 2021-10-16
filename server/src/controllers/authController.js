@@ -484,7 +484,6 @@ class authController {
       'avatar',
       'role'
     );
-    console.log(filteredSystemAdmin);
     const token = Token.signToken(systemAdmin._id);
     res.status(200).json({
       status: 'success',

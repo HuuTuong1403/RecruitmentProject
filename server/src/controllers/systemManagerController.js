@@ -1,18 +1,24 @@
 const fs = require('fs');
+
 const Employer = require('./../models/employerModel');
+const SystemManager = require('./../models/system-managerModel');
+
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
-const Token = require('./../services/token');
 const sendEmail = require('./../services/email');
+const FilterObject = require('./../utils/filterObject');
+
 var issueAcountEmailFiles = fs.readFileSync(
   `${__dirname}/../public/IssueAccount/IssueAccountEmail.html`,
   'utf-8'
 );
+
 class systemManagerController {
   getAllEmployer = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Employer.find(), {
       isEmailVerified: 'true',
+      fields: `-isEmailVerified,-__v,-entryTest,-event,-jobs,-registeredServicePackages,-reviews,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`,
     })
       .filter()
       .sort()
@@ -28,10 +34,9 @@ class systemManagerController {
   });
   getEmployer = catchAsync(async (req, res, next) => {
     if (req.params.id) {
-      const features = new APIFeatures(
-        Employer.findById(req.params.id),
-        {}
-      ).limitFields();
+      const features = new APIFeatures(Employer.findById(req.params.id), {
+        fields: `-isEmailVerified,-__v,-entryTest,-event,-jobs,-registeredServicePackages,-reviews,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`,
+      }).limitFields();
       const employer = await features.query;
       if (!employer) {
         return next(new AppError('No employer found with id', 404));
@@ -93,6 +98,95 @@ class systemManagerController {
         )
       );
     }
+  });
+  updateSystemManagerPassword = catchAsync(async (req, res, next) => {
+    //1) Get system manager from collection
+    const systemManager = await SystemManager.findById(req.user.id).select(
+      '+password'
+    );
+    //2) Check if posted current password is correct
+    if (
+      !(await systemManager.correctPassword(
+        req.body.currentPassword,
+        systemManager.password
+      ))
+    ) {
+      return next(new AppError('Password hiện tại không chính xác', 401));
+    }
+    //3) If so, update password
+    systemManager.password = req.body.password;
+    systemManager.passwordConfirm = req.body.passwordConfirm;
+    await systemManager.save();
+    //4) Announce
+    res.status(204).json({
+      status: 'success',
+      message: 'Đổi mật khẩu thành công',
+    });
+  });
+  updateMe = catchAsync(async (req, res, next) => {
+    //1) Create error if user post password data
+    if (req.body.password || req.body.passwordConfirm) {
+      return next(
+        new AppError(
+          'This route is not for password update. Please use /updateMyPassword',
+          400
+        )
+      );
+    }
+    //2) Filtered out unwanted fields that are not allowed to be update
+    const filteredBody = FilterObject(
+      req.body,
+      'fullname',
+      'phone',
+      'email',
+      'avatar'
+    );
+    //3) Update job seeker document
+    const systemManager = await SystemManager.findByIdAndUpdate(
+      req.user.id,
+      filteredBody,
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    const filteredsystemManager = FilterObject(
+      systemManager,
+      'fullname',
+      'phone',
+      'avatar',
+      'email',
+      'username',
+      'createdAt',
+      'updatedAt',
+      'role'
+    );
+    res.status(200).json({
+      status: 'success',
+      data: {
+        systemManager: filteredsystemManager,
+      },
+    });
+  });
+  getSystemManager = catchAsync(async (req, res, next) => {
+    const systemManager = await SystemManager.findById(req.user.id);
+    const filteredsystemManager = FilterObject(
+      systemManager,
+      'fullname',
+      'phone',
+      'avatar',
+      'email',
+      'username',
+      'createdAt',
+      'updatedAt',
+      'role'
+    );
+    res.status(200).json({
+      status: 'success',
+      data: {
+        systemManager: filteredsystemManager,
+      },
+    });
   });
 }
 

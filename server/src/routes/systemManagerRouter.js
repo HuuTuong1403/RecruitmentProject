@@ -5,6 +5,21 @@ const systemManagerController = require('../controllers/systemManagerController'
 const validator = require('./../middlewares/validator');
 
 systemManagerRouter
+  .route('/updatePassword')
+  .patch(
+    authController.protect,
+    authController.restrictTo('systemmanager'),
+    systemManagerController.updateSystemManagerPassword
+  );
+systemManagerRouter
+  .route('/updateMe')
+  .patch(
+    authController.protect,
+    authController.restrictTo('systemmanager'),
+    validator.checkUpdateSytemManager,
+    systemManagerController.updateMe
+  );
+systemManagerRouter
   .route('/manage/employer')
   .get(
     authController.protect,
@@ -27,4 +42,11 @@ systemManagerRouter
     systemManagerController.issueEmployer
   );
 systemManagerRouter.route('/login').post(authController.loginSystemManager);
+systemManagerRouter
+  .route('/')
+  .get(
+    authController.protect,
+    authController.restrictTo('systemmanager'),
+    systemManagerController.getSystemManager
+  );
 module.exports = systemManagerRouter;
