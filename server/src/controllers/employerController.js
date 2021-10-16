@@ -86,5 +86,32 @@ class employerController {
       },
     });
   });
+  updateEmployerPassword = catchAsync(async (req, res, next) => {
+    if (req.body.password != req.body.passwordConfirm) {
+      return next(
+        new AppError('Mật khẩu và xác nhận mật khẩu không giống nhau', 400)
+      );
+    }
+    //1) Get job seeker from collection
+    const employer = await Employer.findById(req.user.id).select('+password');
+    //2) Check if posted current password is correct
+    if (
+      !(await employer.correctPassword(
+        req.body.currentPassword,
+        employer.password
+      ))
+    ) {
+      return next(new AppError('Password hiện tại không chính xác', 401));
+    }
+    //3) If so, update password
+    employer.password = req.body.password;
+    employer.passwordConfirm = req.body.passwordConfirm;
+    await employer.save();
+    //4) Announce
+    res.status(204).json({
+      status: 'success',
+      message: 'Đổi mật khẩu thành công',
+    });
+  });
 }
 module.exports = new employerController();

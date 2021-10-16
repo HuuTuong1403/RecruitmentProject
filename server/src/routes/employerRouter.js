@@ -14,6 +14,13 @@ employerRouter
   .route('/resetPassword/:token')
   .patch(authController.resetEmployerPassword);
 employerRouter
+  .route('/updatePassword')
+  .patch(
+    authController.protect,
+    authController.restrictTo('employer'),
+    employerController.updateEmployerPassword
+  );
+employerRouter
   .route('/')
   .post(employerController.sendInformation)
   .get(
