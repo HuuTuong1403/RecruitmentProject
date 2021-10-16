@@ -8,7 +8,7 @@ import {
 import { IoMenu } from "react-icons/io5";
 import { MdNotificationsNone } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { selectSystemManageLocal } from "features/SystemManager/slices/selectors";
+import { selectAdminLocal } from "features/Administrator/slices/selectors";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
@@ -20,7 +20,7 @@ const Header = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //   const [dropdownHover, setDropDownHover] = useState(false);
   const { isShow, onOpen, onClose } = props;
-  const systemManage = selectSystemManageLocal();
+  const admin = selectAdminLocal();
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
 
   //   const hoverProfileHandler = () => setDropDownHover((prevState) => !prevState);
@@ -47,9 +47,18 @@ const Header = (props) => {
           <NavLink
             activeClassName={classes["header__link--active"]}
             className={classes["header__link"]}
-            to="/dashboard/employers"
+            to="/dashboard/statistic"
           >
-            {t("Employers")}
+            {t("Statistic")}
+          </NavLink>
+        </div>
+        <div>
+          <NavLink
+            activeClassName={classes["header__link--active"]}
+            className={classes["header__link"]}
+            to="/dashboard/issue-account"
+          >
+            {t("Issue Account")}
           </NavLink>
         </div>
         <div>
@@ -69,15 +78,6 @@ const Header = (props) => {
             to="/dashboard/setting"
           >
             {t("Setting")}
-          </NavLink>
-        </div>
-        <div>
-          <NavLink
-            activeClassName={classes["header__link--active"]}
-            className={classes["header__link"]}
-            to="/dashboard/statistic"
-          >
-            {t("Statistic")}
           </NavLink>
         </div>
       </div>
@@ -116,7 +116,7 @@ const Header = (props) => {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <Avatar src={systemManage?.avatar} />
+        <Avatar src={admin?.avartar} />
       </div>
     </header>
   );

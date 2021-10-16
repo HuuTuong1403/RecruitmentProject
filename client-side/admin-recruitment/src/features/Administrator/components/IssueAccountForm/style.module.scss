@@ -1,0 +1,90 @@
+@import "common/styles/Variables.scss";
+
+.issueAccount {
+  padding: $pm-10;
+  background-color: #fff;
+  margin-bottom: $pm-32;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+  &__wrapped {
+    &--title {
+      font-size: $text-3xl;
+      font-weight: 700;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    &--form {
+      padding: $pm-20 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > div {
+        flex: 0 0 60%;
+
+        & > div > div > input {
+          border-radius: 15px;
+        }
+      }
+    }
+
+    &--actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & > div {
+        flex: 0 0 48%;
+        height: 40px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .issueAccount {
+    padding: $pm-4;
+
+    &__wrapped {
+      &--title {
+        font-size: $text-2xl;
+        text-align: center;
+      }
+
+      &--form {
+        & > div {
+          flex: 0 0 90%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .issueAccount {
+    padding: $pm-4;
+
+    &__wrapped {
+      &--title {
+        font-size: $text-lg;
+        text-align: center;
+      }
+
+      &--form {
+        & > div {
+          flex: 0 0 90%;
+        }
+      }
+
+      &--actions {
+        flex-wrap: wrap;
+        row-gap: 10px;
+
+        & > div {
+          flex: 0 0 100%;
+        }
+      }
+    }
+  }
+}

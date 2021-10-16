@@ -16,8 +16,8 @@ body {
 }
 
 p {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 a {
@@ -35,12 +35,17 @@ a:hover {
   background-color: #f79d25 !important;
 }
 
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:hover {
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:hover,
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:hover > svg {
   color: #f79d25 !important;
 }
 
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item > svg {
+  color: #5d677a;
+}
+
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected > svg {
-  color: #fff !important;
+  color: #fff;
 }
 
 .ant-menu-inline,
