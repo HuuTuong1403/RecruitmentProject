@@ -4,8 +4,8 @@ import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 import ChangeLang from "components/ChangeLang";
 import ChangePassPage from "./pages/ChangePass";
 import ForgotPassPage from "./pages/ForgotPassPage";
-import SignInPage from "./pages/SignInPage";
 import NotFoundPage from "components/404";
+import SignInPage from "./pages/SignInPage";
 
 const AuthPage = () => {
   const { url } = useRouteMatch();

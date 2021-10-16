@@ -14,11 +14,7 @@ const Routers = () => {
     <BrowserRouter>
       <Suspense fallback={<LoadingSuspense height="100vh" showText={true} />}>
         <Switch>
-        <Redirect
-            exact
-            from={pathAdmin.dashboard}
-            to={pathAdmin.statistic}
-          />
+          <Redirect exact from={pathAdmin.dashboard} to={pathAdmin.statistic} />
           <PrivateRoute
             exact={false}
             component={AdministratorPage}

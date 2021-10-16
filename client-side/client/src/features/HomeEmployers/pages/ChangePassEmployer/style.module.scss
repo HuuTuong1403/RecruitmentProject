@@ -16,17 +16,12 @@
     }
 
     &--content {
+      font-size: $text-base;
       text-align: center;
     }
 
     &--form {
       width: 100%;
-
-      &--label {
-        font-size: 14px;
-        margin-left: 5px;
-        margin-bottom: 5px;
-      }
     }
   }
 }
@@ -41,13 +36,6 @@
       &--title {
         font-size: $text-xl;
         margin: 10px 0;
-      }
-
-      &--form {
-        & > button {
-          margin-bottom: 10px;
-          font-size: $text-base;
-        }
       }
     }
   }

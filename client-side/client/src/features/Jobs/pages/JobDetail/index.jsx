@@ -5,7 +5,10 @@ import { Fragment, useEffect } from "react";
 import { IoMdCalendar } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { MdLocationOn, MdOpenInBrowser } from "react-icons/md";
-import { selectedJobDetail, selectedStatus } from "features/Jobs/slices/selectors";
+import {
+  selectedJobDetail,
+  selectedStatus,
+} from "features/Jobs/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -126,6 +129,9 @@ const JobDetail = () => {
                     backgroundcolorhover="#324554"
                     color="#999"
                     type="button"
+                    radius="20px"
+                    uppercase="true"
+                    padding="8px"
                     onClick={saveJobHandler}
                   >
                     <AiOutlineHeart style={{ marginRight: "8px" }} />
@@ -137,6 +143,9 @@ const JobDetail = () => {
                     backgroundcolorhover="#324554"
                     color="#fff"
                     type="button"
+                    radius="20px"
+                    uppercase="true"
+                    padding="8px"
                     onClick={applyNowHandler}
                   >
                     {t("Apply now")}
@@ -338,6 +347,9 @@ const JobDetail = () => {
                         color="#fff"
                         type="button"
                         width="100%"
+                        radius="20px"
+                        uppercase="true"
+                        padding="8px"
                         onClick={applyNowHandler}
                       >
                         {t("Apply now")}

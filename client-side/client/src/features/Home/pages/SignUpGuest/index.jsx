@@ -17,12 +17,13 @@ import VerifyNotification from "features/Home/components/VerifyNotification";
 
 const SignUpGuest = () => {
   useEffect(() => {
-    const user = selectJobSeekerLocal()
+    const user = selectJobSeekerLocal();
     if (user) history.push("/home");
   });
   const history = useHistory();
   const { t } = useTranslation();
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useTitle(`${t("Register for a job seeker account quickly")}`);
 
@@ -36,11 +37,14 @@ const SignUpGuest = () => {
   });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const result = await signUpGuest(data);
     if (result?.status === "success") {
+      setLoading(false);
       notification(`${t("Successful account registration")}`, "success");
       setStep(2);
     } else {
+      setLoading(false);
       notification(`${result.message}`, "error");
     }
   };
@@ -100,6 +104,10 @@ const SignUpGuest = () => {
                   backgroundcolorhover="#324554"
                   color="#fff"
                   width="100%"
+                  radius="20px"
+                  uppercase="true"
+                  padding="8px"
+                  loading={loading}
                 >
                   {t("signup")}
                 </ButtonField>

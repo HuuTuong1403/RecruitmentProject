@@ -1,6 +1,8 @@
 import "antd/dist/antd.css";
 import { FiLock } from "react-icons/fi";
+import { GrUserAdmin } from "react-icons/gr";
 import { schemaSignIn } from "common/constants/schema";
+import { signInAuthAsync } from "features/Auth/slices/thunks";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
@@ -8,8 +10,6 @@ import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signInAuthAsync } from "features/Auth/slices/thunks";
-import { GrUserAdmin } from "react-icons/gr";
 import AuthComponent from "features/Auth/components/AuthComponent";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";

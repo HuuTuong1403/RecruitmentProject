@@ -1,9 +1,9 @@
 import "antd/dist/antd.css";
 import { BiLineChart } from "react-icons/bi";
+import { FaUserCog, FaUsers } from "react-icons/fa";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { logoutHandler } from "features/Auth/slices";
 import { MdSettings, MdCreate } from "react-icons/md";
-import { FaUserCog, FaUsers } from "react-icons/fa";
 import { Menu, Layout } from "antd";
 import { pathAdmin } from "common/constants/path";
 import { RiLogoutCircleRLine } from "react-icons/ri";

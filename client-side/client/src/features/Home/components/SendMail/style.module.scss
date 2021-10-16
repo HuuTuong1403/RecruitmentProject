@@ -17,6 +17,7 @@
 
     &--content {
       text-align: center;
+      font-size: $text-base;
     }
 
     & > div:last-child {
@@ -36,12 +37,6 @@
 
     &--form {
       width: 100%;
-
-      &--label {
-        font-size: 14px;
-        margin-left: 5px;
-        margin-bottom: 5px;
-      }
     }
   }
 }
@@ -57,12 +52,6 @@
       &--title {
         font-size: $text-lg;
         margin: 10px 0;
-      }
-
-      &--form {
-        & > button {
-          font-size: $text-sm;
-        }
       }
     }
   }

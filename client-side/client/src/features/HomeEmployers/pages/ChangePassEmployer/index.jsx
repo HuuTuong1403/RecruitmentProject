@@ -1,6 +1,6 @@
 import { resetPassEmployer } from "features/HomeEmployers/api/homeEmployer.api";
 import { schemaChangePassForgot } from "common/constants/schema";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -9,12 +9,14 @@ import AuthComponent from "components/AuthComponent";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 
 const ChangePassEmployer = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const { token } = useParams();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -32,15 +34,19 @@ const ChangePassEmployer = () => {
   });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const result = await resetPassEmployer(data, token);
       if (result.status === "success") {
+        setLoading(false);
         notification(`${t("Password recovery successful")}`, "success");
         history.replace("/employers/sign-in");
       } else {
+        setLoading(false);
         notification(`${t("Token is invalid or expired")}`, "error");
       }
     } catch (error) {
+      setLoading(false);
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
         "error"
@@ -63,23 +69,14 @@ const ChangePassEmployer = () => {
             onSubmit={handleSubmit(onSubmit)}
             className={classes["changepassEmployer__wrapped--form"]}
           >
-            <div
-              className={classes["changepassEmployer__wrapped--form--label"]}
-            >
-              {t("newpass")}:
-            </div>
+            <LabelField label={t("newpass")} isCompulsory={true} />
             <InputField
               type="password"
               placeholder={t("phd-new-pass")}
               {...register("password")}
               errors={errors.password?.message}
             />
-
-            <div
-              className={classes["changepassEmployer__wrapped--form--label"]}
-            >
-              {t("confirm-pass")}:
-            </div>
+            <LabelField label={t("confirm-pass")} isCompulsory={true} />
             <InputField
               type="password"
               placeholder={t("phd-confirm-pass")}
@@ -93,6 +90,10 @@ const ChangePassEmployer = () => {
               backgroundcolorhover="#324554"
               color="#fff"
               width="100%"
+              radius="20px"
+              uppercase="true"
+              padding="8px"
+              loading={loading}
             >
               {t("changepass")}
             </ButtonField>

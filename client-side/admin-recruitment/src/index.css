@@ -44,8 +44,9 @@ a:hover {
   color: #5d677a;
 }
 
-.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected > svg {
-  color: #fff;
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected > svg,
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected:hover > svg {
+  color: #fff !important;
 }
 
 .ant-menu-inline,

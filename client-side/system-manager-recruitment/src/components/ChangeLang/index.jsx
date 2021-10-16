@@ -1,7 +1,7 @@
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import ReactCountryFlag from "react-country-flag";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
 
 const ChangeLang = () => {
   const { t, i18n } = useTranslation();
