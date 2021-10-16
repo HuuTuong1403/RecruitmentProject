@@ -5,7 +5,7 @@
 
   &__approval {
     text-align: center;
-    padding: 5px 8px;
+    padding: $pm-4 $pm-14;
     background-color: #067951;
     border-radius: 5px;
     color: #fff;
@@ -176,7 +176,7 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .employer {
     padding: $pm-10 0;
 
@@ -223,6 +223,8 @@
 
         & > table {
           flex: 0 0 100%;
+          table-layout: fixed;
+          word-break: break-word;
           font-size: $text-sm;
 
           & > tbody {
@@ -231,7 +233,7 @@
                 padding: $pm-8 $pm-12;
 
                 &:first-child {
-                  width: 50%;
+                  width: 12%;
 
                   & > svg {
                     display: none;
@@ -239,7 +241,7 @@
                 }
 
                 &:last-child {
-                  width: 50%;
+                  width: 12%;
                 }
               }
             }

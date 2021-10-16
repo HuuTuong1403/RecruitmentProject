@@ -23,6 +23,7 @@ const ModalSignUp = (props) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaSignUpEmployer),
@@ -99,7 +100,10 @@ const ModalSignUp = (props) => {
                   backgroundcolorhover="#ff7875"
                   radius="5px"
                   width="100%"
-                  onClick={onCloseModal}
+                  onClick={() => {
+                    onCloseModal();
+                    reset();
+                  }}
                 >
                   {t("Cancel")}
                 </ButtonField>
@@ -107,9 +111,9 @@ const ModalSignUp = (props) => {
               <div>
                 <ButtonField
                   type="submit"
-                  backgroundcolor="#067951"
+                  backgroundcolor="#0a426e"
+                  backgroundcolorhover="#324554"
                   color="#fff"
-                  backgroundcolorhover="#2baa7e"
                   radius="5px"
                   width="100%"
                   loading={loading}

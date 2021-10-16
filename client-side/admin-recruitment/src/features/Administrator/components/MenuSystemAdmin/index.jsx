@@ -1,22 +1,23 @@
 import "antd/dist/antd.css";
+import { BiLineChart } from "react-icons/bi";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { logoutHandler } from "features/Auth/slices";
+import { MdSettings, MdCreate } from "react-icons/md";
+import { FaUserCog, FaUsers } from "react-icons/fa";
 import { Menu, Layout } from "antd";
-import { pathSystemManager } from "common/constants/path";
+import { pathAdmin } from "common/constants/path";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "common/hook/useWindowSize";
-import { RiLogoutCircleRLine } from "react-icons/ri";
 import classes from "./style.module.scss";
 import Header from "components/Header";
 import MSTLogo from "assets/images/mst_logo.png";
-import { BiBuildings, BiLineChart } from "react-icons/bi";
-import { logoutHandler } from "features/Auth/slices";
-import { useDispatch } from "react-redux";
 import notification from "components/Notification";
 
-const MenuSystemManage = (props) => {
+const MenuSystemAdmin = (props) => {
   const { t } = useTranslation();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -44,35 +45,43 @@ const MenuSystemManage = (props) => {
     }
   }, [widthSize]);
 
-  const logoutSystemManageHandler = () => {
+  const logoutSystemAdminHandler = () => {
     dispatch(logoutHandler());
     notification(`${t("Log out successful")}`, "success");
   };
 
-  const menuSystemManage = [
+  const menuAdmin = [
     {
-      key: `${pathSystemManager.employerManager}`,
-      title: `${t("Employers Management")}`,
-      icon: <BiBuildings className={classes.menuIcon} />,
-      isLink: false,
-      onClick: null,
-    },
-    {
-      key: `${pathSystemManager.myProfile}`,
-      title: `${t("Account Management")}`,
-      icon: <MdAccountCircle className={classes.menuIcon} />,
-      isLink: false,
-      onClick: null,
-    },
-    {
-      key: `${pathSystemManager.statistic}`,
+      key: `${pathAdmin.statistic}`,
       title: `${t("Statistic")}`,
       icon: <BiLineChart className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
-      key: `${pathSystemManager.settings}`,
+      key: `${pathAdmin.issueAccount}`,
+      title: `${t("Issue Account")}`,
+      icon: <MdCreate className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
+    },
+    {
+      key: `${pathAdmin.userManager}`,
+      title: `${t("User Management")}`,
+      icon: <FaUsers className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
+    },
+    {
+      key: `${pathAdmin.myProfile}`,
+      title: `${t("Account Management")}`,
+      icon: <FaUserCog className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
+    },
+
+    {
+      key: `${pathAdmin.setting}`,
       title: `${t("Setting")}`,
       icon: <MdSettings className={classes.menuIcon} />,
       isLink: false,
@@ -83,7 +92,7 @@ const MenuSystemManage = (props) => {
       title: `${t("Log out")}`,
       icon: <RiLogoutCircleRLine className={classes.menuIcon} />,
       isLink: true,
-      onClick: logoutSystemManageHandler,
+      onClick: logoutSystemAdminHandler,
     },
   ];
 
@@ -107,7 +116,7 @@ const MenuSystemManage = (props) => {
           style={{ fontSize: "16px" }}
           selectedKeys={[location.pathname]}
         >
-          {menuSystemManage.map((item, index) =>
+          {menuAdmin.map((item, index) =>
             item?.subMenu ? (
               <SubMenu icon={item.icon} key={index} title={item.title}>
                 {item?.subMenu.map((subMenu) => (
@@ -157,4 +166,4 @@ const MenuSystemManage = (props) => {
   );
 };
 
-export default MenuSystemManage;
+export default MenuSystemAdmin;

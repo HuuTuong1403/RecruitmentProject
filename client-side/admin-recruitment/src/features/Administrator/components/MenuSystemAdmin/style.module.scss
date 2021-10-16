@@ -1,0 +1,112 @@
+@import "common/styles/Variables.scss";
+
+a {
+  color: #5d677a;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  color: #f79d25;
+  text-decoration: underline;
+}
+
+.menuIcon {
+  font-size: $text-xl !important;
+}
+
+.sliderSystem {
+  display: flex;
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #f79c25a8;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #f79d25;
+  }
+
+  &__active {
+    color: rgba(0, 0, 0, 0.85) !important;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.85) !important;
+      text-decoration: none !important;
+    }
+  }
+
+  &__menuHeader {
+    text-align: center;
+    border-bottom: 1px solid #e8e8e8;
+    padding: $pm-24 0;
+  }
+
+  &__blockRight {
+    width: 100%;
+    border-left: 1px solid #e8e8e8;
+    max-height: 100vh;
+    overflow-y: auto;
+    background-color: #ebedef;
+  }
+
+  &__componentChild {
+    padding-top: $pm-32;
+
+    & > div {
+      margin: 0 $pm-24;      
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+  .menuIcon {
+    font-size: $text-lg !important;
+  }
+  .sliderSystem {
+    &__menuHeader {
+      padding: $pm-20 0;
+    }
+
+    &__componentChild {
+      padding-top: $pm-24;
+
+      & > div {
+        margin: 0 $pm-20;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .menuIcon {
+    font-size: $text-base !important;
+  }
+  .sliderSystem {
+    &__meSystem {
+      padding: $pm-20 0;
+    }
+
+    &__componentChild {
+      padding-top: $pm-20;
+
+      & > div {
+        margin: 0 $pm-16;
+      }
+    }
+  }
+}

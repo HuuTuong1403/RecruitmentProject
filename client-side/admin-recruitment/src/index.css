@@ -16,8 +16,8 @@ body {
 }
 
 p {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 a {
@@ -29,4 +29,66 @@ a {
 a:hover {
   color: #f79d25;
   text-decoration: underline;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #f79d25 !important;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:hover,
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item:hover > svg {
+  color: #f79d25 !important;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item > svg {
+  color: #5d677a;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected > svg {
+  color: #fff;
+}
+
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border-right: none !important;
+}
+
+.ant-menu-vertical .ant-menu-item::after,
+.ant-menu-vertical-left .ant-menu-item::after,
+.ant-menu-vertical-right .ant-menu-item::after,
+.ant-menu-inline .ant-menu-item::after {
+  border-right: 3px solid #0a426e !important;
+}
+
+.ant-menu-light .ant-menu-item:hover,
+.ant-menu-light .ant-menu-item-active,
+.ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+.ant-menu-light .ant-menu-submenu-active,
+.ant-menu-light .ant-menu-submenu-title:hover {
+  color: #f79d25 !important;
+}
+.ant-menu-submenu:hover
+  > .ant-menu-submenu-title
+  > .ant-menu-submenu-expand-icon,
+.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow {
+  color: #f79d25 !important;
+}
+
+.ant-menu-submenu-selected {
+  color: #f79d25 !important;
+}
+
+.ant-menu-inline.ant-menu-root .ant-menu-item,
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
+  font-size: 16px !important;
+}
+
+.ant-menu-item a:hover {
+  color: #f79d25 !important;
+}
+
+.ant-menu-item-selected a,
+.ant-menu-item-selected a:hover {
+  color: #fff !important;
 }
