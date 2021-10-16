@@ -13,8 +13,8 @@ import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
-import moment from "moment";
 import ModalSignUp from "../ModalSignUp";
+import moment from "moment";
 
 const EmployerDetail = (props) => {
   const { employer } = props;

@@ -1,10 +1,10 @@
+import { fetchAllEmployerAsync } from "features/SystemManager/slices/thunks";
+import { Fragment } from "react";
 import {
   selectEmployers,
   selectStatus,
   selectEmployer,
 } from "features/SystemManager/slices/selectors";
-import { fetchAllEmployerAsync } from "features/SystemManager/slices/thunks";
-import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useTitle } from "common/hook/useTitle";

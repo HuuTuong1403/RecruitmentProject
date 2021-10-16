@@ -1,5 +1,5 @@
-import IssueAccountForm from "features/Administrator/components/IssueAccountForm";
 import { Fragment } from "react";
+import IssueAccountForm from "features/Administrator/components/IssueAccountForm";
 
 const IssueAccountPage = () => {
   return (

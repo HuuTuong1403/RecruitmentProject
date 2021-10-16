@@ -1,6 +1,6 @@
 import { resetPassword } from "features/Home/api/home.api";
 import { schemaChangePassForgot } from "common/constants/schema";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -9,12 +9,14 @@ import AuthComponent from "components/AuthComponent";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 
 const ChangePassForgot = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const { token } = useParams();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -32,15 +34,19 @@ const ChangePassForgot = () => {
   });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       const result = await resetPassword(data, token);
       if (result.status === "success") {
+        setLoading(false);
         notification(`${t("Password recovery successful")}`, "success");
         history.push("/home/sign-in");
       } else {
+        setLoading(false);
         notification(`${t("Token is invalid or expired")}`, "error");
       }
     } catch (error) {
+      setLoading(false);
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
         "error"
@@ -63,9 +69,7 @@ const ChangePassForgot = () => {
             onSubmit={handleSubmit(onSubmit)}
             className={classes["changepass__wrapped--form"]}
           >
-            <div className={classes["changepass__wrapped--form--label"]}>
-              {t("newpass")}:
-            </div>
+            <LabelField label={t("newpass")} isCompulsory={true} />
             <InputField
               type="password"
               placeholder={t("phd-new-pass")}
@@ -73,9 +77,7 @@ const ChangePassForgot = () => {
               errors={errors.password?.message}
             />
 
-            <div className={classes["changepass__wrapped--form--label"]}>
-              {t("confirm-pass")}:
-            </div>
+            <LabelField label={t("confirm-pass")} isCompulsory={true} />
             <InputField
               type="password"
               placeholder={t("phd-confirm-pass")}
@@ -89,6 +91,10 @@ const ChangePassForgot = () => {
               backgroundcolorhover="#324554"
               color="#fff"
               width="100%"
+              radius="20px"
+              uppercase="true"
+              padding="8px"
+              loading={loading}
             >
               {t("changepass")}
             </ButtonField>

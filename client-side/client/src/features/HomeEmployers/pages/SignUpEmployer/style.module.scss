@@ -1,4 +1,4 @@
-@import "../../../../common/styles/Variables.scss";
+@import "common/styles/Variables.scss";
 
 .signup_emp {
   height: 100%;
@@ -9,6 +9,7 @@
   &__wrapped {
     &--content {
       text-align: center;
+      font-size: $text-base;
     }
 
     &--form {

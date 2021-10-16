@@ -1,19 +1,19 @@
 import "antd/dist/antd.css";
+import { BiBuildings, BiLineChart } from "react-icons/bi";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { logoutHandler } from "features/Auth/slices";
 import { MdSettings, MdAccountCircle } from "react-icons/md";
 import { Menu, Layout } from "antd";
 import { pathSystemManager } from "common/constants/path";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "common/hook/useWindowSize";
-import { RiLogoutCircleRLine } from "react-icons/ri";
 import classes from "./style.module.scss";
 import Header from "components/Header";
 import MSTLogo from "assets/images/mst_logo.png";
-import { BiBuildings, BiLineChart } from "react-icons/bi";
-import { logoutHandler } from "features/Auth/slices";
-import { useDispatch } from "react-redux";
 import notification from "components/Notification";
 
 const MenuSystemManage = (props) => {

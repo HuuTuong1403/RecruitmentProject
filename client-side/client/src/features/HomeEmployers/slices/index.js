@@ -29,11 +29,9 @@ export const authEmployerSlice = createSlice({
       const { token, data } = action?.payload;
       state.status = false;
       if (token && data) {
-        if (data?.Employer.isEmailVerified) {
-          state.employer = data?.Employer;
-          localStorage.setItem("token", token);
-          localStorage.setItem("employer", JSON.stringify(state.employer));
-        }
+        state.employer = data?.Employer;
+        localStorage.setItem("token", token);
+        localStorage.setItem("employer", JSON.stringify(state.employer));
       } else {
         state.employer = null;
       }

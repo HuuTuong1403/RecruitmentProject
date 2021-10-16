@@ -25,6 +25,7 @@ const StepThreeSignUp = (props) => {
   const [errorImg, setErrorImg] = useState(null);
   const logo = useRef();
   const history = useHistory();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -52,13 +53,15 @@ const StepThreeSignUp = (props) => {
       OT: item.OT,
       TIN: item.TIN,
     };
-    console.log(signUpEmployerObj);
+    setLoading(true);
     const result = await signUpEmployer(signUpEmployerObj);
     if (result.status === "success") {
+      setLoading(false);
       notification(`${t("Successful account registration")}`, "success");
       dispatch(addInfoSignUp({}));
       history.push("/employers/sign-in");
     } else {
+      setLoading(false);
       notification(
         `${result.message ?? "Đăng ký tài khoản thất bại"}`,
         "error"
@@ -176,6 +179,9 @@ const StepThreeSignUp = (props) => {
             backgroundcolorhover="#bf0000"
             color="#fff"
             width="45%"
+            radius="20px"
+            uppercase="true"
+            padding="8px"
             onClick={onBackStep}
           >
             <IoMdArrowBack style={{ marginRight: "10px" }} />
@@ -187,6 +193,10 @@ const StepThreeSignUp = (props) => {
             backgroundcolorhover="#324554"
             color="#fff"
             width="45%"
+            radius="20px"
+            uppercase="true"
+            padding="8px"
+            loading={loading}
           >
             {t("signup")}
           </ButtonField>

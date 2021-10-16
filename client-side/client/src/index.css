@@ -3,6 +3,7 @@
 @import "react-toastify/dist/ReactToastify.css";
 @import "slick-carousel/slick/slick-theme.css";
 @import "slick-carousel/slick/slick.css";
+@import "antd/dist/antd.css";
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800&display=swap");
 
 * {
@@ -26,6 +27,7 @@ p {
 a {
   color: #5d677a;
   text-decoration: none;
+  font-size: 16px !important;
   transition: all 0.3s ease-in-out;
 }
 

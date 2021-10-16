@@ -152,6 +152,9 @@ const SearchHeader = () => {
                 backgroundcolorhover="#333"
                 width="100%"
                 type="submit"
+                radius="20px"
+                uppercase="true"
+                padding="8px"
               >
                 {t("search")}
               </ButtonField>
@@ -214,6 +217,9 @@ const SearchHeader = () => {
                 color="#fff"
                 backgroundcolorhover="#333"
                 type="submit"
+                radius="20px"
+                uppercase="true"
+                padding="8px"
               >
                 {t("Confirm")}
               </ButtonField>
@@ -222,6 +228,9 @@ const SearchHeader = () => {
                 backgroundcolor="#dd4b39"
                 backgroundcolorhover="#bf0000"
                 type="button"
+                radius="20px"
+                uppercase="true"
+                padding="8px"
                 onClick={deleteFilterHandler}
               >
                 {t("Clear filters")}

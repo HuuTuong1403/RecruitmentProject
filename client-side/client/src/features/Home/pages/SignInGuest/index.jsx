@@ -30,6 +30,7 @@ const SignInGuest = () => {
   const dispatch = useDispatch();
   const employer = selectEmployerLocal();
   const [isVerify, setIsVerify] = useState(query.get("isVerify") ?? null);
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   useTitle(`${t("Sign in as a job seeker")}`);
@@ -52,15 +53,18 @@ const SignInGuest = () => {
 
   const onSubmit = async (dataLogIn) => {
     setIsVerify(null);
+    setLoading(true);
     const result = await dispatch(signInGuestAsync(dataLogIn));
     const { data, status } = result.payload;
 
     if (status === "success") {
       const { isEmailVerified } = data?.JobSeeker;
       if (isEmailVerified) {
+        setLoading(false);
         notification(`${t("Signed in successfully")}`, "success");
         history.push("/jobseekers");
       } else {
+        setLoading(false);
         setIsVerify(
           `${t(
             "The account has not been activated. Please check your email inbox for activation"
@@ -68,6 +72,7 @@ const SignInGuest = () => {
         );
       }
     } else {
+      setLoading(false);
       reset({
         username: "",
         password: "",
@@ -129,6 +134,10 @@ const SignInGuest = () => {
               backgroundcolorhover="#324554"
               color="#fff"
               width="100%"
+              radius="20px"
+              uppercase="true"
+              padding="8px"
+              loading={loading}
             >
               {t("signin")}
             </ButtonField>
@@ -144,8 +153,11 @@ const SignInGuest = () => {
                 backgroundcolorhover="#bf0000"
                 color="#fff"
                 width="100%"
+                radius="20px"
+                uppercase="true"
+                padding="8px"
               >
-                <FaGoogle />
+                <FaGoogle style={{ marginRight: "5px" }} />
                 <span> {t("signin-google")}</span>
               </ButtonField>
             </div>

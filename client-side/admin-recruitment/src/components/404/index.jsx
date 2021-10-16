@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
+import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import animationData from "assets/lottie/pageNotFound.json";
 import classes from "./styles.module.scss";
 import Lottie from "lottie-react";
-import { useTitle } from "common/hook/useTitle";
 
 const Page404 = () => {
   const { t } = useTranslation();

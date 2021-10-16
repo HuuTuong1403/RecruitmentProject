@@ -2,6 +2,7 @@ import { Fragment, lazy } from "react";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import EmployerDetailPage from "./pages/EmployerDetailPage";
 import MenuSystemManage from "./components/MenuSystemManage";
+import NotFoundPage from "components/404";
 
 const EmployerManagerPage = lazy(() => import("./pages/EmployerManagerPage"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
@@ -13,8 +14,8 @@ const SystemManagerPage = () => {
 
   return (
     <Fragment>
-      <Switch>
-        <MenuSystemManage>
+      <MenuSystemManage>
+        <Switch>
           <Route
             exact
             path={`${url}/employers`}
@@ -25,11 +26,12 @@ const SystemManagerPage = () => {
             path={`${url}/employers/view/:id`}
             component={EmployerDetailPage}
           />
-          <Route path={`${url}/my-profile`} component={ProfilePage} />
-          <Route path={`${url}/setting`} component={SettingPage} />
-          <Route path={`${url}/statistic`} component={StatisticPage} />
-        </MenuSystemManage>
-      </Switch>
+          <Route exact path={`${url}/my-profile`} component={ProfilePage} />
+          <Route exact path={`${url}/setting`} component={SettingPage} />
+          <Route exact path={`${url}/statistic`} component={StatisticPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
+      </MenuSystemManage>
     </Fragment>
   );
 };

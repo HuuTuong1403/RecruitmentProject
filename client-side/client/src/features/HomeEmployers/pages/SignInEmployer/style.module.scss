@@ -1,4 +1,4 @@
-@import "../../../../common/styles/Variables.scss";
+@import "common/styles/Variables.scss";
 
 .signin_emp {
   height: 100%;
@@ -28,6 +28,7 @@
     }
 
     &--content {
+      font-size: $text-base;
       text-align: center;
     }
 
