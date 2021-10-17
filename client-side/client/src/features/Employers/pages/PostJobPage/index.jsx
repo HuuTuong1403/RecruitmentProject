@@ -13,6 +13,7 @@ import { selectedSkills } from "features/Jobs/slices/selectors";
 import { selectPostJobData } from "features/Employers/slices/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
@@ -21,11 +22,10 @@ import classes from "./style.module.scss";
 import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
 import ErrorText from "components/ErrorText";
 import LabelField from "custom-fields/LabelField";
-import PostJobField from "features/Employers/components/PostJobField";
-import SelectField from "features/Employers/components/SelectField";
-import Select from "react-select";
-import { useState } from "react";
 import moment from "moment";
+import PostJobField from "features/Employers/components/PostJobField";
+import Select from "react-select";
+import SelectField from "features/Employers/components/SelectField";
 
 const PostJobPage = () => {
   const { t } = useTranslation();
@@ -354,7 +354,7 @@ const PostJobPage = () => {
                       postJobData?.finishDate
                         ? moment(postJobData?.finishDate, dateFormat)
                         : null
-                    }
+                    }    
                   />
                 </div>
               </div>

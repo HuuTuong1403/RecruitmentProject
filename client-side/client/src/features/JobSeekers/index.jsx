@@ -18,7 +18,7 @@ import NotFoundPage from "components/404";
 import notification from "components/Notification";
 import UserProfilePage from "./pages/UserProfilePage";
 import UserSettingPage from "./pages/UserSettingPage";
-
+import { fetchProvincesAsync } from "features/Home/slices/thunks";
 const DashboardJobSeekersPage = () => {
   const { t } = useTranslation();
   const user = selectJobSeekerLocal();
@@ -28,7 +28,7 @@ const DashboardJobSeekersPage = () => {
       notification(`${t("Please log out of the employer account")}`, "error");
     }
   });
-  
+
   const history = useHistory();
   const { url } = useRouteMatch();
   const location = useLocation();
@@ -40,8 +40,12 @@ const DashboardJobSeekersPage = () => {
       dispatch(getDetailJobSeekerAsync());
       dispatch(fetchJobsAsync());
       setCheckLocation(location.pathname);
+
+      if (location.pathname === `${url}/my-profile`) {
+        dispatch(fetchProvincesAsync());
+      }
     }
-  }, [dispatch, checkLocation, location, user]);
+  }, [dispatch, checkLocation, location, user, url]);
 
   return (
     <Fragment>

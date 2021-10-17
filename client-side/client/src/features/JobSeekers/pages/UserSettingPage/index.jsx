@@ -13,6 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 
 const UserSettingPage = () => {
@@ -66,7 +67,10 @@ const UserSettingPage = () => {
         >
           <div>
             <div>
-              <label>{t("Enter current password")}:</label>
+              <LabelField
+                label={t("Enter current password")}
+                isCompulsory={true}
+              />
               <InputField
                 type="password"
                 placeholder={t("Please enter your current password")}
@@ -76,7 +80,10 @@ const UserSettingPage = () => {
               />
             </div>
             <div>
-              <label>{t("Enter your new password")}:</label>
+              <LabelField
+                label={t("Enter your new password")}
+                isCompulsory={true}
+              />
               <InputField
                 type="password"
                 placeholder={t("Please enter a new password")}
@@ -86,7 +93,10 @@ const UserSettingPage = () => {
               />
             </div>
             <div>
-              <label>{t("Enter confirm a new password")}:</label>
+              <LabelField
+                label={t("Enter confirm a new password")}
+                isCompulsory={true}
+              />
               <InputField
                 type="password"
                 placeholder={t("Please enter confirm a new password")}

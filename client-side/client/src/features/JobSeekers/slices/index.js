@@ -4,6 +4,7 @@ import { fetchJobsAsync, getDetailJobSeekerAsync } from "./thunks";
 const initialState = {
   status: false,
   jobSeekerProfile: null,
+  updateProfileData: null,
   jobs: [],
 };
 

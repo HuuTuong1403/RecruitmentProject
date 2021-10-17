@@ -170,3 +170,31 @@ export const schemaPostJobEmployer = yup.object({
     .notOneOf(["Chọn cấp bậc...", "Choose level..."], "error-select-level"),
   finishDate: yup.string().required("error-select-date-deadline").nullable(),
 });
+
+export const schemaUpdateProfileJobSeeker = yup.object({
+  fullname: yup.string().required("error-fullname-signup"),
+  phone: yup
+    .string()
+    .required("error-phone-required")
+    .matches(/((09|03|07|08|05)+([0-9]{8})\b)/g, "error-phone-pattern"),
+  DOB: yup.string().required("error-select-dob").nullable(),
+  city: yup
+    .string()
+    .required("error-select-province")
+    .notOneOf(
+      ["Chọn tỉnh/thành...", "Choose province..."],
+      "error-select-province"
+    ),
+  district: yup
+    .string()
+    .required("error-select-district")
+    .notOneOf(
+      ["Chọn quận/huyện...", "Choose district..."],
+      "error-select-district"
+    ),
+  ward: yup
+    .string()
+    .required("error-select-ward")
+    .notOneOf(["Chọn phường/xã...", "Choose ward..."], "error-select-ward"),
+  street: yup.string().required("error-address"),
+});
