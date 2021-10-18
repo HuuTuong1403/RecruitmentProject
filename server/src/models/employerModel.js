@@ -69,6 +69,12 @@ const employerSchema = new mongoose.Schema(
       },
       trim: true,
     },
+    description: {
+      type: String,
+    },
+    welfare: {
+      type: [String],
+    },
     registeredServicePackages: [
       {
         servicePackageName: {

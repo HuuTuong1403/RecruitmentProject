@@ -130,20 +130,32 @@ class employerController {
       'companyWebsite',
       'logo',
       'ot',
+      'description',
       'scale',
       'phone',
       'TIN',
       'companyType'
     );
     //3) Update job seeker document
-    const employer = await Employer.findByIdAndUpdate(
-      req.user.id,
-      filteredBody,
-      {
+    var employer;
+    if (!req.body.welfare && !req.body.delWelfare) {
+      employer = await Employer.findByIdAndUpdate(req.user.id, filteredBody, {
         new: true,
         runValidators: true,
-      }
-    );
+      });
+    } else {
+      employer = await Employer.findByIdAndUpdate(
+        req.user.id,
+        {
+          filteredBody,
+          $set: { welfare: req.body.welfare },
+        },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+    }
     const filteredEmployer = FilterObject(
       employer,
       'username',
@@ -151,10 +163,12 @@ class employerController {
       'address',
       'companyName',
       'companyWebsite',
+      'description',
       'logo',
       'ot',
       'scale',
       'phone',
+      'welfare',
       'TIN',
       'companyType',
       'createdAt',
@@ -164,7 +178,7 @@ class employerController {
     res.status(200).json({
       status: 'success',
       data: {
-        jobSeeker: filteredEmployer,
+        employer: filteredEmployer,
       },
     });
   });
