@@ -1,0 +1,83 @@
+@import "common/styles/Variables.scss";
+
+.icon {
+  margin-right: 5px;
+  font-size: $text-lg;
+  color: $primary-text;
+}
+
+.fullname {
+  text-align: center !important;
+  font-weight: 700;
+}
+
+.address {
+  white-space: pre-wrap !important;
+}
+
+.left {
+  flex: 1 1 28%;
+  text-align: center;
+  color: $primary-text;
+  border: 1px solid #e8e8e8;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: $pm-10 0;
+
+  &__group {
+    margin-top: $pm-10;
+    font-size: $text-lg;
+    text-align: start;
+    width: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .icon {
+    font-size: $text-base;
+  }
+
+  .left {
+    flex: 0 0 100%;
+
+    &__group {
+      font-size: $text-base;
+      width: 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .icon {
+    font-size: $text-sm;
+  }
+
+  .left {
+    flex: 0 0 100%;
+
+    &__group {
+      font-size: $text-sm;
+      width: 65%;
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .icon {
+    font-size: $text-xs;
+  }
+
+  .left {
+    flex: 0 0 100%;
+
+    &__group {
+      font-size: $text-xs;
+      width: 70%;
+    }
+  }
+}

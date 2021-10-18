@@ -1,4 +1,4 @@
-@import "../../common/styles/Variables.scss";
+@import "common/styles/Variables.scss";
 
 .header {
   align-items: center;
@@ -61,7 +61,7 @@
   }
 
   &__link:hover {
-    color: #f79d25;
+    color: $third-text;
   }
 
   &__lang {

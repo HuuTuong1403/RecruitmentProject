@@ -1,10 +1,10 @@
 import "antd/dist/antd.css";
-import { AiFillDashboard } from "react-icons/ai";
+import { AiFillDashboard, AiOutlineNotification } from "react-icons/ai";
 import { BsListCheck } from "react-icons/bs";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { logoutJobSeeker } from "features/Home/slices";
 import { MdMenu } from "react-icons/md";
-import { MdSettings } from "react-icons/md";
+import { MdSettings, MdAccountCircle } from "react-icons/md";
 import { Menu, Layout } from "antd";
 import { pathJobSeeker } from "common/constants/path";
 import { RiLogoutCircleRLine } from "react-icons/ri";
@@ -46,19 +46,19 @@ const MenuJobSeeker = (props) => {
     {
       key: pathJobSeeker.myProfile,
       title: `${t("Account Management")}`,
-      icon: null,
+      icon: <MdAccountCircle className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       key: pathJobSeeker.jobAlert,
       title: `${t("My Job Alerts")}`,
-      icon: null,
+      icon: <AiOutlineNotification className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
-      icon: <BsListCheck />,
+      icon: <BsListCheck className={classes.menuIcon} />,
       title: `${t("My Jobs")}`,
       subMenu: [
         {
@@ -80,14 +80,14 @@ const MenuJobSeeker = (props) => {
     {
       key: pathJobSeeker.settingAccount,
       title: `${t("Settings")}`,
-      icon: <MdSettings />,
+      icon: <MdSettings className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       key: "logout",
       title: `${t("Log out")}`,
-      icon: <RiLogoutCircleRLine />,
+      icon: <RiLogoutCircleRLine className={classes.menuIcon} />,
       isLink: true,
       onClick: logoutHandler,
     },
@@ -109,11 +109,13 @@ const MenuJobSeeker = (props) => {
           showClose
             ? {
                 backgroundColor: "#fff",
-                maxHeight: "90vh",
+                maxHeight: "88vh",
                 overflowY: "auto",
                 overflowX: "hidden",
               }
-            : { backgroundColor: "#fff" }
+            : {
+                backgroundColor: "#fff",
+              }
         }
         breakpoint="lg"
         collapsedWidth="0"

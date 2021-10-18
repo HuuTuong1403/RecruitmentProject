@@ -1,4 +1,4 @@
-@import "../../common/styles/Variables.scss";
+@import "common/styles/Variables.scss";
 
 .header {
   align-items: center;
@@ -54,7 +54,7 @@
     }
 
     &--emp:hover {
-      background-color: #f79d25 !important;
+      background-color: $third-text !important;
       color: $second-text;
       text-decoration: none;
     }

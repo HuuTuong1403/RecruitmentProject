@@ -21,20 +21,19 @@ const EmployersHomePage = () => {
       <HeaderEmployers />
       <Switch>
         <Route exact path={`${url}`} component={HomeEmployer} />
-        <Route path={`${url}/sign-in`} component={SignInEmployer} />
-        <Route path={`${url}/sign-up`} component={SignUpEmployer} />
+        <Route exact path={`${url}/sign-in`} component={SignInEmployer} />
+        <Route exact path={`${url}/sign-up`} component={SignUpEmployer} />
         <Route
           exact
           path={`${url}/forgot-pass`}
           component={ForgotPassEmployer}
         />
         <Route
+          exact
           path={`${url}/forgot-pass/:token`}
           component={ChangePassEmployer}
         />
-        <Route path="*">
-          <NotFoundPage />
-        </Route>
+        <Route component={NotFoundPage} />
       </Switch>
       <FooterEmployers />
     </Fragment>

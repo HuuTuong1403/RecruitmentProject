@@ -23,7 +23,7 @@ import notification from "components/Notification";
 const SignInGuest = () => {
   useEffect(() => {
     const user = selectJobSeekerLocal();
-    if (user) history.push("/home");
+    if (user) history.push("/jobseekers");
   });
   let query = new URLSearchParams(useLocation().search);
   const { t } = useTranslation();
@@ -62,7 +62,6 @@ const SignInGuest = () => {
       if (isEmailVerified) {
         setLoading(false);
         notification(`${t("Signed in successfully")}`, "success");
-        history.push("/jobseekers");
       } else {
         setLoading(false);
         setIsVerify(

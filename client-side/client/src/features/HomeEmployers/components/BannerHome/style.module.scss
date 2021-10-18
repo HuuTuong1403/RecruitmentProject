@@ -47,7 +47,7 @@
         margin-top: 30px;
 
         & > a {
-          color: white;
+          color: white !important;
           display: inline-block;
           padding: 15px 40px;
           background: $primary-color;
@@ -57,7 +57,7 @@
 
           &:hover,
           &:focus {
-            color: $third-text;
+            color: $third-text !important;
             text-decoration: none;
           }
         }

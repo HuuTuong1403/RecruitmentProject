@@ -1,0 +1,104 @@
+@import "common/styles/Variables.scss";
+
+.profile {
+  padding: $pm-10 0;
+
+  input {
+    border-radius: 10px !important;
+  }
+
+  &__wrapped {
+    padding: 0 $pm-10;
+    &--title {
+      font-size: $text-3xl;
+      font-weight: 700;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    &--content {
+      display: flex;
+      padding: $pm-14 0;
+      gap: 20px;
+    }
+
+    &--blockRight {
+      flex: 1 1 70%;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      padding: $pm-10;
+
+      &--title {
+        font-size: $text-xl;
+        font-weight: 700;
+        text-align: center;
+        padding: $pm-10 0;
+        text-transform: uppercase;
+      }
+
+      &--form {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        & > div {
+          flex: 0 0 45%;
+          height: 90px;
+        }
+      }
+
+      &--actions {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: $pm-10 0;
+
+        & > button {
+          flex: 0 0 48%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile {
+    padding: $pm-10 0;
+
+    &__wrapped {
+      padding: 0 $pm-10;
+      &--title {
+        font-size: $text-xl;
+        text-align: center;
+      }
+
+      &--content {
+        flex-wrap: wrap;
+      }
+
+      &--blockRight {
+        flex: 0 0 100%;
+
+        &--title {
+          padding: $pm-10 0;
+        }
+
+        &--form {
+          & > div {
+            flex: 0 0 98%;
+          }
+        }
+
+        &--actions {
+          padding: $pm-10 0;
+
+          & > button {
+            flex: 0 0 100%;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,18 +1,23 @@
 @import "common/styles/Variables.scss";
 
 a {
-  color: #5d677a;
+  color: $primary-text;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
 }
 
 a:hover {
-  color: #f79d25;
+  color: $third-text;
   text-decoration: underline;
+}
+
+.menuIcon {
+  font-size: $text-xl !important;
 }
 
 .sliderJobSeeker {
   display: flex;
+  height: 100vh -$h-header;
 
   ::-webkit-scrollbar {
     width: 4px;
@@ -27,7 +32,7 @@ a:hover {
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #f79d25;
+    background: $third-text;
   }
 
   &__menuClose {
@@ -43,10 +48,10 @@ a:hover {
   }
 
   &__active {
-    color: #fff !important;
+    color: $primary-text !important;
 
     &:hover {
-      color: #fff !important;
+      color: $primary-text !important;
       text-decoration: none !important;
     }
   }
@@ -72,8 +77,8 @@ a:hover {
     padding: $pm-20;
     width: 100%;
     border-left: 1px solid #e8e8e8;
-    max-height: 90vh;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 }
 
