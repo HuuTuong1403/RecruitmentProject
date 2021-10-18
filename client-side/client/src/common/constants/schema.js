@@ -198,3 +198,35 @@ export const schemaUpdateProfileJobSeeker = yup.object({
     .notOneOf(["Chọn phường/xã...", "Choose ward..."], "error-select-ward"),
   street: yup.string().required("error-address"),
 });
+
+export const schemaUpdateProfileEmployer = yup.object({
+  companyName: yup.string().required("error-companyName-required"),
+  companyWebsite: yup.string().required("error-website-required"),
+  phone: yup
+    .string()
+    .required("error-phone-required")
+    .matches(/((09|03|07|08|05)+([0-9]{8})\b)/g, "error-phone-pattern"),
+  TIN: yup.string().required("error-taxCode"),
+  scale: yup.string().required("error-select-scale"),
+  companyType: yup.string().required("error-companyType"),
+  city: yup
+    .string()
+    .required("error-select-province")
+    .notOneOf(
+      ["Chọn tỉnh/thành...", "Choose province..."],
+      "error-select-province"
+    ),
+  district: yup
+    .string()
+    .required("error-select-district")
+    .notOneOf(
+      ["Chọn quận/huyện...", "Choose district..."],
+      "error-select-district"
+    ),
+  ward: yup
+    .string()
+    .required("error-select-ward")
+    .notOneOf(["Chọn phường/xã...", "Choose ward..."], "error-select-ward"),
+  street: yup.string().required("error-address"),
+  description: yup.string().required("error-description-company"),
+});

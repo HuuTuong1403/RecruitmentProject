@@ -1,7 +1,10 @@
 @import "common/styles/Variables.scss";
 
 .postjob {
+  padding: $pm-10 0;
+
   &__wrapped {
+    padding: 0 $pm-10;
     & > form {
       padding: $pm-10;
     }

@@ -26,7 +26,7 @@ import LabelField from "custom-fields/LabelField";
 import moment from "moment";
 import notification from "components/Notification";
 import ProfileJobSeeker from "features/JobSeekers/components/ProfileJobSeeker";
-import SelectField from "custom-fields/SelectField";
+import SelectLocationField from "custom-fields/SelectLocationField";
 
 const UserProfilePage = () => {
   ScrollTop();
@@ -110,7 +110,6 @@ const UserProfilePage = () => {
         notification(`${t("Update information successful")}`, "success");
         dispatch(getDetailJobSeekerAsync());
       } else {
-        console.log(result);
         setLoading(false);
         notification(result.message, "error");
       }
@@ -205,7 +204,7 @@ const UserProfilePage = () => {
               <div className={classes["profile__wrapped--blockRight--form"]}>
                 <div>
                   <LabelField label={t("Province")} isCompulsory={true} />
-                  <SelectField
+                  <SelectLocationField
                     name="city"
                     control={control}
                     defaultValue={
@@ -219,7 +218,7 @@ const UserProfilePage = () => {
                 </div>
                 <div>
                   <LabelField label={t("District")} isCompulsory={true} />
-                  <SelectField
+                  <SelectLocationField
                     name="district"
                     control={control}
                     defaultValue={detailJobSeeker.address?.district}
@@ -231,7 +230,7 @@ const UserProfilePage = () => {
                 </div>
                 <div>
                   <LabelField label={t("Ward")} isCompulsory={true} />
-                  <SelectField
+                  <SelectLocationField
                     name="ward"
                     control={control}
                     defaultValue={detailJobSeeker.address?.ward}

@@ -1,6 +1,4 @@
-import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Controller } from "react-hook-form";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputField from "custom-fields/InputField";
 
 const PostJobField = (props) => {
@@ -9,23 +7,9 @@ const PostJobField = (props) => {
     control,
     defaultValue,
     handleAddData,
-    isInput,
     errors,
     placeholder,
   } = props;
-
-  const config = {
-    toolbar: [
-      "undo",
-      "redo",
-      "|",
-      "bold",
-      "italic",
-      "link",
-      "bulletedList",
-      "numberedList",
-    ],
-  };
 
   return (
     <Controller
@@ -33,7 +17,7 @@ const PostJobField = (props) => {
       control={control}
       defaultValue={defaultValue}
       render={({ field: { onChange, value } }) => {
-        return isInput ? (
+        return (
           <InputField
             placeholder={placeholder}
             value={value}
@@ -42,18 +26,6 @@ const PostJobField = (props) => {
               handleAddData({ [name]: e.target.value });
             }}
             errors={errors}
-          />
-        ) : (
-          <CKEditor
-            editor={ClassicEditor}
-            config={config}
-            data={value}
-            onChange={(event, editor) => {
-              onChange(editor.getData());
-            }}
-            onBlur={(event, editor) => {
-              handleAddData({ [name]: editor.getData() });
-            }}
           />
         );
       }}

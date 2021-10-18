@@ -1,8 +1,6 @@
-import {
-  fetchJobsAsync,
-  getDetailJobSeekerAsync,
-} from "features/JobSeekers/slices/thunks";
-import { Fragment, useEffect, useState } from "react";
+import { fetchJobsAsync, getDetailJobSeekerAsync,} from "features/JobSeekers/slices/thunks";
+import { fetchProvincesAsync } from "features/Home/slices/thunks";
+import { Fragment, useEffect, useState, lazy } from "react";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,15 +8,16 @@ import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import JobAppliedPage from "./pages/JobAppliedPage";
-import JobNotificationPage from "./pages/JobNotificationPage";
-import JobSavedPage from "./pages/JobSavedPage";
 import MenuJobSeeker from "./components/MenuJobSeeker";
 import NotFoundPage from "components/404";
 import notification from "components/Notification";
-import UserProfilePage from "./pages/UserProfilePage";
-import UserSettingPage from "./pages/UserSettingPage";
-import { fetchProvincesAsync } from "features/Home/slices/thunks";
+
+const JobAppliedPage = lazy(() => import("./pages/JobAppliedPage"));
+const JobNotificationPage = lazy(() => import("./pages/JobNotificationPage"));
+const JobSavedPage = lazy(() => import("./pages/JobSavedPage"));
+const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
+const UserSettingPage = lazy(() => import("./pages/UserSettingPage"));
+
 const DashboardJobSeekersPage = () => {
   const { t } = useTranslation();
   const user = selectJobSeekerLocal();

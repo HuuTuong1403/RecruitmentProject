@@ -1,22 +1,27 @@
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { fetchSkillsAsync } from "features/Jobs/slices/thunks";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState, lazy } from "react";
 import { getDetailEmployerAsync } from "./slices/thunks";
 import { selectEmployerLocal } from "./slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import CandidateProfileManagementPage from "./pages/CandidateProfileManagementPage";
-import EmployerProfilePage from "./pages/EmployersProfilePage";
 import FooterEmployers from "components/FooterEmployers";
 import HeaderEmployers from "components/HeaderEmployers";
 import MenuEmployer from "./components/MenuEmployer";
 import NotFoundPage from "components/404";
 import notification from "components/Notification";
-import PostJobPage from "./pages/PostJobPage";
-import RecruitManagementPage from "./pages/RecruitManagementPage";
-import SettingPage from "./pages/SettingPage";
+
+const CandidateProfileManagementPage = lazy(() =>
+  import("./pages/CandidateProfileManagementPage")
+);
+const EmployerProfilePage = lazy(() => import("./pages/EmployersProfilePage"));
+const PostJobPage = lazy(() => import("./pages/PostJobPage"));
+const RecruitManagementPage = lazy(() =>
+  import("./pages/RecruitManagementPage")
+);
+const SettingPage = lazy(() => import("./pages/SettingPage"));
 
 const DashboardEmployersPage = () => {
   const { t } = useTranslation();
@@ -42,6 +47,9 @@ const DashboardEmployersPage = () => {
       if (location.pathname === `${url}/post-job`) {
         dispatch(fetchProvincesAsync());
         dispatch(fetchSkillsAsync());
+      }
+      if (location.pathname === `${url}/my-profile`) {
+        dispatch(fetchProvincesAsync());
       }
     }
   }, [dispatch, checkLocation, location, employer, url]);
