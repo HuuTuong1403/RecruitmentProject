@@ -129,6 +129,7 @@ class employerController {
       'companyName',
       'companyWebsite',
       'logo',
+      'welfare',
       'ot',
       'description',
       'scale',
@@ -137,25 +138,14 @@ class employerController {
       'companyType'
     );
     //3) Update job seeker document
-    var employer;
-    if (!req.body.welfare && !req.body.delWelfare) {
-      employer = await Employer.findByIdAndUpdate(req.user.id, filteredBody, {
+    const employer = await Employer.findByIdAndUpdate(
+      req.user.id,
+      filteredBody,
+      {
         new: true,
         runValidators: true,
-      });
-    } else {
-      employer = await Employer.findByIdAndUpdate(
-        req.user.id,
-        {
-          filteredBody,
-          $set: { welfare: req.body.welfare },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-    }
+      }
+    );
     const filteredEmployer = FilterObject(
       employer,
       'username',
