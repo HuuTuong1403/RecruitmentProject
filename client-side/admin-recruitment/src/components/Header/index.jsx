@@ -44,7 +44,7 @@ const Header = (props) => {
         <div className={classes["header__menu--ic"]}>
           <IoMenu onClick={isShow ? onOpen : onClose} />
         </div>
-        
+
         <div>
           <NavLink
             activeClassName={classes["header__link--active"]}
@@ -130,7 +130,7 @@ const Header = (props) => {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <Avatar src={admin?.avartar} />
+        <Avatar src={admin?.avatar} />
       </div>
     </header>
   );

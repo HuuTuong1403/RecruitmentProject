@@ -2,6 +2,7 @@ import "antd/dist/antd.css";
 import { FiLock } from "react-icons/fi";
 import { GrUserAdmin } from "react-icons/gr";
 import { schemaSignIn } from "common/constants/schema";
+import { ScrollTop } from "common/functions";
 import { signInAuthAsync } from "features/Auth/slices/thunks";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -18,6 +19,7 @@ import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 
 const SignInPage = () => {
+  ScrollTop();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
