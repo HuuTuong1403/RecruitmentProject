@@ -44,7 +44,7 @@
       &--namejob {
         color: $primary-text;
         font-weight: 700;
-        font-size: $text-base;
+        font-size: $text-base !important;
 
         &:hover {
           color: $third-text;
@@ -53,7 +53,7 @@
 
       &--namecompany {
         color: $primary-text;
-        font-size: $text-sm;
+        font-size: $text-sm !important;
 
         &:hover {
           color: $primary-text;
@@ -111,11 +111,11 @@
         max-width: 65%;
 
         &--namejob {
-          font-size: 14px;
+          font-size: 14px !important;
         }
 
         &--namecompany {
-          font-size: 12px;
+          font-size: 12px !important;
         }
         &--salary {
           font-size: 12px;
@@ -142,10 +142,10 @@
       &--detail {
         max-width: 65%;
         &--namejob {
-          font-size: 14px;
+          font-size: 14px !important;
         }
         &--namecompany {
-          font-size: 12px;
+          font-size: 12px !important;
         }
         &--salary {
           font-size: 12px;
@@ -172,10 +172,10 @@
       &--detail {
         min-width: 60%;
         &--namejob {
-          font-size: 12px;
+          font-size: 12px !important;
         }
         &--namecompany {
-          font-size: 10px;
+          font-size: 10px !important;
         }
         &--salary {
           font-size: 10px;

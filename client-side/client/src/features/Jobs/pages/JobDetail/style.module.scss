@@ -7,6 +7,7 @@ p {
 .jobDetail {
   padding: 20px;
   background-color: #d9edee;
+
   &__top {
     background-color: #fff;
     padding: 20px;
@@ -42,12 +43,12 @@ p {
             color: $third-text;
           }
           & > div:nth-child(2) {
-            font-size: $text-lg;
+            font-size: $text-lg !important;
             margin: $pm-6 0;
           }
 
           & > div:nth-child(3) {
-            font-size: $text-lg;
+            font-size: $text-lg !important;
             margin: $pm-6 0;
           }
         }
@@ -69,6 +70,7 @@ p {
 
   &__content {
     padding: 20px;
+    font-size: $text-lg;
     background-color: #fff;
 
     &--wrapped {
@@ -208,6 +210,7 @@ p {
 
     &__content {
       padding: 10px;
+      font-size: $text-base;
 
       &--wrapped {
         padding: 10px;
@@ -301,12 +304,15 @@ p {
               font-size: $text-xl;
             }
             & > div:nth-child(2) {
-              font-size: $text-lg;
               margin: $pm-4 0;
+
+              & > a {
+                font-size: $text-lg !important;
+              }
             }
 
             & > a {
-              font-size: $text-lg;
+              font-size: $text-lg !important;
               margin: $pm-4 0;
             }
             & > div:nth-child(4) {
@@ -333,6 +339,7 @@ p {
 
     &__content {
       padding: 8px;
+      font-size: $text-sm;
 
       &--wrapped {
         padding: 8px;
@@ -424,12 +431,15 @@ p {
               font-size: $text-xl;
             }
             & > div:nth-child(2) {
-              font-size: $text-base;
               margin: $pm-4 0;
+
+              & > a {
+                font-size: $text-base !important;
+              }
             }
 
             & > a {
-              font-size: $text-base;
+              font-size: $text-base !important;
               margin: $pm-4 0;
             }
             & > div:nth-child(4) {
@@ -455,6 +465,7 @@ p {
 
     &__content {
       padding: 5px;
+      font-size: $text-base;
 
       &--wrapped {
         padding: 5px;
@@ -545,12 +556,15 @@ p {
               font-size: $text-lg;
             }
             & > div:nth-child(2) {
-              font-size: $text-sm;
               margin: $pm-4 0;
+
+              & > a {
+                font-size: $text-sm !important;
+              }
             }
 
             & > a {
-              font-size: $text-sm;
+              font-size: $text-sm !important;
               margin: $pm-4 0;
             }
             & > div:nth-child(4) {
@@ -576,6 +590,7 @@ p {
 
     &__content {
       padding: 5px;
+      font-size: $text-sm;
 
       &--wrapped {
         padding: 5px;

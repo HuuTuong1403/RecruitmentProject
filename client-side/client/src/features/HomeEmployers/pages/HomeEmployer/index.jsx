@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { ScrollTop } from "common/functions";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import BannerHomeEmp from "features/HomeEmployers/components/BannerHome";
@@ -8,6 +9,7 @@ import ScrollAnimation from "react-animate-on-scroll";
 import Statistic from "features/HomeEmployers/components/Statistic";
 
 const HomeEmployer = () => {
+  ScrollTop();
   const { t } = useTranslation();
 
   useTitle(`${t("Post job and create free Entry Test")}`);

@@ -56,7 +56,7 @@ const EmployerProfilePage = () => {
     employerDetail?.welfare ?? []
   );
   const [showText, setShowText] = useState(false);
-  const [text, setText] = useState(parse(employerDetail.description));
+  const [text, setText] = useState(parse(employerDetail?.description ?? ""));
   const [loading, setLoading] = useState(false);
   useTitle(`${t("Account Management")}`);
 
@@ -178,32 +178,32 @@ const EmployerProfilePage = () => {
 
   const welfareList = [
     {
-      title: "Chế độ bảo hiểm",
+      title: `${t("Insurance")}`,
       value: "Chế độ bảo hiểm",
       icon: <FaMedkit className={classes.employerProfile__icon} />,
     },
     {
-      title: "Cơ hội du lịch",
+      title: `${t("Travel opportunities")}`,
       value: "Cơ hội du lịch",
       icon: <FaPlaneDeparture className={classes.employerProfile__icon} />,
     },
     {
-      title: "Nghỉ phép có lương",
+      title: `${t("Paid leave")}`,
       value: "Nghỉ phép có lương",
       icon: <FaDollarSign className={classes.employerProfile__icon} />,
     },
     {
-      title: "Chăm sóc sức khỏe",
+      title: `${t("Health care")}`,
       value: "Chăm sóc sức khỏe",
       icon: <FaUserMd className={classes.employerProfile__icon} />,
     },
     {
-      title: "Đào tạo",
+      title: `${t("Training Scheme")}`,
       value: "Đào tạo",
       icon: <FaGraduationCap className={classes.employerProfile__icon} />,
     },
     {
-      title: "Tăng lương",
+      title: `${t("Salary review")}`,
       value: "Tăng lương",
       icon: <FaChartLine className={classes.employerProfile__icon} />,
     },
@@ -213,32 +213,32 @@ const EmployerProfilePage = () => {
       icon: <FaLaptop className={classes.employerProfile__icon} />,
     },
     {
-      title: "Tiền thưởng",
-      value: "Tiền thưởng",
+      title: `${t("Allowances")}`,
+      value: "Phụ cấp",
       icon: <FaRegMoneyBillAlt className={classes.employerProfile__icon} />,
     },
     {
-      title: "Xe đưa đón",
+      title: `${t("Employee Shuttle")}`,
       value: "Xe đưa đón",
       icon: <FaTaxi className={classes.employerProfile__icon} />,
     },
     {
-      title: "Thư viện",
+      title: `${t("Library")}`,
       value: "Thư viện",
       icon: <IoLibrary className={classes.employerProfile__icon} />,
     },
     {
-      title: "Đồng phục",
+      title: `${t("Uniform")}`,
       value: "Đồng phục",
       icon: <FaBlackTie className={classes.employerProfile__icon} />,
     },
     {
-      title: "Hoạt động nhóm",
+      title: `${t("Group activities")}`,
       value: "Hoạt động nhóm",
       icon: <MdGroup className={classes.employerProfile__icon} />,
     },
     {
-      title: "CLB thể thao",
+      title: `${t("Sport club")}`,
       value: "CLB thể thao",
       icon: <FaHeartbeat className={classes.employerProfile__icon} />,
     },
@@ -330,13 +330,22 @@ const EmployerProfilePage = () => {
           </div>
           <div className={classes.bottom}>
             <Collapse bordered={false} defaultActiveKey={["1", "2", "3"]}>
-              <Panel header="Thông tin về công ty" style={style} key="1">
+              <Panel
+                header={t("Information about company")}
+                style={style}
+                key="1"
+              >
                 <div className={classes.bottom__wrapped}>
                   <div className={classes["bottom__wrapped--description"]}>
-                    <LabelField label={"Mô tả công ty"} isCompulsory={true} />
+                    <LabelField
+                      label={t("Company description")}
+                      isCompulsory={true}
+                    />
                     <Tooltip
                       title={
-                        showText ? "Chỉnh sửa văn bản" : "Xem ở dạng văn bản"
+                        showText
+                          ? `${t("Edit text")}`
+                          : `${t("View in text form")}`
                       }
                     >
                       <AiOutlineSwap
@@ -359,7 +368,7 @@ const EmployerProfilePage = () => {
                   <div className={classes["bottom__wrapped--scale-type"]}>
                     <div>
                       <LabelField
-                        label={"Số lượng nhân viên"}
+                        label={t("Number of employees")}
                         isCompulsory={true}
                       />
                       <SelectProfileField
@@ -375,7 +384,7 @@ const EmployerProfilePage = () => {
                     </div>
                     <div>
                       <LabelField
-                        label={"Loại doanh nghiệp"}
+                        label={t("Company type")}
                         isCompulsory={true}
                       />
                       <SelectProfileField
@@ -394,7 +403,7 @@ const EmployerProfilePage = () => {
                 </div>
               </Panel>
               {employerDetail.address && (
-                <Panel header="Thông tin về địa chỉ" style={style} key="2">
+                <Panel header={t("Address information")} style={style} key="2">
                   <div className={classes["bottom__wrapped--scale-type"]}>
                     <div>
                       <LabelField label={t("Province")} isCompulsory={true} />
@@ -434,7 +443,11 @@ const EmployerProfilePage = () => {
                   </div>
                 </Panel>
               )}
-              <Panel header="Thông tin về phúc lợi" style={style} key="3">
+              <Panel
+                header={t("Information about welfare")}
+                style={style}
+                key="3"
+              >
                 <div>
                   <Checkbox.Group
                     defaultValue={employerDetail.welfare}

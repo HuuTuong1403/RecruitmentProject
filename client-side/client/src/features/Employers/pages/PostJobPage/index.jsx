@@ -4,6 +4,7 @@ import {
   fetchWardsByDistrictsAsync,
 } from "features/Home/slices/thunks";
 import { schemaPostJobEmployer } from "common/constants/schema";
+import { ScrollTop } from "common/functions";
 import {
   selectedProvinces,
   selectedDistricts,
@@ -18,6 +19,7 @@ import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
 import ButtonField from "custom-fields/ButtonField";
+import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
 import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
 import LabelField from "custom-fields/LabelField";
@@ -25,9 +27,9 @@ import moment from "moment";
 import PostJobField from "features/Employers/components/PostJobField";
 import Select from "react-select";
 import SelectField from "features/Employers/components/SelectField";
-import CKEditorField from "custom-fields/CKEditorField";
 
 const PostJobPage = () => {
+  ScrollTop();
   const { t } = useTranslation();
   useTitle(`${t("postjobs")}`);
   const dispatch = useDispatch();

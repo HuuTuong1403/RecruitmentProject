@@ -30,6 +30,7 @@ import SelectLocationField from "custom-fields/SelectLocationField";
 
 const UserProfilePage = () => {
   ScrollTop();
+  
   const detailJobSeeker = useSelector(selectedJobSeekerProfile);
   const { t } = useTranslation();
   useTitle(`${t("Account Management")}`);

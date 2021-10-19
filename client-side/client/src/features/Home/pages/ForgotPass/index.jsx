@@ -1,3 +1,4 @@
+import { ScrollTop } from "common/functions";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -8,6 +9,7 @@ import ForgotPassNotify from "components/ForgotPassNotify";
 import SendMailForgot from "features/Home/components/SendMail";
 
 const ForgotPass = () => {
+  ScrollTop();
   useEffect(() => {
     const user = selectJobSeekerLocal();
     if (user) history.push("/home");

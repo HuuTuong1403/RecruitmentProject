@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { schemaSignUpUser } from "common/constants/schema";
+import { ScrollTop } from "common/functions";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { signUpGuest } from "features/Home/api/home.api";
 import { useForm } from "react-hook-form";
@@ -16,6 +17,7 @@ import notification from "components/Notification";
 import VerifyNotification from "features/Home/components/VerifyNotification";
 
 const SignUpGuest = () => {
+  ScrollTop();
   useEffect(() => {
     const user = selectJobSeekerLocal();
     if (user) history.push("/home");
