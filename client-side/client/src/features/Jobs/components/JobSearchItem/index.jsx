@@ -87,9 +87,12 @@ const JobSearchItem = (props) => {
             <div>{t("Skill")}: </div>
             {skills.map((skill, index) => {
               return (
-                <div key={index}>
-                  {skill} {skills.length - 1 === index ? "" : "|"}
-                </div>
+                <>
+                  <Link to={`/jobs/search?skills=${skill}`} key={index}>
+                    {skill}
+                  </Link>
+                  <span>{skills.length - 1 === index ? "" : "|"}</span>
+                </>
               );
             })}
           </div>

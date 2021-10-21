@@ -8,7 +8,8 @@ import {
 import { IoMenu } from "react-icons/io5";
 import { MdNotificationsNone } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { selectSystemManageLocal } from "features/SystemManager/slices/selectors";
+import { selectSystemManageDetail } from "features/SystemManager/slices/selectors";
+import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
@@ -20,7 +21,7 @@ const Header = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //   const [dropdownHover, setDropDownHover] = useState(false);
   const { isShow, onOpen, onClose } = props;
-  const systemManage = selectSystemManageLocal();
+  const systemManage = useSelector(selectSystemManageDetail);
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
 
   //   const hoverProfileHandler = () => setDropDownHover((prevState) => !prevState);

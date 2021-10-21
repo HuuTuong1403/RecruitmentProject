@@ -19,9 +19,13 @@ const SelectLocationField = (props) => {
 
   useEffect(() => {
     if (locationList.length > 1) {
-      if (name === "city" || name === "district") {
-        const test = locationList.find((c) => c.label === defaultValue);
-        dispatch(fetchData({ code: test?.value }));
+      if (name === "city") {
+        const findLocation = locationList.find((c) => c.label === defaultValue);
+        dispatch(fetchData({ code: findLocation?.value }));
+      }
+      if (name === "district") {
+        const findLocation = locationList.find((c) => c.label === defaultValue);
+        dispatch(fetchData({ code: findLocation?.value }));
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

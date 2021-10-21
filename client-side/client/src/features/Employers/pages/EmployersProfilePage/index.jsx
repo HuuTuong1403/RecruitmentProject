@@ -8,7 +8,7 @@ import {
   selectedWards,
 } from "features/Home/slices/selectors";
 import { AiOutlineSwap } from "react-icons/ai";
-import { Avatar, Collapse, Checkbox, Tooltip } from "antd";
+import { Collapse, Checkbox, Tooltip } from "antd";
 import {
   FaMedkit,
   FaPlaneDeparture,
@@ -35,6 +35,7 @@ import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
+import AvatarUpload from "components/AvatarUpload";
 import ButtonField from "custom-fields/ButtonField";
 import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
@@ -58,6 +59,7 @@ const EmployerProfilePage = () => {
   const [showText, setShowText] = useState(false);
   const [text, setText] = useState(parse(employerDetail?.description ?? ""));
   const [loading, setLoading] = useState(false);
+  const [logo, setLogo] = useState(null);
   useTitle(`${t("Account Management")}`);
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
@@ -91,35 +93,53 @@ const EmployerProfilePage = () => {
 
   const submitUpdateProfileEmployer = async (dataUpdateProfile) => {
     setLoading(true);
-    const { city, district, ward, street, ...rest } = dataUpdateProfile;
+
+    const {
+      city,
+      district,
+      ward,
+      street,
+      description,
+      companyName,
+      companyWebsite,
+      scale,
+      phone,
+      TIN,
+      companyType,
+    } = dataUpdateProfile;
+
     if (
+      !logo &&
       city === employerDetail?.address?.city &&
       district === employerDetail?.address?.district &&
       ward === employerDetail?.address?.ward &&
       street === employerDetail?.address?.street &&
-      dataUpdateProfile.companyName === employerDetail?.companyName &&
-      dataUpdateProfile.companyWebsite === employerDetail?.companyWebsite &&
-      dataUpdateProfile.scale === employerDetail?.scale &&
-      dataUpdateProfile.phone === employerDetail?.phone &&
-      dataUpdateProfile.TIN === employerDetail?.TIN &&
-      dataUpdateProfile.companyType === employerDetail?.companyType &&
-      dataUpdateProfile.description === parse(employerDetail?.description) &&
+      companyName === employerDetail?.companyName &&
+      companyWebsite === employerDetail?.companyWebsite &&
+      scale === employerDetail?.scale &&
+      phone === employerDetail?.phone &&
+      TIN === employerDetail?.TIN &&
+      companyType === employerDetail?.companyType &&
+      description === employerDetail?.description &&
       welfareUpdate === employerDetail?.welfare
     ) {
       setLoading(false);
       notification(`${t("Updated data unchanged")}`, "error");
     } else {
-      const payload = {
-        ...rest,
-        welfare: welfareUpdate,
-        ot: false,
-        address: {
-          city,
-          district,
-          ward,
-          street,
-        },
-      };
+      const payload = new FormData();
+      payload.append("address[city]", city);
+      payload.append("address[district]", district);
+      payload.append("address[ward]", ward);
+      payload.append("address[street]", street);
+      welfareUpdate.forEach((item) => payload.append("welfare", item));
+      payload.append("ot", false);
+      payload.append("description", description);
+      payload.append("companyName", companyName);
+      payload.append("companyWebsite", companyWebsite);
+      payload.append("scale", scale);
+      payload.append("phone", phone);
+      payload.append("TIN", TIN);
+      payload.append("photo-logo", logo);
 
       const result = await updateProfileEmployer(payload);
       if (result.status === "success") {
@@ -131,6 +151,10 @@ const EmployerProfilePage = () => {
         notification(result.message, "error");
       }
     }
+  };
+
+  const changeAvatar = (file) => {
+    setLogo(file);
   };
 
   const handleCancelUpdate = () => {
@@ -145,7 +169,7 @@ const EmployerProfilePage = () => {
       phone: employerDetail?.phone,
       TIN: employerDetail?.TIN,
       companyType: employerDetail?.companyType,
-      description: parse(employerDetail?.description),
+      description: employerDetail?.description,
     });
   };
 
@@ -256,7 +280,12 @@ const EmployerProfilePage = () => {
           </div>
           <div className={classes.top}>
             <div className={classes.top__left}>
-              <Avatar src={employerDetail.logo} shape="square" size={200} />
+              <AvatarUpload
+                src={employerDetail.logo}
+                shape="square"
+                size={200}
+                changeAvatar={changeAvatar}
+              />
             </div>
             <div className={classes.top__right}>
               <div>
@@ -354,13 +383,13 @@ const EmployerProfilePage = () => {
                       />
                     </Tooltip>
                     {showText ? (
-                      <div style={{ padding: "10px 0" }}>{parse(text)}</div>
+                      <div style={{ padding: "10px 0" }}>{text}</div>
                     ) : (
                       <CKEditorField
                         setText={setText}
                         name="description"
                         control={control}
-                        defaultValue={parse(employerDetail.description)}
+                        defaultValue={employerDetail.description}
                         errors={errors?.description?.message}
                       />
                     )}

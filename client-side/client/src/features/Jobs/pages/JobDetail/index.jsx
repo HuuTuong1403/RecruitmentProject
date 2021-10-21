@@ -1,4 +1,7 @@
-import {  selectedJobDetail,selectedStatus,} from "features/Jobs/slices/selectors";
+import {
+  selectedJobDetail,
+  selectedStatus,
+} from "features/Jobs/slices/selectors";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaBuilding } from "react-icons/fa";
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
@@ -269,7 +272,9 @@ const JobDetail = () => {
                           className={classes["container__card-skill"]}
                           key={index}
                         >
-                          {skill}
+                          <Link to={`/jobs/search?skills=${skill}`}>
+                            {skill}
+                          </Link>
                         </div>
                       ))}
                     </div>

@@ -1,4 +1,3 @@
-import { Avatar } from "antd";
 import { getAdministratorDetailAsync } from "features/Administrator/slices/thunks";
 import { schemaUpdateProfile } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
@@ -10,17 +9,20 @@ import { useForm } from "react-hook-form";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
+import AvatarUpload from "components/AvatarUpload";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputProfileField from "features/Administrator/components/InputProfileField";
 import LabelField from "custom-fields/LabelField";
-import notification from "components/Notification";
 import LoadingSuspense from "components/Loading";
+import notification from "components/Notification";
 
 const ProfilePage = () => {
+  ScrollTop();
   const { t } = useTranslation();
   const [loading, setLoading] = useState();
-  ScrollTop();
+  const [avatar, setAvatar] = useState(null);
+
   useTitle(`${t("Account Management")}`);
   const dispatch = useDispatch();
 
@@ -40,21 +42,34 @@ const ProfilePage = () => {
     resolver: yupResolver(schemaUpdateProfile),
   });
 
+  const changeAvatar = (file) => {
+    setAvatar(file);
+  };
+
   const handleSubmitUpdateProfile = async (dataUpdateProfile) => {
     setLoading(true);
+    const { fullname, email, phone } = dataUpdateProfile;
     if (
-      dataUpdateProfile.fullname === administratorDetail?.fullname &&
-      dataUpdateProfile.email === administratorDetail?.email &&
-      dataUpdateProfile.phone === administratorDetail?.phone
+      !avatar &&
+      fullname === administratorDetail?.fullname &&
+      email === administratorDetail?.email &&
+      phone === administratorDetail?.phone
     ) {
       setLoading(false);
       notification(`${t("Updated data unchanged")}`, "error");
     } else {
-      const result = await updateProfileAdministrator(dataUpdateProfile);
+      const payload = new FormData();
+      payload.append("fullname", fullname);
+      payload.append("email", email);
+      payload.append("phone", phone);
+      payload.append("photo-avatar", avatar);
+
+      const result = await updateProfileAdministrator(payload);
       if (result.status === "success") {
         setLoading(false);
         notification(`${t("Update information successful")}`, "success");
         dispatch(getAdministratorDetailAsync());
+        setAvatar(null);
       } else {
         setLoading(false);
         notification(result.message, "error");
@@ -82,9 +97,10 @@ const ProfilePage = () => {
             onSubmit={handleSubmit(handleSubmitUpdateProfile)}
           >
             <div className={classes["updateProfile__form--left"]}>
-              <Avatar
+              <AvatarUpload
+                changeAvatar={changeAvatar}
                 src={administratorDetail.avatar}
-                shape="square"
+                shape="circle"
                 size={180}
               />
             </div>

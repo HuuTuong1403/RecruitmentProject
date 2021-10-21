@@ -30,7 +30,9 @@ const JobSearchList = () => {
             {jobsSearch.length === 0 ? (
               <NotFoundSearch />
             ) : (
-              jobsSearch.map((job) => <JobSearchItem key={job.id} job={job} />)
+              jobsSearch.map((job) => {
+                return <JobSearchItem key={job._id} job={job} />;
+              })
             )}
           </Fragment>
         )}
