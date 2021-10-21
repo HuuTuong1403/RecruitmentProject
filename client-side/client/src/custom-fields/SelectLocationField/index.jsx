@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import ErrorText from "components/ErrorText";
 import Select from "react-select";
 
-const SelectField = (props) => {
+const SelectLocationField = (props) => {
   const dispatch = useDispatch();
 
   const {
@@ -59,4 +59,4 @@ const SelectField = (props) => {
   );
 };
 
-export default SelectField;
+export default SelectLocationField;

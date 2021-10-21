@@ -20,3 +20,33 @@ export const issueAccountAdministrator = async (payload) => {
     console.log(error);
   }
 };
+
+export const updatePassAdministrator = async (payload) => {
+  try {
+    const response = await axiosClient.patch(
+      "system-admin/updatePassword",
+      payload
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAdministratorDetail = async () => {
+  try {
+    const response = await axiosClient.get("system-admin");
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProfileAdministrator = async (payload) => {
+  try {
+    const response = await axiosClient.patch("system-admin/updateMe", payload);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,0 +1,329 @@
+@import "common/styles/Variables.scss";
+
+.employerProfile {
+  padding: $pm-10 0;
+
+  &__icon {
+    margin-right: 5px;
+    font-size: $text-base;
+    color: $primary-text;
+  }
+
+  &__wrapped {
+    padding: 0 $pm-10;
+    &--title {
+      font-size: $text-3xl;
+      font-weight: 700;
+      border-bottom: 1px solid #e8e8e8;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: $pm-10 0;
+
+    & > button {
+      flex: 0 0 48%;
+    }
+  }
+}
+
+.top {
+  padding: $pm-10;
+  display: flex;
+  flex-wrap: wrap;
+
+  &__left {
+    flex: 0 0 25%;
+  }
+
+  &__right {
+    flex: 0 0 70%;
+  }
+
+  &__group {
+    display: flex;
+    align-items: center;
+    margin-top: $pm-2;
+    flex-wrap: wrap;
+
+    & label {
+      margin-bottom: 0;
+      flex: 0 0 20%;
+      color: $primary-color;
+      font-weight: 700;
+    }
+
+    & div {
+      flex: 0 0 70%;
+    }
+
+    &--text {
+      font-size: 15px;
+      color: $primary-color;
+    }
+  }
+}
+
+.bottom {
+  margin-top: $pm-8;
+
+  &__wrapped {
+    &--swapIcon {
+      cursor: pointer;
+      font-size: $text-xl;
+      color: $primary-text;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: $third-text;
+      }
+    }
+
+    &--description {
+      margin-bottom: $pm-4;
+    }
+
+    &--welfare {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 5px;
+
+      & > div {
+        flex: 0 0 20%;
+        font-size: $text-base;
+      }
+    }
+
+    &--scale-type {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      row-gap: 10px;
+
+      & > div {
+        flex: 0 0 48%;
+
+        & > input {
+          border-radius: 10px !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1190px) {
+  .top {
+    &__left {
+      flex: 0 0 25%;
+    }
+
+    &__right {
+      padding-left: $pm-10;
+      flex: 0 0 65%;
+    }
+
+    &__group {
+      display: flex;
+      align-items: center;
+      margin-top: $pm-2;
+      flex-wrap: wrap;
+
+      & label {
+        margin-bottom: 0;
+        flex: 0 0 30%;
+        color: $primary-color;
+        font-weight: 700;
+      }
+
+      & div {
+        flex: 0 0 60%;
+      }
+    }
+  }
+
+  .bottom {
+    &__wrapped {
+      &--welfare {
+        & > div {
+          flex: 0 0 33.33%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .employerProfile {
+    &__wrapped {
+      &--title {
+        font-size: $text-2xl;
+        text-align: center;
+      }
+    }
+  }
+
+  .top {
+    &__left {
+      flex: 0 0 30%;
+    }
+
+    &__right {
+      padding-left: $pm-10;
+      flex: 0 0 70%;
+    }
+
+    &__group {
+      margin-top: 1px;
+    }
+  }
+
+  .bottom {
+    &__wrapped {
+      &--welfare {
+        & > div {
+          flex: 0 0 33.33%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .employerProfile {
+    padding: 0;
+
+    &__wrapped {
+      padding: 0;
+
+      &--title {
+        font-size: $text-xl;
+        text-align: center;
+      }
+    }
+
+    &__actions {
+      & > button {
+        flex: 0 0 98%;
+      }
+    }
+  }
+
+  .top {
+    padding: $pm-10;
+    display: flex;
+
+    &__left {
+      flex: 0 0 100%;
+      text-align: center;
+    }
+
+    &__right {
+      flex: 0 0 100%;
+    }
+
+    &__group {
+      margin-top: $pm-4;
+
+      & label {
+        flex: 0 0 100%;
+      }
+
+      & div {
+        flex: 0 0 100%;
+      }
+
+      &--text {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .bottom {
+    &__wrapped {
+      &--welfare {
+        & > div {
+          flex: 0 0 50%;
+        }
+      }
+
+      &--scale-type {
+        & > div {
+          flex: 0 0 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .employerProfile {
+    padding: 0;
+
+    &__wrapped {
+      padding: 0;
+
+      &--title {
+        font-size: $text-xl;
+        text-align: center;
+      }
+    }
+
+    &__actions {
+      & > button {
+        flex: 0 0 98%;
+      }
+    }
+  }
+
+  .top {
+    padding: $pm-10;
+    display: flex;
+
+    &__left {
+      flex: 0 0 100%;
+      text-align: center;
+    }
+
+    &__right {
+      flex: 0 0 100%;
+    }
+
+    &__group {
+      margin-top: $pm-4;
+
+      & label {
+        flex: 0 0 100%;
+      }
+
+      & div {
+        flex: 0 0 100%;
+      }
+
+      &--text {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .bottom {
+    &__wrapped {
+      &--welfare {
+        & > div {
+          flex: 0 0 100%;
+        }
+      }
+
+      &--scale-type {
+        & > div {
+          flex: 0 0 100%;
+        }
+      }
+    }
+  }
+}

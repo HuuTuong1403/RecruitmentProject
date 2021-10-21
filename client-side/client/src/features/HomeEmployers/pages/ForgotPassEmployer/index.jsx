@@ -1,3 +1,4 @@
+import { ScrollTop } from "common/functions";
 import { selectEmployerLocal } from "features/Employers/slices/selectors";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -8,6 +9,7 @@ import ForgotPassNotify from "components/ForgotPassNotify";
 import SendMailForgotEmployer from "features/HomeEmployers/components/SendMailEmployer";
 
 const ForgotPassEmployer = () => {
+  ScrollTop();
   useEffect(() => {
     const employer = selectEmployerLocal();
     if (employer) history.push("/employers");

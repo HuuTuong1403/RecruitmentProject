@@ -75,6 +75,10 @@
       width: 100%;
       display: inline-block;
       margin: $pm-10 0 $pm-10 $pm-8;
+
+      &:last-child {
+        color: red !important;
+      }
     }
 
     & > button {

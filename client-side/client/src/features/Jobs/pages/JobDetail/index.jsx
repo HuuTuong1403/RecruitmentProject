@@ -1,3 +1,4 @@
+import {  selectedJobDetail,selectedStatus,} from "features/Jobs/slices/selectors";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaBuilding } from "react-icons/fa";
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
@@ -5,10 +6,7 @@ import { Fragment, useEffect } from "react";
 import { IoMdCalendar } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { MdLocationOn, MdOpenInBrowser } from "react-icons/md";
-import {
-  selectedJobDetail,
-  selectedStatus,
-} from "features/Jobs/slices/selectors";
+import { ScrollTop } from "common/functions";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,6 +19,7 @@ import moment from "moment";
 import notification from "components/Notification";
 
 const JobDetail = () => {
+  ScrollTop();
   const { slug } = useParams();
   const dispatch = useDispatch();
   const { t } = useTranslation();

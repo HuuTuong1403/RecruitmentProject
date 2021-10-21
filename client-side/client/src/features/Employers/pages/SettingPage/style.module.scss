@@ -1,9 +1,11 @@
 @import "common/styles/Variables.scss";
 
 .employerSetting {
-  padding: $pm-10;
+  padding: $pm-10 0;
 
   &__wrapped {
+    padding: 0 $pm-10;
+
     &--title {
       font-size: $text-3xl;
       font-weight: 700;

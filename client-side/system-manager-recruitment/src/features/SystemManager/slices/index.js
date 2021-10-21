@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllEmployerAsync, fetchEmployerDetailAsync } from "./thunks";
+import {
+  fetchAllEmployerAsync,
+  fetchEmployerDetailAsync,
+  getSystemManagerDetailAsync,
+} from "./thunks";
 
 const initialState = {
   employers: null,
   employer: null,
+  systemManager: null,
   status: false,
 };
 
@@ -17,7 +22,7 @@ export const systemManagementSlice = createSlice({
     },
     [fetchAllEmployerAsync.fulfilled]: (state, action) => {
       state.status = false;
-      state.employers = action?.payload;
+      state.employers = action.payload.data.employer;
     },
     [fetchAllEmployerAsync.rejected]: (state) => {
       state.status = false;
@@ -28,11 +33,22 @@ export const systemManagementSlice = createSlice({
     },
     [fetchEmployerDetailAsync.fulfilled]: (state, action) => {
       state.status = false;
-      state.employer = action?.payload;
+      state.employer = action.payload.data.employer;
     },
     [fetchEmployerDetailAsync.rejected]: (state) => {
       state.status = false;
       state.employer = null;
+    },
+    [getSystemManagerDetailAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [getSystemManagerDetailAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.systemManager = action.payload.data.systemManager;
+    },
+    [getSystemManagerDetailAsync.rejected]: (state) => {
+      state.status = false;
+      state.systemManager = null;
     },
   },
 });

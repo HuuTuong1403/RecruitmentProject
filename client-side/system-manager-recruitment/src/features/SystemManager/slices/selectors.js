@@ -13,3 +13,7 @@ export const selectStatus = (state) => {
 export const selectEmployer = (state) => {
   return state?.systemManagement?.employer;
 };
+
+export const selectSystemManageDetail = (state) => {
+  return state?.systemManagement?.systemManager;
+};

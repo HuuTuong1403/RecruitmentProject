@@ -1,0 +1,53 @@
+@import "common/styles/Variables.scss";
+
+.input {
+  position: relative;
+
+  &__noneicon {
+    border-radius: 5px;
+    border: none;
+    color: $primary-color;
+    font-size: $text-xl;
+    padding: 0;
+    text-indent: 0;
+
+    &:focus {
+      box-shadow: none;
+      border: none;
+    }
+
+    &:hover {
+      border: 1px solid $primary-color;
+      border-style: dashed;
+      border-width: 1px;
+    }
+
+    &::placeholder {
+      color: $primary-text;
+      opacity: 0.7;
+      text-indent: 0;
+    }
+  }
+
+  &__error {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    background-color: rgba(251, 88, 88, 0.86);
+    border-radius: 5px;
+
+    & > p {
+      padding: 2px 8px;
+      color: #fff !important;
+      white-space: nowrap;
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .input {
+    &__noneicon {
+      font-size: 14px;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { resetPassword } from "features/Home/api/home.api";
 import { schemaChangePassForgot } from "common/constants/schema";
+import { ScrollTop } from "common/functions";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
@@ -13,6 +14,7 @@ import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 
 const ChangePassForgot = () => {
+  ScrollTop();
   const { t } = useTranslation();
   const history = useHistory();
   const { token } = useParams();

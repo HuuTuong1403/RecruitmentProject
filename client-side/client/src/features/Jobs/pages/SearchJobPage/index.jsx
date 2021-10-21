@@ -1,7 +1,11 @@
 import { clearNullObject } from "common/functions";
-import { fetchJobsSearchAsync, fetchSkillsAsync } from "features/Jobs/slices/thunks";
+import {
+  fetchJobsSearchAsync,
+  fetchSkillsAsync,
+} from "features/Jobs/slices/thunks";
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { Fragment, useEffect } from "react";
+import { ScrollTop } from "common/functions";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useTitle } from "common/hook/useTitle";
@@ -10,6 +14,7 @@ import JobSearchList from "features/Jobs/components/JobSearchList";
 import SearchHeader from "features/Jobs/components/SearchHeader";
 
 const SearchJobPage = () => {
+  ScrollTop();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   let query = new URLSearchParams(useLocation().search);

@@ -1,6 +1,6 @@
 import { ScrollTop } from "common/functions";
-import { useTranslation } from "react-i18next";
 import { useTitle } from "common/hook/useTitle";
+import { useTranslation } from "react-i18next";
 
 const JobNotificationPage = () => {
   ScrollTop();

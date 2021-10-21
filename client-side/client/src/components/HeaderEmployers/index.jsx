@@ -4,10 +4,14 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { IoPersonCircle, IoMenu, IoHome } from "react-icons/io5";
+import { FaEdit } from "react-icons/fa";
+import { IoIosPeople } from "react-icons/io";
+import { IoMenu, IoHome } from "react-icons/io5";
 import { logoutEmployer } from "features/HomeEmployers/slices";
-import { MdSettings } from "react-icons/md";
+import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { RiFileList3Line } from "react-icons/ri";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
 import { useDispatch } from "react-redux";
 import { useHistory, NavLink, Link } from "react-router-dom";
 import { useState } from "react";
@@ -17,7 +21,6 @@ import classes from "./style.module.scss";
 import MSTLogo from "assets/images/mst_logo.png";
 import notification from "components/Notification";
 import ReactCountryFlag from "react-country-flag";
-import { selectEmployerLocal } from "features/Employers/slices/selectors";
 
 const HeaderEmployers = () => {
   const history = useHistory();
@@ -92,7 +95,7 @@ const HeaderEmployers = () => {
             className={classes["header__link"]}
             onClick={toggleMenuChildClick}
           >
-            <IoPersonCircle className={classes["header__link--person"]} />
+            <MdAccountCircle className={classes["header__link--person"]} />
             {t("signin")}
           </NavLink>
         ) : (
@@ -109,7 +112,9 @@ const HeaderEmployers = () => {
                   to={`/employers/dashboard/my-profile`}
                   onClick={toggleMenuChildClick}
                 >
-                  <IoPersonCircle className={classes["header__link--person"]} />
+                  <MdAccountCircle
+                    className={classes["header__link--person"]}
+                  />
                   {employer.companyName}
                 </Link>
               </DropdownToggle>
@@ -118,24 +123,32 @@ const HeaderEmployers = () => {
                   className={classes["header__lang--profile"]}
                   to={`/employers/dashboard/my-profile`}
                 >
+                  <MdAccountCircle
+                    className={classes["header__link--person"]}
+                  />
                   {t("Account Management")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
                   to={`/employers/dashboard/post-job`}
                 >
+                  <FaEdit className={classes["header__link--person"]} />
                   {t("postjobs")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
                   to={`/employers/dashboard/recruit-manage`}
                 >
+                  <RiFileList3Line
+                    className={classes["header__link--person"]}
+                  />
                   {t("recruitment manager")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
                   to={`/employers/dashboard/candidate-profiles`}
                 >
+                  <IoIosPeople className={classes["header__link--person"]} />
                   {t("Manage candidate profiles")}
                 </Link>
                 <Link

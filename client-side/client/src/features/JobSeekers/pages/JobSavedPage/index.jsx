@@ -1,11 +1,11 @@
+// import { selectJobs } from "features/JobSeekers/slices/selectors";
+// import { useSelector } from "react-redux";
+// import JobItem from "../../components/JobItem";
 import { ScrollTop } from "common/functions";
+import { useTitle } from "common/hook/useTitle";
+import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import NotFoundJob from "features/JobSeekers/components/NotFoundJob";
-import { useTranslation } from "react-i18next";
-// import { useSelector } from "react-redux";
-// import { selectJobs } from "features/JobSeekers/slices/selectors";
-// import JobItem from "../../components/JobItem";
-import { useTitle } from "common/hook/useTitle";
 
 const JobSavedPage = () => {
   ScrollTop();

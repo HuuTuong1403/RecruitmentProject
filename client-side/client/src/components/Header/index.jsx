@@ -1,13 +1,15 @@
+import { BsListCheck } from "react-icons/bs";
 import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import { IoPersonCircle, IoMenu } from "react-icons/io5";
+import { IoMenu } from "react-icons/io5";
 import { logoutJobSeeker } from "features/Home/slices";
-import { MdSettings } from "react-icons/md";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { AiOutlineNotification } from "react-icons/ai";
+import { MdSettings, MdAccountCircle } from "react-icons/md";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useDispatch } from "react-redux";
 import { useHistory, NavLink, Link } from "react-router-dom";
@@ -89,7 +91,7 @@ const Header = () => {
             className={classes["header__link"]}
             onClick={toggleMenuChildClick}
           >
-            <IoPersonCircle className={classes["header__link--person"]} />
+            <MdAccountCircle className={classes["header__link--person"]} />
             {t("signin")}
           </NavLink>
         ) : (
@@ -106,7 +108,7 @@ const Header = () => {
                   to={`/jobseekers/my-profile`}
                   onClick={toggleMenuChildClick}
                 >
-                  <IoPersonCircle className={classes["header__link--person"]} />
+                  <MdAccountCircle className={classes["header__link--person"]} />
                   {user.fullname}
                 </Link>
               </DropdownToggle>
@@ -115,18 +117,25 @@ const Header = () => {
                   className={classes["header__lang--profile"]}
                   to={`/jobseekers/my-profile`}
                 >
+                  <MdAccountCircle
+                    className={classes["header__link--person"]}
+                  />
                   {t("Account Management")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
                   to={`/jobseekers/job-alert`}
                 >
+                  <AiOutlineNotification
+                    className={classes["header__link--person"]}
+                  />
                   {t("My Job Alerts")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
                   to={`/jobseekers/job-saved`}
                 >
+                  <BsListCheck className={classes["header__link--person"]} />
                   {t("My Jobs")}
                 </Link>
                 <Link

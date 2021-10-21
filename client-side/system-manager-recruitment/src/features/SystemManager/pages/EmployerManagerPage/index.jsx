@@ -1,5 +1,6 @@
 import { fetchAllEmployerAsync } from "features/SystemManager/slices/thunks";
 import { Fragment } from "react";
+import { ScrollTop } from "common/functions";
 import {
   selectEmployers,
   selectStatus,
@@ -13,6 +14,7 @@ import LoadingSuspense from "components/Loading";
 import TableEmployer from "features/SystemManager/components/TableEmployer";
 
 const EmployerManagerPage = () => {
+  ScrollTop();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const employerList = useSelector(selectEmployers);

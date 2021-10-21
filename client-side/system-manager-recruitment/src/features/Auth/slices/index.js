@@ -22,10 +22,10 @@ export const systemManageSlice = createSlice({
       state.systemManage = null;
     },
     [signInAuthAsync.fulfilled]: (state, action) => {
-      const { token, data } = action?.payload;
+      const { token, data } = action.payload;
       state.status = false;
       if (token && data) {
-        state.systemManage = data?.systemManager;
+        state.systemManage = data.systemManager;
         localStorage.setItem("token", token);
         localStorage.setItem(
           "systemManage",

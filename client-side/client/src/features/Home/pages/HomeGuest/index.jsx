@@ -1,6 +1,13 @@
-import { fetchJobsAsync, fetchProvincesAsync } from "features/Home/slices/thunks";
+import {
+  fetchJobsAsync,
+  fetchProvincesAsync,
+} from "features/Home/slices/thunks";
 import { Fragment, useEffect } from "react";
-import { selectJobsHome, selectLoadingHome } from "features/Home/slices/selectors";
+import { ScrollTop } from "common/functions";
+import {
+  selectJobsHome,
+  selectLoadingHome,
+} from "features/Home/slices/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
@@ -9,9 +16,10 @@ import JobList from "features/Home/components/JobList";
 import LoadingSuspense from "components/Loading";
 
 const HomeGuest = () => {
+  ScrollTop();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  
+
   useTitle(
     `${t("MST - The system to connect employers and IT industry candidates")}`
   );

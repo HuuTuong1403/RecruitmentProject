@@ -4,6 +4,7 @@ import {
   fetchWardsByDistrictsAsync,
 } from "features/Home/slices/thunks";
 import { schemaPostJobEmployer } from "common/constants/schema";
+import { ScrollTop } from "common/functions";
 import {
   selectedProvinces,
   selectedDistricts,
@@ -18,9 +19,9 @@ import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
 import ButtonField from "custom-fields/ButtonField";
+import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
 import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
-import ErrorText from "components/ErrorText";
 import LabelField from "custom-fields/LabelField";
 import moment from "moment";
 import PostJobField from "features/Employers/components/PostJobField";
@@ -28,6 +29,7 @@ import Select from "react-select";
 import SelectField from "features/Employers/components/SelectField";
 
 const PostJobPage = () => {
+  ScrollTop();
   const { t } = useTranslation();
   useTitle(`${t("postjobs")}`);
   const dispatch = useDispatch();
@@ -138,7 +140,6 @@ const PostJobPage = () => {
               control={control}
               defaultValue={postJobData?.jobTitle ?? ""}
               handleAddData={handleAddData}
-              isInput={true}
               errors={errors?.jobTitle?.message}
               placeholder={t("Enter job title")}
             />
@@ -147,27 +148,25 @@ const PostJobPage = () => {
           {/* Job Description */}
           <div className={classes.postjob__formGroup}>
             <LabelField label={t("Job description")} isCompulsory={true} />
-            <PostJobField
+            <CKEditorField
               name="description"
               control={control}
               defaultValue={postJobData?.description}
               handleAddData={handleAddData}
-              isInput={false}
+              errors={errors?.description?.message}
             />
-            <ErrorText errors={errors?.description?.message} />
           </div>
 
           {/* Job Requirements */}
           <div className={classes.postjob__formGroup}>
             <LabelField label={t("Job requirements")} isCompulsory={true} />
-            <PostJobField
+            <CKEditorField
               name="requirements"
               control={control}
               defaultValue={postJobData?.requirements}
               handleAddData={handleAddData}
-              isInput={false}
+              errors={errors?.requirements?.message}
             />
-            <ErrorText errors={errors?.requirements?.message} />
           </div>
 
           {/* Job Benefits */}
@@ -176,12 +175,11 @@ const PostJobPage = () => {
               label={t("Benefits of joining the job")}
               isCompulsory={false}
             />
-            <PostJobField
+            <CKEditorField
               name="benefits"
               control={control}
               defaultValue={postJobData?.benefits}
               handleAddData={handleAddData}
-              isInput={false}
             />
           </div>
 
@@ -191,12 +189,11 @@ const PostJobPage = () => {
               label={t("Reasons to join this job")}
               isCompulsory={false}
             />
-            <PostJobField
+            <CKEditorField
               name="reason"
               control={control}
               defaultValue={postJobData?.benefits}
               handleAddData={handleAddData}
-              isInput={false}
             />
           </div>
 
@@ -206,12 +203,11 @@ const PostJobPage = () => {
               label={t("Responsibilities when doing this job")}
               isCompulsory={false}
             />
-            <PostJobField
+            <CKEditorField
               name="responsibilities"
               control={control}
               defaultValue={postJobData?.benefits}
               handleAddData={handleAddData}
-              isInput={false}
             />
           </div>
 
@@ -225,7 +221,6 @@ const PostJobPage = () => {
                   control={control}
                   defaultValue={postJobData?.address ?? ""}
                   handleAddData={handleAddData}
-                  isInput={true}
                   errors={errors?.address?.message}
                   placeholder={t("Enter workplace address")}
                 />
@@ -242,8 +237,8 @@ const PostJobPage = () => {
                   handleAddData={handleAddData}
                   fetchData={fetchDistrictsByProvinceAsync}
                   placeholder={t("choose-province")}
+                  errors={errors?.province?.message}
                 />
-                <ErrorText errors={errors?.province?.message} />
               </div>
 
               <div>
@@ -257,8 +252,8 @@ const PostJobPage = () => {
                   handleAddData={handleAddData}
                   fetchData={fetchWardsByDistrictsAsync}
                   placeholder={t("choose-district")}
+                  errors={errors?.district?.message}
                 />
-                <ErrorText errors={errors?.district?.message} />
               </div>
 
               <div>
@@ -269,8 +264,8 @@ const PostJobPage = () => {
                   locationList={wards}
                   handleAddData={handleAddData}
                   placeholder={t("choose-ward")}
+                  errors={errors?.ward?.message}
                 />
-                <ErrorText errors={errors?.ward?.message} />
               </div>
             </div>
           </div>
@@ -296,7 +291,6 @@ const PostJobPage = () => {
                   control={control}
                   defaultValue={postJobData?.min ?? ""}
                   handleAddData={handleAddData}
-                  isInput={true}
                   errors={errors?.min?.message}
                   placeholder={t("Enter the minimum salary")}
                 />
@@ -308,7 +302,6 @@ const PostJobPage = () => {
                   control={control}
                   defaultValue={postJobData?.max ?? ""}
                   handleAddData={handleAddData}
-                  isInput={true}
                   errors={errors?.max?.message}
                   placeholder={t("Enter the maximum salary")}
                 />
@@ -329,8 +322,8 @@ const PostJobPage = () => {
                     locationList={levelSelect}
                     handleAddData={handleAddData}
                     placeholder={t("choose-level")}
+                    errors={errors?.level?.message}
                   />
-                  <ErrorText errors={errors?.level?.message} />
                 </div>
               </div>
 
@@ -354,7 +347,7 @@ const PostJobPage = () => {
                       postJobData?.finishDate
                         ? moment(postJobData?.finishDate, dateFormat)
                         : null
-                    }    
+                    }
                   />
                 </div>
               </div>

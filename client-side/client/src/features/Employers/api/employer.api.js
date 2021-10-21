@@ -17,3 +17,12 @@ export const updatePassEmployer = async (payload) => {
     console.log(error);
   }
 };
+
+export const updateProfileEmployer = async (payload) => {
+  try {
+    const res = await axiosClient.patch("employer/updateMe", payload);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -1,6 +1,8 @@
 import { FiLock } from "react-icons/fi";
+import { logoutEmployer } from "features/HomeEmployers/slices";
 import { schemaChangePass } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
+import { updatePassEmployer } from "features/Employers/api/employer.api";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
@@ -12,8 +14,6 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import LabelField from "custom-fields/LabelField";
-import { updatePassEmployer } from "features/Employers/api/employer.api";
-import { logoutEmployer } from "features/HomeEmployers/slices";
 import notification from "components/Notification";
 
 const SettingPage = () => {

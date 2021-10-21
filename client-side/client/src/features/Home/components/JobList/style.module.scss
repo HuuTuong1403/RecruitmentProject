@@ -1,4 +1,4 @@
-@import "../../../../common/styles/Variables.scss";
+@import "common/styles/Variables.scss";
 
 .joblist {
   background-color: $third-color;
@@ -34,7 +34,7 @@
         position: absolute;
         right: 1%;
         top: 25%;
-        font-size: 14px;
+        font-size: 14px !important;
         text-transform: none;
         color: $primary-text;
 
@@ -70,7 +70,7 @@
         &--all {
           right: 1%;
           top: 20%;
-          font-size: 12px;
+          font-size: 12px !important;
 
           &::after {
             font-size: 15px;
@@ -92,7 +92,7 @@
         &--all {
           right: 1%;
           top: 20%;
-          font-size: 12px;
+          font-size: 12px !important;
 
           &::after {
             font-size: 15px;
