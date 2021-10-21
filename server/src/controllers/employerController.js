@@ -1,11 +1,12 @@
 const fs = require('fs');
+
 const Employer = require('./../models/employerModel');
+
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const sendEmail = require('./../services/email');
 const FilterObject = require('./../utils/filterObject');
-
 var confirmEmailFiles = fs.readFileSync(
   `${__dirname}/../public/ConfirmEmail/ConfirmEmail.html`,
   'utf-8'
@@ -47,7 +48,6 @@ class employerController {
         'companyName',
         'email',
         'phone',
-        'logo',
         'scale',
         'companyWebsite',
         'address',

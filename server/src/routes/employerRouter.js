@@ -2,7 +2,7 @@ const express = require('express');
 const employerRouter = express.Router();
 const employerController = require('./../controllers/employerController');
 const authController = require('./../controllers/authController');
-
+const uploadLogoCompany = require('./../middlewares/uploadLogoEmployer');
 employerRouter.route('/login').post(authController.loginEmployer);
 employerRouter
   .route('/authentication/:token')
@@ -25,6 +25,8 @@ employerRouter
   .patch(
     authController.protect,
     authController.restrictTo('employer'),
+    uploadLogoCompany.uploadLogoCompany,
+    uploadLogoCompany.uploadLogoToCloudinary,
     employerController.updateMe
   );
 employerRouter

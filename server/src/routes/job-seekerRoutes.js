@@ -1,6 +1,7 @@
 const express = require('express');
 const authController = require('./../controllers/authController');
 const jobSeekerController = require('./../controllers/jobSeekerController');
+const uploadAvatar = require('./../middlewares/uploadAvatar');
 const jobseekerRouter = express.Router();
 
 jobseekerRouter.route('/signup').post(authController.signUpJobSeeker);
@@ -26,6 +27,8 @@ jobseekerRouter
   .patch(
     authController.protect,
     authController.restrictTo('jobseeker'),
+    uploadAvatar.uploadAvatar,
+    uploadAvatar.uploadAvatarToCloudinary,
     jobSeekerController.updateMe
   );
 jobseekerRouter

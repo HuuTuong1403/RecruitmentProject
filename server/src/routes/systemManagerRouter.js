@@ -3,6 +3,7 @@ const authController = require('../controllers/authController');
 const systemManagerRouter = express.Router();
 const systemManagerController = require('../controllers/systemManagerController');
 const validator = require('./../middlewares/validator');
+const uploadAvatar = require('./../middlewares/uploadAvatar');
 
 systemManagerRouter
   .route('/updatePassword')
@@ -17,6 +18,8 @@ systemManagerRouter
     authController.protect,
     authController.restrictTo('systemmanager'),
     validator.checkUpdateSytemManager,
+    uploadAvatar.uploadAvatar,
+    uploadAvatar.uploadAvatarToCloudinary,
     systemManagerController.updateMe
   );
 systemManagerRouter
