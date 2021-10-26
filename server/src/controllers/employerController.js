@@ -82,6 +82,14 @@ class employerController {
     },
     `-isEmailVerified,-__v,-status,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`
   );
+  getMe = factory.getOne(
+    Employer,
+    {
+      path: 'jobs',
+      select: 'jobTitle salary location',
+    },
+    `-isEmailVerified,-__v,-status,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`
+  );
   updateEmployerPassword = catchAsync(async (req, res, next) => {
     if (req.body.password != req.body.passwordConfirm) {
       return next(

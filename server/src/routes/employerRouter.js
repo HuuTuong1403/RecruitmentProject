@@ -39,9 +39,5 @@ employerRouter
 employerRouter
   .route('/')
   .post(employerController.sendInformation)
-  .get(
-    authController.restrictTo('employer'),
-    getMe,
-    employerController.getEmployer
-  );
+  .get(authController.restrictTo('employer'), getMe, employerController.getMe);
 module.exports = employerRouter;
