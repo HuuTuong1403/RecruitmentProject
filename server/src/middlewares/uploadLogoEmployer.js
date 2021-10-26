@@ -25,7 +25,7 @@ exports.uploadLogoToCloudinary = catchAsync(async (req, res, next) => {
     use_filename: true,
     overwrite: true,
     filename_override: `${req.body.companyName}`,
-    transformation: [{ width: 500, height: 500, crop: 'fit' }],
+    // transformation: [{ width: 500, height: 500, crop: 'fit' }],
   };
   const result = await cloudinary.uploadFile(req.file.path, options);
   req.body.logo = result.secure_url;

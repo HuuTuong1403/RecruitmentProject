@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-
+const Employer = require('./employerModel');
+const JobSeeker = require('./job-seekerModel');
 const addressSchema = require('./addressModel');
 
 const finishDate = new Date();
@@ -24,29 +25,39 @@ const salarySchema = new mongoose.Schema(
 );
 const jobSchema = new mongoose.Schema(
   {
+    company: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Employer',
+    },
+    applicants: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'JobSeeker',
+      },
+    ],
     companyName: {
       type: String,
       required: [true, 'Company must have a name'],
       trim: true,
     },
-    companyType: {
-      type: String,
-    },
-    companyWebsite: {
-      type: String,
-      trim: true,
-    },
-    logo: {
-      type: String,
-    },
-    ot: {
-      type: Boolean,
-      default: false,
-    },
-    quantity: {
-      type: Number,
-      default: 30,
-    },
+    // companyType: {
+    //   type: String,
+    // },
+    // companyWebsite: {
+    //   type: String,
+    //   trim: true,
+    // },
+    // logo: {
+    //   type: String,
+    // },
+    // ot: {
+    //   type: Boolean,
+    //   default: false,
+    // },
+    // quantity: {
+    //   type: Number,
+    //   default: 30,
+    // },
     workingTime: {
       finish: {
         type: String,
@@ -63,7 +74,6 @@ const jobSchema = new mongoose.Schema(
       required: [true, 'Job must have benifit'],
       trim: true,
     },
-    candidate: [String],
     description: {
       type: String,
       required: [true, 'Job must have description'],
@@ -147,10 +157,18 @@ jobSchema.virtual('isNew').get(function () {
   const timeAgoSecond = timeAgoMilisecond / 1000;
   return timeAgoSecond < 86400 ? true : false;
 });
+
 //DOCUMENT MIDDLEWARE: run before .save() and .create()
 jobSchema.pre('save', async function (next) {
-  this.slug = slugify(`${this.jobTitle} ${this.companyName} ${this._id}`, {
+  this.slug = slugify(`${this.jobTitle} ${this._id}`, {
     lower: true,
+  });
+  next();
+});
+jobSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'company',
+    select: 'companyName companyType companyWebsite logo ot quantity',
   });
   next();
 });

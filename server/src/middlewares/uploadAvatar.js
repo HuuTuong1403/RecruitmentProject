@@ -22,7 +22,7 @@ exports.uploadAvatarToCloudinary = catchAsync(async (req, res, next) => {
     use_filename: true,
     overwrite: true,
     filename_override: `${fileName}`,
-    transformation: [{ width: 500, height: 500, crop: 'fit' }],
+    // transformation: [{ width: 500, height: 500, crop: 'fit' }],
   };
   const result = await cloudinary.uploadFile(req.file.path, options);
   req.body.avatar = result.secure_url;

@@ -1,8 +1,15 @@
 const express = require('express');
 const employerRouter = express.Router();
+
 const employerController = require('./../controllers/employerController');
+
 const authController = require('./../controllers/authController');
 const uploadLogoCompany = require('./../middlewares/uploadLogoEmployer');
+const getMe = require('./../middlewares/getMe');
+
+const jobRoute = require('./jobRoutes');
+
+employerRouter.use('/jobs', jobRoute);
 employerRouter.route('/login').post(authController.loginEmployer);
 employerRouter
   .route('/authentication/:token')
@@ -13,17 +20,17 @@ employerRouter
 employerRouter
   .route('/resetPassword/:token')
   .patch(authController.resetEmployerPassword);
+employerRouter.route('/:companyName').get(employerController.getEmployer);
+employerRouter.use(authController.protect);
 employerRouter
   .route('/updatePassword')
   .patch(
-    authController.protect,
     authController.restrictTo('employer'),
     employerController.updateEmployerPassword
   );
 employerRouter
   .route('/updateMe')
   .patch(
-    authController.protect,
     authController.restrictTo('employer'),
     uploadLogoCompany.uploadLogoCompany,
     uploadLogoCompany.uploadLogoToCloudinary,
@@ -33,8 +40,8 @@ employerRouter
   .route('/')
   .post(employerController.sendInformation)
   .get(
-    authController.protect,
     authController.restrictTo('employer'),
+    getMe,
     employerController.getEmployer
   );
 module.exports = employerRouter;

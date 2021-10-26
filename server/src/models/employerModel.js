@@ -37,18 +37,15 @@ const employerSchema = new mongoose.Schema(
       trim: true,
       validate: [validator.isEmail, 'Hãy nhập email hợp lệ'],
     },
-    entryTest: [String],
-    event: [String],
     isEmailVerified: {
       type: Boolean,
       default: false,
     },
-    jobs: [String],
     logo: {
       type: String,
       default: 'https://www.zodedi.com/public/uploads/testimonial-5.png',
     },
-    ot: {
+    OT: {
       type: Boolean,
       default: false,
     },
@@ -76,65 +73,6 @@ const employerSchema = new mongoose.Schema(
     welfare: {
       type: [String],
     },
-    registeredServicePackages: [
-      {
-        servicePackageName: {
-          type: String,
-          required: [true, 'Tên gói dịch vụ là bắt buộc'],
-          trim: true,
-        },
-        description: {
-          type: String,
-          trim: true,
-        },
-        postType: {
-          type: String,
-          required: [true, 'Gói dịch vụ phải có loại bài đăng'],
-        },
-        price: {
-          type: Number,
-        },
-        paidPrice: {
-          type: Number,
-        },
-        quantity: {
-          type: Number,
-        },
-        status: {
-          type: String,
-          default: 'Unpaid',
-        },
-      },
-    ],
-    reviews: [
-      {
-        Improvement: {
-          type: String,
-          trim: true,
-        },
-        Interesting: {
-          type: String,
-          trim: true,
-        },
-        OT: {
-          type: String,
-          trim: true,
-        },
-        Reviewer: {
-          type: String,
-          required: [true, 'Người review phải được gán'],
-          trim: true,
-        },
-        Title: {
-          type: String,
-          required: [true, 'Bài review phải có tiêu đề'],
-          trim: true,
-        },
-        Total: {
-          type: Number,
-        },
-      },
-    ],
     status: {
       type: String,
       default: 'unapproval',
@@ -160,6 +98,12 @@ const employerSchema = new mongoose.Schema(
 employerSchema.virtual('role').get(function () {
   return 'employer';
 });
+employerSchema.virtual('jobs', {
+  ref: 'Job',
+  foreignField: 'company',
+  localField: '_id',
+});
+
 employerSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);

@@ -7,6 +7,7 @@ const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 const sendEmail = require('./../services/email');
 const FilterObject = require('./../utils/filterObject');
+const factory = require('./handleFactory');
 var confirmEmailFiles = fs.readFileSync(
   `${__dirname}/../public/ConfirmEmail/ConfirmEmail.html`,
   'utf-8'
@@ -63,6 +64,7 @@ class employerController {
         },
       });
     } catch (err) {
+      console.log(err);
       return next(
         new AppError(
           'There was an error sending this email. Try again later!',
@@ -71,21 +73,15 @@ class employerController {
       );
     }
   });
-  getEmployer = catchAsync(async (req, res, next) => {
-    const features = new APIFeatures(Employer.findById(req.user.id), {
-      fields: `-isEmailVerified,-__v,-entryTest,-event,-jobs,-registeredServicePackages,-reviews,-status,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`,
-    }).limitFields();
-    const employer = await features.query;
-    if (!employer) {
-      return next(new AppError('ID không hợp lệ', 400));
-    }
-    res.status(200).json({
-      status: 'success',
-      data: {
-        Employer: employer,
-      },
-    });
-  });
+  //fields: `-isEmailVerified,-__v,-status,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`,
+  getEmployer = factory.getOneUniqueField(
+    Employer,
+    {
+      path: 'jobs',
+      select: 'jobTitle salary location',
+    },
+    `-isEmailVerified,-__v,-status,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`
+  );
   updateEmployerPassword = catchAsync(async (req, res, next) => {
     if (req.body.password != req.body.passwordConfirm) {
       return next(
