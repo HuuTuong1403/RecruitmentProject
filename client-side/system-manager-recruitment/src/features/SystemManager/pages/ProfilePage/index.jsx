@@ -1,4 +1,3 @@
-import { Avatar } from "antd";
 import { getSystemManagerDetailAsync } from "features/SystemManager/slices/thunks";
 import { schemaUpdateProfile } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
@@ -10,12 +9,13 @@ import { useForm } from "react-hook-form";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
+import AvatarUpload from "components/AvatarUpload";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputProfileField from "features/SystemManager/components/InputProfileField";
 import LabelField from "custom-fields/LabelField";
-import notification from "components/Notification";
 import LoadingSuspense from "components/Loading";
+import notification from "components/Notification";
 
 const ProfilePage = () => {
   const { t } = useTranslation();
@@ -23,6 +23,7 @@ const ProfilePage = () => {
   ScrollTop();
   useTitle(`${t("Account Management")}`);
   const dispatch = useDispatch();
+  const [avatar, setAvatar] = useState(null);
 
   useEffect(() => {
     dispatch(getSystemManagerDetailAsync());
@@ -42,18 +43,27 @@ const ProfilePage = () => {
 
   const handleSubmitUpdateProfile = async (dataUpdateProfile) => {
     setLoading(true);
+    const { fullname, email, phone } = dataUpdateProfile;
     if (
-      dataUpdateProfile.fullname === systemManagerDetail?.fullname &&
-      dataUpdateProfile.email === systemManagerDetail?.email &&
-      dataUpdateProfile.phone === systemManagerDetail?.phone
+      !avatar &&
+      fullname === systemManagerDetail?.fullname &&
+      email === systemManagerDetail?.email &&
+      phone === systemManagerDetail?.phone
     ) {
       setLoading(false);
       notification(`${t("Updated data unchanged")}`, "error");
     } else {
-      const result = await upadteProfileSystemManager(dataUpdateProfile);
+      const payload = new FormData();
+      payload.append("fullname", fullname);
+      payload.append("email", email);
+      payload.append("phone", phone);
+      payload.append("photo-avatar", avatar);
+
+      const result = await upadteProfileSystemManager(payload);
       if (result.status === "success") {
         setLoading(false);
         notification(`${t("Update information successful")}`, "success");
+        setAvatar(null);
         dispatch(getSystemManagerDetailAsync());
       } else {
         setLoading(false);
@@ -63,11 +73,15 @@ const ProfilePage = () => {
   };
 
   const handleCancelSubmit = () => {
-    reset({ 
+    reset({
       fullname: systemManagerDetail?.fullname,
       email: systemManagerDetail?.email,
       phone: systemManagerDetail?.phone,
     });
+  };
+
+  const changeAvatar = (file) => {
+    setAvatar(file);
   };
 
   return (
@@ -82,9 +96,10 @@ const ProfilePage = () => {
             onSubmit={handleSubmit(handleSubmitUpdateProfile)}
           >
             <div className={classes["updateProfile__form--left"]}>
-              <Avatar
+              <AvatarUpload
+                changeAvatar={changeAvatar}
                 src={systemManagerDetail.avatar}
-                shape="square"
+                shape="circle"
                 size={180}
               />
             </div>

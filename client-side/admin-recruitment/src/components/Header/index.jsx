@@ -9,9 +9,10 @@ import { IoMenu } from "react-icons/io5";
 import { MdNotificationsNone } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { pathAdmin } from "common/constants/path";
-import { selectAdminLocal } from "features/Administrator/slices/selectors";
+import { selectAdminDetail } from "features/Administrator/slices/selectors";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import classes from "./style.module.scss";
 import ReactCountryFlag from "react-country-flag";
 
@@ -21,7 +22,7 @@ const Header = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //   const [dropdownHover, setDropDownHover] = useState(false);
   const { isShow, onOpen, onClose } = props;
-  const admin = selectAdminLocal();
+  const admin = useSelector(selectAdminDetail);
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
 
   //   const hoverProfileHandler = () => setDropDownHover((prevState) => !prevState);

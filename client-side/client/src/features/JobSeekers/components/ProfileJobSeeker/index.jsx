@@ -1,18 +1,23 @@
-import { Avatar } from "antd";
 import { FaBirthdayCake, FaCity } from "react-icons/fa";
 import { Fragment } from "react";
 import { ImUser } from "react-icons/im";
 import { MdEmail, MdSmartphone, MdLocationOn } from "react-icons/md";
+import AvatarUpload from "components/AvatarUpload";
 import classes from "./style.module.scss";
 import moment from "moment";
 
 const ProfileJobSeeker = (props) => {
-  const { jobSeeker } = props;
+  const { jobSeeker, changeAvatar } = props;
   return (
     <div className={classes.left}>
       <div>
         <div>
-          <Avatar src={jobSeeker.avatar} size={100} />
+          <AvatarUpload
+            changeAvatar={changeAvatar}
+            shape="circle"
+            src={jobSeeker.avatar}
+            size={120}
+          />
         </div>
         <div className={`${classes.left__group} ${classes.fullname}`}>
           {jobSeeker.fullname}

@@ -18,10 +18,15 @@ p {
 
       & > div:first-child {
         flex: 0 0 25%;
+
         padding: 0 15px;
         text-align: center;
 
         & > a > img {
+          border: 1px solid #e8e8e8;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+          border-radius: 10px;
+          padding: $pm-4;
           width: 100%;
           max-width: 200px;
           min-height: 100px;
@@ -37,6 +42,7 @@ p {
 
         & > div:first-child {
           flex: 0 0 75%;
+          font-size: $text-base;
           & > div:nth-child(1) {
             font-size: $text-2xl;
             font-weight: 700;
@@ -143,13 +149,21 @@ p {
   display: flex;
   font-size: $text-lg;
   row-gap: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
 
   &__card-skill {
     padding: 3px 6px;
     border: 1px solid #d2d3d3;
     color: #575656;
-    margin-right: 8px;
     border-radius: 5px;
+
+    & > a {
+      &:hover {
+        color: $third-text !important;
+        text-decoration: none;
+      }
+    }
   }
 }
 
@@ -266,10 +280,6 @@ p {
         }
       }
     }
-  }
-  .container {
-    flex-wrap: wrap;
-    font-size: $text-2xl;
   }
 }
 
@@ -397,8 +407,7 @@ p {
     }
   }
   .container {
-    flex-wrap: wrap;
-    font-size: $text-xl;
+    font-size: $text-base;
   }
 }
 
@@ -522,8 +531,7 @@ p {
   }
 
   .container {
-    flex-wrap: wrap;
-    font-size: $text-base;
+    font-size: $text-sm;
   }
 }
 
@@ -647,7 +655,6 @@ p {
   }
 
   .container {
-    flex-wrap: wrap;
-    font-size: $text-sm;
+    font-size: $text-xs;
   }
 }

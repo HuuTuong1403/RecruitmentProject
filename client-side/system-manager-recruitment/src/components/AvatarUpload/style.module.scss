@@ -1,0 +1,41 @@
+@import "common/styles/Variables.scss";
+
+.avatarSquare {
+  padding: $pm-2;
+  border-radius: 10px;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.25);
+
+  & img {
+    border-radius: 10px;
+    object-fit: contain;
+  }
+}
+
+.avatarCircle {
+  border: 1px solid $primary-color;
+  padding: $pm-2;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+
+  & img {
+    border-radius: 50%;
+  }
+}
+
+.avatar {
+  label {
+    font-size: $text-base;
+  }
+  &__menuDelete {
+    color: red;
+
+    & label {
+      font-size: $text-base;
+    }
+  }
+
+  &__icon {
+    font-size: $text-2xl;
+    margin-right: 5px;
+  }
+}

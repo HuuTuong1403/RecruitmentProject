@@ -16,8 +16,7 @@ const initialState = {
 export const jobSlice = createSlice({
   name: "jobs",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: {
     [fetchJobsSearchAsync.pending]: (state) => {
       state.jobsSearch = [];

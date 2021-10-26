@@ -30,11 +30,12 @@ import SelectLocationField from "custom-fields/SelectLocationField";
 
 const UserProfilePage = () => {
   ScrollTop();
-  
+
   const detailJobSeeker = useSelector(selectedJobSeekerProfile);
   const { t } = useTranslation();
   useTitle(`${t("Account Management")}`);
   const [loading, setLoading] = useState(false);
+  const [avatar, setAvatar] = useState(null);
   const dispatch = useDispatch();
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
@@ -70,16 +71,18 @@ const UserProfilePage = () => {
 
   const handleUpdateProfile = async (dataUpdateProfile) => {
     setLoading(true);
-    const { city, district, ward, street, DOB, ...rest } = dataUpdateProfile;
+    const { city, district, ward, street, DOB, fullname, phone } =
+      dataUpdateProfile;
     if (
+      !avatar &&
       moment(DOB).format(dateFormat) ===
         moment(detailJobSeeker?.DOB).format(dateFormat) &&
       city === detailJobSeeker?.address?.city &&
       district === detailJobSeeker?.address?.district &&
       ward === detailJobSeeker?.address?.ward &&
       street === detailJobSeeker?.address?.street &&
-      dataUpdateProfile.fullname === detailJobSeeker?.fullname &&
-      dataUpdateProfile.phone === detailJobSeeker?.phone
+      fullname === detailJobSeeker?.fullname &&
+      phone === detailJobSeeker?.phone
     ) {
       setLoading(false);
       notification(`${t("Updated data unchanged")}`, "error");
@@ -94,18 +97,18 @@ const UserProfilePage = () => {
         date = moment(DOB).format("yyyy-DD-MM");
       }
 
-      const payload = {
-        ...rest,
-        DOB: date,
-        address: {
-          city,
-          district,
-          ward,
-          street,
-        },
-      };
+      const payload = new FormData();
+      payload.append("address[city]", city);
+      payload.append("address[district]", district);
+      payload.append("address[ward]", ward);
+      payload.append("address[street]", street);
+      payload.append("fullname", fullname);
+      payload.append("phone", phone);
+      payload.append("DOB", date);
+      payload.append("photo-avatar", avatar);
 
       const result = await updateProfileJobSeeker(payload);
+
       if (result.status === "success") {
         setLoading(false);
         notification(`${t("Update information successful")}`, "success");
@@ -131,6 +134,10 @@ const UserProfilePage = () => {
     });
   };
 
+  const changeAvatar = (file) => {
+    setAvatar(file);
+  };
+
   const disabledDate = (current) => {
     return current && current.valueOf() >= Date.now();
   };
@@ -143,7 +150,10 @@ const UserProfilePage = () => {
             {t("Account Management")}
           </div>
           <div className={classes["profile__wrapped--content"]}>
-            <ProfileJobSeeker jobSeeker={detailJobSeeker} />
+            <ProfileJobSeeker
+              changeAvatar={changeAvatar}
+              jobSeeker={detailJobSeeker}
+            />
             <form
               className={classes["profile__wrapped--blockRight"]}
               onSubmit={handleSubmit(handleUpdateProfile)}
