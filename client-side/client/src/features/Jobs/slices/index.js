@@ -4,26 +4,32 @@ import {
   fetchJobsAllAsync,
   fetchJobDetailAsync,
   fetchSkillsAsync,
+  fetchCompanyDetailAsync,
 } from "./thunks";
 
 const initialState = {
   jobsSearch: [],
-  status: false,
   jobDetail: {},
+  companyDetail: {},
   skills: [],
+  status: false,
+  isFilter: false,
 };
 
 export const jobSlice = createSlice({
   name: "jobs",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleOpenFilter: (state) => {
+      state.isFilter = !state.isFilter;
+    },
+  },
   extraReducers: {
     [fetchJobsSearchAsync.pending]: (state) => {
-      state.jobsSearch = [];
       state.status = true;
     },
     [fetchJobsSearchAsync.fulfilled]: (state, action) => {
-      state.jobsSearch = action?.payload;
+      state.jobsSearch = action.payload;
       state.status = false;
     },
     [fetchJobsSearchAsync.rejected]: (state) => {
@@ -35,7 +41,7 @@ export const jobSlice = createSlice({
       state.status = true;
     },
     [fetchJobsAllAsync.fulfilled]: (state, action) => {
-      state.jobsSearch = action?.payload;
+      state.jobsSearch = action.payload;
       state.status = false;
     },
     [fetchJobsAllAsync.rejected]: (state) => {
@@ -43,11 +49,10 @@ export const jobSlice = createSlice({
       state.status = false;
     },
     [fetchJobDetailAsync.pending]: (state) => {
-      state.jobDetail = {};
       state.status = true;
     },
     [fetchJobDetailAsync.fulfilled]: (state, action) => {
-      state.jobDetail = action?.payload;
+      state.jobDetail = action.payload;
       state.status = false;
     },
     [fetchJobDetailAsync.rejected]: (state) => {
@@ -58,12 +63,24 @@ export const jobSlice = createSlice({
       state.skills = [];
     },
     [fetchSkillsAsync.fulfilled]: (state, action) => {
-      state.skills = action?.payload;
+      state.skills = action.payload;
     },
     [fetchSkillsAsync.rejected]: (state) => {
       state.skills = [];
     },
+    [fetchCompanyDetailAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchCompanyDetailAsync.fulfilled]: (state, action) => {
+      state.companyDetail = action.payload;
+      state.status = false;
+    },
+    [fetchCompanyDetailAsync.rejected]: (state) => {
+      state.companyDetail = {};
+      state.status = false;
+    },
   },
 });
 
+export const { toggleOpenFilter } = jobSlice.actions;
 export default jobSlice.reducer;

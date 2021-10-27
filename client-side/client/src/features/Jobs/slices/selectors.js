@@ -13,3 +13,12 @@ export const selectedJobDetail = (state) => {
 export const selectedSkills = (state) => {
   return state?.job?.skills;
 };
+
+export const selectedCompanyDetail = (state) => {
+  return state?.job?.companyDetail;
+};
+
+
+export const selectedIsFilter = (state) => {
+  return state?.job?.isFilter;
+};

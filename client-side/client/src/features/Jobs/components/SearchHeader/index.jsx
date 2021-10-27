@@ -1,11 +1,13 @@
 import { Collapse } from "reactstrap";
 import { FaFilter } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
+import { selectedIsFilter } from "features/Jobs/slices/selectors";
 import { selectedProvinces } from "features/Home/slices/selectors";
 import { selectedSkills } from "../../slices/selectors";
+import { toggleOpenFilter } from "features/Jobs/slices";
 import { useHistory, useLocation } from "react-router-dom";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
@@ -18,7 +20,8 @@ const SearchHeader = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const searchKey = useRef();
-  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isOpen = useSelector(selectedIsFilter);
   const type = query.get("type");
   const jobTitle = query.get("jobTitle");
   const [selectProvince, setSelectProvince] = useState(
@@ -26,6 +29,12 @@ const SearchHeader = () => {
   );
   const [selectSalary, setSelectSalary] = useState(
     query.get("salary%min[gte]") ?? "Tất cả"
+  );
+  const [selectLevel, setSelectLevel] = useState(
+    query.get("level") ?? "Tất cả"
+  );
+  const [selectPosition, setSelectPosition] = useState(
+    query.get("position") ?? "Tất cả"
   );
   const [selectCreateDate, setSelectCreateDate] = useState(
     query.get("createdAt") ?? "Tất cả"
@@ -62,12 +71,22 @@ const SearchHeader = () => {
     setSelectSalary(selectOption.value);
   };
 
+  const changeLevelHandler = (selectOption) => {
+    setSelectLevel(selectOption.value);
+  };
+
+  const changePositionHandler = (selectOption) => {
+    setSelectPosition(selectOption.value);
+  };
+
   const changeCreateDateHandler = (selectOption) => {
     setSelectCreateDate(selectOption.value);
   };
 
   const deleteFilterHandler = () => {
     setSelectSalary("Tất cả");
+    setSelectLevel("Tất cả");
+    setSelectPosition("Tất cả");
     setSelectCreateDate("Tất cả");
     setSelectSkill([]);
     setTextSkill("");
@@ -75,7 +94,7 @@ const SearchHeader = () => {
 
   const toggle = () => {
     setSelectSkill(skills.filter((item) => querySkills.includes(item.label)));
-    setIsOpen(!isOpen);
+    dispatch(toggleOpenFilter());
   };
 
   const searchSubmitHandler = (e) => {
@@ -85,6 +104,8 @@ const SearchHeader = () => {
       textKey === "" &&
       selectProvince === "Tất cả" &&
       selectSalary === "Tất cả" &&
+      selectLevel === "Tất cả" &&
+      selectPosition === "Tất cả" &&
       selectCreateDate === "Tất cả" &&
       textSkill === ""
     ) {
@@ -95,11 +116,14 @@ const SearchHeader = () => {
       const keyword = textKey === "" ? "" : `jobTitle=${textKey}&`;
       const salary =
         selectSalary === "Tất cả" ? "" : `salary%min[gte]=${selectSalary}&`;
+      const level = selectLevel === "Tất cả" ? "" : `level=${selectLevel}&`;
+      const position =
+        selectPosition === "Tất cả" ? "" : `position=${selectPosition}&`;
       const skill = textSkill === "" ? "" : `skills=${textSkill}&`;
       const date =
         selectCreateDate === "Tất cả" ? "" : `createdAt=${selectCreateDate}`;
       history.push(
-        `/jobs/search?${keyword}${province}${salary}${skill}${date}`
+        `/jobs/search?${keyword}${province}${salary}${level}${position}${skill}${date}`
       );
     }
   };
@@ -120,6 +144,59 @@ const SearchHeader = () => {
     { value: "7", label: `${t("1 week ago")}` },
     { value: "14", label: `${t("2 weeks ago")}` },
     { value: "30", label: `${t("1 month ago")}` },
+  ];
+
+  const optionsLevel = [
+    { value: "Tất cả", label: `${t("all")}` },
+    { value: "Intern", label: `${t("Internship")}` },
+    { value: "Junior", label: `${t("Junior Developer")}` },
+    { value: "Senior", label: `${t("Senior Developer")}` },
+    { value: "Leader", label: `${t("Leader Developer")}` },
+    { value: "Mid-level", label: `${t("Mid-level Manager")}` },
+    { value: "Senior Leader", label: `${t("Senior Leader")}` },
+  ];
+
+  const optionsPosition = [
+    { value: "Tất cả", label: `${t("all")}` },
+    { value: "Network Administrator", label: `${t("Network Administrator")}` },
+    { value: "Network Engineering", label: `${t("Network Engineering")}` },
+    { value: "Network Leader", label: `${t("Network Leader")}` },
+    { value: "Helpdesk Technician", label: `${t("Helpdesk Technician")}` },
+    { value: "PC Technician", label: `${t("PC Technician")}` },
+    { value: "SeviceDesk Leader", label: `${t("SeviceDesk Leader")}` },
+    { value: "Developer", label: `${t("Developer")}` },
+    { value: "Tester", label: `${t("Tester")}` },
+    {
+      value: "Application Development Leader",
+      label: `${t("Application Development Leader")}`,
+    },
+    { value: "Database Developer", label: `${t("Database Developer")}` },
+    {
+      value: "Database Administrator",
+      label: `${t("Database Administrator")}`,
+    },
+    {
+      value: "Business Process Analyst",
+      label: `${t("Business Process Analyst")}`,
+    },
+    { value: "IT Security Staff", label: `${t("IT Security Staff")}` },
+    { value: "IT Manager", label: `${t("IT Manager")}` },
+    {
+      value: "Chief Information Officer",
+      label: `${t("Chief Information Officer")}`,
+    },
+    {
+      value: "Chief Security Officer",
+      label: `${t("Chief Security Officer")}`,
+    },
+    {
+      value: "Chief Technical Officer",
+      label: `${t("Chief Technical Officer")}`,
+    },
+    {
+      value: "Project Manager",
+      label: `${t("Project Manager")}`,
+    },
   ];
 
   return (
@@ -184,11 +261,23 @@ const SearchHeader = () => {
               </div>
               <div>
                 <LabelField label={t("Level")} />
-                <InputField placeholder={t("search-key")} icon={<FaSearch />} />
+                <Select
+                  options={optionsLevel}
+                  value={optionsLevel.filter((level) => {
+                    return level.value === selectLevel;
+                  })}
+                  onChange={changeLevelHandler}
+                />
               </div>
               <div>
                 <LabelField label={t("Position")} />
-                <InputField placeholder={t("search-key")} icon={<FaSearch />} />
+                <Select
+                  options={optionsPosition}
+                  value={optionsPosition.filter((position) => {
+                    return position.value === selectPosition;
+                  })}
+                  onChange={changePositionHandler}
+                />
               </div>
               <div>
                 <LabelField label={t("Skill")} />
@@ -224,7 +313,7 @@ const SearchHeader = () => {
                 {t("Confirm")}
               </ButtonField>
               <ButtonField
-                color="#e8e8e8"
+                color="#fff"
                 backgroundcolor="#dd4b39"
                 backgroundcolorhover="#bf0000"
                 type="button"

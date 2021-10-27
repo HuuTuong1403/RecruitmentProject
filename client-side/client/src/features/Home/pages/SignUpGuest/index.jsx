@@ -68,35 +68,35 @@ const SignUpGuest = () => {
                 className={classes["signup__wrapped--form"]}
               >
                 <InputField
-                  placeholder={"Họ tên của bạn"}
+                  placeholder={t("phd-fullname")}
                   {...register("fullname")}
                   errors={errors.fullname?.message}
                 />
                 <InputField
-                  placeholder={"Tên đăng nhập"}
+                  placeholder={t("phd-username-emp-signin")}
                   {...register("username")}
                   errors={errors.username?.message}
                 />
                 <InputField
                   type="email"
-                  placeholder={"Email"}
+                  placeholder={t("phd-email-sendmail")}
                   {...register("email")}
                   errors={errors.email?.message}
                 />
                 <InputField
-                  placeholder={"Phone"}
+                  placeholder={t("phd-phone-signup")}
                   {...register("phone")}
                   errors={errors.phone?.message}
                 />
                 <InputField
                   type="password"
-                  placeholder={"Password"}
+                  placeholder={t("phd-pass-signin")}
                   {...register("password")}
                   errors={errors.password?.message}
                 />
                 <InputField
                   type="password"
-                  placeholder={"Confirm Password"}
+                  placeholder={t("phd-confirm-pass")}
                   {...register("passwordConfirm")}
                   errors={errors.passwordConfirm?.message}
                 />

@@ -1,10 +1,10 @@
 import { addInfoSignUp } from "features/HomeEmployers/slices";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { MdFileUpload } from "react-icons/md";
 import { schemaSignUpStep3 } from "common/constants/schema";
 import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
 import { signUpEmployer } from "features/HomeEmployers/api/homeEmployer.api";
+import { Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
@@ -15,17 +15,16 @@ import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import notification from "components/Notification";
 import Select from "react-select";
+import LabelField from "custom-fields/LabelField";
 
 const StepThreeSignUp = (props) => {
   const { t } = useTranslation();
   const { onBackStep } = props;
   const dispatch = useDispatch();
   const infoSignUp = useSelector(selectInfoSignUp);
-  const [imgSrc, setImgSrc] = useState("");
-  const [errorImg, setErrorImg] = useState(null);
-  const logo = useRef();
   const history = useHistory();
   const [loading, setLoading] = useState(false);
+  const [OT, setOT] = useState(false);
 
   const {
     register,
@@ -50,7 +49,7 @@ const StepThreeSignUp = (props) => {
       ward: infoSignUp.Address.ward.label,
       street: infoSignUp.Address.address,
       companyType: item.Type,
-      OT: item.OT,
+      ot: OT,
       TIN: item.TIN,
     };
     setLoading(true);
@@ -67,32 +66,6 @@ const StepThreeSignUp = (props) => {
         "error"
       );
     }
-  };
-
-  const chooseImageHandler = () => {
-    const validImageTypes = [
-      "image/jpg",
-      "image/jpeg",
-      "image/png",
-      "image/svg",
-    ];
-
-    if (logo.current?.files.length === 0) {
-      setErrorImg(`${t("error-choose-logo")}`);
-      return;
-    }
-
-    if (!validImageTypes.includes(logo.current.files[0]?.type)) {
-      setErrorImg(`${t("error-file-type")}`);
-      return;
-    }
-
-    if (logo.current.files[0]?.size >= 5000000) {
-      setErrorImg(`${t("error-file-size")}`);
-      return;
-    }
-    setErrorImg(null);
-    setImgSrc(URL.createObjectURL(logo.current.files[0]));
   };
 
   const options = [
@@ -139,38 +112,15 @@ const StepThreeSignUp = (props) => {
         </div>
 
         <div className={classes["stepthree__check-box"]}>
-          <label htmlFor="OT">{t("Work overtime")} (OT)?: </label>
-          <input
-            name="OT"
-            type="checkbox"
-            {...register("OT")}
-            defaultChecked={infoSignUp?.OT}
-            id="OT"
-          />
-          <span>{t("Yes")}</span>
-        </div>
-
-        <div className={classes.stepthree__upload}>
-          <label htmlFor="logo">
-            {t("Upload business logo")}
-            <MdFileUpload className={classes["stepthree__upload--icon"]} />
-          </label>
-          <input
-            ref={logo}
-            style={{ display: "none" }}
-            onChange={chooseImageHandler}
-            type="file"
-            id="logo"
+          <LabelField label={`${t("Work overtime")}:`} />
+          <Switch
+            checkedChildren={t("Do allow")}
+            unCheckedChildren={t("Do not allow")}
+            value={OT}
+            defaultChecked={OT}
+            onChange={() => setOT((prevState) => !prevState)}
           />
         </div>
-        {errorImg && <p>{errorImg}</p>}
-        {logo.current?.files[0] && (
-          <div className={classes.stepthree__container}>
-            <div className={classes.stepthree__image}>
-              <img src={imgSrc} alt="" />
-            </div>
-          </div>
-        )}
 
         <div className={classes.stepthree__actions}>
           <ButtonField

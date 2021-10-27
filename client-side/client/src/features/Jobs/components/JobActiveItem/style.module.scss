@@ -1,0 +1,60 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.jobActive {
+  border-bottom: 1px solid #e5e5e5;
+  padding: $pm-10 $pm-20;
+  transition: all 0.4s ease-in-out;
+  flex: 1 1 48%;
+  min-width: 0;
+
+  &:hover {
+    border-radius: 5px;
+    box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__wrapped {
+    font-size: $text-base !important;
+
+    &--jobTitle {
+      font-weight: 700;
+
+      &:hover {
+        text-decoration: none !important;
+      }
+    }
+
+    &--salary {
+      color: #008563;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .jobActive {
+    padding: $pm-8;
+    flex: 0 0 45%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .jobActive {
+    padding: $pm-8;
+    flex: 0 0 100%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .jobActive {
+    padding: $pm-8;
+    flex: 0 0 100%;
+
+    &__wrapped {
+      font-size: $text-xs !important;
+
+      &--jobTitle {
+        font-size: $text-sm !important;
+      }
+    }
+  }
+}

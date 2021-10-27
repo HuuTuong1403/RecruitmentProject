@@ -1,17 +1,23 @@
-import { addDataPostJob, resetDataPostJob } from "features/Employers/slices";
+import { clearNullObject } from "common/functions";
 import {
   fetchDistrictsByProvinceAsync,
   fetchWardsByDistrictsAsync,
 } from "features/Home/slices/thunks";
-import { schemaPostJobEmployer } from "common/constants/schema";
-import { ScrollTop } from "common/functions";
 import {
   selectedProvinces,
   selectedDistricts,
   selectedWards,
 } from "features/Home/slices/selectors";
+import { addDataPostJob, resetDataPostJob } from "features/Employers/slices";
+import { postJobEmployer } from "features/Employers/api/employer.api";
+import { schemaPostJobEmployer } from "common/constants/schema";
+import { ScrollTop } from "common/functions";
+import { Switch } from "antd";
 import { selectedSkills } from "features/Jobs/slices/selectors";
-import { selectPostJobData } from "features/Employers/slices/selectors";
+import {
+  selectPostJobData,
+  selectEmployerDetail,
+} from "features/Employers/slices/selectors";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -24,6 +30,7 @@ import classes from "./style.module.scss";
 import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
 import LabelField from "custom-fields/LabelField";
 import moment from "moment";
+import notification from "components/Notification";
 import PostJobField from "features/Employers/components/PostJobField";
 import Select from "react-select";
 import SelectField from "features/Employers/components/SelectField";
@@ -34,7 +41,11 @@ const PostJobPage = () => {
   useTitle(`${t("postjobs")}`);
   const dispatch = useDispatch();
   const postJobData = useSelector(selectPostJobData);
-  const dateFormat = "DD/MM/yyyy HH:mm:ss";
+  const dateFormat = "DD/MM/yyyy";
+  const skillAdd = [];
+  const [loading, setLoading] = useState(false);
+  const [hideSalary, setHideSalary] = useState(true);
+  const employerDetail = useSelector(selectEmployerDetail);
 
   const skills = useSelector(selectedSkills).map((skill, index) => {
     return { value: index, label: skill };
@@ -48,7 +59,7 @@ const PostJobPage = () => {
   }));
   provinces.unshift({ label: `${t("choose-province")}`, value: "" });
 
-  const districts = useSelector(selectedDistricts)?.map((district) => ({
+  let districts = useSelector(selectedDistricts)?.map((district) => ({
     label: district.name,
     value: district.code,
   }));
@@ -70,8 +81,66 @@ const PostJobPage = () => {
     resolver: yupResolver(schemaPostJobEmployer),
   });
 
-  const postJobHandler = (data) => {
-    console.log(data);
+  const postJobHandler = async (dataPostJob) => {
+    const {
+      jobTitle,
+      street,
+      min,
+      max,
+      description,
+      requirements,
+      city,
+      district,
+      ward,
+      level,
+      position,
+      workingTimeStart,
+      workingTimeFinish,
+      finishDate,
+      benefits,
+      reason,
+      typeHideSalary,
+      responsibilities,
+      type,
+    } = dataPostJob;
+
+    const payload = {
+      workingTime: {
+        start: workingTimeStart,
+        finish: workingTimeFinish,
+      },
+      location: {
+        city,
+        district,
+        ward,
+        street,
+      },
+      benefits,
+      description,
+      jobTitle,
+      position,
+      reason,
+      requirements,
+      responsibilities,
+      salary: clearNullObject({
+        min: hideSalary ? min : null,
+        max: hideSalary ? max : null,
+        type: hideSalary ? type : typeHideSalary,
+      }),
+      skills: selectSkill.map((item) => item.label),
+      level,
+      finishDate: moment(finishDate, dateFormat).format("yyyy-MM-DD"),
+    };
+    setLoading(true);
+    const result = await postJobEmployer(payload);
+    if (result.status === "success") {
+      setLoading(false);
+      notification(`${t("Post job successfully")}`, "success");
+      handleResetPostJob();
+    } else {
+      setLoading(false);
+      notification(result.message, "error");
+    }
   };
 
   const handleAddData = (data) => {
@@ -80,21 +149,23 @@ const PostJobPage = () => {
 
   const handleResetPostJob = () => {
     reset({
-      address: "",
+      street: employerDetail?.address?.street,
       benefits: "",
       description: "",
-      district: `${t("choose-district")}`,
+      district: employerDetail?.address?.district,
       finishDate: "",
       jobTitle: "",
       level: `${t("choose-level")}`,
+      position: `${t("choose-position")}`,
       max: "",
       min: "",
-      province: `${t("choose-province")}`,
+      city: employerDetail?.address?.city,
       reason: "",
       requirements: "",
       responsibilities: "",
       type: "VND",
-      ward: `${t("choose-ward")}`,
+      typeHideSalary: "You'll love it",
+      ward: employerDetail?.address?.ward,
     });
     setSelectSkill([]);
     dispatch(resetDataPostJob());
@@ -105,18 +176,82 @@ const PostJobPage = () => {
     { value: "VND", label: "VND" },
   ];
 
-  const levelSelect = [
-    { value: "", label: `${t("choose-level")}` },
-    { value: "Senior", label: "Senior" },
-    { value: "Junior", label: "Junior" },
-    { value: "Fresher", label: "Fresher" },
-    { value: "Intern", label: "Intern" },
+  const optionsLevel = [
+    { value: `${t("choose-level")}`, label: `${t("choose-level")}` },
+    { value: "Intern", label: `${t("Internship")}` },
+    { value: "Junior", label: `${t("Junior Developer")}` },
+    { value: "Senior", label: `${t("Senior Developer")}` },
+    { value: "Leader", label: `${t("Leader Developer")}` },
+    { value: "Mid-level", label: `${t("Mid-level Manager")}` },
+    { value: "Senior Leader", label: `${t("Senior Leader")}` },
+  ];
+
+  const optionsPosition = [
+    { value: `${t("choose-position")}`, label: `${t("choose-position")}` },
+    { value: "Network Administrator", label: `${t("Network Administrator")}` },
+    { value: "Network Engineering", label: `${t("Network Engineering")}` },
+    { value: "Network Leader", label: `${t("Network Leader")}` },
+    { value: "Helpdesk Technician", label: `${t("Helpdesk Technician")}` },
+    { value: "PC Technician", label: `${t("PC Technician")}` },
+    { value: "SeviceDesk Leader", label: `${t("SeviceDesk Leader")}` },
+    { value: "Developer", label: `${t("Developer")}` },
+    { value: "Tester", label: `${t("Tester")}` },
+    {
+      value: "Application Development Leader",
+      label: `${t("Application Development Leader")}`,
+    },
+    { value: "Database Developer", label: `${t("Database Developer")}` },
+    {
+      value: "Database Administrator",
+      label: `${t("Database Administrator")}`,
+    },
+    {
+      value: "Business Process Analyst",
+      label: `${t("Business Process Analyst")}`,
+    },
+    { value: "IT Security Staff", label: `${t("IT Security Staff")}` },
+    { value: "IT Manager", label: `${t("IT Manager")}` },
+    {
+      value: "Chief Information Officer",
+      label: `${t("Chief Information Officer")}`,
+    },
+    {
+      value: "Chief Security Officer",
+      label: `${t("Chief Security Officer")}`,
+    },
+    {
+      value: "Chief Technical Officer",
+      label: `${t("Chief Technical Officer")}`,
+    },
+    {
+      value: "Project Manager",
+      label: `${t("Project Manager")}`,
+    },
+  ];
+
+  const optionsWorkingTime = [
+    {
+      value: `${t("choose-workingTime")}`,
+      label: `${t("choose-workingTime")}`,
+    },
+    { value: "Monday", label: `${t("Monday")}` },
+    { value: "Tuesday", label: `${t("Tuesday")}` },
+    { value: "Wednesday", label: `${t("Wednesday")}` },
+    { value: "Thursday", label: `${t("Thursday")}` },
+    { value: "Friday", label: `${t("Friday")}` },
+    { value: "Saturday", label: `${t("Saturday")}` },
+    { value: "Sunday", label: `${t("Sunday")}` },
+  ];
+
+  const optionsHideSalary = [
+    { value: "You'll love it", label: `${t("You'll love it")}` },
+    { value: "Competitive", label: `${t("Competitive")}` },
   ];
 
   const disabledDate = (current) => {
     return current && current.valueOf() <= Date.now();
   };
-  const skillAdd = [];
+
   const changeSkillHandler = (option) => {
     setSelectSkill(option);
     option.forEach((skill) => {
@@ -142,6 +277,254 @@ const PostJobPage = () => {
               handleAddData={handleAddData}
               errors={errors?.jobTitle?.message}
               placeholder={t("Enter job title")}
+            />
+          </div>
+
+          <div className={classes.postjob__formGroup}>
+            <div className={classes["postjob__formGroup--level-date"]}>
+              {/* Job Level */}
+              <div>
+                <LabelField label={t("Level")} isCompulsory={true} />
+                <div>
+                  <SelectField
+                    name="level"
+                    control={control}
+                    defaultValue={postJobData?.level ?? `${t("choose-level")}`}
+                    list={optionsLevel}
+                    handleAddData={handleAddData}
+                    placeholder={t("choose-level")}
+                    errors={errors?.level?.message}
+                  />
+                </div>
+              </div>
+
+              {/* Job Position */}
+              <div>
+                <LabelField label={t("Position")} isCompulsory={true} />
+                <div>
+                  <SelectField
+                    name="position"
+                    control={control}
+                    defaultValue={
+                      postJobData?.position ?? `${t("choose-position")}`
+                    }
+                    list={optionsPosition}
+                    handleAddData={handleAddData}
+                    placeholder={t("choose-position")}
+                    errors={errors?.position?.message}
+                  />
+                </div>
+              </div>
+
+              {/* Job WorkingTime Start */}
+              <div>
+                <LabelField
+                  label={t("Working time start")}
+                  isCompulsory={true}
+                />
+                <div>
+                  <SelectField
+                    name="workingTimeStart"
+                    control={control}
+                    defaultValue={
+                      postJobData?.workingTimeStart ??
+                      `${t("choose-workingTime")}`
+                    }
+                    list={optionsWorkingTime}
+                    handleAddData={handleAddData}
+                    placeholder={t("choose-workingTime")}
+                    errors={errors?.workingTimeStart?.message}
+                  />
+                </div>
+              </div>
+
+              {/* Job WorkingTime Finish */}
+              <div>
+                <LabelField
+                  label={t("Working time finish")}
+                  isCompulsory={true}
+                />
+                <div>
+                  <SelectField
+                    name="workingTimeFinish"
+                    control={control}
+                    defaultValue={
+                      postJobData?.workingTimeFinish ??
+                      `${t("choose-workingTime")}`
+                    }
+                    list={optionsWorkingTime}
+                    handleAddData={handleAddData}
+                    placeholder={t("choose-workingTime")}
+                    errors={errors?.workingTimeFinish?.message}
+                  />
+                </div>
+              </div>
+
+              {/* Deadline to apply */}
+              <div>
+                <LabelField
+                  label={t("Deadline to apply")}
+                  isCompulsory={true}
+                />
+                <div>
+                  <DatePickerFieldRHF
+                    name="finishDate"
+                    control={control}
+                    dateFormat={dateFormat}
+                    disabledDate={disabledDate}
+                    errors={errors?.finishDate?.message}
+                    handleAddData={handleAddData}
+                    placeholder={t("choose-deadline")}
+                    defaultValue={
+                      postJobData?.finishDate
+                        ? moment(postJobData?.finishDate, dateFormat)
+                        : null
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Job Workplace Address */}
+          <div className={classes.postjob__formGroup}>
+            <LabelField label={t("Workplace address")} isCompulsory={true} />
+            <div className={classes["postjob__formGroup--location"]}>
+              {/* Job Workplace Street */}
+              <div>
+                <PostJobField
+                  name="street"
+                  control={control}
+                  defaultValue={
+                    postJobData?.street ?? employerDetail?.address?.street
+                  }
+                  handleAddData={handleAddData}
+                  errors={errors?.street?.message}
+                  placeholder={t("Enter workplace address")}
+                />
+              </div>
+
+              {/* Job Workplace City */}
+              <div>
+                <SelectField
+                  name="city"
+                  control={control}
+                  defaultValue={
+                    postJobData?.city ?? employerDetail?.address?.city
+                  }
+                  isLocation={true}
+                  list={provinces}
+                  handleAddData={handleAddData}
+                  fetchData={fetchDistrictsByProvinceAsync}
+                  placeholder={t("choose-province")}
+                  errors={errors?.city?.message}
+                />
+              </div>
+
+              {/* Job Workplace District */}
+              <div>
+                <SelectField
+                  name="district"
+                  control={control}
+                  defaultValue={
+                    postJobData?.district ?? employerDetail?.address?.district
+                  }
+                  isLocation={true}
+                  list={districts}
+                  handleAddData={handleAddData}
+                  fetchData={fetchWardsByDistrictsAsync}
+                  placeholder={t("choose-district")}
+                  errors={errors?.district?.message}
+                />
+              </div>
+
+              {/* Job Workplace Ward */}
+              <div>
+                <SelectField
+                  name="ward"
+                  control={control}
+                  defaultValue={
+                    postJobData?.ward ?? employerDetail?.address?.ward
+                  }
+                  list={wards}
+                  isLocation={true}
+                  handleAddData={handleAddData}
+                  placeholder={t("choose-ward")}
+                  errors={errors?.ward?.message}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Job Salary */}
+          <div className={classes.postjob__formGroup}>
+            <LabelField
+              label={hideSalary ? t("Salary") : t("Choose display data type")}
+              isCompulsory={true}
+            />
+            <Switch
+              checkedChildren={t("Hide salary")}
+              unCheckedChildren={t("Show salary")}
+              defaultChecked={hideSalary}
+              checked={hideSalary}
+              onChange={() => setHideSalary((prevState) => !prevState)}
+            />
+            {hideSalary ? (
+              <div className={classes["postjob__formGroup--salary"]}>
+                <div>
+                  <SelectField
+                    name="type"
+                    control={control}
+                    defaultValue={postJobData?.type ?? "VND"}
+                    list={typeSalary}
+                    handleAddData={handleAddData}
+                  />
+                </div>
+
+                <div>
+                  <PostJobField
+                    name="min"
+                    control={control}
+                    defaultValue={postJobData?.min ?? 1}
+                    handleAddData={handleAddData}
+                    errors={errors?.min?.message}
+                    placeholder={t("Enter the minimum salary")}
+                  />
+                </div>
+
+                <div>
+                  <PostJobField
+                    name="max"
+                    control={control}
+                    defaultValue={postJobData?.max ?? 10}
+                    handleAddData={handleAddData}
+                    errors={errors?.max?.message}
+                    placeholder={t("Enter the maximum salary")}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div>
+                <SelectField
+                  name="typeHideSalary"
+                  control={control}
+                  defaultValue={postJobData?.typeHideSalary ?? "You'll love it"}
+                  list={optionsHideSalary}
+                  handleAddData={handleAddData}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Job Skill */}
+          <div className={classes.postjob__formGroup}>
+            <LabelField label={t("Skill")} isCompulsory={false} />
+            <Select
+              isMulti
+              placeholder={t("choose skills")}
+              options={skills}
+              value={selectSkill}
+              onChange={changeSkillHandler}
             />
           </div>
 
@@ -211,173 +594,7 @@ const PostJobPage = () => {
             />
           </div>
 
-          {/* Job Workplace Address */}
-          <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Workplace address")} isCompulsory={true} />
-            <div className={classes["postjob__formGroup--location"]}>
-              <div>
-                <PostJobField
-                  name="address"
-                  control={control}
-                  defaultValue={postJobData?.address ?? ""}
-                  handleAddData={handleAddData}
-                  errors={errors?.address?.message}
-                  placeholder={t("Enter workplace address")}
-                />
-              </div>
-
-              <div>
-                <SelectField
-                  name="province"
-                  control={control}
-                  defaultValue={
-                    postJobData?.province ?? `${t("choose-province")}`
-                  }
-                  locationList={provinces}
-                  handleAddData={handleAddData}
-                  fetchData={fetchDistrictsByProvinceAsync}
-                  placeholder={t("choose-province")}
-                  errors={errors?.province?.message}
-                />
-              </div>
-
-              <div>
-                <SelectField
-                  name="district"
-                  control={control}
-                  defaultValue={
-                    postJobData?.district ?? `${t("choose-district")}`
-                  }
-                  locationList={districts}
-                  handleAddData={handleAddData}
-                  fetchData={fetchWardsByDistrictsAsync}
-                  placeholder={t("choose-district")}
-                  errors={errors?.district?.message}
-                />
-              </div>
-
-              <div>
-                <SelectField
-                  name="ward"
-                  control={control}
-                  defaultValue={postJobData?.ward ?? `${t("choose-ward")}`}
-                  locationList={wards}
-                  handleAddData={handleAddData}
-                  placeholder={t("choose-ward")}
-                  errors={errors?.ward?.message}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Job Salary */}
-          <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Salary")} isCompulsory={true} />
-
-            <div className={classes["postjob__formGroup--salary"]}>
-              <div>
-                <SelectField
-                  name="type"
-                  control={control}
-                  defaultValue={postJobData?.type ?? "VND"}
-                  locationList={typeSalary}
-                  handleAddData={handleAddData}
-                />
-              </div>
-
-              <div>
-                <PostJobField
-                  name="min"
-                  control={control}
-                  defaultValue={postJobData?.min ?? ""}
-                  handleAddData={handleAddData}
-                  errors={errors?.min?.message}
-                  placeholder={t("Enter the minimum salary")}
-                />
-              </div>
-
-              <div>
-                <PostJobField
-                  name="max"
-                  control={control}
-                  defaultValue={postJobData?.max ?? ""}
-                  handleAddData={handleAddData}
-                  errors={errors?.max?.message}
-                  placeholder={t("Enter the maximum salary")}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className={classes.postjob__formGroup}>
-            <div className={classes["postjob__formGroup--level-date"]}>
-              {/* Job Level */}
-              <div>
-                <LabelField label={t("Level")} isCompulsory={true} />
-                <div>
-                  <SelectField
-                    name="level"
-                    control={control}
-                    defaultValue={postJobData?.level ?? `${t("choose-level")}`}
-                    locationList={levelSelect}
-                    handleAddData={handleAddData}
-                    placeholder={t("choose-level")}
-                    errors={errors?.level?.message}
-                  />
-                </div>
-              </div>
-
-              {/* Deadline to apply */}
-              <div>
-                <LabelField
-                  label={t("Deadline to apply")}
-                  isCompulsory={true}
-                />
-                <div>
-                  <DatePickerFieldRHF
-                    name="finishDate"
-                    control={control}
-                    dateFormat={dateFormat}
-                    disabledDate={disabledDate}
-                    errors={errors?.finishDate?.message}
-                    handleAddData={handleAddData}
-                    placeholder={t("choose-deadline")}
-                    showTime={true}
-                    value={
-                      postJobData?.finishDate
-                        ? moment(postJobData?.finishDate, dateFormat)
-                        : null
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Job Skill */}
-          <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Skill")} isCompulsory={false} />
-            <Select
-              isMulti
-              placeholder={t("choose skills")}
-              options={skills}
-              value={selectSkill}
-              onChange={changeSkillHandler}
-            />
-          </div>
-
           <div className={classes["postjob__wrapped--actions"]}>
-            <ButtonField
-              type="submit"
-              backgroundcolor="#0a426e"
-              backgroundcolorhover="#324554"
-              color="#fff"
-              radius="20px"
-              uppercase="true"
-              padding="8px"
-            >
-              {t("Submit")}
-            </ButtonField>
             <ButtonField
               type="button"
               backgroundcolor="#dd4b39"
@@ -389,6 +606,18 @@ const PostJobPage = () => {
               onClick={handleResetPostJob}
             >
               {t("Cancel")}
+            </ButtonField>
+            <ButtonField
+              type="submit"
+              backgroundcolor="#0a426e"
+              backgroundcolorhover="#324554"
+              color="#fff"
+              radius="20px"
+              uppercase="true"
+              padding="8px"
+              loading={loading}
+            >
+              {t("Post job")}
             </ButtonField>
           </div>
         </form>

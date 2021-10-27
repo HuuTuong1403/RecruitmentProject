@@ -21,29 +21,54 @@ const SearchJobPage = () => {
   const jobTitle = query.get("jobTitle");
   const location = query.get("location%city");
   const salary = query.get("salary%min[gte]");
+  const level = query.get("level");
+  const position = query.get("position");
   const createdAt = query.get("createdAt");
   const skills = query.get("skills");
+  const companyName = query.get("companyName");
 
   let filter = clearNullObject({
+    companyName,
     jobTitle,
     "location%city": location,
     "salary%min[gte]": salary,
+    level,
+    position,
     createdAt,
     skills,
   });
 
   useTitle(
-    jobTitle || location || salary || createdAt || skills
+    jobTitle ||
+      location ||
+      salary ||
+      level ||
+      position ||
+      createdAt ||
+      skills ||
+      companyName
       ? `${t("Find a job")} ${jobTitle ? `${t("with")} ${jobTitle}` : ""} 
+        ${companyName ? `${t("at")} ${companyName}` : ""} 
         ${location ? `${t("at")} ${location}` : ""} 
         ${salary ? `${t("from")} ${salary} USD` : ""}
+        ${level ? `${t("with level")} ${level}` : ""}
+        ${position ? `${t("with position")} ${position}` : ""}
         ${createdAt ? `${t("posted within")} ${createdAt} ${t("day")}` : ""}
         ${skills ? `${t("with skill")} ${skills}` : ""}`
       : `${t("Find all jobs, recruitment news")}`
   );
 
   useEffect(() => {
-    if (jobTitle || location || salary || createdAt || skills) {
+    if (
+      jobTitle ||
+      location ||
+      salary ||
+      level ||
+      position ||
+      createdAt ||
+      skills ||
+      companyName
+    ) {
       dispatch(fetchJobsSearchAsync({ filter }));
     }
   });
@@ -59,7 +84,7 @@ const SearchJobPage = () => {
   return (
     <Fragment>
       <SearchHeader />
-      <JobSearchList />
+      <JobSearchList  />
     </Fragment>
   );
 };

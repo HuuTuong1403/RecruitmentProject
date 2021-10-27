@@ -60,7 +60,7 @@ const SignUpEmployer = () => {
       <div className={classes.signup_emp}>
         <div className={classes.signup_emp__wrapped}>
           <div className={classes["signup_emp__wrapped--content"]}>
-            {t("content-signup")}
+            {t("content-signup-employer")}
           </div>
           {step === 1 && <StepOneSignUp onSubmit={onSubmitHandler} />}
           {step === 2 && (

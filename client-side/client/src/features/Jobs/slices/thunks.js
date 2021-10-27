@@ -4,13 +4,14 @@ import {
   fetchJobsSearch,
   fetchJobDetail,
   fetchSkills,
+  fetchCompanyDetail,
 } from "../api/jobs.api";
 
 export const fetchJobsSearchAsync = createAsyncThunk(
   "jobs/fetchJobsSearch",
   async (payload) => {
     const res = await fetchJobsSearch(payload);
-    return res.data.job;
+    return res.data.data;
   }
 );
 
@@ -18,7 +19,7 @@ export const fetchJobsAllAsync = createAsyncThunk(
   "jobs/fetchJobsAll",
   async () => {
     const res = await fetchJobsAll();
-    return res.data.job;
+    return res.data.data;
   }
 );
 
@@ -26,7 +27,7 @@ export const fetchJobDetailAsync = createAsyncThunk(
   "jobs/fetchJobDetail",
   async (payload) => {
     const res = await fetchJobDetail(payload);
-    return res.data.job;
+    return res.data.data;
   }
 );
 
@@ -35,5 +36,13 @@ export const fetchSkillsAsync = createAsyncThunk(
   async () => {
     const res = await fetchSkills();
     return res.data;
+  }
+);
+
+export const fetchCompanyDetailAsync = createAsyncThunk(
+  "jobs/fetchCompanyDetail",
+  async (payload) => {
+    const res = await fetchCompanyDetail(payload);
+    return res.data.data;
   }
 );

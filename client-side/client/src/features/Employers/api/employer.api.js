@@ -26,3 +26,12 @@ export const updateProfileEmployer = async (payload) => {
     console.log(error);
   }
 };
+
+export const postJobEmployer = async (payload) => {
+  try {
+    const res = await axiosClient.post("employer/jobs", payload);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -16,9 +16,12 @@ p {
       display: flex;
       align-items: center;
 
+      &--companyWebsite {
+        text-decoration: none !important;
+      }
+
       & > div:first-child {
         flex: 0 0 25%;
-
         padding: 0 15px;
         text-align: center;
 
@@ -43,19 +46,17 @@ p {
         & > div:first-child {
           flex: 0 0 75%;
           font-size: $text-base;
+
           & > div:nth-child(1) {
             font-size: $text-2xl;
             font-weight: 700;
             color: $third-text;
           }
-          & > div:nth-child(2) {
-            font-size: $text-lg !important;
-            margin: $pm-6 0;
-          }
 
-          & > div:nth-child(3) {
-            font-size: $text-lg !important;
-            margin: $pm-6 0;
+          & > div:nth-child(2) {
+            & a {
+              font-size: $text-lg !important;
+            }
           }
         }
 
@@ -192,8 +193,9 @@ p {
               font-size: $text-xl;
             }
             & > div:nth-child(2) {
-              font-size: $text-lg;
-              margin: $pm-4 0;
+              & a {
+                font-size: $text-lg !important;
+              }
             }
 
             & > a {
@@ -314,8 +316,6 @@ p {
               font-size: $text-xl;
             }
             & > div:nth-child(2) {
-              margin: $pm-4 0;
-
               & > a {
                 font-size: $text-lg !important;
               }
@@ -440,8 +440,6 @@ p {
               font-size: $text-xl;
             }
             & > div:nth-child(2) {
-              margin: $pm-4 0;
-
               & > a {
                 font-size: $text-base !important;
               }
@@ -564,8 +562,6 @@ p {
               font-size: $text-lg;
             }
             & > div:nth-child(2) {
-              margin: $pm-4 0;
-
               & > a {
                 font-size: $text-sm !important;
               }

@@ -67,7 +67,6 @@ export const homeSlice = createSlice({
     },
     [signInGuestAsync.pending]: (state) => {
       state.status = true;
-      state.user = null;
     },
     [signInGuestAsync.fulfilled]: (state, action) => {
       const { token, data } = action?.payload;

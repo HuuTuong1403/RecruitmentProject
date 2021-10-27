@@ -9,7 +9,7 @@ import {
 
 export const fetchJobsAsync = createAsyncThunk("home/fetchJobs", async () => {
   const res = await fetchJobs();
-  return res.data.job;
+  return res.data.data;
 });
 
 export const fetchProvincesAsync = createAsyncThunk(
