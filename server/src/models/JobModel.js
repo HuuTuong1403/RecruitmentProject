@@ -37,7 +37,7 @@ const jobSchema = new mongoose.Schema(
     ],
     companyName: {
       type: String,
-      required: [true, 'Company must have a name'],
+      required: [true, 'Tên công ty là bắt buộc'],
       trim: true,
     },
     // companyType: {
@@ -69,19 +69,19 @@ const jobSchema = new mongoose.Schema(
     location: {
       type: addressSchema,
     },
-    benifits: {
+    benefits: {
       type: String,
-      required: [true, 'Job must have benifit'],
+      required: [true, 'Công việc phải có mô tả lợi ích'],
       trim: true,
     },
     description: {
       type: String,
-      required: [true, 'Job must have description'],
+      required: [true, 'Công việc phải có mô tả'],
       trim: true,
     },
     jobTitle: {
       type: String,
-      required: [true, 'Job must have title'],
+      required: [true, 'Công việc phải có tiêu đề'],
       trim: true,
     },
     slug: {
@@ -101,7 +101,7 @@ const jobSchema = new mongoose.Schema(
     },
     requirements: {
       type: String,
-      required: [true, 'Job must have requirements'],
+      required: [true, 'Công việc phải có yêu cầu'],
       trim: true,
     },
     responsibilities: {
@@ -112,10 +112,18 @@ const jobSchema = new mongoose.Schema(
     skills: [String],
     level: {
       type: String,
-      required: [true, 'A job must have a level'],
+      required: [true, 'Công việc phải có cấp bậc'],
       enum: {
-        values: ['intern', 'fresher', 'junior', 'senior'],
-        message: 'level is either: inter, fresher, junior, senior',
+        values: [
+          'Intern',
+          'Junior',
+          'Senior',
+          'Leader',
+          'Mid-level',
+          'Senior Leader',
+        ],
+        message:
+          'Cấp bậc là: Intern, Junior, Senior, Leader, Mid-level hoặc Senior Leader',
       },
     },
     status: {
