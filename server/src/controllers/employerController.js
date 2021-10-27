@@ -86,7 +86,7 @@ class employerController {
     Employer,
     {
       path: 'jobs',
-      select: 'jobTitle salary location',
+      select: 'jobTitle salary location slug',
     },
     `-isEmailVerified,-__v,-status,-updatedAt,-authenToken,-authenTokenExpired,-passwordChangeAt,-passwordResetToken,-passwordResetExpires`
   );

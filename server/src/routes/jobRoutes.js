@@ -9,7 +9,11 @@ const customJobQuery = require('../middlewares/jobQuery');
 const setCreateJob = require('./../middlewares/setCreateJob');
 jobRouter
   .route('/')
-  .get(customJobQuery.customJobQuery, jobController.getAllJob)
+  .get(
+    customJobQuery.customJobQuery,
+    jobController.setCompany,
+    jobController.getAllJob
+  )
   .post(
     authController.protect,
     authController.restrictTo('employer'),

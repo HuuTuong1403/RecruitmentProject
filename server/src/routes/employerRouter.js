@@ -21,7 +21,20 @@ employerRouter
   .route('/resetPassword/:token')
   .patch(authController.resetEmployerPassword);
 employerRouter.route('/:companyName').get(employerController.getEmployer);
+
+employerRouter
+  .route('/')
+  .post(employerController.sendInformation)
+  .get(
+    authController.protect,
+    authController.restrictTo('employer'),
+    getMe,
+    employerController.getMe
+  );
+
 employerRouter.use(authController.protect);
+
+employerRouter.use('/:idCompany/jobs', jobRoute);
 employerRouter
   .route('/updatePassword')
   .patch(
@@ -36,8 +49,5 @@ employerRouter
     uploadLogoCompany.uploadLogoToCloudinary,
     employerController.updateMe
   );
-employerRouter
-  .route('/')
-  .post(employerController.sendInformation)
-  .get(authController.restrictTo('employer'), getMe, employerController.getMe);
+
 module.exports = employerRouter;
