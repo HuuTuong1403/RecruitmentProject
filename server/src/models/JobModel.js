@@ -40,24 +40,6 @@ const jobSchema = new mongoose.Schema(
       required: [true, 'Tên công ty là bắt buộc'],
       trim: true,
     },
-    // companyType: {
-    //   type: String,
-    // },
-    // companyWebsite: {
-    //   type: String,
-    //   trim: true,
-    // },
-    // logo: {
-    //   type: String,
-    // },
-    // ot: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    // quantity: {
-    //   type: Number,
-    //   default: 30,
-    // },
     workingTime: {
       finish: {
         type: String,
