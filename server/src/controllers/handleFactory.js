@@ -81,13 +81,27 @@ exports.getOneUniqueField = (Model, popOtions, fields) =>
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
+    var re = undefined;
+
+    if (req.query.companyName) {
+      var re = new RegExp(`${req.query.companyName}`, 'gi');
+      req.query.companyName = undefined;
+    }
+
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
       .limitFields()
       .paginate();
-    const docs = await features.query;
+    let docs = await features.query;
 
+    if (re) {
+      docs = docs.filter((doc) => {
+        if (re.test(doc.company.companyName)) {
+          return doc;
+        }
+      });
+    }
     //Send response
     res.status(200).json({
       status: 'sucess',

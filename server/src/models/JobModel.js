@@ -35,11 +35,6 @@ const jobSchema = new mongoose.Schema(
         ref: 'JobSeeker',
       },
     ],
-    companyName: {
-      type: String,
-      required: [true, 'Tên công ty là bắt buộc'],
-      trim: true,
-    },
     workingTime: {
       finish: {
         type: String,

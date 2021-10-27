@@ -6,9 +6,10 @@ exports.customJobQuery = (req, res, next) => {
   if (req.query.position) {
     req.query.position = { $regex: req.query.position, $options: 'si' };
   }
-  if (req.query.companyName) {
-    req.query.companyName = { $regex: req.query.companyName, $options: 'si' };
-  }
+  // if (req.query.companyName) {
+  //   req.query.companyName = { $regex: req.query.companyName, $options: 'si' };
+  //   req.query.company = { companyName: req.query.companyName };
+  // }
   if (req.query.skills) {
     let skills = req.query.skills;
     skills = skills.split(',');
