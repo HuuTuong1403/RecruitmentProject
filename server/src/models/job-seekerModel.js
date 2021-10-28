@@ -75,6 +75,12 @@ const jobSeekerSchema = new mongoose.Schema(
     facebook: {
       type: String,
     },
+    favoriteJobs: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Job',
+      },
+    ],
     applied: [String],
     entryTests: [String],
     event: [String],
@@ -110,6 +116,14 @@ jobSeekerSchema.pre('save', async function (next) {
   if (!this.isModified('password') || this.isNew) return next();
 
   this.passwordChangeAt = Date.now() - 1000;
+  next();
+});
+jobSeekerSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'favoriteJobs',
+    select:
+      'logo jobTitle companyName salary location skills createdAt finishDate slug',
+  });
   next();
 });
 jobSeekerSchema.methods.correctPassword = async function (

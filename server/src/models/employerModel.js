@@ -152,5 +152,6 @@ employerSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
   }
   return false;
 };
+
 const Employer = mongoose.model('Employer', employerSchema);
 module.exports = Employer;

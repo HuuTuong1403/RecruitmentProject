@@ -3,7 +3,7 @@ const slugify = require('slugify');
 const Employer = require('./employerModel');
 const JobSeeker = require('./job-seekerModel');
 const addressSchema = require('./addressModel');
-
+const mongoose_delete = require('mongoose-delete');
 const finishDate = new Date();
 finishDate.setDate(finishDate.getDate() + 7);
 
@@ -156,5 +156,6 @@ jobSchema.pre(/^find/, function (next) {
   });
   next();
 });
+jobSchema.plugin(mongoose_delete, { deletedBy: true, overrideMethods: true });
 const Job = mongoose.model('Job', jobSchema);
 module.exports = Job;

@@ -7,7 +7,6 @@ const factory = require('./handleFactory');
 class jobController {
   setCompany = (req, res, next) => {
     if (req.user && req.user.role == 'employer') {
-      console.log(req.user);
       req.query.company = req.user.id;
     }
 
@@ -21,6 +20,8 @@ class jobController {
     req.body.status = 'denied';
     next();
   };
+  getAllDeletedJob = factory.getDeletedAll(Job);
+  getDeletedJob = factory.getDeletedOne(Job);
   getAllJob = factory.getAll(Job);
   getJob = factory.getOneUniqueField(
     Job,
@@ -30,5 +31,8 @@ class jobController {
   getJobAccrodingtoID = factory.getOne(Job);
   createJob = factory.createOne(Job);
   updateJob = factory.updateOne(Job);
+  softDeleteJob = factory.softDeleteOne(Job);
+  restoreJob = factory.restoreOne(Job);
+  deleteJob = factory.deleteOne(Job);
 }
 module.exports = new jobController();

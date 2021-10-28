@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
@@ -13,6 +14,25 @@ exports.deleteOne = (Model) =>
     res.status(204).json({
       status: 'success',
       data: null,
+    });
+  });
+exports.softDeleteOne = (Model) =>
+  catchAsync(async (req, res, next) => {
+    const idUser = mongoose.Types.ObjectId(`${req.user.id}`);
+    await Model.delete({ _id: req.params.id }, idUser);
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  });
+exports.restoreOne = (Model) =>
+  catchAsync(async (req, res, next) => {
+    await Model.restore({ _id: req.params.id });
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: doc,
+      },
     });
   });
 exports.updateOne = (Model) =>
@@ -109,6 +129,36 @@ exports.getAll = (Model) =>
       results: docs.length,
       data: {
         data: docs,
+      },
+    });
+  });
+exports.getDeletedAll = (Model) =>
+  catchAsync(async (req, res, next) => {
+    const docs = await Model.findWithDeleted({ deleted: true });
+    res.status(200).json({
+      status: 'sucess',
+      results: docs.length,
+      data: {
+        data: docs,
+      },
+    });
+  });
+exports.getDeletedOne = (Model, popOtions, fields) =>
+  catchAsync(async (req, res, next) => {
+    let query = Model.findOneWithDeleted({ _id: req.params.id, deleted: true });
+    if (popOtions) query = query.populate(popOtions);
+    if (fields) {
+      fields = fields.split(',').join(' ');
+      query = query.select(fields);
+    }
+    const doc = await query;
+    if (!doc) {
+      return next(new AppError('Không tìm thấy dữ liệu với id này', 404));
+    }
+    res.status(200).json({
+      status: 'sucess',
+      data: {
+        data: doc,
       },
     });
   });
