@@ -29,7 +29,7 @@
     padding-right: 15px;
 
     &--active {
-      color: $third-text;
+      color: $third-text !important;
     }
 
     &--person {
@@ -55,7 +55,7 @@
 
     &--emp:hover {
       background-color: $third-text !important;
-      color: $second-text;
+      color: $second-text !important;
       text-decoration: none;
     }
   }

@@ -3,15 +3,14 @@ import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import classes from "./style.module.scss";
 
-
 const JobItem = (props) => {
-  const { jobTitle, companyName, salary, location, logo, slug } = props.job;
+  const { jobTitle, salary, location, company, slug } = props.job;
 
   return (
     <div className={classes.jobitem}>
       <div className={classes.jobitem__container}>
         <div className={classes["jobitem__container--logo"]}>
-          <img src={logo} alt="Logo" />
+          <img src={company?.logo} alt="Logo" />
         </div>
         <div className={classes["jobitem__container--detail"]}>
           <div>
@@ -25,9 +24,9 @@ const JobItem = (props) => {
           <div>
             <Link
               className={classes["jobitem__container--detail--namecompany"]}
-              to="/home"
+              to={`/jobs/employer/${company?.companyName}`}
             >
-              {companyName}
+              {company?.companyName}
             </Link>
           </div>
           <div className={classes["jobitem__container--detail--salary"]}>

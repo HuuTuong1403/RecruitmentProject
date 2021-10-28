@@ -5,6 +5,6 @@ export const getDetailEmployerAsync = createAsyncThunk(
   "employer/getDetailEmployer",
   async () => {
     const res = await getDetailEmployer();
-    return res.data.Employer;
+    return res.data.data;
   }
 );

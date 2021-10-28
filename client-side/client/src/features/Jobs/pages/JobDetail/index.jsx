@@ -2,13 +2,14 @@ import {
   selectedJobDetail,
   selectedStatus,
 } from "features/Jobs/slices/selectors";
+import { AiOutlineGlobal } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaBuilding } from "react-icons/fa";
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useCallback } from "react";
 import { IoMdCalendar } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
-import { MdLocationOn, MdOpenInBrowser } from "react-icons/md";
+import { MdLocationOn } from "react-icons/md";
 import { ScrollTop } from "common/functions";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useHistory } from "react-router-dom";
@@ -20,6 +21,7 @@ import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
 import moment from "moment";
 import notification from "components/Notification";
+import parse from "html-react-parser";
 
 const JobDetail = () => {
   ScrollTop();
@@ -29,21 +31,25 @@ const JobDetail = () => {
   const user = selectJobSeekerLocal();
   const history = useHistory();
 
+  const getDetail = useCallback(async () => {
+    const result = await dispatch(fetchJobDetailAsync(slug));
+    if (result.error) {
+      history.replace("/jobs/search?type=all");
+    }
+  }, [dispatch, slug, history]);
+
   useEffect(() => {
-    dispatch(fetchJobDetailAsync(slug));
-  }, [dispatch, slug]);
+    getDetail();
+  }, [getDetail]);
 
   const jobDetail = useSelector(selectedJobDetail);
   const loading = useSelector(selectedStatus);
   const {
     workingTime,
-    companyName,
-    companyWebsite,
-    logo,
-    ot,
+    company,
     scale,
     location,
-    benifits,
+    benefits,
     description,
     jobTitle,
     position,
@@ -84,34 +90,41 @@ const JobDetail = () => {
         <div className={classes.jobDetail}>
           <div className={classes.jobDetail__top}>
             <div className={classes["jobDetail__top--wrapped"]}>
-              {logo && (
+              {company?.logo && (
                 <div>
-                  <Link to="/home">
-                    <img src={logo} alt={logo} />
+                  <Link to={`/jobs/employer/${company?.companyName}`}>
+                    <img src={company?.logo} alt={company?.companyName} />
                   </Link>
                 </div>
               )}
               <div>
                 <div>
                   {jobTitle && <div>{jobTitle}</div>}
-                  {companyName && (
+                  {company?.companyName && (
                     <div>
-                      <Link to="/home">
+                      <Link to={`/jobs/employer/${company?.companyName}`}>
                         <FaBuilding style={{ marginRight: "8px" }} />
-                        {companyName}
+                        {company?.companyName}
                       </Link>
                     </div>
                   )}
-                  {companyWebsite && (
-                    <a href={companyWebsite} target="_blank" rel="noreferrer">
-                      <MdOpenInBrowser style={{ marginRight: "8px" }} />
-                      {companyWebsite}
+                  {company?.companyWebsite && (
+                    <a
+                      href={company?.companyWebsite}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={
+                        classes["jobDetail__top--wrapped--companyWebsite"]
+                      }
+                    >
+                      <AiOutlineGlobal style={{ marginRight: "8px" }} />
+                      {company?.companyWebsite}
                     </a>
                   )}
                   {location && (
                     <div>
                       <MdLocationOn style={{ marginRight: "8px" }} />
-                      {`Quận ${location?.district}, ${location?.city}`}
+                      {`${location?.district}, ${location?.city}`}
                     </div>
                   )}
                   {finishDate && (
@@ -128,7 +141,7 @@ const JobDetail = () => {
                 <div>
                   <ButtonField
                     backgroundcolor="rgba(0,0,0,.08)"
-                    backgroundcolorhover="#324554"
+                    backgroundcolorhover="#324554a2"
                     color="#999"
                     type="button"
                     radius="20px"
@@ -164,18 +177,14 @@ const JobDetail = () => {
                     <div
                       className={classes["jobDetail__content--wrapped--title"]}
                     >
-                      {t("Top 3 Reasons To Join Us")}
+                      {t("Reasons To Join Us")}
                     </div>
                     <div
                       className={
                         classes["jobDetail__content--wrapped--content"]
                       }
                     >
-                      {reason
-                        ?.split("\n")
-                        .map((str, index) =>
-                          str === "" ? "" : <p key={index}>{str}</p>
-                        )}
+                      {parse(parse(reason))}
                     </div>
                   </Fragment>
                 )}
@@ -191,11 +200,7 @@ const JobDetail = () => {
                         classes["jobDetail__content--wrapped--content"]
                       }
                     >
-                      {description
-                        ?.split("\n")
-                        .map((str, index) =>
-                          str === "" ? "" : <p key={index}>{str}</p>
-                        )}
+                      {parse(parse(description))}
                     </div>
                   </Fragment>
                 )}
@@ -211,15 +216,11 @@ const JobDetail = () => {
                         classes["jobDetail__content--wrapped--content"]
                       }
                     >
-                      {requirements
-                        ?.split("\n")
-                        .map((str, index) =>
-                          str === "" ? "" : <p key={index}>{str}</p>
-                        )}
+                      {parse(parse(requirements))}
                     </div>
                   </Fragment>
                 )}
-                {benifits && (
+                {benefits && (
                   <Fragment>
                     <div
                       className={classes["jobDetail__content--wrapped--title"]}
@@ -231,11 +232,7 @@ const JobDetail = () => {
                         classes["jobDetail__content--wrapped--content"]
                       }
                     >
-                      {benifits
-                        ?.split("\n")
-                        .map((str, index) =>
-                          str === "" ? "" : <p key={index}>{str}</p>
-                        )}
+                      {parse(parse(benefits))}
                     </div>
                   </Fragment>
                 )}
@@ -251,11 +248,7 @@ const JobDetail = () => {
                         classes["jobDetail__content--wrapped--content"]
                       }
                     >
-                      {responsibilities
-                        ?.split("\n")
-                        .map((str, index) =>
-                          str === "" ? "" : <p key={index}>{str}</p>
-                        )}
+                      {parse(parse(responsibilities))}
                     </div>
                   </Fragment>
                 )}
@@ -303,12 +296,12 @@ const JobDetail = () => {
                     )}
                     {position && (
                       <div>
-                        {t("vacancies")}: <span>{position}</span>
+                        {t("vacancies")}: <span>{t(position)}</span>
                       </div>
                     )}
                     {level && (
                       <div>
-                        {t("Job level")}: <span>{level}</span>
+                        {t("Job level")}: <span>{t(level)}</span>
                       </div>
                     )}
                     {salary && (
@@ -329,11 +322,11 @@ const JobDetail = () => {
                         </span>
                       </div>
                     )}
-                    {ot && (
+                    {company && (
                       <div>
                         OT:{" "}
                         <span>
-                          {ot
+                          {company?.ot
                             ? `${t("Extra salary for OT")}`
                             : `${t("Non-OT")}`}
                         </span>

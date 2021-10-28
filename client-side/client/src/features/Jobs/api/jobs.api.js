@@ -37,3 +37,12 @@ export const fetchSkills = async () => {
     console.log(error);
   }
 };
+
+export const fetchCompanyDetail = async (payload) => {
+  try {
+    const res = await axiosClient.get(`employer/${payload}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

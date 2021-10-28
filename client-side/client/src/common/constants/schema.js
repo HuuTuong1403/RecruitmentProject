@@ -138,7 +138,7 @@ export const schemaChangePass = yup
 
 export const schemaPostJobEmployer = yup.object({
   jobTitle: yup.string().required("error-jobTitle-postJob"),
-  address: yup.string().required("error-workplace-postJob"),
+  street: yup.string().required("error-workplace-postJob"),
   min: yup
     .string()
     .required("error-minSalary-postJob")
@@ -150,7 +150,7 @@ export const schemaPostJobEmployer = yup.object({
     .notOneOf([yup.ref("min"), null], "error-salary-minEqualMax"),
   description: yup.string().required("error-jobDescription-postJob"),
   requirements: yup.string().required("error-jobRequirement-postJob"),
-  province: yup
+  city: yup
     .string()
     .notOneOf(
       ["Chọn tỉnh/thành...", "Choose province..."],
@@ -168,6 +168,24 @@ export const schemaPostJobEmployer = yup.object({
   level: yup
     .string()
     .notOneOf(["Chọn cấp bậc...", "Choose level..."], "error-select-level"),
+  position: yup
+    .string()
+    .notOneOf(
+      ["Chọn vị trí...", "Choose position..."],
+      "error-select-position"
+    ),
+  workingTimeStart: yup
+    .string()
+    .notOneOf(
+      ["Chọn thời gian làm việc...", "Choose working time..."],
+      "error-select-workingTime"
+    ),
+  workingTimeFinish: yup
+    .string()
+    .notOneOf(
+      ["Chọn thời gian làm việc...", "Choose working time..."],
+      "error-select-workingTime"
+    ),
   finishDate: yup.string().required("error-select-date-deadline").nullable(),
 });
 

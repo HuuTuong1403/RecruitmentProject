@@ -4,7 +4,10 @@ import { FaBuilding } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
+import { selectedIsFilter } from "features/Jobs/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { toggleOpenFilter } from "features/Jobs/slices";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
@@ -14,12 +17,13 @@ import notification from "components/Notification";
 const JobSearchItem = (props) => {
   const { t } = useTranslation();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const isOpen = useSelector(selectedIsFilter);
   const user = selectJobSeekerLocal();
 
   const {
-    logo,
+    company,
     jobTitle,
-    companyName,
     salary,
     skills,
     location,
@@ -29,6 +33,12 @@ const JobSearchItem = (props) => {
     slug,
     isNew,
   } = props.job;
+
+  const handleClickSkill = () => {
+    if (isOpen) {
+      dispatch(toggleOpenFilter());
+    }
+  };
 
   const saveJobHandler = () => {
     if (user) {
@@ -46,8 +56,8 @@ const JobSearchItem = (props) => {
           <div className={classes["searchItem__figure--new"]}>{t("New")}</div>
         )}
         <div className={classes["searchItem__figure--image"]}>
-          <Link to="/">
-            <img src={logo} alt="" />
+          <Link to={`/jobs/employer/${company?.companyName}`}>
+            <img src={company?.logo} alt="" />
           </Link>
         </div>
         <div className={classes["searchItem__figure--figcaption"]}>
@@ -61,9 +71,9 @@ const JobSearchItem = (props) => {
           <div
             className={classes["searchItem__figure--figcaption--companyName"]}
           >
-            <Link to="/home">
+            <Link to={`/jobs/employer/${company?.companyName}`}>
               <FaBuilding style={{ marginRight: "5px" }} />
-              {companyName}
+              {company?.companyName}
             </Link>
             <div onClick={saveJobHandler}>
               <AiOutlineHeart style={{ marginRight: "5px" }} />
@@ -88,7 +98,11 @@ const JobSearchItem = (props) => {
             {skills.map((skill, index) => {
               return (
                 <>
-                  <Link to={`/jobs/search?skills=${skill}`} key={index}>
+                  <Link
+                    onClick={handleClickSkill}
+                    to={`/jobs/search?skills=${skill}`}
+                    key={index}
+                  >
                     {skill}
                   </Link>
                   <span>{skills.length - 1 === index ? "" : "|"}</span>

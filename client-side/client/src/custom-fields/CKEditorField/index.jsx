@@ -33,7 +33,9 @@ const CKEditorField = (props) => {
             data={value}
             onChange={(event, editor) => {
               onChange(editor.getData());
-              setText(editor.getData());
+              if (setText) {
+                setText(editor.getData());
+              }
             }}
             onBlur={(event, editor) => {
               if (handleAddData) {

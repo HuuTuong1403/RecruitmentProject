@@ -1,0 +1,69 @@
+@import "common/styles/Variables.scss";
+
+.companyDetail {
+  padding: $pm-64 0;
+  background-color: #d9edee;
+
+  &__wrapped {
+    padding: 0 $pm-48;
+
+    &--title {
+      text-transform: uppercase;
+      font-size: $text-xl;
+      font-weight: 700;
+      margin: $pm-24 0 $pm-10 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    &--description {
+      font-size: $text-base;
+      padding: $pm-20;
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+    }
+
+    &--jobActiveList {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      padding: $pm-10;
+      gap: 30px;
+      background-color: #fff;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .companyDetail {
+    padding: $pm-32 0;
+
+    &__wrapped {
+      padding: 0 $pm-24;
+
+      &--description {
+        padding: $pm-14;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .companyDetail {
+    padding: $pm-24 0;
+
+    &__wrapped {
+      padding: 0 $pm-16;
+
+      &--title {
+        font-size: $text-lg;
+      }
+
+      &--description {
+        font-size: $text-sm;
+        padding: $pm-8;
+      }
+    }
+  }
+}

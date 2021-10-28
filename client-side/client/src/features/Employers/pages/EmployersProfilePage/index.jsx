@@ -8,7 +8,7 @@ import {
   selectedWards,
 } from "features/Home/slices/selectors";
 import { AiOutlineSwap } from "react-icons/ai";
-import { Collapse, Checkbox, Tooltip } from "antd";
+import { Collapse, Checkbox, Tooltip, Switch } from "antd";
 import {
   FaMedkit,
   FaPlaneDeparture,
@@ -58,6 +58,7 @@ const EmployerProfilePage = () => {
   );
   const [showText, setShowText] = useState(false);
   const [text, setText] = useState(parse(employerDetail?.description ?? ""));
+  const [OT, setOT] = useState(employerDetail?.ot ?? false);
   const [loading, setLoading] = useState(false);
   const [logo, setLogo] = useState(null);
   useTitle(`${t("Account Management")}`);
@@ -119,6 +120,7 @@ const EmployerProfilePage = () => {
       scale === employerDetail?.scale &&
       phone === employerDetail?.phone &&
       TIN === employerDetail?.TIN &&
+      OT === employerDetail?.ot &&
       companyType === employerDetail?.companyType &&
       description === employerDetail?.description &&
       welfareUpdate === employerDetail?.welfare
@@ -132,12 +134,12 @@ const EmployerProfilePage = () => {
       payload.append("address[ward]", ward);
       payload.append("address[street]", street);
       welfareUpdate.forEach((item) => payload.append("welfare", item));
-      payload.append("ot", false);
       payload.append("description", description);
       payload.append("companyName", companyName);
       payload.append("companyWebsite", companyWebsite);
       payload.append("scale", scale);
       payload.append("phone", phone);
+      payload.append("ot", OT);
       payload.append("TIN", TIN);
       payload.append("photo-logo", logo);
 
@@ -158,6 +160,8 @@ const EmployerProfilePage = () => {
   };
 
   const handleCancelUpdate = () => {
+    setOT(employerDetail?.ot);
+    setWelfareUpdate(employerDetail?.welfare);
     reset({
       companyName: employerDetail?.companyName,
       city: employerDetail?.address?.city,
@@ -283,12 +287,13 @@ const EmployerProfilePage = () => {
               <AvatarUpload
                 src={employerDetail.logo}
                 shape="square"
-                size={200}
+                size={220}
                 changeAvatar={changeAvatar}
               />
             </div>
             <div className={classes.top__right}>
               <div>
+                {/* Company name */}
                 <InputProfileField
                   fontSize="26px"
                   bold="700"
@@ -298,18 +303,24 @@ const EmployerProfilePage = () => {
                   errors={errors?.companyName?.message}
                 />
               </div>
+
+              {/* Email */}
               <div className={classes.top__group}>
                 <LabelField label="Email:" />
                 <div className={classes["top__group--text"]}>
                   {employerDetail.email}
                 </div>
               </div>
+
+              {/* Username */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("Username")}:`} />
                 <div className={classes["top__group--text"]}>
                   {employerDetail.username}
                 </div>
               </div>
+
+              {/* Website */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("Website")}:`} />
                 <InputProfileField
@@ -322,6 +333,7 @@ const EmployerProfilePage = () => {
                 />
               </div>
 
+              {/* Phone */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("phone number")}:`} />
                 <InputProfileField
@@ -333,6 +345,8 @@ const EmployerProfilePage = () => {
                   errors={errors?.phone?.message}
                 />
               </div>
+
+              {/* Tax code */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("Tax code")}:`} />
                 <InputProfileField
@@ -344,6 +358,8 @@ const EmployerProfilePage = () => {
                   errors={errors?.TIN?.message}
                 />
               </div>
+
+              {/* Street */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("Address")}:`} />
                 <InputProfileField
@@ -353,6 +369,18 @@ const EmployerProfilePage = () => {
                   defaultValue={employerDetail.address.street}
                   {...register("street")}
                   errors={errors?.street?.message}
+                />
+              </div>
+
+              {/* OT */}
+              <div className={classes.top__group}>
+                <LabelField label={`${t("Work overtime")}:`} />
+                <Switch
+                  checkedChildren={t("Do allow")}
+                  unCheckedChildren={t("Do not allow")}
+                  onChange={() => setOT((prevState) => !prevState)}
+                  defaultChecked={OT}
+                  checked={OT}
                 />
               </div>
             </div>
@@ -365,6 +393,7 @@ const EmployerProfilePage = () => {
                 key="1"
               >
                 <div className={classes.bottom__wrapped}>
+                  {/* Description */}
                   <div className={classes["bottom__wrapped--description"]}>
                     <LabelField
                       label={t("Company description")}
@@ -394,10 +423,12 @@ const EmployerProfilePage = () => {
                       />
                     )}
                   </div>
+
                   <div className={classes["bottom__wrapped--scale-type"]}>
+                    {/* Company Size */}
                     <div>
                       <LabelField
-                        label={t("Number of employees")}
+                        label={t("Company size")}
                         isCompulsory={true}
                       />
                       <SelectProfileField
@@ -411,6 +442,8 @@ const EmployerProfilePage = () => {
                         errors={errors?.scale?.message}
                       />
                     </div>
+
+                    {/* Company type */}
                     <div>
                       <LabelField
                         label={t("Company type")}
@@ -434,6 +467,7 @@ const EmployerProfilePage = () => {
               {employerDetail.address && (
                 <Panel header={t("Address information")} style={style} key="2">
                   <div className={classes["bottom__wrapped--scale-type"]}>
+                    {/* Province */}
                     <div>
                       <LabelField label={t("Province")} isCompulsory={true} />
                       <SelectLocationField
@@ -446,6 +480,8 @@ const EmployerProfilePage = () => {
                         errors={errors?.city?.message}
                       />
                     </div>
+
+                    {/* District */}
                     <div>
                       <LabelField label={t("District")} isCompulsory={true} />
                       <SelectLocationField
@@ -458,6 +494,8 @@ const EmployerProfilePage = () => {
                         errors={errors?.district?.message}
                       />
                     </div>
+
+                    {/* Ward */}
                     <div>
                       <LabelField label={t("Ward")} isCompulsory={true} />
                       <SelectLocationField
@@ -477,8 +515,10 @@ const EmployerProfilePage = () => {
                 style={style}
                 key="3"
               >
+                {/* Welfare */}
                 <div>
                   <Checkbox.Group
+                    value={welfareUpdate}
                     defaultValue={employerDetail.welfare}
                     onChange={(checkedValues) =>
                       setWelfareUpdate(checkedValues)

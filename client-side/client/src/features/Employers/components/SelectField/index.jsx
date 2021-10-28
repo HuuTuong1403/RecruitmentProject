@@ -1,5 +1,5 @@
 import { Controller } from "react-hook-form";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ErrorText from "components/ErrorText";
 import Select from "react-select";
@@ -10,13 +10,34 @@ const SelectField = (props) => {
   const {
     control,
     defaultValue,
+    errors,
     fetchData,
     handleAddData,
-    locationList,
+    isLocation,
+    list,
     name,
     placeholder,
-    errors,
   } = props;
+
+  useEffect(() => {
+    if (list.length > 1) {
+      if (name === "city") {
+        const findLocation = list.find((c) => c.label === defaultValue);
+        dispatch(fetchData({ code: findLocation?.value }));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [list.length > 1, defaultValue]);
+
+  useEffect(() => {
+    if (list.length > 1) {
+      if (name === "district") {
+        const findLocation = list.find((c) => c.label === defaultValue);
+        dispatch(fetchData({ code: findLocation?.value }));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [list.length > 1, defaultValue]);
 
   return (
     <Fragment>
@@ -27,12 +48,26 @@ const SelectField = (props) => {
         render={({ field: { onChange, value } }) => (
           <Select
             placeholder={placeholder}
-            options={locationList}
-            value={locationList.find((c) => c.label === value) ?? ""}
+            options={list}
+            value={
+              isLocation
+                ? list.find((c) => c.label === value) ?? ""
+                : list.find((c) => c.value === value) ?? ""
+            }
+            isDisabled={list.length <= 1}
             onChange={(selectedOption) => {
-              onChange(selectedOption.label);
+              if (isLocation) {
+                onChange(selectedOption.label);
+              } else {
+                onChange(selectedOption.value);
+              }
+
               if (handleAddData) {
-                handleAddData({ [name]: selectedOption.label });
+                handleAddData({
+                  [name]: isLocation
+                    ? selectedOption.label
+                    : selectedOption.value,
+                });
               }
               if (fetchData && selectedOption.value !== "") {
                 dispatch(

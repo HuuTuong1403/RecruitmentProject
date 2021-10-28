@@ -23,13 +23,19 @@ const SelectLocationField = (props) => {
         const findLocation = locationList.find((c) => c.label === defaultValue);
         dispatch(fetchData({ code: findLocation?.value }));
       }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locationList.length > 1, defaultValue]);
+
+  useEffect(() => {
+    if (locationList.length > 1) {
       if (name === "district") {
         const findLocation = locationList.find((c) => c.label === defaultValue);
         dispatch(fetchData({ code: findLocation?.value }));
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [locationList.length > 1]);
+  }, [locationList.length > 1, defaultValue]);
 
   return (
     <Fragment>

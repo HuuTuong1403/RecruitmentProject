@@ -57,7 +57,7 @@
           flex: 0 0 75%;
           color: $primary-text;
           font-weight: 700;
-          font-size: $text-xl;
+          font-size: $text-xl !important;
           overflow: hidden;
           text-overflow: ellipsis;
 
@@ -75,7 +75,7 @@
 
         & > a {
           color: $primary-text;
-          font-size: $text-lg;
+          font-size: $text-lg !important;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;

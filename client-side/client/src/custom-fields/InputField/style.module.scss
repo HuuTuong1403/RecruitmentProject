@@ -34,7 +34,7 @@
     font-size: $text-lg;
     left: 10px;
     position: absolute;
-    top: 4px;
+    top: 2px;
   }
 
   &__suffix {
@@ -42,7 +42,7 @@
     font-size: $text-lg;
     position: absolute;
     right: 10px;
-    top: 4px;
+    top: 3px;
   }
 }
 
@@ -52,8 +52,7 @@
     &__noneicon {
       font-size: 14px;
     }
-    &__suffix,
-    &__prefix {
+    &__suffix {
       top: 2px;
     }
   }
