@@ -45,7 +45,7 @@ const employerSchema = new mongoose.Schema(
       type: String,
       default: 'https://www.zodedi.com/public/uploads/testimonial-5.png',
     },
-    OT: {
+    ot: {
       type: Boolean,
       default: false,
     },

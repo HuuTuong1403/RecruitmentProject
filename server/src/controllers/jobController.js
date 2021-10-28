@@ -6,7 +6,19 @@ const factory = require('./handleFactory');
 
 class jobController {
   setCompany = (req, res, next) => {
-    if (req.params.idCompany) req.query.company = req.params.idCompany;
+    if (req.user && req.user.role == 'employer') {
+      console.log(req.user);
+      req.query.company = req.user.id;
+    }
+
+    next();
+  };
+  approveJob = (req, res, next) => {
+    req.body.status = 'approval';
+    next();
+  };
+  denyJob = (req, res, next) => {
+    req.body.status = 'denied';
     next();
   };
   getAllJob = factory.getAll(Job);
@@ -15,6 +27,8 @@ class jobController {
     null,
     `-__v,-status,-candidate,-priorityLevel,-updatedAt`
   );
+  getJobAccrodingtoID = factory.getOne(Job);
   createJob = factory.createOne(Job);
+  updateJob = factory.updateOne(Job);
 }
 module.exports = new jobController();

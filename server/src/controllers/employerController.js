@@ -28,7 +28,7 @@ class employerController {
       },
       TIN: req.body.TIN,
       companyType: req.body.companyType,
-      OT: req.body.OT,
+      ot: req.body.ot,
     });
     //2) Generate the random authen token
     const authenToken = newEmployer.createAuthenToken();
@@ -54,7 +54,7 @@ class employerController {
         'address',
         'TIN',
         'companyType',
-        'OT',
+        'ot',
         'role'
       );
       return res.status(201).json({

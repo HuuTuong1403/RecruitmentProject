@@ -7,6 +7,7 @@ const jobRouter = express.Router({ mergeParams: true });
 const customJobQuery = require('../middlewares/jobQuery');
 
 const setCreateJob = require('./../middlewares/setCreateJob');
+
 jobRouter
   .route('/')
   .get(
@@ -22,4 +23,16 @@ jobRouter
   );
 jobRouter.route('/:slug').get(jobController.getJob);
 
+jobRouter.use(
+  authController.protect,
+  authController.restrictTo('systemmanager')
+);
+jobRouter.route('/view/all').get(jobController.getAllJob);
+jobRouter.route('/view/:id').get(jobController.getJobAccrodingtoID);
+jobRouter
+  .route('/:id/approve')
+  .patch(jobController.approveJob, jobController.updateJob);
+jobRouter
+  .route('/:id/deny')
+  .patch(jobController.denyJob, jobController.updateJob);
 module.exports = jobRouter;

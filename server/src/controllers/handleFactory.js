@@ -43,6 +43,7 @@ exports.createOne = (Model) =>
 exports.getOne = (Model, popOtions, fields) =>
   catchAsync(async (req, res, next) => {
     let query = Model.findById(req.params.id);
+
     if (popOtions) query = query.populate(popOtions);
     if (fields) {
       fields = fields.split(',').join(' ');
