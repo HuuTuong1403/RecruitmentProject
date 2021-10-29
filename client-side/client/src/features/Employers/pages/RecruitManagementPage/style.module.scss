@@ -1,0 +1,10 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.listJob {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}

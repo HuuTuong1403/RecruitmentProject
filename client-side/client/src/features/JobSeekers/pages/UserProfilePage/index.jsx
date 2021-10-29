@@ -146,7 +146,7 @@ const UserProfilePage = () => {
     <div className={classes.profile}>
       {detailJobSeeker && (
         <div className={classes.profile__wrapped}>
-          <div className={classes["profile__wrapped--title"]}>
+          <div className={classes.titleDashboard}>
             {t("Account Management")}
           </div>
           <div className={classes["profile__wrapped--content"]}>

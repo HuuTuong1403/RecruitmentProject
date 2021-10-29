@@ -1,7 +1,10 @@
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { fetchSkillsAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect, useState, lazy } from "react";
-import { getDetailEmployerAsync } from "./slices/thunks";
+import {
+  getDetailEmployerAsync,
+  fetchJobsOfEmployerAsync,
+} from "./slices/thunks";
 import { selectEmployerLocal } from "./slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -50,6 +53,10 @@ const DashboardEmployersPage = () => {
       }
       if (location.pathname === `${url}/my-profile`) {
         dispatch(fetchProvincesAsync());
+      }
+      if (location.pathname === `${url}/recruit-manage`) {
+        dispatch(fetchProvincesAsync());
+        dispatch(fetchJobsOfEmployerAsync());
       }
     }
   }, [dispatch, checkLocation, location, employer, url]);

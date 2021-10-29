@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import JobSearchItem from "../JobSearchItem";
 import LoadingSuspense from "components/Loading";
-import NotFoundSearch from "../NotFoundSearch";
+import NotFoundData from "components/NotFoundData";
 
 const JobSearchList = () => {
   const { t } = useTranslation();
@@ -28,7 +28,9 @@ const JobSearchList = () => {
               <div>{t("sort by")}</div>
             </div>
             {jobsSearch.length === 0 ? (
-              <NotFoundSearch />
+              <NotFoundData
+                title={t("There are currently no jobs matching your criteria")}
+              />
             ) : (
               jobsSearch.map((job) => {
                 return <JobSearchItem key={job._id} job={job} />;

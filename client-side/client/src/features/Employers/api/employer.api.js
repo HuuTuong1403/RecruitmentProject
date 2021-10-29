@@ -35,3 +35,21 @@ export const postJobEmployer = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchJobsOfEmployer = async () => {
+  try {
+    const res = await axiosClient.get(`employer/jobs`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchJobDetailOfEmployer = async (payload) => {
+  try {
+    const res = await axiosClient.get(`employer/jobs/${payload}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

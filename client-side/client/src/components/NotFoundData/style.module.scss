@@ -1,12 +1,12 @@
 @import "common/styles/Variables.scss";
 
-.notFoundJob {
+.notFoundData {
   background-color: #eee;
   padding: $pm-10;
+  margin-top: $pm-10;
+
   &__wrapped {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 
     &--notify {
       font-size: $text-xl;
@@ -16,7 +16,7 @@
 }
 
 @media screen and (max-width: 540px) {
-  .notFoundJob {
+  .notFoundData {
     &__wrapped {
       &--notify {
         font-size: $text-sm;

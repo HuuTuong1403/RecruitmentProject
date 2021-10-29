@@ -279,7 +279,7 @@ const EmployerProfilePage = () => {
           onSubmit={handleSubmit(submitUpdateProfileEmployer)}
           className={classes.employerProfile__wrapped}
         >
-          <div className={classes["employerProfile__wrapped--title"]}>
+          <div className={classes.titleDashboard}>
             {t("Account Management")}
           </div>
           <div className={classes.top}>

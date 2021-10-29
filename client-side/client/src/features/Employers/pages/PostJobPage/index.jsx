@@ -263,9 +263,7 @@ const PostJobPage = () => {
   return (
     <div className={classes.postjob}>
       <div className={classes.postjob__wrapped}>
-        <div className={classes["postjob__wrapped--title"]}>
-          {t("postjobs")}
-        </div>
+        <div className={classes.titleDashboard}>{t("postjobs")}</div>
         <form onSubmit={handleSubmit(postJobHandler)}>
           {/* Job Title */}
           <div className={classes.postjob__formGroup}>
@@ -458,11 +456,9 @@ const PostJobPage = () => {
 
           {/* Job Salary */}
           <div className={classes.postjob__formGroup}>
-            <LabelField
-              label={hideSalary ? t("Salary") : t("Choose display data type")}
-              isCompulsory={true}
-            />
+            <LabelField label={t("Salary")} isCompulsory={true} />
             <Switch
+              style={{ marginBottom: "5px" }}
               checkedChildren={t("Hide salary")}
               unCheckedChildren={t("Show salary")}
               defaultChecked={hideSalary}
@@ -575,7 +571,7 @@ const PostJobPage = () => {
             <CKEditorField
               name="reason"
               control={control}
-              defaultValue={postJobData?.benefits}
+              defaultValue={postJobData?.reason}
               handleAddData={handleAddData}
             />
           </div>
@@ -589,7 +585,7 @@ const PostJobPage = () => {
             <CKEditorField
               name="responsibilities"
               control={control}
-              defaultValue={postJobData?.benefits}
+              defaultValue={postJobData?.responsibilities}
               handleAddData={handleAddData}
             />
           </div>

@@ -1,21 +1,10 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .userSetting {
   padding: $pm-10;
 
   &__wrapped {
-    &--title {
-      font-size: $text-3xl;
-      font-weight: 700;
-      border-bottom: 1px solid #e8e8e8;
-    }
-
-    &--subTitle1 {
-      font-size: $text-xl;
-      font-weight: 600;
-      padding: $pm-10 0;
-    }
-
     &--changePass {
       display: flex;
       justify-content: center;
@@ -49,16 +38,6 @@
     padding: $pm-4;
 
     &__wrapped {
-      &--title {
-        font-size: $text-2xl;
-        text-align: center;
-      }
-
-      &--subTitle1 {
-        font-size: $text-xl;
-        text-align: center;
-      }
-
       &--changePass {
         & > div {
           flex: 0 0 70%;
@@ -73,16 +52,6 @@
     padding: $pm-4;
 
     &__wrapped {
-      &--title {
-        font-size: $text-xl;
-        text-align: center;
-      }
-
-      &--subTitle1 {
-        font-size: $text-lg;
-        text-align: center;
-      }
-
       &--changePass {
         & > div {
           flex: 0 0 100%;

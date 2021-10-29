@@ -55,10 +55,10 @@ const UserSettingPage = () => {
   return (
     <div className={classes.userSetting}>
       <div className={classes.userSetting__wrapped}>
-        <div className={classes["userSetting__wrapped--title"]}>
+        <div className={classes.titleDashboard}>
           {t("Job Seeker account settings")}
         </div>
-        <div className={classes["userSetting__wrapped--subTitle1"]}>
+        <div className={classes.subTitleDashboard}>
           {t("Change login password")}
         </div>
         <form
