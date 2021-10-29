@@ -3,3 +3,44 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.titleDashboard {
+  font-size: $text-3xl;
+  font-weight: 700;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.subTitleDashboard {
+  font-size: $text-xl;
+  font-weight: 600;
+  padding: $pm-10 0;
+}
+
+.jobTitle {
+  font-weight: 700;
+  font-size: $text-base;
+}
+
+@media screen and (max-width: 900px) {
+  .titleDashboard {
+    font-size: $text-2xl;
+    text-align: center;
+  }
+
+  .subTitleDashboard {
+    font-size: $text-xl;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .titleDashboard {
+    font-size: $text-xl;
+    text-align: center;
+  }
+
+  .subTitleDashboard {
+    font-size: $text-lg;
+    text-align: center;
+  }
+}

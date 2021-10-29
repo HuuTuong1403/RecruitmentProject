@@ -1,34 +1,12 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
-.jobSaved {
-  &__wrapped {
-    &--title {
-      font-size: $text-2xl;
-      font-weight: 700;
-      border-bottom: 1px solid #e8e8e8;
-      margin-bottom: $pm-10;
-    }
-  }
-}
+
 
 @media screen and (max-width: 900px) {
-  .jobSaved {
-    &__wrapped {
-      &--title {
-        font-size: $text-2xl;
-        text-align: center;
-      }
-    }
-  }
+
 }
 
 @media screen and (max-width: 500px) {
-  .jobSaved {
-    &__wrapped {
-      &--title {
-        font-size: $text-xl;
-        text-align: center;
-      }
-    }
-  }
+ 
 }

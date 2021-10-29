@@ -16,7 +16,9 @@ const PostJobField = (props) => {
             value={value}
             onChange={onChange}
             onBlur={(e) => {
-              handleAddData({ [name]: e.target.value });
+              if (handleAddData) {
+                handleAddData({ [name]: e.target.value });
+              }
             }}
             errors={errors}
           />

@@ -1,0 +1,132 @@
+@import "common/styles/Variables.scss";
+
+.modalUpdateJob {
+  color: $primary-text;
+  &__wrapped {
+    &--title {
+      margin: 0 $pm-10;
+    }
+
+    &--actions {
+      margin-top: $pm-10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      & > div {
+        flex: 0 0 48%;
+      }
+    }
+  }
+}
+
+.form_group {
+  display: flex;
+  align-items: center;
+  margin-top: $pm-2;
+  flex-wrap: wrap;
+
+  & label {
+    margin-bottom: 0;
+    flex: 0 0 20%;
+    color: $primary-color;
+    font-weight: 700;
+    text-align: end;
+  }
+
+  & div {
+    flex: 0 0 70%;
+  }
+}
+
+.bottom {
+  margin-top: $pm-8;
+
+  &__salary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > div {
+      flex: 0 0 33%;
+      height: 60px;
+
+      & > div > input {
+        border-radius: 5px;
+      }
+    }
+  }
+
+  &__form_group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 10px;
+
+    & > div {
+      flex: 0 0 48%;
+
+      & > input {
+        border-radius: 10px !important;
+      }
+    }
+  }
+
+  &__job_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > div {
+      flex: 0 0 48%;
+
+      & > div {
+        height: 60px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .modalUpdateJob {
+    &__wrapped {
+      &--title {
+        font-size: $text-sm;
+        margin: 0 0;
+      }
+      &--actions {
+        & > div {
+          flex: 0 0 100%;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    &__salary {
+      & > div {
+        flex: 0 0 100%;
+      }
+    }
+
+    &__form_group {
+      & > div {
+        flex: 0 0 100%;
+      }
+    }
+
+    &__job_info {
+      & > div {
+        flex: 0 0 100%;
+
+        & > div {
+          height: 60px;
+        }
+      }
+    }
+  }
+}

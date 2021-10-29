@@ -5,7 +5,7 @@ import { ScrollTop } from "common/functions";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
-import NotFoundJob from "features/JobSeekers/components/NotFoundJob";
+import NotFoundData from "components/NotFoundData";
 
 const JobAppliedPage = () => {
   ScrollTop();
@@ -16,10 +16,10 @@ const JobAppliedPage = () => {
   return (
     <div className={classes.jobApplied}>
       <div className={classes.jobApplied__wrapped}>
-        <div className={classes["jobApplied__wrapped--title"]}>
+        <div className={classes.titleDashboard}>
           {t("List of jobs applied")}
         </div>
-        <NotFoundJob isApplied={true} />
+        <NotFoundData title={t("No applied jobs")} />
         {/* {jobs?.map((item) => (
           <JobItem isApplied={true} key={item.id} job={item} />
         ))} */}

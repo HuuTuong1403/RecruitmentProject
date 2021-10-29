@@ -55,10 +55,10 @@ const SettingPage = () => {
   return (
     <div className={classes.employerSetting}>
       <div className={classes.employerSetting__wrapped}>
-        <div className={classes["employerSetting__wrapped--title"]}>
+        <div className={classes.titleDashboard}>
           {t("Employer account settings")}
         </div>
-        <div className={classes["employerSetting__wrapped--subTitle1"]}>
+        <div className={classes.subTitleDashboard}>
           {t("Change login password")}
         </div>
         <form

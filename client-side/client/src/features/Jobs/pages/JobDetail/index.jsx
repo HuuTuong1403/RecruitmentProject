@@ -301,7 +301,7 @@ const JobDetail = () => {
                     )}
                     {level && (
                       <div>
-                        {t("Job level")}: <span>{t(level)}</span>
+                        {t("Job level")}: <span>{level}</span>
                       </div>
                     )}
                     {salary && (
