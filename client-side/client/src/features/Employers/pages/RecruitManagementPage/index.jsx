@@ -11,12 +11,14 @@ const RecruitManagementPage = () => {
   ScrollTop();
   const { t } = useTranslation();
   const jobsOfEmployer = useSelector(selectJobsOfEmployer);
-  useTitle(`${t("recruitment manager")}`);
+  useTitle(`${t("Manage job postings created")}`);
 
   return (
     <div className={classes.container}>
       <div className={classes.container__wrapped}>
-        <div className={classes.titleDashboard}>{t("recruitment manager")}</div>
+        <div className={classes.titleDashboard}>
+          {t("Manage job postings created")}
+        </div>
         <div className={classes.subTitleDashboard}>{`${t("There are")} ${
           jobsOfEmployer?.length
         } ${t("job postings in total")}`}</div>

@@ -57,6 +57,27 @@
         flex: 0 0 32%;
       }
     }
+    &--actionsTrash {
+      margin-top: $pm-10;
+      display: flex;
+      justify-content: space-between;
+
+      & button {
+        flex: 0 0 49%;
+      }
+    }
+  }
+
+  &__popover_actions {
+    margin-top: $pm-4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > button {
+      flex: 0 0 49%;
+    }
   }
 }
 

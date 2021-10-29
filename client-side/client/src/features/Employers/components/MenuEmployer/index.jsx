@@ -59,11 +59,24 @@ const MenuEmployer = (props) => {
       onClick: null,
     },
     {
-      key: `${pathEmployer.recruitManager}`,
-      title: `${t("recruitment manager")}`,
       icon: <RiFileList3Line className={classes.menuIcon} />,
-      isLink: false,
-      onClick: null,
+      title: `${t("recruitment manager")}`,
+      subMenu: [
+        {
+          key: pathEmployer.recruitManager,
+          title: `${t("Job post created")}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
+        {
+          key: pathEmployer.jobTrash,
+          title: `${t("Job posting has been deleted")}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
+      ],
     },
     {
       key: `${pathEmployer.candidateProfileManage}`,

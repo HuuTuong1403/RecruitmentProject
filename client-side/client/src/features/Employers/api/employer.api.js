@@ -53,3 +53,32 @@ export const fetchJobDetailOfEmployer = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchJobDeleted = async () => {
+  try {
+    const res = await axiosClient.get("employer/jobs/soft-delete/trash");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const softDeleteJob = async (payload) => {
+  try {
+    const res = await axiosClient.delete(
+      `employer/jobs/soft-delete/${payload}`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const restoreJob = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`employer/jobs/restore/${payload}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

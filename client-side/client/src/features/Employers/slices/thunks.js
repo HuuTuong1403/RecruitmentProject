@@ -3,6 +3,7 @@ import {
   getDetailEmployer,
   fetchJobsOfEmployer,
   fetchJobDetailOfEmployer,
+  fetchJobDeleted,
 } from "../api/employer.api";
 
 export const getDetailEmployerAsync = createAsyncThunk(
@@ -25,6 +26,14 @@ export const fetchJobDetailOfEmployerAsync = createAsyncThunk(
   "employer/fetchJobDetailOfEmployer",
   async (payload) => {
     const res = await fetchJobDetailOfEmployer(payload);
+    return res.data.data;
+  }
+);
+
+export const fetchJobDeletedAsync = createAsyncThunk(
+  "employer/fetchJobDeleted",
+  async () => {
+    const res = await fetchJobDeleted();
     return res.data.data;
   }
 );

@@ -1,9 +1,4 @@
 import {
-  selectedProvinces,
-  selectedDistricts,
-  selectedWards,
-} from "features/Home/slices/selectors";
-import {
   selectJobsDetailEmployer,
   selectStatusJobDetail,
 } from "features/Employers/slices/selectors";
@@ -32,9 +27,20 @@ import parse from "html-react-parser";
 import PostJobField from "../PostJobField";
 import SelectLocationField from "custom-fields/SelectLocationField";
 import SelectProfileField from "../SelectProfileField";
+import Select from "react-select";
 
 const ModalUpdateJob = (props) => {
-  const { showModal, onCloseModal } = props;
+  const {
+    showModal,
+    onCloseModal,
+    selectSkill,
+    changeSkillHandler,
+    skillList,
+    provinces,
+    districts,
+    wards,
+  } = props;
+
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const jobDetail = useSelector(selectJobsDetailEmployer);
@@ -47,24 +53,6 @@ const ModalUpdateJob = (props) => {
       setHideSalary(true);
     }
   }, [jobDetail?.salary?.min]);
-
-  const provinces = useSelector(selectedProvinces)?.map((province) => ({
-    label: province.name,
-    value: province.code,
-  }));
-  provinces.unshift({ label: `${t("choose-province")}`, value: "" });
-
-  const districts = useSelector(selectedDistricts)?.map((district) => ({
-    label: district.name,
-    value: district.code,
-  }));
-  districts.unshift({ label: `${t("choose-district")}`, value: "" });
-
-  const wards = useSelector(selectedWards)?.map((ward) => ({
-    label: ward.name,
-    value: ward.code,
-  }));
-  wards.unshift({ label: `${t("choose-ward")}`, value: "" });
 
   const style = {
     fontSize: "16px",
@@ -194,6 +182,7 @@ const ModalUpdateJob = (props) => {
           <div className={classes.modalUpdateJob__wrapped}>
             {jobDetail && (
               <form onSubmit={handleSubmit(submitUpdateJob)}>
+                {/* Job Title */}
                 <div className={classes["modalUpdateJob__wrapped--title"]}>
                   <InputProfileField
                     fontSize="21px"
@@ -204,6 +193,8 @@ const ModalUpdateJob = (props) => {
                     errors={errors?.jobTitle?.message}
                   />
                 </div>
+
+                {/* Job Street */}
                 <div className={classes.form_group}>
                   <LabelField label={`${t("Address")}:`} />
                   <InputProfileField
@@ -215,6 +206,7 @@ const ModalUpdateJob = (props) => {
                     errors={errors?.street?.message}
                   />
                 </div>
+
                 <div className={classes.bottom}>
                   <Collapse
                     bordered={false}
@@ -378,72 +370,85 @@ const ModalUpdateJob = (props) => {
                       </div>
                     </Panel>
 
-                    {/* Salary Information */}
+                    {/* Salary, skill Information */}
                     <Panel
-                      header={t("Salary information")}
+                      header={t("Salary, skill information")}
                       style={style}
                       key="3"
                     >
-                      <LabelField label={t("Salary")} isCompulsory={true} />
-                      <Switch
-                        style={{ marginBottom: "5px" }}
-                        checkedChildren={t("Hide salary")}
-                        unCheckedChildren={t("Show salary")}
-                        defaultChecked={hideSalary}
-                        checked={hideSalary}
-                        onChange={() =>
-                          setHideSalary((prevState) => !prevState)
-                        }
-                      />
-                      {hideSalary ? (
-                        <div className={classes.bottom__salary}>
+                      <div>
+                        <LabelField label={t("Salary")} isCompulsory={true} />
+                        <Switch
+                          style={{ marginBottom: "5px" }}
+                          checkedChildren={t("Hide salary")}
+                          unCheckedChildren={t("Show salary")}
+                          defaultChecked={hideSalary}
+                          checked={hideSalary}
+                          onChange={() =>
+                            setHideSalary((prevState) => !prevState)
+                          }
+                        />
+                        {hideSalary ? (
+                          <div className={classes.bottom__salary}>
+                            <div>
+                              <SelectProfileField
+                                name="type"
+                                control={control}
+                                defaultValue={
+                                  jobDetail.salary.min
+                                    ? jobDetail.salary?.type
+                                    : "VND"
+                                }
+                                optionList={typeSalary}
+                              />
+                            </div>
+
+                            <div>
+                              <PostJobField
+                                name="min"
+                                control={control}
+                                defaultValue={jobDetail.salary?.min}
+                                errors={errors?.min?.message}
+                                placeholder={t("Enter the minimum salary")}
+                              />
+                            </div>
+
+                            <div>
+                              <PostJobField
+                                name="max"
+                                control={control}
+                                defaultValue={jobDetail.salary?.max}
+                                errors={errors?.max?.message}
+                              />
+                            </div>
+                          </div>
+                        ) : (
                           <div>
                             <SelectProfileField
-                              name="type"
+                              name="typeHideSalary"
                               control={control}
                               defaultValue={
-                                jobDetail.salary.min
-                                  ? jobDetail.salary?.type
-                                  : "VND"
+                                jobDetail.salary?.min
+                                  ? "You'll love it"
+                                  : jobDetail.salary?.type
                               }
-                              optionList={typeSalary}
+                              optionList={optionsHideSalary}
+                              placeholder={t("choose-workingTime")}
                             />
                           </div>
+                        )}
+                      </div>
 
-                          <div>
-                            <PostJobField
-                              name="min"
-                              control={control}
-                              defaultValue={jobDetail.salary?.min}
-                              errors={errors?.min?.message}
-                              placeholder={t("Enter the minimum salary")}
-                            />
-                          </div>
-
-                          <div>
-                            <PostJobField
-                              name="max"
-                              control={control}
-                              defaultValue={jobDetail.salary?.max}
-                              errors={errors?.max?.message}
-                            />
-                          </div>
-                        </div>
-                      ) : (
-                        <div>
-                          <SelectProfileField
-                            name="typeHideSalary"
-                            control={control}
-                            defaultValue={
-                              jobDetail.salary?.min
-                                ? "You'll love it"
-                                : jobDetail.salary?.type
-                            }
-                            optionList={optionsHideSalary}
-                            placeholder={t("choose-workingTime")}
-                          />
-                        </div>
-                      )}
+                      <div>
+                        <LabelField label={t("Skill")} isCompulsory={false} />
+                        <Select
+                          isMulti
+                          placeholder={t("choose skills")}
+                          options={skillList}
+                          value={selectSkill}
+                          onChange={changeSkillHandler}
+                        />
+                      </div>
                     </Panel>
 
                     {/* Job details */}
