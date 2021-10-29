@@ -30,9 +30,7 @@ exports.restoreOne = (Model) =>
     await Model.restore({ _id: req.params.id });
     res.status(200).json({
       status: 'success',
-      data: {
-        data: doc,
-      },
+      message: 'Khôi phục tin tuyển dụng thành công',
     });
   });
 exports.updateOne = (Model) =>

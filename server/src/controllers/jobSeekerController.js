@@ -90,5 +90,6 @@ class JobSeekerController {
       },
     });
   });
+  addFavoriveJob = catchAsync(async (req, res, next) => {});
 }
 module.exports = new JobSeekerController();

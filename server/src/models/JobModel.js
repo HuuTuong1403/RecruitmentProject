@@ -141,7 +141,6 @@ jobSchema.virtual('isNew').get(function () {
   const timeAgoSecond = timeAgoMilisecond / 1000;
   return timeAgoSecond < 86400 ? true : false;
 });
-
 //DOCUMENT MIDDLEWARE: run before .save() and .create()
 jobSchema.pre('save', async function (next) {
   this.slug = slugify(`${this.jobTitle} ${this._id}`, {
@@ -156,6 +155,9 @@ jobSchema.pre(/^find/, function (next) {
   });
   next();
 });
+jobSchema.methods.isFavoriteJob = function (IDJob) {
+  if (this._id === IDJob) this.isFavorite = true;
+};
 jobSchema.plugin(mongoose_delete, { deletedBy: true, overrideMethods: true });
 const Job = mongoose.model('Job', jobSchema);
 module.exports = Job;
