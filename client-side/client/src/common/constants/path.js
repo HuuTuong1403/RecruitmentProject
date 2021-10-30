@@ -17,8 +17,9 @@ export const pathJobSeeker = {
 export const pathEmployer = {
   dashboard: "/employers/dashboard",
   myProfile: "/employers/dashboard/my-profile",
-  recruitManager: "/employers/dashboard/recruit-manage",
+  recruitManager: "/employers/dashboard/recruit-manage/created",
   postJob: "/employers/dashboard/post-job",
   settingAccount: "/employers/dashboard/setting-account",
-  candidateProfileManage: "/employers/dashboard/candidate-profiles"
+  candidateProfileManage: "/employers/dashboard/candidate-profiles",
+  jobTrash: "/employers/dashboard/recruit-manage/trash",
 };

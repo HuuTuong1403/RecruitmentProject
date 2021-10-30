@@ -3,6 +3,7 @@ import {
   getDetailEmployerAsync,
   fetchJobsOfEmployerAsync,
   fetchJobDetailOfEmployerAsync,
+  fetchJobDeletedAsync,
 } from "features/Employers/slices/thunks";
 
 const initialState = {
@@ -12,8 +13,9 @@ const initialState = {
   jobDetailEmployer: null,
   jobSlug: null,
   avatar: null,
+  jobTrash: null,
   status: false,
-  statusJobDetail: false
+  statusJobDetail: false,
 };
 
 const employerSlice = createSlice({
@@ -28,6 +30,16 @@ const employerSlice = createSlice({
     },
     handChangeJobSlug: (state, action) => {
       state.jobSlug = action.payload;
+    },
+    deleteJobPost: (state, action) => {
+      const id = action.payload;
+      state.jobsOfEmployer = state.jobsOfEmployer.filter(
+        (job) => job._id !== id
+      );
+    },
+    deleteJobTrash: (state, action) => {
+      const id = action.payload;
+      state.jobTrash = state.jobTrash.filter((job) => job._id !== id);
     },
   },
   extraReducers: {
@@ -64,9 +76,25 @@ const employerSlice = createSlice({
       state.statusJobDetail = false;
       state.jobDetailEmployer = null;
     },
+    [fetchJobDeletedAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchJobDeletedAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.jobTrash = action.payload;
+    },
+    [fetchJobDeletedAsync.rejected]: (state) => {
+      state.status = false;
+      state.jobTrash = null;
+    },
   },
 });
 
-export const { addDataPostJob, resetDataPostJob, handChangeJobSlug } =
-  employerSlice.actions;
+export const {
+  addDataPostJob,
+  resetDataPostJob,
+  handChangeJobSlug,
+  deleteJobPost,
+  deleteJobTrash,
+} = employerSlice.actions;
 export default employerSlice.reducer;

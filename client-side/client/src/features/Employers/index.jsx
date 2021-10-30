@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState, lazy } from "react";
 import {
   getDetailEmployerAsync,
   fetchJobsOfEmployerAsync,
+  fetchJobDeletedAsync,
 } from "./slices/thunks";
 import { selectEmployerLocal } from "./slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
@@ -24,6 +25,7 @@ const PostJobPage = lazy(() => import("./pages/PostJobPage"));
 const RecruitManagementPage = lazy(() =>
   import("./pages/RecruitManagementPage")
 );
+const JobTrashPage = lazy(() => import("./pages/JobTrashPage"));
 const SettingPage = lazy(() => import("./pages/SettingPage"));
 
 const DashboardEmployersPage = () => {
@@ -54,9 +56,13 @@ const DashboardEmployersPage = () => {
       if (location.pathname === `${url}/my-profile`) {
         dispatch(fetchProvincesAsync());
       }
-      if (location.pathname === `${url}/recruit-manage`) {
+      if (location.pathname === `${url}/recruit-manage/created`) {
         dispatch(fetchProvincesAsync());
         dispatch(fetchJobsOfEmployerAsync());
+        dispatch(fetchSkillsAsync());
+      }
+      if (location.pathname === `${url}/recruit-manage/trash`) {
+        dispatch(fetchJobDeletedAsync());
       }
     }
   }, [dispatch, checkLocation, location, employer, url]);
@@ -74,8 +80,13 @@ const DashboardEmployersPage = () => {
           <Route exact path={`${url}/post-job`} component={PostJobPage}></Route>
           <Route
             exact
-            path={`${url}/recruit-manage`}
+            path={`${url}/recruit-manage/created`}
             component={RecruitManagementPage}
+          />
+          <Route
+            exact
+            path={`${url}/recruit-manage/trash`}
+            component={JobTrashPage}
           />
           <Route
             exact

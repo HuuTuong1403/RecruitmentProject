@@ -29,3 +29,7 @@ export const selectJobSlug = (state) => {
 export const selectStatusJobDetail = (state) => {
   return state?.employer?.statusJobDetail;
 };
+
+export const selectJobTrash = (state) => {
+  return state?.employer?.jobTrash;
+};
