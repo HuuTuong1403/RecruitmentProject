@@ -1,3 +1,4 @@
+import { AiOutlineNotification } from "react-icons/ai";
 import { BsListCheck } from "react-icons/bs";
 import {
   Dropdown,
@@ -7,9 +8,9 @@ import {
 } from "reactstrap";
 import { IoMenu } from "react-icons/io5";
 import { logoutJobSeeker } from "features/Home/slices";
-import { RiLogoutCircleRLine } from "react-icons/ri";
-import { AiOutlineNotification } from "react-icons/ai";
 import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { resetFavoriteJob } from "features/JobSeekers/slices";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useDispatch } from "react-redux";
 import { useHistory, NavLink, Link } from "react-router-dom";
@@ -63,6 +64,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logoutJobSeeker());
+    dispatch(resetFavoriteJob());
     notification(`${t("Log out successful")}`, "success");
   };
 
@@ -108,7 +110,9 @@ const Header = () => {
                   to={`/jobseekers/my-profile`}
                   onClick={toggleMenuChildClick}
                 >
-                  <MdAccountCircle className={classes["header__link--person"]} />
+                  <MdAccountCircle
+                    className={classes["header__link--person"]}
+                  />
                   {user.fullname}
                 </Link>
               </DropdownToggle>

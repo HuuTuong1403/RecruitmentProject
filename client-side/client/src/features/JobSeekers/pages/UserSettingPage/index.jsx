@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { resetFavoriteJob } from "features/JobSeekers/slices";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
@@ -41,6 +42,7 @@ const UserSettingPage = () => {
     if (result.status === 204) {
       setLoading(false);
       dispatch(logoutJobSeeker());
+      dispatch(resetFavoriteJob());
       notification(
         `${t("Change password successfully. Please re-login to the system")}`,
         "success"

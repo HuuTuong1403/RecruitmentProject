@@ -2,14 +2,14 @@ import { forgotPassEmployer } from "features/HomeEmployers/api/homeEmployer.api"
 import { Link } from "react-router-dom";
 import { schemaSendMail } from "common/constants/schema";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
-import notification from "components/Notification";
-import { useState } from "react";
 import LabelField from "custom-fields/LabelField";
+import notification from "components/Notification";
 
 const SendMailForgotEmployer = (props) => {
   const { t } = useTranslation();

@@ -1,7 +1,7 @@
+import { forwardRef } from "react";
 import { Input } from "reactstrap";
 import classes from "./style.module.scss";
 import ErrorText from "components/ErrorText";
-import { forwardRef } from "react";
 
 const WrappedInput = forwardRef((props, ref) => {
   const { errors } = props;

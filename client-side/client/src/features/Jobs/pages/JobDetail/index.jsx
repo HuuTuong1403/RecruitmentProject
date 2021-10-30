@@ -1,21 +1,31 @@
 import {
-  selectedJobDetail,
-  selectedStatus,
-} from "features/Jobs/slices/selectors";
+  addFavoriteJob,
+  removeFavoriteJob,
+} from "features/JobSeekers/api/jobSeeker.api";
+import {
+  addJobToFavorite,
+  removeJobOfFavorire,
+} from "features/JobSeekers/slices";
 import { AiOutlineGlobal } from "react-icons/ai";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaBuilding } from "react-icons/fa";
+import { fetchAllFavoriteJobAsync } from "features/JobSeekers/slices/thunks";
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect, useCallback } from "react";
 import { IoMdCalendar } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import { ScrollTop } from "common/functions";
+import { selectFavoriteJobs } from "features/JobSeekers/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
+import {
+  selectedJobDetail,
+  selectedStatus,
+} from "features/Jobs/slices/selectors";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
@@ -30,6 +40,7 @@ const JobDetail = () => {
   const { t } = useTranslation();
   const user = selectJobSeekerLocal();
   const history = useHistory();
+  const favoriteJobs = useSelector(selectFavoriteJobs);
 
   const getDetail = useCallback(async () => {
     const result = await dispatch(fetchJobDetailAsync(slug));
@@ -42,9 +53,16 @@ const JobDetail = () => {
     getDetail();
   }, [getDetail]);
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(fetchAllFavoriteJobAsync());
+    }
+  }, [dispatch]);
+
   const jobDetail = useSelector(selectedJobDetail);
   const loading = useSelector(selectedStatus);
   const {
+    _id,
     workingTime,
     company,
     scale,
@@ -73,11 +91,38 @@ const JobDetail = () => {
     }
   };
 
-  const saveJobHandler = () => {
-    if (user) {
-      console.log("Đã lưu tin");
+  const removeSaveJobHandler = async () => {
+    const result = await removeFavoriteJob(_id);
+    if (result.status === "sucess") {
+      dispatch(removeJobOfFavorire(_id));
+      notification(`${t("Successfully unsaved job posting")}`, "success");
     } else {
-      notification(`${t("Please sign in to perform this function")}`, "error");
+      notification(
+        `${t("Error! An error occurred. Please try again later")}`,
+        "error"
+      );
+    }
+  };
+
+  const saveJobHandler = async () => {
+    if (user) {
+      const result = await addFavoriteJob(_id);
+      if (result.status === "sucess") {
+        dispatch(addJobToFavorite(jobDetail));
+        notification(`${t("Save job posting successfully")}`, "success");
+      } else {
+        notification(
+          `${t("Error! An error occurred. Please try again later")}`,
+          "error"
+        );
+      }
+    } else {
+      notification(
+        `${t(
+          "Please login to the job seeker account to perform this function"
+        )}`,
+        "error"
+      );
       history.push("/home/sign-in");
     }
   };
@@ -139,19 +184,35 @@ const JobDetail = () => {
                   )}
                 </div>
                 <div>
-                  <ButtonField
-                    backgroundcolor="rgba(0,0,0,.08)"
-                    backgroundcolorhover="#324554a2"
-                    color="#999"
-                    type="button"
-                    radius="20px"
-                    uppercase="true"
-                    padding="8px"
-                    onClick={saveJobHandler}
-                  >
-                    <AiOutlineHeart style={{ marginRight: "8px" }} />
-                    {t("Save Job")}
-                  </ButtonField>
+                  {favoriteJobs?.some((item) => item._id === _id) ? (
+                    <ButtonField
+                      backgroundcolor="rgba(0,0,0,.08)"
+                      backgroundcolorhover="#324554a2"
+                      color="red"
+                      type="button"
+                      radius="20px"
+                      uppercase="true"
+                      padding="8px"
+                      onClick={removeSaveJobHandler}
+                    >
+                      <AiFillHeart style={{ marginRight: "8px" }} />
+                      {t("Job posting saved")}
+                    </ButtonField>
+                  ) : (
+                    <ButtonField
+                      backgroundcolor="rgba(0,0,0,.08)"
+                      backgroundcolorhover="#324554a2"
+                      color="#999"
+                      type="button"
+                      radius="20px"
+                      uppercase="true"
+                      padding="8px"
+                      onClick={saveJobHandler}
+                    >
+                      <AiOutlineHeart style={{ marginRight: "8px" }} />
+                      {t("Save Job")}
+                    </ButtonField>
+                  )}
 
                   <ButtonField
                     backgroundcolor="#0a426e"

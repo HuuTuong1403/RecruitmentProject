@@ -26,7 +26,7 @@ export const authEmployerSlice = createSlice({
       state.employer = null;
     },
     [signInEmployerAsync.fulfilled]: (state, action) => {
-      const { token, data } = action?.payload;
+      const { token, data } = action.payload;
       state.status = false;
       if (token && data) {
         state.employer = data?.Employer;

@@ -151,7 +151,7 @@
 
         &--jobTitle {
           & > a {
-            font-size: $text-base;
+            font-size: $text-base !important;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -162,7 +162,7 @@
           margin: $pm-4 0;
 
           & > a {
-            font-size: $text-sm;
+            font-size: $text-sm !important;
           }
         }
 
@@ -197,7 +197,7 @@
 
         &--jobTitle {
           & > a {
-            font-size: $text-sm;
+            font-size: $text-sm !important;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -209,7 +209,7 @@
           margin: $pm-4 0;
 
           & > a {
-            font-size: $text-xs;
+            font-size: $text-xs !important;
           }
         }
 

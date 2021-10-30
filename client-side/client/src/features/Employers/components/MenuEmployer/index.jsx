@@ -1,4 +1,3 @@
-import "antd/dist/antd.css";
 import { AiFillDashboard } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";

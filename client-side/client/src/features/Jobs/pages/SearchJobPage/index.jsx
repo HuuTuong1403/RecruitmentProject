@@ -3,6 +3,7 @@ import {
   fetchJobsSearchAsync,
   fetchSkillsAsync,
 } from "features/Jobs/slices/thunks";
+import { fetchAllFavoriteJobAsync } from "features/JobSeekers/slices/thunks";
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { Fragment, useEffect } from "react";
 import { ScrollTop } from "common/functions";
@@ -81,10 +82,16 @@ const SearchJobPage = () => {
     dispatch(fetchSkillsAsync());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(fetchAllFavoriteJobAsync());
+    }
+  }, [dispatch]);
+
   return (
     <Fragment>
       <SearchHeader />
-      <JobSearchList  />
+      <JobSearchList />
     </Fragment>
   );
 };
