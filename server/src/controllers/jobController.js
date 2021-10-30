@@ -22,7 +22,7 @@ class jobController {
   };
   getAllDeletedJob = factory.getDeletedAll(Job);
   getDeletedJob = factory.getDeletedOne(Job);
-  getAllJob = factory.getAll(Job);
+  getAllJob = factory.getAll(Job, 'Job');
   getJob = factory.getOneUniqueField(
     Job,
     null,

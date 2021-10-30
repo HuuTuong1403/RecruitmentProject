@@ -39,6 +39,7 @@ jobRouter
   .route('/soft-delete/trash')
   .get(
     authController.restrictTo('systemmanager', 'employer'),
+    jobController.setCompany,
     jobController.getAllDeletedJob
   );
 jobRouter

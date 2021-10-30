@@ -97,12 +97,12 @@ exports.getOneUniqueField = (Model, popOtions, fields) =>
       },
     });
   });
-exports.getAll = (Model) =>
+exports.getAll = (Model, ModelName) =>
   catchAsync(async (req, res, next) => {
     let filter = {};
     var re = undefined;
 
-    if (req.query.companyName) {
+    if (req.query.companyName && ModelName == 'Job') {
       var re = new RegExp(`${req.query.companyName}`, 'gi');
       req.query.companyName = undefined;
     }

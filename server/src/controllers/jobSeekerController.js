@@ -90,6 +90,62 @@ class JobSeekerController {
       },
     });
   });
-  addFavoriveJob = catchAsync(async (req, res, next) => {});
+  addFavoriveJob = catchAsync(async (req, res, next) => {
+    const IDJob = req.params.idJob;
+    const doc = await JobSeeker.findByIdAndUpdate(
+      req.user.id,
+      { $addToSet: { favoriteJobs: IDJob } },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    if (!doc) {
+      return next(new AppError('Không tìm thấy dữ liệu với id này', 404));
+    }
+
+    res.status(200).json({
+      status: 'sucess',
+      data: {
+        data: doc,
+      },
+    });
+  });
+  removeFavoriteJob = catchAsync(async (req, res, next) => {
+    const IDJob = req.params.idJob;
+    const doc = await JobSeeker.findByIdAndUpdate(
+      req.user.id,
+      { $pull: { favoriteJobs: IDJob } },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    if (!doc) {
+      return next(new AppError('Không tìm thấy dữ liệu với id này', 404));
+    }
+
+    res.status(200).json({
+      status: 'sucess',
+      data: {
+        data: doc,
+      },
+    });
+  });
+  getFavoriteJob = catchAsync(async (req, res, next) => {
+    let length = 0;
+    let result = null;
+    if (req.user.favoriteJobs) {
+      length = req.user.favoriteJobs.length;
+      result = req.user.favoriteJobs;
+    }
+    res.status(200).json({
+      status: 'sucess',
+      length: length,
+      data: {
+        data: result,
+      },
+    });
+  });
 }
 module.exports = new JobSeekerController();

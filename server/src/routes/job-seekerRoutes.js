@@ -1,8 +1,13 @@
 const express = require('express');
+
 const authController = require('./../controllers/authController');
 const jobSeekerController = require('./../controllers/jobSeekerController');
+
 const uploadAvatar = require('./../middlewares/uploadAvatar');
+
 const jobseekerRouter = express.Router();
+
+const jobRouter = require('./jobRoutes');
 
 jobseekerRouter.route('/signup').post(authController.signUpJobSeeker);
 jobseekerRouter.route('/login').post(authController.loginJobSeeker);
@@ -15,27 +20,25 @@ jobseekerRouter
 jobseekerRouter
   .route('/resetPassword/:token')
   .patch(authController.resetJobSeekerPassword);
+
+jobseekerRouter.use(
+  authController.protect,
+  authController.restrictTo('jobseeker')
+);
 jobseekerRouter
   .route('/updatePassword')
-  .patch(
-    authController.protect,
-    authController.restrictTo('jobseeker'),
-    jobSeekerController.updateJobSeekerPassword
-  );
+  .patch(jobSeekerController.updateJobSeekerPassword);
 jobseekerRouter
   .route('/updateMe')
   .patch(
-    authController.protect,
-    authController.restrictTo('jobseeker'),
     uploadAvatar.uploadAvatar,
     uploadAvatar.uploadAvatarToCloudinary,
     jobSeekerController.updateMe
   );
+jobseekerRouter.route('/favorite-jobs').get(jobSeekerController.getFavoriteJob);
 jobseekerRouter
-  .route('/')
-  .get(
-    authController.protect,
-    authController.restrictTo('jobseeker'),
-    jobSeekerController.getJobSeeker
-  );
+  .route('/favorite-jobs/:idJob')
+  .patch(jobSeekerController.addFavoriveJob)
+  .delete(jobSeekerController.removeFavoriteJob);
+jobseekerRouter.route('/').get(jobSeekerController.getJobSeeker);
 module.exports = jobseekerRouter;
