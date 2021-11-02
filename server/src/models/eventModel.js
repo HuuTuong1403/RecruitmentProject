@@ -1,118 +1,52 @@
 const mongoose = require('mongoose');
-
+const addressSchema = require('./addressModel');
 const eventSchema = new mongoose.Schema(
   {
-    Address: {
-      City: {
-        type: String,
-      },
-      Country: {
-        type: String,
-      },
-      District: {
-        type: String,
-      },
-      Street: {
-        type: String,
-        trim: true,
-      },
-      Ward: {
-        type: String,
-      },
+    company: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Employer',
     },
-    BriefDescription: {
+    address: {
+      type: addressSchema,
+    },
+    briefDescription: {
       type: String,
       required: [true, 'Event must have brief description'],
       trim: true,
     },
-    EndTime: {
+    endTime: {
       type: Date,
       required: [true, 'Event must have finish time'],
     },
-    EventContent: {
+    eventContent: {
       type: String,
       required: [true, 'Event must have content'],
       trim: true,
     },
-    EventName: {
+    eventName: {
       type: String,
       required: [true, 'Event must have name'],
       trim: true,
     },
-    EventOrganizer: {
+    eventOrganizer: {
       type: String,
       required: [true, 'Event must have organizer'],
       trim: true,
     },
-    Images: [String],
-    Location: {
+    images: [String],
+    location: {
       type: String,
       trim: true,
     },
-    Participants: {
-      type: [
-        {
-          Address: {
-            City: {
-              type: String,
-            },
-            Country: {
-              type: String,
-            },
-            District: {
-              type: String,
-            },
-            Street: {
-              type: String,
-              trim: true,
-            },
-            Ward: {
-              type: String,
-            },
-          },
-          Email: {
-            type: String,
-            required: [true, 'Paticipant must have a email'],
-            trim: true,
-            unique: true,
-          },
-          FullName: {
-            type: String,
-            required: [true, 'Paticipant must have a fullname'],
-            trim: true,
-          },
-          IDParticipant: {
-            type: String,
-            required: [true, 'Paticipant must be assigned'],
-          },
-          InterestingField: {
-            type: String,
-          },
-          LinkCV: {
-            type: String,
-          },
-          PhoneNumber: {
-            type: String,
-            required: [true, 'Paticipant must have a phone number'],
-            trim: true,
-            unique: true,
-          },
-          Status: {
-            type: String,
-            default: 'Not participate',
-          },
-        },
-      ],
-    },
-    StartTime: {
+    startTime: {
       type: Date,
       required: [true, 'Event must have start time'],
     },
-    Status: {
+    status: {
       type: String,
       default: 'NotYetOccur',
     },
-    Topic: {
+    topic: {
       type: String,
     },
   },

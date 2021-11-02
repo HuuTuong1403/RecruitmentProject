@@ -6,9 +6,11 @@ const jobSeekerController = require('./../controllers/jobSeekerController');
 const uploadAvatar = require('./../middlewares/uploadAvatar');
 
 const jobseekerRouter = express.Router();
-
 const jobRouter = require('./jobRoutes');
+const applicationRouter = require('./applicationRouter');
 
+jobseekerRouter.use('/jobs', jobRouter);
+jobseekerRouter.use('/applications', applicationRouter);
 jobseekerRouter.route('/signup').post(authController.signUpJobSeeker);
 jobseekerRouter.route('/login').post(authController.loginJobSeeker);
 jobseekerRouter
@@ -25,6 +27,7 @@ jobseekerRouter.use(
   authController.protect,
   authController.restrictTo('jobseeker')
 );
+
 jobseekerRouter
   .route('/updatePassword')
   .patch(jobSeekerController.updateJobSeekerPassword);
@@ -41,4 +44,5 @@ jobseekerRouter
   .patch(jobSeekerController.addFavoriveJob)
   .delete(jobSeekerController.removeFavoriteJob);
 jobseekerRouter.route('/').get(jobSeekerController.getJobSeeker);
+
 module.exports = jobseekerRouter;

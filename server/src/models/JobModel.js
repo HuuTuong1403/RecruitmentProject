@@ -29,12 +29,6 @@ const jobSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: 'Employer',
     },
-    applicants: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'JobSeeker',
-      },
-    ],
     workingTime: {
       finish: {
         type: String,

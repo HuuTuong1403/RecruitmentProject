@@ -1,120 +1,75 @@
 const mongoose = require('mongoose');
-
+const answerSchema = new mongoose.Schema(
+  {
+    choice: String,
+    contentChoice: String,
+  },
+  { _id: false }
+);
+const questionSchema = new mongoose.Schema(
+  {
+    correctAnswer: {
+      type: [answerSchema],
+    },
+    idQuestion: {
+      type: String,
+      required: [true, 'Câu hỏi phải có ID'],
+      unique: true,
+      trim: true,
+    },
+    question: {
+      type: String,
+      required: [true, 'Nhập nội dung câu hỏi'],
+    },
+    point: {
+      type: Number,
+      required: [true, 'Câu hỏi phải có điểm'],
+    },
+    typeQuestion: {
+      type: String,
+    },
+  },
+  { _id: false }
+);
 const entryTestSchema = new mongoose.Schema(
   {
-    Description: {
+    company: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Employer',
+    },
+    description: {
       type: String,
-      required: [true, 'Entry test must have description'],
+      required: [true, 'Entry test phải có mô tả'],
       trim: true,
     },
-    DifficultLevel: {
+    difficultLevel: {
       type: String,
-      required: [true, 'Entry test must have level'],
+      required: [true, 'Entry test phải có mức độ khó'],
       trim: true,
     },
-    Duration: {
+    duration: {
       type: Number,
-      required: [true, 'Entry test must have duration'],
+      required: [true, 'Entry test phải có duration'],
     },
-    Questions: {
-      type: [
-        {
-          Answer: {
-            type: [
-              {
-                Choice: String,
-                ContentChoice: String,
-              },
-            ],
-            required: [true, 'Question must have answer'],
-          },
-          CorrectAnswer: {
-            type: [
-              {
-                Choice: String,
-                ContentChoice: String,
-              },
-            ],
-            required: [true, 'Question must have correct answer'],
-          },
-          IDQuestion: {
-            type: String,
-            required: [true, 'Question must have correct ID'],
-            unique: true,
-            trim: true,
-          },
-          Point: {
-            type: Number,
-            required: [true, 'Question must have point'],
-          },
-          TypeQuestion: {
-            type: String,
-          },
-        },
-      ],
-      required: [true, 'Entry test must have questions'],
+    questions: {
+      type: [questionSchema],
+      required: [true, 'Entry test phải có danh sách câu hỏi'],
     },
-    RequiredPass: {
+    requiredPass: {
       type: Number,
       default: 70,
     },
-    Skills: [String],
-    Submission: {
-      type: [
-        {
-          Ansersheet: [
-            {
-              IsCorrect: {
-                type: String,
-                default: false,
-              },
-              Point: {
-                type: Number,
-                default: 0,
-              },
-              QuestionID: {
-                type: String,
-                required: [true, 'Answer must have questionID'],
-              },
-              SelectedAnswer: {
-                type: [
-                  {
-                    Choice: String,
-                    ContentChoice: String,
-                  },
-                ],
-              },
-            },
-          ],
-          Candidate: {
-            type: String,
-            required: [true, 'Submission must be assigned candidate'],
-          },
-          Point: {
-            type: Number,
-            default: 0,
-          },
-          Result: {
-            type: String,
-            default: 'Fail',
-          },
-          Status: {
-            type: String,
-            default: 'NotGraded',
-          },
-        },
-      ],
-    },
-    Title: {
+    skills: [String],
+    title: {
       type: String,
-      required: [true, 'Entry test must have title'],
+      required: [true, 'Entry test phải có title'],
       trim: true,
     },
-    TotalPoint: {
+    totalPoint: {
       type: Number,
       default: 0,
     },
-    TotalQuestion: {
+    totalQuestion: {
       type: Number,
       default: 0,
     },

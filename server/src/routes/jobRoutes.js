@@ -7,7 +7,9 @@ const jobRouter = express.Router({ mergeParams: true });
 const customJobQuery = require('../middlewares/jobQuery');
 
 const setCreateJob = require('./../middlewares/setCreateJob');
+const applicationRouter = require('./applicationRouter');
 
+jobRouter.use('/:idJob/applications', applicationRouter);
 jobRouter
   .route('/')
   .get(

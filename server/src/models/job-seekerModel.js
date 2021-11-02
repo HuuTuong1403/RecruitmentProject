@@ -69,21 +69,12 @@ const jobSeekerSchema = new mongoose.Schema(
       type: String,
       default: 'http://cdn.onlinewebfonts.com/svg/img_258083.png',
     },
-    google: {
-      type: String,
-    },
-    facebook: {
-      type: String,
-    },
     favoriteJobs: [
       {
         type: mongoose.Schema.ObjectId,
         ref: 'Job',
       },
     ],
-    applied: [String],
-    entryTests: [String],
-    event: [String],
     isEmailVerified: {
       type: Boolean,
       default: false,

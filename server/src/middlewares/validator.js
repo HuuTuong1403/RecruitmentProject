@@ -1,6 +1,7 @@
 const Employer = require('../models/employerModel');
 const SystemManager = require('../models/system-managerModel');
 const SystemAdmin = require('../models/system-adminModel');
+const Application = require('./../models/application');
 const AppError = require('../utils/appError');
 
 exports.isEmployerUsernameUnique = async (req, res, next) => {
@@ -116,6 +117,16 @@ exports.checkUpdateSytemAdmin = async (req, res, next) => {
         )
       );
     }
+  }
+  next();
+};
+exports.checkApplicationUnique = async (req, res, next) => {
+  const application = await Application.findOne({
+    job: req.params.idJob,
+    jobSeeker: req.user.id,
+  });
+  if (application) {
+    return next(new AppError('Bạn đã nộp đơn cho công việc này rồi', 400));
   }
   next();
 };

@@ -1,5 +1,4 @@
 const cloudinary = require('cloudinary').v2;
-const Datauri = require('datauri');
 const configuration = require('./../configuration/cloudinaryConfiguration');
 
 const catchAsync = require('./../utils/catchAsync');
