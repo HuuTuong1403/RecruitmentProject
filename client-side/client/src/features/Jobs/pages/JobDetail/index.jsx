@@ -3,32 +3,39 @@ import {
   removeFavoriteJob,
 } from "features/JobSeekers/api/jobSeeker.api";
 import {
+  selectFavoriteJobs,
+  selectApplicationJobs,
+} from "features/JobSeekers/slices/selectors";
+import {
   addJobToFavorite,
   removeJobOfFavorire,
 } from "features/JobSeekers/slices";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FaBuilding } from "react-icons/fa";
-import { fetchAllFavoriteJobAsync } from "features/JobSeekers/slices/thunks";
+import {
+  fetchAllFavoriteJobAsync,
+  fetchAllJobApplicationAsync,
+} from "features/JobSeekers/slices/thunks";
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
-import { Fragment, useEffect, useCallback } from "react";
+import { Fragment, useEffect, useCallback, useState } from "react";
 import { IoMdCalendar } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import { ScrollTop } from "common/functions";
-import { selectFavoriteJobs } from "features/JobSeekers/slices/selectors";
+import {
+  selectedJobDetail,
+  selectedStatus,
+} from "features/Jobs/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
-import {
-  selectedJobDetail,
-  selectedStatus,
-} from "features/Jobs/slices/selectors";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
+import ModalApplyJob from "features/Jobs/components/ModalApplyJob";
 import moment from "moment";
 import notification from "components/Notification";
 import parse from "html-react-parser";
@@ -41,6 +48,8 @@ const JobDetail = () => {
   const user = selectJobSeekerLocal();
   const history = useHistory();
   const favoriteJobs = useSelector(selectFavoriteJobs);
+  const applicationJobs = useSelector(selectApplicationJobs);
+  const [showModal, setShhowModal] = useState(false);
 
   const getDetail = useCallback(async () => {
     const result = await dispatch(fetchJobDetailAsync(slug));
@@ -56,6 +65,7 @@ const JobDetail = () => {
   useEffect(() => {
     if (localStorage.getItem("token")) {
       dispatch(fetchAllFavoriteJobAsync());
+      dispatch(fetchAllJobApplicationAsync());
     }
   }, [dispatch]);
 
@@ -82,18 +92,31 @@ const JobDetail = () => {
 
   useTitle(jobTitle ?? "");
 
-  const applyNowHandler = () => {
+  const onCloseModal = () => {
+    setShhowModal(false);
+  };
+
+  const applyJobHandler = () => {
     if (user) {
-      console.log("Đã ứng tuyển");
+      setShhowModal(true);
     } else {
-      notification(`${t("Please sign in to perform this function")}`, "error");
+      notification(
+        `${t(
+          "Please login to the job seeker account to perform this function"
+        )}`,
+        "error"
+      );
       history.push("/home/sign-in");
     }
   };
 
+  const haveAppliedHandler = () => {
+    notification(`${t("You have applied for this job")}`, "error");
+  };
+
   const removeSaveJobHandler = async () => {
     const result = await removeFavoriteJob(_id);
-    if (result.status === "sucess") {
+    if (result.status === "success") {
       dispatch(removeJobOfFavorire(_id));
       notification(`${t("Successfully unsaved job posting")}`, "success");
     } else {
@@ -107,7 +130,7 @@ const JobDetail = () => {
   const saveJobHandler = async () => {
     if (user) {
       const result = await addFavoriteJob(_id);
-      if (result.status === "sucess") {
+      if (result.status === "success") {
         dispatch(addJobToFavorite(jobDetail));
         notification(`${t("Save job posting successfully")}`, "success");
       } else {
@@ -133,6 +156,13 @@ const JobDetail = () => {
         <LoadingSuspense height="40vh" showText={false} />
       ) : (
         <div className={classes.jobDetail}>
+          {user && (
+            <ModalApplyJob
+              showModal={showModal}
+              onCloseModal={onCloseModal}
+              job={jobDetail}
+            />
+          )}
           <div className={classes.jobDetail__top}>
             <div className={classes["jobDetail__top--wrapped"]}>
               {company?.logo && (
@@ -169,7 +199,7 @@ const JobDetail = () => {
                   {location && (
                     <div>
                       <MdLocationOn style={{ marginRight: "8px" }} />
-                      {`${location?.district}, ${location?.city}`}
+                      {`${location?.street}, ${location?.ward}, ${location?.district}, ${location?.city}`}
                     </div>
                   )}
                   {finishDate && (
@@ -208,14 +238,25 @@ const JobDetail = () => {
                     </ButtonField>
                   )}
 
-                  <ButtonField
-                    backgroundcolor="#0a426e"
-                    backgroundcolorhover="#324554"
-                    uppercase
-                    onClick={applyNowHandler}
-                  >
-                    {t("Apply now")}
-                  </ButtonField>
+                  {applicationJobs?.some((item) => item?.job?._id === _id) ? (
+                    <ButtonField
+                      backgroundcolor="#0a426e"
+                      backgroundcolorhover="#324554"
+                      uppercase
+                      onClick={haveAppliedHandler}
+                    >
+                      {t("Have applied")}
+                    </ButtonField>
+                  ) : (
+                    <ButtonField
+                      backgroundcolor="#0a426e"
+                      backgroundcolorhover="#324554"
+                      uppercase
+                      onClick={applyJobHandler}
+                    >
+                      {t("Apply now")}
+                    </ButtonField>
+                  )}
                 </div>
               </div>
             </div>
@@ -389,14 +430,27 @@ const JobDetail = () => {
                       </div>
                     )}
                     <div>
-                      <ButtonField
-                        backgroundcolor="#0a426e"
-                        backgroundcolorhover="#324554"
-                        uppercase
-                        onClick={applyNowHandler}
-                      >
-                        {t("Apply now")}
-                      </ButtonField>
+                      {applicationJobs?.some(
+                        (item) => item?.job?._id === _id
+                      ) ? (
+                        <ButtonField
+                          backgroundcolor="#0a426e"
+                          backgroundcolorhover="#324554"
+                          uppercase
+                          onClick={haveAppliedHandler}
+                        >
+                          {t("Have applied")}
+                        </ButtonField>
+                      ) : (
+                        <ButtonField
+                          backgroundcolor="#0a426e"
+                          backgroundcolorhover="#324554"
+                          uppercase
+                          onClick={applyJobHandler}
+                        >
+                          {t("Apply now")}
+                        </ButtonField>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -53,3 +53,24 @@ export const fetchAllFavoriteJob = async () => {
     console.log(error);
   }
 };
+
+export const applyJob = async ({ idJob, data }) => {
+  try {
+    const res = await axiosClient.post(
+      `job-seeker/jobs/${idJob}/applications`,
+      data
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchAllJobApplication = async () => {
+  try {
+    const res = await axiosClient.get("job-seeker/applications");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

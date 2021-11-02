@@ -2,12 +2,11 @@ import {
   selectJobsDetailEmployer,
   selectStatusJobDetail,
 } from "features/Employers/slices/selectors";
-import { Collapse, Switch } from "antd";
+import { Collapse, Switch, Modal } from "antd";
 import {
   fetchDistrictsByProvinceAsync,
   fetchWardsByDistrictsAsync,
 } from "features/Home/slices/thunks";
-import { Modal } from "antd";
 import { schemaPostJobEmployer } from "common/constants/schema";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -29,18 +28,16 @@ import SelectLocationField from "custom-fields/SelectLocationField";
 import SelectProfileField from "../SelectProfileField";
 import Select from "react-select";
 
-const ModalUpdateJob = (props) => {
-  const {
-    showModal,
-    onCloseModal,
-    selectSkill,
-    changeSkillHandler,
-    skillList,
-    provinces,
-    districts,
-    wards,
-  } = props;
-
+const ModalUpdateJob = ({
+  showModal,
+  onCloseModal,
+  selectSkill,
+  changeSkillHandler,
+  skillList,
+  provinces,
+  districts,
+  wards,
+}) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const jobDetail = useSelector(selectJobsDetailEmployer);
@@ -224,7 +221,7 @@ const ModalUpdateJob = (props) => {
                           <div>
                             <LabelField
                               label={t("Province")}
-                              isCompulsory={true}
+                              isCompulsory
                             />
                             <SelectLocationField
                               name="city"
@@ -241,7 +238,7 @@ const ModalUpdateJob = (props) => {
                           <div>
                             <LabelField
                               label={t("District")}
-                              isCompulsory={true}
+                              isCompulsory
                             />
                             <SelectLocationField
                               name="district"
@@ -256,7 +253,7 @@ const ModalUpdateJob = (props) => {
 
                           {/* Ward */}
                           <div>
-                            <LabelField label={t("Ward")} isCompulsory={true} />
+                            <LabelField label={t("Ward")} isCompulsory />
                             <SelectLocationField
                               name="ward"
                               control={control}
@@ -275,7 +272,7 @@ const ModalUpdateJob = (props) => {
                       <div className={classes.bottom__job_info}>
                         {/* Job Level */}
                         <div>
-                          <LabelField label={t("Level")} isCompulsory={true} />
+                          <LabelField label={t("Level")} isCompulsory />
                           <div>
                             <SelectProfileField
                               name="level"
@@ -292,7 +289,7 @@ const ModalUpdateJob = (props) => {
                         <div>
                           <LabelField
                             label={t("Position")}
-                            isCompulsory={true}
+                            isCompulsory
                           />
                           <div>
                             <SelectProfileField
@@ -312,7 +309,7 @@ const ModalUpdateJob = (props) => {
                             <div>
                               <LabelField
                                 label={t("Working time start")}
-                                isCompulsory={true}
+                                isCompulsory
                               />
                               <div>
                                 <SelectProfileField
@@ -330,7 +327,7 @@ const ModalUpdateJob = (props) => {
                             <div>
                               <LabelField
                                 label={t("Working time finish")}
-                                isCompulsory={true}
+                                isCompulsory
                               />
                               <div>
                                 <SelectProfileField
@@ -350,7 +347,7 @@ const ModalUpdateJob = (props) => {
                         <div>
                           <LabelField
                             label={t("Deadline to apply")}
-                            isCompulsory={true}
+                            isCompulsory
                           />
                           <div>
                             <DatePickerFieldRHF
@@ -377,7 +374,7 @@ const ModalUpdateJob = (props) => {
                       key="3"
                     >
                       <div>
-                        <LabelField label={t("Salary")} isCompulsory={true} />
+                        <LabelField label={t("Salary")} isCompulsory />
                         <Switch
                           style={{ marginBottom: "5px" }}
                           checkedChildren={t("Hide salary")}
@@ -440,7 +437,7 @@ const ModalUpdateJob = (props) => {
                       </div>
 
                       <div>
-                        <LabelField label={t("Skill")} isCompulsory={false} />
+                        <LabelField label={t("Skill")} />
                         <Select
                           isMulti
                           placeholder={t("choose skills")}
@@ -457,7 +454,7 @@ const ModalUpdateJob = (props) => {
                       <div className={classes.bottom}>
                         <LabelField
                           label={t("Job description")}
-                          isCompulsory={true}
+                          isCompulsory
                         />
                         <CKEditorField
                           name="description"
@@ -471,7 +468,7 @@ const ModalUpdateJob = (props) => {
                       <div className={classes.bottom}>
                         <LabelField
                           label={t("Job requirements")}
-                          isCompulsory={true}
+                          isCompulsory
                         />
                         <CKEditorField
                           name="requirements"
@@ -485,7 +482,6 @@ const ModalUpdateJob = (props) => {
                       <div className={classes.bottom}>
                         <LabelField
                           label={t("Benefits of joining the job")}
-                          isCompulsory={false}
                         />
                         <CKEditorField
                           name="benefits"
@@ -500,7 +496,6 @@ const ModalUpdateJob = (props) => {
                       <div className={classes.bottom}>
                         <LabelField
                           label={t("Reasons to join this job")}
-                          isCompulsory={false}
                         />
                         <CKEditorField
                           name="reason"
@@ -515,7 +510,6 @@ const ModalUpdateJob = (props) => {
                       <div className={classes.bottom}>
                         <LabelField
                           label={t("Responsibilities when doing this job")}
-                          isCompulsory={false}
                         />
                         <CKEditorField
                           name="responsibilities"

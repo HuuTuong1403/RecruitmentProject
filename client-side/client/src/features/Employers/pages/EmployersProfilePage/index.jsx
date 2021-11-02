@@ -397,7 +397,7 @@ const EmployerProfilePage = () => {
                   <div className={classes["bottom__wrapped--description"]}>
                     <LabelField
                       label={t("Company description")}
-                      isCompulsory={true}
+                      isCompulsory
                     />
                     <Tooltip
                       title={
@@ -429,7 +429,7 @@ const EmployerProfilePage = () => {
                     <div>
                       <LabelField
                         label={t("Company size")}
-                        isCompulsory={true}
+                        isCompulsory
                       />
                       <SelectProfileField
                         name="scale"
@@ -447,7 +447,7 @@ const EmployerProfilePage = () => {
                     <div>
                       <LabelField
                         label={t("Company type")}
-                        isCompulsory={true}
+                        isCompulsory
                       />
                       <SelectProfileField
                         name="companyType"
@@ -469,7 +469,7 @@ const EmployerProfilePage = () => {
                   <div className={classes["bottom__wrapped--scale-type"]}>
                     {/* Province */}
                     <div>
-                      <LabelField label={t("Province")} isCompulsory={true} />
+                      <LabelField label={t("Province")} isCompulsory />
                       <SelectLocationField
                         name="city"
                         control={control}
@@ -483,7 +483,7 @@ const EmployerProfilePage = () => {
 
                     {/* District */}
                     <div>
-                      <LabelField label={t("District")} isCompulsory={true} />
+                      <LabelField label={t("District")} isCompulsory />
                       <SelectLocationField
                         name="district"
                         control={control}
@@ -497,7 +497,7 @@ const EmployerProfilePage = () => {
 
                     {/* Ward */}
                     <div>
-                      <LabelField label={t("Ward")} isCompulsory={true} />
+                      <LabelField label={t("Ward")} isCompulsory />
                       <SelectLocationField
                         name="ward"
                         control={control}

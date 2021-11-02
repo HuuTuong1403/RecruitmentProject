@@ -3,6 +3,7 @@ import {
   fetchAllFavoriteJobAsync,
   fetchJobsAsync,
   getDetailJobSeekerAsync,
+  fetchAllJobApplicationAsync,
 } from "./thunks";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   updateProfileData: null,
   jobs: null,
   favoriteJobs: [],
+  applicationJobs: [],
 };
 
 export const jobSeekerSlice = createSlice({
@@ -19,6 +21,7 @@ export const jobSeekerSlice = createSlice({
   reducers: {
     resetFavoriteJob: (state) => {
       state.favoriteJobs = [];
+      state.applicationJobs = [];
     },
     addJobToFavorite: (state, action) => {
       state.favoriteJobs.push(action.payload);
@@ -63,7 +66,18 @@ export const jobSeekerSlice = createSlice({
     },
     [fetchAllFavoriteJobAsync.rejected]: (state) => {
       state.status = false;
-      state.favoriteJobs = null;
+      state.favoriteJobs = [];
+    },
+    [fetchAllJobApplicationAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchAllJobApplicationAsync.fulfilled]: (state, action) => {
+      state.applicationJobs = action.payload;
+      state.status = false;
+    },
+    [fetchAllJobApplicationAsync.rejected]: (state) => {
+      state.status = false;
+      state.applicationJobs = [];
     },
   },
 });
