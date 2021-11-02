@@ -4,20 +4,18 @@ import { useDispatch } from "react-redux";
 import ErrorText from "components/ErrorText";
 import Select from "react-select";
 
-const SelectField = (props) => {
+const SelectField = ({
+  control,
+  defaultValue,
+  errors,
+  fetchData,
+  handleAddData,
+  isLocation,
+  list,
+  name,
+  placeholder,
+}) => {
   const dispatch = useDispatch();
-
-  const {
-    control,
-    defaultValue,
-    errors,
-    fetchData,
-    handleAddData,
-    isLocation,
-    list,
-    name,
-    placeholder,
-  } = props;
 
   useEffect(() => {
     if (list.length > 1) {

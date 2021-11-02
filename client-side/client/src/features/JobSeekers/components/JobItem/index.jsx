@@ -14,12 +14,12 @@ import classes from "./style.module.scss";
 import moment from "moment";
 import notification from "components/Notification";
 
-const JobItem = (props) => {
+const JobItem = ({ data, isApplied }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [showPopover, setShowPopover] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { isApplied } = props;
+
   const {
     _id,
     company,
@@ -30,7 +30,7 @@ const JobItem = (props) => {
     finishDate,
     slug,
     isNew,
-  } = props.data;
+  } = data;
 
   const removeSaveJobHandler = async () => {
     setLoading(true);
@@ -54,9 +54,6 @@ const JobItem = (props) => {
         <ButtonField
           backgroundcolor="#dd4b39"
           backgroundcolorhover="#ff7875"
-          color="#fff"
-          width="100%"
-          radius="20px"
           padding="2px"
           onClick={() => setShowPopover((prevState) => !prevState)}
         >
@@ -65,9 +62,6 @@ const JobItem = (props) => {
         <ButtonField
           backgroundcolor="#067951"
           backgroundcolorhover="#2baa7e"
-          color="#fff"
-          width="100%"
-          radius="20px"
           padding="2px"
           loading={loading}
           onClick={removeSaveJobHandler}
@@ -171,12 +165,9 @@ const JobItem = (props) => {
                 }
               >
                 <ButtonField
-                  type="button"
                   backgroundcolor="#dd4b39"
                   backgroundcolorhover="#bf0000"
-                  color="#fff"
-                  radius="20px"
-                  uppercase="true"
+                  uppercase
                   padding="5px"
                 >
                   <MdDeleteForever style={{ marginRight: "5px" }} />

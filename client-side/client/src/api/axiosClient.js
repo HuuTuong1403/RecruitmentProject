@@ -2,7 +2,6 @@ import axios from "axios";
 import queryString from "query-string";
 
 const axiosClient = axios.create({
-  // baseURL: process.env.SERVER_API_URL,
   timeout: 20000,
   baseURL: "https://mst-recruitment.herokuapp.com/api/v1/",
   headers: {

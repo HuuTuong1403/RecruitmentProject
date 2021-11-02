@@ -4,9 +4,14 @@ import { Fragment } from "react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ErrorText from "components/ErrorText";
 
-const CKEditorField = (props) => {
-  const { name, control, defaultValue, handleAddData, errors, setText } = props;
-
+const CKEditorField = ({
+  name,
+  control,
+  defaultValue,
+  handleAddData,
+  errors,
+  setText,
+}) => {
   const config = {
     toolbar: [
       "undo",

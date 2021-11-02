@@ -1,9 +1,8 @@
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 
-const LabelField = (props) => {
+const LabelField = ({ label, isCompulsory }) => {
   const { t } = useTranslation();
-  const { label, isCompulsory } = props;
 
   return (
     <label className={classes.labelTitle}>

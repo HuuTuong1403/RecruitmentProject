@@ -104,11 +104,7 @@ const SignUpGuest = () => {
                   type="submit"
                   backgroundcolor="#0a426e"
                   backgroundcolorhover="#324554"
-                  color="#fff"
-                  width="100%"
-                  radius="20px"
-                  uppercase="true"
-                  padding="8px"
+                  uppercase
                   loading={loading}
                 >
                   {t("signup")}

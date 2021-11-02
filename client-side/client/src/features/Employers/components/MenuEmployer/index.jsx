@@ -16,7 +16,7 @@ import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
 import notification from "components/Notification";
 
-const MenuEmployer = (props) => {
+const MenuEmployer = ({ children }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -187,9 +187,7 @@ const MenuEmployer = (props) => {
           <LoadingSuspense height="100%" showText={false} />
         </div>
       ) : (
-        <div className={classes.sliderEmployer__blockRight}>
-          {props.children}
-        </div>
+        <div className={classes.sliderEmployer__blockRight}>{children}</div>
       )}
     </div>
   );

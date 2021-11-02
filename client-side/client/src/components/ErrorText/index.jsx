@@ -2,9 +2,8 @@ import { useTranslation } from "react-i18next";
 import { Fragment } from "react";
 import classes from "./style.module.scss";
 
-const ErrorText = (props) => {
+const ErrorText = ({ errors }) => {
   const { t } = useTranslation();
-  const { errors } = props;
 
   return (
     <Fragment>

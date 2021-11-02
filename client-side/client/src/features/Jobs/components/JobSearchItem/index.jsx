@@ -25,7 +25,7 @@ import classes from "./style.module.scss";
 import moment from "moment";
 import notification from "components/Notification";
 
-const JobSearchItem = (props) => {
+const JobSearchItem = ({ job }) => {
   const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const JobSearchItem = (props) => {
     finishDate,
     slug,
     isNew,
-  } = props.job;
+  } = job;
 
   const handleClickSkill = () => {
     if (isOpen) {
@@ -70,7 +70,7 @@ const JobSearchItem = (props) => {
     if (user) {
       const result = await addFavoriteJob(_id);
       if (result.status === "sucess") {
-        dispatch(addJobToFavorite(props.job));
+        dispatch(addJobToFavorite(job));
         notification(`${t("Save job posting successfully")}`, "success");
       } else {
         notification(

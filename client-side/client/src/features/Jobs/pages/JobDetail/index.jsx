@@ -189,10 +189,7 @@ const JobDetail = () => {
                       backgroundcolor="rgba(0,0,0,.08)"
                       backgroundcolorhover="#324554a2"
                       color="red"
-                      type="button"
-                      radius="20px"
-                      uppercase="true"
-                      padding="8px"
+                      uppercase
                       onClick={removeSaveJobHandler}
                     >
                       <AiFillHeart style={{ marginRight: "8px" }} />
@@ -203,10 +200,7 @@ const JobDetail = () => {
                       backgroundcolor="rgba(0,0,0,.08)"
                       backgroundcolorhover="#324554a2"
                       color="#999"
-                      type="button"
-                      radius="20px"
-                      uppercase="true"
-                      padding="8px"
+                      uppercase
                       onClick={saveJobHandler}
                     >
                       <AiOutlineHeart style={{ marginRight: "8px" }} />
@@ -217,11 +211,7 @@ const JobDetail = () => {
                   <ButtonField
                     backgroundcolor="#0a426e"
                     backgroundcolorhover="#324554"
-                    color="#fff"
-                    type="button"
-                    radius="20px"
-                    uppercase="true"
-                    padding="8px"
+                    uppercase
                     onClick={applyNowHandler}
                   >
                     {t("Apply now")}
@@ -402,12 +392,7 @@ const JobDetail = () => {
                       <ButtonField
                         backgroundcolor="#0a426e"
                         backgroundcolorhover="#324554"
-                        color="#fff"
-                        type="button"
-                        width="100%"
-                        radius="20px"
-                        uppercase="true"
-                        padding="8px"
+                        uppercase
                         onClick={applyNowHandler}
                       >
                         {t("Apply now")}

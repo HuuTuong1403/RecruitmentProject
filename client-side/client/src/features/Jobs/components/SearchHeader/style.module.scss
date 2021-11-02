@@ -96,12 +96,12 @@
       &--actions {
         margin-top: $pm-10;
         display: flex;
+        flex-wrap: wrap;
         justify-content: flex-end;
-        width: 100%;
 
         & > button {
           margin-right: $pm-10;
-          width: 10%;
+          flex: 0 0 10%;
           padding: 5px;
           font-size: $text-sm;
         }
@@ -130,7 +130,7 @@
         &--actions {
           margin-top: $pm-6;
           & > button {
-            width: 30%;
+            flex: 0 0 30%;
             font-size: $text-base;
           }
         }
@@ -171,10 +171,6 @@
 
         &--actions {
           margin-top: $pm-6;
-          & > button {
-            width: 30%;
-            font-size: $text-base;
-          }
         }
       }
     }
@@ -224,7 +220,9 @@
         }
         &--actions {
           margin-top: $pm-6;
+          justify-content: space-between;
           & > button {
+            flex: 0 0 45%;
             font-size: $text-sm;
           }
         }

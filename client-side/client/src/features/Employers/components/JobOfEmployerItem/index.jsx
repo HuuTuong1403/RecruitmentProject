@@ -24,8 +24,7 @@ import ModalUpdateJob from "../ModalUpdateJob";
 import moment from "moment";
 import notification from "components/Notification";
 
-const JobOfEmployerItem = (props) => {
-  const { isTrash } = props;
+const JobOfEmployerItem = ({ data, isTrash }) => {
   const {
     _id,
     jobTitle,
@@ -38,7 +37,7 @@ const JobOfEmployerItem = (props) => {
     createdAt,
     aboutCreated,
     skills,
-  } = props.data;
+  } = data;
 
   const { t } = useTranslation();
   const [showModal, setShhowModal] = useState(false);
@@ -136,23 +135,17 @@ const JobOfEmployerItem = (props) => {
         <ButtonField
           backgroundcolor={isTrash ? "#dd4b39" : "#067951"}
           backgroundcolorhover={isTrash ? "#ff7875" : "#2baa7e"}
-          color="#fff"
-          width="100%"
-          radius="20px"
-          padding="2px"
           onClick={() => setShowPopover((prevState) => !prevState)}
+          padding="2px"
         >
           {t("Close")}
         </ButtonField>
         <ButtonField
           backgroundcolor={isTrash ? "#067951" : "#dd4b39"}
           backgroundcolorhover={isTrash ? "#2baa7e" : "#ff7875"}
-          color="#fff"
-          width="100%"
-          radius="20px"
-          padding="2px"
           loading={loading}
           onClick={isTrash ? handleRestoreJob : handleDeleteRecruit}
+          padding="2px"
         >
           {isTrash ? t("Restore") : t("Delete")}
         </ButtonField>
@@ -226,9 +219,6 @@ const JobOfEmployerItem = (props) => {
               <ButtonField
                 backgroundcolor="#dd4b39"
                 backgroundcolorhover="#ff7875"
-                color="#fff"
-                width="100%"
-                radius="20px"
                 padding="2px"
               >
                 <BiTrash className={classes.item__icon} />
@@ -246,9 +236,6 @@ const JobOfEmployerItem = (props) => {
                 <ButtonField
                   backgroundcolor="#067951"
                   backgroundcolorhover="#2baa7e"
-                  color="#fff"
-                  width="100%"
-                  radius="20px"
                   padding="2px"
                 >
                   <MdRestorePage className={classes.item__icon} />
@@ -261,11 +248,8 @@ const JobOfEmployerItem = (props) => {
               <ButtonField
                 backgroundcolor="#0a426e"
                 backgroundcolorhover="#0a436ead"
-                color="#fff"
-                width="100%"
-                radius="20px"
-                padding="2px"
                 onClick={handleShowDetail}
+                padding="2px"
               >
                 <IoMdEye className={classes.item__icon} />
                 {t("Details")}
@@ -273,11 +257,8 @@ const JobOfEmployerItem = (props) => {
               <ButtonField
                 backgroundcolor="#067951"
                 backgroundcolorhover="#2baa7e"
-                color="#fff"
-                width="100%"
-                radius="20px"
-                padding="2px"
                 onClick={onOpenModal}
+                padding="2px"
               >
                 <MdEdit className={classes.item__icon} />
                 {t("Edit")}
@@ -294,9 +275,6 @@ const JobOfEmployerItem = (props) => {
                 <ButtonField
                   backgroundcolor="#dd4b39"
                   backgroundcolorhover="#ff7875"
-                  color="#fff"
-                  width="100%"
-                  radius="20px"
                   padding="2px"
                 >
                   <BiTrash className={classes.item__icon} />

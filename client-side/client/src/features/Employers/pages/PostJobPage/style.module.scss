@@ -17,7 +17,7 @@
       justify-content: space-between;
 
       & > button {
-        width: 48%;
+        flex: 0 0 48%;
       }
     }
   }
@@ -106,7 +106,7 @@
         flex-wrap: wrap;
 
         & > button {
-          width: 100%;
+          flex: 0 0 100%;
         }
       }
     }

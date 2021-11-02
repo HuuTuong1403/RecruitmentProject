@@ -133,11 +133,7 @@ const SignInGuest = () => {
               type="submit"
               backgroundcolor="#0a426e"
               backgroundcolorhover="#324554"
-              color="#fff"
-              width="100%"
-              radius="20px"
-              uppercase="true"
-              padding="8px"
+              uppercase
               loading={loading}
             >
               {t("signin")}
@@ -152,11 +148,7 @@ const SignInGuest = () => {
               <ButtonField
                 backgroundcolor="#dd4b39"
                 backgroundcolorhover="#bf0000"
-                color="#fff"
-                width="100%"
-                radius="20px"
-                uppercase="true"
-                padding="8px"
+                uppercase
               >
                 <FaGoogle style={{ marginRight: "5px" }} />
                 <span> {t("signin-google")}</span>

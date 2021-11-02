@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import classes from "./style.module.scss";
 
-const JobItem = (props) => {
-  const { jobTitle, salary, location, company, slug } = props.job;
+const JobItem = ({ job }) => {
+  const { jobTitle, salary, location, company, slug } = job;
 
   return (
     <div className={classes.jobitem}>

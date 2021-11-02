@@ -534,10 +534,7 @@ const ModalUpdateJob = (props) => {
                   <div>
                     <ButtonField
                       backgroundcolor="#ff4d4f"
-                      color="#fff"
                       backgroundcolorhover="#ff7875"
-                      radius="5px"
-                      width="100%"
                       onClick={handleCancelEdit}
                     >
                       {t("Cancel")}
@@ -548,9 +545,6 @@ const ModalUpdateJob = (props) => {
                       type="submit"
                       backgroundcolor="#0a426e"
                       backgroundcolorhover="#0a436ead"
-                      color="#fff"
-                      radius="5px"
-                      width="100%"
                       loading={loading}
                     >
                       {t("Update")}

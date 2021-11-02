@@ -9,6 +9,7 @@ import RegisterAnimation from "assets/lottie/register.json";
 const AuthComponent = (props) => {
   const { url } = useRouteMatch();
   const { t } = useTranslation();
+  
   return (
     <section className={classes.auth}>
       <div className={classes.auth__container}>

@@ -6,8 +6,7 @@ import AvatarUpload from "components/AvatarUpload";
 import classes from "./style.module.scss";
 import moment from "moment";
 
-const ProfileJobSeeker = (props) => {
-  const { jobSeeker, changeAvatar } = props;
+const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
   return (
     <div className={classes.left}>
       <div>
