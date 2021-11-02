@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getDetailEmployerAsync,
-  fetchJobsOfEmployerAsync,
-  fetchJobDetailOfEmployerAsync,
   fetchJobDeletedAsync,
+  fetchJobDetailOfEmployerAsync,
+  fetchJobsOfEmployerAsync,
+  getDetailEmployerAsync,
 } from "features/Employers/slices/thunks";
 
 const initialState = {
   employerDetail: null,
   postJobData: null,
-  jobsOfEmployer: null,
+  jobsOfEmployer: [],
   jobDetailEmployer: null,
   jobSlug: null,
   avatar: null,
-  jobTrash: null,
+  jobTrash: [],
   status: false,
   statusJobDetail: false,
 };
@@ -48,7 +48,7 @@ const employerSlice = createSlice({
     },
     [getDetailEmployerAsync.fulfilled]: (state, action) => {
       state.status = false;
-      state.employerDetail = action?.payload;
+      state.employerDetail = action.payload;
     },
     [getDetailEmployerAsync.rejected]: (state) => {
       state.status = false;
@@ -59,18 +59,18 @@ const employerSlice = createSlice({
     },
     [fetchJobsOfEmployerAsync.fulfilled]: (state, action) => {
       state.status = false;
-      state.jobsOfEmployer = action?.payload;
+      state.jobsOfEmployer = action.payload;
     },
     [fetchJobsOfEmployerAsync.rejected]: (state) => {
       state.status = false;
-      state.jobsOfEmployer = null;
+      state.jobsOfEmployer = [];
     },
     [fetchJobDetailOfEmployerAsync.pending]: (state) => {
       state.statusJobDetail = true;
     },
     [fetchJobDetailOfEmployerAsync.fulfilled]: (state, action) => {
       state.statusJobDetail = false;
-      state.jobDetailEmployer = action?.payload;
+      state.jobDetailEmployer = action.payload;
     },
     [fetchJobDetailOfEmployerAsync.rejected]: (state) => {
       state.statusJobDetail = false;
@@ -85,7 +85,7 @@ const employerSlice = createSlice({
     },
     [fetchJobDeletedAsync.rejected]: (state) => {
       state.status = false;
-      state.jobTrash = null;
+      state.jobTrash = [];
     },
   },
 });

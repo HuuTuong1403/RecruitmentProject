@@ -3,6 +3,18 @@
 .jobItem {
   margin-bottom: $pm-20;
 
+  &__popover_actions {
+    margin-top: $pm-4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > button {
+      flex: 0 0 49%;
+    }
+  }
+
   &__figure {
     display: flex;
     overflow: hidden;
@@ -51,10 +63,10 @@
         & > a {
           color: $primary-text;
           font-weight: 700;
-          font-size: $text-xl;
+          font-size: $text-xl !important;
           overflow: hidden;
           text-overflow: ellipsis;
-          white-space: pre-wrap;
+          white-space: nowrap;
 
           &:hover {
             color: $third-text;
@@ -72,9 +84,10 @@
           flex: 0 0 75%;
           color: $primary-text;
           font-weight: 700;
-          font-size: $text-xl;
+          font-size: $text-xl !important;
           overflow: hidden;
           text-overflow: ellipsis;
+          white-space: nowrap;
 
           &:hover {
             color: $third-text;
@@ -87,7 +100,7 @@
 
         & > a {
           color: $primary-text;
-          font-size: $text-lg;
+          font-size: $text-lg !important;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
@@ -136,6 +149,7 @@
 
       &--action {
         text-align: end;
+        margin-bottom: $pm-14;
 
         & > button {
           width: 30% !important;
@@ -165,16 +179,13 @@
 
         &--jobTitle {
           & > a {
-            font-size: $text-base;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-size: $text-base !important;
           }
         }
 
         &--jobTitleApplied {
           & > a {
-            font-size: $text-base;
+            font-size: $text-base !important;
           }
         }
 
@@ -182,7 +193,7 @@
           margin: $pm-4 0;
 
           & > a {
-            font-size: $text-sm;
+            font-size: $text-sm !important;
           }
         }
 
@@ -220,11 +231,19 @@
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 500px) {
   .jobItem {
     margin-bottom: $pm-20;
 
     &__figure {
+      &--new {
+        top: 0;
+        bottom: auto;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 10px;
+        font-size: $text-xs;
+      }
+
       &--image {
         display: none;
       }
@@ -234,25 +253,28 @@
         font-size: $text-xs;
 
         &--jobTitle {
+          margin-top: $pm-4;
           & > a {
-            font-size: $text-sm;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            flex: 0 0 100%;
+            font-size: $text-sm !important;
           }
         }
 
         &--jobTitleApplied {
           & > a {
-            font-size: $text-sm;
+            font-size: $text-sm !important;
           }
         }
 
+        &--salary {
+          margin: 0 0;
+        }
+
         &--companyName {
-          margin: $pm-4 0;
+          margin: 0;
 
           & > a {
-            font-size: $text-xs;
+            font-size: $text-xs !important;
           }
         }
 
@@ -262,7 +284,7 @@
 
         &--date {
           display: block;
-
+          margin: 0 0;
           & > div {
             margin-bottom: $pm-4;
           }

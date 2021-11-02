@@ -1,11 +1,11 @@
 import { ScrollTop } from "common/functions";
+import { selectJobTrash } from "features/Employers/slices/selectors";
 import { useSelector } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
-import NotFoundData from "components/NotFoundData";
-import { selectJobTrash } from "features/Employers/slices/selectors";
 import JobOfEmployerItem from "features/Employers/components/JobOfEmployerItem";
+import NotFoundData from "components/NotFoundData";
 
 const JobTrashPage = () => {
   ScrollTop();

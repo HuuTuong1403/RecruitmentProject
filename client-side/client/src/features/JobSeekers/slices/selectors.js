@@ -13,3 +13,7 @@ export const selectJobs = (state) => {
 export const selectJobSeekerLocal = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
+
+export const selectFavoriteJobs = (state) => {
+  return state?.jobSeeker?.favoriteJobs;
+};

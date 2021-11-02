@@ -21,11 +21,11 @@ const CandidateProfileManagementPage = lazy(() =>
   import("./pages/CandidateProfileManagementPage")
 );
 const EmployerProfilePage = lazy(() => import("./pages/EmployersProfilePage"));
+const JobTrashPage = lazy(() => import("./pages/JobTrashPage"));
 const PostJobPage = lazy(() => import("./pages/PostJobPage"));
 const RecruitManagementPage = lazy(() =>
   import("./pages/RecruitManagementPage")
 );
-const JobTrashPage = lazy(() => import("./pages/JobTrashPage"));
 const SettingPage = lazy(() => import("./pages/SettingPage"));
 
 const DashboardEmployersPage = () => {

@@ -2,32 +2,44 @@ import { Button } from "antd";
 import { useState } from "react";
 import classes from "./style.module.scss";
 
-const ButtonField = (props) => {
+const ButtonField = ({
+  backgroundcolor,
+  uppercase = false,
+  color = "#fff",
+  backgroundcolorhover,
+  radius = "20px",
+  padding = "8px",
+  type = "button",
+  disabled,
+  width = "100%",
+  children,
+  ...props
+}) => {
   const [hover, setHover] = useState(false);
 
   const style = {
-    backgroundColor: props.backgroundcolor,
-    color: props.color,
-    width: props.width,
-    borderRadius: props.radius,
-    textTransform: props.uppercase === "true" ? "uppercase" : "",
-    padding: props.padding,
+    backgroundColor: backgroundcolor,
+    color: color,
+    borderRadius: radius,
+    width: width,
+    textTransform: uppercase ? "uppercase" : "",
+    padding: padding,
   };
 
   const styleHover = {
-    backgroundColor: props.backgroundcolorhover,
+    backgroundColor: backgroundcolorhover,
   };
 
   return (
     <Button
       {...props}
-      htmlType={props.type}
+      htmlType={type}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{ ...style, ...(hover ? styleHover : null) }}
-      className={`${classes.button} ${props.disabled ? classes.disabled : ""}`}
+      className={`${classes.button} ${disabled ? classes.disabled : ""}`}
     >
-      {props.children}
+      {children}
     </Button>
   );
 };

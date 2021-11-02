@@ -225,13 +225,9 @@ const SearchHeader = () => {
             <div className={classes["searchHeader__container--button"]}>
               <ButtonField
                 backgroundcolor="#324554"
-                color="#fff"
                 backgroundcolorhover="#333"
-                width="100%"
                 type="submit"
-                radius="20px"
-                uppercase="true"
-                padding="8px"
+                uppercase
               >
                 {t("search")}
               </ButtonField>
@@ -303,23 +299,17 @@ const SearchHeader = () => {
             <div className={classes["searchHeader__collapse--form--actions"]}>
               <ButtonField
                 backgroundcolor="#324554"
-                color="#fff"
                 backgroundcolorhover="#333"
                 type="submit"
-                radius="20px"
-                uppercase="true"
-                padding="8px"
+                uppercase
               >
                 {t("Confirm")}
               </ButtonField>
               <ButtonField
-                color="#fff"
                 backgroundcolor="#dd4b39"
                 backgroundcolorhover="#bf0000"
                 type="button"
-                radius="20px"
-                uppercase="true"
-                padding="8px"
+                uppercase
                 onClick={deleteFilterHandler}
               >
                 {t("Clear filters")}

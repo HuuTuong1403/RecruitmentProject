@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  fetchJobsSearchAsync,
-  fetchJobsAllAsync,
-  fetchJobDetailAsync,
-  fetchSkillsAsync,
   fetchCompanyDetailAsync,
+  fetchJobDetailAsync,
+  fetchJobsAllAsync,
+  fetchJobsSearchAsync,
+  fetchSkillsAsync,
 } from "./thunks";
 
 const initialState = {

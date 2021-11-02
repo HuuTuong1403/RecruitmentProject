@@ -595,10 +595,7 @@ const PostJobPage = () => {
               type="button"
               backgroundcolor="#dd4b39"
               backgroundcolorhover="#bf0000"
-              color="#fff"
-              radius="20px"
-              uppercase="true"
-              padding="8px"
+              uppercase
               onClick={handleResetPostJob}
             >
               {t("Cancel")}
@@ -607,10 +604,7 @@ const PostJobPage = () => {
               type="submit"
               backgroundcolor="#0a426e"
               backgroundcolorhover="#324554"
-              color="#fff"
-              radius="20px"
-              uppercase="true"
-              padding="8px"
+              uppercase
               loading={loading}
             >
               {t("Post job")}

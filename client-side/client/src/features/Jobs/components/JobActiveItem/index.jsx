@@ -7,10 +7,9 @@ import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import moment from "moment";
 
-const JobActiveItem = (props) => {
+const JobActiveItem = ({ jobActive }) => {
   const { t } = useTranslation();
-  const { jobTitle, company, salary, location, slug, finishDate } =
-    props.jobActive;
+  const { jobTitle, company, salary, location, slug, finishDate } = jobActive;
 
   return (
     <div className={classes.jobActive}>

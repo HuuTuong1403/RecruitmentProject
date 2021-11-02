@@ -30,10 +30,10 @@ import SelectLocationField from "custom-fields/SelectLocationField";
 
 const UserProfilePage = () => {
   ScrollTop();
-
-  const detailJobSeeker = useSelector(selectedJobSeekerProfile);
   const { t } = useTranslation();
   useTitle(`${t("Account Management")}`);
+
+  const detailJobSeeker = useSelector(selectedJobSeekerProfile);
   const [loading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const dispatch = useDispatch();
@@ -262,13 +262,9 @@ const UserProfilePage = () => {
               </div>
               <div className={classes["profile__wrapped--blockRight--actions"]}>
                 <ButtonField
-                  type="button"
                   backgroundcolor="#dd4b39"
                   backgroundcolorhover="#bf0000"
-                  color="#fff"
-                  radius="20px"
-                  uppercase="true"
-                  padding="8px"
+                  uppercase
                   onClick={handleCancel}
                 >
                   {t("Cancel")}
@@ -277,10 +273,7 @@ const UserProfilePage = () => {
                   type="submit"
                   backgroundcolor="#0a426e"
                   backgroundcolorhover="#324554"
-                  color="#fff"
-                  radius="20px"
-                  uppercase="true"
-                  padding="8px"
+                  uppercase
                   loading={loading}
                 >
                   {t("Update Information")}

@@ -1,25 +1,25 @@
 export const PATH = {
-  home: "/home",
-  employer: "/employers",
-  jobs: "/jobs",
   business: "/business",
+  employer: "/employers",
+  home: "/home",
+  jobs: "/jobs",
 };
 
 export const pathJobSeeker = {
-  jobseekers: "/jobseekers",
-  myProfile: "/jobseekers/my-profile",
   jobAlert: "/jobseekers/job-alert",
   jobApplied: "/jobseekers/job-applied",
   jobSaved: "/jobseekers/job-saved",
+  jobseekers: "/jobseekers",
+  myProfile: "/jobseekers/my-profile",
   settingAccount: "/jobseekers/setting-account",
 };
 
 export const pathEmployer = {
-  dashboard: "/employers/dashboard",
-  myProfile: "/employers/dashboard/my-profile",
-  recruitManager: "/employers/dashboard/recruit-manage/created",
-  postJob: "/employers/dashboard/post-job",
-  settingAccount: "/employers/dashboard/setting-account",
   candidateProfileManage: "/employers/dashboard/candidate-profiles",
+  dashboard: "/employers/dashboard",
   jobTrash: "/employers/dashboard/recruit-manage/trash",
+  myProfile: "/employers/dashboard/my-profile",
+  postJob: "/employers/dashboard/post-job",
+  recruitManager: "/employers/dashboard/recruit-manage/created",
+  settingAccount: "/employers/dashboard/setting-account",
 };

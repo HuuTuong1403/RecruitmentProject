@@ -30,11 +30,21 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+
+    & > button {
+      flex: 0 0 48%;
+    }
   }
 }
 
 @media screen and (max-width: 500px) {
   .steptwo {
     font-size: $text-lg;
+
+    &__actions {
+      & > button {
+        flex: 0 0 100%;
+      }
+    }
   }
 }

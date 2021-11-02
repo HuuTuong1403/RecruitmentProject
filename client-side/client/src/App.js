@@ -2,7 +2,7 @@ import { ToastContainer } from "react-toastify";
 import { withTranslation } from "react-i18next";
 import Routers from "./routers";
 
-function App() {
+const App = () => {
   return (
     <div>
       <Routers />
@@ -20,6 +20,6 @@ function App() {
       />
     </div>
   );
-}
+};
 
 export default withTranslation()(App);

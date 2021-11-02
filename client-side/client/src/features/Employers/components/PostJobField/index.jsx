@@ -1,9 +1,14 @@
 import { Controller } from "react-hook-form";
 import InputField from "custom-fields/InputField";
 
-const PostJobField = (props) => {
-  const { name, control, defaultValue, handleAddData, errors, placeholder } =
-    props;
+const PostJobField = ({
+  name,
+  control,
+  defaultValue,
+  handleAddData,
+  errors,
+  placeholder,
+}) => {
   return (
     <Controller
       name={name}

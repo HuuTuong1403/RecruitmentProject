@@ -3,10 +3,14 @@ import { Fragment } from "react";
 import ErrorText from "components/ErrorText";
 import Select from "react-select";
 
-const SelectProfileField = (props) => {
-  const { control, defaultValue, optionList, name, placeholder, errors } =
-    props;
-
+const SelectProfileField = ({
+  control,
+  defaultValue,
+  optionList,
+  name,
+  placeholder,
+  errors,
+}) => {
   return (
     <Fragment>
       <Controller

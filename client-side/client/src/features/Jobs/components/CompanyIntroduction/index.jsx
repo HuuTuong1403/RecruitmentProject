@@ -10,11 +10,10 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import notification from "components/Notification";
 
-const CompanyIntroduction = (props) => {
+const CompanyIntroduction = ({ company }) => {
   const { t } = useTranslation();
   const history = useHistory();
   const user = selectJobSeekerLocal();
-  const { company } = props;
   const { logo, companyName, address, companyWebsite, companyType, scale } =
     company;
 
@@ -22,7 +21,12 @@ const CompanyIntroduction = (props) => {
     if (user) {
       console.log("Đã theo dõi");
     } else {
-      notification(`${t("Please sign in to perform this function")}`, "error");
+      notification(
+        `${t(
+          "Please login to the job seeker account to perform this function"
+        )}`,
+        "error"
+      );
       history.push("/home/sign-in");
     }
   };
@@ -99,12 +103,8 @@ const CompanyIntroduction = (props) => {
           <ButtonField
             backgroundcolor="#0a426e"
             backgroundcolorhover="#324554"
-            color="#fff"
-            type="button"
-            width="100%"
             radius="5px"
-            uppercase="true"
-            padding="8px"
+            uppercase
             onClick={handleFollowEmployer}
           >
             {t("Follow")}

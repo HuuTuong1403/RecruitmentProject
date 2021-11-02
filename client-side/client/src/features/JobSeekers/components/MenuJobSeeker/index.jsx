@@ -1,4 +1,3 @@
-import "antd/dist/antd.css";
 import { AiFillDashboard, AiOutlineNotification } from "react-icons/ai";
 import { BsListCheck } from "react-icons/bs";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -7,6 +6,7 @@ import { MdMenu } from "react-icons/md";
 import { MdSettings, MdAccountCircle } from "react-icons/md";
 import { Menu, Layout } from "antd";
 import { pathJobSeeker } from "common/constants/path";
+import { resetFavoriteJob } from "features/JobSeekers/slices";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { selectedStatus } from "features/JobSeekers/slices/selectors";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +16,7 @@ import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
 import notification from "components/Notification";
 
-const MenuJobSeeker = (props) => {
+const MenuJobSeeker = ({ children }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -39,6 +39,7 @@ const MenuJobSeeker = (props) => {
 
   const logoutHandler = () => {
     dispatch(logoutJobSeeker());
+    dispatch(resetFavoriteJob());
     notification(`${t("Log out successful")}`, "success");
   };
 
@@ -182,9 +183,7 @@ const MenuJobSeeker = (props) => {
           <LoadingSuspense height="100%" showText={false} />
         </div>
       ) : (
-        <div className={classes.sliderJobSeeker__blockRight}>
-          {props.children}
-        </div>
+        <div className={classes.sliderJobSeeker__blockRight}>{children}</div>
       )}
     </div>
   );

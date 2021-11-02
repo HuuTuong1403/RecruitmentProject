@@ -116,7 +116,7 @@ const StepThreeSignUp = (props) => {
           <Switch
             checkedChildren={t("Do allow")}
             unCheckedChildren={t("Do not allow")}
-            value={OT}
+            checked={OT}
             defaultChecked={OT}
             onChange={() => setOT((prevState) => !prevState)}
           />
@@ -127,11 +127,7 @@ const StepThreeSignUp = (props) => {
             type="button"
             backgroundcolor="#dd4b39"
             backgroundcolorhover="#bf0000"
-            color="#fff"
-            width="45%"
-            radius="20px"
-            uppercase="true"
-            padding="8px"
+            uppercase
             onClick={onBackStep}
           >
             <IoMdArrowBack style={{ marginRight: "10px" }} />
@@ -141,11 +137,7 @@ const StepThreeSignUp = (props) => {
             type="submit"
             backgroundcolor="#0a426e"
             backgroundcolorhover="#324554"
-            color="#fff"
-            width="45%"
-            radius="20px"
-            uppercase="true"
-            padding="8px"
+            uppercase
             loading={loading}
           >
             {t("signup")}

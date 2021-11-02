@@ -4,19 +4,17 @@ import { Fragment } from "react";
 import ErrorText from "components/ErrorText";
 import moment from "moment";
 
-const DatePickerFieldRHF = (props) => {
-  const {
-    control,
-    dateFormat,
-    disabledDate,
-    errors,
-    handleAddData,
-    name,
-    placeholder,
-    showTime,
-    defaultValue,
-  } = props;
-
+const DatePickerFieldRHF = ({
+  control,
+  dateFormat,
+  disabledDate,
+  errors,
+  handleAddData,
+  name,
+  placeholder,
+  showTime,
+  defaultValue,
+}) => {
   const onOk = (value) => {};
 
   return (

@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  fetchDistrictsByProvinceAsync,
   fetchJobsAsync,
   fetchProvincesAsync,
-  fetchDistrictsByProvinceAsync,
   fetchWardsByDistrictsAsync,
   signInGuestAsync,
 } from "./thunks";
@@ -32,7 +32,7 @@ export const homeSlice = createSlice({
       state.status = true;
     },
     [fetchJobsAsync.fulfilled]: (state, action) => {
-      state.jobs = action?.payload;
+      state.jobs = action.payload;
       state.status = false;
     },
     [fetchJobsAsync.rejected]: (state) => {
@@ -42,7 +42,7 @@ export const homeSlice = createSlice({
       state.provinces = [];
     },
     [fetchProvincesAsync.fulfilled]: (state, action) => {
-      state.provinces = action?.payload;
+      state.provinces = action.payload;
     },
     [fetchProvincesAsync.rejected]: (state) => {
       state.provinces = [];
@@ -51,7 +51,7 @@ export const homeSlice = createSlice({
       state.districts = [];
     },
     [fetchDistrictsByProvinceAsync.fulfilled]: (state, action) => {
-      state.districts = action?.payload;
+      state.districts = action.payload;
     },
     [fetchDistrictsByProvinceAsync.rejected]: (state) => {
       state.districts = [];
@@ -60,7 +60,7 @@ export const homeSlice = createSlice({
       state.wards = [];
     },
     [fetchWardsByDistrictsAsync.fulfilled]: (state, action) => {
-      state.wards = action?.payload;
+      state.wards = action.payload;
     },
     [fetchWardsByDistrictsAsync.rejected]: (state) => {
       state.wards = [];
@@ -69,7 +69,7 @@ export const homeSlice = createSlice({
       state.status = true;
     },
     [signInGuestAsync.fulfilled]: (state, action) => {
-      const { token, data } = action?.payload;
+      const { token, data } = action.payload;
       state.status = false;
       if (token && data) {
         if (data?.JobSeeker?.isEmailVerified) {
