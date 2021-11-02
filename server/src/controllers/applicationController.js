@@ -11,7 +11,7 @@ class applicationController {
     if (req.params.idJob) {
       req.query.job = req.params.idJob;
     }
-    if (req.user.role == 'jobseeker') {
+    if (req.user && req.user.role == 'jobseeker') {
       req.query.jobSeeker = req.user.id;
     }
     next();

@@ -2,6 +2,7 @@ const Employer = require('../models/employerModel');
 const SystemManager = require('../models/system-managerModel');
 const SystemAdmin = require('../models/system-adminModel');
 const Application = require('./../models/application');
+const Review = require('./../models/reviewModel');
 const AppError = require('../utils/appError');
 
 exports.isEmployerUsernameUnique = async (req, res, next) => {
@@ -127,6 +128,18 @@ exports.checkApplicationUnique = async (req, res, next) => {
   });
   if (application) {
     return next(new AppError('Bạn đã nộp đơn cho công việc này rồi', 400));
+  }
+  next();
+};
+exports.checkReviewExists = async (req, res, next) => {
+  const review = await Review.findOne({
+    _id: req.params.id,
+    user: req.user.id,
+  });
+  if (!review) {
+    return next(
+      new AppError(`Review này không phải của ${req.user.fullname}`, 400)
+    );
   }
   next();
 };

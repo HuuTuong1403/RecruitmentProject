@@ -8,7 +8,9 @@ const uploadLogoCompany = require('./../middlewares/uploadLogoEmployer');
 const getMe = require('./../middlewares/getMe');
 
 const jobRoute = require('./jobRoutes');
+const reviewRouter = require('./reviewRouter');
 
+employerRouter.use('/reviews', reviewRouter);
 employerRouter.route('/login').post(authController.loginEmployer);
 employerRouter.use(
   '/jobs',

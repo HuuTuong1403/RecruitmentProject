@@ -105,7 +105,7 @@ class JobSeekerController {
     }
 
     res.status(200).json({
-      status: 'sucess',
+      status: 'success',
       data: {
         data: doc,
       },
@@ -126,7 +126,7 @@ class JobSeekerController {
     }
 
     res.status(200).json({
-      status: 'sucess',
+      status: 'success',
       data: {
         data: doc,
       },

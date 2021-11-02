@@ -5,6 +5,7 @@ const skillRouter = require('./skillRouter');
 const employerRouter = require('./employerRouter');
 const systemManagerRouter = require('./systemManagerRouter');
 const systemAdminRouter = require('./systemAdminRouter');
+const reviewRouter = require('./reviewRouter');
 function route(app) {
   app.use('/api/v1/job-seeker', jobseekerRouter);
   app.use('/api/v1/jobs', jobRouter);
@@ -13,5 +14,6 @@ function route(app) {
   app.use('/api/v1/employer', employerRouter);
   app.use('/api/v1/system-manager', systemManagerRouter);
   app.use('/api/v1/system-admin', systemAdminRouter);
+  app.use('/api/v1/reviews', reviewRouter);
 }
 module.exports = route;

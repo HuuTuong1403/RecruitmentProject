@@ -8,9 +8,12 @@ const uploadAvatar = require('./../middlewares/uploadAvatar');
 const jobseekerRouter = express.Router();
 const jobRouter = require('./jobRoutes');
 const applicationRouter = require('./applicationRouter');
+const reviewRouter = require('./reviewRouter');
 
 jobseekerRouter.use('/jobs', jobRouter);
 jobseekerRouter.use('/applications', applicationRouter);
+jobseekerRouter.use('/reviews', reviewRouter);
+
 jobseekerRouter.route('/signup').post(authController.signUpJobSeeker);
 jobseekerRouter.route('/login').post(authController.loginJobSeeker);
 jobseekerRouter
