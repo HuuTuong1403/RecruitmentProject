@@ -1,7 +1,8 @@
-import { fetchAllFavoriteJobAsync } from "features/JobSeekers/slices/thunks";
 import {
   fetchJobsAsync,
   getDetailJobSeekerAsync,
+  fetchAllFavoriteJobAsync,
+  fetchAllJobApplicationAsync,
 } from "features/JobSeekers/slices/thunks";
 import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { Fragment, useEffect, useState, lazy } from "react";
@@ -50,6 +51,10 @@ const DashboardJobSeekersPage = () => {
 
       if (location.pathname === `${url}/job-saved`) {
         dispatch(fetchAllFavoriteJobAsync());
+      }
+
+      if (location.pathname === `${url}/job-applied`) {
+        dispatch(fetchAllJobApplicationAsync());
       }
     }
   }, [dispatch, checkLocation, location, user, url]);

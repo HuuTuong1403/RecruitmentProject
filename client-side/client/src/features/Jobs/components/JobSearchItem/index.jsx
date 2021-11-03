@@ -55,7 +55,7 @@ const JobSearchItem = ({ job }) => {
 
   const removeSaveJobHandler = async () => {
     const result = await removeFavoriteJob(_id);
-    if (result.status === "sucess") {
+    if (result.status === "success") {
       dispatch(removeJobOfFavorire(_id));
       notification(`${t("Successfully unsaved job posting")}`, "success");
     } else {
@@ -69,7 +69,7 @@ const JobSearchItem = ({ job }) => {
   const saveJobHandler = async () => {
     if (user) {
       const result = await addFavoriteJob(_id);
-      if (result.status === "sucess") {
+      if (result.status === "success") {
         dispatch(addJobToFavorite(job));
         notification(`${t("Save job posting successfully")}`, "success");
       } else {

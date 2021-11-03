@@ -189,6 +189,14 @@ export const schemaPostJobEmployer = yup.object({
   finishDate: yup.string().required("error-select-date-deadline").nullable(),
 });
 
+export const schemaApplyJob = yup.object({
+  fullName: yup.string().required("error-fullname-signup"),
+  phone: yup
+    .string()
+    .required("error-phone-required")
+    .matches(/((09|03|07|08|05)+([0-9]{8})\b)/g, "error-phone-pattern"),
+});
+
 export const schemaUpdateProfileJobSeeker = yup.object({
   fullname: yup.string().required("error-fullname-signup"),
   phone: yup

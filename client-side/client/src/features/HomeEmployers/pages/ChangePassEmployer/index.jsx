@@ -71,14 +71,14 @@ const ChangePassEmployer = () => {
             onSubmit={handleSubmit(onSubmit)}
             className={classes["changepassEmployer__wrapped--form"]}
           >
-            <LabelField label={t("newpass")} isCompulsory={true} />
+            <LabelField label={t("newpass")} isCompulsory />
             <InputField
               type="password"
               placeholder={t("phd-new-pass")}
               {...register("password")}
               errors={errors.password?.message}
             />
-            <LabelField label={t("confirm-pass")} isCompulsory={true} />
+            <LabelField label={t("confirm-pass")} isCompulsory />
             <InputField
               type="password"
               placeholder={t("phd-confirm-pass")}

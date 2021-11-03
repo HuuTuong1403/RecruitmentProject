@@ -61,7 +61,7 @@ const SendMailForgot = (props) => {
           onSubmit={handleSubmit(onSubmit)}
           className={classes["sendmail__wrapped--form"]}
         >
-          <LabelField label={t("label-email-send")} isCompulsory={true} />
+          <LabelField label={t("label-email-send")} isCompulsory />
           <InputField
             placeholder={t("phd-email-sendmail")}
             {...register("email")}

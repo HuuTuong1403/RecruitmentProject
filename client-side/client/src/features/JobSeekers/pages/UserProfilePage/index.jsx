@@ -163,7 +163,7 @@ const UserProfilePage = () => {
               </div>
               <div className={classes["profile__wrapped--blockRight--form"]}>
                 <div>
-                  <LabelField label={t("Email")} isCompulsory={false} />
+                  <LabelField label={t("Email")} />
                   <InputField
                     readOnly
                     placeholder={t("phd-email")}
@@ -171,7 +171,7 @@ const UserProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <LabelField label={t("full name")} isCompulsory={true} />
+                  <LabelField label={t("full name")} isCompulsory />
                   <InputField
                     placeholder={t("phd-fullname")}
                     {...register("fullname")}
@@ -180,7 +180,7 @@ const UserProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <LabelField label={t("dob")} isCompulsory={true} />
+                  <LabelField label={t("dob")} isCompulsory />
                   <DatePickerFieldRHF
                     name="DOB"
                     control={control}
@@ -199,7 +199,7 @@ const UserProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <LabelField label={t("phone number")} isCompulsory={true} />
+                  <LabelField label={t("phone number")} isCompulsory />
                   <InputField
                     defaultValue={detailJobSeeker.phone}
                     placeholder={t("phd-phone-signup")}
@@ -214,7 +214,7 @@ const UserProfilePage = () => {
               </div>
               <div className={classes["profile__wrapped--blockRight--form"]}>
                 <div>
-                  <LabelField label={t("Province")} isCompulsory={true} />
+                  <LabelField label={t("Province")} isCompulsory />
                   <SelectLocationField
                     name="city"
                     control={control}
@@ -228,7 +228,7 @@ const UserProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <LabelField label={t("District")} isCompulsory={true} />
+                  <LabelField label={t("District")} isCompulsory />
                   <SelectLocationField
                     name="district"
                     control={control}
@@ -240,7 +240,7 @@ const UserProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <LabelField label={t("Ward")} isCompulsory={true} />
+                  <LabelField label={t("Ward")} isCompulsory />
                   <SelectLocationField
                     name="ward"
                     control={control}
@@ -251,7 +251,7 @@ const UserProfilePage = () => {
                   />
                 </div>
                 <div>
-                  <LabelField label={t("Address")} isCompulsory={true} />
+                  <LabelField label={t("Address")} isCompulsory />
                   <InputField
                     defaultValue={detailJobSeeker.address?.street ?? ""}
                     placeholder={t("phd-address")}

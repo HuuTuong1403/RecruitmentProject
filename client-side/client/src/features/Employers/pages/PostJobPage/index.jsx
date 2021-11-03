@@ -267,7 +267,7 @@ const PostJobPage = () => {
         <form onSubmit={handleSubmit(postJobHandler)}>
           {/* Job Title */}
           <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Job Title")} isCompulsory={true} />
+            <LabelField label={t("Job Title")} isCompulsory />
             <PostJobField
               name="jobTitle"
               control={control}
@@ -282,7 +282,7 @@ const PostJobPage = () => {
             <div className={classes["postjob__formGroup--level-date"]}>
               {/* Job Level */}
               <div>
-                <LabelField label={t("Level")} isCompulsory={true} />
+                <LabelField label={t("Level")} isCompulsory />
                 <div>
                   <SelectField
                     name="level"
@@ -298,7 +298,7 @@ const PostJobPage = () => {
 
               {/* Job Position */}
               <div>
-                <LabelField label={t("Position")} isCompulsory={true} />
+                <LabelField label={t("Position")} isCompulsory />
                 <div>
                   <SelectField
                     name="position"
@@ -316,10 +316,7 @@ const PostJobPage = () => {
 
               {/* Job WorkingTime Start */}
               <div>
-                <LabelField
-                  label={t("Working time start")}
-                  isCompulsory={true}
-                />
+                <LabelField label={t("Working time start")} isCompulsory />
                 <div>
                   <SelectField
                     name="workingTimeStart"
@@ -338,10 +335,7 @@ const PostJobPage = () => {
 
               {/* Job WorkingTime Finish */}
               <div>
-                <LabelField
-                  label={t("Working time finish")}
-                  isCompulsory={true}
-                />
+                <LabelField label={t("Working time finish")} isCompulsory />
                 <div>
                   <SelectField
                     name="workingTimeFinish"
@@ -360,10 +354,7 @@ const PostJobPage = () => {
 
               {/* Deadline to apply */}
               <div>
-                <LabelField
-                  label={t("Deadline to apply")}
-                  isCompulsory={true}
-                />
+                <LabelField label={t("Deadline to apply")} isCompulsory />
                 <div>
                   <DatePickerFieldRHF
                     name="finishDate"
@@ -386,7 +377,7 @@ const PostJobPage = () => {
 
           {/* Job Workplace Address */}
           <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Workplace address")} isCompulsory={true} />
+            <LabelField label={t("Workplace address")} isCompulsory />
             <div className={classes["postjob__formGroup--location"]}>
               {/* Job Workplace Street */}
               <div>
@@ -456,7 +447,7 @@ const PostJobPage = () => {
 
           {/* Job Salary */}
           <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Salary")} isCompulsory={true} />
+            <LabelField label={t("Salary")} isCompulsory />
             <Switch
               style={{ marginBottom: "5px" }}
               checkedChildren={t("Hide salary")}
@@ -514,7 +505,7 @@ const PostJobPage = () => {
 
           {/* Job Skill */}
           <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Skill")} isCompulsory={false} />
+            <LabelField label={t("Skill")} />
             <Select
               isMulti
               placeholder={t("choose skills")}
@@ -526,7 +517,7 @@ const PostJobPage = () => {
 
           {/* Job Description */}
           <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Job description")} isCompulsory={true} />
+            <LabelField label={t("Job description")} isCompulsory />
             <CKEditorField
               name="description"
               control={control}
@@ -538,7 +529,7 @@ const PostJobPage = () => {
 
           {/* Job Requirements */}
           <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Job requirements")} isCompulsory={true} />
+            <LabelField label={t("Job requirements")} isCompulsory />
             <CKEditorField
               name="requirements"
               control={control}
@@ -550,10 +541,7 @@ const PostJobPage = () => {
 
           {/* Job Benefits */}
           <div className={classes.postjob__formGroup}>
-            <LabelField
-              label={t("Benefits of joining the job")}
-              isCompulsory={false}
-            />
+            <LabelField label={t("Benefits of joining the job")} />
             <CKEditorField
               name="benefits"
               control={control}
@@ -564,10 +552,7 @@ const PostJobPage = () => {
 
           {/* Job Reasons */}
           <div className={classes.postjob__formGroup}>
-            <LabelField
-              label={t("Reasons to join this job")}
-              isCompulsory={false}
-            />
+            <LabelField label={t("Reasons to join this job")} />
             <CKEditorField
               name="reason"
               control={control}
@@ -578,10 +563,7 @@ const PostJobPage = () => {
 
           {/* Job Responsibilities */}
           <div className={classes.postjob__formGroup}>
-            <LabelField
-              label={t("Responsibilities when doing this job")}
-              isCompulsory={false}
-            />
+            <LabelField label={t("Responsibilities when doing this job")} />
             <CKEditorField
               name="responsibilities"
               control={control}

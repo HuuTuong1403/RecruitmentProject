@@ -71,7 +71,7 @@ const UserSettingPage = () => {
             <div>
               <LabelField
                 label={t("Enter current password")}
-                isCompulsory={true}
+                isCompulsory
               />
               <InputField
                 type="password"
@@ -84,7 +84,7 @@ const UserSettingPage = () => {
             <div>
               <LabelField
                 label={t("Enter your new password")}
-                isCompulsory={true}
+                isCompulsory
               />
               <InputField
                 type="password"
@@ -97,7 +97,7 @@ const UserSettingPage = () => {
             <div>
               <LabelField
                 label={t("Enter confirm a new password")}
-                isCompulsory={true}
+                isCompulsory
               />
               <InputField
                 type="password"

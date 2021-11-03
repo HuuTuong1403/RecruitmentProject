@@ -17,3 +17,7 @@ export const selectJobSeekerLocal = () => {
 export const selectFavoriteJobs = (state) => {
   return state?.jobSeeker?.favoriteJobs;
 };
+
+export const selectApplicationJobs = (state) => {
+  return state?.jobSeeker?.applicationJobs;
+};

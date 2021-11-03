@@ -1,3 +1,4 @@
+import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiDollarCircle } from "react-icons/bi";
 import { FaBuilding } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
@@ -14,7 +15,7 @@ import classes from "./style.module.scss";
 import moment from "moment";
 import notification from "components/Notification";
 
-const JobItem = ({ data, isApplied }) => {
+const JobItem = ({ data, isApplied = false, createdAt }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [showPopover, setShowPopover] = useState(false);
@@ -35,7 +36,7 @@ const JobItem = ({ data, isApplied }) => {
   const removeSaveJobHandler = async () => {
     setLoading(true);
     const result = await removeFavoriteJob(_id);
-    if (result.status === "sucess") {
+    if (result.status === "success") {
       dispatch(removeJobOfFavorire(_id));
       notification(`${t("Successfully unsaved job posting")}`, "success");
     } else {
@@ -86,50 +87,32 @@ const JobItem = ({ data, isApplied }) => {
           </div>
         )}
         <div className={classes["jobItem__figure--figcaption"]}>
-          {!isApplied ? (
-            <div className={classes["jobItem__figure--figcaption--jobTitle"]}>
-              <Link to={`/jobs/${slug}`}>{jobTitle}</Link>
-
-              <div>
-                <IoMdTime style={{ marginRight: "5px", fontSize: "18px" }} />
-                {aboutCreated}
-              </div>
+          <div className={classes["jobItem__figure--figcaption--jobTitle"]}>
+            <Link to={`/jobs/${slug}`}>{jobTitle}</Link>
+            <div>
+              <IoMdTime style={{ marginRight: "5px", fontSize: "18px" }} />
+              {aboutCreated}
             </div>
-          ) : (
-            <div
-              className={
-                classes["jobItem__figure--figcaption--jobTitleApplied"]
-              }
-            >
-              <Link to={`/jobs/${slug}`}>{jobTitle}</Link>
-            </div>
-          )}
+          </div>
           <div className={classes["jobItem__figure--figcaption--companyName"]}>
             <Link to={`/jobs/employer/${company?.companyName}`}>
               <FaBuilding style={{ marginRight: "5px" }} />
               {company?.companyName}
             </Link>
           </div>
-          {!isApplied ? (
-            <div className={classes["jobItem__figure--figcaption--salary"]}>
-              <div>
-                <BiDollarCircle style={{ marginRight: "5px" }} />
-                {`${t("Salary")}`}:{" "}
-                {salary.min
-                  ? `${salary.min} - ${salary.max} ${salary.type}`
-                  : `${salary.type}`}
-              </div>
-              <div>
-                <MdLocationOn style={{ marginRight: "5px" }} />
-                {location.city}
-              </div>
+          <div className={classes["jobItem__figure--figcaption--salary"]}>
+            <div>
+              <BiDollarCircle style={{ marginRight: "5px" }} />
+              {`${t("Salary")}`}:{" "}
+              {salary.min
+                ? `${salary.min} - ${salary.max} ${salary.type}`
+                : `${salary.type}`}
             </div>
-          ) : (
-            <div className={classes["jobItem__figure--figcaption--city"]}>
+            <div>
               <MdLocationOn style={{ marginRight: "5px" }} />
               {location.city}
             </div>
-          )}
+          </div>
           <div className={classes["jobItem__figure--figcaption--date"]}>
             {!isApplied ? (
               <div>
@@ -140,21 +123,26 @@ const JobItem = ({ data, isApplied }) => {
                 {moment(finishDate).format("DD/MM/yyyy")}
               </div>
             ) : (
-              <div
-                className={
-                  classes["jobItem__figure--figcaption--date--applied"]
-                }
-              >
+              <div>
                 <IoMdCalendar
                   style={{ marginRight: "5px", fontSize: "18px" }}
                 />
-                {t("Submission date")}:{" "}
-                {moment(finishDate).format("DD/MM/yyyy")}
+                {t("Submission date")}: {moment(createdAt).format("DD/MM/yyyy")}
               </div>
             )}
           </div>
           <div className={classes["jobItem__figure--figcaption--action"]}>
-            {!isApplied && (
+            {isApplied ? (
+              <ButtonField
+                backgroundcolor="#324554"
+                backgroundcolorhover="#333"
+                uppercase
+                padding="5px"
+              >
+                <AiOutlineEyeInvisible style={{ marginRight: "5px" }} />
+                <span>{t("Ẩn")}</span>
+              </ButtonField>
+            ) : (
               <Popover
                 content={content}
                 trigger="click"

@@ -1,0 +1,24 @@
+@import "common/styles/Variables.scss";
+
+.inputFile {
+  position: relative;
+
+  &__fakeFile {
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    z-index: 1;
+    opacity: 1;
+    left: 0;
+    padding: $pm-6 $pm-12;
+    width: 100%;
+  }
+
+  &__file {
+    z-index: 2;
+    position: absolute;
+    top: 0px;
+    opacity: 0;
+    left: 0px;
+    width: 100%;
+  }
+}
