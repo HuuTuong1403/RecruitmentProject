@@ -1,0 +1,111 @@
+@import "common/styles/Variables.scss";
+
+.reviewItem {
+  border-bottom: 1px solid #f5f5f5;
+
+  &__wrapped {
+    padding: $pm-20;
+  }
+
+  &__content {
+    font-size: $text-base;
+  }
+
+  &__title {
+    margin-top: $pm-10;
+    font-size: $text-xl;
+    font-weight: 500;
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+
+    &--title {
+      font-size: $text-2xl;
+      flex: 0 0 95%;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    &--icon {
+      font-size: $text-2xl;
+      cursor: pointer;
+    }
+  }
+
+  &__rating {
+    margin-left: $pm-14;
+    display: flex;
+    align-items: flex-end;
+
+    &--icon {
+      margin-left: $pm-10;
+      margin-right: $pm-4;
+      font-size: $text-xl;
+      vertical-align: text-bottom;
+    }
+
+    &--active {
+      color: green;
+    }
+  }
+
+  &__createDay {
+    font-size: $text-base;
+  }
+
+  &__ot {
+    margin-left: $pm-14;
+    font-size: $text-lg;
+
+    &--icon {
+      margin-right: $pm-4;
+      font-size: $text-2xl;
+      vertical-align: text-bottom;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .reviewItem {
+    &__content {
+      font-size: $text-sm;
+    }
+
+    &__title {
+      font-size: $text-lg;
+    }
+
+    &__top {
+      &--title {
+        font-size: $text-xl;
+      }
+    }
+
+    &__rating {
+      flex-wrap: wrap;
+
+      & div {
+        flex: 0 0 100%;
+      }
+
+      &--icon {
+        margin-top: $pm-6;
+        margin-left: 0;
+        margin-right: $pm-4;
+      }
+    }
+
+    &__ot {
+      margin-left: $pm-14;
+      font-size: $text-base;
+
+      &--icon {
+        font-size: $text-xl;
+      }
+    }
+  }
+}

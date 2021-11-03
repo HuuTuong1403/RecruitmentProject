@@ -20,8 +20,9 @@ const TextAreaField = ({
       <Controller
         name={name}
         control={control}
-        render={({ field: { onChange } }) => (
+        render={({ field: { onChange, value } }) => (
           <TextArea
+            value={value}
             allowClear={allowClear}
             showCount={showCount}
             placeholder={placeholder}

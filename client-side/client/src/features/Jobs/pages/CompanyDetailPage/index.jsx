@@ -1,7 +1,11 @@
-import { fetchCompanyDetailAsync } from "features/Jobs/slices/thunks";
+import {
+  fetchCompanyDetailAsync,
+  fetchReviewOfCompanyAsync,
+} from "features/Jobs/slices/thunks";
 import { ScrollTop } from "common/functions";
 import {
   selectedCompanyDetail,
+  selectedReviews,
   selectedStatus,
 } from "features/Jobs/slices/selectors";
 import { useEffect, useCallback } from "react";
@@ -13,7 +17,9 @@ import classes from "./style.module.scss";
 import CompanyIntroduction from "features/Jobs/components/CompanyIntroduction";
 import JobActiveItem from "features/Jobs/components/JobActiveItem";
 import LoadingSuspense from "components/Loading";
+import NotFoundData from "components/NotFoundData";
 import parse from "html-react-parser";
+import ReviewItem from "features/Jobs/components/ReviewItem";
 
 const CompanyDetailPage = () => {
   ScrollTop();
@@ -21,6 +27,9 @@ const CompanyDetailPage = () => {
   const { companyName } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const companyDetail = useSelector(selectedCompanyDetail);
+  const reviewsOfCampany = useSelector(selectedReviews);
+  const loading = useSelector(selectedStatus);
 
   useTitle(companyName);
 
@@ -35,14 +44,16 @@ const CompanyDetailPage = () => {
     getDetail();
   }, [getDetail]);
 
-  const companyDetail = useSelector(selectedCompanyDetail);
-  const loading = useSelector(selectedStatus);
-  const { description, jobs } = companyDetail;
+  useEffect(() => {
+    if (companyDetail && companyDetail._id) {
+      dispatch(fetchReviewOfCompanyAsync(companyDetail._id));
+    }
+  }, [dispatch, companyDetail]);
 
   return (
     <section className={classes.companyDetail}>
       {loading ? (
-        <LoadingSuspense height="40vh" showText={false} />
+        <LoadingSuspense height="40vh" />
       ) : (
         companyDetail && (
           <div className={classes.companyDetail__wrapped}>
@@ -50,21 +61,39 @@ const CompanyDetailPage = () => {
             <div className={classes["companyDetail__wrapped--title"]}>
               {t("About us")}
             </div>
-            {description && (
+            {companyDetail.description && (
               <div className={classes["companyDetail__wrapped--description"]}>
-                {parse(description)}
+                {parse(companyDetail.description)}
               </div>
             )}
             <div className={classes["companyDetail__wrapped--title"]}>
               {t("Job active")}
             </div>
-            {jobs && (
+            {companyDetail.jobs && (
               <div className={classes["companyDetail__wrapped--jobActiveList"]}>
-                {jobs.map((job) => (
+                {companyDetail.jobs.map((job) => (
                   <JobActiveItem key={job._id} jobActive={job} />
                 ))}
               </div>
             )}
+            <div className={classes["companyDetail__wrapped--title"]}>
+              {t("Company reviews")}
+            </div>
+            {reviewsOfCampany &&
+              (reviewsOfCampany.length === 0 ? (
+                <div className={classes["companyDetail__wrapped--reviewList"]}>
+                  <NotFoundData title={t("This company has no reviews")} />
+                </div>
+              ) : (
+                <div className={classes["companyDetail__wrapped--reviewList"]}>
+                  <div>
+                    {reviewsOfCampany.length} {t("Review")}
+                  </div>
+                  {reviewsOfCampany.map((review) => (
+                    <ReviewItem key={review._id} review={review} />
+                  ))}
+                </div>
+              ))}
           </div>
         )
       )}

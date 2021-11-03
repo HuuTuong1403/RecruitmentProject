@@ -5,13 +5,15 @@ import {
   fetchJobsAllAsync,
   fetchJobsSearchAsync,
   fetchSkillsAsync,
+  fetchReviewOfCompanyAsync,
 } from "./thunks";
 
 const initialState = {
   jobsSearch: [],
   jobDetail: {},
-  companyDetail: {},
+  companyDetail: null,
   skills: [],
+  reviews: [],
   status: false,
   isFilter: false,
 };
@@ -76,7 +78,18 @@ export const jobSlice = createSlice({
       state.status = false;
     },
     [fetchCompanyDetailAsync.rejected]: (state) => {
-      state.companyDetail = {};
+      state.companyDetail = null;
+      state.status = false;
+    },
+    [fetchReviewOfCompanyAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchReviewOfCompanyAsync.fulfilled]: (state, action) => {
+      state.reviews = action.payload;
+      state.status = false;
+    },
+    [fetchReviewOfCompanyAsync.rejected]: (state) => {
+      state.reviews = [];
       state.status = false;
     },
   },

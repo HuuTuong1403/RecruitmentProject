@@ -1,0 +1,158 @@
+@import "common/styles/Variables.scss";
+
+.review {
+  background-color: #d9edee;
+  padding: $pm-10;
+
+  &__wrapped {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  &__left {
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    flex: 0 0 65%;
+    padding: 0 $pm-16;
+
+    &--title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 500;
+      font-size: $text-3xl;
+
+      &--subTitle {
+        flex: 0 0 75%;
+      }
+
+      &--subTitle2 {
+        margin-top: $pm-10;
+        font-size: $text-sm;
+        font-weight: normal;
+      }
+
+      &--logo {
+        flex: 0 0 20%;
+        & img {
+          object-fit: contain;
+        }
+      }
+    }
+
+    &--form {
+      &--title {
+        text-align: center;
+      }
+
+      &--formGroup {
+        margin-top: $pm-8;
+      }
+
+      &--actions {
+        margin-top: $pm-10;
+      }
+    }
+  }
+
+  &__right {
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    flex: 0 0 30%;
+    border-radius: 10px;
+    padding: $pm-16;
+
+    &--title {
+      font-size: $text-3xl;
+    }
+
+    &--list {
+      margin-top: $pm-10;
+    }
+
+    &--link {
+      margin-top: $pm-10;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .review {
+    &__left {
+      flex: 0 0 60%;
+
+      &--title {
+        font-size: $text-2xl;
+
+        &--subTitle {
+          flex: 0 0 60%;
+        }
+      }
+    }
+
+    &__right {
+      flex: 0 0 35%;
+
+      &--title {
+        font-size: $text-2xl;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .review {
+    &__wrapped {
+      row-gap: 20px;
+    }
+
+    &__left {
+      flex: 0 0 100%;
+      padding: $pm-16;
+
+      &--title {
+        font-size: $text-xl;
+
+        &--subTitle {
+          flex: 0 0 100%;
+        }
+
+        &--subTitle2 {
+          margin-top: $pm-4;
+        }
+
+        &--logo {
+          display: none;
+        }
+      }
+
+      &--form {
+        margin-top: $pm-20;
+
+        &--formGroup {
+          margin-top: $pm-8;
+
+          & > div > span {
+            display: block;
+            margin-left: 0 !important;
+          }
+        }
+
+        &--actions {
+          margin-top: $pm-10;
+        }
+      }
+    }
+
+    &__right {
+      flex: 0 0 100%;
+
+      &--title {
+        font-size: $text-xl;
+      }
+    }
+  }
+}

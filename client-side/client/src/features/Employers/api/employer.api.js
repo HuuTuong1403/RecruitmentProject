@@ -82,3 +82,12 @@ export const restoreJob = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchAllApplication = async (payload) => {
+  try {
+    const res = await axiosClient.get(`employer/jobs/${payload}/applications`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

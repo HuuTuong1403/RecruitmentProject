@@ -12,7 +12,6 @@
       font-size: $text-xl;
       font-weight: 700;
       margin: $pm-24 0 $pm-10 0;
-      border-bottom: 1px solid #e5e5e5;
     }
 
     &--description {
@@ -30,6 +29,13 @@
       flex-wrap: wrap;
       padding: $pm-10;
       gap: 30px;
+      background-color: #fff;
+    }
+
+    &--reviewList {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+      padding: $pm-10;
       background-color: #fff;
     }
   }

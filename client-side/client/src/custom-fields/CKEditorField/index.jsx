@@ -8,11 +8,13 @@ const CKEditorField = ({
   name,
   control,
   defaultValue,
+  placeholder = "",
   handleAddData,
   errors,
   setText,
 }) => {
   const config = {
+    placeholder: placeholder,
     toolbar: [
       "undo",
       "redo",

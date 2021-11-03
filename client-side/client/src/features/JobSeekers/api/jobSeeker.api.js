@@ -74,3 +74,12 @@ export const fetchAllJobApplication = async () => {
     console.log(error);
   }
 };
+
+export const createReviewOfCompany = async ({ idCompany, data }) => {
+  try {
+    const res = await axiosClient.post(`job-seeker/reviews/${idCompany}`, data);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

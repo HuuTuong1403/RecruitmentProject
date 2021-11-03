@@ -16,7 +16,7 @@ const JobSearchList = () => {
     <section className={classes.searchList}>
       <div className={classes.searchList__container}>
         {loading ? (
-          <LoadingSuspense height="40vh" showText={false} />
+          <LoadingSuspense height="40vh" />
         ) : (
           <Fragment>
             <div className={classes["searchList__container--job-found"]}>

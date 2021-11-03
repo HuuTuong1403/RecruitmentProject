@@ -180,7 +180,7 @@ const MenuJobSeeker = ({ children }) => {
       </Sider>
       {loading ? (
         <div className={classes.loading}>
-          <LoadingSuspense height="100%" showText={false} />
+          <LoadingSuspense height="100%" />
         </div>
       ) : (
         <div className={classes.sliderJobSeeker__blockRight}>{children}</div>

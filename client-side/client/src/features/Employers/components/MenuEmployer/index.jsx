@@ -184,7 +184,7 @@ const MenuEmployer = ({ children }) => {
       </Sider>
       {loading ? (
         <div className={classes.loading}>
-          <LoadingSuspense height="100%" showText={false} />
+          <LoadingSuspense height="100%" />
         </div>
       ) : (
         <div className={classes.sliderEmployer__blockRight}>{children}</div>

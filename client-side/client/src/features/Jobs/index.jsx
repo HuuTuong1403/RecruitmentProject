@@ -9,6 +9,7 @@ import JobDetail from "./pages/JobDetail";
 import NotFoundPage from "components/404";
 import SearchJobPage from "./pages/SearchJobPage";
 import CompanyDetailPage from "./pages/CompanyDetailPage";
+import ReviewPage from "./pages/ReviewPage";
 
 const JobsPage = () => {
   ScrollTop();
@@ -35,6 +36,11 @@ const JobsPage = () => {
           component={CompanyDetailPage}
         />
         <Route exact path={`${url}/:slug`} component={JobDetail} />
+        <Route
+          exact
+          path={`${url}/employer/:companyName/review`}
+          component={ReviewPage}
+        />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

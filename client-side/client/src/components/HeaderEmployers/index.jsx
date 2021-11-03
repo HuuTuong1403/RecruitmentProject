@@ -137,7 +137,7 @@ const HeaderEmployers = () => {
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
-                  to={`/employers/dashboard/recruit-manage`}
+                  to={`/employers/dashboard/recruit-manage/created`}
                 >
                   <RiFileList3Line
                     className={classes["header__link--person"]}
