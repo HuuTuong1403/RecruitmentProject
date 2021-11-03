@@ -135,6 +135,9 @@ jobSchema.virtual('isNew').get(function () {
   const timeAgoSecond = timeAgoMilisecond / 1000;
   return timeAgoSecond < 86400 ? true : false;
 });
+jobSchema.virtual('isExpired').get(function () {
+  return this.finishDate.getTime() <= Date.now() ? true : false;
+});
 //DOCUMENT MIDDLEWARE: run before .save() and .create()
 jobSchema.pre('save', async function (next) {
   this.slug = slugify(`${this.jobTitle} ${this._id}`, {

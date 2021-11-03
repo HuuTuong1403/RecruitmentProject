@@ -29,6 +29,8 @@ const reviewSchema = new mongoose.Schema(
     rating: {
       type: Number,
       default: 4,
+      min: [1, 'Rating phải lớn hơn hoặc bằng 1'],
+      max: [5, 'Rating phải bé hơn hoặc bằng 5'],
     },
     company: {
       type: mongoose.Schema.ObjectId,

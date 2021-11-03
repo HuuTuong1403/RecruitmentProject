@@ -20,8 +20,39 @@ applicationRouter
     applicationController.createApplication
   )
   .get(
-    authController.restrictTo('employer', 'jobseeker'),
-    applicationController.setBodyApplicationView,
+    authController.restrictTo('jobseeker'),
+    applicationController.setQueryApplicationView,
     applicationController.getAllApplication
+  );
+applicationRouter.use(authController.restrictTo('employer'));
+applicationRouter
+  .route('/management')
+  .get(
+    applicationController.setQueryApplicationManagement,
+    applicationController.getAllApplicationManagement
+  );
+applicationRouter
+  .route('/management/:id')
+  .get(
+    applicationController.setQueryApplicationManagement,
+    applicationController.getAllApplicationManagement
+  );
+applicationRouter
+  .route('/management/:id/save')
+  .patch(
+    applicationController.saveApplication,
+    applicationController.updateApplication
+  );
+applicationRouter
+  .route('/management/:id/delete')
+  .delete(
+    applicationController.deleteApplication,
+    applicationController.updateApplication
+  );
+applicationRouter
+  .route('/management/:id/restore')
+  .patch(
+    applicationController.restoreApplication,
+    applicationController.updateApplication
   );
 module.exports = applicationRouter;

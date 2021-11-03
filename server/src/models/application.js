@@ -36,6 +36,17 @@ const applicationSchema = new mongoose.Schema(
         message: 'Số điện thoại {VALUE} là không hợp lệ. Vui lòng thử lại.',
       },
     },
+    status: {
+      type: String,
+      default: 'NotSaved',
+      enum: {
+        values: ['NotSaved', 'Saved', 'Deleted'],
+        message: 'Trạng thái hồ sơ gồm có: NotSaved, Saved, Deleted',
+      },
+    },
+    createdAt: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
