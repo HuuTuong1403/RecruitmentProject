@@ -136,7 +136,7 @@ jobSchema.virtual('isNew').get(function () {
   return timeAgoSecond < 86400 ? true : false;
 });
 jobSchema.virtual('isExpired').get(function () {
-  return this.finishDate.getTime() <= Date.now() ? true : false;
+  return this.finishDate <= Date.now() ? true : false;
 });
 //DOCUMENT MIDDLEWARE: run before .save() and .create()
 jobSchema.pre('save', async function (next) {

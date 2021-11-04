@@ -9,6 +9,7 @@ const validator = require('./../middlewares/validator');
 reviewRouter
   .route('/')
   .get(reviewController.setQueryReviewView, reviewController.getAllReview);
+reviewRouter.route('/view/:id').get(reviewController.getReview);
 reviewRouter
   .route('/:idCompany')
   .get(reviewController.setQueryReviewView, reviewController.getAllReview)

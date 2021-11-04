@@ -83,6 +83,17 @@ const employerSchema = new mongoose.Schema(
     companyType: {
       type: String,
     },
+    ratingsAverage: {
+      type: Number,
+      default: 4,
+      min: [1, 'Rating phải trên 1'],
+      max: [5, 'Rating phải dưới 1'],
+      set: (val) => Math.round(val * 10) / 10,
+    },
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
     authenToken: String,
     authenTokenExpired: Date,
     passwordChangeAt: Date,
