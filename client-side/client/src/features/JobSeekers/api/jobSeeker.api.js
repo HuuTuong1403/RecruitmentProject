@@ -83,3 +83,21 @@ export const createReviewOfCompany = async ({ idCompany, data }) => {
     console.log(error);
   }
 };
+
+export const updateReview = async ({ id, data }) => {
+  try {
+    const res = await axiosClient.patch(`job-seeker/reviews/${id}`, data);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteReview = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`job-seeker/reviews/${payload}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

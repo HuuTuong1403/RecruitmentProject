@@ -55,3 +55,12 @@ export const fetchReviewOfCompany = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchReviewDetail = async (payload) => {
+  try {
+    const res = await axiosClient.get(`reviews/view/${payload}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

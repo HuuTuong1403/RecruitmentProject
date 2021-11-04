@@ -41,20 +41,6 @@
         }
       }
     }
-
-    &--form {
-      &--title {
-        text-align: center;
-      }
-
-      &--formGroup {
-        margin-top: $pm-8;
-      }
-
-      &--actions {
-        margin-top: $pm-10;
-      }
-    }
   }
 
   &__right {
@@ -126,23 +112,6 @@
 
         &--logo {
           display: none;
-        }
-      }
-
-      &--form {
-        margin-top: $pm-20;
-
-        &--formGroup {
-          margin-top: $pm-8;
-
-          & > div > span {
-            display: block;
-            margin-left: 0 !important;
-          }
-        }
-
-        &--actions {
-          margin-top: $pm-10;
         }
       }
     }

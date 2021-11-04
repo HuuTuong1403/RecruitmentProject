@@ -3,18 +3,6 @@
 .jobItem {
   margin-bottom: $pm-20;
 
-  &__popover_actions {
-    margin-top: $pm-4;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-
-    & > button {
-      flex: 0 0 49%;
-    }
-  }
-
   &__figure {
     display: flex;
     overflow: hidden;

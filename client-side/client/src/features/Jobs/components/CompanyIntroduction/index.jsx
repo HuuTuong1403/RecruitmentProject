@@ -10,7 +10,7 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import notification from "components/Notification";
 
-const CompanyIntroduction = ({ company }) => {
+const CompanyIntroduction = ({ company, isReviewed }) => {
   const { t } = useTranslation();
   const history = useHistory();
   const user = selectJobSeekerLocal();
@@ -123,15 +123,27 @@ const CompanyIntroduction = ({ company }) => {
           >
             {t("Follow")}
           </ButtonField>
-          <ButtonField
-            backgroundcolor="#dd4b39"
-            backgroundcolorhover="#bf0000"
-            radius="5px"
-            uppercase
-            onClick={handleWriteReview}
-          >
-            {t("Review")}
-          </ButtonField>
+          {isReviewed ? (
+            <ButtonField
+              backgroundcolor="#dd4b39"
+              backgroundcolorhover="#bf0000"
+              radius="5px"
+              disabled
+              uppercase
+            >
+              {t("Reviewed")}
+            </ButtonField>
+          ) : (
+            <ButtonField
+              backgroundcolor="#dd4b39"
+              backgroundcolorhover="#bf0000"
+              radius="5px"
+              uppercase
+              onClick={handleWriteReview}
+            >
+              {t("Review")}
+            </ButtonField>
+          )}
         </div>
       </div>
     </div>
