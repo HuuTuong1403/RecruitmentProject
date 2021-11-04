@@ -256,3 +256,17 @@ export const schemaUpdateProfileEmployer = yup.object({
   street: yup.string().required("error-address"),
   description: yup.string().required("error-description-company"),
 });
+
+export const schemaWriteReview = yup.object({
+  rating: yup
+    .number()
+    .required("error-rating-review")
+    .test("Is positive?", "error-rating-review", (value) => value > 0),
+  title: yup.string().required("error-title-review"),
+  ot: yup
+    .number()
+    .required("error-ot-review")
+    .test("Is positive?", "error-ot-review", (value) => value > 0),
+  interesting: yup.string().required("error-textArea-review"),
+  improvement: yup.string().required("error-textArea-review"),
+});

@@ -31,6 +31,20 @@ const CompanyIntroduction = ({ company }) => {
     }
   };
 
+  const handleWriteReview = () => {
+    if (user) {
+      history.push(`/jobs/employer/${companyName}/review`);
+    } else {
+      notification(
+        `${t(
+          "Please login to the job seeker account to perform this function"
+        )}`,
+        "error"
+      );
+      history.push("/home/sign-in");
+    }
+  };
+
   return (
     <div className={classes.companyIntroduction}>
       <div className={classes.companyIntroduction__wrapped}>
@@ -108,6 +122,15 @@ const CompanyIntroduction = ({ company }) => {
             onClick={handleFollowEmployer}
           >
             {t("Follow")}
+          </ButtonField>
+          <ButtonField
+            backgroundcolor="#dd4b39"
+            backgroundcolorhover="#bf0000"
+            radius="5px"
+            uppercase
+            onClick={handleWriteReview}
+          >
+            {t("Review")}
           </ButtonField>
         </div>
       </div>

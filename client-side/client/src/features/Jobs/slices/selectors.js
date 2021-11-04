@@ -18,7 +18,10 @@ export const selectedCompanyDetail = (state) => {
   return state?.job?.companyDetail;
 };
 
-
 export const selectedIsFilter = (state) => {
   return state?.job?.isFilter;
+};
+
+export const selectedReviews = (state) => {
+  return state?.job?.reviews;
 };

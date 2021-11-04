@@ -4,6 +4,7 @@ import {
   fetchJobDetailOfEmployerAsync,
   fetchJobsOfEmployerAsync,
   getDetailEmployerAsync,
+  fetchAllApplicationAsync,
 } from "features/Employers/slices/thunks";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   jobSlug: null,
   avatar: null,
   jobTrash: [],
+  jobApplication: [],
   status: false,
   statusJobDetail: false,
 };
@@ -86,6 +88,17 @@ const employerSlice = createSlice({
     [fetchJobDeletedAsync.rejected]: (state) => {
       state.status = false;
       state.jobTrash = [];
+    },
+    [fetchAllApplicationAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchAllApplicationAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.jobApplication = action.payload;
+    },
+    [fetchAllApplicationAsync.rejected]: (state) => {
+      state.status = false;
+      state.jobApplication = [];
     },
   },
 });

@@ -46,3 +46,12 @@ export const fetchCompanyDetail = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchReviewOfCompany = async (payload) => {
+  try {
+    const res = await axiosClient.get(`reviews/${payload}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

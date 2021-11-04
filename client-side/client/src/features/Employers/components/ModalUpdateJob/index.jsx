@@ -173,7 +173,7 @@ const ModalUpdateJob = ({
       footer={null}
     >
       {status ? (
-        <LoadingSuspense showText={false} height="40vh" />
+        <LoadingSuspense height="40vh" />
       ) : (
         <div className={classes.modalUpdateJob}>
           <div className={classes.modalUpdateJob__wrapped}>
@@ -219,10 +219,7 @@ const ModalUpdateJob = ({
                         <div className={classes.bottom__form_group}>
                           {/* Province */}
                           <div>
-                            <LabelField
-                              label={t("Province")}
-                              isCompulsory
-                            />
+                            <LabelField label={t("Province")} isCompulsory />
                             <SelectLocationField
                               name="city"
                               control={control}
@@ -236,10 +233,7 @@ const ModalUpdateJob = ({
 
                           {/* District */}
                           <div>
-                            <LabelField
-                              label={t("District")}
-                              isCompulsory
-                            />
+                            <LabelField label={t("District")} isCompulsory />
                             <SelectLocationField
                               name="district"
                               control={control}
@@ -287,10 +281,7 @@ const ModalUpdateJob = ({
 
                         {/* Job Position */}
                         <div>
-                          <LabelField
-                            label={t("Position")}
-                            isCompulsory
-                          />
+                          <LabelField label={t("Position")} isCompulsory />
                           <div>
                             <SelectProfileField
                               name="position"
@@ -452,10 +443,7 @@ const ModalUpdateJob = ({
                     <Panel header={t("Job details")} style={style} key="4">
                       {/* Job Description */}
                       <div className={classes.bottom}>
-                        <LabelField
-                          label={t("Job description")}
-                          isCompulsory
-                        />
+                        <LabelField label={t("Job description")} isCompulsory />
                         <CKEditorField
                           name="description"
                           control={control}
@@ -480,9 +468,7 @@ const ModalUpdateJob = ({
 
                       {/* Job Benefits */}
                       <div className={classes.bottom}>
-                        <LabelField
-                          label={t("Benefits of joining the job")}
-                        />
+                        <LabelField label={t("Benefits of joining the job")} />
                         <CKEditorField
                           name="benefits"
                           control={control}
@@ -494,9 +480,7 @@ const ModalUpdateJob = ({
 
                       {/* Job Reasons */}
                       <div className={classes.bottom}>
-                        <LabelField
-                          label={t("Reasons to join this job")}
-                        />
+                        <LabelField label={t("Reasons to join this job")} />
                         <CKEditorField
                           name="reason"
                           control={control}

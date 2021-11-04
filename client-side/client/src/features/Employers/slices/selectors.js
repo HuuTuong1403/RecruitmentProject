@@ -33,3 +33,7 @@ export const selectStatusJobDetail = (state) => {
 export const selectJobTrash = (state) => {
   return state?.employer?.jobTrash;
 };
+
+export const selectJobApplication = (state) => {
+  return state?.employer?.jobApplication;
+};

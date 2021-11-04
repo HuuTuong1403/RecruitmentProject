@@ -153,7 +153,7 @@ const JobDetail = () => {
   return (
     <Fragment>
       {loading ? (
-        <LoadingSuspense height="40vh" showText={false} />
+        <LoadingSuspense height="40vh" />
       ) : (
         <div className={classes.jobDetail}>
           {user && (

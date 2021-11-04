@@ -2,11 +2,11 @@ import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import ReactTypingEffect from "react-typing-effect";
 
-const LoadingSuspense = (props) => {
+const LoadingSuspense = ({ height, showText = false }) => {
   const { t } = useTranslation();
 
   return (
-    <div style={{ height: `${props.height}` }} className={classes["loading"]}>
+    <div style={{ height: `${height}` }} className={classes["loading"]}>
       <div className={classes["loading__wrapped"]}>
         <div className={classes["loading__wrapped--lds-roller"]}>
           <div></div>
@@ -18,7 +18,7 @@ const LoadingSuspense = (props) => {
           <div></div>
           <div></div>
         </div>
-        {props.showText && (
+        {showText && (
           <div className={classes["loading__wrapped--text"]}>
             <ReactTypingEffect
               text={[`${t("loading-suspense")}`, `${t("wait-moment")}`]}

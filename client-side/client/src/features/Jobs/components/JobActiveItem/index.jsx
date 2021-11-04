@@ -31,7 +31,9 @@ const JobActiveItem = ({ jobActive }) => {
             className={`${classes["jobActive__wrapped--salary"]} ${classes.hideText}`}
           >
             <BiDollarCircle style={{ marginRight: "5px" }} />
-            {`${salary.min} - ${salary.max} ${salary.type}`}
+            {salary.min
+              ? `${salary.min} - ${salary.max} ${salary.type}`
+              : salary.type}
           </div>
           <div className={classes.hideText}>
             <MdLocationOn style={{ marginRight: "5px" }} />

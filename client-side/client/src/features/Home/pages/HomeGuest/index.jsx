@@ -39,7 +39,7 @@ const HomeGuest = () => {
     <Fragment>
       <BannerHome />
       {loading ? (
-        <LoadingSuspense height="40vh" showText={false} />
+        <LoadingSuspense height="40vh" />
       ) : !jobs ? (
         <div>No see jobs</div>
       ) : (
