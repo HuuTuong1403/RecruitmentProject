@@ -72,7 +72,7 @@ exports.getOne = (Model, popOtions, fields) =>
       return next(new AppError('Không tìm thấy dữ liệu với id này', 404));
     }
     res.status(200).json({
-      status: 'sucess',
+      status: 'success',
       data: {
         data: doc,
       },
@@ -91,7 +91,7 @@ exports.getOneUniqueField = (Model, popOtions, fields) =>
       return next(new AppError('Không tìm thấy dữ liệu với id này', 404));
     }
     res.status(200).json({
-      status: 'sucess',
+      status: 'success',
       data: {
         data: doc,
       },
@@ -123,7 +123,7 @@ exports.getAll = (Model, ModelName) =>
     }
     //Send response
     res.status(200).json({
-      status: 'sucess',
+      status: 'success',
       results: docs.length,
       data: {
         data: docs,
@@ -134,7 +134,7 @@ exports.getDeletedAll = (Model) =>
   catchAsync(async (req, res, next) => {
     const docs = await Model.findWithDeleted({ deleted: true });
     res.status(200).json({
-      status: 'sucess',
+      status: 'success',
       results: docs.length,
       data: {
         data: docs,
@@ -154,7 +154,7 @@ exports.getDeletedOne = (Model, popOtions, fields) =>
       return next(new AppError('Không tìm thấy dữ liệu với id này', 404));
     }
     res.status(200).json({
-      status: 'sucess',
+      status: 'success',
       data: {
         data: doc,
       },

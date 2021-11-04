@@ -55,4 +55,7 @@ applicationRouter
     applicationController.restoreApplication,
     applicationController.updateApplication
   );
+applicationRouter
+  .route('/manage/anounce-applicants')
+  .post(applicationController.announceApplicants);
 module.exports = applicationRouter;

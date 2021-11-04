@@ -1,7 +1,34 @@
+const fs = require('fs');
 const factory = require('./handleFactory');
 const Application = require('./../models/application');
 const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('./../utils/apiFeatures');
+const AppError = require('./../utils/appError');
+const sendEmail = require('./../services/email');
+const pass_cv_annoucement = fs.readFileSync(
+  `${__dirname}/../public/AnnoucementEmail/Passed_CV_Annoucement.html`,
+  'utf-8'
+);
+const replaceHTML = (application) => {
+  let output = pass_cv_annoucement.replace(
+    /{{%fullName%}}/g,
+    application.fullName
+  );
+  output = output.replace(/{{%jobTitile%}}/g, application.job.jobTitle);
+  output = output.replace(
+    /{{%companyName%}}/g,
+    application.job.company.companyName
+  );
+  output = output.replace(
+    /{{%companyWebsite%}}/g,
+    application.job.company.companyWebsite
+  );
+  output = output.replace(/{{%logo%}}/g, application.job.company.logo);
+  const today = new Date();
+  const date = ` ngày ${today.getDate()} tháng ${today.getMonth()} năm ${today.getFullYear()}`;
+  output = output.replace(/{{Date}}/g, date);
+  return output;
+};
 class applicationController {
   setBodyApplicationCreation = (req, res, next) => {
     req.body.jobSeeker = req.user.id;
@@ -96,5 +123,29 @@ class applicationController {
   });
   getApplication = factory.getOne(Application);
   updateApplication = factory.updateOne(Application);
+  announceApplicants = catchAsync(async (req, res, next) => {
+    let application = await Application.find({ _id: { $in: req.body.id } });
+    application = application.forEach(async (el) => {
+      const content = replaceHTML(el);
+      try {
+        await sendEmail({
+          email: el.jobSeeker.email,
+          subject: `[${el.job.company.companyName}] Thông báo trúng tuyển tại vị trí ${el.job.jobTitle} thành công`,
+          content,
+        });
+      } catch (err) {
+        return next(
+          new AppError(
+            `Có lỗi xảy ra trong quá trình gửi mail cho ${el.fullName}! Vui lòng thử lại sau`,
+            500
+          )
+        );
+      }
+    });
+    return res.status(200).json({
+      status: 'success',
+      message: 'Đã gửi thông báo đến cho ứng viên thành công',
+    });
+  });
 }
 module.exports = new applicationController();
