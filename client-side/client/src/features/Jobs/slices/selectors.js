@@ -6,6 +6,10 @@ export const selectedStatus = (state) => {
   return state?.job?.status;
 };
 
+export const selectedStatusReview = (state) => {
+  return state?.job?.statusReview;
+};
+
 export const selectedJobDetail = (state) => {
   return state?.job?.jobDetail;
 };
@@ -24,4 +28,8 @@ export const selectedIsFilter = (state) => {
 
 export const selectedReviews = (state) => {
   return state?.job?.reviews;
+};
+
+export const selectedReviewDetail = (state) => {
+  return state?.job?.reviewDetail;
 };

@@ -37,6 +37,33 @@
       border-radius: 5px;
       padding: $pm-10;
       background-color: #fff;
+
+      &--rating {
+        font-size: $text-3xl;
+        font-weight: 500;
+        color: #4287f5;
+        vertical-align: sub;
+        margin-right: $pm-10;
+      }
+
+      &--recommend {
+        font-weight: 500;
+        font-size: $text-lg;
+      }
+
+      &--statistic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      &--quantity {
+        border-bottom: 1px solid lightgrey;
+        font-size: $text-2xl;
+        margin: $pm-10 0;
+      }
     }
   }
 }
@@ -69,6 +96,20 @@
       &--description {
         font-size: $text-sm;
         padding: $pm-8;
+      }
+
+      &--reviewList {
+        &--recommend {
+          font-weight: 500;
+          font-size: $text-base;
+        }
+
+        &--statistic {
+          & div {
+            flex: 0 0 100%;
+            text-align: center;
+          }
+        }
       }
     }
   }

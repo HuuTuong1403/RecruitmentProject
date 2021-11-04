@@ -1,0 +1,13 @@
+@import "common/styles/Variables.scss";
+
+.popoverField {
+  margin-top: $pm-4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  & > button {
+    flex: 0 0 49%;
+  }
+}

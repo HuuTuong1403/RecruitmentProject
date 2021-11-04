@@ -22,6 +22,7 @@ export const jobSeekerSlice = createSlice({
     resetFavoriteJob: (state) => {
       state.favoriteJobs = [];
       state.applicationJobs = [];
+      state.jobSeekerProfile = null;
     },
     addJobToFavorite: (state, action) => {
       state.favoriteJobs.push(action.payload);

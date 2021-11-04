@@ -4,8 +4,9 @@ import {
   fetchJobDetailAsync,
   fetchJobsAllAsync,
   fetchJobsSearchAsync,
-  fetchSkillsAsync,
+  fetchReviewDetailAsync,
   fetchReviewOfCompanyAsync,
+  fetchSkillsAsync,
 } from "./thunks";
 
 const initialState = {
@@ -13,8 +14,10 @@ const initialState = {
   jobDetail: {},
   companyDetail: null,
   skills: [],
-  reviews: [],
+  reviews: null,
+  reviewDetail: null,
   status: false,
+  statusReview: false,
   isFilter: false,
 };
 
@@ -24,6 +27,10 @@ export const jobSlice = createSlice({
   reducers: {
     toggleOpenFilter: (state) => {
       state.isFilter = !state.isFilter;
+    },
+    deleteReviewOfCompany: (state, action) => {
+      const id = action.payload;
+      state.reviews = state.reviews.filter((review) => review._id !== id);
     },
   },
   extraReducers: {
@@ -82,18 +89,31 @@ export const jobSlice = createSlice({
       state.status = false;
     },
     [fetchReviewOfCompanyAsync.pending]: (state) => {
-      state.status = true;
+      state.statusReview = true;
+      state.reviews = null;
     },
     [fetchReviewOfCompanyAsync.fulfilled]: (state, action) => {
       state.reviews = action.payload;
-      state.status = false;
+      state.statusReview = false;
     },
     [fetchReviewOfCompanyAsync.rejected]: (state) => {
-      state.reviews = [];
-      state.status = false;
+      state.reviews = null;
+      state.statusReview = false;
+    },
+    [fetchReviewDetailAsync.pending]: (state) => {
+      state.statusReview = true;
+      state.reviewDetail = null;
+    },
+    [fetchReviewDetailAsync.fulfilled]: (state, action) => {
+      state.reviewDetail = action.payload;
+      state.statusReview = false;
+    },
+    [fetchReviewDetailAsync.rejected]: (state) => {
+      state.reviewDetail = null;
+      state.statusReview = false;
     },
   },
 });
 
-export const { toggleOpenFilter } = jobSlice.actions;
+export const { toggleOpenFilter, deleteReviewOfCompany } = jobSlice.actions;
 export default jobSlice.reducer;

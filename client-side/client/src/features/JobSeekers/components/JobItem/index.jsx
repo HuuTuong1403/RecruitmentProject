@@ -4,7 +4,6 @@ import { FaBuilding } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { MdLocationOn, MdDeleteForever } from "react-icons/md";
-import { Popover } from "antd";
 import { removeFavoriteJob } from "features/JobSeekers/api/jobSeeker.api";
 import { removeJobOfFavorire } from "features/JobSeekers/slices";
 import { useDispatch } from "react-redux";
@@ -14,11 +13,11 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import moment from "moment";
 import notification from "components/Notification";
+import PopoverField from "custom-fields/PopoverField";
 
 const JobItem = ({ data, isApplied = false, createdAt }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [showPopover, setShowPopover] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -47,31 +46,6 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
     }
     setLoading(false);
   };
-
-  const content = (
-    <div>
-      <div>{t("Are you sure to delete this saved job posting?")}</div>
-      <div className={classes.jobItem__popover_actions}>
-        <ButtonField
-          backgroundcolor="#dd4b39"
-          backgroundcolorhover="#ff7875"
-          padding="2px"
-          onClick={() => setShowPopover((prevState) => !prevState)}
-        >
-          {t("Cancel")}
-        </ButtonField>
-        <ButtonField
-          backgroundcolor="#067951"
-          backgroundcolorhover="#2baa7e"
-          padding="2px"
-          loading={loading}
-          onClick={removeSaveJobHandler}
-        >
-          {t("Ok")}
-        </ButtonField>
-      </div>
-    </div>
-  );
 
   return (
     <div className={classes.jobItem}>
@@ -143,14 +117,13 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
                 <span>{t("Ẩn")}</span>
               </ButtonField>
             ) : (
-              <Popover
-                content={content}
-                trigger="click"
+              <PopoverField
                 title={t("Confirm deletion of saved job posting")}
-                visible={showPopover}
-                onVisibleChange={() =>
-                  setShowPopover((prevState) => !prevState)
-                }
+                loading={loading}
+                subTitle={t("Are you sure to delete this saved job posting?")}
+                titleCancel={t("Cancel")}
+                titleOk={t("Ok")}
+                onClickOk={removeSaveJobHandler}
               >
                 <ButtonField
                   backgroundcolor="#dd4b39"
@@ -161,7 +134,7 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
                   <MdDeleteForever style={{ marginRight: "5px" }} />
                   <span>{t("Delete")}</span>
                 </ButtonField>
-              </Popover>
+              </PopoverField>
             )}
           </div>
         </div>

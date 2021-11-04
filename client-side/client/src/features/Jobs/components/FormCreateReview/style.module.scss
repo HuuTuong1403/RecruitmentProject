@@ -1,0 +1,34 @@
+@import "common/styles/Variables.scss";
+
+.formCreate {
+  &__title {
+    text-align: center;
+  }
+
+  &__formGroup {
+    margin-top: $pm-8;
+  }
+
+  &__actions {
+    margin-top: $pm-10;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .formCreate {
+    margin-top: $pm-20;
+
+    &--formGroup {
+      margin-top: $pm-8;
+
+      & > div > span {
+        display: block;
+        margin-left: 0 !important;
+      }
+    }
+
+    &--actions {
+      margin-top: $pm-10;
+    }
+  }
+}

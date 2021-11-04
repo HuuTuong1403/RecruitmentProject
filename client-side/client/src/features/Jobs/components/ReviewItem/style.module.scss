@@ -3,6 +3,24 @@
 .reviewItem {
   border-bottom: 1px solid #f5f5f5;
 
+  &__listTile {
+    font-size: $text-base;
+
+    & a {
+      color: #050505 !important;
+
+      &:hover {
+        text-decoration: none !important;
+      }
+    }
+
+    &--icon {
+      font-size: $text-xl;
+      vertical-align: text-bottom;
+      margin-right: $pm-8;
+    }
+  }
+
   &__wrapped {
     padding: $pm-20;
   }
@@ -31,8 +49,14 @@
     }
 
     &--icon {
-      font-size: $text-2xl;
+      font-size: $text-3xl;
       cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #e8e8e8;
+        border-radius: 50%;
+      }
     }
   }
 

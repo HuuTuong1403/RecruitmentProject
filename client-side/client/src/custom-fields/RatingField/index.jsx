@@ -1,9 +1,9 @@
+import { AiOutlineFrown, AiOutlineMeh, AiOutlineSmile } from "react-icons/ai";
 import { Controller } from "react-hook-form";
 import { Fragment } from "react";
 import { Rate } from "antd";
-import { AiOutlineFrown, AiOutlineMeh, AiOutlineSmile } from "react-icons/ai";
-import ErrorText from "components/ErrorText";
 import { useTranslation } from "react-i18next";
+import ErrorText from "components/ErrorText";
 
 const RatingField = ({
   name,
@@ -40,7 +40,7 @@ const RatingField = ({
       <Controller
         name={name}
         control={control}
-        defaultValue={defaultValue}
+        defaultValue={isOT ? otRate.indexOf(defaultValue) + 1 : defaultValue}
         render={({ field: { onChange, value } }) => {
           return isOT ? (
             <Fragment>

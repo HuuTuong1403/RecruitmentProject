@@ -6,7 +6,6 @@ import { IoMdCalendar, IoMdEye, IoMdTime } from "react-icons/io";
 import { Link, useHistory } from "react-router-dom";
 import { MdLocationOn, MdEdit } from "react-icons/md";
 import { MdRestorePage } from "react-icons/md";
-import { Popover } from "antd";
 import {
   selectedProvinces,
   selectedDistricts,
@@ -23,6 +22,7 @@ import classes from "./style.module.scss";
 import ModalUpdateJob from "../ModalUpdateJob";
 import moment from "moment";
 import notification from "components/Notification";
+import PopoverField from "custom-fields/PopoverField";
 
 const JobOfEmployerItem = ({ data, isTrash }) => {
   const {
@@ -41,7 +41,6 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
 
   const { t } = useTranslation();
   const [showModal, setShhowModal] = useState(false);
-  const [showPopover, setShowPopover] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const slugState = useSelector(selectJobSlug);
@@ -124,35 +123,6 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
     setLoading(false);
   };
 
-  const content = (
-    <div>
-      <div>
-        {isTrash
-          ? t("Do you want to restore this job posting?")
-          : t("Are you sure to delete this job posting?")}
-      </div>
-      <div className={classes.item__popover_actions}>
-        <ButtonField
-          backgroundcolor={isTrash ? "#dd4b39" : "#067951"}
-          backgroundcolorhover={isTrash ? "#ff7875" : "#2baa7e"}
-          onClick={() => setShowPopover((prevState) => !prevState)}
-          padding="2px"
-        >
-          {t("Close")}
-        </ButtonField>
-        <ButtonField
-          backgroundcolor={isTrash ? "#067951" : "#dd4b39"}
-          backgroundcolorhover={isTrash ? "#2baa7e" : "#ff7875"}
-          loading={loading}
-          onClick={isTrash ? handleRestoreJob : handleDeleteRecruit}
-          padding="2px"
-        >
-          {isTrash ? t("Restore") : t("Delete")}
-        </ButtonField>
-      </div>
-    </div>
-  );
-
   return (
     <div className={classes.item}>
       <div className={classes.item__wrapped}>
@@ -224,14 +194,14 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
                 <BiTrash className={classes.item__icon} />
                 {t("Delete")}
               </ButtonField>
-              <Popover
-                content={content}
-                trigger="click"
+              <PopoverField
                 title={t("Confirm to restore job postings")}
-                visible={showPopover}
-                onVisibleChange={() =>
-                  setShowPopover((prevState) => !prevState)
-                }
+                subTitle={t("Do you want to restore this job posting?")}
+                loading={loading}
+                onClickOk={handleRestoreJob}
+                titleCancel={t("Cancel")}
+                titleOk={t("Restore")}
+                isSwap
               >
                 <ButtonField
                   backgroundcolor="#067951"
@@ -241,7 +211,7 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
                   <MdRestorePage className={classes.item__icon} />
                   {t("Restore")}
                 </ButtonField>
-              </Popover>
+              </PopoverField>
             </div>
           ) : (
             <div className={classes["item__bottom--actions"]}>
@@ -263,14 +233,13 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
                 <MdEdit className={classes.item__icon} />
                 {t("Edit")}
               </ButtonField>
-              <Popover
-                content={content}
-                trigger="click"
+              <PopoverField
                 title={t("Confirm deletion of job postings")}
-                visible={showPopover}
-                onVisibleChange={() =>
-                  setShowPopover((prevState) => !prevState)
-                }
+                subTitle={t("Do you want to restore this job posting?")}
+                loading={loading}
+                onClickOk={handleDeleteRecruit}
+                titleCancel={t("Cancel")}
+                titleOk={t("Delete")}
               >
                 <ButtonField
                   backgroundcolor="#dd4b39"
@@ -280,7 +249,7 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
                   <BiTrash className={classes.item__icon} />
                   {t("Delete")}
                 </ButtonField>
-              </Popover>
+              </PopoverField>
             </div>
           )}
         </div>
