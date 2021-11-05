@@ -83,9 +83,66 @@ export const restoreJob = async (payload) => {
   }
 };
 
-export const fetchAllApplication = async (payload) => {
+export const fetchJobsApplicationNotSaved = async (payload) => {
   try {
-    const res = await axiosClient.get(`employer/jobs/${payload}/applications`);
+    const res = await axiosClient.get("employer/applications/management", {
+      params: payload["filter"],
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchJobsApplicationSaved = async (payload) => {
+  try {
+    const res = await axiosClient.get("employer/applications/management", {
+      params: payload["filter"],
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchJobsApplicationDeleted = async (payload) => {
+  try {
+    const res = await axiosClient.get("employer/applications/management", {
+      params: payload["filter"],
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const saveApplication = async (payload) => {
+  try {
+    const res = await axiosClient.patch(
+      `employer/applications/management/${payload}/save`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteApplication = async (payload) => {
+  try {
+    const res = await axiosClient.delete(
+      `employer/applications/management/${payload}/delete`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const restoreApplication = async (payload) => {
+  try {
+    const res = await axiosClient.patch(
+      `employer/applications/management/${payload}/restore`
+    );
     return res;
   } catch (error) {
     console.log(error);

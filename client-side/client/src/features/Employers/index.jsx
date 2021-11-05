@@ -5,6 +5,7 @@ import {
   getDetailEmployerAsync,
   fetchJobsOfEmployerAsync,
   fetchJobDeletedAsync,
+  fetchJobsApplicationNotSavedAsync,
 } from "./slices/thunks";
 import { selectEmployerLocal } from "./slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
@@ -63,6 +64,12 @@ const DashboardEmployersPage = () => {
       }
       if (location.pathname === `${url}/recruit-manage/trash`) {
         dispatch(fetchJobDeletedAsync());
+      }
+      if (location.pathname === `${url}/candidate-profiles`) {
+        let filter = {
+          status: "NotSaved",
+        };
+        dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
       }
     }
   }, [dispatch, checkLocation, location, employer, url]);

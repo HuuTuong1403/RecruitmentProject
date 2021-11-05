@@ -1,0 +1,165 @@
+@import "common/styles/Variables.scss";
+
+.modalProfile {
+  color: $primary-text;
+
+  &__icon {
+    margin-right: 3px;
+    margin-bottom: 1px;
+    font-size: $text-base;
+  }
+
+  &__field {
+    display: flex;
+
+    &--text {
+      font-size: $text-base;
+    }
+
+    &--textHightlight {
+      font-size: $text-base;
+      font-weight: bold;
+    }
+
+    &--description {
+      margin-top: $pm-6;
+      font-size: $text-base;
+      padding: $pm-20;
+      border: 1px solid #e8e8e8;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    }
+
+    &--textmb {
+      text-indent: 0;
+    }
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    &--left {
+      flex: 0 0 20%;
+
+      &--logo {
+        border: 1px solid #e8e8e8;
+        padding: $pm-2;
+        border-radius: 10%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+
+        & img {
+          border-radius: 10%;
+        }
+      }
+    }
+    &--right {
+      flex: 0 0 74%;
+    }
+
+    &--fullName {
+      color: $primary-text;
+      font-size: $text-2xl;
+    }
+
+    &--actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+
+      & button {
+        flex: 0 0 32%;
+      }
+    }
+  }
+
+  &__bottom {
+    padding: $pm-20;
+
+    &--jobTitle {
+      margin-bottom: $pm-10;
+      text-align: center;
+      color: $primary-text;
+      font-size: $text-2xl;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .modalProfile {
+    &__top {
+      &--left {
+        flex: 0 0 15%;
+      }
+
+      &--right {
+        flex: 0 0 65%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .modalProfile {
+    &__icon {
+      font-size: $text-base;
+    }
+
+    &__field {
+      display: flex;
+      flex-wrap: wrap;
+
+      &--textmb {
+        text-indent: $pm-10;
+      }
+
+      &--text {
+        font-size: $text-sm;
+      }
+
+      &--textHightlight {
+        font-size: $text-sm;
+      }
+
+      &--description {
+        font-size: $text-sm;
+        padding: $pm-10;
+      }
+    }
+
+    &__top {
+      display: flex;
+      gap: 10px;
+
+      &--left {
+        flex: 0 0 100%;
+        text-align: center;
+      }
+      &--right {
+        flex: 0 0 100%;
+      }
+
+      &--fullName {
+        font-size: $text-xl;
+      }
+
+      &--actions {
+        & button {
+          flex: 0 0 100%;
+        }
+      }
+    }
+
+    &__bottom {
+      padding: $pm-10 0;
+
+      &--jobTitle {
+        margin-bottom: $pm-4;
+        text-align: start;
+        font-size: $text-lg;
+      }
+    }
+  }
+}

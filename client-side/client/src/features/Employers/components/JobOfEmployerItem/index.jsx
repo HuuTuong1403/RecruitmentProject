@@ -4,8 +4,7 @@ import { fetchJobDetailOfEmployerAsync } from "features/Employers/slices/thunks"
 import { handChangeJobSlug } from "features/Employers/slices";
 import { IoMdCalendar, IoMdEye, IoMdTime } from "react-icons/io";
 import { Link, useHistory } from "react-router-dom";
-import { MdLocationOn, MdEdit } from "react-icons/md";
-import { MdRestorePage } from "react-icons/md";
+import { MdLocationOn, MdEdit, MdRestorePage } from "react-icons/md";
 import {
   selectedProvinces,
   selectedDistricts,
