@@ -11,29 +11,32 @@ const eventSchema = new mongoose.Schema(
     },
     briefDescription: {
       type: String,
-      required: [true, 'Event must have brief description'],
+      required: [true, 'Sự kiến phải có mô tả vắn tắt'],
       trim: true,
     },
     endTime: {
       type: Date,
-      required: [true, 'Event must have finish time'],
+      required: [true, 'Sự kiện phải có thời gian kết thúc'],
     },
     eventContent: {
       type: String,
-      required: [true, 'Event must have content'],
+      required: [true, 'Sự kiện phải có nội dung'],
       trim: true,
     },
     eventName: {
       type: String,
-      required: [true, 'Event must have name'],
+      required: [true, 'Sự kiện phải có tên sự kiện'],
       trim: true,
     },
     eventOrganizer: {
       type: String,
-      required: [true, 'Event must have organizer'],
+      required: [true, 'Sự kiện phải có đơn vị tổ chức'],
       trim: true,
     },
-    imageCover: String,
+    imageCover: {
+      type: String,
+      required: [true, 'Sự kiện phải có hình ảnh cover'],
+    },
     images: [String],
     location: {
       type: String,
@@ -41,7 +44,7 @@ const eventSchema = new mongoose.Schema(
     },
     startTime: {
       type: Date,
-      required: [true, 'Event must have start time'],
+      required: [true, 'Sự kiện phải có thời gian bắt đầu'],
     },
     status: {
       type: String,
@@ -58,6 +61,8 @@ const eventSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 const Event = mongoose.model('Event', eventSchema);
