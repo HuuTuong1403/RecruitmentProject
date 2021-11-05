@@ -33,6 +33,7 @@ const eventSchema = new mongoose.Schema(
       required: [true, 'Event must have organizer'],
       trim: true,
     },
+    imageCover: String,
     images: [String],
     location: {
       type: String,
@@ -45,6 +46,11 @@ const eventSchema = new mongoose.Schema(
     status: {
       type: String,
       default: 'NotYetOccur',
+      enum: {
+        values: ['NotYetOccur', 'Occurring', 'Pausing', 'Finish'],
+        message:
+          'Trạng thái hồ sơ gồm có: NotYetOccur, Occurring, Pausing, Finish ',
+      },
     },
     topic: {
       type: String,

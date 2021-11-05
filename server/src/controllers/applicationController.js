@@ -1,4 +1,5 @@
 const fs = require('fs');
+const mongoose = require('mongoose');
 const factory = require('./handleFactory');
 const Application = require('./../models/application');
 const catchAsync = require('../utils/catchAsync');
@@ -145,6 +146,36 @@ class applicationController {
     return res.status(200).json({
       status: 'success',
       message: 'Đã gửi thông báo đến cho ứng viên thành công',
+    });
+  });
+  countAppicantsAccoridingToStatus = catchAsync(async (req, res, next) => {
+    const applicationQuantity = await Application.aggregate([
+      {
+        $lookup: {
+          from: 'jobs', /// Name collection from database, not name from exported schema
+          localField: 'job',
+          foreignField: '_id',
+          as: 'fromjob',
+        },
+      },
+      {
+        $unwind: '$fromjob',
+      }, //
+      {
+        $match: {
+          'fromjob.company': mongoose.Types.ObjectId(req.user.id),
+        },
+      },
+      {
+        $group: { _id: '$status', count: { $sum: 1 } },
+      },
+    ]);
+    res.status(200).json({
+      status: 'success',
+      lengh: applicationQuantity.length,
+      data: {
+        data: applicationQuantity,
+      },
     });
   });
 }

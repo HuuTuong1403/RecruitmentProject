@@ -56,6 +56,9 @@ applicationRouter
     applicationController.updateApplication
   );
 applicationRouter
-  .route('/manage/anounce-applicants')
+  .route('/management/anounce-applicants')
   .post(applicationController.announceApplicants);
+applicationRouter
+  .route('/management/status/count')
+  .get(applicationController.countAppicantsAccoridingToStatus);
 module.exports = applicationRouter;

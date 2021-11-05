@@ -62,7 +62,7 @@ applicationSchema.pre(/^find/, function (next) {
   });
   this.populate({
     path: 'jobSeeker',
-    select: 'email username avatar',
+    select: 'email username avatar DOB address',
   });
   next();
 });
