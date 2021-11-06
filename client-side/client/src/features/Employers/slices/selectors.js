@@ -53,3 +53,7 @@ export const selectTabsItem = (state) => {
 export const selectDataFilter = (state) => {
   return state?.employer?.dataFilter;
 };
+
+export const selectCountApplication = (state) => {
+  return state?.employer?.applicationCount;
+};

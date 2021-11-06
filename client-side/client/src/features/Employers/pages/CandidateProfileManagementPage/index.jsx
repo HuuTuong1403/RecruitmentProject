@@ -9,6 +9,7 @@ import {
   selectJobsApplicationDeleted,
   selectTabsItem,
   selectDataFilter,
+  selectCountApplication,
 } from "features/Employers/slices/selectors";
 import { changeTabsItem } from "features/Employers/slices";
 import { ScrollTop } from "common/functions";
@@ -29,6 +30,7 @@ const CandidateProfileManagementPage = () => {
   const dispatch = useDispatch();
   const activeTab = useSelector(selectTabsItem);
   const dataFilter = useSelector(selectDataFilter);
+  const countApplication = useSelector(selectCountApplication);
 
   const jobsApplicationNotSaved = useSelector(selectJobsApplicationNotSaved);
   const jobsApplicationSaved = useSelector(selectJobsApplicationSaved);
@@ -83,7 +85,10 @@ const CandidateProfileManagementPage = () => {
           size="middle"
           onChange={handleChangeTabs}
         >
-          <TabPane tab={`${t("Resume Applied")} (0)`} key="NotSaved">
+          <TabPane
+            tab={`${t("Resume Applied")} (${countApplication?.NotSaved})`}
+            key="NotSaved"
+          >
             {jobsApplicationNotSaved.length === 0 ? (
               <NotFounđData
                 title={t("There are currently no resumes applying")}
@@ -95,7 +100,10 @@ const CandidateProfileManagementPage = () => {
               />
             )}
           </TabPane>
-          <TabPane tab={`${t("Bookmarked Resumes")} (0)`} key="Saved">
+          <TabPane
+            tab={`${t("Bookmarked Resumes")} (${countApplication?.Saved})`}
+            key="Saved"
+          >
             {jobsApplicationSaved.length === 0 ? (
               <NotFounđData
                 title={t("There are currently no saved profiles")}
@@ -104,7 +112,10 @@ const CandidateProfileManagementPage = () => {
               <TableJobsApplication jobsApplication={jobsApplicationSaved} />
             )}
           </TabPane>
-          <TabPane tab={`${t("Deleted Resumes")} (0)`} key="Deleted">
+          <TabPane
+            tab={`${t("Deleted Resumes")} (${countApplication?.Deleted})`}
+            key="Deleted"
+          >
             {jobsApplicationDeleted.length === 0 ? (
               <NotFounđData
                 title={t("There are currently no deleted profiles")}

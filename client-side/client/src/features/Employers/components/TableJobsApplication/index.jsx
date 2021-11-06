@@ -7,6 +7,7 @@ import {
   savedJobApplication,
   deletedJobAppication,
   restoredJobApplication,
+  handleChangeCountStatus,
 } from "features/Employers/slices";
 import { FaFileDownload, FaEye, FaSave, FaTrash } from "react-icons/fa";
 import { MdRestorePage } from "react-icons/md";
@@ -52,7 +53,13 @@ const TableJobsApplication = ({
     if (result.status === "success") {
       notification(`${t("Successfully saved profile")}`, "success");
       dispatch(savedJobApplication(id));
-      onCloseModal();
+      dispatch(
+        handleChangeCountStatus({
+          prevStatus: "NotSaved",
+          nextStatus: "Saved",
+        })
+      );
+      setShhowModal(false);
     } else {
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
@@ -70,7 +77,13 @@ const TableJobsApplication = ({
     if (result.status === "success") {
       notification(`${t("Successfully deleted profile")}`, "success");
       dispatch(deletedJobAppication(id));
-      onCloseModal();
+      dispatch(
+        handleChangeCountStatus({
+          prevStatus: "NotSaved",
+          nextStatus: "Deleted",
+        })
+      );
+      setShhowModal(false);
     } else {
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
@@ -88,7 +101,13 @@ const TableJobsApplication = ({
     if (result.status === "success") {
       notification(`${t("Successfully restored profile")}`, "success");
       dispatch(restoredJobApplication(id));
-      onCloseModal();
+      dispatch(
+        handleChangeCountStatus({
+          prevStatus: "Deleted",
+          nextStatus: "NotSaved",
+        })
+      );
+      setShhowModal(false);
     } else {
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
