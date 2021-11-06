@@ -15,7 +15,7 @@ import InputField from "custom-fields/InputField";
 import InputUploadCv from "features/Jobs/components/InputUploadCv";
 import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
-import TextAreaField from "custom-fields/TextAreaField";
+import CKEditorField from "custom-fields/CKEditorField";
 
 const ModalApplyJob = ({ showModal, onCloseModal, job }) => {
   const { t } = useTranslation();
@@ -145,19 +145,16 @@ const ModalApplyJob = ({ showModal, onCloseModal, job }) => {
                   "What skills, projects or achievements make you a good candidate for this position?"
                 )}
               />
-              <TextAreaField
+              <CKEditorField
                 control={control}
                 name="description"
-                showCount
-                maxLength={500}
-                rows={5}
                 placeholder={t(
                   "Give more specific examples to make your application more convincing..."
                 )}
               />
             </div>
 
-            <div>
+            <div className={classes["modalApplyJob__wrapped--actions"]}>
               <ButtonField
                 backgroundcolor="#dd4b39"
                 backgroundcolorhover="#bf0000"

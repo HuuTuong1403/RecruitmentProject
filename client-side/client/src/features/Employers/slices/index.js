@@ -4,28 +4,41 @@ import {
   fetchJobDetailOfEmployerAsync,
   fetchJobsOfEmployerAsync,
   getDetailEmployerAsync,
-  fetchAllApplicationAsync,
+  fetchJobsApplicationNotSavedAsync,
+  fetchJobsApplicationSavedAsync,
+  fetchJobsApplicationDeletedAsync,
 } from "features/Employers/slices/thunks";
 
 const initialState = {
-  employerDetail: null,
-  postJobData: null,
-  jobsOfEmployer: [],
-  jobDetailEmployer: null,
-  jobSlug: null,
   avatar: null,
+  dataFilter: null,
+  employerDetail: null,
+  jobDetailEmployer: null,
+  jobsApplicationDeleted: [],
+  jobsApplicationNotSaved: [],
+  jobsApplicationSaved: [],
+  jobsApplicationSearch: [],
+  jobSlug: null,
+  jobsOfEmployer: [],
   jobTrash: [],
-  jobApplication: [],
+  postJobData: null,
   status: false,
   statusJobDetail: false,
+  tabItem: "NotSaved",
 };
 
 const employerSlice = createSlice({
   name: "employer",
   initialState,
   reducers: {
+    changeTabsItem: (state, action) => {
+      state.tabItem = action.payload;
+    },
     addDataPostJob: (state, action) => {
       state.postJobData = { ...state.postJobData, ...action.payload };
+    },
+    addDataFilter: (state, action) => {
+      state.dataFilter = { ...action.payload };
     },
     resetDataPostJob: (state) => {
       state.postJobData = null;
@@ -43,8 +56,27 @@ const employerSlice = createSlice({
       const id = action.payload;
       state.jobTrash = state.jobTrash.filter((job) => job._id !== id);
     },
+    savedJobApplication: (state, action) => {
+      const id = action.payload;
+      state.jobsApplicationNotSaved = state.jobsApplicationNotSaved.filter(
+        (job) => job._id !== id
+      );
+    },
+    deletedJobAppication: (state, action) => {
+      const id = action.payload;
+      state.jobsApplicationNotSaved = state.jobsApplicationNotSaved.filter(
+        (job) => job._id !== id
+      );
+    },
+    restoredJobApplication: (state, action) => {
+      const id = action.payload;
+      state.jobsApplicationDeleted = state.jobsApplicationDeleted.filter(
+        (job) => job._id !== id
+      );
+    },
   },
   extraReducers: {
+    //Get Detail Employer
     [getDetailEmployerAsync.pending]: (state) => {
       state.status = true;
     },
@@ -56,6 +88,8 @@ const employerSlice = createSlice({
       state.status = false;
       state.employerDetail = null;
     },
+
+    //Fetch Job Posting Of Employer
     [fetchJobsOfEmployerAsync.pending]: (state) => {
       state.status = true;
     },
@@ -67,6 +101,8 @@ const employerSlice = createSlice({
       state.status = false;
       state.jobsOfEmployer = [];
     },
+
+    //Fetch Job Detail
     [fetchJobDetailOfEmployerAsync.pending]: (state) => {
       state.statusJobDetail = true;
     },
@@ -78,6 +114,8 @@ const employerSlice = createSlice({
       state.statusJobDetail = false;
       state.jobDetailEmployer = null;
     },
+
+    //Fetch Job Deleted
     [fetchJobDeletedAsync.pending]: (state) => {
       state.status = true;
     },
@@ -89,25 +127,58 @@ const employerSlice = createSlice({
       state.status = false;
       state.jobTrash = [];
     },
-    [fetchAllApplicationAsync.pending]: (state) => {
+
+    //Fetch Jobs Application Not Saved
+    [fetchJobsApplicationNotSavedAsync.pending]: (state) => {
       state.status = true;
     },
-    [fetchAllApplicationAsync.fulfilled]: (state, action) => {
+    [fetchJobsApplicationNotSavedAsync.fulfilled]: (state, action) => {
       state.status = false;
-      state.jobApplication = action.payload;
+      state.jobsApplicationNotSaved = action.payload;
     },
-    [fetchAllApplicationAsync.rejected]: (state) => {
+    [fetchJobsApplicationNotSavedAsync.rejected]: (state) => {
       state.status = false;
-      state.jobApplication = [];
+      state.jobsApplicationNotSaved = [];
+    },
+
+    //Fetch Jobs Application Saved
+    [fetchJobsApplicationSavedAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchJobsApplicationSavedAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.jobsApplicationSaved = action.payload;
+    },
+    [fetchJobsApplicationSavedAsync.rejected]: (state) => {
+      state.status = false;
+      state.jobsApplicationSaved = [];
+    },
+
+    //Fetch Jobs Application Deleted
+    [fetchJobsApplicationDeletedAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchJobsApplicationDeletedAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.jobsApplicationDeleted = action.payload;
+    },
+    [fetchJobsApplicationDeletedAsync.rejected]: (state) => {
+      state.status = false;
+      state.jobsApplicationDeleted = [];
     },
   },
 });
 
 export const {
+  addDataFilter,
   addDataPostJob,
   resetDataPostJob,
   handChangeJobSlug,
   deleteJobPost,
   deleteJobTrash,
+  savedJobApplication,
+  deletedJobAppication,
+  changeTabsItem,
+  restoredJobApplication,
 } = employerSlice.actions;
 export default employerSlice.reducer;

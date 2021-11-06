@@ -4,7 +4,9 @@ import {
   fetchJobsOfEmployer,
   fetchJobDetailOfEmployer,
   fetchJobDeleted,
-  fetchAllApplication,
+  fetchJobsApplicationNotSaved,
+  fetchJobsApplicationSaved,
+  fetchJobsApplicationDeleted,
 } from "../api/employer.api";
 
 export const getDetailEmployerAsync = createAsyncThunk(
@@ -39,10 +41,26 @@ export const fetchJobDeletedAsync = createAsyncThunk(
   }
 );
 
-export const fetchAllApplicationAsync = createAsyncThunk(
-  "employer/fetchAllApplication",
+export const fetchJobsApplicationNotSavedAsync = createAsyncThunk(
+  "employer/fetchJobsApplicationNotSaved",
   async (payload) => {
-    const res = await fetchAllApplication(payload);
+    const res = await fetchJobsApplicationNotSaved(payload);
+    return res.data.data;
+  }
+);
+
+export const fetchJobsApplicationSavedAsync = createAsyncThunk(
+  "employer/fetchJobsApplicationSaved",
+  async (payload) => {
+    const res = await fetchJobsApplicationSaved(payload);
+    return res.data.data;
+  }
+);
+
+export const fetchJobsApplicationDeletedAsync = createAsyncThunk(
+  "employer/fetchJobsApplicationDeleted",
+  async (payload) => {
+    const res = await fetchJobsApplicationDeleted(payload);
     return res.data.data;
   }
 );

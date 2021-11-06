@@ -34,6 +34,22 @@ export const selectJobTrash = (state) => {
   return state?.employer?.jobTrash;
 };
 
-export const selectJobApplication = (state) => {
-  return state?.employer?.jobApplication;
+export const selectJobsApplicationNotSaved = (state) => {
+  return state?.employer?.jobsApplicationNotSaved;
+};
+
+export const selectJobsApplicationSaved = (state) => {
+  return state?.employer?.jobsApplicationSaved;
+};
+
+export const selectJobsApplicationDeleted = (state) => {
+  return state?.employer?.jobsApplicationDeleted;
+};
+
+export const selectTabsItem = (state) => {
+  return state?.employer?.tabItem;
+};
+
+export const selectDataFilter = (state) => {
+  return state?.employer?.dataFilter;
 };

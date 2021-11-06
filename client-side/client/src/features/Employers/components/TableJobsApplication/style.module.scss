@@ -1,0 +1,10 @@
+@import "common/styles/Variables.scss";
+
+.table {
+  &__iconAction {
+    color: $primary-text;
+    font-size: $text-lg;
+    cursor: pointer;
+    margin-right: $pm-8;
+  }
+}

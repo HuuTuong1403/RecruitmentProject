@@ -1,0 +1,8 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.manageCandidate {
+  &__tabs {
+    margin-top: $pm-16;
+  }
+}

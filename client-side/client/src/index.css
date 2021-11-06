@@ -120,3 +120,11 @@ a:hover {
 .ck.ck-editor__editable_inline {
   height: 200px !important;
 }
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #f79d25;
+}
+
+.ant-tabs-tab:hover {
+  color: #f79d25;
+}
