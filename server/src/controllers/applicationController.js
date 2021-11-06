@@ -149,6 +149,11 @@ class applicationController {
     });
   });
   countAppicantsAccoridingToStatus = catchAsync(async (req, res, next) => {
+    var result = {
+      NotSaved: 0,
+      Saved: 0,
+      Deleted: 0,
+    };
     const applicationQuantity = await Application.aggregate([
       {
         $lookup: {
@@ -170,11 +175,27 @@ class applicationController {
         $group: { _id: '$status', count: { $sum: 1 } },
       },
     ]);
+    for (var i = 0; i < applicationQuantity.length; i++) {
+      switch (applicationQuantity[i]._id) {
+        case 'NotSaved': {
+          result.NotSaved = applicationQuantity[i].count;
+          break;
+        }
+        case 'Saved': {
+          result.Saved = applicationQuantity[i].count;
+          break;
+        }
+        case 'Deleted': {
+          result.Deleted = applicationQuantity[i].count;
+          break;
+        }
+      }
+    }
     res.status(200).json({
       status: 'success',
       lengh: applicationQuantity.length,
       data: {
-        data: applicationQuantity,
+        data: result,
       },
     });
   });

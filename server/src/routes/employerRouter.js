@@ -10,9 +10,11 @@ const getMe = require('./../middlewares/getMe');
 const jobRoute = require('./jobRoutes');
 const reviewRouter = require('./reviewRouter');
 const applicationRouter = require('./applicationRouter');
+const eventRouter = require('./eventRouter');
 
 employerRouter.use('/applications', applicationRouter);
 employerRouter.use('/reviews', reviewRouter);
+employerRouter.use('/events', eventRouter);
 employerRouter.route('/login').post(authController.loginEmployer);
 employerRouter.use(
   '/jobs',

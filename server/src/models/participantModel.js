@@ -32,6 +32,8 @@ const participantSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
 const Participant = mongoose.model('Participant', participantSchema);

@@ -9,6 +9,7 @@ const authController = require('./../controllers/authController');
 
 eventRouter
   .route('/')
+  .get(eventController.setCompany, eventController.getAllEvent)
   .post(
     authController.protect,
     authController.restrictTo('employer'),
@@ -17,4 +18,11 @@ eventRouter
     eventController.setBodyEventCreation,
     eventController.createEvent
   );
+eventRouter.route('/:slug').get(eventController.getEventAccordingToSlug);
+eventRouter.use(authController.protect, authController.restrictTo('employer'));
+eventRouter
+  .route('/management/:id')
+  .patch(eventController.updateEvent)
+  .get(eventController.getEventAccordingtoId);
+
 module.exports = eventRouter;

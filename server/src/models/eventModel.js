@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 const addressSchema = require('./addressModel');
 const eventSchema = new mongoose.Schema(
   {
@@ -58,6 +59,9 @@ const eventSchema = new mongoose.Schema(
     topic: {
       type: String,
     },
+    slug: {
+      type: String,
+    },
   },
   {
     timestamps: true,
@@ -65,5 +69,18 @@ const eventSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+eventSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'company',
+    select: 'companyName companyType companyWebsite logo ot',
+  });
+  next();
+});
+eventSchema.pre('save', async function (next) {
+  this.slug = slugify(`${this.eventName} ${this._id}`, {
+    lower: true,
+  });
+  next();
+});
 const Event = mongoose.model('Event', eventSchema);
 module.exports = Event;

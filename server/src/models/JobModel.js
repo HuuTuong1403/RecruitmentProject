@@ -148,7 +148,7 @@ jobSchema.pre('save', async function (next) {
 jobSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'company',
-    select: 'companyName companyType companyWebsite logo ot quantity',
+    select: 'companyName companyType companyWebsite logo ot',
   });
   next();
 });
