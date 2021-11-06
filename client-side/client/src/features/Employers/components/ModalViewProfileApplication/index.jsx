@@ -16,7 +16,6 @@ const ModalViewProfileApplication = ({
   onDelete,
   onSave,
   onRestore,
-  isSave = false,
   isDelete = false,
   isNotSaved = false,
   loadingSaved = false,
@@ -37,8 +36,6 @@ const ModalViewProfileApplication = ({
     phone,
     _id,
   } = application;
-
-  console.log(application);
 
   const handleDownloadCV = () => {
     window.open(cvPath, "_blank");

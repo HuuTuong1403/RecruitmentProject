@@ -22,7 +22,6 @@ import PopoverField from "custom-fields/PopoverField";
 
 const TableJobsApplication = ({
   jobsApplication,
-  isSave = false,
   isDelete = false,
   isNotSaved = false,
 }) => {
@@ -155,7 +154,7 @@ const TableJobsApplication = ({
               </a>
             </Tooltip>
             <Tooltip placement="bottom" title={t("Save profile")}>
-              {!isSave && isNotSaved && (
+              {isNotSaved && (
                 <PopoverField
                   title={t("Confirm to save this profile")}
                   subTitle={t("Do you want to save this profile?")}
@@ -201,7 +200,9 @@ const TableJobsApplication = ({
                 {isDelete ? (
                   <MdRestorePage className={classes.table__iconAction} />
                 ) : (
-                  !isSave && <FaTrash className={classes.table__iconAction} />
+                  isNotSaved && (
+                    <FaTrash className={classes.table__iconAction} />
+                  )
                 )}
               </PopoverField>
             </Tooltip>
@@ -239,7 +240,6 @@ const TableJobsApplication = ({
         showModal={showModal}
         onCloseModal={onCloseModal}
         application={application}
-        isSave={isSave}
         isDelete={isDelete}
         isNotSaved={isNotSaved}
         loadingSaved={loadingSaved}

@@ -1,0 +1,44 @@
+@import "common/styles/Variables.scss";
+
+.searchApplication {
+  margin-top: $pm-10;
+
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    & > div {
+      flex: 0 0 48%;
+    }
+
+    &--actions {
+      width: 100%;
+      margin-top: $pm-10;
+      text-align: end;
+
+      & > button {
+        max-width: 20%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .searchApplication {
+    &__form {
+      & > div {
+        margin-bottom: $pm-4;
+        flex: 0 0 100%;
+      }
+
+      &--actions {
+        width: 100%;
+
+        & > button {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

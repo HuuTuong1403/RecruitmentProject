@@ -7,9 +7,9 @@ import {
   fetchJobDeletedAsync,
   fetchJobsApplicationNotSavedAsync,
 } from "./slices/thunks";
-import { selectEmployerLocal } from "./slices/selectors";
+import { selectEmployerLocal, selectDataFilter } from "./slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import FooterEmployers from "components/FooterEmployers";
@@ -32,6 +32,7 @@ const SettingPage = lazy(() => import("./pages/SettingPage"));
 const DashboardEmployersPage = () => {
   const { t } = useTranslation();
   const employer = selectEmployerLocal();
+  const dataFilter = useSelector(selectDataFilter);
 
   useEffect(() => {
     if (!employer) {
@@ -66,13 +67,19 @@ const DashboardEmployersPage = () => {
         dispatch(fetchJobDeletedAsync());
       }
       if (location.pathname === `${url}/candidate-profiles`) {
-        let filter = {
-          status: "NotSaved",
-        };
-        dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
+        let filter;
+        if (dataFilter) {
+          filter = dataFilter;
+          dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
+        } else {
+          filter = {
+            status: "NotSaved",
+          };
+          dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
+        }
       }
     }
-  }, [dispatch, checkLocation, location, employer, url]);
+  }, [dispatch, checkLocation, location, employer, url, dataFilter]);
 
   return (
     <Fragment>

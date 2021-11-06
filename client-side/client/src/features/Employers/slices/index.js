@@ -10,20 +10,21 @@ import {
 } from "features/Employers/slices/thunks";
 
 const initialState = {
-  employerDetail: null,
-  postJobData: null,
-  jobsOfEmployer: [],
-  jobDetailEmployer: null,
-  jobSlug: null,
   avatar: null,
-  jobTrash: [],
+  dataFilter: null,
+  employerDetail: null,
+  jobDetailEmployer: null,
+  jobsApplicationDeleted: [],
   jobsApplicationNotSaved: [],
   jobsApplicationSaved: [],
-  jobsApplicationDeleted: [],
   jobsApplicationSearch: [],
-  tabItem: "NotSaved",
+  jobSlug: null,
+  jobsOfEmployer: [],
+  jobTrash: [],
+  postJobData: null,
   status: false,
   statusJobDetail: false,
+  tabItem: "NotSaved",
 };
 
 const employerSlice = createSlice({
@@ -35,6 +36,9 @@ const employerSlice = createSlice({
     },
     addDataPostJob: (state, action) => {
       state.postJobData = { ...state.postJobData, ...action.payload };
+    },
+    addDataFilter: (state, action) => {
+      state.dataFilter = { ...action.payload };
     },
     resetDataPostJob: (state) => {
       state.postJobData = null;
@@ -166,6 +170,7 @@ const employerSlice = createSlice({
 });
 
 export const {
+  addDataFilter,
   addDataPostJob,
   resetDataPostJob,
   handChangeJobSlug,

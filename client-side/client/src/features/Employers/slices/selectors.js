@@ -49,3 +49,7 @@ export const selectJobsApplicationDeleted = (state) => {
 export const selectTabsItem = (state) => {
   return state?.employer?.tabItem;
 };
+
+export const selectDataFilter = (state) => {
+  return state?.employer?.dataFilter;
+};
