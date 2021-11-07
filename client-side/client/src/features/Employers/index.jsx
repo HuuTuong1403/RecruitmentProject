@@ -6,6 +6,7 @@ import {
   fetchJobsOfEmployerAsync,
   fetchJobDeletedAsync,
   fetchJobsApplicationNotSavedAsync,
+  countApplicationStatusAsync,
 } from "./slices/thunks";
 import { selectEmployerLocal, selectDataFilter } from "./slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
@@ -68,6 +69,7 @@ const DashboardEmployersPage = () => {
       }
       if (location.pathname === `${url}/candidate-profiles`) {
         let filter;
+        dispatch(countApplicationStatusAsync());
         if (dataFilter) {
           filter = dataFilter;
           dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
