@@ -1,8 +1,4 @@
 import {
-  fetchDistrictsByProvinceAsync,
-  fetchWardsByDistrictsAsync,
-} from "features/Home/slices/thunks";
-import {
   selectedProvinces,
   selectedDistricts,
   selectedWards,
@@ -61,6 +57,7 @@ const EmployerProfilePage = () => {
   const [OT, setOT] = useState(employerDetail?.ot ?? false);
   const [loading, setLoading] = useState(false);
   const [logo, setLogo] = useState(null);
+  
   useTitle(`${t("Account Management")}`);
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
@@ -87,6 +84,7 @@ const EmployerProfilePage = () => {
     formState: { errors },
     reset,
     control,
+    setValue,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaUpdateProfileEmployer),
@@ -160,20 +158,20 @@ const EmployerProfilePage = () => {
   };
 
   const handleCancelUpdate = () => {
-    setOT(employerDetail?.ot);
-    setWelfareUpdate(employerDetail?.welfare);
+    setOT(employerDetail.ot);
+    setWelfareUpdate(employerDetail.welfare);
     reset({
-      companyName: employerDetail?.companyName,
-      city: employerDetail?.address?.city,
-      district: employerDetail?.address?.district,
-      ward: employerDetail?.address?.ward,
-      street: employerDetail?.address?.street,
-      companyWebsite: employerDetail?.companyWebsite,
-      scale: employerDetail?.scale,
-      phone: employerDetail?.phone,
-      TIN: employerDetail?.TIN,
-      companyType: employerDetail?.companyType,
-      description: employerDetail?.description,
+      companyName: employerDetail.companyName,
+      city: employerDetail.address.city,
+      district: employerDetail.address.district,
+      ward: employerDetail.address.ward,
+      street: employerDetail.address.street,
+      companyWebsite: employerDetail.companyWebsite,
+      scale: employerDetail.scale,
+      phone: employerDetail.phone,
+      TIN: employerDetail.TIN,
+      companyType: employerDetail.companyType,
+      description: employerDetail.description,
     });
   };
 
@@ -395,10 +393,7 @@ const EmployerProfilePage = () => {
                 <div className={classes.bottom__wrapped}>
                   {/* Description */}
                   <div className={classes["bottom__wrapped--description"]}>
-                    <LabelField
-                      label={t("Company description")}
-                      isCompulsory
-                    />
+                    <LabelField label={t("Company description")} isCompulsory />
                     <Tooltip
                       title={
                         showText
@@ -427,10 +422,7 @@ const EmployerProfilePage = () => {
                   <div className={classes["bottom__wrapped--scale-type"]}>
                     {/* Company Size */}
                     <div>
-                      <LabelField
-                        label={t("Company size")}
-                        isCompulsory
-                      />
+                      <LabelField label={t("Company size")} isCompulsory />
                       <SelectProfileField
                         name="scale"
                         control={control}
@@ -445,10 +437,7 @@ const EmployerProfilePage = () => {
 
                     {/* Company type */}
                     <div>
-                      <LabelField
-                        label={t("Company type")}
-                        isCompulsory
-                      />
+                      <LabelField label={t("Company type")} isCompulsory />
                       <SelectProfileField
                         name="companyType"
                         control={control}
@@ -471,11 +460,11 @@ const EmployerProfilePage = () => {
                     <div>
                       <LabelField label={t("Province")} isCompulsory />
                       <SelectLocationField
+                        setValue={setValue}
                         name="city"
                         control={control}
                         defaultValue={employerDetail.address.city}
                         locationList={provinces}
-                        fetchData={fetchDistrictsByProvinceAsync}
                         placeholder={t("choose-province")}
                         errors={errors?.city?.message}
                       />
@@ -485,11 +474,11 @@ const EmployerProfilePage = () => {
                     <div>
                       <LabelField label={t("District")} isCompulsory />
                       <SelectLocationField
+                        setValue={setValue}
                         name="district"
                         control={control}
                         defaultValue={employerDetail.address.district}
                         locationList={districts}
-                        fetchData={fetchWardsByDistrictsAsync}
                         placeholder={t("choose-district")}
                         errors={errors?.district?.message}
                       />

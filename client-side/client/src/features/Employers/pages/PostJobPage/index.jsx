@@ -1,9 +1,5 @@
 import { clearNullObject } from "common/functions";
 import {
-  fetchDistrictsByProvinceAsync,
-  fetchWardsByDistrictsAsync,
-} from "features/Home/slices/thunks";
-import {
   selectedProvinces,
   selectedDistricts,
   selectedWards,
@@ -23,7 +19,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
+import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
@@ -59,7 +55,7 @@ const PostJobPage = () => {
   }));
   provinces.unshift({ label: `${t("choose-province")}`, value: "" });
 
-  let districts = useSelector(selectedDistricts)?.map((district) => ({
+  const districts = useSelector(selectedDistricts)?.map((district) => ({
     label: district.name,
     value: district.code,
   }));
@@ -76,6 +72,7 @@ const PostJobPage = () => {
     formState: { errors },
     control,
     reset,
+    setValue,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaPostJobEmployer),
@@ -401,10 +398,10 @@ const PostJobPage = () => {
                   defaultValue={
                     postJobData?.city ?? employerDetail?.address?.city
                   }
+                  setValue={setValue}
                   isLocation={true}
                   list={provinces}
                   handleAddData={handleAddData}
-                  fetchData={fetchDistrictsByProvinceAsync}
                   placeholder={t("choose-province")}
                   errors={errors?.city?.message}
                 />
@@ -418,10 +415,10 @@ const PostJobPage = () => {
                   defaultValue={
                     postJobData?.district ?? employerDetail?.address?.district
                   }
+                  setValue={setValue}
                   isLocation={true}
                   list={districts}
                   handleAddData={handleAddData}
-                  fetchData={fetchWardsByDistrictsAsync}
                   placeholder={t("choose-district")}
                   errors={errors?.district?.message}
                 />

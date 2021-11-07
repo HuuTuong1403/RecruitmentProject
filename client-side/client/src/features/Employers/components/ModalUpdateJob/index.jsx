@@ -3,10 +3,6 @@ import {
   selectStatusJobDetail,
 } from "features/Employers/slices/selectors";
 import { Collapse, Switch, Modal } from "antd";
-import {
-  fetchDistrictsByProvinceAsync,
-  fetchWardsByDistrictsAsync,
-} from "features/Home/slices/thunks";
 import { schemaPostJobEmployer } from "common/constants/schema";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -65,7 +61,7 @@ const ModalUpdateJob = ({
     handleSubmit,
     formState: { errors },
     control,
-    reset,
+    setValue,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaPostJobEmployer),
@@ -76,10 +72,6 @@ const ModalUpdateJob = ({
     console.log(dataUpdateJob);
     notification("Update success", "successs");
     setLoading(false);
-  };
-
-  const handleCancelEdit = () => {
-    reset();
   };
 
   const typeSalary = [
@@ -221,11 +213,11 @@ const ModalUpdateJob = ({
                           <div>
                             <LabelField label={t("Province")} isCompulsory />
                             <SelectLocationField
+                              setValue={setValue}
                               name="city"
                               control={control}
                               defaultValue={jobDetail.location.city}
                               locationList={provinces}
-                              fetchData={fetchDistrictsByProvinceAsync}
                               placeholder={t("choose-province")}
                               errors={errors?.city?.message}
                             />
@@ -235,11 +227,11 @@ const ModalUpdateJob = ({
                           <div>
                             <LabelField label={t("District")} isCompulsory />
                             <SelectLocationField
+                              setValue={setValue}
                               name="district"
                               control={control}
                               defaultValue={jobDetail.location.district}
                               locationList={districts}
-                              fetchData={fetchWardsByDistrictsAsync}
                               placeholder={t("choose-district")}
                               errors={errors?.district?.message}
                             />
@@ -508,26 +500,15 @@ const ModalUpdateJob = ({
                     </Panel>
                   </Collapse>
                 </div>
-                <div className={classes["modalUpdateJob__wrapped--actions"]}>
-                  <div>
-                    <ButtonField
-                      backgroundcolor="#ff4d4f"
-                      backgroundcolorhover="#ff7875"
-                      onClick={handleCancelEdit}
-                    >
-                      {t("Cancel")}
-                    </ButtonField>
-                  </div>
-                  <div>
-                    <ButtonField
-                      type="submit"
-                      backgroundcolor="#0a426e"
-                      backgroundcolorhover="#0a436ead"
-                      loading={loading}
-                    >
-                      {t("Update")}
-                    </ButtonField>
-                  </div>
+                <div>
+                  <ButtonField
+                    type="submit"
+                    backgroundcolor="#0a426e"
+                    backgroundcolorhover="#0a436ead"
+                    loading={loading}
+                  >
+                    {t("Update")}
+                  </ButtonField>
                 </div>
               </form>
             )}

@@ -159,3 +159,12 @@ export const countApplicationStatus = async () => {
     console.log(error);
   }
 };
+
+export const createEventEmployer = async (payload) => {
+  try {
+    const res = await axiosClient.post("employer/events", payload);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
