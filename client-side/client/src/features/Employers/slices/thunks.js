@@ -7,6 +7,7 @@ import {
   fetchJobsApplicationNotSaved,
   fetchJobsApplicationSaved,
   fetchJobsApplicationDeleted,
+  countApplicationStatus,
 } from "../api/employer.api";
 
 export const getDetailEmployerAsync = createAsyncThunk(
@@ -61,6 +62,14 @@ export const fetchJobsApplicationDeletedAsync = createAsyncThunk(
   "employer/fetchJobsApplicationDeleted",
   async (payload) => {
     const res = await fetchJobsApplicationDeleted(payload);
+    return res.data.data;
+  }
+);
+
+export const countApplicationStatusAsync = createAsyncThunk(
+  "employer/countApplicationStatus",
+  async () => {
+    const res = await countApplicationStatus();
     return res.data.data;
   }
 );

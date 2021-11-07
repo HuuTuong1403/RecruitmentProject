@@ -148,3 +148,14 @@ export const restoreApplication = async (payload) => {
     console.log(error);
   }
 };
+
+export const countApplicationStatus = async () => {
+  try {
+    const res = await axiosClient.get(
+      "employer/applications/management/status/count"
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

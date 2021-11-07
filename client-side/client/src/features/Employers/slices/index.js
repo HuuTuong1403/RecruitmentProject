@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  countApplicationStatusAsync,
   fetchJobDeletedAsync,
   fetchJobDetailOfEmployerAsync,
-  fetchJobsOfEmployerAsync,
-  getDetailEmployerAsync,
+  fetchJobsApplicationDeletedAsync,
   fetchJobsApplicationNotSavedAsync,
   fetchJobsApplicationSavedAsync,
-  fetchJobsApplicationDeletedAsync,
+  fetchJobsOfEmployerAsync,
+  getDetailEmployerAsync,
 } from "features/Employers/slices/thunks";
 
 const initialState = {
+  applicationCount: null,
   avatar: null,
   dataFilter: null,
   employerDetail: null,
@@ -31,6 +33,13 @@ const employerSlice = createSlice({
   name: "employer",
   initialState,
   reducers: {
+    handleChangeCountStatus: (state, action) => {
+      const { prevStatus, nextStatus } = action.payload;
+      state.applicationCount[prevStatus] =
+        state.applicationCount[prevStatus] - 1;
+      state.applicationCount[nextStatus] =
+        state.applicationCount[nextStatus] + 1;
+    },
     changeTabsItem: (state, action) => {
       state.tabItem = action.payload;
     },
@@ -166,10 +175,24 @@ const employerSlice = createSlice({
       state.status = false;
       state.jobsApplicationDeleted = [];
     },
+
+    //Count Application Status
+    [countApplicationStatusAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [countApplicationStatusAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.applicationCount = action.payload;
+    },
+    [countApplicationStatusAsync.rejected]: (state) => {
+      state.status = false;
+      state.applicationCount = null;
+    },
   },
 });
 
 export const {
+  handleChangeCountStatus,
   addDataFilter,
   addDataPostJob,
   resetDataPostJob,
