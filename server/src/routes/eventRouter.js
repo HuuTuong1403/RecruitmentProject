@@ -22,7 +22,11 @@ eventRouter.route('/:slug').get(eventController.getEventAccordingToSlug);
 eventRouter.use(authController.protect, authController.restrictTo('employer'));
 eventRouter
   .route('/management/:id')
-  .patch(eventController.updateEvent)
+  .patch(
+    uploadImageEvent.uploadTourImages,
+    uploadImageEvent.uploadEventImageToCloudinary,
+    eventController.updateEvent
+  )
   .get(eventController.getEventAccordingtoId);
 
 module.exports = eventRouter;

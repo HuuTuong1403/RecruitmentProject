@@ -18,9 +18,6 @@ class eventController {
   getAllEvent = factory.getAll(Event);
   getEventAccordingToSlug = factory.getOneUniqueField(Event);
   getEventAccordingtoId = factory.getOne(Event);
-  // updateEvent = factory.updateOne(Event);
-  updateEvent = catchAsync(async (req, res, next) => {
-    res.send(req.body);
-  });
+  updateEvent = factory.updateOne(Event);
 }
 module.exports = new eventController();
