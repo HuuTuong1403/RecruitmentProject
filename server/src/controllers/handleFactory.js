@@ -102,7 +102,7 @@ exports.getAll = (Model, ModelName) =>
     let filter = {};
     var re = undefined;
 
-    if (req.query.companyName && ModelName == 'Job') {
+    if (req.query.companyName && (ModelName == 'Job' || ModelName == 'Event')) {
       var re = new RegExp(`${req.query.companyName}`, 'gi');
       req.query.companyName = undefined;
     }

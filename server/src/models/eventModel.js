@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
+
 const slugify = require('slugify');
+const validator = require('validator');
+
 const addressSchema = require('./addressModel');
+
 const eventSchema = new mongoose.Schema(
   {
     company: {
@@ -62,6 +66,20 @@ const eventSchema = new mongoose.Schema(
     slug: {
       type: String,
     },
+    participantMax: {
+      type: Number,
+      default: 100,
+    },
+    participantQuantity: {
+      type: Number,
+      default: 0,
+      validate: {
+        validator: function (el) {
+          return el <= this.participantMax;
+        },
+        message: 'Vượt quá giới hạn người tham gia',
+      },
+    },
   },
   {
     timestamps: true,
@@ -69,6 +87,26 @@ const eventSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+eventSchema.virtual('aboutCreated').get(function () {
+  const timeAgoMilisecond = Date.now() - this.createdAt;
+  const timeAgoSecond = timeAgoMilisecond / 1000;
+  var timeResult = null;
+  if (timeAgoSecond < 60) {
+    timeResult = timeAgoSecond.toFixed(0) + ' seconds ago';
+  } else if (timeAgoSecond < 3600) {
+    timeResult = (timeAgoSecond / 60).toFixed(0) + ' minutes ago';
+  } else if (timeAgoSecond < 86400) {
+    timeResult = (timeAgoSecond / 3600).toFixed(0) + ' hours ago';
+  } else {
+    timeResult = (timeAgoSecond / 86400).toFixed(0) + ' days ago';
+  }
+  return timeResult;
+});
+eventSchema.virtual('isNew').get(function () {
+  const timeAgoMilisecond = Date.now() - this.createdAt;
+  const timeAgoSecond = timeAgoMilisecond / 1000;
+  return timeAgoSecond < 86400 ? true : false;
+});
 eventSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'company',

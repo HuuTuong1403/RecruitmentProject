@@ -6,10 +6,15 @@ const eventController = require('./../controllers/eventController');
 
 const uploadImageEvent = require('./../middlewares/uploadImageEvent');
 const authController = require('./../controllers/authController');
+const eventQuery = require('./../middlewares/eventQuery');
 
 eventRouter
   .route('/')
-  .get(eventController.setCompany, eventController.getAllEvent)
+  .get(
+    eventQuery.customEventQuery,
+    eventController.setCompany,
+    eventController.getAllEvent
+  )
   .post(
     authController.protect,
     authController.restrictTo('employer'),

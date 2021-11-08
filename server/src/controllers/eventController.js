@@ -15,7 +15,7 @@ class eventController {
     next();
   };
   createEvent = factory.createOne(Event);
-  getAllEvent = factory.getAll(Event);
+  getAllEvent = factory.getAll(Event, 'Event');
   getEventAccordingToSlug = factory.getOneUniqueField(Event);
   getEventAccordingtoId = factory.getOne(Event);
   updateEvent = factory.updateOne(Event);
