@@ -14,6 +14,10 @@ class eventController {
 
     next();
   };
+  pauseEvent = (req, res, next) => {
+    req.body.status = 'Pausing';
+    next();
+  };
   createEvent = factory.createOne(Event);
   getAllEvent = factory.getAll(Event, 'Event');
   getEventAccordingToSlug = factory.getOneUniqueField(Event);

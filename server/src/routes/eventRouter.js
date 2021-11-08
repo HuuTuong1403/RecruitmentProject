@@ -8,6 +8,10 @@ const uploadImageEvent = require('./../middlewares/uploadImageEvent');
 const authController = require('./../controllers/authController');
 const eventQuery = require('./../middlewares/eventQuery');
 
+const participantRouter = require('./participantRouter');
+
+eventRouter.use('/:idEvent/participants', participantRouter);
+
 eventRouter
   .route('/')
   .get(
@@ -33,5 +37,7 @@ eventRouter
     eventController.updateEvent
   )
   .get(eventController.getEventAccordingtoId);
-
+eventRouter
+  .route('/management/:id/pausing')
+  .patch(eventController.pauseEvent, eventController.updateEvent);
 module.exports = eventRouter;

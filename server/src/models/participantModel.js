@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const addressSchema = require('./addressModel');
+const Event = require('./eventModel');
 const participantSchema = new mongoose.Schema(
   {
     event: {
@@ -36,5 +37,36 @@ const participantSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+participantSchema.index({ event: 1, participant: 1 }, { unique: true });
+participantSchema.statics.calcParticipantQuantity = async function (eventID) {
+  const stats = await this.aggregate([
+    {
+      $match: { event: eventID },
+    },
+    {
+      $group: {
+        _id: '$event',
+        nQuantity: { $sum: 1 },
+      },
+    },
+  ]);
+  if (stats.length > 0) {
+    await Event.findByIdAndUpdate(eventID, {
+      participantQuantity: stats[0].nQuantity,
+    });
+  } else {
+    await Event.findByIdAndUpdate(eventID, {
+      participantQuantity: 0,
+    });
+  }
+};
+participantSchema.post('save', async function () {
+  this.constructor.calcParticipantQuantity(this.event);
+});
+participantSchema.post(/^findOneAnd/, async function (doc) {
+  // await this.findOne(); does NOT work here, query has already executed
+  await doc.constructor.calcParticipantQuantity(this.event);
+});
+
 const Participant = mongoose.model('Participant', participantSchema);
 module.exports = Participant;
