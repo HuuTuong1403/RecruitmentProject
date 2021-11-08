@@ -1,0 +1,42 @@
+@import "common/styles/Variables.scss";
+
+.changepass {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapped {
+    &--title {
+      text-align: center;
+      text-transform: uppercase;
+      font-size: $text-2xl;
+      font-weight: 700;
+      margin: 15px 0;
+    }
+
+    &--content {
+      text-align: center;
+      font-size: $text-base;
+    }
+
+    &--form {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .changepass {
+    &__wrapped {
+      &--content {
+        margin-top: 10px;
+      }
+
+      &--title {
+        font-size: $text-xl;
+        margin: 10px 0;
+      }
+    }
+  }
+}

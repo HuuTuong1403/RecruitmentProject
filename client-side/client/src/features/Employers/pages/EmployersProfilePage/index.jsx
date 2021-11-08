@@ -35,12 +35,12 @@ import AvatarUpload from "components/AvatarUpload";
 import ButtonField from "custom-fields/ButtonField";
 import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
-import InputProfileField from "features/Employers/components/InputProfileField";
+import InputBorderField from "custom-fields/InputBorderField";
 import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 import parse from "html-react-parser";
 import SelectLocationField from "custom-fields/SelectLocationField";
-import SelectProfileField from "features/Employers/components/SelectProfileField";
+import SelectField from "custom-fields/SelectField";
 
 const EmployerProfilePage = () => {
   ScrollTop();
@@ -57,7 +57,7 @@ const EmployerProfilePage = () => {
   const [OT, setOT] = useState(employerDetail?.ot ?? false);
   const [loading, setLoading] = useState(false);
   const [logo, setLogo] = useState(null);
-  
+
   useTitle(`${t("Account Management")}`);
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
@@ -195,13 +195,6 @@ const EmployerProfilePage = () => {
     { value: "Product", label: "Product" },
   ];
 
-  const style = {
-    fontSize: "16px",
-    border: "none",
-    backgroundColor: "#fff",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.25)",
-  };
-
   const welfareList = [
     {
       title: `${t("Insurance")}`,
@@ -292,7 +285,7 @@ const EmployerProfilePage = () => {
             <div className={classes.top__right}>
               <div>
                 {/* Company name */}
-                <InputProfileField
+                <InputBorderField
                   fontSize="26px"
                   bold="700"
                   placeholder={t("phd-companyName")}
@@ -321,7 +314,7 @@ const EmployerProfilePage = () => {
               {/* Website */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("Website")}:`} />
-                <InputProfileField
+                <InputBorderField
                   fontSize="15px"
                   bold="normal"
                   placeholder={t("phd-companyWebsite")}
@@ -334,7 +327,7 @@ const EmployerProfilePage = () => {
               {/* Phone */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("phone number")}:`} />
-                <InputProfileField
+                <InputBorderField
                   fontSize="15px"
                   bold="normal"
                   placeholder={t("phd-phone-signup")}
@@ -347,7 +340,7 @@ const EmployerProfilePage = () => {
               {/* Tax code */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("Tax code")}:`} />
-                <InputProfileField
+                <InputBorderField
                   fontSize="15px"
                   bold="normal"
                   placeholder={t("phd-taxCode")}
@@ -360,7 +353,7 @@ const EmployerProfilePage = () => {
               {/* Street */}
               <div className={classes.top__group}>
                 <LabelField label={`${t("Address")}:`} />
-                <InputProfileField
+                <InputBorderField
                   fontSize="15px"
                   bold="normal"
                   placeholder={t("phd-address")}
@@ -387,7 +380,7 @@ const EmployerProfilePage = () => {
             <Collapse bordered={false} defaultActiveKey={["1", "2", "3"]}>
               <Panel
                 header={t("Information about company")}
-                style={style}
+                className={classes.panel}
                 key="1"
               >
                 <div className={classes.bottom__wrapped}>
@@ -423,7 +416,7 @@ const EmployerProfilePage = () => {
                     {/* Company Size */}
                     <div>
                       <LabelField label={t("Company size")} isCompulsory />
-                      <SelectProfileField
+                      <SelectField
                         name="scale"
                         control={control}
                         defaultValue={
@@ -438,7 +431,7 @@ const EmployerProfilePage = () => {
                     {/* Company type */}
                     <div>
                       <LabelField label={t("Company type")} isCompulsory />
-                      <SelectProfileField
+                      <SelectField
                         name="companyType"
                         control={control}
                         defaultValue={
@@ -454,7 +447,11 @@ const EmployerProfilePage = () => {
                 </div>
               </Panel>
               {employerDetail.address && (
-                <Panel header={t("Address information")} style={style} key="2">
+                <Panel
+                  header={t("Address information")}
+                  className={classes.panel}
+                  key="2"
+                >
                   <div className={classes["bottom__wrapped--scale-type"]}>
                     {/* Province */}
                     <div>
@@ -501,7 +498,7 @@ const EmployerProfilePage = () => {
               )}
               <Panel
                 header={t("Information about welfare")}
-                style={style}
+                className={classes.panel}
                 key="3"
               >
                 {/* Welfare */}

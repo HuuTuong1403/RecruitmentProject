@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
-import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
+import DatePickerField from "custom-fields/DatePickerField";
 import InputField from "custom-fields/InputField";
 import LabelField from "custom-fields/LabelField";
 import moment from "moment";
@@ -178,7 +178,7 @@ const UserProfilePage = () => {
                 </div>
                 <div>
                   <LabelField label={t("dob")} isCompulsory />
-                  <DatePickerFieldRHF
+                  <DatePickerField
                     name="DOB"
                     control={control}
                     dateFormat={dateFormat}

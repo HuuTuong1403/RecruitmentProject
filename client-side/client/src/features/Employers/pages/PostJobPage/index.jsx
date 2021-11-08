@@ -23,13 +23,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
-import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
+import DatePickerField from "custom-fields/DatePickerField";
 import LabelField from "custom-fields/LabelField";
 import moment from "moment";
 import notification from "components/Notification";
-import PostJobField from "features/Employers/components/PostJobField";
+import InputPostJobField from "features/Employers/components/InputPostJobField";
 import Select from "react-select";
-import SelectField from "features/Employers/components/SelectField";
+import SelectPostJobField from "features/Employers/components/SelectPostJobField";
 
 const PostJobPage = () => {
   ScrollTop();
@@ -265,7 +265,7 @@ const PostJobPage = () => {
           {/* Job Title */}
           <div className={classes.postjob__formGroup}>
             <LabelField label={t("Job Title")} isCompulsory />
-            <PostJobField
+            <InputPostJobField
               name="jobTitle"
               control={control}
               defaultValue={postJobData?.jobTitle ?? ""}
@@ -281,7 +281,7 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t("Level")} isCompulsory />
                 <div>
-                  <SelectField
+                  <SelectPostJobField
                     name="level"
                     control={control}
                     defaultValue={postJobData?.level ?? `${t("choose-level")}`}
@@ -297,7 +297,7 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t("Position")} isCompulsory />
                 <div>
-                  <SelectField
+                  <SelectPostJobField
                     name="position"
                     control={control}
                     defaultValue={
@@ -315,7 +315,7 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t("Working time start")} isCompulsory />
                 <div>
-                  <SelectField
+                  <SelectPostJobField
                     name="workingTimeStart"
                     control={control}
                     defaultValue={
@@ -334,7 +334,7 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t("Working time finish")} isCompulsory />
                 <div>
-                  <SelectField
+                  <SelectPostJobField
                     name="workingTimeFinish"
                     control={control}
                     defaultValue={
@@ -353,7 +353,7 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t("Deadline to apply")} isCompulsory />
                 <div>
-                  <DatePickerFieldRHF
+                  <DatePickerField
                     name="finishDate"
                     control={control}
                     dateFormat={dateFormat}
@@ -378,7 +378,7 @@ const PostJobPage = () => {
             <div className={classes["postjob__formGroup--location"]}>
               {/* Job Workplace Street */}
               <div>
-                <PostJobField
+                <InputPostJobField
                   name="street"
                   control={control}
                   defaultValue={
@@ -392,7 +392,7 @@ const PostJobPage = () => {
 
               {/* Job Workplace City */}
               <div>
-                <SelectField
+                <SelectPostJobField
                   name="city"
                   control={control}
                   defaultValue={
@@ -409,7 +409,7 @@ const PostJobPage = () => {
 
               {/* Job Workplace District */}
               <div>
-                <SelectField
+                <SelectPostJobField
                   name="district"
                   control={control}
                   defaultValue={
@@ -426,7 +426,7 @@ const PostJobPage = () => {
 
               {/* Job Workplace Ward */}
               <div>
-                <SelectField
+                <SelectPostJobField
                   name="ward"
                   control={control}
                   defaultValue={
@@ -456,7 +456,7 @@ const PostJobPage = () => {
             {hideSalary ? (
               <div className={classes["postjob__formGroup--salary"]}>
                 <div>
-                  <SelectField
+                  <SelectPostJobField
                     name="type"
                     control={control}
                     defaultValue={postJobData?.type ?? "VND"}
@@ -466,7 +466,7 @@ const PostJobPage = () => {
                 </div>
 
                 <div>
-                  <PostJobField
+                  <InputPostJobField
                     name="min"
                     control={control}
                     defaultValue={postJobData?.min ?? 1}
@@ -477,7 +477,7 @@ const PostJobPage = () => {
                 </div>
 
                 <div>
-                  <PostJobField
+                  <InputPostJobField
                     name="max"
                     control={control}
                     defaultValue={postJobData?.max ?? 10}
@@ -489,7 +489,7 @@ const PostJobPage = () => {
               </div>
             ) : (
               <div>
-                <SelectField
+                <SelectPostJobField
                   name="typeHideSalary"
                   control={control}
                   defaultValue={postJobData?.typeHideSalary ?? "You'll love it"}

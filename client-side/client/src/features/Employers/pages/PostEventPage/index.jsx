@@ -14,7 +14,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
-import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
+import DatePickerField from "custom-fields/DatePickerField";
 import InputField from "custom-fields/InputField";
 import InputUploadImage from "custom-fields/InputUploadImage";
 import LabelField from "custom-fields/LabelField";
@@ -213,7 +213,7 @@ const PostEventPage = () => {
               {/* Event Start Time */}
               <div>
                 <LabelField label={t("Event start time")} isCompulsory />
-                <DatePickerFieldRHF
+                <DatePickerField
                   name="startTime"
                   control={control}
                   setDate={setStartDate}
@@ -229,7 +229,7 @@ const PostEventPage = () => {
               {/* Event End Time */}
               <div>
                 <LabelField label={t("Event end time")} isCompulsory />
-                <DatePickerFieldRHF
+                <DatePickerField
                   name="endTime"
                   control={control}
                   showTime
