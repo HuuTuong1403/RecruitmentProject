@@ -159,12 +159,12 @@ export const schemaPostJobEmployer = yup.object({
   district: yup
     .string()
     .notOneOf(
-      ["Chọn quận/huyện...", "Choose district..."],
+      ["Chọn quận/huyện...", "Choose district...", ""],
       "error-select-district"
     ),
   ward: yup
     .string()
-    .notOneOf(["Chọn phường/xã...", "Choose ward..."], "error-select-ward"),
+    .notOneOf(["Chọn phường/xã...", "Choose ward...", ""], "error-select-ward"),
   level: yup
     .string()
     .notOneOf(["Chọn cấp bậc...", "Choose level..."], "error-select-level"),
@@ -269,4 +269,34 @@ export const schemaWriteReview = yup.object({
     .test("Is positive?", "error-ot-review", (value) => value > 0),
   interesting: yup.string().required("error-textArea-review"),
   improvement: yup.string().required("error-textArea-review"),
+});
+
+export const schemaPostEvent = yup.object({
+  eventName: yup.string().required("error-eventName-event"),
+  topic: yup.string().required("error-topic-event"),
+  eventOrganizer: yup.string().required("error-eventOrganizer-event"),
+  location: yup.string().required("error-location-event"),
+  street: yup.string().required("error-workplace-postJob"),
+  city: yup
+    .string()
+    .required("error-select-province")
+    .notOneOf(
+      ["Chọn tỉnh/thành...", "Choose province..."],
+      "error-select-province"
+    ),
+  district: yup
+    .string()
+    .required("error-select-district")
+    .notOneOf(
+      ["Chọn quận/huyện...", "Choose district..."],
+      "error-select-district"
+    ),
+  ward: yup
+    .string()
+    .required("error-select-ward")
+    .notOneOf(["Chọn phường/xã...", "Choose ward..."], "error-select-ward"),
+  startTime: yup.string().required("error-startTime-event").nullable(),
+  endTime: yup.string().required("error-endTime-event").nullable(),
+  briefDescription: yup.string().required("error-briefDescription-event"),
+  eventContent: yup.string().required("error-eventContent-event"),
 });

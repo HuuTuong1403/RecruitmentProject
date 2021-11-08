@@ -5,7 +5,7 @@ import { ScrollTop } from "common/functions";
 import { useDispatch } from "react-redux";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import JobDetail from "./pages/JobDetail";
+import JobDetailPage from "./pages/JobDetailPage";
 import NotFoundPage from "components/404";
 import SearchJobPage from "./pages/SearchJobPage";
 import CompanyDetailPage from "./pages/CompanyDetailPage";
@@ -35,7 +35,7 @@ const JobsPage = () => {
           path={`${url}/employer/:companyName`}
           component={CompanyDetailPage}
         />
-        <Route exact path={`${url}/:slug`} component={JobDetail} />
+        <Route exact path={`${url}/:slug`} component={JobDetailPage} />
         <Route
           exact
           path={`${url}/employer/:companyName/review`}

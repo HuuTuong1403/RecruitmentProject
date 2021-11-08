@@ -133,6 +133,7 @@ const ModalApplyJob = ({ showModal, onCloseModal, job }) => {
                 <InputUploadCv
                   error={error}
                   setError={setError}
+                  placeholder={t("Select CV to apply")}
                   ref={cvFileRef}
                 />
               </div>

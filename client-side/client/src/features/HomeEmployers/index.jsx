@@ -6,11 +6,15 @@ import FooterEmployers from "components/FooterEmployers";
 import HeaderEmployers from "components/HeaderEmployers";
 import NotFoundPage from "../../components/404";
 
-const ChangePassEmployer = lazy(() => import("./pages/ChangePassEmployer"));
-const ForgotPassEmployer = lazy(() => import("./pages/ForgotPassEmployer"));
-const HomeEmployer = lazy(() => import("./pages/HomeEmployer"));
-const SignInEmployer = lazy(() => import("./pages/SignInEmployer"));
-const SignUpEmployer = lazy(() => import("./pages/SignUpEmployer"));
+const ChangePassEmployerPage = lazy(() =>
+  import("./pages/ChangePassEmployerPage")
+);
+const ForgotPassEmployerPage = lazy(() =>
+  import("./pages/ForgotPassEmployerPage")
+);
+const HomeEmployerPage = lazy(() => import("./pages/HomeEmployerPage"));
+const SignInEmployerPage = lazy(() => import("./pages/SignInEmployerPage"));
+const SignUpEmployerPage = lazy(() => import("./pages/SignUpEmployerPage"));
 
 const EmployersHomePage = () => {
   ScrollTop();
@@ -20,18 +24,18 @@ const EmployersHomePage = () => {
     <Fragment>
       <HeaderEmployers />
       <Switch>
-        <Route exact path={`${url}`} component={HomeEmployer} />
-        <Route exact path={`${url}/sign-in`} component={SignInEmployer} />
-        <Route exact path={`${url}/sign-up`} component={SignUpEmployer} />
+        <Route exact path={`${url}`} component={HomeEmployerPage} />
+        <Route exact path={`${url}/sign-in`} component={SignInEmployerPage} />
+        <Route exact path={`${url}/sign-up`} component={SignUpEmployerPage} />
         <Route
           exact
           path={`${url}/forgot-pass`}
-          component={ForgotPassEmployer}
+          component={ForgotPassEmployerPage}
         />
         <Route
           exact
           path={`${url}/forgot-pass/:token`}
-          component={ChangePassEmployer}
+          component={ChangePassEmployerPage}
         />
         <Route component={NotFoundPage} />
       </Switch>

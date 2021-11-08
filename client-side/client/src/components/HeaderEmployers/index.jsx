@@ -8,7 +8,7 @@ import { FaEdit } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
 import { IoMenu, IoHome } from "react-icons/io5";
 import { logoutEmployer } from "features/HomeEmployers/slices";
-import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { MdSettings, MdAccountCircle, MdEvent } from "react-icons/md";
 import { RiFileList3Line } from "react-icons/ri";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { selectEmployerLocal } from "features/Employers/slices/selectors";
@@ -143,6 +143,13 @@ const HeaderEmployers = () => {
                     className={classes["header__link--person"]}
                   />
                   {t("recruitment manager")}
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/employers/dashboard/events/created`}
+                >
+                  <MdEvent className={classes["header__link--person"]} />
+                  {t("Event management")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}

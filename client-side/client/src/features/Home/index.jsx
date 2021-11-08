@@ -6,11 +6,11 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import NotFoundPage from "../../components/404";
 
-const ChangePassForgot = lazy(() => import("./pages/ChangePassForgot"));
-const ForgotPass = lazy(() => import("./pages/ForgotPass"));
-const HomeGuest = lazy(() => import("./pages/HomeGuest"));
-const SignInGuest = lazy(() => import("./pages/SignInGuest"));
-const SignUpGuest = lazy(() => import("./pages/SignUpGuest"));
+const ChangePassForgotPage = lazy(() => import("./pages/ChangePassForgotPage"));
+const ForgotPassPage = lazy(() => import("./pages/ForgotPassPage"));
+const HomeGuestPage = lazy(() => import("./pages/HomeGuestPage"));
+const SignInGuestPage = lazy(() => import("./pages/SignInGuestPage"));
+const SignUpGuestPage = lazy(() => import("./pages/SignUpGuestPage"));
 
 const HomePage = () => {
   ScrollTop();
@@ -20,13 +20,13 @@ const HomePage = () => {
     <Fragment>
       <Header />
       <Switch>
-        <Route exact path={`${url}`} component={HomeGuest} />
-        <Route path={`${url}/sign-in`} component={SignInGuest} />
-        <Route path={`${url}/sign-up`} component={SignUpGuest} />
-        <Route exact path={`${url}/forgot-pass`} component={ForgotPass} />
+        <Route exact path={`${url}`} component={HomeGuestPage} />
+        <Route path={`${url}/sign-in`} component={SignInGuestPage} />
+        <Route path={`${url}/sign-up`} component={SignUpGuestPage} />
+        <Route exact path={`${url}/forgot-pass`} component={ForgotPassPage} />
         <Route
           path={`${url}/forgot-pass/:token`}
-          component={ChangePassForgot}
+          component={ChangePassForgotPage}
         />
         <Route path="*">
           <NotFoundPage />

@@ -1,11 +1,11 @@
-import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import i18n from "i18next";
 import tranlate_en from "./en.json";
 import tranlate_vn from "./vn.json";
 
 const lang = () => {
-  let locale = localStorage.getItem('lang') || navigator.language
-  localStorage.setItem('lang', locale)
+  let locale = localStorage.getItem("lang") || navigator.language;
+  localStorage.setItem("lang", locale);
   return locale;
 };
 

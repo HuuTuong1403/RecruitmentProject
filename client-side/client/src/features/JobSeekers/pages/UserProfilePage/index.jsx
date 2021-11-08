@@ -1,8 +1,4 @@
 import {
-  fetchDistrictsByProvinceAsync,
-  fetchWardsByDistrictsAsync,
-} from "features/Home/slices/thunks";
-import {
   selectedProvinces,
   selectedDistricts,
   selectedWards,
@@ -20,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
-import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
+import DatePickerField from "custom-fields/DatePickerField";
 import InputField from "custom-fields/InputField";
 import LabelField from "custom-fields/LabelField";
 import moment from "moment";
@@ -64,6 +60,7 @@ const UserProfilePage = () => {
     control,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaUpdateProfileJobSeeker),
@@ -181,7 +178,7 @@ const UserProfilePage = () => {
                 </div>
                 <div>
                   <LabelField label={t("dob")} isCompulsory />
-                  <DatePickerFieldRHF
+                  <DatePickerField
                     name="DOB"
                     control={control}
                     dateFormat={dateFormat}
@@ -217,12 +214,10 @@ const UserProfilePage = () => {
                   <LabelField label={t("Province")} isCompulsory />
                   <SelectLocationField
                     name="city"
+                    setValue={setValue}
                     control={control}
-                    defaultValue={
-                      detailJobSeeker.address?.city ?? `${t("choose-province")}`
-                    }
+                    defaultValue={detailJobSeeker.address?.city}
                     locationList={provinces}
-                    fetchData={fetchDistrictsByProvinceAsync}
                     placeholder={t("choose-province")}
                     errors={errors?.city?.message}
                   />
@@ -232,9 +227,9 @@ const UserProfilePage = () => {
                   <SelectLocationField
                     name="district"
                     control={control}
+                    setValue={setValue}
                     defaultValue={detailJobSeeker.address?.district}
                     locationList={districts}
-                    fetchData={fetchWardsByDistrictsAsync}
                     placeholder={t("choose-district")}
                     errors={errors?.district?.message}
                   />
@@ -253,7 +248,7 @@ const UserProfilePage = () => {
                 <div>
                   <LabelField label={t("Address")} isCompulsory />
                   <InputField
-                    defaultValue={detailJobSeeker.address?.street ?? ""}
+                    defaultValue={detailJobSeeker.address?.street}
                     placeholder={t("phd-address")}
                     {...register("street")}
                     errors={errors?.street?.message}

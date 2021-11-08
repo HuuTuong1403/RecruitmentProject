@@ -33,7 +33,7 @@ const JobSearchList = () => {
               />
             ) : (
               jobsSearch.map((job) => {
-                return <JobSearchItem key={job._id} job={job} />;
+                return <JobSearchItem key={job.slug} job={job} />;
               })
             )}
           </Fragment>

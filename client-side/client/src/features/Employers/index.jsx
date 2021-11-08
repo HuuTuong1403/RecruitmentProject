@@ -29,6 +29,8 @@ const RecruitManagementPage = lazy(() =>
   import("./pages/RecruitManagementPage")
 );
 const SettingPage = lazy(() => import("./pages/SettingPage"));
+const PostEventPage = lazy(() => import("./pages/PostEventPage"));
+const EventManagementPage = lazy(() => import("./pages/EventManagementPage"));
 
 const DashboardEmployersPage = () => {
   const { t } = useTranslation();
@@ -80,6 +82,9 @@ const DashboardEmployersPage = () => {
           dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
         }
       }
+      if (location.pathname === `${url}/events/post-event`) {
+        dispatch(fetchProvincesAsync());
+      }
     }
   }, [dispatch, checkLocation, location, employer, url, dataFilter]);
 
@@ -103,6 +108,16 @@ const DashboardEmployersPage = () => {
             exact
             path={`${url}/recruit-manage/trash`}
             component={JobTrashPage}
+          />
+          <Route
+            exact
+            path={`${url}/events/post-event`}
+            component={PostEventPage}
+          />
+          <Route
+            exact
+            path={`${url}/events/created`}
+            component={EventManagementPage}
           />
           <Route
             exact

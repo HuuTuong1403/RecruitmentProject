@@ -3,10 +3,6 @@ import {
   selectStatusJobDetail,
 } from "features/Employers/slices/selectors";
 import { Collapse, Switch, Modal } from "antd";
-import {
-  fetchDistrictsByProvinceAsync,
-  fetchWardsByDistrictsAsync,
-} from "features/Home/slices/thunks";
 import { schemaPostJobEmployer } from "common/constants/schema";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -16,16 +12,16 @@ import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
 import ButtonField from "custom-fields/ButtonField";
 import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
-import DatePickerFieldRHF from "custom-fields/DatePickerFieldRHF";
-import InputProfileField from "../InputProfileField";
+import DatePickerField from "custom-fields/DatePickerField";
+import InputBorderField from "custom-fields/InputBorderField";
 import LabelField from "custom-fields/LabelField";
 import LoadingSuspense from "components/Loading";
 import moment from "moment";
 import notification from "components/Notification";
 import parse from "html-react-parser";
-import PostJobField from "../PostJobField";
+import InputPostJobField from "../InputPostJobField";
 import SelectLocationField from "custom-fields/SelectLocationField";
-import SelectProfileField from "../SelectProfileField";
+import SelectField from "custom-fields/SelectField";
 import Select from "react-select";
 
 const ModalUpdateJob = ({
@@ -51,21 +47,13 @@ const ModalUpdateJob = ({
     }
   }, [jobDetail?.salary?.min]);
 
-  const style = {
-    fontSize: "16px",
-    border: "none",
-    backgroundColor: "#fff",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.25)",
-  };
-
   // const dateFormat = "YYYY-MM-DDTHH:mm:ss. sssZ";
-
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-    reset,
+    setValue,
   } = useForm({
     mode: "all",
     resolver: yupResolver(schemaPostJobEmployer),
@@ -76,10 +64,6 @@ const ModalUpdateJob = ({
     console.log(dataUpdateJob);
     notification("Update success", "successs");
     setLoading(false);
-  };
-
-  const handleCancelEdit = () => {
-    reset();
   };
 
   const typeSalary = [
@@ -181,7 +165,7 @@ const ModalUpdateJob = ({
               <form onSubmit={handleSubmit(submitUpdateJob)}>
                 {/* Job Title */}
                 <div className={classes["modalUpdateJob__wrapped--title"]}>
-                  <InputProfileField
+                  <InputBorderField
                     fontSize="21px"
                     bold="normal"
                     placeholder={t("Enter job title")}
@@ -194,7 +178,7 @@ const ModalUpdateJob = ({
                 {/* Job Street */}
                 <div className={classes.form_group}>
                   <LabelField label={`${t("Address")}:`} />
-                  <InputProfileField
+                  <InputBorderField
                     fontSize="15px"
                     bold="normal"
                     placeholder={t("phd-address")}
@@ -213,7 +197,7 @@ const ModalUpdateJob = ({
                     {jobDetail.location && (
                       <Panel
                         header={t("Address information")}
-                        style={style}
+                        className={classes.panel}
                         key="1"
                       >
                         <div className={classes.bottom__form_group}>
@@ -221,11 +205,11 @@ const ModalUpdateJob = ({
                           <div>
                             <LabelField label={t("Province")} isCompulsory />
                             <SelectLocationField
+                              setValue={setValue}
                               name="city"
                               control={control}
                               defaultValue={jobDetail.location.city}
                               locationList={provinces}
-                              fetchData={fetchDistrictsByProvinceAsync}
                               placeholder={t("choose-province")}
                               errors={errors?.city?.message}
                             />
@@ -235,11 +219,11 @@ const ModalUpdateJob = ({
                           <div>
                             <LabelField label={t("District")} isCompulsory />
                             <SelectLocationField
+                              setValue={setValue}
                               name="district"
                               control={control}
                               defaultValue={jobDetail.location.district}
                               locationList={districts}
-                              fetchData={fetchWardsByDistrictsAsync}
                               placeholder={t("choose-district")}
                               errors={errors?.district?.message}
                             />
@@ -262,13 +246,17 @@ const ModalUpdateJob = ({
                     )}
 
                     {/* Job Information */}
-                    <Panel header={t("Job information")} style={style} key="2">
+                    <Panel
+                      header={t("Job information")}
+                      className={classes.panel}
+                      key="2"
+                    >
                       <div className={classes.bottom__job_info}>
                         {/* Job Level */}
                         <div>
                           <LabelField label={t("Level")} isCompulsory />
                           <div>
-                            <SelectProfileField
+                            <SelectField
                               name="level"
                               control={control}
                               defaultValue={jobDetail.level}
@@ -283,7 +271,7 @@ const ModalUpdateJob = ({
                         <div>
                           <LabelField label={t("Position")} isCompulsory />
                           <div>
-                            <SelectProfileField
+                            <SelectField
                               name="position"
                               control={control}
                               defaultValue={jobDetail.position}
@@ -303,7 +291,7 @@ const ModalUpdateJob = ({
                                 isCompulsory
                               />
                               <div>
-                                <SelectProfileField
+                                <SelectField
                                   name="workingTimeStart"
                                   control={control}
                                   defaultValue={jobDetail.workingTime.start}
@@ -321,7 +309,7 @@ const ModalUpdateJob = ({
                                 isCompulsory
                               />
                               <div>
-                                <SelectProfileField
+                                <SelectField
                                   name="workingTimeFinish"
                                   control={control}
                                   defaultValue={jobDetail.workingTime.finish}
@@ -341,7 +329,7 @@ const ModalUpdateJob = ({
                             isCompulsory
                           />
                           <div>
-                            <DatePickerFieldRHF
+                            <DatePickerField
                               name="finishDate"
                               control={control}
                               dateFormat={"DD/MM/yyyy"}
@@ -361,7 +349,7 @@ const ModalUpdateJob = ({
                     {/* Salary, skill Information */}
                     <Panel
                       header={t("Salary, skill information")}
-                      style={style}
+                      className={classes.panel}
                       key="3"
                     >
                       <div>
@@ -379,7 +367,7 @@ const ModalUpdateJob = ({
                         {hideSalary ? (
                           <div className={classes.bottom__salary}>
                             <div>
-                              <SelectProfileField
+                              <SelectField
                                 name="type"
                                 control={control}
                                 defaultValue={
@@ -392,7 +380,7 @@ const ModalUpdateJob = ({
                             </div>
 
                             <div>
-                              <PostJobField
+                              <InputPostJobField
                                 name="min"
                                 control={control}
                                 defaultValue={jobDetail.salary?.min}
@@ -402,7 +390,7 @@ const ModalUpdateJob = ({
                             </div>
 
                             <div>
-                              <PostJobField
+                              <InputPostJobField
                                 name="max"
                                 control={control}
                                 defaultValue={jobDetail.salary?.max}
@@ -412,7 +400,7 @@ const ModalUpdateJob = ({
                           </div>
                         ) : (
                           <div>
-                            <SelectProfileField
+                            <SelectField
                               name="typeHideSalary"
                               control={control}
                               defaultValue={
@@ -440,7 +428,11 @@ const ModalUpdateJob = ({
                     </Panel>
 
                     {/* Job details */}
-                    <Panel header={t("Job details")} style={style} key="4">
+                    <Panel
+                      header={t("Job details")}
+                      className={classes.panel}
+                      key="4"
+                    >
                       {/* Job Description */}
                       <div className={classes.bottom}>
                         <LabelField label={t("Job description")} isCompulsory />
@@ -508,26 +500,15 @@ const ModalUpdateJob = ({
                     </Panel>
                   </Collapse>
                 </div>
-                <div className={classes["modalUpdateJob__wrapped--actions"]}>
-                  <div>
-                    <ButtonField
-                      backgroundcolor="#ff4d4f"
-                      backgroundcolorhover="#ff7875"
-                      onClick={handleCancelEdit}
-                    >
-                      {t("Cancel")}
-                    </ButtonField>
-                  </div>
-                  <div>
-                    <ButtonField
-                      type="submit"
-                      backgroundcolor="#0a426e"
-                      backgroundcolorhover="#0a436ead"
-                      loading={loading}
-                    >
-                      {t("Update")}
-                    </ButtonField>
-                  </div>
+                <div>
+                  <ButtonField
+                    type="submit"
+                    backgroundcolor="#0a426e"
+                    backgroundcolorhover="#0a436ead"
+                    loading={loading}
+                  >
+                    {t("Update")}
+                  </ButtonField>
                 </div>
               </form>
             )}
