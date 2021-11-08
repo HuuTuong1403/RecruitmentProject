@@ -1,0 +1,656 @@
+@import "common/styles/Variables.scss";
+
+p {
+  margin: 0 0 10px;
+}
+
+.jobDetail {
+  padding: 20px;
+  background-color: #d9edee;
+
+  &__top {
+    background-color: #fff;
+    padding: 20px;
+
+    &--wrapped {
+      display: flex;
+      align-items: center;
+
+      &--companyWebsite {
+        text-decoration: none !important;
+      }
+
+      & > div:first-child {
+        flex: 0 0 25%;
+        padding: 0 15px;
+        text-align: center;
+
+        & > a > img {
+          border: 1px solid #e8e8e8;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+          border-radius: 10px;
+          padding: $pm-4;
+          width: 100%;
+          max-width: 200px;
+          min-height: 100px;
+        }
+      }
+
+      & > div:last-child {
+        flex: 0 0 75%;
+        margin-top: $pm-10;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
+
+        & > div:first-child {
+          flex: 0 0 75%;
+          font-size: $text-base;
+
+          & > div:nth-child(1) {
+            font-size: $text-2xl;
+            font-weight: 700;
+            color: $third-text;
+          }
+
+          & > div:nth-child(2) {
+            & a {
+              font-size: $text-lg !important;
+            }
+          }
+        }
+
+        & > div:last-child {
+          flex: 0 0 25%;
+          text-align: center;
+
+          & > button {
+            padding: 8px 20px;
+            border-radius: 10px;
+            margin-bottom: $pm-4;
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
+
+  &__content {
+    padding: 20px;
+    font-size: $text-lg;
+    background-color: #fff;
+
+    &--wrapped {
+      padding: 30px;
+      display: flex;
+
+      & > div:nth-child(1) {
+        flex: 0 0 65%;
+        padding-right: $pm-10;
+      }
+
+      & > div:nth-child(2) {
+        flex: 0 0 35%;
+      }
+
+      &--title {
+        margin: $pm-32 0 $pm-10 0;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 700;
+        color: #212f3f;
+      }
+
+      &--title:first-child {
+        margin: 0 0 $pm-10 0;
+      }
+
+      &--content {
+        margin-left: $pm-10;
+      }
+
+      &--table {
+        border: 1px solid #e8e8e8;
+        position: sticky;
+        top: 50px;
+
+        &--top {
+          background-color: $primary-color;
+          padding: 10px;
+          color: #fff;
+        }
+
+        &--bottom {
+          padding: 10px;
+
+          & > div {
+            padding: $pm-8 $pm-10;
+            border-bottom: 1px solid #e8e8e8;
+            font-weight: 700;
+
+            & > span {
+              font-weight: 400;
+            }
+          }
+
+          & > div:last-child {
+            border-bottom: none;
+            & > button {
+              padding: 8px 20px;
+              border-radius: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.container {
+  display: flex;
+  font-size: $text-lg;
+  row-gap: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  &__card-skill {
+    padding: 3px 6px;
+    border: 1px solid #d2d3d3;
+    color: #575656;
+    border-radius: 5px;
+
+    & > a {
+      &:hover {
+        color: $third-text !important;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1248px) {
+  .jobDetail {
+    padding: 15px;
+    &__top {
+      padding: 15px;
+
+      &--wrapped {
+        flex-wrap: wrap;
+
+        & > div:first-child {
+          flex: 0 0 35%;
+        }
+
+        & > div:last-child {
+          flex: 0 0 65%;
+          padding: 0 5px;
+          flex-wrap: wrap;
+
+          & > div:first-child {
+            flex: 0 0 100%;
+
+            & > div:nth-child(1) {
+              font-size: $text-xl;
+            }
+            & > div:nth-child(2) {
+              & a {
+                font-size: $text-lg !important;
+              }
+            }
+
+            & > a {
+              font-size: $text-lg;
+              margin: $pm-4 0;
+            }
+            & > div:nth-child(4) {
+              font-size: $text-lg;
+              margin: $pm-4 0;
+            }
+            & > div:nth-child(5) {
+              font-size: $text-lg;
+              margin: $pm-4 0;
+            }
+          }
+
+          & > div:last-child {
+            flex: 0 0 100%;
+
+            & > button {
+              margin-top: $pm-10;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    &__content {
+      padding: 10px;
+      font-size: $text-base;
+
+      &--wrapped {
+        padding: 10px;
+        flex-wrap: wrap;
+
+        & > div:nth-child(1) {
+          width: 100%;
+          flex: 0 0 100%;
+          padding-right: 0;
+        }
+
+        & > div:nth-child(2) {
+          flex: 0 0 100%;
+        }
+
+        &--title {
+          margin: $pm-20 0 $pm-8 0;
+          font-size: $text-lg;
+        }
+
+        &--title:first-child {
+          margin: 0 0 $pm-6 0;
+        }
+
+        &--content {
+          margin-left: $pm-8;
+          font-size: $text-lg;
+        }
+
+        &--table {
+          position: relative;
+          top: 0;
+          margin-top: $pm-10;
+          font-size: $text-lg;
+
+          &--top {
+            padding: 8px;
+          }
+
+          &--bottom {
+            padding: 8px;
+
+            & > div {
+              padding: $pm-4 $pm-6;
+            }
+
+            & > div:last-child {
+              & > button {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .jobDetail {
+    padding: 15px;
+    &__top {
+      padding: 15px;
+
+      &--wrapped {
+        flex-wrap: wrap;
+
+        & > div:first-child {
+          flex: 0 0 35%;
+
+          & > a > img {
+            width: 100%;
+            max-width: 150px;
+            min-height: 70px;
+          }
+        }
+
+        & > div:last-child {
+          flex: 0 0 65%;
+          padding: 0 5px;
+          flex-wrap: wrap;
+
+          & > div:first-child {
+            flex: 0 0 100%;
+
+            & > div:nth-child(1) {
+              font-size: $text-xl;
+            }
+            & > div:nth-child(2) {
+              & > a {
+                font-size: $text-lg !important;
+              }
+            }
+
+            & > a {
+              font-size: $text-lg !important;
+              margin: $pm-4 0;
+            }
+            & > div:nth-child(4) {
+              font-size: $text-lg;
+              margin: $pm-4 0;
+            }
+            & > div:nth-child(5) {
+              font-size: $text-lg;
+              margin: $pm-4 0;
+            }
+          }
+
+          & > div:last-child {
+            flex: 0 0 100%;
+
+            & > button {
+              margin-top: $pm-10;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    &__content {
+      padding: 8px;
+      font-size: $text-sm;
+
+      &--wrapped {
+        padding: 8px;
+        flex-wrap: wrap;
+
+        & > div:nth-child(1) {
+          width: 100%;
+          flex: 0 0 100%;
+          padding-right: 0;
+        }
+
+        & > div:nth-child(2) {
+          flex: 0 0 100%;
+        }
+
+        &--title {
+          margin: $pm-20 0 $pm-8 0;
+          font-size: $text-xl;
+        }
+
+        &--title:first-child {
+          margin: 0 0 $pm-6 0;
+        }
+
+        &--content {
+          margin-left: $pm-8;
+          font-size: $text-base;
+        }
+
+        &--table {
+          position: relative;
+          top: 0;
+          margin-top: $pm-10;
+          font-size: $text-lg;
+
+          &--top {
+            padding: 8px;
+          }
+
+          &--bottom {
+            padding: 8px;
+
+            & > div {
+              padding: $pm-4 $pm-6;
+            }
+
+            & > div:last-child {
+              & > button {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .container {
+    font-size: $text-base;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .jobDetail {
+    padding: 10px;
+    &__top {
+      padding: 10px;
+
+      &--wrapped {
+        flex-wrap: wrap;
+
+        & > div:first-child {
+          flex: 0 0 100%;
+
+          & > a > img {
+            display: none;
+          }
+        }
+
+        & > div:last-child {
+          flex: 0 0 100%;
+          padding: 0 5px;
+          flex-wrap: wrap;
+
+          & > div:first-child {
+            flex: 0 0 100%;
+
+            & > div:nth-child(1) {
+              font-size: $text-xl;
+            }
+            & > div:nth-child(2) {
+              & > a {
+                font-size: $text-base !important;
+              }
+            }
+
+            & > a {
+              font-size: $text-base !important;
+              margin: $pm-4 0;
+            }
+            & > div:nth-child(4) {
+              font-size: $text-base;
+              margin: $pm-4 0;
+            }
+            & > div:nth-child(5) {
+              font-size: $text-base;
+              margin: $pm-4 0;
+            }
+          }
+
+          & > div:last-child {
+            flex: 0 0 100%;
+
+            & > button {
+              margin-top: $pm-10;
+            }
+          }
+        }
+      }
+    }
+
+    &__content {
+      padding: 5px;
+      font-size: $text-base;
+
+      &--wrapped {
+        padding: 5px;
+        flex-wrap: wrap;
+
+        & > div:nth-child(1) {
+          width: 100%;
+          flex: 0 0 100%;
+          padding-right: 0;
+        }
+
+        & > div:nth-child(2) {
+          flex: 0 0 100%;
+        }
+
+        &--title {
+          margin: $pm-20 0 $pm-8 0;
+          font-size: $text-xl;
+        }
+
+        &--title:first-child {
+          margin: 0 0 $pm-6 0;
+        }
+
+        &--content {
+          margin-left: $pm-8;
+        }
+
+        &--table {
+          position: relative;
+          top: 0;
+          margin-top: $pm-10;
+
+          &--top {
+            padding: 5px;
+          }
+
+          &--bottom {
+            padding: 5px;
+
+            & > div {
+              padding: $pm-4 $pm-6;
+            }
+
+            & > div:last-child {
+              & > button {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .container {
+    font-size: $text-sm;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .jobDetail {
+    padding: 10px;
+    &__top {
+      padding: 10px;
+
+      &--wrapped {
+        flex-wrap: wrap;
+
+        & > div:first-child {
+          flex: 0 0 100%;
+
+          & > a > img {
+            display: none;
+          }
+        }
+
+        & > div:last-child {
+          flex: 0 0 100%;
+          padding: 0 5px;
+          flex-wrap: wrap;
+
+          & > div:first-child {
+            flex: 0 0 100%;
+
+            & > div:nth-child(1) {
+              font-size: $text-lg;
+            }
+            & > div:nth-child(2) {
+              & > a {
+                font-size: $text-sm !important;
+              }
+            }
+
+            & > a {
+              font-size: $text-sm !important;
+              margin: $pm-4 0;
+            }
+            & > div:nth-child(4) {
+              font-size: $text-sm;
+              margin: $pm-4 0;
+            }
+            & > div:nth-child(5) {
+              font-size: $text-sm;
+              margin: $pm-4 0;
+            }
+          }
+
+          & > div:last-child {
+            flex: 0 0 100%;
+
+            & > button {
+              margin-top: $pm-10;
+            }
+          }
+        }
+      }
+    }
+
+    &__content {
+      padding: 5px;
+      font-size: $text-sm;
+
+      &--wrapped {
+        padding: 5px;
+        flex-wrap: wrap;
+
+        & > div:nth-child(1) {
+          width: 100%;
+          flex: 0 0 100%;
+          padding-right: 0;
+        }
+
+        & > div:nth-child(2) {
+          flex: 0 0 100%;
+        }
+
+        &--title {
+          margin: $pm-20 0 $pm-8 0;
+          font-size: $text-lg;
+        }
+
+        &--title:first-child {
+          margin: 0 0 $pm-6 0;
+        }
+
+        &--content {
+          margin-left: $pm-8;
+        }
+
+        &--table {
+          position: relative;
+          top: 0;
+          margin-top: $pm-10;
+
+          &--top {
+            padding: 5px;
+          }
+
+          &--bottom {
+            padding: 5px;
+
+            & > div {
+              padding: $pm-4 $pm-6;
+            }
+
+            & > div:last-child {
+              & > button {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .container {
+    font-size: $text-xs;
+  }
+}

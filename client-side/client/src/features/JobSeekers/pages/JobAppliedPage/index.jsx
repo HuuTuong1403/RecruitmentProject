@@ -31,10 +31,10 @@ const JobAppliedPage = () => {
               <NotFoundData title={t("No applied jobs")} />
             ) : (
               <div className={classes.listJob}>
-                {applicationJobs.map((job) => (
+                {applicationJobs.map((job, index) => (
                   <JobItem
                     isApplied
-                    key={job.slug}
+                    key={index}
                     data={job?.job}
                     createdAt={job?.createdAt}
                   />

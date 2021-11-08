@@ -19,7 +19,6 @@ const initialState = {
   jobsApplicationDeleted: [],
   jobsApplicationNotSaved: [],
   jobsApplicationSaved: [],
-  jobsApplicationSearch: [],
   jobSlug: null,
   jobsOfEmployer: [],
   jobTrash: [],
@@ -192,16 +191,16 @@ const employerSlice = createSlice({
 });
 
 export const {
-  handleChangeCountStatus,
   addDataFilter,
   addDataPostJob,
-  resetDataPostJob,
-  handChangeJobSlug,
+  changeTabsItem,
+  deletedJobAppication,
   deleteJobPost,
   deleteJobTrash,
-  savedJobApplication,
-  deletedJobAppication,
-  changeTabsItem,
+  handChangeJobSlug,
+  handleChangeCountStatus,
+  resetDataPostJob,
   restoredJobApplication,
+  savedJobApplication,
 } = employerSlice.actions;
 export default employerSlice.reducer;

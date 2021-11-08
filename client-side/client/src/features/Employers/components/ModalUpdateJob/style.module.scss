@@ -1,22 +1,11 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .modalUpdateJob {
   color: $primary-text;
   &__wrapped {
     &--title {
       margin: 0 $pm-10;
-    }
-
-    &--actions {
-      margin-top: $pm-10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-
-      & > div {
-        flex: 0 0 48%;
-      }
     }
   }
 }

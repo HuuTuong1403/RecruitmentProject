@@ -9,10 +9,12 @@ const DatePickerFieldRHF = ({
   dateFormat,
   disabledDate,
   errors,
+  setDate,
   handleAddData,
   name,
   placeholder,
-  showTime,
+  showTime = false,
+  allowClear = false,
   defaultValue,
 }) => {
   const onOk = (value) => {};
@@ -45,9 +47,12 @@ const DatePickerFieldRHF = ({
               placeholder={placeholder}
               showTime={showTime}
               disabledDate={disabledDate}
-              allowClear={false}
+              allowClear={allowClear}
               onChange={(_, dateString) => {
                 onChange(dateString);
+                if (setDate) {
+                  setDate(dateString);
+                }
                 if (handleAddData) {
                   handleAddData({ [name]: dateString });
                 }

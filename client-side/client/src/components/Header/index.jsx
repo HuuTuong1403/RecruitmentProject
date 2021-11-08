@@ -16,7 +16,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useWindowSize } from "../../common/hook/useWindowSize";
+import { useWindowSize } from "common/hook/useWindowSize";
 import classes from "./style.module.scss";
 import MSTLogo from "assets/images/mst_logo.png";
 import notification from "components/Notification";

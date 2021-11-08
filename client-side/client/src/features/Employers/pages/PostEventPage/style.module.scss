@@ -1,0 +1,36 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.postEvent {
+  padding: $pm-10 0;
+
+  &__wrapped {
+    padding: 0 $pm-10;
+  }
+
+  &__formGroupField {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > div {
+      flex: 0 0 48%;
+
+      & > div > input {
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .postEvent {
+    &__formGroupField {
+      & > div {
+        margin-top: $pm-6;
+        flex: 0 0 100%;
+      }
+    }
+  }
+}

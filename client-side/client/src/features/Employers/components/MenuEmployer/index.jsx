@@ -4,7 +4,7 @@ import { IoIosPeople } from "react-icons/io";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { logoutEmployer } from "features/HomeEmployers/slices";
 import { MdMenu } from "react-icons/md";
-import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { MdSettings, MdAccountCircle, MdEvent } from "react-icons/md";
 import { Menu, Layout } from "antd";
 import { pathEmployer } from "common/constants/path";
 import { RiLogoutCircleRLine, RiFileList3Line } from "react-icons/ri";
@@ -71,6 +71,26 @@ const MenuEmployer = ({ children }) => {
         {
           key: pathEmployer.jobTrash,
           title: `${t("Job posting has been deleted")}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
+      ],
+    },
+    {
+      icon: <MdEvent className={classes.menuIcon} />,
+      title: `${t("Event management")}`,
+      subMenu: [
+        {
+          key: pathEmployer.postEvent,
+          title: `${t("Create a new event")}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
+        {
+          key: pathEmployer.createdEvent,
+          title: `${t("Events created")}`,
           icon: null,
           isLink: false,
           onClick: null,
