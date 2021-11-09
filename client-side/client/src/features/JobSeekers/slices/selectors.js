@@ -21,3 +21,7 @@ export const selectFavoriteJobs = (state) => {
 export const selectApplicationJobs = (state) => {
   return state?.jobSeeker?.applicationJobs;
 };
+
+export const selectJoinedEvent = (state) => {
+  return state?.jobSeeker?.joinedEvent;
+};
