@@ -1,0 +1,117 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.eventItem {
+  margin-bottom: $pm-20;
+
+  &__icon {
+    margin-right: 5px;
+    font-size: $text-lg;
+    vertical-align: sub;
+    color: $primary-text;
+  }
+
+  &__wrapped {
+    display: flex;
+    overflow: hidden;
+    padding: 15px;
+    border: 1px solid #e5e5e5;
+    position: relative;
+  }
+
+  &__content {
+    padding-left: 15px;
+    width: 100%;
+
+    &--eventName {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      & > a {
+        flex: 0 0 75%;
+        color: $primary-text;
+        font-weight: 700;
+        font-size: $text-xl !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover {
+          color: $third-text;
+        }
+      }
+    }
+
+    &--time {
+      font-size: $text-base;
+      margin: $pm-4 0;
+
+      & > span {
+        color: $primary-text;
+        font-weight: bold;
+      }
+    }
+
+    &--field {
+      font-size: $text-base;
+      margin: $pm-4 0;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      &--status {
+        text-transform: lowercase;
+      }
+
+      & > div > span {
+        color: $primary-text;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .eventItem {
+    margin-bottom: $pm-20;
+
+    &__content {
+      padding-left: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .eventItem {
+    margin-bottom: $pm-20;
+    &__icon {
+      font-size: $text-base;
+    }
+
+    &__content {
+      padding-left: 0;
+
+      &--eventName {
+        & > div {
+          margin-top: $pm-4;
+        }
+
+        & > a {
+          flex: 0 0 100%;
+          font-size: $text-base !important;
+        }
+      }
+
+      &--time {
+        font-size: $text-sm;
+        margin: $pm-4 0;
+      }
+
+      &--field {
+        font-size: $text-sm;
+        margin: $pm-4 0;
+      }
+    }
+  }
+}

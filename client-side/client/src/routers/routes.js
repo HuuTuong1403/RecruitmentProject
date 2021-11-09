@@ -6,6 +6,7 @@ const DashboardJobSeekersPage = lazy(() => import("features/JobSeekers"));
 const EmployersHomePage = lazy(() => import("features/HomeEmployers"));
 const HomePage = lazy(() => import("features/Home"));
 const JobsPage = lazy(() => import("features/Jobs"));
+const EventsPage = lazy(() => import("features/Events"));
 
 export const routes = [
   {
@@ -21,6 +22,11 @@ export const routes = [
   {
     children: <JobsPage />,
     path: PATH.jobs,
+    exact: false,
+  },
+  {
+    children: <EventsPage />,
+    path: PATH.events,
     exact: false,
   },
 ];

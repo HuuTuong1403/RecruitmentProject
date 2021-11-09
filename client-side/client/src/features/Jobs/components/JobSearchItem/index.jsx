@@ -8,6 +8,7 @@ import {
 } from "features/JobSeekers/slices";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiDollarCircle } from "react-icons/bi";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { FaBuilding } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -92,10 +93,8 @@ const JobSearchItem = ({ job }) => {
   return (
     <div className={classes.searchItem}>
       <div className={classes.searchItem__figure}>
-        {isNew && (
-          <div className={classes["searchItem__figure--new"]}>{t("New")}</div>
-        )}
-        <div className={classes["searchItem__figure--image"]}>
+        {isNew && <div className={classes.isNew}>{t("New")}</div>}
+        <div className={classes.imageItem}>
           <Link to={`/jobs/employer/${company?.companyName}`}>
             <img src={company?.logo} alt="" />
           </Link>
@@ -160,11 +159,12 @@ const JobSearchItem = ({ job }) => {
           <div className={classes["searchItem__figure--figcaption--date"]}>
             <div>
               <IoMdCalendar style={{ marginRight: "5px", fontSize: "18px" }} />
-              {t("post date")}: {moment(createdAt).format("DD/MM/yyyy")}
+              {t("post date")}: {moment(createdAt).format(dateFormatPicker)}
             </div>
             <div>
               <IoMdCalendar style={{ marginRight: "5px", fontSize: "18px" }} />
-              {t("expiration date")}: {moment(finishDate).format("DD/MM/yyyy")}
+              {t("expiration date")}:{" "}
+              {moment(finishDate).format(dateFormatPicker)}
             </div>
           </div>
         </div>

@@ -4,14 +4,16 @@ import employerReducer from "features/Employers/slices";
 import homeReducer from "features/Home/slices";
 import jobReducer from "features/Jobs/slices";
 import jobSeekerReducer from "features/JobSeekers/slices";
+import eventsReducer from "features/Events/slices";
 
 const store = configureStore({
   reducer: {
-    home: homeReducer,
     authEmployer: authEmployerReducer,
+    employer: employerReducer,
+    event: eventsReducer,
+    home: homeReducer,
     job: jobReducer,
     jobSeeker: jobSeekerReducer,
-    employer: employerReducer,
   },
 });
 
