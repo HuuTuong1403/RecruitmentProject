@@ -1,8 +1,8 @@
 export const PATH = {
-  business: "/business",
   employer: "/employers",
   home: "/home",
   jobs: "/jobs",
+  events: "/events",
 };
 
 export const pathJobSeeker = {
@@ -25,3 +25,5 @@ export const pathEmployer = {
   recruitManager: "/employers/dashboard/recruit-manage/created",
   settingAccount: "/employers/dashboard/setting-account",
 };
+
+export const pathEvents = {};

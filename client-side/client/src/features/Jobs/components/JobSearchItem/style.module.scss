@@ -1,4 +1,5 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .searchItem {
   margin-bottom: $pm-20;
@@ -9,39 +10,6 @@
     padding: 15px;
     border: 1px solid #e5e5e5;
     position: relative;
-
-    &--new {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      padding: 1px 8px;
-      background-color: red;
-      color: white;
-      border-top-left-radius: 10px;
-      font-size: 14px;
-    }
-
-    &--image {
-      height: 165px;
-      flex: 0 0 200px;
-      max-width: 200px;
-      border: 1px solid #e5e5e5;
-      border-radius: 5px;
-
-      & > a {
-        display: flex;
-        width: 100%;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-
-        & > img {
-          max-width: 100%;
-          max-height: 100%;
-          padding: $pm-20;
-        }
-      }
-    }
 
     &--figcaption {
       padding-left: 15px;
@@ -141,10 +109,6 @@
     margin-bottom: $pm-20;
 
     &__figure {
-      &--image {
-        display: none;
-      }
-
       &--figcaption {
         padding-left: 0;
         font-size: $text-sm;
@@ -187,10 +151,6 @@
     margin-bottom: $pm-20;
 
     &__figure {
-      &--image {
-        display: none;
-      }
-
       &--figcaption {
         padding-left: 0;
         font-size: $text-xs;

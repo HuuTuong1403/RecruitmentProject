@@ -1,0 +1,236 @@
+@import "common/styles/Variables.scss";
+
+.searchHeader {
+  position: sticky;
+  padding: $pm-10 0;
+  border-bottom: 1px solid #e5e5e5;
+  background: #fbfbfb;
+  z-index: 555;
+  top: 0;
+
+  &__content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__container {
+    max-width: 1190px;
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    & > form {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 85%;
+    }
+
+    & > div {
+      font-size: $text-2xl;
+      width: 15%;
+      padding-left: $pm-10;
+
+      & > svg {
+        transition: all 0.3s ease-in-out;
+
+        &:hover,
+        &:focus {
+          color: $third-text;
+        }
+      }
+    }
+
+    &--input-search {
+      flex: 0 0 40%;
+      margin-right: $pm-14;
+
+      & > div {
+        margin-bottom: 0;
+      }
+    }
+
+    &--input-location {
+      flex: 0 0 35%;
+      margin-right: $pm-10;
+    }
+
+    &--button {
+      flex: 0 0 20%;
+    }
+  }
+
+  &__collapse {
+    margin: $pm-10;
+    padding: $pm-10;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+
+    &--form {
+      width: 100%;
+      margin: 0 $pm-10;
+
+      &--top {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        & > div {
+          margin-right: $pm-14;
+          flex: 0 0 18%;
+
+          & > div {
+            margin-bottom: 0;
+
+            & > input {
+              border-radius: 5px;
+            }
+          }
+        }
+      }
+
+      &--actions {
+        margin-top: $pm-10;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        & > button {
+          margin-right: $pm-10;
+          flex: 0 0 10%;
+          padding: 5px;
+          font-size: $text-sm;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .searchHeader {
+    &__collapse {
+      &--form {
+        width: 100%;
+        margin: 0;
+
+        &--top {
+          & > div {
+            flex: 0 0 45%;
+            margin-bottom: $pm-10;
+            & > label {
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        &--actions {
+          margin-top: $pm-6;
+          & > button {
+            flex: 0 0 30%;
+            font-size: $text-base;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .searchHeader {
+    &__container {
+      & > div {
+        padding-left: $pm-10;
+      }
+      &--input-search {
+        flex: 0 0 40%;
+      }
+
+      &--input-location {
+        flex: 0 0 35%;
+      }
+      &--button {
+        flex: 0 0 20%;
+      }
+    }
+
+    &__collapse {
+      &--form {
+        width: 100%;
+        margin: 0;
+
+        &--top {
+          & > div {
+            flex: 0 0 45%;
+            margin-bottom: $pm-10;
+          }
+        }
+
+        &--actions {
+          margin-top: $pm-6;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .searchHeader {
+    position: relative;
+    &__container {
+      & > form {
+        width: 100%;
+      }
+      & > div {
+        width: 100%;
+        text-align: right;
+        font-size: $text-xl;
+        margin-right: $pm-10;
+      }
+      &--input-search {
+        flex: 0 0 100%;
+        margin-right: 0;
+      }
+
+      &--input-location {
+        flex: 0 0 100%;
+        margin: $pm-10 0;
+      }
+      &--button {
+        flex: 0 0 100%;
+      }
+    }
+
+    &__collapse {
+      &--form {
+        width: 100%;
+        margin: 0;
+
+        &--top {
+          & > div {
+            flex: 0 0 100%;
+            margin-bottom: $pm-10;
+            & > label {
+              margin-bottom: 0;
+            }
+          }
+        }
+        &--actions {
+          margin-top: $pm-6;
+          justify-content: space-between;
+          & > button {
+            flex: 0 0 45%;
+            font-size: $text-sm;
+          }
+        }
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@ const SearchHeader = () => {
   const dispatch = useDispatch();
   const isOpen = useSelector(selectedIsFilter);
   const type = query.get("type");
-  const jobTitle = query.get("jobTitle");
+
   const [selectProvince, setSelectProvince] = useState(
     query.get("location%city") ?? "Tất cả"
   );
@@ -207,7 +207,7 @@ const SearchHeader = () => {
             <div className={classes["searchHeader__container--input-search"]}>
               <InputField
                 ref={searchKey}
-                defaultValue={!type ? jobTitle : ""}
+                defaultValue={!type ? query.get("jobTitle") : ""}
                 placeholder={t("search-key")}
                 icon={<FaSearch />}
               />
@@ -286,7 +286,7 @@ const SearchHeader = () => {
                 />
               </div>
               <div>
-                <LabelField label={t("Jobs Posted Within")} />
+                <LabelField label={t("Posted Within")} />
                 <Select
                   options={optionsDateCreate}
                   value={optionsDateCreate.filter((date) => {

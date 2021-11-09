@@ -13,7 +13,7 @@ const BannerHomeEmp = () => {
 
   return (
     <section className={classes.bannerEmp}>
-      <div className={classes.bannerEmp__wrapped}>
+      <div className={classes.overlayImage}>
         <div className={classes.bannerEmp__container}>
           <div className={classes["bannerEmp__container--top"]}>
             {employer ? (

@@ -24,6 +24,7 @@ const Routers = () => {
           />
 
           <Redirect exact from={PATH.jobs} to="/jobs/search?type=all" />
+          <Redirect exact from={PATH.events} to="/events/search?type=all" />
           {privateRoutes.map((privateRoute, index) => {
             return (
               <PrivateRoute

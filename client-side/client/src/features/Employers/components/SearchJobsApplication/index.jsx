@@ -1,5 +1,6 @@
 import { addDataFilter } from "features/Employers/slices";
 import { clearNullObject } from "common/functions";
+import { dateFormatPicker, dateFormatSendServer } from "common/constants/dateFormat";
 import { DatePicker } from "antd";
 import { FaSearch } from "react-icons/fa";
 import {
@@ -24,16 +25,15 @@ const SearchJobsApplication = ({ status }) => {
   const searchFullNameRef = useRef(null);
   const dataFilter = useSelector(selectDataFilter);
 
-  const dateFormat = "DD/MM/yyyy";
   const [startTime, setStartTime] = useState(
     dataFilter?.startTime
-      ? moment(dataFilter.startTime, "yyyy-MM-DD").format(dateFormat)
+      ? moment(dataFilter.startTime, dateFormatSendServer).format(dateFormatPicker)
       : ""
   );
 
   const [endTime, setEndTime] = useState(
     dataFilter?.endTime
-      ? moment(dataFilter.endTime, "yyyy-MM-DD").format(dateFormat)
+      ? moment(dataFilter.endTime, dateFormatSendServer).format(dateFormatPicker)
       : ""
   );
 
@@ -59,11 +59,11 @@ const SearchJobsApplication = ({ status }) => {
         fullName: fullName === "" ? null : fullName,
         startTime:
           startTime !== ""
-            ? moment(startTime, dateFormat).format("yyyy-MM-DD")
+            ? moment(startTime, dateFormatPicker).format(dateFormatSendServer)
             : null,
         endTime:
           endTime !== ""
-            ? moment(endTime, dateFormat).format("yyyy-MM-DD")
+            ? moment(endTime, dateFormatPicker).format(dateFormatSendServer)
             : null,
         isExpired: isExpired === false ? null : true,
       });
@@ -100,13 +100,13 @@ const SearchJobsApplication = ({ status }) => {
 
   //Handle Disabled Date when choose End Date
   const disabledStartTime = (current) => {
-    const endDate = moment(endTime, "DD/MM/yyyy");
+    const endDate = moment(endTime, dateFormatPicker);
     return current > moment() || current > endDate;
   };
 
   //Handle Disabled Date when choose Start Date
   const disabledEndTime = (current) => {
-    const startDate = moment(startTime, "DD/MM/yyyy");
+    const startDate = moment(startTime, dateFormatPicker);
     return current < startDate || current > moment();
   };
 
@@ -153,10 +153,10 @@ const SearchJobsApplication = ({ status }) => {
               <DatePicker
                 style={{ minHeight: "38px", width: "100%" }}
                 showNow={false}
-                format={dateFormat}
+                format={dateFormatPicker}
                 defaultValue={
                   dataFilter?.startTime
-                    ? moment(dataFilter.startTime, "yyyy-MM-DD")
+                    ? moment(dataFilter.startTime, dateFormatSendServer)
                     : null
                 }
                 placeholder={t("Start date")}
@@ -175,10 +175,10 @@ const SearchJobsApplication = ({ status }) => {
               <DatePicker
                 style={{ minHeight: "38px", width: "100%" }}
                 showNow={false}
-                format={dateFormat}
+                format={dateFormatPicker}
                 defaultValue={
                   dataFilter?.endTime
-                    ? moment(dataFilter.endTime, "yyyy-MM-DD")
+                    ? moment(dataFilter.endTime, dateFormatSendServer)
                     : null
                 }
                 placeholder={t("End date")}
