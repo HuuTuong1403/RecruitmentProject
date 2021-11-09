@@ -299,4 +299,8 @@ export const schemaPostEvent = yup.object({
   endTime: yup.string().required("error-endTime-event").nullable(),
   briefDescription: yup.string().required("error-briefDescription-event"),
   eventContent: yup.string().required("error-eventContent-event"),
+  participantMax: yup
+    .string()
+    .required("error-participantMax-event")
+    .matches(/^\d+$/, "error-participantMax-number"),
 });

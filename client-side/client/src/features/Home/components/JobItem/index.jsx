@@ -1,16 +1,25 @@
 import { BiDollarCircle } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import classes from "./style.module.scss";
 
 const JobItem = ({ job }) => {
   const { jobTitle, salary, location, company, slug } = job;
+  const history = useHistory();
+
+  const handleClickImage = (companyName) => {
+    history.push(`/jobs/employer/${companyName}`);
+  };
 
   return (
     <div className={classes.jobitem}>
       <div className={classes.jobitem__container}>
         <div className={classes["jobitem__container--logo"]}>
-          <img src={company?.logo} alt="Logo" />
+          <img
+            onClick={() => handleClickImage(company?.companyName)}
+            src={company?.logo}
+            alt="Logo"
+          />
         </div>
         <div className={classes["jobitem__container--detail"]}>
           <div>

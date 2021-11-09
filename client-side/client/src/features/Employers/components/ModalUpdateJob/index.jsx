@@ -3,6 +3,7 @@ import {
   selectStatusJobDetail,
 } from "features/Employers/slices/selectors";
 import { Collapse, Switch, Modal } from "antd";
+import { dateFormatISO8601WithZ, dateFormatPicker } from "common/constants/dateFormat";
 import { schemaPostJobEmployer } from "common/constants/schema";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -47,7 +48,6 @@ const ModalUpdateJob = ({
     }
   }, [jobDetail?.salary?.min]);
 
-  // const dateFormat = "YYYY-MM-DDTHH:mm:ss. sssZ";
   const {
     register,
     handleSubmit,
@@ -332,13 +332,13 @@ const ModalUpdateJob = ({
                             <DatePickerField
                               name="finishDate"
                               control={control}
-                              dateFormat={"DD/MM/yyyy"}
+                              dateFormat={dateFormatPicker}
                               disabledDate={disabledDate}
                               errors={errors?.finishDate?.message}
                               placeholder={t("choose-deadline")}
                               defaultValue={moment(
                                 jobDetail.finishDate,
-                                "YYYY-MM-DDTHH:mm:ss. sssZ"
+                                dateFormatISO8601WithZ
                               )}
                             />
                           </div>

@@ -1,4 +1,5 @@
 import { BiDollarCircle } from "react-icons/bi";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { FaBuilding } from "react-icons/fa";
 import { IoMdCalendar } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -42,7 +43,7 @@ const JobActiveItem = ({ jobActive }) => {
           <div className={classes.hideText}>
             <IoMdCalendar style={{ marginRight: "5px" }} />
             {`${t("Deadline to apply")}: ${moment(finishDate).format(
-              "DD/MM/yyyy"
+              dateFormatPicker
             )}`}
           </div>
         </div>

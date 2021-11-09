@@ -1,4 +1,5 @@
 import { BiDollarCircle, BiTrash } from "react-icons/bi";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { deleteJobPost, deleteJobTrash } from "features/Employers/slices";
 import { fetchJobDetailOfEmployerAsync } from "features/Employers/slices/thunks";
 import { handChangeJobSlug } from "features/Employers/slices";
@@ -158,12 +159,12 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
           )}
           <div>
             <IoMdCalendar style={{ marginRight: "5px" }} />
-            {`${t("post date")}: ${moment(createdAt).format("DD/MM/yyyy")}`}
+            {`${t("post date")}: ${moment(createdAt).format(dateFormatPicker)}`}
           </div>
           <div>
             <IoMdCalendar style={{ marginRight: "5px" }} />
             {`${t("Deadline to apply")}: ${moment(finishDate).format(
-              "DD/MM/yyyy"
+              dateFormatPicker
             )}`}
           </div>
           <div className={classes["item__wrapped--aboutCreated"]}>

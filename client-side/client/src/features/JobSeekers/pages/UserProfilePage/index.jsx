@@ -1,4 +1,9 @@
 import {
+  dateFormatISO8601WithZ,
+  dateFormatPicker,
+  dateFormatSendServer,
+} from "common/constants/dateFormat";
+import {
   selectedProvinces,
   selectedDistricts,
   selectedWards,
@@ -52,8 +57,6 @@ const UserProfilePage = () => {
   }));
   wards.unshift({ label: `${t("choose-ward")}`, value: "" });
 
-  const dateFormat = "DD/MM/yyyy";
-
   const {
     register,
     handleSubmit,
@@ -72,8 +75,8 @@ const UserProfilePage = () => {
       dataUpdateProfile;
     if (
       !avatar &&
-      moment(DOB).format(dateFormat) ===
-        moment(detailJobSeeker?.DOB).format(dateFormat) &&
+      moment(DOB).format(dateFormatPicker) ===
+        moment(detailJobSeeker?.DOB).format(dateFormatPicker) &&
       city === detailJobSeeker?.address?.city &&
       district === detailJobSeeker?.address?.district &&
       ward === detailJobSeeker?.address?.ward &&
@@ -86,12 +89,12 @@ const UserProfilePage = () => {
     } else {
       let date;
       if (
-        moment(DOB).format(dateFormat) ===
-        moment(detailJobSeeker?.DOB).format(dateFormat)
+        moment(DOB).format(dateFormatPicker) ===
+        moment(detailJobSeeker?.DOB).format(dateFormatPicker)
       ) {
-        date = moment(detailJobSeeker?.DOB).format("yyyy-MM-DD");
+        date = moment(detailJobSeeker?.DOB).format(dateFormatSendServer);
       } else {
-        date = moment(DOB).format("yyyy-DD-MM");
+        date = moment(DOB).format(dateFormatSendServer);
       }
 
       const payload = new FormData();
@@ -126,7 +129,7 @@ const UserProfilePage = () => {
       ward: detailJobSeeker?.address?.ward,
       street: detailJobSeeker?.address?.street,
       DOB: detailJobSeeker?.DOB
-        ? moment(detailJobSeeker.DOB, "YYYY-MM-DDTHH:mm:ss. sssZ")
+        ? moment(detailJobSeeker.DOB, dateFormatISO8601WithZ)
         : null,
     });
   };
@@ -181,16 +184,13 @@ const UserProfilePage = () => {
                   <DatePickerField
                     name="DOB"
                     control={control}
-                    dateFormat={dateFormat}
+                    dateFormat={dateFormatPicker}
                     disabledDate={disabledDate}
                     errors={errors?.DOB?.message}
                     placeholder={t("phd-select-dob")}
                     defaultValue={
                       detailJobSeeker.DOB
-                        ? moment(
-                            detailJobSeeker.DOB,
-                            "YYYY-MM-DDTHH:mm:ss. sssZ"
-                          )
+                        ? moment(detailJobSeeker.DOB, dateFormatISO8601WithZ)
                         : null
                     }
                   />

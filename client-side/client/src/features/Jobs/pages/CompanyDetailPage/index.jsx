@@ -57,8 +57,10 @@ const CompanyDetailPage = () => {
   }, [dispatch, companyDetail]);
 
   useEffect(() => {
-    if (!currentUser) {
-      dispatch(getDetailJobSeekerAsync());
+    if (localStorage.getItem("token")) {
+      if (!currentUser) {
+        dispatch(getDetailJobSeekerAsync());
+      }
     }
   }, [dispatch, currentUser]);
 

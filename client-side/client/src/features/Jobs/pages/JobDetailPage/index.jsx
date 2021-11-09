@@ -2,6 +2,7 @@ import {
   addFavoriteJob,
   removeFavoriteJob,
 } from "features/JobSeekers/api/jobSeeker.api";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import {
   selectFavoriteJobs,
   selectApplicationJobs,
@@ -20,7 +21,7 @@ import {
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect, useCallback, useState } from "react";
 import { IoMdCalendar } from "react-icons/io";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import { ScrollTop } from "common/functions";
 import {
@@ -28,7 +29,6 @@ import {
   selectedStatus,
 } from "features/Jobs/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
-import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
@@ -208,7 +208,7 @@ const JobDetailPage = () => {
                         style={{ marginRight: "8px", fontSize: "18px" }}
                       />
                       {`${t("Deadline to apply")}: ${moment(finishDate).format(
-                        "DD/MM/yyyy"
+                        dateFormatPicker
                       )}`}
                     </div>
                   )}

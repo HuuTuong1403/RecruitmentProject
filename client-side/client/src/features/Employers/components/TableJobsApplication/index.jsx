@@ -1,3 +1,4 @@
+import { dateFormatPicker } from "common/constants/dateFormat";
 import {
   saveApplication,
   deleteApplication,
@@ -28,7 +29,6 @@ const TableJobsApplication = ({
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const dateFormat = "DD/MM/yyyy";
 
   const [showModal, setShhowModal] = useState(false);
   const [application, setApplication] = useState({});
@@ -238,7 +238,7 @@ const TableJobsApplication = ({
       fullName: fullName,
       phone: phone,
       jobTitle: job.jobTitle,
-      createdAt: moment(createdAt).format(dateFormat),
+      createdAt: moment(createdAt).format(dateFormatPicker),
       salary: `${
         job.salary.min
           ? `${job.salary.min} - ${job.salary.max} ${job.salary.type}`

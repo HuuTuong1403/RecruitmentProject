@@ -1,4 +1,8 @@
 import {
+  dateFormatWithTime,
+  dateFormatWithTimeSendServer,
+} from "common/constants/dateFormat";
+import {
   selectedProvinces,
   selectedDistricts,
   selectedWards,
@@ -34,7 +38,6 @@ const PostEventPage = () => {
   const [loading, setLoading] = useState(false);
   const [simpleFileName, setSimpleFileName] = useState("");
   const [multipleFileName, setMultipleFileName] = useState("");
-  const dateFormat = "DD/MM/yyyy HH:mm:ss";
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
     label: province.name,
@@ -70,24 +73,26 @@ const PostEventPage = () => {
           setLoading(true);
           setErrorMultipleImage("");
           const {
+            briefDescription,
+            city,
+            district,
+            endTime,
+            eventContent,
             eventName,
-            topic,
             eventOrganizer,
             location,
-            street,
-            ward,
-            district,
-            city,
+            participantMax,
             startTime,
-            endTime,
-            briefDescription,
-            eventContent,
+            street,
+            topic,
+            ward,
           } = dataEvent;
 
           const payload = new FormData();
           payload.append("eventName", eventName);
           payload.append("topic", topic);
           payload.append("eventOrganizer", eventOrganizer);
+          payload.append("participantMax", participantMax);
           payload.append("location", location);
           payload.append("address[street]", street);
           payload.append("address[ward]", ward);
@@ -95,11 +100,15 @@ const PostEventPage = () => {
           payload.append("address[city]", city);
           payload.append(
             "startTime",
-            moment(startTime, dateFormat).format("yyyy-MM-DD HH:mm:ss")
+            moment(startTime, dateFormatWithTime).format(
+              dateFormatWithTimeSendServer
+            )
           );
           payload.append(
             "endTime",
-            moment(endTime, dateFormat).format("yyyy-MM-DD HH:mm:ss")
+            moment(endTime, dateFormatWithTime).format(
+              dateFormatWithTimeSendServer
+            )
           );
           payload.append("briefDescription", briefDescription);
           payload.append("eventContent", eventContent);
@@ -137,6 +146,7 @@ const PostEventPage = () => {
       eventName: "",
       topic: "",
       eventOrganizer: "",
+      participantMax: "",
       location: "",
       street: "",
       ward: "",
@@ -150,12 +160,12 @@ const PostEventPage = () => {
   };
 
   const disabledStartTime = (current) => {
-    const disabledDate = moment(endDate, dateFormat);
+    const disabledDate = moment(endDate, dateFormatWithTime);
     return current < moment() || current > disabledDate;
   };
 
   const disabledEndTime = (current) => {
-    const disabledDate = moment(startDate, dateFormat);
+    const disabledDate = moment(startDate, dateFormatWithTime);
     return current < disabledDate || current < moment();
   };
 
@@ -210,6 +220,19 @@ const PostEventPage = () => {
                 />
               </div>
 
+              {/* Event Participant Max */}
+              <div>
+                <LabelField
+                  label={t("Maximum number of participants")}
+                  isCompulsory
+                />
+                <InputField
+                  {...register("participantMax")}
+                  errors={errors?.participantMax?.message}
+                  placeholder={t("phd-participantMax-event")}
+                />
+              </div>
+
               {/* Event Start Time */}
               <div>
                 <LabelField label={t("Event start time")} isCompulsory />
@@ -217,7 +240,7 @@ const PostEventPage = () => {
                   name="startTime"
                   control={control}
                   setDate={setStartDate}
-                  dateFormat={dateFormat}
+                  dateFormat={dateFormatWithTime}
                   showTime
                   allowClear
                   disabledDate={disabledStartTime}
@@ -235,7 +258,7 @@ const PostEventPage = () => {
                   showTime
                   allowClear
                   setDate={setEndDate}
-                  dateFormat={dateFormat}
+                  dateFormat={dateFormatWithTime}
                   disabledDate={disabledEndTime}
                   errors={errors?.endTime?.message}
                   placeholder={t("phd-endTime-event")}

@@ -6,6 +6,7 @@ import {
   AiOutlineSmile,
 } from "react-icons/ai";
 import { BiDotsHorizontalRounded, BiTrash, BiEdit } from "react-icons/bi";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { deleteReview } from "features/JobSeekers/api/jobSeeker.api";
 import { deleteReviewOfCompany } from "features/Jobs/slices";
 import { Fragment, useState } from "react";
@@ -98,7 +99,7 @@ const ReviewItem = ({
           )}
         </div>
         <div className={classes.reviewItem__createDay}>
-          {t("Posted on")} {moment(createdAt).format("DD/MM/yyyy")}
+          {t("Posted on")} {moment(createdAt).format(dateFormatPicker)}
         </div>
         <div className={classes.reviewItem__title}>{t("Overall rating")}</div>
         <div className={classes.reviewItem__rating}>

@@ -1,3 +1,4 @@
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { FaBirthdayCake, FaCity } from "react-icons/fa";
 import { Fragment } from "react";
 import { ImUser } from "react-icons/im";
@@ -36,7 +37,7 @@ const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
         {jobSeeker.DOB && (
           <div className={classes.left__group}>
             <FaBirthdayCake className={classes.icon} />
-            {moment(jobSeeker.DOB).format("DD/MM/yyyy")}
+            {moment(jobSeeker.DOB).format(dateFormatPicker)}
           </div>
         )}
         {jobSeeker.address && (

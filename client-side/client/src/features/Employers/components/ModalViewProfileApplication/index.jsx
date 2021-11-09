@@ -1,3 +1,4 @@
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { FaFileDownload, FaSave, FaTrash } from "react-icons/fa";
 import { Modal, Avatar } from "antd";
 import { MdRestorePage } from "react-icons/md";
@@ -24,7 +25,6 @@ const ModalViewProfileApplication = ({
 }) => {
   const { t } = useTranslation();
 
-  const dateFormat = "DD/MM/yyyy";
   const {
     createdAt,
     cvPath,
@@ -68,7 +68,7 @@ const ModalViewProfileApplication = ({
             <div className={classes.modalProfile__field}>
               <LabelField label={`${t("dob")}:`} />
               <div className={classes["modalProfile__field--text"]}>
-                {moment(jobSeeker?.DOB).format(dateFormat)}
+                {moment(jobSeeker?.DOB).format(dateFormatPicker)}
               </div>
             </div>
 
@@ -98,7 +98,7 @@ const ModalViewProfileApplication = ({
             <div className={classes.modalProfile__field}>
               <LabelField label={`${t("Submission date")}:`} />
               <div className={classes["modalProfile__field--text"]}>
-                {moment(createdAt).format(dateFormat)}
+                {moment(createdAt).format(dateFormatPicker)}
               </div>
             </div>
 

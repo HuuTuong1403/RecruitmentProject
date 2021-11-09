@@ -49,7 +49,15 @@ const Footer = () => {
                 <a href="/">{t("newjobs")}</a>
               </li>
               <li>
-                <Link to="/jobs/search?type=all">{t("searchjobs")}</Link>
+                <Link to="/jobs">{t("searchjobs")}</Link>
+              </li>
+              <li>
+                <Link to="/events/search?status=NotYetOccur">
+                  {t("Event not yet occured")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/events">{t("Search events")}</Link>
               </li>
             </ul>
           </div>

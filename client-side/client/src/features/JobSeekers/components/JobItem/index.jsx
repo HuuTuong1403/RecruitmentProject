@@ -1,5 +1,6 @@
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { BiDollarCircle } from "react-icons/bi";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { FaBuilding } from "react-icons/fa";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -94,14 +95,14 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
                   style={{ marginRight: "5px", fontSize: "18px" }}
                 />
                 {t("expiration date")}:{" "}
-                {moment(finishDate).format("DD/MM/yyyy")}
+                {moment(finishDate).format(dateFormatPicker)}
               </div>
             ) : (
               <div>
                 <IoMdCalendar
                   style={{ marginRight: "5px", fontSize: "18px" }}
                 />
-                {t("Submission date")}: {moment(createdAt).format("DD/MM/yyyy")}
+                {t("Submission date")}: {moment(createdAt).format(dateFormatPicker)}
               </div>
             )}
           </div>

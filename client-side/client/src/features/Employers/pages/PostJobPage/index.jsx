@@ -1,5 +1,9 @@
 import { clearNullObject } from "common/functions";
 import {
+  dateFormatPicker,
+  dateFormatSendServer,
+} from "common/constants/dateFormat";
+import {
   selectedProvinces,
   selectedDistricts,
   selectedWards,
@@ -37,7 +41,6 @@ const PostJobPage = () => {
   useTitle(`${t("postjobs")}`);
   const dispatch = useDispatch();
   const postJobData = useSelector(selectPostJobData);
-  const dateFormat = "DD/MM/yyyy";
   const skillAdd = [];
   const [loading, setLoading] = useState(false);
   const [hideSalary, setHideSalary] = useState(true);
@@ -126,7 +129,9 @@ const PostJobPage = () => {
       }),
       skills: selectSkill.map((item) => item.label),
       level,
-      finishDate: moment(finishDate, dateFormat).format("yyyy-MM-DD"),
+      finishDate: moment(finishDate, dateFormatPicker).format(
+        dateFormatSendServer
+      ),
     };
     setLoading(true);
     const result = await postJobEmployer(payload);
@@ -356,14 +361,14 @@ const PostJobPage = () => {
                   <DatePickerField
                     name="finishDate"
                     control={control}
-                    dateFormat={dateFormat}
+                    dateFormat={dateFormatPicker}
                     disabledDate={disabledDate}
                     errors={errors?.finishDate?.message}
                     handleAddData={handleAddData}
                     placeholder={t("choose-deadline")}
                     defaultValue={
                       postJobData?.finishDate
-                        ? moment(postJobData?.finishDate, dateFormat)
+                        ? moment(postJobData?.finishDate, dateFormatPicker)
                         : null
                     }
                   />
