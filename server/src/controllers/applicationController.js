@@ -1,15 +1,21 @@
 const fs = require('fs');
+
 const mongoose = require('mongoose');
+
 const factory = require('./handleFactory');
+
 const Application = require('./../models/application');
+
 const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('./../utils/apiFeatures');
 const AppError = require('./../utils/appError');
+
 const sendEmail = require('./../services/email');
 const pass_cv_annoucement = fs.readFileSync(
   `${__dirname}/../public/AnnoucementEmail/Passed_CV_Annoucement.html`,
   'utf-8'
 );
+
 const replaceHTML = (application) => {
   let output = pass_cv_annoucement.replace(
     /{{%fullName%}}/g,
@@ -30,6 +36,7 @@ const replaceHTML = (application) => {
   output = output.replace(/{{Date}}/g, date);
   return output;
 };
+
 class applicationController {
   setBodyApplicationCreation = (req, res, next) => {
     req.body.jobSeeker = req.user.id;

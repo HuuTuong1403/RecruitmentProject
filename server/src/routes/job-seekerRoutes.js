@@ -10,7 +10,9 @@ const jobRouter = require('./jobRoutes');
 const applicationRouter = require('./applicationRouter');
 const reviewRouter = require('./reviewRouter');
 const eventRouter = require('./eventRouter');
+const participantRouter = require('./participantRouter');
 
+jobseekerRouter.use('/participants', participantRouter);
 jobseekerRouter.use('/jobs', jobRouter);
 jobseekerRouter.use('/applications', applicationRouter);
 jobseekerRouter.use('/reviews', reviewRouter);
@@ -43,6 +45,7 @@ jobseekerRouter
     uploadAvatar.uploadAvatarToCloudinary,
     jobSeekerController.updateMe
   );
+
 jobseekerRouter.route('/favorite-jobs').get(jobSeekerController.getFavoriteJob);
 jobseekerRouter
   .route('/favorite-jobs/:idJob')

@@ -63,6 +63,18 @@ participantSchema.statics.calcParticipantQuantity = async function (eventID) {
 participantSchema.post('save', async function () {
   this.constructor.calcParticipantQuantity(this.event);
 });
+participantSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'event',
+    select:
+      'company address eventName eventOrganizer imageCover location startTime status topic slug',
+  });
+  this.populate({
+    path: 'participant',
+    select: 'email username avatar DOB address',
+  });
+  next();
+});
 participantSchema.post(/^findOneAnd/, async function (doc) {
   // await this.findOne(); does NOT work here, query has already executed
   await doc.constructor.calcParticipantQuantity(this.event);

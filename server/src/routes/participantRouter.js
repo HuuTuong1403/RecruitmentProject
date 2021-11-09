@@ -16,5 +16,20 @@ participantRouter
     participantController.setParticipantBodyCreation,
     validator.checkParticipantQuantityEvent,
     participantController.createParticipant
+  )
+  .get(
+    participantController.setParticipantQueryView,
+    participantController.getAllParticipant
   );
+participantRouter.route('/:id').get(participantController.getDetailParticipant);
+
+participantRouter.use(authController.restrictTo('employer'));
+
+participantRouter
+  .route('/management/all')
+  .get(
+    participantController.setQueryParticipantManagement,
+    participantController.getAllParticipantManagement
+  );
+
 module.exports = participantRouter;

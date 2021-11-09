@@ -80,6 +80,9 @@ const eventSchema = new mongoose.Schema(
         message: 'Vượt quá giới hạn người tham gia',
       },
     },
+    createdAt: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
