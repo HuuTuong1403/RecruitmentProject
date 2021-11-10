@@ -1,5 +1,4 @@
 import { addInfoSignUp } from "features/HomeEmployers/slices";
-import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { Link } from "react-router-dom";
 import { ScrollTop } from "common/functions";
 import { selectEmployerLocal } from "features/Employers/slices/selectors";
@@ -29,10 +28,6 @@ const SignUpEmployerPage = () => {
   const infoSignUp = useSelector(selectInfoSignUp);
 
   useTitle(`${t("Register for an employer account quickly")}`);
-  useEffect(() => {
-    dispatch(fetchProvincesAsync());
-  }, [dispatch]);
-
   const onSubmitHandler = (data) => {
     if (infoSignUp) {
       if (

@@ -1,21 +1,20 @@
-import {
-  selectEventDetail,
-  selectStatus,
-} from "features/Events/slices/selectors";
 import { Avatar, Tooltip } from "antd";
 import {
   dateFormatISO8601,
   dateFormatHourMinute,
 } from "common/constants/dateFormat";
-import { FaBuilding, FaUsers } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa";
 import { fetchAllEventJoinedAsync } from "features/JobSeekers/slices/thunks";
 import { fetchDetailEventAsync } from "features/Events/slices/thunks";
-import { fetchProvincesAsync } from "features/Home/slices/thunks";
-import { fetchSkillsAsync } from "features/Jobs/slices/thunks";
 import { getDetailJobSeekerAsync } from "features/JobSeekers/slices/thunks";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
+import { MdAccessTime, MdEventAvailable, MdEventBusy } from "react-icons/md";
 import { ScrollTop } from "common/functions";
 import { selectedJobSeekerProfile } from "features/JobSeekers/slices/selectors";
+import {
+  selectEventDetail,
+  selectStatus,
+} from "features/Events/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { selectJoinedEvent } from "features/JobSeekers/slices/selectors";
 import { useCallback, useEffect, Fragment, useState } from "react";
@@ -46,11 +45,13 @@ const EventDetailPage = () => {
 
   const {
     _id,
+    aboutCreated,
     address,
     briefDescription,
     company,
     endTime,
     eventContent,
+    eventOrganizer,
     eventName,
     imageCover,
     images,
@@ -58,24 +59,14 @@ const EventDetailPage = () => {
     participantMax,
     participantQuantity,
     startTime,
-    topic,
     status,
+    topic,
   } = eventDetail;
 
   const styleImageCover = {
     background: `url(${imageCover}) center center no-repeat`,
     backgroundSize: "cover",
   };
-
-  const start = moment(startTime, dateFormatISO8601)
-    .format(dateFormatHourMinute)
-    .split(" ")
-    .join(` ${t("At")} `);
-
-  const end = moment(endTime, dateFormatISO8601)
-    .format(dateFormatHourMinute)
-    .split(" ")
-    .join(` ${t("At")} `);
 
   useTitle(eventName ?? "");
 
@@ -102,11 +93,6 @@ const EventDetailPage = () => {
     if (localStorage.getItem("token")) {
       dispatch(fetchAllEventJoinedAsync());
     }
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchProvincesAsync());
-    dispatch(fetchSkillsAsync());
   }, [dispatch]);
 
   const applyJoinEvent = () => {
@@ -159,15 +145,9 @@ const EventDetailPage = () => {
                   <div className={classes["eventDetail__eventInfo--eventName"]}>
                     {t("Event")} {eventName}
                   </div>
-                  {company && (
-                    <Link
-                      className={classes["eventDetail__eventInfo--companyName"]}
-                      to={`/jobs/employer/${company.companyName}`}
-                    >
-                      <FaBuilding style={{ verticalAlign: "text-top" }} />{" "}
-                      {company.companyName}
-                    </Link>
-                  )}
+                  <div className={classes["eventDetail__eventInfo--field"]}>
+                    {t("Event organizer")}: <span>{eventOrganizer}</span>
+                  </div>
                   <div className={classes["eventDetail__eventInfo--field"]}>
                     {t("Held at")}:{" "}
                     {address && (
@@ -186,19 +166,47 @@ const EventDetailPage = () => {
                     {t("Event topic")}: <span>{topic}</span>
                   </div>
                   <div className={classes["eventDetail__eventInfo--field"]}>
+                    <MdEventAvailable className={classes.iconField} />
                     {t("Event start time")}:{" "}
                     <span>
-                      {t("Date")} {start}
+                      {t("Date")}{" "}
+                      {moment(startTime, dateFormatISO8601)
+                        .format(dateFormatHourMinute)
+                        .split(" ")
+                        .join(` ${t("At")} `)}
                     </span>
                   </div>
                   <div className={classes["eventDetail__eventInfo--field"]}>
+                    <MdEventBusy className={classes.iconField} />
                     {t("Event end time")}:{" "}
                     <span>
-                      {t("Date")} {end}
+                      {t("Date")}{" "}
+                      {moment(endTime, dateFormatISO8601)
+                        .format(dateFormatHourMinute)
+                        .split(" ")
+                        .join(` ${t("At")} `)}
                     </span>
                   </div>
                 </div>
                 <div>
+                  {aboutCreated && (
+                    <Tooltip
+                      title={`${t("Posted")} ${aboutCreated
+                        .split(" ")
+                        .map((string) => t(string))
+                        .join(" ")}`}
+                    >
+                      <div className={classes["eventDetail__eventInfo--field"]}>
+                        <MdAccessTime className={classes.iconField} />
+                        <span>
+                          {aboutCreated
+                            .split(" ")
+                            .map((string) => t(string))
+                            .join(" ")}
+                        </span>
+                      </div>
+                    </Tooltip>
+                  )}
                   <div className={classes["eventDetail__eventInfo--field"]}>
                     {t("Event")}{" "}
                     <span

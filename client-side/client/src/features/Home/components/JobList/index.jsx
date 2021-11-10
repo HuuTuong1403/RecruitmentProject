@@ -6,7 +6,7 @@ import classes from "./style.module.scss";
 import JobItem from "../JobItem";
 import Slider from "react-slick";
 
-const JobList = (props) => {
+const JobList = () => {
   const { t } = useTranslation();
   const jobs = useSelector(selectJobsHome);
 

@@ -23,11 +23,14 @@ import { IoLibrary } from "react-icons/io5";
 import { MdGroup } from "react-icons/md";
 import { schemaUpdateProfileEmployer } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
-import { selectEmployerDetail } from "features/Employers/slices/selectors";
+import {
+  selectEmployerDetail,
+  selectedStatus,
+} from "features/Employers/slices/selectors";
 import { updateProfileEmployer } from "features/Employers/api/employer.api";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
@@ -37,10 +40,11 @@ import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
 import InputBorderField from "custom-fields/InputBorderField";
 import LabelField from "custom-fields/LabelField";
+import LoadingSuspense from "components/Loading";
 import notification from "components/Notification";
 import parse from "html-react-parser";
-import SelectLocationField from "custom-fields/SelectLocationField";
 import SelectField from "custom-fields/SelectField";
+import SelectLocationField from "custom-fields/SelectLocationField";
 
 const EmployerProfilePage = () => {
   ScrollTop();
@@ -49,16 +53,29 @@ const EmployerProfilePage = () => {
   const { t } = useTranslation();
   const employerDetail = useSelector(selectEmployerDetail);
   const { Panel } = Collapse;
-  const [welfareUpdate, setWelfareUpdate] = useState(
-    employerDetail?.welfare ?? []
-  );
+  const [welfareUpdate, setWelfareUpdate] = useState([]);
   const [showText, setShowText] = useState(false);
-  const [text, setText] = useState(parse(employerDetail?.description ?? ""));
-  const [OT, setOT] = useState(employerDetail?.ot ?? false);
+  const [text, setText] = useState("");
+  const [OT, setOT] = useState(false);
   const [loading, setLoading] = useState(false);
   const [logo, setLogo] = useState(null);
+  const status = useSelector(selectedStatus);
 
   useTitle(`${t("Account Management")}`);
+
+  useEffect(() => {
+    if (!employerDetail) {
+      dispatch(getDetailEmployerAsync());
+    }
+  }, [dispatch, employerDetail]);
+
+  useEffect(() => {
+    if (employerDetail) {
+      setWelfareUpdate(employerDetail.welfare ?? []);
+      setOT(employerDetail.ot ?? false);
+      setText(parse(employerDetail.description ?? ""));
+    }
+  }, [employerDetail]);
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
     label: province.name,
@@ -263,7 +280,9 @@ const EmployerProfilePage = () => {
     },
   ];
 
-  return (
+  return status ? (
+    <LoadingSuspense height="80vh" />
+  ) : (
     <div className={classes.employerProfile}>
       {employerDetail && (
         <form
@@ -370,7 +389,7 @@ const EmployerProfilePage = () => {
                   checkedChildren={t("Do allow")}
                   unCheckedChildren={t("Do not allow")}
                   onChange={() => setOT((prevState) => !prevState)}
-                  defaultChecked={OT}
+                  defaultChecked={employerDetail.ot}
                   checked={OT}
                 />
               </div>

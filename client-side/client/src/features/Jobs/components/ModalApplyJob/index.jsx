@@ -19,10 +19,15 @@ import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 import CKEditorField from "custom-fields/CKEditorField";
 
-const ModalApplyJob = ({ showModal, onCloseModal, job }) => {
+const ModalApplyJob = ({
+  showModal,
+  onCloseModal,
+  idJob,
+  jobTitle,
+  companyName,
+}) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { _id, jobTitle, company } = job;
   const jobSeeker = useSelector(selectedJobSeekerProfile);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,15 +60,17 @@ const ModalApplyJob = ({ showModal, onCloseModal, job }) => {
       if (description) {
         data.append("description", description);
       }
-      const result = await applyJob({ idJob: _id, data });
+      const result = await applyJob({ idJob, data });
       if (result.status === "success") {
         dispatch(fetchAllJobApplicationAsync());
         notification(
           `${t("Successful job application submission")}`,
           "success"
         );
+        setLoading(false);
         onCloseModal();
       } else {
+        setLoading(false);
         notification(
           `${t("Error! An error occurred. Please try again later")}`,
           "error"
@@ -72,7 +79,6 @@ const ModalApplyJob = ({ showModal, onCloseModal, job }) => {
     } else {
       setError("CV file cannot be empty");
     }
-    setLoading(false);
   };
 
   return (
@@ -93,7 +99,7 @@ const ModalApplyJob = ({ showModal, onCloseModal, job }) => {
             <span>{t("Apply for the job")}: </span>
             <span>{jobTitle} </span>
             <span>{t("at")} </span>
-            <span>{company?.companyName}</span>
+            <span>{companyName}</span>
           </h3>
           <form onSubmit={handleSubmit(applyJobHandle)}>
             {/* Full name */}

@@ -399,7 +399,7 @@ const PostEventPage = () => {
               uppercase
               loading={loading}
             >
-              {t("Post job")}
+              {t("Create a new event")}
             </ButtonField>
           </div>
         </form>

@@ -168,3 +168,44 @@ export const createEventEmployer = async (payload) => {
     console.log(error);
   }
 };
+
+export const updateEventEmployer = async (id, data) => {
+  try {
+    const res = await axiosClient.patch(
+      `employer/events/management/${id}`,
+      data
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchAllEventOfEmployer = async () => {
+  try {
+    const res = await axiosClient.get("employer/events");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const pauseEventEmployer = async (payload) => {
+  try {
+    const res = await axiosClient.patch(
+      `employer/events/management/${payload}/pausing`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchEventDetail = async (payload) => {
+  try {
+    const res = await axiosClient.get(`employer/events/management/${payload}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

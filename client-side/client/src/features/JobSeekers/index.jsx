@@ -3,7 +3,6 @@ import {
   fetchAllFavoriteJobAsync,
   fetchAllJobApplicationAsync,
 } from "features/JobSeekers/slices/thunks";
-import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { Fragment, useEffect, useState, lazy } from "react";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
@@ -42,10 +41,6 @@ const DashboardJobSeekersPage = () => {
     if (user && checkLocation !== location.pathname) {
       dispatch(getDetailJobSeekerAsync());
       setCheckLocation(location.pathname);
-
-      if (location.pathname === `${url}/my-profile`) {
-        dispatch(fetchProvincesAsync());
-      }
 
       if (location.pathname === `${url}/job-saved`) {
         dispatch(fetchAllFavoriteJobAsync());

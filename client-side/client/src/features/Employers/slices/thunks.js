@@ -1,13 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  getDetailEmployer,
-  fetchJobsOfEmployer,
-  fetchJobDetailOfEmployer,
+  countApplicationStatus,
+  fetchAllEventOfEmployer,
+  fetchEventDetail,
   fetchJobDeleted,
+  fetchJobDetailOfEmployer,
+  fetchJobsApplicationDeleted,
   fetchJobsApplicationNotSaved,
   fetchJobsApplicationSaved,
-  fetchJobsApplicationDeleted,
-  countApplicationStatus,
+  fetchJobsOfEmployer,
+  getDetailEmployer,
 } from "../api/employer.api";
 
 export const getDetailEmployerAsync = createAsyncThunk(
@@ -70,6 +72,22 @@ export const countApplicationStatusAsync = createAsyncThunk(
   "employer/countApplicationStatus",
   async () => {
     const res = await countApplicationStatus();
+    return res.data.data;
+  }
+);
+
+export const fetchAllEventOfEmployerAsync = createAsyncThunk(
+  "employer/fetchAllEventOfEmployer",
+  async () => {
+    const res = await fetchAllEventOfEmployer();
+    return res.data.data;
+  }
+);
+
+export const fetchEventDetailAsync = createAsyncThunk(
+  "employer/fetchEventDetail",
+  async (payload) => {
+    const res = await fetchEventDetail(payload);
     return res.data.data;
   }
 );

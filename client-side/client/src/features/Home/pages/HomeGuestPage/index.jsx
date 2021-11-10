@@ -1,7 +1,4 @@
-import {
-  fetchJobsAsync,
-  fetchProvincesAsync,
-} from "features/Home/slices/thunks";
+import { fetchJobsAsync } from "features/Home/slices/thunks";
 import { Fragment, useEffect } from "react";
 import { ScrollTop } from "common/functions";
 import {
@@ -26,10 +23,6 @@ const HomeGuestPage = () => {
 
   useEffect(() => {
     dispatch(fetchJobsAsync());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchProvincesAsync());
   }, [dispatch]);
 
   const jobs = useSelector(selectJobsHome);
