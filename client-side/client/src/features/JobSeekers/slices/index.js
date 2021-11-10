@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchAllFavoriteJobAsync,
-  fetchJobsAsync,
   getDetailJobSeekerAsync,
   fetchAllJobApplicationAsync,
+  fetchAllEventJoinedAsync,
 } from "./thunks";
 
 const initialState = {
   status: false,
   jobSeekerProfile: null,
   updateProfileData: null,
-  jobs: null,
   favoriteJobs: [],
   applicationJobs: [],
+  joinedEvent: [],
 };
 
 export const jobSeekerSlice = createSlice({
@@ -22,6 +22,7 @@ export const jobSeekerSlice = createSlice({
     resetFavoriteJob: (state) => {
       state.favoriteJobs = [];
       state.applicationJobs = [];
+      state.joinedEvent = [];
       state.jobSeekerProfile = null;
     },
     addJobToFavorite: (state, action) => {
@@ -35,6 +36,7 @@ export const jobSeekerSlice = createSlice({
     },
   },
   extraReducers: {
+    //Get Detail Job Seeker
     [getDetailJobSeekerAsync.pending]: (state) => {
       state.status = true;
       state.jobSeekerProfile = null;
@@ -47,17 +49,8 @@ export const jobSeekerSlice = createSlice({
       state.status = false;
       state.jobSeekerProfile = null;
     },
-    [fetchJobsAsync.pending]: (state) => {
-      state.status = true;
-    },
-    [fetchJobsAsync.fulfilled]: (state, action) => {
-      state.jobs = action.payload;
-      state.status = false;
-    },
-    [fetchJobsAsync.rejected]: (state) => {
-      state.status = false;
-      state.jobs = [];
-    },
+
+    //Fetch All Job Favorite
     [fetchAllFavoriteJobAsync.pending]: (state) => {
       state.status = true;
     },
@@ -69,6 +62,8 @@ export const jobSeekerSlice = createSlice({
       state.status = false;
       state.favoriteJobs = [];
     },
+
+    //Fetch All Job Application
     [fetchAllJobApplicationAsync.pending]: (state) => {
       state.status = true;
     },
@@ -79,6 +74,19 @@ export const jobSeekerSlice = createSlice({
     [fetchAllJobApplicationAsync.rejected]: (state) => {
       state.status = false;
       state.applicationJobs = [];
+    },
+
+    //Fetch All Event Joined
+    [fetchAllEventJoinedAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchAllEventJoinedAsync.fulfilled]: (state, action) => {
+      state.joinedEvent = action.payload;
+      state.status = false;
+    },
+    [fetchAllEventJoinedAsync.rejected]: (state) => {
+      state.joinedEvent = [];
+      state.status = false;
     },
   },
 });

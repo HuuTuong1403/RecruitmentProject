@@ -1,24 +1,33 @@
 import {
-  dateFormatISO8601,
-  dateFormatHourMinute,
-} from "common/constants/dateFormat";
-import { Avatar, Tooltip } from "antd";
-import { FaBuilding, FaUsers } from "react-icons/fa";
-import { fetchDetailEventAsync } from "features/Events/slices/thunks";
-import { Link, useParams, useHistory } from "react-router-dom";
-import { ScrollTop } from "common/functions";
-import {
   selectEventDetail,
   selectStatus,
 } from "features/Events/slices/selectors";
-import { useCallback, useEffect, Fragment } from "react";
+import { Avatar, Tooltip } from "antd";
+import {
+  dateFormatISO8601,
+  dateFormatHourMinute,
+} from "common/constants/dateFormat";
+import { FaBuilding, FaUsers } from "react-icons/fa";
+import { fetchAllEventJoinedAsync } from "features/JobSeekers/slices/thunks";
+import { fetchDetailEventAsync } from "features/Events/slices/thunks";
+import { fetchProvincesAsync } from "features/Home/slices/thunks";
+import { fetchSkillsAsync } from "features/Jobs/slices/thunks";
+import { getDetailJobSeekerAsync } from "features/JobSeekers/slices/thunks";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { ScrollTop } from "common/functions";
+import { selectedJobSeekerProfile } from "features/JobSeekers/slices/selectors";
+import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { selectJoinedEvent } from "features/JobSeekers/slices/selectors";
+import { useCallback, useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
+import ModalJoinEvent from "features/Events/components/ModalJoinEvent";
 import moment from "moment";
+import notification from "components/Notification";
 import parse from "html-react-parser";
 import Slider from "react-slick";
 
@@ -27,11 +36,16 @@ const EventDetailPage = () => {
   const { t } = useTranslation();
   const history = useHistory();
   const dispatch = useDispatch();
+  const jobSeeker = useSelector(selectedJobSeekerProfile);
   const { slug } = useParams();
   const eventDetail = useSelector(selectEventDetail);
   const loading = useSelector(selectStatus);
+  const user = selectJobSeekerLocal();
+  const joinedEvents = useSelector(selectJoinedEvent);
+  const [showModal, setShhowModal] = useState(false);
 
   const {
+    _id,
     address,
     briefDescription,
     company,
@@ -47,6 +61,11 @@ const EventDetailPage = () => {
     topic,
     status,
   } = eventDetail;
+
+  const styleImageCover = {
+    background: `url(${imageCover}) center center no-repeat`,
+    backgroundSize: "cover",
+  };
 
   const start = moment(startTime, dateFormatISO8601)
     .format(dateFormatHourMinute)
@@ -75,9 +94,38 @@ const EventDetailPage = () => {
     history.push(`/jobs/employer/${company.companyName}`);
   };
 
-  const styleImageCover = {
-    background: `url(${imageCover}) center center no-repeat`,
-    backgroundSize: "cover",
+  const onCloseModal = () => {
+    setShhowModal(false);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(fetchAllEventJoinedAsync());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchProvincesAsync());
+    dispatch(fetchSkillsAsync());
+  }, [dispatch]);
+
+  const applyJoinEvent = () => {
+    if (user) {
+      if (!jobSeeker) {
+        dispatch(getDetailJobSeekerAsync());
+        setShhowModal(true);
+      } else {
+        setShhowModal(true);
+      }
+    } else {
+      notification(
+        `${t(
+          "Please login to the job seeker account to perform this function"
+        )}`,
+        "error"
+      );
+      history.push("/home/sign-in");
+    }
   };
 
   return (
@@ -86,6 +134,14 @@ const EventDetailPage = () => {
         <LoadingSuspense height="40vh" />
       ) : (
         <div className={classes.eventDetail}>
+          {jobSeeker && (
+            <ModalJoinEvent
+              showModal={showModal}
+              onCloseModal={onCloseModal}
+              event={eventDetail}
+              currentUser={jobSeeker}
+            />
+          )}
           <div className={classes.eventDetail__wrapped}>
             <div style={styleImageCover} className={classes.eventDetail__top}>
               <div className={classes.overlayImage}></div>
@@ -173,14 +229,37 @@ const EventDetailPage = () => {
                       </span>
                     </Tooltip>
                   </div>
-                  <ButtonField
-                    backgroundcolor="#0a426e"
-                    backgroundcolorhover="#324554"
-                    radius="5px"
-                    uppercase
-                  >
-                    {t("Registration")}
-                  </ButtonField>
+                  {joinedEvents?.some((item) => item?.event?._id === _id) ? (
+                    <ButtonField
+                      backgroundcolor="#0a426e"
+                      backgroundcolorhover="#324554"
+                      radius="5px"
+                      disabled
+                      uppercase
+                    >
+                      {t("Registered")}
+                    </ButtonField>
+                  ) : participantQuantity === participantMax ? (
+                    <ButtonField
+                      backgroundcolor="#0a426e"
+                      backgroundcolorhover="#324554"
+                      radius="5px"
+                      uppercase
+                      disabled
+                    >
+                      {t("Enough quantity")}
+                    </ButtonField>
+                  ) : (
+                    <ButtonField
+                      backgroundcolor="#0a426e"
+                      backgroundcolorhover="#324554"
+                      radius="5px"
+                      uppercase
+                      onClick={applyJoinEvent}
+                    >
+                      {t("Registration")}
+                    </ButtonField>
+                  )}
                 </div>
               </div>
             </div>

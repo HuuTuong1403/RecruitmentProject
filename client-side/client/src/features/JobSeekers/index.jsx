@@ -1,5 +1,4 @@
 import {
-  fetchJobsAsync,
   getDetailJobSeekerAsync,
   fetchAllFavoriteJobAsync,
   fetchAllJobApplicationAsync,
@@ -42,7 +41,6 @@ const DashboardJobSeekersPage = () => {
   useEffect(() => {
     if (user && checkLocation !== location.pathname) {
       dispatch(getDetailJobSeekerAsync());
-      dispatch(fetchJobsAsync());
       setCheckLocation(location.pathname);
 
       if (location.pathname === `${url}/my-profile`) {

@@ -101,3 +101,24 @@ export const deleteReview = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchAllEventJoined = async () => {
+  try {
+    const res = await axiosClient.get("job-seeker/participants");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const applyJoinEvent = async ({ idEvent, data }) => {
+  try {
+    const res = await axiosClient.post(
+      `job-seeker/events/${idEvent}/participants`,
+      data
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
