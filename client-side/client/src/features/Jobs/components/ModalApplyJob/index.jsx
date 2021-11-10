@@ -1,6 +1,8 @@
 import { applyJob } from "features/JobSeekers/api/jobSeeker.api";
-import { fetchAllJobApplicationAsync } from "features/JobSeekers/slices/thunks";
-import { getDetailJobSeekerAsync } from "features/JobSeekers/slices/thunks";
+import {
+  fetchAllJobApplicationAsync,
+  getDetailJobSeekerAsync,
+} from "features/JobSeekers/slices/thunks";
 import { Modal } from "antd";
 import { schemaApplyJob } from "common/constants/schema";
 import { selectedJobSeekerProfile } from "features/JobSeekers/slices/selectors";
