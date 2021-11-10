@@ -102,12 +102,13 @@ class applicationController {
       .paginate();
     let applications = await features.query;
     applications = applications.filter((application) => {
-      if (application.job.company._id == req.user.id) {
+      if (application.job?.company.id == req.user.id) {
         if (!isExpired) return application;
         if (application.job.isExpired.toString() == isExpired.toString()) {
           return application;
         }
       }
+      return application;
     });
     res.status(200).json({
       status: 'sucess',

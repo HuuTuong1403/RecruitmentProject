@@ -1,3 +1,5 @@
+const excelJS = require('exceljs');
+
 const factory = require('./handleFactory');
 
 const Participant = require('./../models/participantModel');
@@ -16,6 +18,9 @@ class participantController {
   setParticipantQueryView = (req, res, next) => {
     if (req.user.role == 'jobseeker') {
       req.query.participant = req.user.id;
+    }
+    if (req.params.idEvent) {
+      req.query.event = req.params.idEvent;
     }
     next();
   };
@@ -69,7 +74,7 @@ class participantController {
       .paginate();
     let participants = await features.query;
     participants = participants.filter((el) => {
-      if (el.event.company.id === req.user.id) {
+      if (el.event?.company.id === req.user.id) {
         if (!eventName && !eventStatus) {
           return el;
         }
@@ -99,6 +104,46 @@ class participantController {
       data: {
         data: participants,
       },
+    });
+  });
+  exportParticipantsExcel = catchAsync(async (req, res, next) => {
+    const participants = req.body;
+    const workbook = new excelJS.Workbook(); // Create a new workbook
+    const worksheet = workbook.addWorksheet('Partipant list'); // New Worksheet
+
+    // Column for data in excel. key must match data key
+    worksheet.columns = [
+      { header: 'STT', key: 'stt', width: 5 },
+      { header: 'Tên sự kiện', key: 'eventName', width: 40 },
+      { header: 'Đơn vị tổ chức', key: 'eventOrganizer', width: 30 },
+      { header: 'Chủ đề', key: 'topic', width: 10 },
+      { header: 'Họ và tên', key: 'fullName', width: 15 },
+      { header: 'Số điện thoại', key: 'phone', width: 15 },
+    ];
+
+    // Looping through User data
+    let counter = 1;
+
+    participants.forEach((participant) => {
+      participant.stt = counter;
+      worksheet.addRow(participant); // Add data in worksheet
+      counter++;
+    });
+    worksheet.getRow(1).eachCell((cell) => {
+      cell.font = { bold: true };
+    });
+
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=' + 'participants.xlsx'
+    );
+
+    return workbook.xlsx.write(res).then(function () {
+      res.status(200).end();
     });
   });
 }

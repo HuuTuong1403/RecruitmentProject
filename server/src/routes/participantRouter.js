@@ -31,5 +31,7 @@ participantRouter
     participantController.setQueryParticipantManagement,
     participantController.getAllParticipantManagement
   );
-
+participantRouter
+  .route('/management/export')
+  .get(participantController.exportParticipantsExcel);
 module.exports = participantRouter;
