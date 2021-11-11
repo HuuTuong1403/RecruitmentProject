@@ -1,15 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   countApplicationStatusAsync,
+  fetchAllEventOfEmployerAsync,
+  fetchEventDetailAsync,
   fetchJobDeletedAsync,
   fetchJobDetailOfEmployerAsync,
   fetchJobsApplicationDeletedAsync,
   fetchJobsApplicationNotSavedAsync,
   fetchJobsApplicationSavedAsync,
   fetchJobsOfEmployerAsync,
+  fetchParticipantsByIdEventAsync,
   getDetailEmployerAsync,
-  fetchAllEventOfEmployerAsync,
-  fetchEventDetailAsync,
 } from "features/Employers/slices/thunks";
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
   jobSlug: null,
   jobsOfEmployer: [],
   jobTrash: [],
+  participantsEvent: [],
   postJobData: null,
   status: false,
   statusJobDetail: false,
@@ -54,6 +56,9 @@ const employerSlice = createSlice({
     },
     resetDataPostJob: (state) => {
       state.postJobData = null;
+    },
+    resetDataParticipants: (state) => {
+      state.participantsEvent = [];
     },
     resetDataEvent: (state) => {
       state.eventDetailEmployer = null;
@@ -208,7 +213,7 @@ const employerSlice = createSlice({
       state.eventsOfEmployer = [];
     },
 
-    //fetchEventDetailAsync
+    //Fetc Event Detail
     [fetchEventDetailAsync.pending]: (state) => {
       state.status = true;
     },
@@ -219,6 +224,19 @@ const employerSlice = createSlice({
     [fetchEventDetailAsync.rejected]: (state) => {
       state.status = false;
       state.eventDetailEmployer = null;
+    },
+
+    //Fetch All Participants By idEvent
+    [fetchParticipantsByIdEventAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchParticipantsByIdEventAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.participantsEvent = action.payload;
+    },
+    [fetchParticipantsByIdEventAsync.rejected]: (state) => {
+      state.status = false;
+      state.participantsEvent = [];
     },
   },
 });
@@ -231,6 +249,7 @@ export const {
   deleteJobPost,
   deleteJobTrash,
   handChangeJobSlug,
+  resetDataParticipants,
   handleChangeCountStatus,
   resetDataEvent,
   resetDataPostJob,

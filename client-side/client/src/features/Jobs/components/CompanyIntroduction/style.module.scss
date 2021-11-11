@@ -93,6 +93,8 @@
       }
 
       &--action {
+        flex: 0 0 13%;
+        
         &--follower {
           font-size: $text-xs;
         }

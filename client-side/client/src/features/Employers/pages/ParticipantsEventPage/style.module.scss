@@ -1,0 +1,27 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.participant {
+  &__actions {
+    text-align: end;
+    margin-bottom: $pm-10;
+    & > button {
+      max-width: 25%;
+    }
+  }
+
+  &__icon {
+    margin-right: 5px;
+    font-size: $text-lg;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .participant {
+    &__actions {
+      & > button {
+        max-width: 100%;
+      }
+    }
+  }
+}

@@ -22,6 +22,9 @@ const SettingPage = lazy(() => import("./pages/SettingPage"));
 const PostEventPage = lazy(() => import("./pages/PostEventPage"));
 const EventManagementPage = lazy(() => import("./pages/EventManagementPage"));
 const UpdateEventPage = lazy(() => import("./pages/UpdateEventPage"));
+const ParticipantsEventPage = lazy(() =>
+  import("./pages/ParticipantsEventPage")
+);
 
 const DashboardEmployersPage = () => {
   const { t } = useTranslation();
@@ -66,6 +69,11 @@ const DashboardEmployersPage = () => {
             exact
             path={`${url}/events/:id/edit`}
             component={UpdateEventPage}
+          />
+          <Route
+            exact
+            path={`${url}/events/:id/participants`}
+            component={ParticipantsEventPage}
           />
           <Route
             exact

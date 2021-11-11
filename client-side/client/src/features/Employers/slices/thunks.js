@@ -9,6 +9,7 @@ import {
   fetchJobsApplicationNotSaved,
   fetchJobsApplicationSaved,
   fetchJobsOfEmployer,
+  fetchParticipantsByIdEvent,
   getDetailEmployer,
 } from "../api/employer.api";
 
@@ -88,6 +89,14 @@ export const fetchEventDetailAsync = createAsyncThunk(
   "employer/fetchEventDetail",
   async (payload) => {
     const res = await fetchEventDetail(payload);
+    return res.data.data;
+  }
+);
+
+export const fetchParticipantsByIdEventAsync = createAsyncThunk(
+  "employer/fetchParticipantsByIdEvent",
+  async (payload) => {
+    const res = await fetchParticipantsByIdEvent(payload);
     return res.data.data;
   }
 );

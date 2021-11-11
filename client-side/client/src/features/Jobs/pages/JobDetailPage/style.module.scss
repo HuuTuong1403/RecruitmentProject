@@ -80,6 +80,36 @@ p {
     font-size: $text-lg;
     background-color: #fff;
 
+    &--map {
+      margin-top: $pm-32;
+      flex: 0 0 33%;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+      padding: $pm-20;
+
+      &--title {
+        border-bottom: 1px solid #e6e6e6;
+        padding-bottom: $pm-10;
+        font-size: $text-base;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      &--iframe {
+        width: 100%;
+        height: 400px;
+      }
+
+      &--location {
+        line-height: 20px;
+        font-size: $text-base;
+        color: $primary-text;
+        margin: $pm-10 0;
+      }
+    }
+
     &--wrapped {
       padding: 30px;
       display: flex;
@@ -474,6 +504,21 @@ p {
       padding: 5px;
       font-size: $text-base;
 
+      &--map {
+        margin-top: $pm-14;
+        padding: $pm-10 0 0 0;
+
+        &--iframe {
+          width: 100%;
+          height: 350px;
+        }
+
+        &--location {
+          font-size: $text-sm;
+          margin: $pm-10;
+        }
+      }
+
       &--wrapped {
         padding: 5px;
         flex-wrap: wrap;
@@ -595,6 +640,21 @@ p {
     &__content {
       padding: 5px;
       font-size: $text-sm;
+
+      &--map {
+        margin-top: $pm-14;
+        padding: $pm-10 0 0 0;
+
+        &--iframe {
+          width: 100%;
+          height: 300px;
+        }
+
+        &--location {
+          font-size: $text-sm;
+          margin: $pm-10;
+        }
+      }
 
       &--wrapped {
         padding: 5px;
