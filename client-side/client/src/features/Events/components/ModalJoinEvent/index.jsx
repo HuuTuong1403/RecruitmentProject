@@ -72,9 +72,7 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
     const interestingField = selectSkill.map((item) => item.label);
     const { fullName, phone, ...props } = dataJoinEvent;
     const data = {
-      address: {
-        props,
-      },
+      address: props,
       fullName,
       phone,
       interestingField,
