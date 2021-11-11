@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const addressSchema = require('./addressModel');
 const Event = require('./eventModel');
+
 const participantSchema = new mongoose.Schema(
   {
     event: {

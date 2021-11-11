@@ -2,6 +2,7 @@ const Event = require('./../models/eventModel');
 const factory = require('./handleFactory');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
+
 class eventController {
   setBodyEventCreation = (req, res, next) => {
     req.body.company = req.user.id;
@@ -11,7 +12,6 @@ class eventController {
     if (req.user && req.user.role == 'employer') {
       req.query.company = req.user.id;
     }
-
     next();
   };
   pauseEvent = (req, res, next) => {

@@ -15,7 +15,12 @@ const participantRouter = require('./participantRouter');
 
 employerRouter.use('/applications', applicationRouter);
 employerRouter.use('/reviews', reviewRouter);
-employerRouter.use('/events', eventRouter);
+employerRouter.use(
+  '/events',
+  authController.protect,
+  authController.restrictTo('employer'),
+  eventRouter
+);
 employerRouter.use('/participants', participantRouter);
 employerRouter.use(
   '/jobs',
