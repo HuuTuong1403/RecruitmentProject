@@ -1,4 +1,5 @@
 const excelJS = require('exceljs');
+const slugify = require('slugify');
 
 const factory = require('./handleFactory');
 
@@ -108,17 +109,21 @@ class participantController {
   });
   exportParticipantsExcel = catchAsync(async (req, res, next) => {
     const participants = req.body;
+
     const workbook = new excelJS.Workbook(); // Create a new workbook
     const worksheet = workbook.addWorksheet('Partipant list'); // New Worksheet
 
     // Column for data in excel. key must match data key
     worksheet.columns = [
       { header: 'STT', key: 'stt', width: 5 },
-      { header: 'Tên sự kiện', key: 'eventName', width: 40 },
-      { header: 'Đơn vị tổ chức', key: 'eventOrganizer', width: 30 },
-      { header: 'Chủ đề', key: 'topic', width: 10 },
-      { header: 'Họ và tên', key: 'fullName', width: 15 },
+      { header: 'Họ và tên', key: 'fullName', width: 20 },
       { header: 'Số điện thoại', key: 'phone', width: 15 },
+      { header: 'Email', key: 'email', width: 35 },
+      { header: 'Địa chỉ', key: 'address', width: 80 },
+      { header: 'Ngày sinh', key: 'dob', width: 15 },
+      { header: 'Lĩnh vực quan tâm', key: 'interestingField', width: 50 },
+      { header: 'Trạng thái', key: 'status', width: 15 },
+      { header: 'Ngày đăng ký', key: 'createdAt', width: 15 },
     ];
 
     // Looping through User data
@@ -133,13 +138,17 @@ class participantController {
       cell.font = { bold: true };
     });
 
+    const excelName = slugify(`${req.query.eventName}`, {
+      lower: true,
+    });
+    console.log(excelName);
     res.setHeader(
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     );
     res.setHeader(
       'Content-Disposition',
-      'attachment; filename=' + 'participants.xlsx'
+      'attachment; filename=' + `${excelName}-participants.xlsx`
     );
 
     return workbook.xlsx.write(res).then(function () {
