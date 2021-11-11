@@ -33,5 +33,5 @@ participantRouter
   );
 participantRouter
   .route('/management/export')
-  .get(participantController.exportParticipantsExcel);
+  .post(participantController.exportParticipantsExcel);
 module.exports = participantRouter;
