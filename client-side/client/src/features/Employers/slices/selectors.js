@@ -57,3 +57,11 @@ export const selectDataFilter = (state) => {
 export const selectCountApplication = (state) => {
   return state?.employer?.applicationCount;
 };
+
+export const selectEventsOfEmployer = (state) => {
+  return state?.employer?.eventsOfEmployer;
+};
+
+export const selectEventDetailEmployer = (state) => {
+  return state?.employer?.eventDetailEmployer;
+};

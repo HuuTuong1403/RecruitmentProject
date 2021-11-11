@@ -128,3 +128,24 @@ a:hover {
 .ant-tabs-tab:hover {
   color: #f79d25;
 }
+
+.ant-pagination-item-active a {
+  color: #f79d25 !important;
+}
+
+.ant-pagination-item:focus-visible,
+.ant-pagination-item:hover {
+  border-color: #f79d25;
+}
+
+.ant-pagination-item-active {
+  border-color: #f79d25;
+}
+
+.ant-pagination-prev:focus-visible .ant-pagination-item-link,
+.ant-pagination-next:focus-visible .ant-pagination-item-link,
+.ant-pagination-prev:hover .ant-pagination-item-link,
+.ant-pagination-next:hover .ant-pagination-item-link {
+  color: #f79d25;
+  border-color: #f79d25;
+}

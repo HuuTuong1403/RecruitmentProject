@@ -8,19 +8,20 @@ import {
   selectedDistricts,
   selectedWards,
 } from "features/Home/slices/selectors";
-import { addDataPostJob, resetDataPostJob } from "features/Employers/slices";
-import { postJobEmployer } from "features/Employers/api/employer.api";
-import { schemaPostJobEmployer } from "common/constants/schema";
-import { ScrollTop } from "common/functions";
-import { Switch } from "antd";
-import { selectedSkills } from "features/Jobs/slices/selectors";
 import {
   selectPostJobData,
   selectEmployerDetail,
 } from "features/Employers/slices/selectors";
+import { addDataPostJob, resetDataPostJob } from "features/Employers/slices";
+import { getDetailEmployerAsync } from "features/Employers/slices/thunks";
+import { postJobEmployer } from "features/Employers/api/employer.api";
+import { schemaPostJobEmployer } from "common/constants/schema";
+import { ScrollTop } from "common/functions";
+import { selectedSkills } from "features/Jobs/slices/selectors";
+import { Switch } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,10 +29,10 @@ import ButtonField from "custom-fields/ButtonField";
 import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
 import DatePickerField from "custom-fields/DatePickerField";
+import InputPostJobField from "features/Employers/components/InputPostJobField";
 import LabelField from "custom-fields/LabelField";
 import moment from "moment";
 import notification from "components/Notification";
-import InputPostJobField from "features/Employers/components/InputPostJobField";
 import Select from "react-select";
 import SelectPostJobField from "features/Employers/components/SelectPostJobField";
 
@@ -45,6 +46,12 @@ const PostJobPage = () => {
   const [loading, setLoading] = useState(false);
   const [hideSalary, setHideSalary] = useState(true);
   const employerDetail = useSelector(selectEmployerDetail);
+
+  useEffect(() => {
+    if (!employerDetail) {
+      dispatch(getDetailEmployerAsync());
+    }
+  }, [dispatch, employerDetail]);
 
   const skills = useSelector(selectedSkills).map((skill, index) => {
     return { value: index, label: skill };

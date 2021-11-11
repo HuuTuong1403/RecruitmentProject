@@ -1,19 +1,34 @@
+import { fetchJobsOfEmployerAsync } from "features/Employers/slices/thunks";
 import { ScrollTop } from "common/functions";
-import { selectJobsOfEmployer } from "features/Employers/slices/selectors";
-import { useSelector } from "react-redux";
+import {
+  selectJobsOfEmployer,
+  selectedStatus,
+} from "features/Employers/slices/selectors";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import JobOfEmployerItem from "features/Employers/components/JobOfEmployerItem";
+import LoadingSuspense from "components/Loading";
 import NotFoundData from "components/NotFoundData";
 
 const RecruitManagementPage = () => {
   ScrollTop();
   const { t } = useTranslation();
-  const jobsOfEmployer = useSelector(selectJobsOfEmployer);
+  const dispatch = useDispatch();
+  const loading = useSelector(selectedStatus);
+
   useTitle(`${t("Manage job postings created")}`);
 
-  return (
+  useEffect(() => {
+    dispatch(fetchJobsOfEmployerAsync());
+  }, [dispatch]);
+
+  const jobsOfEmployer = useSelector(selectJobsOfEmployer);
+  return loading ? (
+    <LoadingSuspense height="80vh" />
+  ) : (
     <div className={classes.container}>
       <div className={classes.container__wrapped}>
         <div className={classes.titleDashboard}>

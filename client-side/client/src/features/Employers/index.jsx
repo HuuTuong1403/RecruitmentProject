@@ -1,16 +1,6 @@
-import { fetchProvincesAsync } from "features/Home/slices/thunks";
-import { fetchSkillsAsync } from "features/Jobs/slices/thunks";
-import { Fragment, useEffect, useState, lazy } from "react";
-import {
-  getDetailEmployerAsync,
-  fetchJobsOfEmployerAsync,
-  fetchJobDeletedAsync,
-  fetchJobsApplicationNotSavedAsync,
-  countApplicationStatusAsync,
-} from "./slices/thunks";
-import { selectEmployerLocal, selectDataFilter } from "./slices/selectors";
-import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Fragment, useEffect, lazy } from "react";
+import { selectEmployerLocal } from "./slices/selectors";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import FooterEmployers from "components/FooterEmployers";
@@ -31,11 +21,13 @@ const RecruitManagementPage = lazy(() =>
 const SettingPage = lazy(() => import("./pages/SettingPage"));
 const PostEventPage = lazy(() => import("./pages/PostEventPage"));
 const EventManagementPage = lazy(() => import("./pages/EventManagementPage"));
+const UpdateEventPage = lazy(() => import("./pages/UpdateEventPage"));
 
 const DashboardEmployersPage = () => {
   const { t } = useTranslation();
   const employer = selectEmployerLocal();
-  const dataFilter = useSelector(selectDataFilter);
+  const history = useHistory();
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     if (!employer) {
@@ -43,50 +35,6 @@ const DashboardEmployersPage = () => {
       history.push("/home");
     }
   });
-
-  const history = useHistory();
-  const { url } = useRouteMatch();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const [checkLocation, setCheckLocation] = useState("");
-
-  useEffect(() => {
-    if (employer && checkLocation !== location.pathname) {
-      dispatch(getDetailEmployerAsync());
-      setCheckLocation(location.pathname);
-      if (location.pathname === `${url}/post-job`) {
-        dispatch(fetchProvincesAsync());
-        dispatch(fetchSkillsAsync());
-      }
-      if (location.pathname === `${url}/my-profile`) {
-        dispatch(fetchProvincesAsync());
-      }
-      if (location.pathname === `${url}/recruit-manage/created`) {
-        dispatch(fetchProvincesAsync());
-        dispatch(fetchJobsOfEmployerAsync());
-        dispatch(fetchSkillsAsync());
-      }
-      if (location.pathname === `${url}/recruit-manage/trash`) {
-        dispatch(fetchJobDeletedAsync());
-      }
-      if (location.pathname === `${url}/candidate-profiles`) {
-        let filter;
-        dispatch(countApplicationStatusAsync());
-        if (dataFilter) {
-          filter = dataFilter;
-          dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
-        } else {
-          filter = {
-            status: "NotSaved",
-          };
-          dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
-        }
-      }
-      if (location.pathname === `${url}/events/post-event`) {
-        dispatch(fetchProvincesAsync());
-      }
-    }
-  }, [dispatch, checkLocation, location, employer, url, dataFilter]);
 
   return (
     <Fragment>
@@ -113,6 +61,11 @@ const DashboardEmployersPage = () => {
             exact
             path={`${url}/events/post-event`}
             component={PostEventPage}
+          />
+          <Route
+            exact
+            path={`${url}/events/:id/edit`}
+            component={UpdateEventPage}
           />
           <Route
             exact

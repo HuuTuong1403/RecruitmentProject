@@ -160,7 +160,9 @@ const JobDetailPage = () => {
             <ModalApplyJob
               showModal={showModal}
               onCloseModal={onCloseModal}
-              job={jobDetail}
+              idJob={_id}
+              jobTitle={jobTitle}
+              companyName={company?.companyName}
             />
           )}
           <div className={classes.jobDetail__top}>

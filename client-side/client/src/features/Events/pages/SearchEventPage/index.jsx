@@ -1,5 +1,4 @@
 import { clearNullObject } from "common/functions";
-import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { fetchSearchEventsAsync } from "features/Events/slices/thunks";
 import { Fragment, useEffect } from "react";
 import { ScrollTop } from "common/functions";
@@ -69,10 +68,6 @@ const SearchEventPage = () => {
       dispatch(fetchSearchEventsAsync({ filter }));
     }
   });
-
-  useEffect(() => {
-    dispatch(fetchProvincesAsync());
-  }, [dispatch]);
 
   return (
     <Fragment>

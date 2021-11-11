@@ -139,7 +139,7 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
         <div className={classes.item__bottom}>
           <Link
             to={`/jobs/${slug}`}
-            className={`${classes.jobTitle} ${classes.hideText}`}
+            className={`${classes.titleItem} ${classes.hideText}`}
           >
             {jobTitle}
           </Link>

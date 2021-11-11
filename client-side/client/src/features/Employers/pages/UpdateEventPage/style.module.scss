@@ -1,0 +1,96 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.editEvent {
+  padding: $pm-10;
+
+  &__slider {
+    width: 60%;
+    margin: $pm-8 auto;
+
+    &--logo {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+  }
+
+  &__formGroupFlex {
+    margin-top: $pm-10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > div {
+      flex: 0 0 48%;
+
+      & > div > input {
+        border-radius: 5px;
+      }
+    }
+  }
+
+  &__formGroupField {
+    margin-top: $pm-8;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+
+    & > div:first-child {
+      text-align: end;
+      flex: 0 0 34%;
+    }
+
+    & > div:last-child {
+      flex: 0 0 65%;
+    }
+  }
+}
+
+@media screen and (max-width: 1248px) {
+  .editEvent {
+    &__formGroupField {
+      & > div:first-child {
+        flex: 0 0 45%;
+      }
+
+      & > div:last-child {
+        flex: 0 0 55%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .editEvent {
+    &__slider {
+      width: 100%;
+
+      &--logo {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+    }
+
+    &__formGroupFlex {
+      & > div {
+        margin-top: $pm-6;
+        flex: 0 0 100%;
+      }
+    }
+
+    &__formGroupField {
+      & > div:first-child {
+        text-align: start;
+        flex: 0 0 100%;
+      }
+
+      & > div:last-child {
+        flex: 0 0 100%;
+      }
+    }
+  }
+}

@@ -273,7 +273,9 @@ const TableJobsApplication = ({
         scroll={{ x: "max-content" }}
         columns={columns}
         dataSource={data}
-        pagination={false}
+        pagination={{
+          pageSize: 10,
+        }}
         showSorterTooltip={false}
         style={{ cursor: "pointer" }}
       />

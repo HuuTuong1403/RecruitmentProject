@@ -25,7 +25,7 @@ import SelectLocationField from "custom-fields/SelectLocationField";
 const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState("");
+  const [loading, setLoading] = useState(false);
   const [selectSkill, setSelectSkill] = useState([]);
 
   const { _id, eventName, company, slug } = event;
@@ -84,8 +84,11 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
       dispatch(fetchAllEventJoinedAsync());
       dispatch(fetchDetailEventAsync(slug));
       notification(`${t("Sign up for the event successfully")}`, "success");
+      setSelectSkill([]);
+      setLoading(false);
       onCloseModal();
     } else {
+      setLoading(false);
       if (result.message) {
         notification(`${result.message}`, "error");
       } else {
@@ -95,7 +98,6 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
         );
       }
     }
-    setLoading(false);
   };
 
   return (

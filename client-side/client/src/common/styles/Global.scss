@@ -4,6 +4,22 @@
   text-overflow: ellipsis;
 }
 
+.statusNotYetOccur {
+  background-color: red;
+}
+
+.statusOccur {
+  background-color: $third-text;
+}
+
+.statusPausing {
+  background-color: $primary-text;
+}
+
+.statusFinish {
+  background-color: green;
+}
+
 .titleDashboard {
   font-size: $text-3xl;
   font-weight: 700;
@@ -16,7 +32,7 @@
   padding: $pm-10 0;
 }
 
-.jobTitle {
+.titleItem {
   font-weight: 700;
   font-size: $text-base;
 }
@@ -37,6 +53,13 @@
   color: white;
   border-top-left-radius: 10px;
   font-size: $text-sm;
+}
+
+.iconField {
+  margin-right: 3px;
+  margin-bottom: 1px;
+  color: $primary-text;
+  font-size: $text-lg;
 }
 
 .overlayImage {

@@ -1,10 +1,6 @@
 import { clearNullObject } from "common/functions";
-import {
-  fetchJobsSearchAsync,
-  fetchSkillsAsync,
-} from "features/Jobs/slices/thunks";
+import { fetchJobsSearchAsync } from "features/Jobs/slices/thunks";
 import { fetchAllFavoriteJobAsync } from "features/JobSeekers/slices/thunks";
-import { fetchProvincesAsync } from "features/Home/slices/thunks";
 import { Fragment, useEffect } from "react";
 import { ScrollTop } from "common/functions";
 import { useDispatch } from "react-redux";
@@ -73,14 +69,6 @@ const SearchJobPage = () => {
       dispatch(fetchJobsSearchAsync({ filter }));
     }
   });
-
-  useEffect(() => {
-    dispatch(fetchProvincesAsync());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchSkillsAsync());
-  }, [dispatch]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {

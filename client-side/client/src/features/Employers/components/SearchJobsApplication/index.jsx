@@ -1,6 +1,9 @@
 import { addDataFilter } from "features/Employers/slices";
 import { clearNullObject } from "common/functions";
-import { dateFormatPicker, dateFormatSendServer } from "common/constants/dateFormat";
+import {
+  dateFormatPicker,
+  dateFormatSendServer,
+} from "common/constants/dateFormat";
 import { DatePicker } from "antd";
 import { FaSearch } from "react-icons/fa";
 import {
@@ -27,13 +30,17 @@ const SearchJobsApplication = ({ status }) => {
 
   const [startTime, setStartTime] = useState(
     dataFilter?.startTime
-      ? moment(dataFilter.startTime, dateFormatSendServer).format(dateFormatPicker)
+      ? moment(dataFilter.startTime, dateFormatSendServer).format(
+          dateFormatPicker
+        )
       : ""
   );
 
   const [endTime, setEndTime] = useState(
     dataFilter?.endTime
-      ? moment(dataFilter.endTime, dateFormatSendServer).format(dateFormatPicker)
+      ? moment(dataFilter.endTime, dateFormatSendServer).format(
+          dateFormatPicker
+        )
       : ""
   );
 
@@ -78,12 +85,12 @@ const SearchJobsApplication = ({ status }) => {
         dispatch(fetchJobsApplicationDeletedAsync({ filter }));
       }
     } else {
-      filter = {
+      filter = clearNullObject({
         status,
-        fullName: "",
-        startTime: "",
-        endTime: "",
-      };
+        fullName: null,
+        startTime: null,
+        endTime: null,
+      });
 
       dispatch(addDataFilter(filter));
       if (status === "NotSaved") {

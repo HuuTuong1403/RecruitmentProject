@@ -8,19 +8,16 @@ import { MdSettings, MdAccountCircle, MdEvent } from "react-icons/md";
 import { Menu, Layout } from "antd";
 import { pathEmployer } from "common/constants/path";
 import { RiLogoutCircleRLine, RiFileList3Line } from "react-icons/ri";
-import { selectedStatus } from "features/Employers/slices/selectors";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
-import LoadingSuspense from "components/Loading";
 import notification from "components/Notification";
 
 const MenuEmployer = ({ children }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const dispatch = useDispatch();
-  const loading = useSelector(selectedStatus);
   const { Sider } = Layout;
   const [width, setWidth] = useState("300");
   const [isShow, setIsShow] = useState(false);
@@ -202,13 +199,7 @@ const MenuEmployer = ({ children }) => {
           )}
         </Menu>
       </Sider>
-      {loading ? (
-        <div className={classes.loading}>
-          <LoadingSuspense height="100%" />
-        </div>
-      ) : (
-        <div className={classes.sliderEmployer__blockRight}>{children}</div>
-      )}
+      <div className={classes.sliderEmployer__blockRight}>{children}</div>
     </div>
   );
 };
