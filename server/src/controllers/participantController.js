@@ -1,5 +1,4 @@
 const excelJS = require('exceljs');
-const slugify = require('slugify');
 
 const factory = require('./handleFactory');
 
@@ -109,7 +108,6 @@ class participantController {
   });
   exportParticipantsExcel = catchAsync(async (req, res, next) => {
     const participants = req.body;
-
     const workbook = new excelJS.Workbook(); // Create a new workbook
     const worksheet = workbook.addWorksheet('Partipant list'); // New Worksheet
 
@@ -137,18 +135,13 @@ class participantController {
     worksheet.getRow(1).eachCell((cell) => {
       cell.font = { bold: true };
     });
-
-    const excelName = slugify(`${req.query.eventName}`, {
-      lower: true,
-    });
-    console.log(excelName);
     res.setHeader(
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     );
     res.setHeader(
       'Content-Disposition',
-      'attachment; filename=' + `${excelName}-participants.xlsx`
+      'attachment; filename=' + `participants.xlsx`
     );
 
     return workbook.xlsx.write(res).then(function () {
