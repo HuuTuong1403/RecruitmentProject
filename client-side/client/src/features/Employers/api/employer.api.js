@@ -209,3 +209,29 @@ export const fetchEventDetail = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchParticipantsByIdEvent = async (payload) => {
+  try {
+    const res = await axiosClient.get(
+      `employer/events/${payload}/participants`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const exportParticipantExcel = async (payload) => {
+  try {
+    const res = await axiosClient.post(
+      "employer/participants/management/export",
+      payload,
+      {
+        responseType: "blob",
+      }
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

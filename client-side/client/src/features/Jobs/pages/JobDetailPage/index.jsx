@@ -198,12 +198,6 @@ const JobDetailPage = () => {
                       {company?.companyWebsite}
                     </a>
                   )}
-                  {location && (
-                    <div>
-                      <MdLocationOn style={{ marginRight: "8px" }} />
-                      {`${location?.street}, ${location?.ward}, ${location?.district}, ${location?.city}`}
-                    </div>
-                  )}
                   {finishDate && (
                     <div>
                       <IoMdCalendar
@@ -369,6 +363,24 @@ const JobDetailPage = () => {
                 )}
               </div>
               <div>
+                {location && (
+                  <div className={classes["jobDetail__content--map"]}>
+                    <div className={classes["jobDetail__content--map--title"]}>
+                      {t("Workplace address")}
+                    </div>
+                    <div
+                      className={classes["jobDetail__content--map--location"]}
+                    >
+                      <MdLocationOn style={{ marginRight: "8px" }} />
+                      {`${location.street}, ${location.ward}, ${location.district}, ${location.city}`}
+                    </div>
+                    <iframe
+                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBG4gMA71lLD3zLV38JXsvM3SQ-TT39FpM&q=${location.street},${location.ward},${location.district},${location.city}&zoom=15&language=vi`}
+                      className={classes["jobDetail__content--map--iframe"]}
+                      title="Map"
+                    ></iframe>
+                  </div>
+                )}
                 <div className={classes["jobDetail__content--wrapped--table"]}>
                   <div
                     className={
@@ -385,7 +397,9 @@ const JobDetailPage = () => {
                     {workingTime && (
                       <div>
                         {t("Working time")}:{" "}
-                        <span>{`${workingTime?.start} - ${workingTime?.finish}`}</span>
+                        <span>{`${t(workingTime.start)} - ${t(
+                          workingTime.finish
+                        )}`}</span>
                       </div>
                     )}
                     {position && (
@@ -402,9 +416,9 @@ const JobDetailPage = () => {
                       <div>
                         {t("Salary")}:{" "}
                         <span>
-                          {salary?.min
+                          {salary.min
                             ? `${salary.min} - ${salary.max} ${salary.type}`
-                            : `${salary?.type}`}
+                            : `${salary.type}`}
                         </span>
                       </div>
                     )}
@@ -420,7 +434,7 @@ const JobDetailPage = () => {
                       <div>
                         OT:{" "}
                         <span>
-                          {company?.ot
+                          {company.ot
                             ? `${t("Extra salary for OT")}`
                             : `${t("Non-OT")}`}
                         </span>
@@ -428,7 +442,7 @@ const JobDetailPage = () => {
                     )}
                     {location && (
                       <div>
-                        {t("Work location")}: <span>{location?.city}</span>
+                        {t("Work location")}: <span>{location.city}</span>
                       </div>
                     )}
                     <div>

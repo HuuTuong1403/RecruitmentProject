@@ -81,11 +81,36 @@ const CompanyDetailPage = () => {
             <div className={classes["companyDetail__wrapped--title"]}>
               {t("About us")}
             </div>
-            {companyDetail.description && (
-              <div className={classes["companyDetail__wrapped--description"]}>
-                {parse(companyDetail.description)}
-              </div>
-            )}
+            <div className={classes["companyDetail__content"]}>
+              {companyDetail.description && (
+                <div className={classes["companyDetail__content--description"]}>
+                  {parse(companyDetail.description)}
+                </div>
+              )}
+              {companyDetail.address && (
+                <div className={classes["companyDetail__content--map"]}>
+                  <div
+                    className={classes["companyDetail__content--map--title"]}
+                  >
+                    {t("Address company")}
+                  </div>
+                  <div
+                    className={classes["companyDetail__content--map--location"]}
+                  >
+                    {`${t("Address")}: ${companyDetail.address.street}, ${
+                      companyDetail.address.ward
+                    }, ${companyDetail.address.district}, ${
+                      companyDetail.address.city
+                    }`}
+                  </div>
+                  <iframe
+                    src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBG4gMA71lLD3zLV38JXsvM3SQ-TT39FpM&q=${companyDetail.address.street},${companyDetail.address.ward},${companyDetail.address.district},${companyDetail.address.city}&zoom=15&language=vi`}
+                    className={classes["companyDetail__content--map--iframe"]}
+                    title="Map"
+                  ></iframe>
+                </div>
+              )}
+            </div>
 
             {/* Company Job Active */}
             <div className={classes["companyDetail__wrapped--title"]}>

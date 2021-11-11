@@ -17,7 +17,10 @@ import { Tooltip } from "antd";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { resetDataEvent } from "features/Employers/slices";
+import {
+  resetDataEvent,
+  resetDataParticipants,
+} from "features/Employers/slices";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import moment from "moment";
@@ -192,6 +195,11 @@ const EventOfEmployerItem = ({ data }) => {
           backgroundcolor="#0a426e"
           backgroundcolorhover="#0a436ead"
           padding="2px"
+          onClick={() => {
+            history.push(`/employers/dashboard/events/${_id}/participants`);
+            dispatch(resetDataParticipants());
+            dispatch(resetDataEvent());
+          }}
         >
           <RiFileList3Line style={{ marginRight: "3px" }} />
           {t("View list")}

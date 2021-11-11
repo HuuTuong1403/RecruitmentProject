@@ -65,3 +65,7 @@ export const selectEventsOfEmployer = (state) => {
 export const selectEventDetailEmployer = (state) => {
   return state?.employer?.eventDetailEmployer;
 };
+
+export const selectParticipantsEvent = (state) => {
+  return state?.employer?.participantsEvent;
+};  
