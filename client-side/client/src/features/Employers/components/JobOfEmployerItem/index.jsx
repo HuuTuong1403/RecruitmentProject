@@ -1,19 +1,23 @@
-import { BiDollarCircle, BiTrash } from "react-icons/bi";
-import { dateFormatPicker } from "common/constants/dateFormat";
-import { deleteJobPost, deleteJobTrash } from "features/Employers/slices";
-import { fetchJobDetailOfEmployerAsync } from "features/Employers/slices/thunks";
-import { handChangeJobSlug } from "features/Employers/slices";
-import { IoMdCalendar, IoMdEye, IoMdTime } from "react-icons/io";
-import { Link, useHistory } from "react-router-dom";
-import { MdLocationOn, MdEdit, MdRestorePage } from "react-icons/md";
 import {
   selectedProvinces,
   selectedDistricts,
   selectedWards,
 } from "features/Home/slices/selectors";
+import { BiDollarCircle } from "react-icons/bi";
+import { dateFormatPicker } from "common/constants/dateFormat";
+import { fetchJobDetailOfEmployerAsync } from "features/Employers/slices/thunks";
+import { handChangeJobSlug } from "features/Employers/slices";
+import { IoMdCalendar, IoMdEye, IoMdTime } from "react-icons/io";
+import { Link, useHistory } from "react-router-dom";
+import {
+  MdDelete,
+  MdDeleteForever,
+  MdEdit,
+  MdLocationOn,
+  MdRestore,
+} from "react-icons/md";
 import { selectedSkills } from "features/Jobs/slices/selectors";
 import { selectJobSlug } from "features/Employers/slices/selectors";
-import { softDeleteJob, restoreJob } from "features/Employers/api/employer.api";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -21,10 +25,9 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import ModalUpdateJob from "../ModalUpdateJob";
 import moment from "moment";
-import notification from "components/Notification";
 import PopoverField from "custom-fields/PopoverField";
 
-const JobOfEmployerItem = ({ data, isTrash }) => {
+const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
   const {
     _id,
     jobTitle,
@@ -44,7 +47,6 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const slugState = useSelector(selectJobSlug);
-  const [loading, setLoading] = useState(false);
   const [selectSkill, setSelectSkill] = useState([]);
 
   const skillList = useSelector(selectedSkills).map((skill, index) => {
@@ -88,39 +90,6 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
 
   const onCloseModal = () => {
     setShhowModal(false);
-  };
-
-  const handleRestoreJob = async () => {
-    setLoading(true);
-    const result = await restoreJob(_id);
-    dispatch(deleteJobTrash(_id));
-    if (result.status === "success") {
-      notification(`${t("Successfully restored job postings")}`, "success");
-    } else {
-      notification(
-        `${t("Error! An error occurred. Please try again later")}`,
-        "success"
-      );
-    }
-    setLoading(false);
-  };
-
-  const handleDeleteRecruit = async () => {
-    setLoading(true);
-    const result = await softDeleteJob(_id);
-    dispatch(deleteJobPost(_id));
-    if (result.status === 204) {
-      notification(
-        `${t("Your job posting has been moved to the trash")}`,
-        "success"
-      );
-    } else {
-      notification(
-        `${t("Error! An error occurred. Please try again later")}`,
-        "success"
-      );
-    }
-    setLoading(false);
   };
 
   return (
@@ -194,14 +163,14 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
                 backgroundcolorhover="#ff7875"
                 padding="2px"
               >
-                <BiTrash className={classes.item__icon} />
-                {t("Delete")}
+                <MdDeleteForever className={classes.item__icon} />
+                {t("Delete permanently")}
               </ButtonField>
               <PopoverField
                 title={t("Confirm to restore job postings")}
                 subTitle={t("Do you want to restore this job posting?")}
                 loading={loading}
-                onClickOk={handleRestoreJob}
+                onClickOk={() => onRestore(_id)}
                 titleCancel={t("Cancel")}
                 titleOk={t("Restore")}
                 isSwap
@@ -211,7 +180,7 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
                   backgroundcolorhover="#2baa7e"
                   padding="2px"
                 >
-                  <MdRestorePage className={classes.item__icon} />
+                  <MdRestore className={classes.item__icon} />
                   {t("Restore")}
                 </ButtonField>
               </PopoverField>
@@ -237,19 +206,19 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
                 {t("Edit")}
               </ButtonField>
               <PopoverField
-                title={t("Confirm deletion of job postings")}
-                subTitle={t("Do you want to restore this job posting?")}
+                title={t("Confirm move job postings to trash")}
+                subTitle={t("Do you want to  move this job postings to trash?")}
                 loading={loading}
-                onClickOk={handleDeleteRecruit}
+                onClickOk={() => onDelete(_id)}
                 titleCancel={t("Cancel")}
-                titleOk={t("Delete")}
+                titleOk={t("Move")}
               >
                 <ButtonField
                   backgroundcolor="#dd4b39"
                   backgroundcolorhover="#ff7875"
                   padding="2px"
                 >
-                  <BiTrash className={classes.item__icon} />
+                  <MdDelete className={classes.item__icon} />
                   {t("Delete")}
                 </ButtonField>
               </PopoverField>

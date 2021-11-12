@@ -13,18 +13,19 @@ const CandidateProfileManagementPage = lazy(() =>
   import("./pages/CandidateProfileManagementPage")
 );
 const EmployerProfilePage = lazy(() => import("./pages/EmployersProfilePage"));
+const EventManagementPage = lazy(() => import("./pages/EventManagementPage"));
+const EventTrashPage = lazy(() => import("./pages/EventTrashPage"));
 const JobTrashPage = lazy(() => import("./pages/JobTrashPage"));
+const ParticipantsEventPage = lazy(() =>
+  import("./pages/ParticipantsEventPage")
+);
+const PostEventPage = lazy(() => import("./pages/PostEventPage"));
 const PostJobPage = lazy(() => import("./pages/PostJobPage"));
 const RecruitManagementPage = lazy(() =>
   import("./pages/RecruitManagementPage")
 );
 const SettingPage = lazy(() => import("./pages/SettingPage"));
-const PostEventPage = lazy(() => import("./pages/PostEventPage"));
-const EventManagementPage = lazy(() => import("./pages/EventManagementPage"));
 const UpdateEventPage = lazy(() => import("./pages/UpdateEventPage"));
-const ParticipantsEventPage = lazy(() =>
-  import("./pages/ParticipantsEventPage")
-);
 
 const DashboardEmployersPage = () => {
   const { t } = useTranslation();
@@ -79,6 +80,11 @@ const DashboardEmployersPage = () => {
             exact
             path={`${url}/events/created`}
             component={EventManagementPage}
+          />
+          <Route
+            exact
+            path={`${url}/events/deleted`}
+            component={EventTrashPage}
           />
           <Route
             exact

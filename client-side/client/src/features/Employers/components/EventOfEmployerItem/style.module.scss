@@ -52,8 +52,25 @@
     padding: $pm-10;
 
     &--eventName {
-      font-weight: bold;
-      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+
+      &--link {
+        flex: 0 0 90%;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      &--icon {
+        font-size: $text-2xl;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background-color: #e8e8e8;
+          border-radius: 50%;
+        }
+      }
     }
 
     &--field {
@@ -75,13 +92,13 @@
     }
   }
 
-  &__actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  &__listTile {
+    font-size: $text-base;
 
-    & > button {
-      flex: 0 0 30%;
+    &--icon {
+      font-size: $text-xl;
+      vertical-align: text-bottom;
+      margin-right: $pm-8;
     }
   }
 }
@@ -97,11 +114,5 @@
   .item {
     flex: 0 0 100%;
     border: 1px solid #e5e5e5;
-
-    &__actions {
-      & > button {
-        flex: 0 0 93%;
-      }
-    }
   }
 }

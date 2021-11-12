@@ -80,7 +80,7 @@ const EventItem = ({ data }) => {
           src={logo}
           alt={logo}
         />
-        {!isNew && (
+        {isNew && (
           <div className={`${classes.isNew} ${classes["eventItem__top--new"]}`}>
             {t("New")}
           </div>

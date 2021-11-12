@@ -1,14 +1,11 @@
+import { restoreEvent, deleteEvent } from "features/Employers/api/employer.api";
 import {
-  pauseEventEmployer,
-  softDeleteEvent,
-} from "features/Employers/api/employer.api";
-import {
-  selectEventsOfEmployer,
+  selectEventsDeleted,
   selectedStatus,
 } from "features/Employers/slices/selectors";
-import { fetchAllEventOfEmployerAsync } from "features/Employers/slices/thunks";
+import { fetchAllEventDeletedAsync } from "features/Employers/slices/thunks";
 import { Fragment, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
@@ -17,27 +14,25 @@ import LoadingSuspense from "components/Loading";
 import NotFoundData from "components/NotFoundData";
 import notification from "components/Notification";
 
-const EventManagementPage = () => {
+const EventTrashPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const eventsOfEmployer = useSelector(selectEventsOfEmployer);
+  const eventsDeleted = useSelector(selectEventsDeleted);
   const status = useSelector(selectedStatus);
   const [loading, setLoading] = useState(false);
 
-  useTitle(`${t("Manage created events")}`);
+  useTitle(`${t("Manage deleted events")}`);
+
   useEffect(() => {
-    dispatch(fetchAllEventOfEmployerAsync());
+    dispatch(fetchAllEventDeletedAsync());
   }, [dispatch]);
 
-  const handlePausingEvent = async (id) => {
+  const handleRestoreEvent = async (id) => {
     setLoading(true);
-    const result = await pauseEventEmployer(id);
+    const result = await restoreEvent(id);
     if (result.status === "success") {
-      dispatch(fetchAllEventOfEmployerAsync());
-      notification(
-        `${t("This event has been successfully paused")}`,
-        "success"
-      );
+      dispatch(fetchAllEventDeletedAsync());
+      notification(`${t("Successfully restored event")}`, "success");
     } else {
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
@@ -47,12 +42,12 @@ const EventManagementPage = () => {
     setLoading(false);
   };
 
-  const handleSoftDeleteEvent = async (id) => {
+  const handleDeleteEvent = async (id) => {
     setLoading(true);
-    const result = await softDeleteEvent(id);
+    const result = await deleteEvent(id);
     if (result.status === 204) {
-      dispatch(fetchAllEventOfEmployerAsync());
-      notification(`${t("This event has been moved to the trash")}`, "success");
+      dispatch(fetchAllEventDeletedAsync());
+      notification(`${t("Permanently deleted this event")}`, "success");
     } else {
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
@@ -65,26 +60,27 @@ const EventManagementPage = () => {
   return status ? (
     <LoadingSuspense height="80vh" />
   ) : (
-    eventsOfEmployer && (
+    eventsDeleted && (
       <Fragment>
         <div className={classes.titleDashboard}>
-          {t("Manage created events")}
+          {t("Manage deleted events")}
         </div>
-        {eventsOfEmployer.length === 0 ? (
-          <NotFoundData title={t("You haven't created any events yet")} />
+        {eventsDeleted.length === 0 ? (
+          <NotFoundData title={t("You haven't deleted any events yet")} />
         ) : (
           <Fragment>
             <div className={classes.subTitleDashboard}>{`${t("There are")} ${
-              eventsOfEmployer.length
-            } ${t("event created in total")}`}</div>
+              eventsDeleted.length
+            } ${t("event deleted in total")}`}</div>
             <div className={classes.listItem}>
-              {eventsOfEmployer.map((event) => (
+              {eventsDeleted.map((event) => (
                 <EventOfEmployerItem
                   data={event}
+                  isTrash
                   key={event.slug}
                   loading={loading}
-                  onPause={handlePausingEvent}
-                  onSoftDelete={handleSoftDeleteEvent}
+                  onDelete={handleDeleteEvent}
+                  onRestore={handleRestoreEvent}
                 />
               ))}
             </div>
@@ -95,4 +91,4 @@ const EventManagementPage = () => {
   );
 };
 
-export default EventManagementPage;
+export default EventTrashPage;
