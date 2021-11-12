@@ -1,12 +1,6 @@
-import {
-  getDetailJobSeekerAsync,
-  fetchAllFavoriteJobAsync,
-  fetchAllJobApplicationAsync,
-} from "features/JobSeekers/slices/thunks";
-import { Fragment, useEffect, useState, lazy } from "react";
+import { Fragment, useEffect, lazy } from "react";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
-import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Footer from "components/Footer";
@@ -16,41 +10,23 @@ import NotFoundPage from "components/404";
 import notification from "components/Notification";
 
 const JobAppliedPage = lazy(() => import("./pages/JobAppliedPage"));
-const JobNotificationPage = lazy(() => import("./pages/JobNotificationPage"));
+const EventJoinedPage = lazy(() => import("./pages/EventJoinedPage"));
 const JobSavedPage = lazy(() => import("./pages/JobSavedPage"));
 const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
 const UserSettingPage = lazy(() => import("./pages/UserSettingPage"));
 
 const DashboardJobSeekersPage = () => {
   const { t } = useTranslation();
+  const { url } = useRouteMatch();
   const user = selectJobSeekerLocal();
+  const history = useHistory();
+
   useEffect(() => {
     if (!user) {
       history.push("/home");
       notification(`${t("Please log out of the employer account")}`, "error");
     }
   });
-
-  const history = useHistory();
-  const { url } = useRouteMatch();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const [checkLocation, setCheckLocation] = useState("");
-
-  useEffect(() => {
-    if (user && checkLocation !== location.pathname) {
-      dispatch(getDetailJobSeekerAsync());
-      setCheckLocation(location.pathname);
-
-      if (location.pathname === `${url}/job-saved`) {
-        dispatch(fetchAllFavoriteJobAsync());
-      }
-
-      if (location.pathname === `${url}/job-applied`) {
-        dispatch(fetchAllJobApplicationAsync());
-      }
-    }
-  }, [dispatch, checkLocation, location, user, url]);
 
   return (
     <Fragment>
@@ -60,8 +36,8 @@ const DashboardJobSeekersPage = () => {
           <Route exact path={`${url}/my-profile`} component={UserProfilePage} />
           <Route
             exact
-            path={`${url}/job-alert`}
-            component={JobNotificationPage}
+            path={`${url}/events/joined`}
+            component={EventJoinedPage}
           />
           <Route exact path={`${url}/job-saved`} component={JobSavedPage} />
           <Route exact path={`${url}/job-applied`} component={JobAppliedPage} />

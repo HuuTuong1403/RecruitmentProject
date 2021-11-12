@@ -40,7 +40,13 @@ const EventItem = ({ event }) => {
   return (
     <div className={classes.eventItem}>
       <div className={classes.eventItem__wrapped}>
-        {isNew && <div className={classes.isNew}>{t("New")}</div>}
+        {isNew && (
+          <div
+            className={`${classes.isNew} ${classes["eventItem__wrapped--new"]}`}
+          >
+            {t("New")}
+          </div>
+        )}
         <div className={classes.imageItem}>
           <Link to={`/jobs/employer/${company?.companyName}`}>
             <img src={company?.logo} alt="" />
@@ -51,7 +57,10 @@ const EventItem = ({ event }) => {
             <Link to={`/events/view/${slug}`}>{eventName}</Link>
             <div>
               <IoMdTime className={classes.eventItem__icon} />
-              {aboutCreated}
+              {aboutCreated
+                .split(" ")
+                .map((string) => t(string))
+                .join(" ")}
             </div>
           </div>
 

@@ -4,7 +4,7 @@ import {
   selectJobsOfEmployer,
   selectedStatus,
 } from "features/Employers/slices/selectors";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
@@ -29,28 +29,27 @@ const RecruitManagementPage = () => {
   return loading ? (
     <LoadingSuspense height="80vh" />
   ) : (
-    <div className={classes.container}>
-      <div className={classes.container__wrapped}>
+    jobsOfEmployer && (
+      <Fragment>
         <div className={classes.titleDashboard}>
           {t("Manage job postings created")}
         </div>
         <div className={classes.subTitleDashboard}>{`${t("There are")} ${
-          jobsOfEmployer?.length
+          jobsOfEmployer.length
         } ${t("job postings in total")}`}</div>
-        {jobsOfEmployer &&
-          (jobsOfEmployer.length === 0 ? (
-            <NotFoundData
-              title={t("You have not posted any job vacancies yet")}
-            />
-          ) : (
-            <div className={classes.listJob}>
-              {jobsOfEmployer.map((job) => (
-                <JobOfEmployerItem key={job.slug} data={job} />
-              ))}
-            </div>
-          ))}
-      </div>
-    </div>
+        {jobsOfEmployer.length === 0 ? (
+          <NotFoundData
+            title={t("You have not posted any job vacancies yet")}
+          />
+        ) : (
+          <div className={classes.listJob}>
+            {jobsOfEmployer.map((job) => (
+              <JobOfEmployerItem key={job.slug} data={job} />
+            ))}
+          </div>
+        )}
+      </Fragment>
+    )
   );
 };
 

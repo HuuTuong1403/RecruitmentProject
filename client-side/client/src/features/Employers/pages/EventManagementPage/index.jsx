@@ -3,7 +3,7 @@ import {
   selectEventsOfEmployer,
   selectedStatus,
 } from "features/Employers/slices/selectors";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
@@ -26,26 +26,25 @@ const EventManagementPage = () => {
   return loading ? (
     <LoadingSuspense height="80vh" />
   ) : (
-    <div className={classes.container}>
-      <div className={classes.container__wrapped}>
+    eventsOfEmployer && (
+      <Fragment>
         <div className={classes.titleDashboard}>
           {t("Manage created events")}
         </div>
         <div className={classes.subTitleDashboard}>{`${t("There are")} ${
-          eventsOfEmployer?.length
+          eventsOfEmployer.length
         } ${t("event created in total")}`}</div>
-        {eventsOfEmployer &&
-          (eventsOfEmployer.length === 0 ? (
-            <NotFoundData title={t("You haven't created any events yet")} />
-          ) : (
-            <div className={classes.listEvent}>
-              {eventsOfEmployer.map((event) => (
-                <EventOfEmployerItem key={event.slug} data={event} />
-              ))}
-            </div>
-          ))}
-      </div>
-    </div>
+        {eventsOfEmployer.length === 0 ? (
+          <NotFoundData title={t("You haven't created any events yet")} />
+        ) : (
+          <div className={classes.listEvent}>
+            {eventsOfEmployer.map((event) => (
+              <EventOfEmployerItem key={event.slug} data={event} />
+            ))}
+          </div>
+        )}
+      </Fragment>
+    )
   );
 };
 

@@ -4,7 +4,7 @@ import {
   selectJobTrash,
   selectedStatus,
 } from "features/Employers/slices/selectors";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
@@ -28,26 +28,25 @@ const JobTrashPage = () => {
   return loading ? (
     <LoadingSuspense height="80vh" />
   ) : (
-    <div className={classes.container}>
-      <div className={classes.container__wrapped}>
+    jobTrash && (
+      <Fragment>
         <div className={classes.titleDashboard}>
           {t("Manage deleted job postings")}
         </div>
         <div className={classes.subTitleDashboard}>{`${t("There are")} ${
-          jobTrash?.length
+          jobTrash.length
         } ${t("job posting has been deleted")}`}</div>
-        {jobTrash &&
-          (jobTrash.length === 0 ? (
-            <NotFoundData title={t("You have not deleted any job postings")} />
-          ) : (
-            <div className={classes.listJob}>
-              {jobTrash.map((job) => (
-                <JobOfEmployerItem key={job.slug} isTrash={true} data={job} />
-              ))}
-            </div>
-          ))}
-      </div>
-    </div>
+        {jobTrash.length === 0 ? (
+          <NotFoundData title={t("You have not deleted any job postings")} />
+        ) : (
+          <div className={classes.listJob}>
+            {jobTrash.map((job) => (
+              <JobOfEmployerItem key={job.slug} isTrash={true} data={job} />
+            ))}
+          </div>
+        )}
+      </Fragment>
+    )
   );
 };
 

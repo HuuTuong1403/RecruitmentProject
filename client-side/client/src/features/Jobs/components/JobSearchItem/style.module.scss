@@ -11,6 +11,12 @@
     border: 1px solid #e5e5e5;
     position: relative;
 
+    &--new {
+      bottom: 0;
+      right: 0;
+      border-top-left-radius: 10px;
+    }
+
     &--figcaption {
       padding-left: 15px;
       width: 100%;

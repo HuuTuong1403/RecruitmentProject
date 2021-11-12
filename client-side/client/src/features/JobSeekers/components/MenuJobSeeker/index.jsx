@@ -1,19 +1,16 @@
-import { AiFillDashboard, AiOutlineNotification } from "react-icons/ai";
+import { AiFillDashboard } from "react-icons/ai";
 import { BsListCheck } from "react-icons/bs";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { logoutJobSeeker } from "features/Home/slices";
-import { MdMenu } from "react-icons/md";
-import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { MdSettings, MdAccountCircle, MdMenu, MdEvent } from "react-icons/md";
 import { Menu, Layout } from "antd";
 import { pathJobSeeker } from "common/constants/path";
 import { resetFavoriteJob } from "features/JobSeekers/slices";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { selectedStatus } from "features/JobSeekers/slices/selectors";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
-import LoadingSuspense from "components/Loading";
 import notification from "components/Notification";
 
 const MenuJobSeeker = ({ children }) => {
@@ -21,7 +18,6 @@ const MenuJobSeeker = ({ children }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { Sider } = Layout;
-  const loading = useSelector(selectedStatus);
   const [width, setWidth] = useState("300");
   const [isShow, setIsShow] = useState(false);
   const [showClose, setShowClose] = useState(true);
@@ -52,13 +48,6 @@ const MenuJobSeeker = ({ children }) => {
       onClick: null,
     },
     {
-      key: pathJobSeeker.jobAlert,
-      title: `${t("My Job Alerts")}`,
-      icon: <AiOutlineNotification className={classes.menuIcon} />,
-      isLink: false,
-      onClick: null,
-    },
-    {
       icon: <BsListCheck className={classes.menuIcon} />,
       title: `${t("My Jobs")}`,
       subMenu: [
@@ -77,6 +66,13 @@ const MenuJobSeeker = ({ children }) => {
           onClick: null,
         },
       ],
+    },
+    {
+      key: pathJobSeeker.eventsJoined,
+      title: `${t("Registered events")}`,
+      icon: <MdEvent className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
     },
     {
       key: pathJobSeeker.settingAccount,
@@ -178,13 +174,7 @@ const MenuJobSeeker = ({ children }) => {
           )}
         </Menu>
       </Sider>
-      {loading ? (
-        <div className={classes.loading}>
-          <LoadingSuspense height="100%" />
-        </div>
-      ) : (
-        <div className={classes.sliderJobSeeker__blockRight}>{children}</div>
-      )}
+      <div className={classes.sliderJobSeeker__blockRight}>{children}</div>
     </div>
   );
 };

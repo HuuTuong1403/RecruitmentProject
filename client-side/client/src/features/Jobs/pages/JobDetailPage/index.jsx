@@ -2,22 +2,18 @@ import {
   addFavoriteJob,
   removeFavoriteJob,
 } from "features/JobSeekers/api/jobSeeker.api";
-import { dateFormatPicker } from "common/constants/dateFormat";
-import {
-  selectFavoriteJobs,
-  selectApplicationJobs,
-} from "features/JobSeekers/slices/selectors";
 import {
   addJobToFavorite,
   removeJobOfFavorire,
 } from "features/JobSeekers/slices";
-import { AiOutlineGlobal } from "react-icons/ai";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { FaBuilding } from "react-icons/fa";
 import {
   fetchAllFavoriteJobAsync,
   fetchAllJobApplicationAsync,
 } from "features/JobSeekers/slices/thunks";
+import { AiOutlineGlobal } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { dateFormatPicker } from "common/constants/dateFormat";
+import { FaBuilding } from "react-icons/fa";
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect, useCallback, useState } from "react";
 import { IoMdCalendar } from "react-icons/io";
@@ -28,7 +24,12 @@ import {
   selectedJobDetail,
   selectedStatus,
 } from "features/Jobs/slices/selectors";
+import {
+  selectFavoriteJobs,
+  selectApplicationJobs,
+} from "features/JobSeekers/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
+import { Tooltip } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
@@ -49,7 +50,7 @@ const JobDetailPage = () => {
   const history = useHistory();
   const favoriteJobs = useSelector(selectFavoriteJobs);
   const applicationJobs = useSelector(selectApplicationJobs);
-  const [showModal, setShhowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const getDetail = useCallback(async () => {
     const result = await dispatch(fetchJobDetailAsync(slug));
@@ -93,12 +94,12 @@ const JobDetailPage = () => {
   useTitle(jobTitle ?? "");
 
   const onCloseModal = () => {
-    setShhowModal(false);
+    setShowModal(false);
   };
 
   const applyJobHandler = () => {
     if (user) {
-      setShhowModal(true);
+      setShowModal(true);
     } else {
       notification(
         `${t(
@@ -353,9 +354,13 @@ const JobDetailPage = () => {
                           className={classes["container__card-skill"]}
                           key={index}
                         >
-                          <Link to={`/jobs/search?skills=${skill}`}>
-                            {skill}
-                          </Link>
+                          <Tooltip
+                            title={`${t("View jobs with skill")} ${skill}`}
+                          >
+                            <Link to={`/jobs/search?skills=${skill}`}>
+                              {skill}
+                            </Link>
+                          </Tooltip>
                         </div>
                       ))}
                     </div>

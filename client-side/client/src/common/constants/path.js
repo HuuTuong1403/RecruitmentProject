@@ -6,7 +6,7 @@ export const PATH = {
 };
 
 export const pathJobSeeker = {
-  jobAlert: "/jobseekers/job-alert",
+  eventsJoined: "/jobseekers/events/joined",
   jobApplied: "/jobseekers/job-applied",
   jobSaved: "/jobseekers/job-saved",
   jobseekers: "/jobseekers",

@@ -1,0 +1,82 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.modalInfo {
+  padding: 0 $pm-10;
+
+  &__address {
+    color: $primary-text;
+    margin-top: $pm-10;
+    font-size: $text-xl;
+    font-weight: 500;
+  }
+
+  &__content {
+    padding: 0 $pm-20 $pm-20;
+
+    &--field {
+      display: flex;
+      justify-content: space-between;
+      margin-top: $pm-8;
+      flex-wrap: wrap;
+
+      & > label {
+        flex: 0 0 25%;
+        text-align: end;
+      }
+
+      & > div {
+        color: $primary-text;
+        font-size: $text-lg;
+        flex: 0 0 73%;
+      }
+
+      &--interesting {
+        display: flex;
+        gap: 10px;
+        row-gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      &--link {
+        font-weight: 500;
+        padding: $pm-2 $pm-8;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+
+        &:hover {
+          text-decoration: none !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .modalInfo {
+    padding: 0 $pm-4;
+
+    &__address {
+      margin-top: $pm-6;
+      font-size: $text-base;
+    }
+
+    &__content {
+      padding: 0;
+      &--field {
+        margin-top: $pm-6;
+
+        & > label {
+          flex: 0 0 100%;
+          text-align: start;
+        }
+
+        & > div {
+          padding-left: $pm-14;
+          flex: 0 0 100%;
+          font-size: $text-base;
+        }
+      }
+    }
+  }
+}

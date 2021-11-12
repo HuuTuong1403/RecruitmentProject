@@ -91,91 +91,89 @@ const ModalApplyJob = ({
       footer={null}
     >
       <div className={classes.modalApplyJob}>
-        <div className={classes.modalApplyJob__wrapped}>
-          <div className={classes["modalApplyJob__wrapped--title"]}>
-            {t("Submit a job application")}
-          </div>
-          <h3 className={classes["modalApplyJob__wrapped--jobTitle"]}>
-            <span>{t("Apply for the job")}: </span>
-            <span>{jobTitle} </span>
-            <span>{t("at")} </span>
-            <span>{companyName}</span>
-          </h3>
-          <form onSubmit={handleSubmit(applyJobHandle)}>
-            {/* Full name */}
-            <div className={classes["modalApplyJob__wrapped--formGroup"]}>
-              <div>
-                <LabelField label={t("full name")} isCompulsory />
-              </div>
-              <div>
-                <InputField
-                  placeholder={t("phd-fullname")}
-                  defaultValue={jobSeeker?.fullname}
-                  {...register("fullName")}
-                  errors={errors?.fullName?.message}
-                />
-              </div>
-            </div>
-
-            {/* Phone */}
-            <div className={classes["modalApplyJob__wrapped--formGroup"]}>
-              <div>
-                <LabelField label={t("Phone")} isCompulsory />
-              </div>
-              <div>
-                <InputField
-                  placeholder={t("phd-phone-signup")}
-                  defaultValue={jobSeeker?.phone}
-                  {...register("phone")}
-                  errors={errors?.phone?.message}
-                />
-              </div>
-            </div>
-
-            {/* CV */}
-            <div className={classes["modalApplyJob__wrapped--formGroup"]}>
-              <div>
-                <LabelField label={t("CV")} isCompulsory />
-              </div>
-              <div>
-                <InputUploadCv
-                  error={error}
-                  setError={setError}
-                  placeholder={t("Select CV to apply")}
-                  ref={cvFileRef}
-                />
-              </div>
-            </div>
-
-            {/* Description */}
-            <div>
-              <LabelField
-                label={t(
-                  "What skills, projects or achievements make you a good candidate for this position?"
-                )}
-              />
-              <CKEditorField
-                control={control}
-                name="description"
-                placeholder={t(
-                  "Give more specific examples to make your application more convincing..."
-                )}
-              />
-            </div>
-
-            <div className={classes["modalApplyJob__wrapped--actions"]}>
-              <ButtonField
-                backgroundcolor="#dd4b39"
-                backgroundcolorhover="#bf0000"
-                type="submit"
-                loading={loading}
-                uppercase
-              >
-                {t("Apply now")}
-              </ButtonField>
-            </div>
-          </form>
+        <div className={classes.modalTitle}>
+          {t("Submit a job application")}
         </div>
+        <h3 className={classes.modalApplyJob__jobTitle}>
+          <span>{t("Apply for the job")}: </span>
+          <span>{jobTitle} </span>
+          <span>{t("at")} </span>
+          <span>{companyName}</span>
+        </h3>
+        <form onSubmit={handleSubmit(applyJobHandle)}>
+          {/* Full name */}
+          <div className={classes.modalApplyJob__formGroup}>
+            <div>
+              <LabelField label={t("full name")} isCompulsory />
+            </div>
+            <div>
+              <InputField
+                placeholder={t("phd-fullname")}
+                defaultValue={jobSeeker?.fullname}
+                {...register("fullName")}
+                errors={errors?.fullName?.message}
+              />
+            </div>
+          </div>
+
+          {/* Phone */}
+          <div className={classes.modalApplyJob__formGroup}>
+            <div>
+              <LabelField label={t("Phone")} isCompulsory />
+            </div>
+            <div>
+              <InputField
+                placeholder={t("phd-phone-signup")}
+                defaultValue={jobSeeker?.phone}
+                {...register("phone")}
+                errors={errors?.phone?.message}
+              />
+            </div>
+          </div>
+
+          {/* CV */}
+          <div className={classes.modalApplyJob__formGroup}>
+            <div>
+              <LabelField label={t("CV")} isCompulsory />
+            </div>
+            <div>
+              <InputUploadCv
+                error={error}
+                setError={setError}
+                placeholder={t("Select CV to apply")}
+                ref={cvFileRef}
+              />
+            </div>
+          </div>
+
+          {/* Description */}
+          <div>
+            <LabelField
+              label={t(
+                "What skills, projects or achievements make you a good candidate for this position?"
+              )}
+            />
+            <CKEditorField
+              control={control}
+              name="description"
+              placeholder={t(
+                "Give more specific examples to make your application more convincing..."
+              )}
+            />
+          </div>
+
+          <div className={classes.modalApplyJob__actions}>
+            <ButtonField
+              backgroundcolor="#dd4b39"
+              backgroundcolorhover="#bf0000"
+              type="submit"
+              loading={loading}
+              uppercase
+            >
+              {t("Apply now")}
+            </ButtonField>
+          </div>
+        </form>
       </div>
     </Modal>
   );

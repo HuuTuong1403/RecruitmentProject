@@ -1,24 +1,28 @@
-import { Avatar, Tooltip } from "antd";
 import {
   dateFormatISO8601,
   dateFormatHourMinute,
 } from "common/constants/dateFormat";
-import { FaUsers } from "react-icons/fa";
-import { fetchAllEventJoinedAsync } from "features/JobSeekers/slices/thunks";
-import { fetchDetailEventAsync } from "features/Events/slices/thunks";
-import { getDetailJobSeekerAsync } from "features/JobSeekers/slices/thunks";
-import { useParams, useHistory } from "react-router-dom";
-import { MdAccessTime, MdEventAvailable, MdEventBusy } from "react-icons/md";
-import { ScrollTop } from "common/functions";
-import { selectedJobSeekerProfile } from "features/JobSeekers/slices/selectors";
+import {
+  getDetailJobSeekerAsync,
+  fetchAllEventJoinedAsync,
+} from "features/JobSeekers/slices/thunks";
 import {
   selectEventDetail,
   selectStatus,
 } from "features/Events/slices/selectors";
-import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
-import { selectJoinedEvent } from "features/JobSeekers/slices/selectors";
+import { Avatar, Tooltip } from "antd";
+import { FaUsers } from "react-icons/fa";
+import { fetchDetailEventAsync } from "features/Events/slices/thunks";
+import { MdAccessTime, MdEventAvailable, MdEventBusy } from "react-icons/md";
+import { ScrollTop } from "common/functions";
+import {
+  selectedJobSeekerProfile,
+  selectJobSeekerLocal,
+  selectEventsJoined,
+} from "features/JobSeekers/slices/selectors";
 import { useCallback, useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, useHistory } from "react-router-dom";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import ButtonField from "custom-fields/ButtonField";
@@ -40,7 +44,7 @@ const EventDetailPage = () => {
   const eventDetail = useSelector(selectEventDetail);
   const loading = useSelector(selectStatus);
   const user = selectJobSeekerLocal();
-  const joinedEvents = useSelector(selectJoinedEvent);
+  const joinedEvents = useSelector(selectEventsJoined);
   const [showModal, setShhowModal] = useState(false);
 
   const {

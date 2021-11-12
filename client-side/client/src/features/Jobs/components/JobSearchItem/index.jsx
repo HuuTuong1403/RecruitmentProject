@@ -10,18 +10,19 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiDollarCircle } from "react-icons/bi";
 import { dateFormatPicker } from "common/constants/dateFormat";
 import { FaBuilding } from "react-icons/fa";
+import { Fragment } from "react";
 import { IoMdCalendar, IoMdTime } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import { selectedIsFilter } from "features/Jobs/slices/selectors";
-import { toggleOpenFilter } from "features/Jobs/slices";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import {
   selectJobSeekerLocal,
   selectFavoriteJobs,
 } from "features/JobSeekers/slices/selectors";
+import { toggleOpenFilter } from "features/Jobs/slices";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import moment from "moment";
 import notification from "components/Notification";
@@ -93,7 +94,13 @@ const JobSearchItem = ({ job }) => {
   return (
     <div className={classes.searchItem}>
       <div className={classes.searchItem__figure}>
-        {isNew && <div className={classes.isNew}>{t("New")}</div>}
+        {!isNew && (
+          <div
+            className={`${classes.isNew} ${classes["searchItem__figure--new"]}`}
+          >
+            {t("New")}
+          </div>
+        )}
         <div className={classes.imageItem}>
           <Link to={`/jobs/employer/${company?.companyName}`}>
             <img src={company?.logo} alt="" />
@@ -104,7 +111,10 @@ const JobSearchItem = ({ job }) => {
             <Link to={`/jobs/${slug}`}>{jobTitle}</Link>
             <div>
               <IoMdTime style={{ marginRight: "5px", fontSize: "18px" }} />
-              {aboutCreated}
+              {aboutCreated
+                .split(" ")
+                .map((string) => t(string))
+                .join(" ")}
             </div>
           </div>
           <div
@@ -143,16 +153,15 @@ const JobSearchItem = ({ job }) => {
             <div>{t("Skill")}: </div>
             {skills.map((skill, index) => {
               return (
-                <>
+                <Fragment key={index}>
                   <Link
                     onClick={handleClickSkill}
                     to={`/jobs/search?skills=${skill}`}
-                    key={index}
                   >
                     {skill}
                   </Link>
                   <span>{skills.length - 1 === index ? "" : "|"}</span>
-                </>
+                </Fragment>
               );
             })}
           </div>

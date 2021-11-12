@@ -169,7 +169,10 @@ const JobOfEmployerItem = ({ data, isTrash }) => {
           </div>
           <div className={classes["item__wrapped--aboutCreated"]}>
             <IoMdTime style={{ marginRight: "5px" }} />
-            {`${t("Posted")} ${aboutCreated}`}
+            {`${t("Posted")} ${aboutCreated
+              .split(" ")
+              .map((string) => t(string))
+              .join(" ")}`}
           </div>
 
           <ModalUpdateJob

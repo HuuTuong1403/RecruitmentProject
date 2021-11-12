@@ -22,6 +22,6 @@ export const selectApplicationJobs = (state) => {
   return state?.jobSeeker?.applicationJobs;
 };
 
-export const selectJoinedEvent = (state) => {
+export const selectEventsJoined = (state) => {
   return state?.jobSeeker?.joinedEvent;
 };

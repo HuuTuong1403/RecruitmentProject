@@ -83,11 +83,13 @@ const EventOfEmployerItem = ({ data }) => {
     <div className={classes.item}>
       <div className={classes.item__wrapped}>
         {isNew && (
-          <div className={classes["item__wrapped--new"]}>{t("New")}</div>
+          <div className={`${classes.isNew} ${classes["item__wrapped--new"]}`}>
+            {t("New")}
+          </div>
         )}
         {status && (
           <div
-            className={`${classes["item__wrapped--status"]} ${classNameStatus}`}
+            className={`${classes.status} ${classes["item__wrapped--status"]} ${classNameStatus}`}
           >
             {t("Event")} {t(status)}
           </div>

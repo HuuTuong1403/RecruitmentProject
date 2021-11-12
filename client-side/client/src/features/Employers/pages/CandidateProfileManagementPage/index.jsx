@@ -43,7 +43,6 @@ const CandidateProfileManagementPage = () => {
 
   useEffect(() => {
     let filter;
-    dispatch(countApplicationStatusAsync());
     if (dataFilter) {
       filter = dataFilter;
       dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
@@ -53,13 +52,14 @@ const CandidateProfileManagementPage = () => {
       };
       dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
     }
+    dispatch(countApplicationStatusAsync());
   }, [dispatch, dataFilter]);
 
   //Handle change Tab and Call API
   const handleChangeTabs = (activeKey) => {
     if (activeKey !== activeTab) {
-      dispatch(changeTabsItem(activeKey));
       let filter;
+      dispatch(changeTabsItem(activeKey));
       if (dataFilter) {
         if (
           dataFilter.fullName ||
