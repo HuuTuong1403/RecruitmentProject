@@ -40,4 +40,17 @@ eventRouter
 eventRouter
   .route('/management/:id/pausing')
   .patch(eventController.pauseEvent, eventController.updateEvent);
+eventRouter
+  .route('/management/soft-delete/trash')
+  .get(eventController.getAllDeletedEvent);
+eventRouter
+  .route('/management/soft-delete/trash/:id')
+  .get(eventController.getDeletedEvent);
+eventRouter
+  .route('/management/soft-delete/:id')
+  .delete(eventController.softDeleteEvent);
+eventRouter
+  .route('/management/restore/:id')
+  .patch(eventController.restoreEvent);
+eventRouter.route('/management/delete/:id').delete(eventController.deleteEvent);
 module.exports = eventRouter;

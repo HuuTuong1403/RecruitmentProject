@@ -68,7 +68,7 @@ participantSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'event',
     select:
-      'company address eventName eventOrganizer imageCover location startTime status topic slug',
+      'company address eventName eventOrganizer imageCover location startTime status topic slug endTime',
   });
   this.populate({
     path: 'participant',

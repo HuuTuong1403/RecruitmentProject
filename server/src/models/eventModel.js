@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const slugify = require('slugify');
 const validator = require('validator');
+const mongoose_delete = require('mongoose-delete');
 
 const addressSchema = require('./addressModel');
 
@@ -123,5 +124,6 @@ eventSchema.pre('save', async function (next) {
   });
   next();
 });
+eventSchema.plugin(mongoose_delete, { deletedBy: true, overrideMethods: true });
 const Event = mongoose.model('Event', eventSchema);
 module.exports = Event;

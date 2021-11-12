@@ -24,7 +24,9 @@ jobRouter
     jobController.createJob
   );
 jobRouter.route('/:slug').get(jobController.getJob);
+
 jobRouter.use(authController.protect);
+
 jobRouter
   .route('/soft-delete/:id')
   .delete(
@@ -50,7 +52,9 @@ jobRouter
     authController.restrictTo('systemmanager', 'employer'),
     jobController.getDeletedJob
   );
+
 jobRouter.use(authController.restrictTo('systemmanager'));
+
 jobRouter.route('/view/all').get(jobController.getAllJob);
 jobRouter.route('/view/:id').get(jobController.getJobAccrodingtoID);
 jobRouter

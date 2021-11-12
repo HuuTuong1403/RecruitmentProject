@@ -23,5 +23,10 @@ class eventController {
   getEventAccordingToSlug = factory.getOneUniqueField(Event);
   getEventAccordingtoId = factory.getOne(Event);
   updateEvent = factory.updateOne(Event);
+  getAllDeletedEvent = factory.getDeletedAll(Event);
+  getDeletedEvent = factory.getDeletedOne(Event);
+  softDeleteEvent = factory.softDeleteOne(Event);
+  restoreEvent = factory.restoreOne(Event);
+  deleteEvent = factory.deleteOne(Event);
 }
 module.exports = new eventController();
