@@ -34,4 +34,8 @@ participantRouter
 participantRouter
   .route('/management/export')
   .post(participantController.exportParticipantsExcel);
+participantRouter
+  .route('/statistic/participant-stats')
+  .get(participantController.getParticipantStat);
+
 module.exports = participantRouter;

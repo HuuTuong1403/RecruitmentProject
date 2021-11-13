@@ -61,4 +61,7 @@ applicationRouter
 applicationRouter
   .route('/management/status/count')
   .get(applicationController.countAppicantsAccoridingToStatus);
+applicationRouter
+  .route('/statistic/application-stat')
+  .get(applicationController.getApplicationStas);
 module.exports = applicationRouter;

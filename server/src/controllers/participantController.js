@@ -1,5 +1,6 @@
 const fs = require('fs');
 
+const mongoose = require('mongoose');
 const excelJS = require('exceljs');
 
 const factory = require('./handleFactory');
@@ -200,6 +201,36 @@ class participantController {
 
     return workbook.xlsx.write(res).then(function () {
       res.status(200).end();
+    });
+  });
+  getParticipantStat = catchAsync(async (req, res, next) => {
+    const participant = await Participant.aggregate([
+      {
+        $lookup: {
+          from: 'events', /// Name collection from database, not name from exported schema
+          localField: 'event',
+          foreignField: '_id',
+          as: 'fromevent',
+        },
+      },
+      {
+        $unwind: '$fromevent',
+      }, //
+      {
+        $match: {
+          'fromevent.company': mongoose.Types.ObjectId(req.user.id),
+        },
+      },
+      {
+        $group: { _id: '$fromevent.eventName', count: { $sum: 1 } },
+      },
+    ]);
+    res.status(200).json({
+      status: 'success',
+      lengh: participant.length,
+      data: {
+        data: participant,
+      },
     });
   });
 }
