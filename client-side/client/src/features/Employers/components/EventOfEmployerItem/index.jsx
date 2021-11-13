@@ -91,7 +91,7 @@ const EventOfEmployerItem = ({
       <Menu.Item key="0">
         <div onClick={changeParticipantPage} className={classes.item__listTile}>
           <RiFileList3Line className={classes["item__listTile--icon"]} />
-          <span>{t("View list")}</span>
+          <span>{t("View member list")}</span>
         </div>
       </Menu.Item>
       <Menu.Item key="2">

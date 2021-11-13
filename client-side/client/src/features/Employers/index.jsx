@@ -49,8 +49,8 @@ const DashboardEmployersPage = () => {
             exact
             path={`${url}/my-profile`}
             component={EmployerProfilePage}
-          ></Route>
-          <Route exact path={`${url}/post-job`} component={PostJobPage}></Route>
+          />
+          <Route exact path={`${url}/post-job`} component={PostJobPage} />
           <Route
             exact
             path={`${url}/recruit-manage/created`}
@@ -95,7 +95,7 @@ const DashboardEmployersPage = () => {
             exact
             path={`${url}/setting-account`}
             component={SettingPage}
-          ></Route>
+          />
           <Route component={NotFoundPage} />
         </Switch>
       </MenuEmployer>
