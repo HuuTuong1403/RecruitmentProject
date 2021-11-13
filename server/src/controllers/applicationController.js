@@ -1,15 +1,21 @@
 const fs = require('fs');
+
 const mongoose = require('mongoose');
+
 const factory = require('./handleFactory');
+
 const Application = require('./../models/application');
+
 const catchAsync = require('../utils/catchAsync');
 const APIFeatures = require('./../utils/apiFeatures');
 const AppError = require('./../utils/appError');
+
 const sendEmail = require('./../services/email');
 const pass_cv_annoucement = fs.readFileSync(
   `${__dirname}/../public/AnnoucementEmail/Passed_CV_Annoucement.html`,
   'utf-8'
 );
+
 const replaceHTML = (application) => {
   let output = pass_cv_annoucement.replace(
     /{{%fullName%}}/g,
@@ -30,6 +36,7 @@ const replaceHTML = (application) => {
   output = output.replace(/{{Date}}/g, date);
   return output;
 };
+
 class applicationController {
   setBodyApplicationCreation = (req, res, next) => {
     req.body.jobSeeker = req.user.id;
@@ -95,12 +102,13 @@ class applicationController {
       .paginate();
     let applications = await features.query;
     applications = applications.filter((application) => {
-      if (application.job.company._id == req.user.id) {
+      if (application.job?.company.id == req.user.id) {
         if (!isExpired) return application;
         if (application.job.isExpired.toString() == isExpired.toString()) {
           return application;
         }
       }
+      return application;
     });
     res.status(200).json({
       status: 'sucess',
@@ -149,6 +157,11 @@ class applicationController {
     });
   });
   countAppicantsAccoridingToStatus = catchAsync(async (req, res, next) => {
+    var result = {
+      NotSaved: 0,
+      Saved: 0,
+      Deleted: 0,
+    };
     const applicationQuantity = await Application.aggregate([
       {
         $lookup: {
@@ -170,11 +183,27 @@ class applicationController {
         $group: { _id: '$status', count: { $sum: 1 } },
       },
     ]);
+    for (var i = 0; i < applicationQuantity.length; i++) {
+      switch (applicationQuantity[i]._id) {
+        case 'NotSaved': {
+          result.NotSaved = applicationQuantity[i].count;
+          break;
+        }
+        case 'Saved': {
+          result.Saved = applicationQuantity[i].count;
+          break;
+        }
+        case 'Deleted': {
+          result.Deleted = applicationQuantity[i].count;
+          break;
+        }
+      }
+    }
     res.status(200).json({
       status: 'success',
       lengh: applicationQuantity.length,
       data: {
-        data: applicationQuantity,
+        data: result,
       },
     });
   });

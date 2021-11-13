@@ -4,6 +4,7 @@ const Employer = require('./employerModel');
 const JobSeeker = require('./job-seekerModel');
 const addressSchema = require('./addressModel');
 const mongoose_delete = require('mongoose-delete');
+
 const finishDate = new Date();
 finishDate.setDate(finishDate.getDate() + 7);
 
@@ -148,7 +149,7 @@ jobSchema.pre('save', async function (next) {
 jobSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'company',
-    select: 'companyName companyType companyWebsite logo ot quantity',
+    select: 'companyName companyType companyWebsite logo ot',
   });
   next();
 });

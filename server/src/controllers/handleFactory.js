@@ -30,7 +30,7 @@ exports.restoreOne = (Model) =>
     await Model.restore({ _id: req.params.id });
     res.status(200).json({
       status: 'success',
-      message: 'Khôi phục tin tuyển dụng thành công',
+      message: 'Khôi phục tài liệu thành công',
     });
   });
 exports.updateOne = (Model) =>
@@ -102,7 +102,7 @@ exports.getAll = (Model, ModelName) =>
     let filter = {};
     var re = undefined;
 
-    if (req.query.companyName && ModelName == 'Job') {
+    if (req.query.companyName && (ModelName == 'Job' || ModelName == 'Event')) {
       var re = new RegExp(`${req.query.companyName}`, 'gi');
       req.query.companyName = undefined;
     }

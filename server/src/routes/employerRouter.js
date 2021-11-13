@@ -10,16 +10,26 @@ const getMe = require('./../middlewares/getMe');
 const jobRoute = require('./jobRoutes');
 const reviewRouter = require('./reviewRouter');
 const applicationRouter = require('./applicationRouter');
+const eventRouter = require('./eventRouter');
+const participantRouter = require('./participantRouter');
 
 employerRouter.use('/applications', applicationRouter);
 employerRouter.use('/reviews', reviewRouter);
-employerRouter.route('/login').post(authController.loginEmployer);
+employerRouter.use(
+  '/events',
+  authController.protect,
+  authController.restrictTo('employer'),
+  eventRouter
+);
+employerRouter.use('/participants', participantRouter);
 employerRouter.use(
   '/jobs',
   authController.protect,
   authController.restrictTo('employer'),
   jobRoute
 );
+
+employerRouter.route('/login').post(authController.loginEmployer);
 employerRouter
   .route('/authentication/:token')
   .get(authController.confirmEmployerEmail);

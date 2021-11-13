@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
+
+const slugify = require('slugify');
+const validator = require('validator');
+const mongoose_delete = require('mongoose-delete');
+
 const addressSchema = require('./addressModel');
+
 const eventSchema = new mongoose.Schema(
   {
     company: {
@@ -58,6 +64,26 @@ const eventSchema = new mongoose.Schema(
     topic: {
       type: String,
     },
+    slug: {
+      type: String,
+    },
+    participantMax: {
+      type: Number,
+      default: 100,
+    },
+    participantQuantity: {
+      type: Number,
+      default: 0,
+      validate: {
+        validator: function (el) {
+          return el <= this.participantMax;
+        },
+        message: 'Vượt quá giới hạn người tham gia',
+      },
+    },
+    createdAt: {
+      type: Date,
+    },
   },
   {
     timestamps: true,
@@ -65,5 +91,39 @@ const eventSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+eventSchema.virtual('aboutCreated').get(function () {
+  const timeAgoMilisecond = Date.now() - this.createdAt;
+  const timeAgoSecond = timeAgoMilisecond / 1000;
+  var timeResult = null;
+  if (timeAgoSecond < 60) {
+    timeResult = timeAgoSecond.toFixed(0) + ' seconds ago';
+  } else if (timeAgoSecond < 3600) {
+    timeResult = (timeAgoSecond / 60).toFixed(0) + ' minutes ago';
+  } else if (timeAgoSecond < 86400) {
+    timeResult = (timeAgoSecond / 3600).toFixed(0) + ' hours ago';
+  } else {
+    timeResult = (timeAgoSecond / 86400).toFixed(0) + ' days ago';
+  }
+  return timeResult;
+});
+eventSchema.virtual('isNew').get(function () {
+  const timeAgoMilisecond = Date.now() - this.createdAt;
+  const timeAgoSecond = timeAgoMilisecond / 1000;
+  return timeAgoSecond < 86400 ? true : false;
+});
+eventSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'company',
+    select: 'companyName companyType companyWebsite logo ot',
+  });
+  next();
+});
+eventSchema.pre('save', async function (next) {
+  this.slug = slugify(`${this.eventName} ${this._id}`, {
+    lower: true,
+  });
+  next();
+});
+eventSchema.plugin(mongoose_delete, { deletedBy: true, overrideMethods: true });
 const Event = mongoose.model('Event', eventSchema);
 module.exports = Event;

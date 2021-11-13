@@ -3,6 +3,7 @@ const SystemManager = require('../models/system-managerModel');
 const SystemAdmin = require('../models/system-adminModel');
 const Application = require('./../models/application');
 const Review = require('./../models/reviewModel');
+const Event = require('./../models/eventModel');
 const AppError = require('../utils/appError');
 
 exports.isEmployerUsernameUnique = async (req, res, next) => {
@@ -139,6 +140,15 @@ exports.checkReviewExists = async (req, res, next) => {
   if (!review) {
     return next(
       new AppError(`Review này không phải của ${req.user.fullname}`, 400)
+    );
+  }
+  next();
+};
+exports.checkParticipantQuantityEvent = async (req, res, next) => {
+  const event = await Event.findById(req.body.event);
+  if (event.participantMax <= event.participantQuantity) {
+    return next(
+      new AppError(`Sự kiện đã đủ số lượng thành viên đăng ký tham gia`, 400)
     );
   }
   next();

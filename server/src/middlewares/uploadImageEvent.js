@@ -21,7 +21,7 @@ exports.uploadTourImages = upload.fields([
   { name: 'images', maxCount: 10 },
 ]);
 exports.uploadEventImageToCloudinary = catchAsync(async (req, res, next) => {
-  if (!req.files.imageCover || !req.files.images) return next();
+  if (!req.files.imageCover) return next();
   const fileName = `${req.body.eventName}-event-cover-${Date.now}`;
   //Image Cover
   const options = {
@@ -36,23 +36,26 @@ exports.uploadEventImageToCloudinary = catchAsync(async (req, res, next) => {
     options
   );
   req.body.imageCover = imageCover.secure_url;
+  if (req.files.images) {
+    req.body.images = [];
+    await Promise.all(
+      req.files.images.map(async (file, i) => {
+        const imageFilename = `${req.body.eventName}-event-cover-${Date.now}-${
+          i + 1
+        }`;
+        const options = {
+          folder: `event-image`,
+          use_filename: true,
+          overwrite: true,
+          filename_override: `${imageFilename}`,
+          // transformation: [{ width: 500, height: 500, crop: 'fit' }],
+        };
+        const image = await cloudinary.uploadFile(file.path, options);
+        req.body.images.push(image.secure_url);
+      })
+    );
+  }
   //Images
-  req.body.images = [];
-  await Promise.all(
-    req.files.images.map(async (file, i) => {
-      const imageFilename = `${req.body.eventName}-event-cover-${Date.now}-${
-        i + 1
-      }`;
-      const options = {
-        folder: `event-image`,
-        use_filename: true,
-        overwrite: true,
-        filename_override: `${imageFilename}`,
-        // transformation: [{ width: 500, height: 500, crop: 'fit' }],
-      };
-      const image = await cloudinary.uploadFile(file.path, options);
-      req.body.images.push(image.secure_url);
-    })
-  );
+
   next();
 });
