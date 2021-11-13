@@ -4,6 +4,30 @@
   text-overflow: ellipsis;
 }
 
+.modalTitle {
+  font-size: $text-2xl;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.status {
+  position: absolute;
+  padding: 1px 8px;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.notParticipate {
+  color: red !important;
+}
+
+.participate {
+  color: green !important;
+}
+
 .statusNotYetOccur {
   background-color: red;
 }
@@ -46,12 +70,9 @@
 
 .isNew {
   position: absolute;
-  bottom: 0;
-  right: 0;
   padding: 1px $pm-8;
   background-color: red;
   color: white;
-  border-top-left-radius: 10px;
   font-size: $text-sm;
 }
 
@@ -94,6 +115,13 @@
   }
 }
 
+.listItem {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 @media screen and (max-width: 900px) {
   .titleDashboard {
     font-size: $text-2xl;
@@ -112,13 +140,17 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
   .imageItem {
     display: none;
   }
   .titleDashboard {
     font-size: $text-xl;
     text-align: center;
+  }
+
+  .modalTitle {
+    font-size: $text-base;
   }
 
   .subTitleDashboard {

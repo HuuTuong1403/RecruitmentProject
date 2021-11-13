@@ -11,6 +11,7 @@ import {
   fetchJobsOfEmployerAsync,
   fetchParticipantsByIdEventAsync,
   getDetailEmployerAsync,
+  fetchAllEventDeletedAsync,
 } from "features/Employers/slices/thunks";
 
 const initialState = {
@@ -20,6 +21,7 @@ const initialState = {
   employerDetail: null,
   eventDetailEmployer: null,
   eventsOfEmployer: [],
+  eventsDeleted: [],
   jobDetailEmployer: null,
   jobsApplicationDeleted: [],
   jobsApplicationNotSaved: [],
@@ -65,16 +67,6 @@ const employerSlice = createSlice({
     },
     handChangeJobSlug: (state, action) => {
       state.jobSlug = action.payload;
-    },
-    deleteJobPost: (state, action) => {
-      const id = action.payload;
-      state.jobsOfEmployer = state.jobsOfEmployer.filter(
-        (job) => job._id !== id
-      );
-    },
-    deleteJobTrash: (state, action) => {
-      const id = action.payload;
-      state.jobTrash = state.jobTrash.filter((job) => job._id !== id);
     },
     savedJobApplication: (state, action) => {
       const id = action.payload;
@@ -238,6 +230,19 @@ const employerSlice = createSlice({
       state.status = false;
       state.participantsEvent = [];
     },
+
+    //Fetch All Event Deleted
+    [fetchAllEventDeletedAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchAllEventDeletedAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.eventsDeleted = action.payload;
+    },
+    [fetchAllEventDeletedAsync.rejected]: (state) => {
+      state.status = false;
+      state.eventsDeleted = [];
+    },
   },
 });
 
@@ -246,8 +251,6 @@ export const {
   addDataPostJob,
   changeTabsItem,
   deletedJobAppication,
-  deleteJobPost,
-  deleteJobTrash,
   handChangeJobSlug,
   resetDataParticipants,
   handleChangeCountStatus,

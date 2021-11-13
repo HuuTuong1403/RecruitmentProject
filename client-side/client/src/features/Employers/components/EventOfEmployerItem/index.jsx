@@ -1,38 +1,45 @@
 import {
+  resetDataEvent,
+  resetDataParticipants,
+} from "features/Employers/slices";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import {
   dateFormatISO8601,
   dateFormatHourMinute,
 } from "common/constants/dateFormat";
 import { FaUsers, FaPauseCircle, FaPlayCircle } from "react-icons/fa";
-import { fetchAllEventOfEmployerAsync } from "features/Employers/slices/thunks";
 import { Link, useHistory } from "react-router-dom";
 import {
   MdAccessTime,
+  MdDelete,
+  MdDeleteForever,
+  MdEdit,
   MdEventAvailable,
   MdEventBusy,
-  MdEdit,
+  MdRestore,
 } from "react-icons/md";
-import { pauseEventEmployer } from "features/Employers/api/employer.api";
+import { Menu, Dropdown } from "antd";
 import { RiFileList3Line } from "react-icons/ri";
 import { Tooltip } from "antd";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  resetDataEvent,
-  resetDataParticipants,
-} from "features/Employers/slices";
-import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import moment from "moment";
-import notification from "components/Notification";
 import PopoverField from "custom-fields/PopoverField";
 import Slider from "react-slick";
 
-const EventOfEmployerItem = ({ data }) => {
+const EventOfEmployerItem = ({
+  data,
+  isTrash = false,
+  loading,
+  onRestore,
+  onDelete,
+  onPause,
+  onSoftDelete,
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
 
   const {
     _id,
@@ -61,33 +68,135 @@ const EventOfEmployerItem = ({ data }) => {
       ? classes.statusPausing
       : classes.statusFinish;
 
-  const handlePausingEvent = async () => {
-    setLoading(true);
-    const result = await pauseEventEmployer(_id);
-    if (result.status === "success") {
-      dispatch(fetchAllEventOfEmployerAsync());
-      notification(
-        `${t("This event has been successfully paused")}`,
-        "success"
-      );
-    } else {
-      notification(
-        `${t("Error! An error occurred. Please try again later")}`,
-        "error"
-      );
-    }
-    setLoading(false);
+  const changeTime = (date, fromFormat, toFormat) => {
+    return moment(date, fromFormat)
+      .format(toFormat)
+      .split(" ")
+      .join(` ${t("At")} `);
   };
+
+  const changeParticipantPage = () => {
+    history.push(`/employers/dashboard/events/${_id}/participants`);
+    dispatch(resetDataParticipants());
+    dispatch(resetDataEvent());
+  };
+
+  const changeEditEventPage = () => {
+    history.push(`/employers/dashboard/events/${_id}/edit`);
+    dispatch(resetDataEvent());
+  };
+
+  const menuDefault = (
+    <Menu>
+      <Menu.Item key="0">
+        <div onClick={changeParticipantPage} className={classes.item__listTile}>
+          <RiFileList3Line className={classes["item__listTile--icon"]} />
+          <span>{t("View member list")}</span>
+        </div>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <div onClick={changeEditEventPage} className={classes.item__listTile}>
+          <MdEdit className={classes["item__listTile--icon"]} />
+          <span>{t("Edit event")}</span>
+        </div>
+      </Menu.Item>
+      <Menu.Item key="3">
+        <PopoverField
+          title={t("Confirm move event to trash")}
+          subTitle={t("Do you want to  move this event to trash?")}
+          loading={loading}
+          onClickOk={() => onSoftDelete(_id)}
+          titleCancel={t("Cancel")}
+          titleOk={t("Move")}
+        >
+          <div className={classes.item__listTile}>
+            <MdDelete className={classes["item__listTile--icon"]} />
+            <span>{t("Move to trash")}</span>
+          </div>
+        </PopoverField>
+      </Menu.Item>
+      <Menu.Item key="4">
+        {status === "Pausing" ? (
+          <PopoverField
+            title={t("Confirm to continue of this event")}
+            subTitle={t("Do you want to continue this event?")}
+            loading={loading}
+            onClickOk={() => {}}
+            titleCancel={t("Cancel")}
+            titleOk={t("Continue")}
+            isSwap
+          >
+            <div className={classes.item__listTile}>
+              <FaPlayCircle className={classes["item__listTile--icon"]} />
+              <span>{t("Continue event")}</span>
+            </div>
+          </PopoverField>
+        ) : (
+          <PopoverField
+            title={t("Confirm to pause this event")}
+            subTitle={t("Do you want to pause this event?")}
+            loading={loading}
+            onClickOk={() => onPause(_id)}
+            titleCancel={t("Cancel")}
+            titleOk={t("Pausing")}
+          >
+            <div className={classes.item__listTile}>
+              <FaPauseCircle className={classes["item__listTile--icon"]} />
+              <span>{t("Pausing event")}</span>
+            </div>
+          </PopoverField>
+        )}
+      </Menu.Item>
+    </Menu>
+  );
+
+  const menuTrash = (
+    <Menu>
+      <Menu.Item key="0">
+        <PopoverField
+          title={t("Confirm to restore event")}
+          subTitle={t("Do you want to restore this event?")}
+          loading={loading}
+          onClickOk={() => onRestore(_id)}
+          titleCancel={t("Cancel")}
+          titleOk={t("Restore")}
+          isSwap
+        >
+          <div className={classes.item__listTile}>
+            <MdRestore className={classes["item__listTile--icon"]} />
+            <span>{t("Restore event")}</span>
+          </div>
+        </PopoverField>
+      </Menu.Item>
+      <Menu.Item key="2">
+        <PopoverField
+          title={t("Confirm to permanently delete the event")}
+          subTitle={t("Do you want to permanently delete this event?")}
+          loading={loading}
+          onClickOk={() => onDelete(_id)}
+          titleCancel={t("Cancel")}
+          titleOk={t("Delete")}
+        >
+          <div className={classes.item__listTile}>
+            <MdDeleteForever className={classes["item__listTile--icon"]} />
+            <span>{t("Delete permanently")}</span>
+          </div>
+        </PopoverField>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <div className={classes.item}>
       <div className={classes.item__wrapped}>
         {isNew && (
-          <div className={classes["item__wrapped--new"]}>{t("New")}</div>
+          <div className={`${classes.isNew} ${classes["item__wrapped--new"]}`}>
+            {t("New")}
+          </div>
         )}
         {status && (
           <div
-            className={`${classes["item__wrapped--status"]} ${classNameStatus}`}
+            className={`${classes.status} ${classes["item__wrapped--status"]} ${classNameStatus}`}
           >
             {t("Event")} {t(status)}
           </div>
@@ -113,15 +222,26 @@ const EventOfEmployerItem = ({ data }) => {
         </div>
       </div>
       <div className={classes.item__bottom}>
-        {/* Event name */}
-        <Tooltip title={`${t("Click to see details of event")} ${eventName}`}>
-          <Link
-            to={`/events/view/${slug}`}
-            className={classes["item__bottom--eventName"]}
+        <div className={classes["item__bottom--eventName"]}>
+          {/* Event name */}
+          <Tooltip title={`${t("Click to see details of event")} ${eventName}`}>
+            <Link
+              to={`/events/view/${slug}`}
+              className={classes["item__bottom--eventName--link"]}
+            >
+              {t("Event")} {eventName}
+            </Link>
+          </Tooltip>
+
+          <Dropdown
+            overlay={isTrash ? menuTrash : menuDefault}
+            trigger={["click"]}
           >
-            {t("Event")} {eventName}
-          </Link>
-        </Tooltip>
+            <BiDotsVerticalRounded
+              className={classes["item__bottom--eventName--icon"]}
+            />
+          </Dropdown>
+        </div>
 
         {/* Event about created */}
         <div className={classes["item__bottom--field"]}>
@@ -170,10 +290,11 @@ const EventOfEmployerItem = ({ data }) => {
           <MdEventAvailable className={classes.iconField} />
           {t("Event start time")}:{" "}
           <span>
-            {`${t("Date")} ${moment(startTime, dateFormatISO8601)
-              .format(dateFormatHourMinute)
-              .split(" ")
-              .join(` ${t("At")} `)}`}
+            {`${t("Date")} ${changeTime(
+              startTime,
+              dateFormatISO8601,
+              dateFormatHourMinute
+            )}`}
           </span>
         </div>
 
@@ -182,78 +303,13 @@ const EventOfEmployerItem = ({ data }) => {
           <MdEventBusy className={classes.iconField} />
           {t("Event end time")}:{" "}
           <span>
-            {`${t("Date")} ${moment(endTime, dateFormatISO8601)
-              .format(dateFormatHourMinute)
-              .split(" ")
-              .join(` ${t("At")} `)}`}
+            {`${t("Date")} ${changeTime(
+              endTime,
+              dateFormatISO8601,
+              dateFormatHourMinute
+            )}`}
           </span>
         </div>
-      </div>
-
-      <div className={classes.item__actions}>
-        <ButtonField
-          backgroundcolor="#0a426e"
-          backgroundcolorhover="#0a436ead"
-          padding="2px"
-          onClick={() => {
-            history.push(`/employers/dashboard/events/${_id}/participants`);
-            dispatch(resetDataParticipants());
-            dispatch(resetDataEvent());
-          }}
-        >
-          <RiFileList3Line style={{ marginRight: "3px" }} />
-          {t("View list")}
-        </ButtonField>
-        <ButtonField
-          backgroundcolor="#067951"
-          backgroundcolorhover="#2baa7e"
-          padding="2px"
-          onClick={() => {
-            history.push(`/employers/dashboard/events/${_id}/edit`);
-            dispatch(resetDataEvent());
-          }}
-        >
-          <MdEdit style={{ marginRight: "3px" }} />
-          {t("Edit")}
-        </ButtonField>
-        {status === "Pausing" ? (
-          <PopoverField
-            title={t("Confirm to continue of this event")}
-            subTitle={t("Do you want to continue this event?")}
-            loading={loading}
-            onClickOk={() => {}}
-            titleCancel={t("Cancel")}
-            titleOk={t("Continue")}
-            isSwap
-          >
-            <ButtonField
-              backgroundcolor="#dd4b39"
-              backgroundcolorhover="#ff7875"
-              padding="2px"
-            >
-              <FaPlayCircle style={{ marginRight: "3px" }} />
-              {t("Continue")}
-            </ButtonField>
-          </PopoverField>
-        ) : (
-          <PopoverField
-            title={t("Confirm to pause this event")}
-            subTitle={t("Do you want to pause this event?")}
-            loading={loading}
-            onClickOk={handlePausingEvent}
-            titleCancel={t("Cancel")}
-            titleOk={t("Pausing")}
-          >
-            <ButtonField
-              backgroundcolor="#dd4b39"
-              backgroundcolorhover="#ff7875"
-              padding="2px"
-            >
-              <FaPauseCircle style={{ marginRight: "3px" }} />
-              {t("Pausing")}
-            </ButtonField>
-          </PopoverField>
-        )}
       </div>
     </div>
   );

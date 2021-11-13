@@ -108,149 +108,147 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
       footer={null}
     >
       <div className={classes.modalJoinEvent}>
-        <div className={classes.modalJoinEvent__wrapped}>
-          <div className={classes["modalJoinEvent__wrapped--title"]}>
-            {t("Register to participate in the event")}
-          </div>
-          <h3 className={classes["modalJoinEvent__wrapped--eventName"]}>
-            <span>{t("Join the event")}: </span>
-            <span>{eventName} </span>
-            <span>{t("of")} </span>
-            <span>{company?.companyName}</span>
-          </h3>
-          <form onSubmit={handleSubmit(handleJoinEvent)}>
-            {/* Full name */}
-            <div className={classes["modalJoinEvent__wrapped--formGroup"]}>
-              <div>
-                <LabelField label={t("full name")} isCompulsory />
-              </div>
-              <div>
-                <InputField
-                  placeholder={t("phd-fullname")}
-                  defaultValue={currentUser.fullname}
-                  {...register("fullName")}
-                  errors={errors?.fullName?.message}
-                />
-              </div>
-            </div>
-
-            {/* Phone */}
-            <div className={classes["modalJoinEvent__wrapped--formGroup"]}>
-              <div>
-                <LabelField label={t("Phone")} isCompulsory />
-              </div>
-              <div>
-                <InputField
-                  placeholder={t("phd-phone-signup")}
-                  defaultValue={currentUser.phone}
-                  {...register("phone")}
-                  errors={errors?.phone?.message}
-                />
-              </div>
-            </div>
-
-            {/* Address */}
-            {currentUser.address && (
-              <Fragment>
-                {/* Street */}
-                <div className={classes["modalJoinEvent__wrapped--formGroup"]}>
-                  <div>
-                    <LabelField label={t("Address")} isCompulsory />
-                  </div>
-                  <div>
-                    <InputField
-                      placeholder={t("phd-address")}
-                      defaultValue={currentUser.address.street}
-                      {...register("street")}
-                      errors={errors?.street?.message}
-                    />
-                  </div>
-                </div>
-                {/* Ward */}
-                <div className={classes["modalJoinEvent__wrapped--formGroup"]}>
-                  <div>
-                    <LabelField label={t("Ward")} isCompulsory />
-                  </div>
-                  <div>
-                    <SelectLocationField
-                      setValue={setValue}
-                      name="ward"
-                      control={control}
-                      defaultValue={currentUser.address.ward}
-                      locationList={wards}
-                      placeholder={t("choose-ward")}
-                      errors={errors?.ward?.message}
-                    />
-                  </div>
-                </div>
-
-                {/* District */}
-                <div className={classes["modalJoinEvent__wrapped--formGroup"]}>
-                  <div>
-                    <LabelField label={t("District")} isCompulsory />
-                  </div>
-                  <div>
-                    <SelectLocationField
-                      setValue={setValue}
-                      name="district"
-                      control={control}
-                      defaultValue={currentUser.address.district}
-                      locationList={districts}
-                      placeholder={t("choose-district")}
-                      errors={errors?.district?.message}
-                    />
-                  </div>
-                </div>
-
-                {/* City */}
-                <div className={classes["modalJoinEvent__wrapped--formGroup"]}>
-                  <div>
-                    <LabelField label={t("Province")} isCompulsory />
-                  </div>
-                  <div>
-                    <SelectLocationField
-                      setValue={setValue}
-                      name="city"
-                      control={control}
-                      defaultValue={currentUser.address.city}
-                      locationList={provinces}
-                      placeholder={t("choose-province")}
-                      errors={errors?.city?.message}
-                    />
-                  </div>
-                </div>
-              </Fragment>
-            )}
-
-            {/* Skill */}
-            <div className={classes["modalJoinEvent__wrapped--formGroup"]}>
-              <div>
-                <LabelField label={t("Skill")} isCompulsory />
-              </div>
-              <div>
-                <Select
-                  isMulti
-                  placeholder={t("choose skills")}
-                  options={skills}
-                  value={selectSkill}
-                  onChange={changeSkillHandler}
-                />
-              </div>
-            </div>
-
-            <div className={classes["modalJoinEvent__wrapped--actions"]}>
-              <ButtonField
-                backgroundcolor="#dd4b39"
-                backgroundcolorhover="#bf0000"
-                type="submit"
-                loading={loading}
-                uppercase
-              >
-                {t("Submit registration form")}
-              </ButtonField>
-            </div>
-          </form>
+        <div className={classes.modalTitle}>
+          {t("Register to participate in the event")}
         </div>
+        <h3 className={classes.modalJoinEvent__eventName}>
+          <span>{t("Join the event")}: </span>
+          <span>{eventName} </span>
+          <span>{t("of")} </span>
+          <span>{company?.companyName}</span>
+        </h3>
+        <form onSubmit={handleSubmit(handleJoinEvent)}>
+          {/* Full name */}
+          <div className={classes.modalJoinEvent__formGroup}>
+            <div>
+              <LabelField label={t("full name")} isCompulsory />
+            </div>
+            <div>
+              <InputField
+                placeholder={t("phd-fullname")}
+                defaultValue={currentUser.fullname}
+                {...register("fullName")}
+                errors={errors?.fullName?.message}
+              />
+            </div>
+          </div>
+
+          {/* Phone */}
+          <div className={classes.modalJoinEvent__formGroup}>
+            <div>
+              <LabelField label={t("Phone")} isCompulsory />
+            </div>
+            <div>
+              <InputField
+                placeholder={t("phd-phone-signup")}
+                defaultValue={currentUser.phone}
+                {...register("phone")}
+                errors={errors?.phone?.message}
+              />
+            </div>
+          </div>
+
+          {/* Address */}
+          {currentUser.address && (
+            <Fragment>
+              {/* Street */}
+              <div className={classes.modalJoinEvent__formGroup}>
+                <div>
+                  <LabelField label={t("Address")} isCompulsory />
+                </div>
+                <div>
+                  <InputField
+                    placeholder={t("phd-address")}
+                    defaultValue={currentUser.address.street}
+                    {...register("street")}
+                    errors={errors?.street?.message}
+                  />
+                </div>
+              </div>
+              {/* Ward */}
+              <div className={classes.modalJoinEvent__formGroup}>
+                <div>
+                  <LabelField label={t("Ward")} isCompulsory />
+                </div>
+                <div>
+                  <SelectLocationField
+                    setValue={setValue}
+                    name="ward"
+                    control={control}
+                    defaultValue={currentUser.address.ward}
+                    locationList={wards}
+                    placeholder={t("choose-ward")}
+                    errors={errors?.ward?.message}
+                  />
+                </div>
+              </div>
+
+              {/* District */}
+              <div className={classes.modalJoinEvent__formGroup}>
+                <div>
+                  <LabelField label={t("District")} isCompulsory />
+                </div>
+                <div>
+                  <SelectLocationField
+                    setValue={setValue}
+                    name="district"
+                    control={control}
+                    defaultValue={currentUser.address.district}
+                    locationList={districts}
+                    placeholder={t("choose-district")}
+                    errors={errors?.district?.message}
+                  />
+                </div>
+              </div>
+
+              {/* City */}
+              <div className={classes.modalJoinEvent__formGroup}>
+                <div>
+                  <LabelField label={t("Province")} isCompulsory />
+                </div>
+                <div>
+                  <SelectLocationField
+                    setValue={setValue}
+                    name="city"
+                    control={control}
+                    defaultValue={currentUser.address.city}
+                    locationList={provinces}
+                    placeholder={t("choose-province")}
+                    errors={errors?.city?.message}
+                  />
+                </div>
+              </div>
+            </Fragment>
+          )}
+
+          {/* Interesting field */}
+          <div className={classes.modalJoinEvent__formGroup}>
+            <div>
+              <LabelField label={t("Interesting field")} isCompulsory />
+            </div>
+            <div>
+              <Select
+                isMulti
+                placeholder={t("Choose the field that interests you")}
+                options={skills}
+                value={selectSkill}
+                onChange={changeSkillHandler}
+              />
+            </div>
+          </div>
+
+          <div className={classes.modalJoinEvent__actions}>
+            <ButtonField
+              backgroundcolor="#dd4b39"
+              backgroundcolorhover="#bf0000"
+              type="submit"
+              loading={loading}
+              uppercase
+            >
+              {t("Submit registration form")}
+            </ButtonField>
+          </div>
+        </form>
       </div>
     </Modal>
   );

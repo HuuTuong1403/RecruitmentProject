@@ -1,28 +1,38 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .modalJoinEvent {
-  &__wrapped {
-    padding: 0 $pm-10;
+  padding: 0 $pm-10;
 
-    &--title {
-      font-size: $text-2xl;
-      font-weight: bold;
-      text-align: center;
-      text-transform: uppercase;
+  &__eventName {
+    margin-top: $pm-10;
+    font-size: $text-2xl;
+    font-weight: 500;
+  }
+
+  &__formGroup {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: $pm-6;
+
+    & > div:first-child {
+      flex: 0 0 25%;
     }
 
-    &--eventName {
-      margin-top: $pm-10;
-      font-size: $text-2xl;
-      font-weight: 500;
+    & > div:last-child {
+      flex: 0 0 75%;
     }
+  }
 
-    &--formGroup {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-bottom: $pm-6;
+  &__actions {
+    margin-top: $pm-14;
+  }
+}
 
+@media screen and (max-width: 800px) {
+  .modalJoinEvent {
+    &__formGroup {
       & > div:first-child {
         flex: 0 0 25%;
       }
@@ -31,50 +41,25 @@
         flex: 0 0 75%;
       }
     }
-
-    &--actions {
-      margin-top: $pm-14;
-    }
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .modalJoinEvent {
-    &__wrapped {
-      &--formGroup {
-        & > div:first-child {
-          flex: 0 0 25%;
-        }
-
-        & > div:last-child {
-          flex: 0 0 75%;
-        }
-      }
-    }
   }
 }
 
 @media screen and (max-width: 550px) {
   .modalJoinEvent {
-    &__wrapped {
-      padding: 0 $pm-4;
-      &--title {
-        font-size: $text-base;
+    padding: 0 $pm-4;
+
+    &__eventName {
+      margin-top: $pm-6;
+      font-size: $text-base;
+    }
+
+    &__formGroup {
+      & > div:first-child {
+        flex: 0 0 100%;
       }
 
-      &--eventName {
-        margin-top: $pm-6;
-        font-size: $text-base;
-      }
-
-      &--formGroup {
-        & > div:first-child {
-          flex: 0 0 100%;
-        }
-
-        & > div:last-child {
-          flex: 0 0 100%;
-        }
+      & > div:last-child {
+        flex: 0 0 100%;
       }
     }
   }

@@ -92,6 +92,13 @@ const MenuEmployer = ({ children }) => {
           isLink: false,
           onClick: null,
         },
+        {
+          key: pathEmployer.deletedEvent,
+          title: `${t("Events deleted")}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
       ],
     },
     {

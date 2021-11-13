@@ -6,7 +6,7 @@ export const PATH = {
 };
 
 export const pathJobSeeker = {
-  jobAlert: "/jobseekers/job-alert",
+  eventsJoined: "/jobseekers/events/joined",
   jobApplied: "/jobseekers/job-applied",
   jobSaved: "/jobseekers/job-saved",
   jobseekers: "/jobseekers",
@@ -17,6 +17,7 @@ export const pathJobSeeker = {
 export const pathEmployer = {
   candidateProfileManage: "/employers/dashboard/candidate-profiles",
   createdEvent: "/employers/dashboard/events/created",
+  deletedEvent: "/employers/dashboard/events/deleted",
   dashboard: "/employers/dashboard",
   jobTrash: "/employers/dashboard/recruit-manage/trash",
   myProfile: "/employers/dashboard/my-profile",

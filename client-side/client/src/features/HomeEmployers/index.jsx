@@ -1,5 +1,4 @@
-import { Fragment } from "react";
-import { lazy } from "react";
+import { Fragment, lazy } from "react";
 import { ScrollTop } from "common/functions";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import FooterEmployers from "components/FooterEmployers";

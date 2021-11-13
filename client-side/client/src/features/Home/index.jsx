@@ -1,10 +1,9 @@
-import { Fragment } from "react";
-import { lazy } from "react";
+import { Fragment, lazy } from "react";
 import { ScrollTop } from "common/functions";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import NotFoundPage from "../../components/404";
+import NotFoundPage from "components/404";
 
 const ChangePassForgotPage = lazy(() => import("./pages/ChangePassForgotPage"));
 const ForgotPassPage = lazy(() => import("./pages/ForgotPassPage"));
@@ -28,9 +27,7 @@ const HomePage = () => {
           path={`${url}/forgot-pass/:token`}
           component={ChangePassForgotPage}
         />
-        <Route path="*">
-          <NotFoundPage />
-        </Route>
+        <Route component={NotFoundPage} />
       </Switch>
       <Footer />
     </Fragment>

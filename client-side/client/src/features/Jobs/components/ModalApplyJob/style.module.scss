@@ -1,53 +1,44 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .modalApplyJob {
-  &__wrapped {
-    padding: 0 $pm-10;
-    &--title {
-      font-size: $text-2xl;
-      font-weight: bold;
-      text-align: center;
-      text-transform: uppercase;
+  padding: 0 $pm-10;
+
+  &__jobTitle {
+    margin-top: $pm-10;
+    font-size: $text-2xl;
+    font-weight: 500;
+  }
+
+  &__formGroup {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: $pm-6;
+
+    & div:first-child {
+      flex: 0 0 20%;
     }
 
-    &--jobTitle {
-      margin-top: $pm-10;
-      font-size: $text-2xl;
-      font-weight: 500;
+    & div:last-child {
+      flex: 0 0 80%;
     }
+  }
 
-    &--formGroup {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin-bottom: $pm-6;
-
-      & div:first-child {
-        flex: 0 0 20%;
-      }
-
-      & div:last-child {
-        flex: 0 0 80%;
-      }
-    }
-
-    &--actions {
-      margin-top: $pm-14;
-    }
+  &__actions {
+    margin-top: $pm-14;
   }
 }
 
 @media screen and (max-width: 800px) {
   .modalApplyJob {
-    &__wrapped {
-      &--formGroup {
-        & div:first-child {
-          flex: 0 0 25%;
-        }
+    &__formGroup {
+      & div:first-child {
+        flex: 0 0 25%;
+      }
 
-        & div:last-child {
-          flex: 0 0 75%;
-        }
+      & div:last-child {
+        flex: 0 0 75%;
       }
     }
   }
@@ -55,25 +46,20 @@
 
 @media screen and (max-width: 550px) {
   .modalApplyJob {
-    &__wrapped {
-      padding: 0 $pm-4;
-      &--title {
-        font-size: $text-base;
+    padding: 0 $pm-4;
+
+    &__jobTitle {
+      margin-top: $pm-6;
+      font-size: $text-base;
+    }
+
+    &__formGroup {
+      & div:first-child {
+        flex: 0 0 100%;
       }
 
-      &--jobTitle {
-        margin-top: $pm-6;
-        font-size: $text-base;
-      }
-
-      &--formGroup {
-        & div:first-child {
-          flex: 0 0 100%;
-        }
-
-        & div:last-child {
-          flex: 0 0 100%;
-        }
+      & div:last-child {
+        flex: 0 0 100%;
       }
     }
   }

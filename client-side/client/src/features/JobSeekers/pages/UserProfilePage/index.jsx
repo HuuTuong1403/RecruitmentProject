@@ -11,14 +11,17 @@ import {
 import { getDetailJobSeekerAsync } from "features/JobSeekers/slices/thunks";
 import { schemaUpdateProfileJobSeeker } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
-import { selectedJobSeekerProfile } from "features/JobSeekers/slices/selectors";
+import {
+  selectedJobSeekerProfile,
+  selectedStatus,
+} from "features/JobSeekers/slices/selectors";
 import { updateProfileJobSeeker } from "features/JobSeekers/api/jobSeeker.api";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup.js";
+import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import DatePickerField from "custom-fields/DatePickerField";
@@ -28,6 +31,7 @@ import moment from "moment";
 import notification from "components/Notification";
 import ProfileJobSeeker from "features/JobSeekers/components/ProfileJobSeeker";
 import SelectLocationField from "custom-fields/SelectLocationField";
+import LoadingSuspense from "components/Loading";
 
 const UserProfilePage = () => {
   ScrollTop();
@@ -35,9 +39,14 @@ const UserProfilePage = () => {
   useTitle(`${t("Account Management")}`);
 
   const detailJobSeeker = useSelector(selectedJobSeekerProfile);
+  const status = useSelector(selectedStatus);
   const [loading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDetailJobSeekerAsync());
+  }, [dispatch]);
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
     label: province.name,
@@ -142,7 +151,9 @@ const UserProfilePage = () => {
     return current && current.valueOf() >= Date.now();
   };
 
-  return (
+  return status ? (
+    <LoadingSuspense height="80vh" />
+  ) : (
     <div className={classes.profile}>
       {detailJobSeeker && (
         <div className={classes.profile__wrapped}>

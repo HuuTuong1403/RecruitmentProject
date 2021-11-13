@@ -128,19 +128,19 @@ const Header = () => {
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
-                  to={`/jobseekers/job-alert`}
-                >
-                  <AiOutlineNotification
-                    className={classes["header__link--person"]}
-                  />
-                  {t("My Job Alerts")}
-                </Link>
-                <Link
-                  className={classes["header__lang--profile"]}
                   to={`/jobseekers/job-saved`}
                 >
                   <BsListCheck className={classes["header__link--person"]} />
                   {t("My Jobs")}
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
+                  to={`/jobseekers/events/joined`}
+                >
+                  <AiOutlineNotification
+                    className={classes["header__link--person"]}
+                  />
+                  {t("Registered events")}
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}

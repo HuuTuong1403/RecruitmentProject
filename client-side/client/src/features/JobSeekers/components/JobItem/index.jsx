@@ -66,7 +66,10 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
             <Link to={`/jobs/${slug}`}>{jobTitle}</Link>
             <div>
               <IoMdTime style={{ marginRight: "5px", fontSize: "18px" }} />
-              {aboutCreated}
+              {aboutCreated
+                .split(" ")
+                .map((string) => t(string))
+                .join(" ")}
             </div>
           </div>
           <div className={classes["jobItem__figure--figcaption--companyName"]}>
@@ -102,7 +105,8 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
                 <IoMdCalendar
                   style={{ marginRight: "5px", fontSize: "18px" }}
                 />
-                {t("Submission date")}: {moment(createdAt).format(dateFormatPicker)}
+                {t("Submission date")}:{" "}
+                {moment(createdAt).format(dateFormatPicker)}
               </div>
             )}
           </div>

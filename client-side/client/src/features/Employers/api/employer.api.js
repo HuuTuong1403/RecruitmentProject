@@ -235,3 +235,47 @@ export const exportParticipantExcel = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchAllEventDeleted = async () => {
+  try {
+    const res = await axiosClient(
+      "employer/events/management/soft-delete/trash"
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const softDeleteEvent = async (payload) => {
+  try {
+    const res = await axiosClient.delete(
+      `employer/events/management/soft-delete/${payload}`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const restoreEvent = async (payload) => {
+  try {
+    const res = await axiosClient.patch(
+      `employer/events/management/restore/${payload}`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteEvent = async (payload) => {
+  try {
+    const res = await axiosClient.delete(
+      `employer/events/management/delete/${payload}`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

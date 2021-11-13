@@ -1,0 +1,107 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.eventItem {
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  flex: 0 0 48%;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  &__top {
+    position: relative;
+    height: 200px;
+
+    &--logo {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      object-fit: contain;
+      opacity: 0.15;
+    }
+
+    &--cover {
+      height: 100%;
+      width: 100%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      object-fit: cover;
+    }
+
+    &--new {
+      right: 0;
+      top: 0;
+      border-bottom-left-radius: 10px;
+    }
+
+    &--status {
+      right: 0;
+      bottom: 0;
+      border-top-left-radius: 10px;
+    }
+  }
+
+  &__bottom {
+    padding: $pm-10;
+
+    &--title {
+      font-weight: bold;
+      text-transform: uppercase;
+
+      & > span {
+        color: $primary-text;
+        font-size: $text-base;
+      }
+
+      & > a {
+        &:hover {
+          text-decoration: none !important;
+        }
+      }
+    }
+
+    &--field {
+      font-size: $text-base;
+      margin-top: $pm-2;
+
+      & > span {
+        font-weight: bold;
+        color: $primary-text;
+      }
+
+      & > a {
+        font-weight: bold;
+
+        &:hover {
+          text-decoration: none !important;
+        }
+      }
+    }
+  }
+
+  &__actions {
+    margin: 0 $pm-10;
+    &--icon {
+      margin-right: $pm-6;
+      font-size: $text-lg;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .eventItem {
+    flex: 0 0 100%;
+    border: 1px solid #e5e5e5;
+
+    &__actions {
+      margin: 0 $pm-10;
+      &--icon {
+        font-size: $text-base;
+      }
+    }
+  }
+}
