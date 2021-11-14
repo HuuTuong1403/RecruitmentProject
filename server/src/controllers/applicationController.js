@@ -107,8 +107,8 @@ class applicationController {
         if (application.job.isExpired.toString() == isExpired.toString()) {
           return application;
         }
+        return application;
       }
-      return application;
     });
     res.status(200).json({
       status: 'sucess',

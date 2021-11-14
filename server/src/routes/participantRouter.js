@@ -18,6 +18,7 @@ participantRouter
     participantController.createParticipant
   )
   .get(
+    authController.restrictTo('jobseeker'),
     participantController.setParticipantQueryView,
     participantController.getAllParticipant
   );
