@@ -73,12 +73,8 @@ const SignInEmployerPage = () => {
     <AuthComponent>
       <div className={classes.signin_emp}>
         <div className={classes.signin_emp__wrapped}>
-          <div className={classes["signin_emp__wrapped--content"]}>
-            {t("content-signin-emp")}
-          </div>
-          <div className={classes["signin_emp__wrapped--title"]}>
-            {t("signin")}
-          </div>
+          <div className={classes.contentAuth}>{t("content-signin-emp")}</div>
+          <div className={classes.titleAuth}>{t("signin")}</div>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className={classes["signin_emp__wrapped--form"]}

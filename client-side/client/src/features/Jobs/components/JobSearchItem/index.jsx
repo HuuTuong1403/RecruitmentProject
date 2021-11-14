@@ -94,7 +94,7 @@ const JobSearchItem = ({ job }) => {
   return (
     <div className={classes.searchItem}>
       <div className={classes.searchItem__figure}>
-        {!isNew && (
+        {isNew && (
           <div
             className={`${classes.isNew} ${classes["searchItem__figure--new"]}`}
           >

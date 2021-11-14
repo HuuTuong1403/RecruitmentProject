@@ -59,7 +59,7 @@ const SettingPage = () => {
           {t("Employer account settings")}
         </div>
         <div className={classes.subTitleDashboard}>
-          {t("Change login password")}
+          {t("Change login password")} <span>(*: {t("Compulsory")})</span>
         </div>
         <form
           className={classes["employerSetting__wrapped--changePass"]}

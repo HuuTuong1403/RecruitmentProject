@@ -174,7 +174,9 @@ const UpdateEventPage = () => {
   ) : (
     <div className={classes.editEvent}>
       <div className={classes.editEvent__wrapped}>
-        <div className={classes.titleDashboard}>{t("Edit event")}</div>
+        <div className={classes.titleDashboard}>
+          {t("Edit event")} <span>(*: {t("Compulsory")})</span>
+        </div>
         {eventDetail && (
           <Fragment>
             <Slider className={classes.editEvent__slider} {...settings}>

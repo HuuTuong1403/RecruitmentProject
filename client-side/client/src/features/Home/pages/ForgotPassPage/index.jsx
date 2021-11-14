@@ -1,3 +1,4 @@
+import { forgotPassJobSeeker } from "../../api/home.api";
 import { ScrollTop } from "common/functions";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useEffect, useState } from "react";
@@ -6,25 +7,50 @@ import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import AuthComponent from "components/AuthComponent";
 import ForgotPassNotify from "components/ForgotPassNotify";
-import SendMailForgot from "features/Home/components/SendMail";
+import notification from "components/Notification";
+import SendMail from "components/SendMail";
 
 const ForgotPassPage = () => {
   ScrollTop();
-  useEffect(() => {
-    const user = selectJobSeekerLocal();
-    if (user) history.push("/home");
-  });
   const { t } = useTranslation();
   const history = useHistory();
   const [isNotify, setIsNotify] = useState(false);
   useTitle(`${t("forgotpass")}`);
+  const [loading, setLoading] = useState(false);
 
-  const changeToNotifyHandler = () => setIsNotify((prevState) => !prevState);
+  useEffect(() => {
+    const user = selectJobSeekerLocal();
+    if (user) history.push("/home");
+  });
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const result = await forgotPassJobSeeker(data);
+      if (result.status === "success") {
+        setLoading(false);
+        notification(
+          `${t("Password recovery request has been sent successfully")}`,
+          "success"
+        );
+        setIsNotify((prevState) => !prevState);
+      } else {
+        setLoading(false);
+        notification(`${t("Email address not found in system")}`, "error");
+      }
+    } catch (error) {
+      setLoading(false);
+      notification(
+        `${t("Error! An error occurred. Please try again later")}`,
+        "error"
+      );
+    }
+  };
 
   return (
     <AuthComponent>
       {!isNotify ? (
-        <SendMailForgot changeToNotify={changeToNotifyHandler} />
+        <SendMail loading={loading} onSubmit={onSubmit} />
       ) : (
         <ForgotPassNotify />
       )}

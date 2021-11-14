@@ -2,6 +2,10 @@ import { Collapse } from "reactstrap";
 import { FaFilter } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { selectedProvinces } from "features/Home/slices/selectors";
+import {
+  statusEventOption,
+  dateCreatedAtOptions,
+} from "common/constants/options";
 import { useHistory, useLocation } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -22,6 +26,21 @@ const SearchEventHeader = () => {
   const companyNameRef = useRef();
   const type = query.get("type");
 
+  const optionsStatus = statusEventOption.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
+
+  const optionsDateCreate = dateCreatedAtOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
+
+  const provinces = useSelector(selectedProvinces).map((province) => {
+    return { label: province.name };
+  });
+  provinces.unshift({ label: "Tất cả" });
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectProvince, setSelectProvince] = useState(
     query.get("address%city") ?? "Tất cả"
@@ -32,11 +51,6 @@ const SearchEventHeader = () => {
   const [selectCreateDate, setSelectCreateDate] = useState(
     query.get("createdAt") ?? "Tất cả"
   );
-
-  const provinces = useSelector(selectedProvinces).map((province) => {
-    return { label: province.name };
-  });
-  provinces.unshift({ label: "Tất cả" });
 
   const changeProvinceHandler = (selectOption) => {
     setSelectProvince(selectOption.label);
@@ -99,28 +113,12 @@ const SearchEventHeader = () => {
     }
   };
 
-  const optionsDateCreate = [
-    { value: "Tất cả", label: `${t("all")}` },
-    { value: "1", label: `${t("1 day ago")}` },
-    { value: "3", label: `${t("3 days ago")}` },
-    { value: "7", label: `${t("1 week ago")}` },
-    { value: "14", label: `${t("2 weeks ago")}` },
-    { value: "30", label: `${t("1 month ago")}` },
-  ];
-
-  const optionsStatus = [
-    { value: "Tất cả", label: `${t("all")}` },
-    { value: "NotYetOccur", label: `${t("NotYetOccur")}` },
-    { value: "Occurring", label: `${t("Occurring")}` },
-    { value: "Pausing", label: `${t("Pausing")}` },
-    { value: "Finish", label: `${t("Finish")}` },
-  ];
-
   return (
     <section className={classes.searchHeader}>
       <div className={classes.searchHeader__content}>
         <div className={classes.searchHeader__container}>
           <form onSubmit={searchSubmitHandler}>
+            {/* Filter Event Name */}
             <div className={classes["searchHeader__container--input-search"]}>
               <InputField
                 ref={eventNameRef}
@@ -129,6 +127,7 @@ const SearchEventHeader = () => {
                 icon={<FaSearch />}
               />
             </div>
+            {/* Filter Event Province */}
             <div className={classes["searchHeader__container--input-location"]}>
               <Select
                 placeholder={t("choose-province")}
@@ -165,6 +164,7 @@ const SearchEventHeader = () => {
             onSubmit={searchSubmitHandler}
           >
             <div className={classes["searchHeader__collapse--form--top"]}>
+              {/* Filter Event Organizer */}
               <div>
                 <LabelField label={t("Event organizer")} />
                 <InputField
@@ -174,6 +174,7 @@ const SearchEventHeader = () => {
                   icon={<FaSearch />}
                 />
               </div>
+              {/* Filter Topic */}
               <div>
                 <LabelField label={t("Event topic")} />
                 <InputField
@@ -183,6 +184,7 @@ const SearchEventHeader = () => {
                   icon={<FaSearch />}
                 />
               </div>
+              {/* Filter Company Name */}
               <div>
                 <LabelField label={t("Company name")} />
                 <InputField
@@ -192,6 +194,7 @@ const SearchEventHeader = () => {
                   icon={<FaSearch />}
                 />
               </div>
+              {/* Filter Event Status */}
               <div>
                 <LabelField label={t("Event status")} />
                 <Select
@@ -202,6 +205,8 @@ const SearchEventHeader = () => {
                   onChange={changeStatusHandler}
                 />
               </div>
+
+              {/* Filter Date Created */}
               <div>
                 <LabelField label={t("Posted Within")} />
                 <Select

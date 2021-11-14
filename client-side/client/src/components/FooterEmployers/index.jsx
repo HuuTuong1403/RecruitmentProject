@@ -1,11 +1,10 @@
+import { DK, MSTLogo } from "assets";
 import { FaFacebookF } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { MdPhone } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
-import DK from "assets/images/dk.png";
-import MSTLogo from "assets/images/mst_logo.png";
 
 const FooterEmployers = () => {
   const { t } = useTranslation();

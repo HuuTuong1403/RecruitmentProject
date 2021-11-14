@@ -1,12 +1,7 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .steptwo {
-  text-align: center;
-  text-transform: uppercase;
-  font-size: $text-2xl;
-  font-weight: 700;
-  margin: 15px 0;
-
   &__select-scale {
     margin-bottom: 10px;
 
@@ -39,8 +34,6 @@
 
 @media screen and (max-width: 500px) {
   .steptwo {
-    font-size: $text-lg;
-
     &__actions {
       & > button {
         flex: 0 0 100%;

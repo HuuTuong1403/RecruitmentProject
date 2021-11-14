@@ -67,17 +67,12 @@ const SignInGuestPage = () => {
       } else {
         setLoading(false);
         setIsVerify(
-          `${t(
-            "The account has not been activated. Please check your email inbox for activation"
-          )}`
+          "The account has not been activated. Please check your email inbox for activation"
         );
       }
     } else {
       setLoading(false);
-      reset({
-        username: "",
-        password: "",
-      });
+      reset();
       notification(
         `${t("Login information is incorrect. Please try again")}`,
         "error"
@@ -89,14 +84,12 @@ const SignInGuestPage = () => {
     <AuthComponent>
       <div className={classes.signin}>
         <div className={classes.signin__wrapped}>
-          <div className={classes["signin__wrapped--content"]}>
-            {t("content-signin")}
-          </div>
-          <div className={classes["signin__wrapped--title"]}>{t("signin")}</div>
+          <div className={classes.contentAuth}>{t("content-signin")}</div>
+          <div className={classes.titleAuth}>{t("signin")}</div>
           {isVerify && isVerify !== "success" && (
             <div className={classes["signin__wrapped--verify"]}>
               <AiOutlineCloseCircle style={{ marginRight: "5px" }} />
-              {t(`${isVerify}`)}
+              {t(isVerify)}
             </div>
           )}
           {isVerify === "success" && (

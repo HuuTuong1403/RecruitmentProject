@@ -28,6 +28,7 @@ const SignUpEmployerPage = () => {
   const infoSignUp = useSelector(selectInfoSignUp);
 
   useTitle(`${t("Register for an employer account quickly")}`);
+  
   const onSubmitHandler = (data) => {
     if (infoSignUp) {
       if (
@@ -54,7 +55,7 @@ const SignUpEmployerPage = () => {
     <AuthComponent>
       <div className={classes.signup_emp}>
         <div className={classes.signup_emp__wrapped}>
-          <div className={classes["signup_emp__wrapped--content"]}>
+          <div className={classes.contentAuth}>
             {t("content-signup-employer")}
           </div>
           {step === 1 && <StepOneSignUp onSubmit={onSubmitHandler} />}

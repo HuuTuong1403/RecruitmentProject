@@ -1,4 +1,3 @@
-import { clearNullObject } from "common/functions";
 import {
   dateFormatPicker,
   dateFormatSendServer,
@@ -13,15 +12,23 @@ import {
   selectEmployerDetail,
 } from "features/Employers/slices/selectors";
 import { addDataPostJob, resetDataPostJob } from "features/Employers/slices";
+import { clearNullObject } from "common/functions";
 import { getDetailEmployerAsync } from "features/Employers/slices/thunks";
 import { postJobEmployer } from "features/Employers/api/employer.api";
 import { schemaPostJobEmployer } from "common/constants/schema";
 import { ScrollTop } from "common/functions";
 import { selectedSkills } from "features/Jobs/slices/selectors";
 import { Switch } from "antd";
+import {
+  hideSalaryOptions,
+  levelOptions,
+  positionOptions,
+  typeSalaryOptions,
+  workingTimeOptions,
+} from "common/constants/options";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -58,6 +65,21 @@ const PostJobPage = () => {
   });
 
   const [selectSkill, setSelectSkill] = useState(postJobData?.skills ?? []);
+
+  const optionsLevel = levelOptions.map((item, index) => ({
+    value: index === 0 ? t("choose-level") : item.value,
+    label: index === 0 ? t("choose-level") : t(item.label),
+  }));
+
+  const optionsPosition = positionOptions.map((item, index) => ({
+    value: index === 0 ? t("choose-position") : item.value,
+    label: index === 0 ? t("choose-position") : t(item.label),
+  }));
+
+  const optionsWorkingTime = workingTimeOptions.map((item, index) => ({
+    value: index === 0 ? t(item.value) : item.value,
+    label: t(item.label),
+  }));
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
     label: province.name,
@@ -140,6 +162,7 @@ const PostJobPage = () => {
         dateFormatSendServer
       ),
     };
+    
     setLoading(true);
     const result = await postJobEmployer(payload);
     if (result.status === "success") {
@@ -180,83 +203,6 @@ const PostJobPage = () => {
     dispatch(resetDataPostJob());
   };
 
-  const typeSalary = [
-    { value: "USD", label: "USD" },
-    { value: "VND", label: "VND" },
-  ];
-
-  const optionsLevel = [
-    { value: `${t("choose-level")}`, label: `${t("choose-level")}` },
-    { value: "Intern", label: `${t("Internship")}` },
-    { value: "Junior", label: `${t("Junior Developer")}` },
-    { value: "Senior", label: `${t("Senior Developer")}` },
-    { value: "Leader", label: `${t("Leader Developer")}` },
-    { value: "Mid-level", label: `${t("Mid-level Manager")}` },
-    { value: "Senior Leader", label: `${t("Senior Leader")}` },
-  ];
-
-  const optionsPosition = [
-    { value: `${t("choose-position")}`, label: `${t("choose-position")}` },
-    { value: "Network Administrator", label: `${t("Network Administrator")}` },
-    { value: "Network Engineering", label: `${t("Network Engineering")}` },
-    { value: "Network Leader", label: `${t("Network Leader")}` },
-    { value: "Helpdesk Technician", label: `${t("Helpdesk Technician")}` },
-    { value: "PC Technician", label: `${t("PC Technician")}` },
-    { value: "SeviceDesk Leader", label: `${t("SeviceDesk Leader")}` },
-    { value: "Developer", label: `${t("Developer")}` },
-    { value: "Tester", label: `${t("Tester")}` },
-    {
-      value: "Application Development Leader",
-      label: `${t("Application Development Leader")}`,
-    },
-    { value: "Database Developer", label: `${t("Database Developer")}` },
-    {
-      value: "Database Administrator",
-      label: `${t("Database Administrator")}`,
-    },
-    {
-      value: "Business Process Analyst",
-      label: `${t("Business Process Analyst")}`,
-    },
-    { value: "IT Security Staff", label: `${t("IT Security Staff")}` },
-    { value: "IT Manager", label: `${t("IT Manager")}` },
-    {
-      value: "Chief Information Officer",
-      label: `${t("Chief Information Officer")}`,
-    },
-    {
-      value: "Chief Security Officer",
-      label: `${t("Chief Security Officer")}`,
-    },
-    {
-      value: "Chief Technical Officer",
-      label: `${t("Chief Technical Officer")}`,
-    },
-    {
-      value: "Project Manager",
-      label: `${t("Project Manager")}`,
-    },
-  ];
-
-  const optionsWorkingTime = [
-    {
-      value: `${t("choose-workingTime")}`,
-      label: `${t("choose-workingTime")}`,
-    },
-    { value: "Monday", label: `${t("Monday")}` },
-    { value: "Tuesday", label: `${t("Tuesday")}` },
-    { value: "Wednesday", label: `${t("Wednesday")}` },
-    { value: "Thursday", label: `${t("Thursday")}` },
-    { value: "Friday", label: `${t("Friday")}` },
-    { value: "Saturday", label: `${t("Saturday")}` },
-    { value: "Sunday", label: `${t("Sunday")}` },
-  ];
-
-  const optionsHideSalary = [
-    { value: "You'll love it", label: `${t("You'll love it")}` },
-    { value: "Competitive", label: `${t("Competitive")}` },
-  ];
-
   const disabledDate = (current) => {
     return current && current.valueOf() <= Date.now();
   };
@@ -272,7 +218,7 @@ const PostJobPage = () => {
   return (
     <div className={classes.postjob}>
       <div className={classes.postjob__wrapped}>
-        <div className={classes.titleDashboard}>{t("postjobs")}</div>
+        <div className={classes.titleDashboard}>{t("postjobs")} <span>(*: {t("Compulsory")})</span></div>
         <form onSubmit={handleSubmit(postJobHandler)}>
           {/* Job Title */}
           <div className={classes.postjob__formGroup}>
@@ -472,7 +418,7 @@ const PostJobPage = () => {
                     name="type"
                     control={control}
                     defaultValue={postJobData?.type ?? "VND"}
-                    list={typeSalary}
+                    list={typeSalaryOptions}
                     handleAddData={handleAddData}
                   />
                 </div>
@@ -505,7 +451,7 @@ const PostJobPage = () => {
                   name="typeHideSalary"
                   control={control}
                   defaultValue={postJobData?.typeHideSalary ?? "You'll love it"}
-                  list={optionsHideSalary}
+                  list={hideSalaryOptions}
                   handleAddData={handleAddData}
                 />
               </div>

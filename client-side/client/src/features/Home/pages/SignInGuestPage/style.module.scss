@@ -1,4 +1,5 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .signin {
   height: 100%;
@@ -7,14 +8,6 @@
   align-items: center;
 
   &__wrapped {
-    &--title {
-      text-align: center;
-      text-transform: uppercase;
-      font-size: $text-2xl;
-      font-weight: 700;
-      margin: 15px 0;
-    }
-
     &--verify {
       color: red;
       text-align: center;
@@ -25,11 +18,6 @@
       color: green;
       text-align: center;
       margin: $pm-10 0;
-    }
-
-    &--content {
-      text-align: center;
-      font-size: $text-base;
     }
 
     &--form {
@@ -140,9 +128,6 @@
 @media screen and (max-width: 350px) {
   .signin {
     &__wrapped {
-      &--content {
-        margin-top: 20px;
-      }
       &--social {
         margin: 15px 0;
 

@@ -40,6 +40,7 @@ import ModalApplyJob from "features/Jobs/components/ModalApplyJob";
 import moment from "moment";
 import notification from "components/Notification";
 import parse from "html-react-parser";
+import ModalSignIn from "components/ModalSignIn";
 
 const JobDetailPage = () => {
   ScrollTop();
@@ -49,6 +50,7 @@ const JobDetailPage = () => {
   const user = selectJobSeekerLocal();
   const history = useHistory();
   const favoriteJobs = useSelector(selectFavoriteJobs);
+  const token = localStorage.getItem("token");
   const applicationJobs = useSelector(selectApplicationJobs);
   const [showModal, setShowModal] = useState(false);
 
@@ -64,11 +66,11 @@ const JobDetailPage = () => {
   }, [getDetail]);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (token) {
       dispatch(fetchAllFavoriteJobAsync());
       dispatch(fetchAllJobApplicationAsync());
     }
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const jobDetail = useSelector(selectedJobDetail);
   const loading = useSelector(selectedStatus);
@@ -95,20 +97,6 @@ const JobDetailPage = () => {
 
   const onCloseModal = () => {
     setShowModal(false);
-  };
-
-  const applyJobHandler = () => {
-    if (user) {
-      setShowModal(true);
-    } else {
-      notification(
-        `${t(
-          "Please login to the job seeker account to perform this function"
-        )}`,
-        "error"
-      );
-      history.push("/home/sign-in");
-    }
   };
 
   const haveAppliedHandler = () => {
@@ -141,13 +129,7 @@ const JobDetailPage = () => {
         );
       }
     } else {
-      notification(
-        `${t(
-          "Please login to the job seeker account to perform this function"
-        )}`,
-        "error"
-      );
-      history.push("/home/sign-in");
+      setShowModal(true);
     }
   };
 
@@ -157,7 +139,7 @@ const JobDetailPage = () => {
         <LoadingSuspense height="40vh" />
       ) : (
         <div className={classes.jobDetail}>
-          {user && (
+          {user ? (
             <ModalApplyJob
               showModal={showModal}
               onCloseModal={onCloseModal}
@@ -165,6 +147,8 @@ const JobDetailPage = () => {
               jobTitle={jobTitle}
               companyName={company?.companyName}
             />
+          ) : (
+            <ModalSignIn showModal={showModal} onCloseModal={onCloseModal} />
           )}
           <div className={classes.jobDetail__top}>
             <div className={classes["jobDetail__top--wrapped"]}>
@@ -249,7 +233,7 @@ const JobDetailPage = () => {
                       backgroundcolor="#0a426e"
                       backgroundcolorhover="#324554"
                       uppercase
-                      onClick={applyJobHandler}
+                      onClick={() => setShowModal(true)}
                     >
                       {t("Apply now")}
                     </ButtonField>
@@ -467,7 +451,7 @@ const JobDetailPage = () => {
                           backgroundcolor="#0a426e"
                           backgroundcolorhover="#324554"
                           uppercase
-                          onClick={applyJobHandler}
+                          onClick={() => setShowModal(true)}
                         >
                           {t("Apply now")}
                         </ButtonField>

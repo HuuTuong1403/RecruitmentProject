@@ -1,7 +1,4 @@
-import {
-  dateFormatPicker,
-  dateFormatISO8601,
-} from "common/constants/dateFormat";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { Table } from "antd";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
@@ -20,7 +17,11 @@ const TableParticipantsEvent = ({ participants, onSelect }) => {
       title: `${t("dob")}`,
       dataIndex: "dob",
       key: "dob",
-      sorter: (a, b) => Date.parse(a.dob) - Date.parse(b.dob),
+      sorter: (a, b) => {
+        var dateA = a.dob.split("/").reverse().join(),
+          dateB = b.dob.split("/").reverse().join();
+        return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+      },
     },
     {
       title: `${t("Address")}`,
@@ -42,12 +43,15 @@ const TableParticipantsEvent = ({ participants, onSelect }) => {
       dataIndex: "interestingField",
       key: "interestingField",
     },
-
     {
       title: `${t("Registration Date")}`,
       dataIndex: "createdAt",
       key: "createdAt",
-      sorter: (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
+      sorter: (a, b) => {
+        var dateA = a.createdAt.split("/").reverse().join(),
+          dateB = b.createdAt.split("/").reverse().join();
+        return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+      },
     },
     {
       title: `${t("Status")}`,
@@ -70,13 +74,13 @@ const TableParticipantsEvent = ({ participants, onSelect }) => {
     return {
       key: id,
       fullName: fullName,
-      dob: moment(participant.DOB, dateFormatISO8601).format(dateFormatPicker),
+      dob: moment(participant.DOB).format(dateFormatPicker),
       address: `${participant.address.street}, ${participant.address.ward}, ${participant.address.district}, ${participant.address.city}`,
       phone: phone,
       email: participant.email,
       interestingField:
         interestingField.length > 0 ? interestingField.join(", ") : "Không có",
-      createdAt: moment(createdAt, dateFormatISO8601).format(dateFormatPicker),
+      createdAt: moment(createdAt).format(dateFormatPicker),
       status: status,
     };
   });

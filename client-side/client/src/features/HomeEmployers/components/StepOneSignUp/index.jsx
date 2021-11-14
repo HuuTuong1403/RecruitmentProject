@@ -11,9 +11,8 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 
-const StepOneSignUp = (props) => {
+const StepOneSignUp = ({ onSubmit }) => {
   const { t } = useTranslation();
-  const { onSubmit } = props;
 
   const infoSignUp = useSelector(selectInfoSignUp);
 
@@ -28,7 +27,7 @@ const StepOneSignUp = (props) => {
 
   return (
     <Fragment>
-      <div className={classes.stepone}>
+      <div className={classes.titleAuth}>
         {t("Step")} 1: {t("Contact Info")}
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>

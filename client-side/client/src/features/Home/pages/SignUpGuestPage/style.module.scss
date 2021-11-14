@@ -1,4 +1,5 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .signup {
   height: 100%;
@@ -7,19 +8,6 @@
   align-items: center;
 
   &__wrapped {
-    &--title {
-      text-align: center;
-      text-transform: uppercase;
-      font-size: $text-2xl;
-      font-weight: 700;
-      margin: 15px 0;
-    }
-
-    &--content {
-      font-size: $text-base;
-      text-align: center;
-    }
-
     &--form {
       width: 100%;
     }

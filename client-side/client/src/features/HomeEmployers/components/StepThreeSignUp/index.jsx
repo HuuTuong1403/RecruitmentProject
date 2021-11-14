@@ -1,4 +1,5 @@
 import { addInfoSignUp } from "features/HomeEmployers/slices";
+import { companyTypeOptions } from "common/constants/options";
 import { Fragment, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { schemaSignUpStep3 } from "common/constants/schema";
@@ -13,18 +14,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
+import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 import Select from "react-select";
-import LabelField from "custom-fields/LabelField";
 
-const StepThreeSignUp = (props) => {
+const StepThreeSignUp = ({ onBackStep }) => {
   const { t } = useTranslation();
-  const { onBackStep } = props;
   const dispatch = useDispatch();
   const infoSignUp = useSelector(selectInfoSignUp);
   const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [OT, setOT] = useState(false);
+  const options = companyTypeOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
 
   const {
     register,
@@ -68,15 +72,9 @@ const StepThreeSignUp = (props) => {
     }
   };
 
-  const options = [
-    { value: "", label: `${t("phd-companyType")}` },
-    { value: "Outsourcing", label: "Outsourcing" },
-    { value: "Product", label: "Product" },
-  ];
-
   return (
     <Fragment>
-      <div className={classes.stepthree}>
+      <div className={classes.titleAuth}>
         {t("Step")} 3: {t("Representative information")}
       </div>
       <form

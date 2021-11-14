@@ -1,4 +1,5 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .signup_emp {
   height: 100%;
@@ -7,11 +8,6 @@
   align-items: center;
 
   &__wrapped {
-    &--content {
-      text-align: center;
-      font-size: $text-base;
-    }
-
     &--form {
       width: 100%;
     }
@@ -45,10 +41,6 @@
   .signup_emp {
     padding-bottom: 10px;
     &__wrapped {
-      &--content {
-        margin-top: 10px;
-        font-size: $text-sm;
-      }
       &--signup {
         margin: 15px 0;
       }
