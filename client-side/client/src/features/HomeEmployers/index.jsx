@@ -36,7 +36,9 @@ const EmployersHomePage = () => {
           path={`${url}/forgot-pass/:token`}
           component={ChangePassEmployerPage}
         />
-        <Route component={NotFoundPage} />
+        <Route>
+          <NotFoundPage isEmployer />
+        </Route>
       </Switch>
       <FooterEmployers />
     </Fragment>

@@ -55,14 +55,10 @@ const SignUpGuestPage = () => {
     <AuthComponent>
       <div className={classes.signup}>
         <div className={classes.signup__wrapped}>
-          <div className={classes["signup__wrapped--content"]}>
-            {t("content-signup")}
-          </div>
+          <div className={classes.contentAuth}>{t("content-signup")}</div>
           {step === 1 && (
             <Fragment>
-              <div className={classes["signup__wrapped--title"]}>
-                {t("signup")}
-              </div>
+              <div className={classes.titleAuth}>{t("signup")}</div>
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 className={classes["signup__wrapped--form"]}

@@ -48,6 +48,13 @@
   font-size: $text-3xl;
   font-weight: 700;
   border-bottom: 1px solid #e8e8e8;
+
+  & > span {
+    font-size: $text-sm;
+    color: red;
+    vertical-align: super;
+    font-weight: normal;
+  }
 }
 
 .subTitleDashboard {
@@ -122,6 +129,25 @@
   gap: 10px;
 }
 
+.compulsory {
+  font-size: $text-sm;
+  color: red;
+  margin-bottom: $pm-4;
+}
+
+.titleAuth {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: $text-2xl;
+  font-weight: 700;
+  margin: $pm-14 0;
+}
+
+.contentAuth {
+  text-align: center;
+  font-size: $text-base;
+}
+
 @media screen and (max-width: 900px) {
   .titleDashboard {
     font-size: $text-2xl;
@@ -147,6 +173,10 @@
   .titleDashboard {
     font-size: $text-xl;
     text-align: center;
+
+    & > span {
+      font-size: $text-xs;
+    }
   }
 
   .modalTitle {
@@ -156,5 +186,15 @@
   .subTitleDashboard {
     font-size: $text-lg;
     text-align: center;
+  }
+
+  .titleAuth {
+    font-size: $text-lg;
+    margin: $pm-10 0;
+  }
+
+  .contentAuth {
+    margin-top: $pm-10;
+    font-size: $text-sm;
   }
 }

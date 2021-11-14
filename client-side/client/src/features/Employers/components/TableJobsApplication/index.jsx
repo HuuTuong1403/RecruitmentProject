@@ -139,7 +139,11 @@ const TableJobsApplication = ({
       title: `${t("Submission date")}`,
       dataIndex: "createdAt",
       key: "createdAt",
-      sorter: (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt),
+      sorter: (a, b) => {
+        var dateA = a.createdAt.split("/").reverse().join(),
+          dateB = b.createdAt.split("/").reverse().join();
+        return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
+      },
     },
     {
       title: `${t("Salary")}`,

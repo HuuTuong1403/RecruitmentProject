@@ -1,0 +1,118 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.modalSignIn {
+  &__title {
+    font-size: $text-lg;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  &__verify {
+    color: red;
+    text-align: center;
+    margin-top: $pm-10;
+  }
+
+  &__formSignIn {
+    padding: $pm-10 $pm-20 0 $pm-20;
+
+    & > div {
+      & > input {
+        border-radius: 5px;
+      }
+    }
+
+    &--link {
+      text-align: end;
+    }
+  }
+
+  &__icon {
+    color: $primary-text;
+    font-size: $text-2xl;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      color: $third-text;
+    }
+  }
+
+  &__actions {
+    padding: $pm-10 $pm-20;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &--social {
+      flex: 0 0 70%;
+    }
+    &--default {
+      flex: 0 0 30%;
+    }
+  }
+
+  &__signUp {
+    font-weight: 700;
+    text-align: center;
+
+    & > span {
+      font-weight: 400;
+    }
+
+    & > a {
+      text-decoration: none !important;
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .modalSignIn {
+    &__title {
+      padding: 0 $pm-6;
+      font-size: $text-sm;
+    }
+
+    &__formSignIn {
+      padding: $pm-10 0 0;
+
+      &--link {
+        & > a {
+          font-size: $text-sm !important;
+        }
+      }
+    }
+
+    &__icon {
+      font-size: $text-xl;
+      border-radius: 5px;
+    }
+
+    &__actions {
+      margin-top: $pm-4;
+      padding: 0;
+      flex-flow: wrap-reverse;
+      gap: $pm-6;
+
+      &--social {
+        text-align: center;
+        flex: 0 0 100%;
+      }
+      &--default {
+        flex: 0 0 100%;
+      }
+    }
+
+    &__signUp {
+      margin-top: $pm-10;
+
+      & > a {
+        font-size: $text-sm !important;
+        text-decoration: none !important;
+      }
+    }
+  }
+}

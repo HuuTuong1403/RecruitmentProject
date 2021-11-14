@@ -96,7 +96,9 @@ const DashboardEmployersPage = () => {
             path={`${url}/setting-account`}
             component={SettingPage}
           />
-          <Route component={NotFoundPage} />
+          <Route>
+            <NotFoundPage isEmployer />
+          </Route>
         </Switch>
       </MenuEmployer>
       <FooterEmployers />

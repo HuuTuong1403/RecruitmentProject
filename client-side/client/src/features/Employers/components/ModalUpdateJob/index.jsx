@@ -1,9 +1,19 @@
 import {
+  dateFormatISO8601WithZ,
+  dateFormatPicker,
+} from "common/constants/dateFormat";
+import {
+  hideSalaryOptions,
+  levelOptions,
+  positionOptions,
+  typeSalaryOptions,
+  workingTimeOptions,
+} from "common/constants/options";
+import {
   selectJobsDetailEmployer,
   selectStatusJobDetail,
 } from "features/Employers/slices/selectors";
 import { Collapse, Switch, Modal } from "antd";
-import { dateFormatISO8601WithZ, dateFormatPicker } from "common/constants/dateFormat";
 import { schemaPostJobEmployer } from "common/constants/schema";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -15,15 +25,15 @@ import CKEditorField from "custom-fields/CKEditorField";
 import classes from "./style.module.scss";
 import DatePickerField from "custom-fields/DatePickerField";
 import InputBorderField from "custom-fields/InputBorderField";
+import InputPostJobField from "../InputPostJobField";
 import LabelField from "custom-fields/LabelField";
 import LoadingSuspense from "components/Loading";
 import moment from "moment";
 import notification from "components/Notification";
 import parse from "html-react-parser";
-import InputPostJobField from "../InputPostJobField";
-import SelectLocationField from "custom-fields/SelectLocationField";
-import SelectField from "custom-fields/SelectField";
 import Select from "react-select";
+import SelectField from "custom-fields/SelectField";
+import SelectLocationField from "custom-fields/SelectLocationField";
 
 const ModalUpdateJob = ({
   showModal,
@@ -41,6 +51,21 @@ const ModalUpdateJob = ({
   const [hideSalary, setHideSalary] = useState(false);
   const status = useSelector(selectStatusJobDetail);
   const { Panel } = Collapse;
+
+  const optionsLevel = levelOptions.map((item, index) => ({
+    value: index === 0 ? t("choose-level") : item.value,
+    label: index === 0 ? t("choose-level") : t(item.label),
+  }));
+
+  const optionsPosition = positionOptions.map((item, index) => ({
+    value: index === 0 ? t("choose-position") : item.value,
+    label: index === 0 ? t("choose-position") : t(item.label),
+  }));
+
+  const optionsWorkingTime = workingTimeOptions.map((item, index) => ({
+    value: index === 0 ? t(item.value) : item.value,
+    label: t(item.label),
+  }));
 
   useEffect(() => {
     if (jobDetail?.salary?.min) {
@@ -65,83 +90,6 @@ const ModalUpdateJob = ({
     notification("Update success", "successs");
     setLoading(false);
   };
-
-  const typeSalary = [
-    { value: "USD", label: "USD" },
-    { value: "VND", label: "VND" },
-  ];
-
-  const optionsLevel = [
-    { value: `${t("choose-level")}`, label: `${t("choose-level")}` },
-    { value: "Intern", label: `${t("Internship")}` },
-    { value: "Junior", label: `${t("Junior Developer")}` },
-    { value: "Senior", label: `${t("Senior Developer")}` },
-    { value: "Leader", label: `${t("Leader Developer")}` },
-    { value: "Mid-level", label: `${t("Mid-level Manager")}` },
-    { value: "Senior Leader", label: `${t("Senior Leader")}` },
-  ];
-
-  const optionsPosition = [
-    { value: `${t("choose-position")}`, label: `${t("choose-position")}` },
-    { value: "Network Administrator", label: `${t("Network Administrator")}` },
-    { value: "Network Engineering", label: `${t("Network Engineering")}` },
-    { value: "Network Leader", label: `${t("Network Leader")}` },
-    { value: "Helpdesk Technician", label: `${t("Helpdesk Technician")}` },
-    { value: "PC Technician", label: `${t("PC Technician")}` },
-    { value: "SeviceDesk Leader", label: `${t("SeviceDesk Leader")}` },
-    { value: "Developer", label: `${t("Developer")}` },
-    { value: "Tester", label: `${t("Tester")}` },
-    {
-      value: "Application Development Leader",
-      label: `${t("Application Development Leader")}`,
-    },
-    { value: "Database Developer", label: `${t("Database Developer")}` },
-    {
-      value: "Database Administrator",
-      label: `${t("Database Administrator")}`,
-    },
-    {
-      value: "Business Process Analyst",
-      label: `${t("Business Process Analyst")}`,
-    },
-    { value: "IT Security Staff", label: `${t("IT Security Staff")}` },
-    { value: "IT Manager", label: `${t("IT Manager")}` },
-    {
-      value: "Chief Information Officer",
-      label: `${t("Chief Information Officer")}`,
-    },
-    {
-      value: "Chief Security Officer",
-      label: `${t("Chief Security Officer")}`,
-    },
-    {
-      value: "Chief Technical Officer",
-      label: `${t("Chief Technical Officer")}`,
-    },
-    {
-      value: "Project Manager",
-      label: `${t("Project Manager")}`,
-    },
-  ];
-
-  const optionsWorkingTime = [
-    {
-      value: `${t("choose-workingTime")}`,
-      label: `${t("choose-workingTime")}`,
-    },
-    { value: "Monday", label: `${t("Monday")}` },
-    { value: "Tuesday", label: `${t("Tuesday")}` },
-    { value: "Wednesday", label: `${t("Wednesday")}` },
-    { value: "Thursday", label: `${t("Thursday")}` },
-    { value: "Friday", label: `${t("Friday")}` },
-    { value: "Saturday", label: `${t("Saturday")}` },
-    { value: "Sunday", label: `${t("Sunday")}` },
-  ];
-
-  const optionsHideSalary = [
-    { value: "You'll love it", label: `${t("You'll love it")}` },
-    { value: "Competitive", label: `${t("Competitive")}` },
-  ];
 
   const disabledDate = (current) => {
     return current && current.valueOf() <= Date.now();
@@ -187,6 +135,8 @@ const ModalUpdateJob = ({
                     errors={errors?.street?.message}
                   />
                 </div>
+
+                <div className={classes.compulsory}>(*: {t("Compulsory")})</div>
 
                 <div className={classes.bottom}>
                   <Collapse
@@ -375,7 +325,7 @@ const ModalUpdateJob = ({
                                     ? jobDetail.salary?.type
                                     : "VND"
                                 }
-                                optionList={typeSalary}
+                                optionList={typeSalaryOptions}
                               />
                             </div>
 
@@ -408,7 +358,7 @@ const ModalUpdateJob = ({
                                   ? "You'll love it"
                                   : jobDetail.salary?.type
                               }
-                              optionList={optionsHideSalary}
+                              optionList={hideSalaryOptions}
                               placeholder={t("choose-workingTime")}
                             />
                           </div>
@@ -500,7 +450,7 @@ const ModalUpdateJob = ({
                     </Panel>
                   </Collapse>
                 </div>
-                <div>
+                <div className={classes.actions}>
                   <ButtonField
                     type="submit"
                     backgroundcolor="#0a426e"

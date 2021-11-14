@@ -1,10 +1,11 @@
-import { addDataFilter } from "features/Employers/slices";
-import { clearNullObject } from "common/functions";
 import {
   dateFormatPicker,
   dateFormatSendServer,
 } from "common/constants/dateFormat";
+import { addDataFilter } from "features/Employers/slices";
+import { clearNullObject } from "common/functions";
 import { DatePicker } from "antd";
+import { expiredJobOptions } from "common/constants/options";
 import { FaSearch } from "react-icons/fa";
 import {
   fetchJobsApplicationNotSavedAsync,
@@ -27,6 +28,11 @@ const SearchJobsApplication = ({ status }) => {
   const { t } = useTranslation();
   const searchFullNameRef = useRef(null);
   const dataFilter = useSelector(selectDataFilter);
+  
+  const optionsExpiredJobs = expiredJobOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
 
   const [startTime, setStartTime] = useState(
     dataFilter?.startTime
@@ -116,11 +122,6 @@ const SearchJobsApplication = ({ status }) => {
     const startDate = moment(startTime, dateFormatPicker);
     return current < startDate || current > moment();
   };
-
-  const optionsExpiredJobs = [
-    { value: false, label: `${t("Job postings")}` },
-    { value: true, label: `${t("Job has expired")}` },
-  ];
 
   return (
     <div className={classes.searchApplication}>

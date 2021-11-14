@@ -9,6 +9,7 @@ import { IoIosPeople } from "react-icons/io";
 import { IoMenu, IoHome } from "react-icons/io5";
 import { logoutEmployer } from "features/HomeEmployers/slices";
 import { MdSettings, MdAccountCircle, MdEvent } from "react-icons/md";
+import { MSTLogo } from "assets";
 import { RiFileList3Line } from "react-icons/ri";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { selectEmployerLocal } from "features/Employers/slices/selectors";
@@ -18,7 +19,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "../../common/hook/useWindowSize";
 import classes from "./style.module.scss";
-import MSTLogo from "assets/images/mst_logo.png";
 import notification from "components/Notification";
 import ReactCountryFlag from "react-country-flag";
 

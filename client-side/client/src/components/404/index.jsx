@@ -1,23 +1,27 @@
 import { Link } from "react-router-dom";
-import animationData from "assets/lottie/pageNotFound.json";
+import { PageNotFoundLottie } from "assets";
+import { useTranslation } from "react-i18next";
 import classes from "./styles.module.scss";
 import Lottie from "lottie-react";
 
-const Page404 = () => {
+const Page404 = ({ isEmployer = false }) => {
+  const { t } = useTranslation();
   return (
     <div className={classes.container}>
       <div className={classes["container__content"]}>
         <div className={classes["container__content--title"]}>
-          Rất tiếc, không tìm thấy trang
+          {t("Sorry, the page could not be found")}
         </div>
         <div className={classes["container__content--body"]}>
-          Trang này không tồn tại hoặc bị lỗi do đường link không chính xác.
+          {t("This page does not exist or is corrupted due to incorrect URL.")}
         </div>
-        <Link to="/">Quay lại trang chủ</Link>
+        <Link to={isEmployer ? "/employers" : "/home"}>
+          {t("Back to home page")}
+        </Link>
       </div>
       <Lottie
         className={classes.container__lottie}
-        animationData={animationData}
+        animationData={PageNotFoundLottie}
       />
     </div>
   );

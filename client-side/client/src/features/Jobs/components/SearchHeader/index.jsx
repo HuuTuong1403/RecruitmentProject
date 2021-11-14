@@ -2,6 +2,12 @@ import { Collapse } from "reactstrap";
 import { FaFilter } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { selectedIsFilter } from "features/Jobs/slices/selectors";
+import {
+  dateCreatedAtOptions,
+  levelOptions,
+  positionOptions,
+  salaryOptions,
+} from "common/constants/options";
 import { selectedProvinces } from "features/Home/slices/selectors";
 import { selectedSkills } from "../../slices/selectors";
 import { toggleOpenFilter } from "features/Jobs/slices";
@@ -17,12 +23,40 @@ import Select from "react-select";
 
 const SearchHeader = () => {
   let query = new URLSearchParams(useLocation().search);
+  const type = query.get("type");
   const history = useHistory();
   const { t } = useTranslation();
   const searchKey = useRef();
   const dispatch = useDispatch();
   const isOpen = useSelector(selectedIsFilter);
-  const type = query.get("type");
+  const optionsDateCreate = dateCreatedAtOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
+
+  const optionsLevel = levelOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
+
+  const optionsPosition = positionOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
+
+  const optionsSalry = salaryOptions.map((item, index) => ({
+    value: item.value,
+    label: index === 0 ? t(item.label) : `${t("From")} ${item.label}`,
+  }));
+
+  const provinces = useSelector(selectedProvinces).map((province) => {
+    return { label: province.name };
+  });
+  provinces.unshift({ label: "Tất cả" });
+
+  const skills = useSelector(selectedSkills).map((skill, index) => {
+    return { value: index, label: skill };
+  });
 
   const [selectProvince, setSelectProvince] = useState(
     query.get("location%city") ?? "Tất cả"
@@ -39,19 +73,9 @@ const SearchHeader = () => {
   const [selectCreateDate, setSelectCreateDate] = useState(
     query.get("createdAt") ?? "Tất cả"
   );
-  const provinces = useSelector(selectedProvinces).map((province) => {
-    return { label: province.name };
-  });
-  provinces.unshift({ label: "Tất cả" });
-  const skills = useSelector(selectedSkills).map((skill, index) => {
-    return { value: index, label: skill };
-  });
-
   const querySkills =
     query.get("skills") === null ? [] : query.get("skills").split(",");
-
   const [selectSkill, setSelectSkill] = useState([]);
-
   const [textSkill, setTextSkill] = useState("");
 
   const changeSkillHandler = (option) => {
@@ -128,82 +152,12 @@ const SearchHeader = () => {
     }
   };
 
-  const optionsSalry = [
-    { value: "Tất cả", label: `${t("all")}` },
-    { value: "500", label: `${t("From")} 500 USD` },
-    { value: "1000", label: `${t("From")} 1.000 USD` },
-    { value: "2000", label: `${t("From")} 2.000 USD` },
-    { value: "3000", label: `${t("From")} 3.000 USD` },
-    { value: "5000", label: `${t("From")} 5.000 USD` },
-  ];
-
-  const optionsDateCreate = [
-    { value: "Tất cả", label: `${t("all")}` },
-    { value: "1", label: `${t("1 day ago")}` },
-    { value: "3", label: `${t("3 days ago")}` },
-    { value: "7", label: `${t("1 week ago")}` },
-    { value: "14", label: `${t("2 weeks ago")}` },
-    { value: "30", label: `${t("1 month ago")}` },
-  ];
-
-  const optionsLevel = [
-    { value: "Tất cả", label: `${t("all")}` },
-    { value: "Intern", label: `${t("Internship")}` },
-    { value: "Junior", label: `${t("Junior Developer")}` },
-    { value: "Senior", label: `${t("Senior Developer")}` },
-    { value: "Leader", label: `${t("Leader Developer")}` },
-    { value: "Mid-level", label: `${t("Mid-level Manager")}` },
-    { value: "Senior Leader", label: `${t("Senior Leader")}` },
-  ];
-
-  const optionsPosition = [
-    { value: "Tất cả", label: `${t("all")}` },
-    { value: "Network Administrator", label: `${t("Network Administrator")}` },
-    { value: "Network Engineering", label: `${t("Network Engineering")}` },
-    { value: "Network Leader", label: `${t("Network Leader")}` },
-    { value: "Helpdesk Technician", label: `${t("Helpdesk Technician")}` },
-    { value: "PC Technician", label: `${t("PC Technician")}` },
-    { value: "SeviceDesk Leader", label: `${t("SeviceDesk Leader")}` },
-    { value: "Developer", label: `${t("Developer")}` },
-    { value: "Tester", label: `${t("Tester")}` },
-    {
-      value: "Application Development Leader",
-      label: `${t("Application Development Leader")}`,
-    },
-    { value: "Database Developer", label: `${t("Database Developer")}` },
-    {
-      value: "Database Administrator",
-      label: `${t("Database Administrator")}`,
-    },
-    {
-      value: "Business Process Analyst",
-      label: `${t("Business Process Analyst")}`,
-    },
-    { value: "IT Security Staff", label: `${t("IT Security Staff")}` },
-    { value: "IT Manager", label: `${t("IT Manager")}` },
-    {
-      value: "Chief Information Officer",
-      label: `${t("Chief Information Officer")}`,
-    },
-    {
-      value: "Chief Security Officer",
-      label: `${t("Chief Security Officer")}`,
-    },
-    {
-      value: "Chief Technical Officer",
-      label: `${t("Chief Technical Officer")}`,
-    },
-    {
-      value: "Project Manager",
-      label: `${t("Project Manager")}`,
-    },
-  ];
-
   return (
     <section className={classes.searchHeader}>
       <div className={classes.searchHeader__content}>
         <div className={classes.searchHeader__container}>
           <form onSubmit={searchSubmitHandler}>
+            {/* Filter Job Name */}
             <div className={classes["searchHeader__container--input-search"]}>
               <InputField
                 ref={searchKey}
@@ -212,6 +166,8 @@ const SearchHeader = () => {
                 icon={<FaSearch />}
               />
             </div>
+
+            {/* Filter Province */}
             <div className={classes["searchHeader__container--input-location"]}>
               <Select
                 placeholder={t("choose-province")}
@@ -245,26 +201,7 @@ const SearchHeader = () => {
             onSubmit={searchSubmitHandler}
           >
             <div className={classes["searchHeader__collapse--form--top"]}>
-              <div>
-                <LabelField label={t("Salary")} />
-                <Select
-                  options={optionsSalry}
-                  value={optionsSalry.filter((salary) => {
-                    return salary.value === selectSalary;
-                  })}
-                  onChange={changeSalaryHandler}
-                />
-              </div>
-              <div>
-                <LabelField label={t("Level")} />
-                <Select
-                  options={optionsLevel}
-                  value={optionsLevel.filter((level) => {
-                    return level.value === selectLevel;
-                  })}
-                  onChange={changeLevelHandler}
-                />
-              </div>
+              {/* Filter Position */}
               <div>
                 <LabelField label={t("Position")} />
                 <Select
@@ -275,6 +212,32 @@ const SearchHeader = () => {
                   onChange={changePositionHandler}
                 />
               </div>
+
+              {/* Filter Level */}
+              <div>
+                <LabelField label={t("Level")} />
+                <Select
+                  options={optionsLevel}
+                  value={optionsLevel.filter((level) => {
+                    return level.value === selectLevel;
+                  })}
+                  onChange={changeLevelHandler}
+                />
+              </div>
+
+              {/* Filter Salary */}
+              <div>
+                <LabelField label={t("Salary")} />
+                <Select
+                  options={optionsSalry}
+                  value={optionsSalry.filter((salary) => {
+                    return salary.value === selectSalary;
+                  })}
+                  onChange={changeSalaryHandler}
+                />
+              </div>
+
+              {/* Filter Skill */}
               <div>
                 <LabelField label={t("Skill")} />
                 <Select
@@ -285,6 +248,8 @@ const SearchHeader = () => {
                   onChange={changeSkillHandler}
                 />
               </div>
+
+              {/* Filter Date Created */}
               <div>
                 <LabelField label={t("Posted Within")} />
                 <Select

@@ -5,6 +5,7 @@ import {
 } from "features/Home/slices/selectors";
 import { AiOutlineSwap } from "react-icons/ai";
 import { Collapse, Checkbox, Tooltip, Switch } from "antd";
+import { scaleOptions, companyTypeOptions } from "common/constants/options";
 import {
   FaMedkit,
   FaPlaneDeparture,
@@ -76,6 +77,16 @@ const EmployerProfilePage = () => {
       setText(parse(employerDetail.description ?? ""));
     }
   }, [employerDetail]);
+
+  const optionsScale = scaleOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
+
+  const optionsCompanyType = companyTypeOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
     label: province.name,
@@ -153,6 +164,7 @@ const EmployerProfilePage = () => {
       payload.append("companyName", companyName);
       payload.append("companyWebsite", companyWebsite);
       payload.append("scale", scale);
+      payload.append("companyType", companyType);
       payload.append("phone", phone);
       payload.append("ot", OT);
       payload.append("TIN", TIN);
@@ -191,26 +203,6 @@ const EmployerProfilePage = () => {
       description: employerDetail.description,
     });
   };
-
-  const optionsScale = [
-    { value: "", label: `${t("phd-select-scale")}` },
-    { value: "Ít hơn 10", label: `${t("little than")} 10` },
-    { value: "10 - 20", label: "10 - 20" },
-    { value: "25 - 99", label: "25 - 99" },
-    { value: "100 - 499", label: "100 - 499" },
-    { value: "500 - 999", label: "500 - 999" },
-    { value: "1.000 - 4.999", label: "1.000 - 4.999" },
-    { value: "5.000 - 9.999", label: "5.000 - 9.999" },
-    { value: "10.000 - 19.999", label: "10.000 - 19.999" },
-    { value: "20.000 - 49.999", label: "20.000 - 49.999" },
-    { value: "Hơn 50.000", label: `${t("more than")} 50.000` },
-  ];
-
-  const optionsCompanyType = [
-    { value: "", label: `${t("phd-companyType")}` },
-    { value: "Outsourcing", label: "Outsourcing" },
-    { value: "Product", label: "Product" },
-  ];
 
   const welfareList = [
     {
@@ -290,7 +282,7 @@ const EmployerProfilePage = () => {
           className={classes.employerProfile__wrapped}
         >
           <div className={classes.titleDashboard}>
-            {t("Account Management")}
+            {t("Account Management")} <span>(*: {t("Compulsory")})</span>
           </div>
           <div className={classes.top}>
             <div className={classes.top__left}>

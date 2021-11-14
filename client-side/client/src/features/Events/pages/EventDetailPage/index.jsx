@@ -29,8 +29,8 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
 import ModalJoinEvent from "features/Events/components/ModalJoinEvent";
+import ModalSignIn from "components/ModalSignIn";
 import moment from "moment";
-import notification from "components/Notification";
 import parse from "html-react-parser";
 import Slider from "react-slick";
 
@@ -44,6 +44,7 @@ const EventDetailPage = () => {
   const eventDetail = useSelector(selectEventDetail);
   const loading = useSelector(selectStatus);
   const user = selectJobSeekerLocal();
+  const token = localStorage.getItem("token");
   const joinedEvents = useSelector(selectEventsJoined);
   const [showModal, setShhowModal] = useState(false);
 
@@ -94,10 +95,10 @@ const EventDetailPage = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (token) {
       dispatch(fetchAllEventJoinedAsync());
     }
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   const applyJoinEvent = () => {
     if (user) {
@@ -108,13 +109,7 @@ const EventDetailPage = () => {
         setShhowModal(true);
       }
     } else {
-      notification(
-        `${t(
-          "Please login to the job seeker account to perform this function"
-        )}`,
-        "error"
-      );
-      history.push("/home/sign-in");
+      setShhowModal(true);
     }
   };
 
@@ -124,13 +119,17 @@ const EventDetailPage = () => {
         <LoadingSuspense height="40vh" />
       ) : (
         <div className={classes.eventDetail}>
-          {jobSeeker && (
-            <ModalJoinEvent
-              showModal={showModal}
-              onCloseModal={onCloseModal}
-              event={eventDetail}
-              currentUser={jobSeeker}
-            />
+          {user ? (
+            jobSeeker && (
+              <ModalJoinEvent
+                showModal={showModal}
+                onCloseModal={onCloseModal}
+                event={eventDetail}
+                currentUser={jobSeeker}
+              />
+            )
+          ) : (
+            <ModalSignIn showModal={showModal} onCloseModal={onCloseModal} />
           )}
           <div className={classes.eventDetail__wrapped}>
             <div style={styleImageCover} className={classes.eventDetail__top}>

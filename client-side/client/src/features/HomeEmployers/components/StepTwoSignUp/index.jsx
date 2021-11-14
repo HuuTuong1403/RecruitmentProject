@@ -6,6 +6,7 @@ import {
 } from "features/Home/slices/thunks";
 import { Fragment } from "react";
 import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
+import { scaleOptions } from "common/constants/options";
 import { schemaSignUpStep2 } from "common/constants/schema";
 import {
   selectedDistricts,
@@ -22,9 +23,8 @@ import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import Select from "react-select";
 
-const StepTwoSignUp = (props) => {
+const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
   const { t } = useTranslation();
-  const { onBackStep, onNextStep } = props;
   const dispatch = useDispatch();
   const infoSignUp = useSelector(selectInfoSignUp);
   const {
@@ -38,6 +38,10 @@ const StepTwoSignUp = (props) => {
     resolver: yupResolver(schemaSignUpStep2),
   });
 
+  const options = scaleOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
   const provinces = useSelector(selectedProvinces).map((province) => ({
     value: province.code,
     label: province.name,
@@ -77,23 +81,9 @@ const StepTwoSignUp = (props) => {
     onNextStep();
   };
 
-  const options = [
-    { value: "", label: `${t("phd-select-scale")}` },
-    { value: "Ít hơn 10", label: `${t("little than")} 10` },
-    { value: "10 - 20", label: "10 - 20" },
-    { value: "25 - 99", label: "25 - 99" },
-    { value: "100 - 499", label: "100 - 499" },
-    { value: "500 - 999", label: "500 - 999" },
-    { value: "1.000 - 4.999", label: "1.000 - 4.999" },
-    { value: "5.000 - 9.999", label: "5.000 - 9.999" },
-    { value: "10.000 - 19.999", label: "10.000 - 19.999" },
-    { value: "20.000 - 49.999", label: "20.000 - 49.999" },
-    { value: "Hơn 50.000", label: `${t("more than")} 50.000` },
-  ];
-
   return (
     <Fragment>
-      <div className={classes.steptwo}>
+      <div className={classes.titleAuth}>
         {t("Step")} 2: {t("business information")}
       </div>
       <form onSubmit={handleSubmit(submitStep2Handler)}>

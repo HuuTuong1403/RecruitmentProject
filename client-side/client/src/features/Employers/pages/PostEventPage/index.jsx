@@ -172,7 +172,9 @@ const PostEventPage = () => {
   return (
     <div className={classes.postEvent}>
       <div className={classes.postEvent__wrapped}>
-        <div className={classes.titleDashboard}>{t("Create a new event")}</div>
+        <div className={classes.titleDashboard}>
+          {t("Create a new event")} <span>(*: {t("Compulsory")})</span>
+        </div>
         <form onSubmit={handleSubmit(postEventHandler)}>
           {/* 1. General information about the event */}
           <div>

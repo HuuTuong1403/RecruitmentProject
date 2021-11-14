@@ -9,6 +9,7 @@ import {
 import { IoMenu } from "react-icons/io5";
 import { logoutJobSeeker } from "features/Home/slices";
 import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { MSTLogo } from "assets";
 import { resetFavoriteJob } from "features/JobSeekers/slices";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
@@ -18,7 +19,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "common/hook/useWindowSize";
 import classes from "./style.module.scss";
-import MSTLogo from "assets/images/mst_logo.png";
 import notification from "components/Notification";
 import ReactCountryFlag from "react-country-flag";
 

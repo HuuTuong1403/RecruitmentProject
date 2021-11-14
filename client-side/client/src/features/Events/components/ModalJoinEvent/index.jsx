@@ -117,6 +117,9 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
           <span>{t("of")} </span>
           <span>{company?.companyName}</span>
         </h3>
+
+        <div className={classes.compulsory}>(*: {t("Compulsory")})</div>
+
         <form onSubmit={handleSubmit(handleJoinEvent)}>
           {/* Full name */}
           <div className={classes.modalJoinEvent__formGroup}>
@@ -224,7 +227,7 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
           {/* Interesting field */}
           <div className={classes.modalJoinEvent__formGroup}>
             <div>
-              <LabelField label={t("Interesting field")} isCompulsory />
+              <LabelField label={t("Interesting field")} />
             </div>
             <div>
               <Select

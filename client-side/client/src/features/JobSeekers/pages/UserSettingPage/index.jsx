@@ -58,7 +58,7 @@ const UserSettingPage = () => {
     <div className={classes.userSetting}>
       <div className={classes.userSetting__wrapped}>
         <div className={classes.titleDashboard}>
-          {t("Job Seeker account settings")}
+          {t("Job Seeker account settings")} <span>(*: {t("Compulsory")})</span>
         </div>
         <div className={classes.subTitleDashboard}>
           {t("Change login password")}
@@ -69,10 +69,7 @@ const UserSettingPage = () => {
         >
           <div>
             <div>
-              <LabelField
-                label={t("Enter current password")}
-                isCompulsory
-              />
+              <LabelField label={t("Enter current password")} isCompulsory />
               <InputField
                 type="password"
                 placeholder={t("Please enter your current password")}
@@ -82,10 +79,7 @@ const UserSettingPage = () => {
               />
             </div>
             <div>
-              <LabelField
-                label={t("Enter your new password")}
-                isCompulsory
-              />
+              <LabelField label={t("Enter your new password")} isCompulsory />
               <InputField
                 type="password"
                 placeholder={t("Please enter a new password")}

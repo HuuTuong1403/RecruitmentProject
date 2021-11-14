@@ -100,6 +100,7 @@ const ModalApplyJob = ({
           <span>{t("at")} </span>
           <span>{companyName}</span>
         </h3>
+        <div className={classes.compulsory}>(*: {t("Compulsory")})</div>
         <form onSubmit={handleSubmit(applyJobHandle)}>
           {/* Full name */}
           <div className={classes.modalApplyJob__formGroup}>

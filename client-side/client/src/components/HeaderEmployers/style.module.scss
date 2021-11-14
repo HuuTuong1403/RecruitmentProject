@@ -39,6 +39,7 @@
     }
 
     &--emp {
+      width: 250px;
       background-color: #fcb616 !important;
       color: $second-text !important;
       padding: 15.2px;
@@ -157,6 +158,7 @@
       &--emp {
         display: grid;
         padding: 10px;
+        width: 100%;
       }
 
       &--emp > br {

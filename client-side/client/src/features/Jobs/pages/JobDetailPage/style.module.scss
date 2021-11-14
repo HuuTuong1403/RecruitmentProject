@@ -81,7 +81,6 @@ p {
     background-color: #fff;
 
     &--map {
-      margin-top: $pm-32;
       flex: 0 0 33%;
       background-color: white;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
@@ -258,6 +257,10 @@ p {
       padding: 10px;
       font-size: $text-base;
 
+      &--map {
+        margin-top: $pm-20;
+      }
+
       &--wrapped {
         padding: 10px;
         flex-wrap: wrap;
@@ -380,6 +383,16 @@ p {
     &__content {
       padding: 8px;
       font-size: $text-sm;
+
+      &--map {
+        margin-top: $pm-20;
+        padding: $pm-10 0 0 0;
+
+        &--location {
+          font-size: $text-sm;
+          margin: $pm-10;
+        }
+      }
 
       &--wrapped {
         padding: 8px;

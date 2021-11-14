@@ -158,7 +158,7 @@ const UserProfilePage = () => {
       {detailJobSeeker && (
         <div className={classes.profile__wrapped}>
           <div className={classes.titleDashboard}>
-            {t("Account Management")}
+            {t("Account Management")} <span>(*: {t("Compulsory")})</span>
           </div>
           <div className={classes["profile__wrapped--content"]}>
             <ProfileJobSeeker

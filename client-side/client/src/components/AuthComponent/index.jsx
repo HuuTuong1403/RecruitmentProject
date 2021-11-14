@@ -1,15 +1,18 @@
+import {
+  BackgroundForgot,
+  EmployerAuthLottie,
+  GuestLogInLottie,
+  GuestRegisterLottie,
+} from "assets";
 import { useRouteMatch } from "react-router";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
-import EmployersLogin from "assets/lottie/employers-login.json";
-import LogInAnimation from "assets/lottie/login.json";
 import Lottie from "lottie-react";
-import RegisterAnimation from "assets/lottie/register.json";
 
-const AuthComponent = (props) => {
+const AuthComponent = ({ children, isChangePass = false }) => {
   const { url } = useRouteMatch();
   const { t } = useTranslation();
-  
+
   return (
     <section className={classes.auth}>
       <div className={classes.auth__container}>
@@ -19,34 +22,42 @@ const AuthComponent = (props) => {
         <div className={classes["auth__container--wrapped"]}>
           <div className={classes["auth__container--wrapped--column-left"]}>
             {url === "/home/sign-in" && (
-              <Lottie animationData={LogInAnimation} loop={false} />
+              <Lottie animationData={GuestLogInLottie} loop={false} />
             )}
             {url === "/home/sign-up" && (
-              <Lottie animationData={RegisterAnimation} loop={false} />
+              <Lottie animationData={GuestRegisterLottie} loop={false} />
             )}
             {url === "/home/forgot-pass" && (
               <img
-                src="https://res.cloudinary.com/university-of-education-technology/image/upload/v1632905416/nqu7stknbrswdvf3pouf.jpg"
+                src={BackgroundForgot}
                 alt="ForgotPassImage"
                 style={{ maxWidth: "100%" }}
               />
             )}
             {url === "/employers/sign-in" && (
-              <Lottie animationData={EmployersLogin} />
+              <Lottie animationData={EmployerAuthLottie} />
             )}
             {url === "/employers/sign-up" && (
-              <Lottie animationData={EmployersLogin} />
+              <Lottie animationData={EmployerAuthLottie} />
             )}
             {url === "/employers/forgot-pass" && (
               <img
-                src="https://res.cloudinary.com/university-of-education-technology/image/upload/v1632905416/nqu7stknbrswdvf3pouf.jpg"
+                src={BackgroundForgot}
+                alt="ForgotPassImage"
+                style={{ maxWidth: "100%" }}
+              />
+            )}
+
+            {isChangePass && (
+              <img
+                src={BackgroundForgot}
                 alt="ForgotPassImage"
                 style={{ maxWidth: "100%" }}
               />
             )}
           </div>
           <div className={classes["auth__container--wrapped--column-right"]}>
-            {props.children}
+            {children}
           </div>
         </div>
       </div>

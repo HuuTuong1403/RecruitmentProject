@@ -1,0 +1,30 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.sendMail {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__wrapped {
+    & > div:last-child {
+      margin-top: 10px;
+
+      &::before {
+        content: "←";
+        margin-right: 5px;
+        font-size: 17px;
+      }
+
+      &:hover,
+      &:focus {
+        color: $third-text;
+      }
+    }
+
+    &--form {
+      width: 100%;
+    }
+  }
+}
