@@ -21,15 +21,13 @@ import {
 } from "features/JobSeekers/slices/selectors";
 import { toggleOpenFilter } from "features/Jobs/slices";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import moment from "moment";
 import notification from "components/Notification";
 
-const JobSearchItem = ({ job }) => {
+const JobSearchItem = ({ job, setShowModal, employer }) => {
   const { t } = useTranslation();
-  const history = useHistory();
   const dispatch = useDispatch();
   const isOpen = useSelector(selectedIsFilter);
   const user = selectJobSeekerLocal();
@@ -81,13 +79,11 @@ const JobSearchItem = ({ job }) => {
         );
       }
     } else {
-      notification(
-        `${t(
-          "Please login to the job seeker account to perform this function"
-        )}`,
-        "error"
-      );
-      history.push("/home/sign-in");
+      if (employer) {
+        notification(`${t("Please log out of the employer account")}`, "error");
+      } else {
+        setShowModal(true);
+      }
     }
   };
 
@@ -139,10 +135,10 @@ const JobSearchItem = ({ job }) => {
           <div className={classes["searchItem__figure--figcaption--salary"]}>
             <div>
               <BiDollarCircle style={{ marginRight: "5px" }} />
-              {`${t("Salary")}`}:{" "}
+              {t("Salary")}:{" "}
               {salary.min
                 ? `${salary.min} - ${salary.max} ${salary.type}`
-                : `${salary.type}`}
+                : t(salary.type)}
             </div>
             <div>
               <MdLocationOn style={{ marginRight: "5px" }} />

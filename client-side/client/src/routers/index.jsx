@@ -20,7 +20,7 @@ const Routers = () => {
           <Redirect
             exact
             from={pathEmployer.dashboard}
-            to={pathEmployer.myProfile}
+            to={pathEmployer.statistic}
           />
 
           <Redirect exact from={PATH.jobs} to="/jobs/search?type=all" />

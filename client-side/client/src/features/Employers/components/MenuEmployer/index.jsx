@@ -1,4 +1,4 @@
-import { AiFillDashboard } from "react-icons/ai";
+import { AiFillDashboard, AiOutlineLineChart } from "react-icons/ai";
 import { FaEdit } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
 import { Link, NavLink, useLocation } from "react-router-dom";
@@ -41,9 +41,9 @@ const MenuEmployer = ({ children }) => {
 
   const menuEmployer = [
     {
-      key: `${pathEmployer.myProfile}`,
-      title: `${t("Account Management")}`,
-      icon: <MdAccountCircle className={classes.menuIcon} />,
+      key: `${pathEmployer.statistic}`,
+      title: `${t("Statistics")}`,
+      icon: <AiOutlineLineChart className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
@@ -105,6 +105,13 @@ const MenuEmployer = ({ children }) => {
       key: `${pathEmployer.candidateProfileManage}`,
       title: `${t("Manage candidate profiles")}`,
       icon: <IoIosPeople className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
+    },
+    {
+      key: `${pathEmployer.myProfile}`,
+      title: `${t("Account Management")}`,
+      icon: <MdAccountCircle className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },

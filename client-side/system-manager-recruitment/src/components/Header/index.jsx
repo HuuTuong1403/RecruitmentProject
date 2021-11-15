@@ -5,23 +5,25 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import { getSystemManagerDetailAsync } from "features/SystemManager/slices/thunks";
 import { IoMenu } from "react-icons/io5";
 import { MdNotificationsNone } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { selectSystemManageDetail } from "features/SystemManager/slices/selectors";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import ReactCountryFlag from "react-country-flag";
 
-const Header = (props) => {
+const Header = ({ isShow, onOpen, onClose }) => {
+  const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(localStorage.getItem("lang") || "en-ES");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   //   const [dropdownHover, setDropDownHover] = useState(false);
-  const { isShow, onOpen, onClose } = props;
   const systemManage = useSelector(selectSystemManageDetail);
+  const token = localStorage.getItem("token");
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState);
 
   //   const hoverProfileHandler = () => setDropDownHover((prevState) => !prevState);
@@ -38,6 +40,14 @@ const Header = (props) => {
     localStorage.setItem("lang", "en-ES");
   };
 
+  useEffect(() => {
+    if (token) {
+      if (!systemManage) {
+        dispatch(getSystemManagerDetailAsync());
+      }
+    }
+  }, [dispatch, token, systemManage]);
+
   return (
     <header className={classes.header}>
       <div className={classes.header__menu}>
@@ -48,9 +58,27 @@ const Header = (props) => {
           <NavLink
             activeClassName={classes["header__link--active"]}
             className={classes["header__link"]}
+            to="/dashboard/statistic"
+          >
+            {t("Statistic")}
+          </NavLink>
+        </div>
+        <div>
+          <NavLink
+            activeClassName={classes["header__link--active"]}
+            className={classes["header__link"]}
             to="/dashboard/employers"
           >
             {t("Employers")}
+          </NavLink>
+        </div>
+        <div>
+          <NavLink
+            activeClassName={classes["header__link--active"]}
+            className={classes["header__link"]}
+            to="/dashboard/recruit-manage/created"
+          >
+            {t("Recruitment")}
           </NavLink>
         </div>
         <div>
@@ -70,15 +98,6 @@ const Header = (props) => {
             to="/dashboard/setting"
           >
             {t("Setting")}
-          </NavLink>
-        </div>
-        <div>
-          <NavLink
-            activeClassName={classes["header__link--active"]}
-            className={classes["header__link"]}
-            to="/dashboard/statistic"
-          >
-            {t("Statistic")}
           </NavLink>
         </div>
       </div>

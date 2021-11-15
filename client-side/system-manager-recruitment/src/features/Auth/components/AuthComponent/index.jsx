@@ -1,6 +1,6 @@
 import classes from "./style.module.scss";
 
-const AuthComponent = (props) => {
+const AuthComponent = ({ title, children }) => {
   return (
     <div className={classes.auth}>
       <div className={classes.auth__wrapped}>
@@ -8,12 +8,8 @@ const AuthComponent = (props) => {
           <div className={classes["auth__container--title"]}>
             System Management Portal
           </div>
-          <div className={classes["auth__container--content"]}>
-            {props.title}
-          </div>
-          <div className={classes["auth__container--form"]}>
-            {props.children}
-          </div>
+          <div className={classes["auth__container--content"]}>{title}</div>
+          <div className={classes["auth__container--form"]}>{children}</div>
         </div>
       </div>
     </div>

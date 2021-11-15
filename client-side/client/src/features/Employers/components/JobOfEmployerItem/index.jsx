@@ -115,9 +115,11 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
           {salary && (
             <div className={classes["item__bottom--salary"]}>
               <BiDollarCircle style={{ marginRight: "5px" }} />
-              {`${t("Salary")} ${salary.min ? salary.min + ` - ` : ""}  ${
-                salary.max ? salary.max : ""
-              } ${salary.type}`}
+              {`${t("Salary")}: ${
+                salary.min
+                  ? `${salary.min} - ${salary.max} ${salary.type}`
+                  : t(salary.type)
+              }`}
             </div>
           )}
           {location && (

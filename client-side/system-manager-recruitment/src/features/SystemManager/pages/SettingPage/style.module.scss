@@ -1,4 +1,5 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .changePass {
   padding: $pm-10;
@@ -7,18 +8,6 @@
   border-radius: 10px;
 
   &__wrapped {
-    &--title {
-      font-size: $text-3xl;
-      font-weight: 700;
-      border-bottom: 1px solid #e8e8e8;
-    }
-
-    &--subTitle1 {
-      font-size: $text-xl;
-      font-weight: 600;
-      padding: $pm-10 0;
-    }
-
     &--changePass {
       display: flex;
       justify-content: center;
@@ -38,9 +27,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
 
         & > button {
-          width: 48%;
+          flex: 0 0 48%;
         }
       }
     }
@@ -52,19 +42,9 @@
     padding: $pm-4;
 
     &__wrapped {
-      &--title {
-        font-size: $text-2xl;
-        text-align: center;
-      }
-
-      &--subTitle1 {
-        font-size: $text-xl;
-        text-align: center;
-      }
-
       &--changePass {
         padding-bottom: $pm-10;
-        
+
         & > div {
           flex: 0 0 70%;
         }
@@ -80,16 +60,6 @@
     &__wrapped {
       padding: $pm-10 0;
 
-      &--title {
-        font-size: $text-lg;
-        text-align: center;
-      }
-
-      &--subTitle1 {
-        font-size: $text-lg;
-        text-align: center;
-      }
-
       &--changePass {
         padding: $pm-10;
 
@@ -102,11 +72,10 @@
         }
 
         &--actions {
-          flex-wrap: wrap;
           row-gap: 10px;
 
           & > button {
-            width: 100%;
+            flex: 0 0 100%;
           }
         }
       }

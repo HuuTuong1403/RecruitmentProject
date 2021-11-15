@@ -4,8 +4,7 @@ import { useState, forwardRef } from "react";
 import classes from "./style.module.scss";
 import ErrorText from "components/ErrorText";
 
-const WrappedInput = forwardRef((props, ref) => {
-  const { icon, errors } = props;
+const WrappedInput = forwardRef(({ icon, errors, type, ...props }, ref) => {
   const [visible, setVisible] = useState(false);
 
   const changeVisibleHandler = () => {
@@ -14,7 +13,7 @@ const WrappedInput = forwardRef((props, ref) => {
 
   return (
     <div className={classes.input}>
-      {props.type !== "password" ? (
+      {type !== "password" ? (
         <Input
           className={`${
             icon ? classes.input__inputfield : classes.input__noneicon
@@ -33,7 +32,7 @@ const WrappedInput = forwardRef((props, ref) => {
         />
       )}
       {icon && <div className={classes.input__prefix}>{icon}</div>}
-      {props.type === "password" && (
+      {type === "password" && (
         <div className={classes.input__suffix}>
           {visible ? (
             <AiOutlineEye onClick={changeVisibleHandler} />

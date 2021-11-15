@@ -18,18 +18,19 @@ import LoadingSuspense from "components/Loading";
 import notification from "components/Notification";
 
 const ProfilePage = () => {
-  const { t } = useTranslation();
-  const [loading, setLoading] = useState();
   ScrollTop();
+  const { t } = useTranslation();
   useTitle(`${t("Account Management")}`);
   const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(null);
+  const [loading, setLoading] = useState();
+  const systemManagerDetail = useSelector(selectSystemManageDetail);
 
   useEffect(() => {
-    dispatch(getSystemManagerDetailAsync());
-  }, [dispatch]);
-
-  const systemManagerDetail = useSelector(selectSystemManageDetail);
+    if (!systemManagerDetail) {
+      dispatch(getSystemManagerDetailAsync());
+    }
+  }, [dispatch, systemManagerDetail]);
 
   const {
     register,
@@ -86,94 +87,84 @@ const ProfilePage = () => {
 
   return (
     <div className={classes.updateProfile}>
-      <div className={classes.updateProfile__wrapped}>
-        <div className={classes["updateProfile__wrapped--title"]}>
-          {t("Personal information")}
-        </div>
-        {systemManagerDetail ? (
-          <form
-            className={classes.updateProfile__form}
-            onSubmit={handleSubmit(handleSubmitUpdateProfile)}
-          >
-            <div className={classes["updateProfile__form--left"]}>
-              <AvatarUpload
-                changeAvatar={changeAvatar}
-                src={systemManagerDetail.avatar}
-                shape="circle"
-                size={180}
+      <div className={classes.titleDashboard}>{t("Personal information")}</div>
+      {systemManagerDetail ? (
+        <form
+          className={classes.updateProfile__form}
+          onSubmit={handleSubmit(handleSubmitUpdateProfile)}
+        >
+          <div className={classes["updateProfile__form--left"]}>
+            <AvatarUpload
+              changeAvatar={changeAvatar}
+              src={systemManagerDetail.avatar}
+              shape="circle"
+              size={180}
+            />
+          </div>
+          <div className={classes["updateProfile__form--right"]}>
+            <div>
+              <InputProfileField
+                fontSize="26px"
+                bold="700"
+                placeholder={t("phd-fullname")}
+                defaultValue={systemManagerDetail.fullname}
+                {...register("fullname")}
+                errors={errors?.fullname?.message}
               />
             </div>
-            <div className={classes["updateProfile__form--right"]}>
-              <div>
-                <InputProfileField
-                  fontSize="26px"
-                  bold="700"
-                  placeholder={t("phd-fullname")}
-                  defaultValue={systemManagerDetail.fullname}
-                  {...register("fullname")}
-                  errors={errors?.fullname?.message}
-                />
-              </div>
-              <div className={classes["updateProfile__form--group"]}>
-                <LabelField label="Email:" />
-                <InputProfileField
-                  fontSize="15px"
-                  bold="normal"
-                  placeholder={systemManagerDetail.email ?? t("phd-email")}
-                  defaultValue={systemManagerDetail.email ?? ""}
-                  {...register("email")}
-                  errors={errors?.email?.message}
-                />
-              </div>
-              <div className={classes["updateProfile__form--group"]}>
-                <LabelField label={`${t("phone number")}:`} />
-                <InputProfileField
-                  fontSize="15px"
-                  bold="normal"
-                  placeholder={systemManagerDetail.phone ?? t("phd-phone")}
-                  defaultValue={systemManagerDetail.phone ?? ""}
-                  {...register("phone")}
-                  errors={errors?.phone?.message}
-                />
-              </div>
-              <div className={classes["updateProfile__form--group"]}>
-                <LabelField label={`${t("Username")}:`} />
-                <div className={classes["updateProfile__form--group--text"]}>
-                  {systemManagerDetail.username}
-                </div>
-              </div>
-              <div className={classes["updateProfile__form--actions"]}>
-                <ButtonField
-                  type="button"
-                  backgroundcolor="#dd4b39"
-                  backgroundcolorhover="#bf0000"
-                  color="#fff"
-                  radius="20px"
-                  uppercase="true"
-                  padding="8px"
-                  onClick={handleCancelSubmit}
-                >
-                  {t("Cancel")}
-                </ButtonField>
-                <ButtonField
-                  type="submit"
-                  backgroundcolor="#0a426e"
-                  backgroundcolorhover="#324554"
-                  color="#fff"
-                  radius="20px"
-                  uppercase="true"
-                  padding="8px"
-                  loading={loading}
-                >
-                  {t("Update Information")}
-                </ButtonField>
+            <div className={classes["updateProfile__form--group"]}>
+              <LabelField label="Email:" />
+              <InputProfileField
+                fontSize="15px"
+                bold="normal"
+                placeholder={systemManagerDetail.email ?? t("phd-email")}
+                defaultValue={systemManagerDetail.email ?? ""}
+                {...register("email")}
+                errors={errors?.email?.message}
+              />
+            </div>
+            <div className={classes["updateProfile__form--group"]}>
+              <LabelField label={`${t("phone number")}:`} />
+              <InputProfileField
+                fontSize="15px"
+                bold="normal"
+                placeholder={systemManagerDetail.phone ?? t("phd-phone")}
+                defaultValue={systemManagerDetail.phone ?? ""}
+                {...register("phone")}
+                errors={errors?.phone?.message}
+              />
+            </div>
+            <div className={classes["updateProfile__form--group"]}>
+              <LabelField label={`${t("Username")}:`} />
+              <div className={classes["updateProfile__form--group--text"]}>
+                {systemManagerDetail.username}
               </div>
             </div>
-          </form>
-        ) : (
-          <LoadingSuspense showText={false} />
-        )}
-      </div>
+            <div className={classes["updateProfile__form--actions"]}>
+              <ButtonField
+                type="button"
+                backgroundcolor="#dd4b39"
+                backgroundcolorhover="#bf0000"
+                uppercase
+                onClick={handleCancelSubmit}
+              >
+                {t("Cancel")}
+              </ButtonField>
+              <ButtonField
+                type="submit"
+                backgroundcolor="#0a426e"
+                backgroundcolorhover="#324554"
+                uppercase
+                loading={loading}
+              >
+                {t("Update Information")}
+              </ButtonField>
+            </div>
+          </div>
+        </form>
+      ) : (
+        <LoadingSuspense showText={false} />
+      )}
     </div>
   );
 };

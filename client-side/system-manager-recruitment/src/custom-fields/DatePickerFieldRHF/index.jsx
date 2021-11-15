@@ -3,20 +3,17 @@ import { DatePicker } from "antd";
 import { Fragment } from "react";
 import ErrorText from "components/ErrorText";
 
-
-const DatePickerFieldRHF = (props) => {
-  const {
-    control,
-    dateFormat,
-    disabledDate,
-    errors,
-    handleAddData,
-    name,
-    placeholder,
-    showTime,
-    value,
-  } = props;
-
+const DatePickerFieldRHF = ({
+  control,
+  dateFormat,
+  disabledDate,
+  errors,
+  handleAddData,
+  name,
+  placeholder,
+  showTime,
+  value,
+}) => {
   const onOk = (value) => {};
 
   return (

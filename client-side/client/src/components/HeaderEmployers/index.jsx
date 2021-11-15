@@ -14,16 +14,17 @@ import { RiFileList3Line } from "react-icons/ri";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { selectEmployerLocal } from "features/Employers/slices/selectors";
 import { useDispatch } from "react-redux";
-import { useHistory, NavLink, Link } from "react-router-dom";
+import { useHistory, NavLink, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useWindowSize } from "../../common/hook/useWindowSize";
+import { useWindowSize } from "common/hook/useWindowSize";
 import classes from "./style.module.scss";
 import notification from "components/Notification";
 import ReactCountryFlag from "react-country-flag";
 
 const HeaderEmployers = () => {
   const history = useHistory();
+  const location = useLocation();
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(localStorage.getItem("lang") || "en-ES");
@@ -109,7 +110,7 @@ const HeaderEmployers = () => {
             >
               <DropdownToggle caret>
                 <Link
-                  to={`/employers/dashboard/my-profile`}
+                  to={`/employers/dashboard/statistics`}
                   onClick={toggleMenuChildClick}
                 >
                   <MdAccountCircle
@@ -119,15 +120,6 @@ const HeaderEmployers = () => {
                 </Link>
               </DropdownToggle>
               <DropdownMenu>
-                <Link
-                  className={classes["header__lang--profile"]}
-                  to={`/employers/dashboard/my-profile`}
-                >
-                  <MdAccountCircle
-                    className={classes["header__link--person"]}
-                  />
-                  {t("Account Management")}
-                </Link>
                 <Link
                   className={classes["header__lang--profile"]}
                   to={`/employers/dashboard/post-job`}
@@ -160,13 +152,22 @@ const HeaderEmployers = () => {
                 </Link>
                 <Link
                   className={classes["header__lang--profile"]}
+                  to={`/employers/dashboard/my-profile`}
+                >
+                  <MdAccountCircle
+                    className={classes["header__link--person"]}
+                  />
+                  {t("Account Management")}
+                </Link>
+                <Link
+                  className={classes["header__lang--profile"]}
                   to={`/employers/dashboard/setting-account`}
                 >
                   <MdSettings className={classes["header__link--person"]} />
                   {t("Settings")}
                 </Link>
                 <Link
-                  to="/"
+                  to={location.pathname}
                   className={classes["header__lang--profile"]}
                   onClick={logoutHandler}
                 >

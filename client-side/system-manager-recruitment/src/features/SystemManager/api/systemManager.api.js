@@ -38,12 +38,12 @@ export const issueAccountEmployer = async (payload) => {
 
 export const getSystemManagerDetail = async () => {
   try {
-    const res = await axiosClient.get("system-manager")
+    const res = await axiosClient.get("system-manager");
     return res;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const updatePasswordSystemManager = async (payload) => {
   try {
@@ -56,7 +56,45 @@ export const updatePasswordSystemManager = async (payload) => {
 
 export const upadteProfileSystemManager = async (payload) => {
   try {
-    const res = axiosClient.patch("system-manager/updateMe", payload);
+    const res = await axiosClient.patch("system-manager/updateMe", payload);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchAllJob = async () => {
+  try {
+    const res = await axiosClient.get("system-manager/jobs/view/all");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchAllJobDeleted = async () => {
+  try {
+    const res = await axiosClient.get("system-manager/jobs/soft-delete/trash");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const approveJobPosting = async (payload) => {
+  try {
+    const res = await axiosClient.patch(
+      `system-manager/jobs/${payload}/approve`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const denyJobPosting = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`system-manager/jobs/${payload}/deny`);
     return res;
   } catch (error) {
     console.log(error);

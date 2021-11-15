@@ -1,18 +1,11 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .updateProfile {
   padding: $pm-10;
   background-color: $fifth-color;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-
-  &__wrapped {
-    &--title {
-      font-size: $text-3xl;
-      font-weight: 700;
-      border-bottom: 1px solid #e8e8e8;
-    }
-  }
 
   &__form {
     padding: $pm-10;
@@ -54,7 +47,7 @@
 
     &--actions {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       padding: $pm-10 0;
@@ -69,58 +62,15 @@
 
 @media screen and (max-width: 1024px) {
   .updateProfile {
-    &__wrapped {
-      &--title {
-        font-size: $text-2xl;
-        text-align: center;
-      }
-    }
-
     &__form {
       justify-content: space-between;
+
       &--left {
         text-align: center;
-        flex: 0 0 25%;
-      }
-
-      &--right {
-        flex: 0 0 70%;
       }
 
       &--group {
-        display: flex;
-        align-items: center;
         margin-top: $pm-2;
-        flex-wrap: wrap;
-
-        & label {
-          margin-bottom: 0;
-          flex: 0 0 15%;
-          color: $primary-color;
-          font-weight: 700;
-        }
-
-        & div {
-          flex: 0 0 75%;
-        }
-
-        &--text {
-          font-size: 15px;
-          color: $primary-color;
-        }
-      }
-
-      &--actions {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        padding: $pm-10 0;
-        row-gap: 10px;
-
-        & > button {
-          flex: 0 0 48%;
-        }
       }
     }
   }
@@ -129,13 +79,6 @@
 @media screen and (max-width: 600px) {
   .updateProfile {
     padding: $pm-4;
-
-    &__wrapped {
-      &--title {
-        font-size: $text-xl;
-        text-align: center;
-      }
-    }
 
     &__form {
       &--left {

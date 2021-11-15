@@ -1,8 +1,9 @@
 import { clearNullObject } from "common/functions";
-import { fetchJobsSearchAsync } from "features/Jobs/slices/thunks";
 import { fetchAllFavoriteJobAsync } from "features/JobSeekers/slices/thunks";
+import { fetchJobsSearchAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect } from "react";
 import { ScrollTop } from "common/functions";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useTitle } from "common/hook/useTitle";
@@ -23,6 +24,8 @@ const SearchJobPage = () => {
   const createdAt = query.get("createdAt");
   const skills = query.get("skills");
   const companyName = query.get("companyName");
+  const employer = selectEmployerLocal();
+  const token = localStorage.getItem("token");
 
   let filter = clearNullObject({
     companyName,
@@ -71,15 +74,17 @@ const SearchJobPage = () => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      dispatch(fetchAllFavoriteJobAsync());
+    if (!employer) {
+      if (token) {
+        dispatch(fetchAllFavoriteJobAsync());
+      }
     }
-  }, [dispatch]);
+  }, [dispatch, token, employer]);
 
   return (
     <Fragment>
       <SearchHeader />
-      <JobSearchList />
+      <JobSearchList employer={employer} />
     </Fragment>
   );
 };

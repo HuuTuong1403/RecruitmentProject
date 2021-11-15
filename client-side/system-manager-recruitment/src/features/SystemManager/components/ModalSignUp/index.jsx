@@ -13,8 +13,7 @@ import InputField from "custom-fields/InputField";
 import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
 
-const ModalSignUp = (props) => {
-  const { showModal, onCloseModal, id } = props;
+const ModalSignUp = ({ showModal, onCloseModal, id }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -96,10 +95,8 @@ const ModalSignUp = (props) => {
               <div>
                 <ButtonField
                   backgroundcolor="#ff4d4f"
-                  color="#fff"
                   backgroundcolorhover="#ff7875"
                   radius="5px"
-                  width="100%"
                   onClick={() => {
                     reset();
                   }}
@@ -112,12 +109,10 @@ const ModalSignUp = (props) => {
                   type="submit"
                   backgroundcolor="#0a426e"
                   backgroundcolorhover="#324554"
-                  color="#fff"
                   radius="5px"
-                  width="100%"
                   loading={loading}
                 >
-                  {t("Sign up")}
+                  {t("Create account")}
                 </ButtonField>
               </div>
             </div>

@@ -246,7 +246,7 @@ const TableJobsApplication = ({
       salary: `${
         job.salary.min
           ? `${job.salary.min} - ${job.salary.max} ${job.salary.type}`
-          : job.salary.type
+          : t(job.salary.type)
       }`,
       status: status,
       action: {

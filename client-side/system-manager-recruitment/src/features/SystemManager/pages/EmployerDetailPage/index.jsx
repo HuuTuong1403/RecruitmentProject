@@ -11,7 +11,7 @@ import {
 import EmployerDetail from "features/SystemManager/components/EmployerDetail";
 import Loading from "components/Loading";
 
-const EmployerDetailPage = (props) => {
+const EmployerDetailPage = () => {
   ScrollTop();
   const { id } = useParams();
   const dispatch = useDispatch();

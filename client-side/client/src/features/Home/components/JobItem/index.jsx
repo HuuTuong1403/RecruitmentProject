@@ -1,10 +1,12 @@
 import { BiDollarCircle } from "react-icons/bi";
 import { Link, useHistory } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 
 const JobItem = ({ job }) => {
   const { jobTitle, salary, location, company, slug } = job;
+  const { t } = useTranslation();
   const history = useHistory();
 
   const handleClickImage = (companyName) => {
@@ -43,7 +45,7 @@ const JobItem = ({ job }) => {
             <div>
               {salary.min
                 ? `${salary.min} - ${salary.max} ${salary.type}`
-                : `${salary.type}`}
+                : t(salary.type)}
             </div>
           </div>
           {location.city && (

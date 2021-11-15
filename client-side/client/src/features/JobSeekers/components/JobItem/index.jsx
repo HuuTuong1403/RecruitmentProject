@@ -81,10 +81,10 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
           <div className={classes["jobItem__figure--figcaption--salary"]}>
             <div>
               <BiDollarCircle style={{ marginRight: "5px" }} />
-              {`${t("Salary")}`}:{" "}
+              {t("Salary")}:{" "}
               {salary.min
                 ? `${salary.min} - ${salary.max} ${salary.type}`
-                : `${salary.type}`}
+                : t(salary.type)}
             </div>
             <div>
               <MdLocationOn style={{ marginRight: "5px" }} />

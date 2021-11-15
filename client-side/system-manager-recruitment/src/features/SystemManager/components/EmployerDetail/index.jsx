@@ -6,6 +6,7 @@ import {
 } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { Fragment, useState } from "react";
 import { MdLocationOn, MdLocationCity, MdWork } from "react-icons/md";
 import { useHistory } from "react-router-dom";
@@ -16,8 +17,7 @@ import classes from "./style.module.scss";
 import ModalSignUp from "../ModalSignUp";
 import moment from "moment";
 
-const EmployerDetail = (props) => {
-  const { employer } = props;
+const EmployerDetail = ({ employer }) => {
   const { t } = useTranslation();
   const history = useHistory();
   const [showModal, setShhowModal] = useState(false);
@@ -38,7 +38,7 @@ const EmployerDetail = (props) => {
   const dataSource = [
     {
       title: `${t("Register date")}`,
-      data: moment(employer.createdAt).format("DD/MM/yyyy"),
+      data: moment(employer.createdAt).format(dateFormatPicker),
       icon: <AiOutlineCalendar />,
     },
     {
@@ -114,9 +114,9 @@ const EmployerDetail = (props) => {
                 <div>
                   <ButtonField
                     backgroundcolor="#ff4d4f"
-                    color="#fff"
                     backgroundcolorhover="#ff7875"
                     radius="5px"
+                    padding="5px"
                   >
                     {t("Reject")}
                   </ButtonField>
@@ -124,9 +124,9 @@ const EmployerDetail = (props) => {
                 <div>
                   <ButtonField
                     backgroundcolor="#067951"
-                    color="#fff"
                     backgroundcolorhover="#2baa7e"
                     radius="5px"
+                    padding="5px"
                     onClick={onOpenModal}
                   >
                     {t("approve")}

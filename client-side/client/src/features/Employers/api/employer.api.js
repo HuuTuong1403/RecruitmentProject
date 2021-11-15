@@ -279,3 +279,25 @@ export const deleteEvent = async (payload) => {
     console.log(error);
   }
 };
+
+export const fetchApplicationStatistic = async () => {
+  try {
+    const res = await axiosClient.get(
+      "employer/applications/statistic/application-stat"
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchParticipantStatistic = async () => {
+  try {
+    const res = await axiosClient.get(
+      "employer/participants/statistic/participant-stats"
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

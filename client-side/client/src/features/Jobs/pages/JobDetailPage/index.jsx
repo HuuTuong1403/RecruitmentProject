@@ -7,20 +7,6 @@ import {
   removeJobOfFavorire,
 } from "features/JobSeekers/slices";
 import {
-  fetchAllFavoriteJobAsync,
-  fetchAllJobApplicationAsync,
-} from "features/JobSeekers/slices/thunks";
-import { AiOutlineGlobal } from "react-icons/ai";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { dateFormatPicker } from "common/constants/dateFormat";
-import { FaBuilding } from "react-icons/fa";
-import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
-import { Fragment, useEffect, useCallback, useState } from "react";
-import { IoMdCalendar } from "react-icons/io";
-import { Link, useParams, useHistory } from "react-router-dom";
-import { MdLocationOn } from "react-icons/md";
-import { ScrollTop } from "common/functions";
-import {
   selectedJobDetail,
   selectedStatus,
 } from "features/Jobs/slices/selectors";
@@ -28,6 +14,20 @@ import {
   selectFavoriteJobs,
   selectApplicationJobs,
 } from "features/JobSeekers/slices/selectors";
+import { AiOutlineHeart, AiFillHeart, AiOutlineGlobal } from "react-icons/ai";
+import { dateFormatPicker } from "common/constants/dateFormat";
+import { FaBuilding } from "react-icons/fa";
+import {
+  fetchAllFavoriteJobAsync,
+  fetchAllJobApplicationAsync,
+} from "features/JobSeekers/slices/thunks";
+import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
+import { Fragment, useEffect, useCallback, useState } from "react";
+import { IoMdCalendar } from "react-icons/io";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { MdLocationOn } from "react-icons/md";
+import { ScrollTop } from "common/functions";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { Tooltip } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -37,22 +37,25 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
 import ModalApplyJob from "features/Jobs/components/ModalApplyJob";
+import ModalSignIn from "components/ModalSignIn";
 import moment from "moment";
 import notification from "components/Notification";
 import parse from "html-react-parser";
-import ModalSignIn from "components/ModalSignIn";
 
 const JobDetailPage = () => {
   ScrollTop();
-  const { slug } = useParams();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const user = selectJobSeekerLocal();
+  const { slug } = useParams();
   const history = useHistory();
-  const favoriteJobs = useSelector(selectFavoriteJobs);
-  const token = localStorage.getItem("token");
-  const applicationJobs = useSelector(selectApplicationJobs);
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const token = localStorage.getItem("token");
+  const user = selectJobSeekerLocal();
+  const employer = selectEmployerLocal();
+  const favoriteJobs = useSelector(selectFavoriteJobs);
+  const applicationJobs = useSelector(selectApplicationJobs);
+  const jobDetail = useSelector(selectedJobDetail);
+  const loading = useSelector(selectedStatus);
 
   const getDetail = useCallback(async () => {
     const result = await dispatch(fetchJobDetailAsync(slug));
@@ -66,19 +69,18 @@ const JobDetailPage = () => {
   }, [getDetail]);
 
   useEffect(() => {
-    if (token) {
-      dispatch(fetchAllFavoriteJobAsync());
-      dispatch(fetchAllJobApplicationAsync());
+    if (!employer) {
+      if (token) {
+        dispatch(fetchAllFavoriteJobAsync());
+        dispatch(fetchAllJobApplicationAsync());
+      }
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, employer]);
 
-  const jobDetail = useSelector(selectedJobDetail);
-  const loading = useSelector(selectedStatus);
   const {
     _id,
     workingTime,
     company,
-    scale,
     location,
     benefits,
     description,
@@ -128,6 +130,18 @@ const JobDetailPage = () => {
           "error"
         );
       }
+    } else {
+      if (employer) {
+        notification(`${t("Please log out of the employer account")}`, "error");
+      } else {
+        setShowModal(true);
+      }
+    }
+  };
+
+  const applyJobHandler = () => {
+    if (employer) {
+      notification(`${t("Please log out of the employer account")}`, "error");
     } else {
       setShowModal(true);
     }
@@ -233,7 +247,7 @@ const JobDetailPage = () => {
                       backgroundcolor="#0a426e"
                       backgroundcolorhover="#324554"
                       uppercase
-                      onClick={() => setShowModal(true)}
+                      onClick={applyJobHandler}
                     >
                       {t("Apply now")}
                     </ButtonField>
@@ -407,15 +421,7 @@ const JobDetailPage = () => {
                         <span>
                           {salary.min
                             ? `${salary.min} - ${salary.max} ${salary.type}`
-                            : `${salary.type}`}
-                        </span>
-                      </div>
-                    )}
-                    {scale && (
-                      <div>
-                        {t("Quantity")}:{" "}
-                        <span>
-                          {scale} {t("people")}
+                            : t(salary.type)}
                         </span>
                       </div>
                     )}
@@ -451,7 +457,7 @@ const JobDetailPage = () => {
                           backgroundcolor="#0a426e"
                           backgroundcolorhover="#324554"
                           uppercase
-                          onClick={() => setShowModal(true)}
+                          onClick={applyJobHandler}
                         >
                           {t("Apply now")}
                         </ButtonField>

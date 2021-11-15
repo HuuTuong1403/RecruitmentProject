@@ -1,4 +1,3 @@
-import "antd/dist/antd.css";
 import { FiLock, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { schemaSignIn } from "common/constants/schema";
@@ -87,11 +86,7 @@ const SignInPage = () => {
             type="submit"
             backgroundcolor="#0a426e"
             backgroundcolorhover="#324554"
-            color="#fff"
-            width="100%"
-            radius="20px"
-            uppercase="true"
-            padding="10px"
+            uppercase
             loading={loading}
           >
             {t("signin")}

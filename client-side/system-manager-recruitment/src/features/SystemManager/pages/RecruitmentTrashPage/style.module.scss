@@ -1,0 +1,9 @@
+@import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
+
+.recruitment {
+  padding: $pm-10;
+  background-color: $fifth-color;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}

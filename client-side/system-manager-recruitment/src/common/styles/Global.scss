@@ -1,0 +1,83 @@
+.statusDenied {
+  background-color: red;
+}
+
+.statusUnapproval {
+  background-color: $third-text;
+}
+
+.view {
+  color: $primary-color;
+}
+
+.approval {
+  color: green;
+}
+
+.denied {
+  color: red;
+}
+
+.statusApproval {
+  background-color: green;
+}
+
+.titleDashboard {
+  font-size: $text-3xl;
+  font-weight: 700;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.subTitleDashboard {
+  font-size: $text-xl;
+  font-weight: 600;
+  padding: $pm-10 0;
+}
+
+.listItem {
+  margin: $pm-14 $pm-6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.isNew {
+  position: absolute;
+  padding: 1px $pm-8;
+  background-color: red;
+  color: white;
+  font-size: $text-sm;
+}
+
+.status {
+  position: absolute;
+  padding: 1px 8px;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 900px) {
+  .titleDashboard {
+    font-size: $text-2xl;
+    text-align: center;
+  }
+
+  .subTitleDashboard {
+    font-size: $text-xl;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .titleDashboard {
+    font-size: $text-xl;
+    text-align: center;
+  }
+
+  .subTitleDashboard {
+    font-size: $text-lg;
+    text-align: center;
+  }
+}

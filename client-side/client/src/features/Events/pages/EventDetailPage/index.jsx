@@ -1,18 +1,14 @@
+import { Avatar, Tooltip } from "antd";
 import {
   dateFormatISO8601,
   dateFormatHourMinute,
 } from "common/constants/dateFormat";
+import { FaUsers } from "react-icons/fa";
+import { fetchDetailEventAsync } from "features/Events/slices/thunks";
 import {
   getDetailJobSeekerAsync,
   fetchAllEventJoinedAsync,
 } from "features/JobSeekers/slices/thunks";
-import {
-  selectEventDetail,
-  selectStatus,
-} from "features/Events/slices/selectors";
-import { Avatar, Tooltip } from "antd";
-import { FaUsers } from "react-icons/fa";
-import { fetchDetailEventAsync } from "features/Events/slices/thunks";
 import { MdAccessTime, MdEventAvailable, MdEventBusy } from "react-icons/md";
 import { ScrollTop } from "common/functions";
 import {
@@ -20,6 +16,11 @@ import {
   selectJobSeekerLocal,
   selectEventsJoined,
 } from "features/JobSeekers/slices/selectors";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
+import {
+  selectEventDetail,
+  selectStatus,
+} from "features/Events/slices/selectors";
 import { useCallback, useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
@@ -31,6 +32,7 @@ import LoadingSuspense from "components/Loading";
 import ModalJoinEvent from "features/Events/components/ModalJoinEvent";
 import ModalSignIn from "components/ModalSignIn";
 import moment from "moment";
+import notification from "components/Notification";
 import parse from "html-react-parser";
 import Slider from "react-slick";
 
@@ -46,7 +48,8 @@ const EventDetailPage = () => {
   const user = selectJobSeekerLocal();
   const token = localStorage.getItem("token");
   const joinedEvents = useSelector(selectEventsJoined);
-  const [showModal, setShhowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const employer = selectEmployerLocal();
 
   const {
     _id,
@@ -91,25 +94,31 @@ const EventDetailPage = () => {
   };
 
   const onCloseModal = () => {
-    setShhowModal(false);
+    setShowModal(false);
   };
 
   useEffect(() => {
-    if (token) {
-      dispatch(fetchAllEventJoinedAsync());
+    if (!employer) {
+      if (token) {
+        dispatch(fetchAllEventJoinedAsync());
+      }
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, employer, slug]);
 
   const applyJoinEvent = () => {
     if (user) {
       if (!jobSeeker) {
         dispatch(getDetailJobSeekerAsync());
-        setShhowModal(true);
+        setShowModal(true);
       } else {
-        setShhowModal(true);
+        setShowModal(true);
       }
     } else {
-      setShhowModal(true);
+      if (employer) {
+        notification(`${t("Please log out of the employer account")}`, "error");
+      } else {
+        setShowModal(true);
+      }
     }
   };
 

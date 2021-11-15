@@ -7,8 +7,7 @@ import classes from "./style.module.scss";
 import { useTranslation } from "react-i18next";
 import notification from "components/Notification";
 
-const AvatarUpload = (props) => {
-  const { src, shape, size, changeAvatar } = props;
+const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
   const [avatarSrc, setAvatarSrc] = useState(src);
   const fileRef = useRef(null);
   const { t } = useTranslation();

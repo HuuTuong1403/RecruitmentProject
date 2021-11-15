@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
@@ -18,9 +19,10 @@ import notification from "components/Notification";
 const SettingPage = () => {
   ScrollTop();
   const { t } = useTranslation();
+  useTitle(`${t("Setting")}`);
+  const history = useHistory();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   const {
     register,
@@ -52,10 +54,10 @@ const SettingPage = () => {
   return (
     <div className={classes.changePass}>
       <div className={classes.changePass__wrapped}>
-        <div className={classes["changePass__wrapped--title"]}>
+        <div className={classes.titleDashboard}>
           {t("System management password setting")}
         </div>
-        <div className={classes["changePass__wrapped--subTitle1"]}>
+        <div className={classes.subTitleDashboard}>
           {t("Change login password")}
         </div>
         <form
@@ -109,10 +111,7 @@ const SettingPage = () => {
                 type="button"
                 backgroundcolor="#dd4b39"
                 backgroundcolorhover="#bf0000"
-                color="#fff"
-                radius="20px"
-                uppercase="true"
-                padding="8px"
+                uppercase
                 onClick={() => reset()}
               >
                 {t("Cancel")}
@@ -121,10 +120,7 @@ const SettingPage = () => {
                 type="submit"
                 backgroundcolor="#0a426e"
                 backgroundcolorhover="#324554"
-                color="#fff"
-                radius="20px"
-                uppercase="true"
-                padding="8px"
+                uppercase
                 loading={loading}
               >
                 {t("Save")}

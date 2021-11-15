@@ -3,54 +3,80 @@ import {
   fetchAllEmployerAsync,
   fetchEmployerDetailAsync,
   getSystemManagerDetailAsync,
+  fetchAllJobAsync,
 } from "./thunks";
 
 const initialState = {
   employers: null,
   employer: null,
   systemManager: null,
+  jobs: [],
+  tabItem: "unapproval",
   status: false,
 };
 
 export const systemManagementSlice = createSlice({
   name: "systemManagement",
   initialState,
-  reducers: {},
+  reducers: {
+    changeTabsItem: (state, action) => {
+      state.tabItem = action.payload;
+    },
+  },
   extraReducers: {
+    //Fetch All Employer
     [fetchAllEmployerAsync.pending]: (state) => {
       state.status = true;
     },
     [fetchAllEmployerAsync.fulfilled]: (state, action) => {
       state.status = false;
-      state.employers = action.payload.data.employer;
+      state.employers = action.payload;
     },
     [fetchAllEmployerAsync.rejected]: (state) => {
       state.status = false;
       state.employers = null;
     },
+
+    //Fetch detail Employer
     [fetchEmployerDetailAsync.pending]: (state) => {
       state.status = true;
     },
     [fetchEmployerDetailAsync.fulfilled]: (state, action) => {
       state.status = false;
-      state.employer = action.payload.data.employer;
+      state.employer = action.payload;
     },
     [fetchEmployerDetailAsync.rejected]: (state) => {
       state.status = false;
       state.employer = null;
     },
+
+    //Get Detail System Manager
     [getSystemManagerDetailAsync.pending]: (state) => {
       state.status = true;
     },
     [getSystemManagerDetailAsync.fulfilled]: (state, action) => {
       state.status = false;
-      state.systemManager = action.payload.data.systemManager;
+      state.systemManager = action.payload;
     },
     [getSystemManagerDetailAsync.rejected]: (state) => {
       state.status = false;
       state.systemManager = null;
     },
+
+    //Fetch Data Job
+    [fetchAllJobAsync.pending]: (state) => {
+      state.status = true;
+    },
+    [fetchAllJobAsync.fulfilled]: (state, action) => {
+      state.status = false;
+      state.jobs = action.payload;
+    },
+    [fetchAllJobAsync.rejected]: (state) => {
+      state.status = false;
+      state.jobs = [];
+    },
   },
 });
 
+export const { changeTabsItem } = systemManagementSlice.actions;
 export default systemManagementSlice.reducer;

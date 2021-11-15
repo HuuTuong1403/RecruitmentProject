@@ -11,15 +11,18 @@ import { getDetailJobSeekerAsync } from "features/JobSeekers/slices/thunks";
 import { Progress, Rate } from "antd";
 import { ScrollTop } from "common/functions";
 import { selectedJobSeekerProfile } from "features/JobSeekers/slices/selectors";
+import { selectEmployerLocal } from "features/Employers/slices/selectors";
 import { useEffect, useCallback, Fragment } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 import CompanyIntroduction from "features/Jobs/components/CompanyIntroduction";
 import JobActiveItem from "features/Jobs/components/JobActiveItem";
 import LoadingSuspense from "components/Loading";
+import ModalSignIn from "components/ModalSignIn";
 import NotFoundData from "components/NotFoundData";
 import parse from "html-react-parser";
 import ReviewItem from "features/Jobs/components/ReviewItem";
@@ -34,9 +37,14 @@ const CompanyDetailPage = () => {
   const reviewsOfCampany = useSelector(selectedReviews);
   const loadingReview = useSelector(selectedStatusReview);
   const currentUser = useSelector(selectedJobSeekerProfile);
+  const [showModal, setShowModal] = useState(false);
+  const token = localStorage.getItem("token");
+  const employer = selectEmployerLocal();
+
   const isReviewed = reviewsOfCampany?.some(
     (item) => item.user?._id === currentUser?._id
   );
+
   useTitle(companyName);
 
   const getDetail = useCallback(async () => {
@@ -57,12 +65,18 @@ const CompanyDetailPage = () => {
   }, [dispatch, companyDetail]);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      if (!currentUser) {
-        dispatch(getDetailJobSeekerAsync());
+    if (!employer) {
+      if (token) {
+        if (!currentUser) {
+          dispatch(getDetailJobSeekerAsync());
+        }
       }
     }
-  }, [dispatch, currentUser]);
+  }, [dispatch, currentUser, token, employer]);
+
+  const onCloseModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <section className={classes.companyDetail}>
@@ -71,10 +85,14 @@ const CompanyDetailPage = () => {
       ) : (
         companyDetail && (
           <div className={classes.companyDetail__wrapped}>
+            <ModalSignIn showModal={showModal} onCloseModal={onCloseModal} />
+
             {/* Company Header */}
             <CompanyIntroduction
               company={companyDetail}
               isReviewed={isReviewed}
+              setShowModal={setShowModal}
+              employer={employer}
             />
 
             {/* Company Description */}

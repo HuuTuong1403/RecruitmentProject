@@ -7,12 +7,14 @@ import classes from "./style.module.scss";
 import JobSearchItem from "../JobSearchItem";
 import LoadingSuspense from "components/Loading";
 import NotFoundData from "components/NotFoundData";
+import ModalSignIn from "components/ModalSignIn";
 
-const JobSearchList = () => {
+const JobSearchList = ({ employer }) => {
   const { t } = useTranslation();
   const jobsSearch = useSelector(selectedJobs);
   const loading = useSelector(selectedStatus);
   const [value, setValue] = useState({ min: 0, max: 5 });
+  const [showModal, setShowModal] = useState(false);
   const numEachPage = 5;
 
   const handleChangePage = (val) => {
@@ -22,6 +24,8 @@ const JobSearchList = () => {
     });
   };
 
+  const onCloseModal = () => setShowModal(false);
+
   return (
     <section className={classes.searchList}>
       <div className={classes.searchList__container}>
@@ -29,6 +33,7 @@ const JobSearchList = () => {
           <LoadingSuspense height="40vh" />
         ) : (
           <Fragment>
+            <ModalSignIn onCloseModal={onCloseModal} showModal={showModal} />
             <div className={classes["searchList__container--job-found"]}>
               <div>
                 {jobsSearch.length === 0
@@ -43,7 +48,14 @@ const JobSearchList = () => {
               />
             ) : (
               jobsSearch.slice(value.min, value.max).map((job) => {
-                return <JobSearchItem key={job.slug} job={job} />;
+                return (
+                  <JobSearchItem
+                    setShowModal={setShowModal}
+                    key={job.slug}
+                    job={job}
+                    employer={employer}
+                  />
+                );
               })
             )}
             <Pagination
