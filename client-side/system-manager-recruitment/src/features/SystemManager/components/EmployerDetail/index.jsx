@@ -16,8 +16,7 @@ import classes from "./style.module.scss";
 import ModalSignUp from "../ModalSignUp";
 import moment from "moment";
 
-const EmployerDetail = (props) => {
-  const { employer } = props;
+const EmployerDetail = ({ employer }) => {
   const { t } = useTranslation();
   const history = useHistory();
   const [showModal, setShhowModal] = useState(false);
@@ -114,9 +113,9 @@ const EmployerDetail = (props) => {
                 <div>
                   <ButtonField
                     backgroundcolor="#ff4d4f"
-                    color="#fff"
                     backgroundcolorhover="#ff7875"
                     radius="5px"
+                    padding="5px"
                   >
                     {t("Reject")}
                   </ButtonField>
@@ -124,9 +123,9 @@ const EmployerDetail = (props) => {
                 <div>
                   <ButtonField
                     backgroundcolor="#067951"
-                    color="#fff"
                     backgroundcolorhover="#2baa7e"
                     radius="5px"
+                    padding="5px"
                     onClick={onOpenModal}
                   >
                     {t("approve")}

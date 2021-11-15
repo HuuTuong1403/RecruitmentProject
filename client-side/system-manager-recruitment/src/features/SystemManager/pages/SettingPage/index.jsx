@@ -14,13 +14,15 @@ import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
+import { useTitle } from "common/hook/useTitle";
 
 const SettingPage = () => {
   ScrollTop();
   const { t } = useTranslation();
+  useTitle(`${t("Setting")}`);
+  const history = useHistory();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
   const {
     register,
@@ -109,10 +111,7 @@ const SettingPage = () => {
                 type="button"
                 backgroundcolor="#dd4b39"
                 backgroundcolorhover="#bf0000"
-                color="#fff"
-                radius="20px"
-                uppercase="true"
-                padding="8px"
+                uppercase
                 onClick={() => reset()}
               >
                 {t("Cancel")}
@@ -121,10 +120,7 @@ const SettingPage = () => {
                 type="submit"
                 backgroundcolor="#0a426e"
                 backgroundcolorhover="#324554"
-                color="#fff"
-                radius="20px"
-                uppercase="true"
-                padding="8px"
+                uppercase
                 loading={loading}
               >
                 {t("Save")}

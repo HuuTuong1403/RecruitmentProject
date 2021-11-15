@@ -5,6 +5,9 @@ import MenuSystemManage from "./components/MenuSystemManage";
 import NotFoundPage from "components/404";
 
 const EmployerManagerPage = lazy(() => import("./pages/EmployerManagerPage"));
+const RecruitmentManagerPage = lazy(() =>
+  import("./pages/RecruitmentManagerPage")
+);
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const StatisticPage = lazy(() => import("./pages/StatisticPage"));
 const SettingPage = lazy(() => import("./pages/SettingPage"));
@@ -16,6 +19,7 @@ const SystemManagerPage = () => {
     <Fragment>
       <MenuSystemManage>
         <Switch>
+          <Route exact path={`${url}/statistic`} component={StatisticPage} />
           <Route
             exact
             path={`${url}/employers`}
@@ -23,11 +27,15 @@ const SystemManagerPage = () => {
           />
           <Route
             exact
+            path={`${url}/recruit-manage/created`}
+            component={RecruitmentManagerPage}
+          />
+          <Route
+            exact
             path={`${url}/employers/view/:id`}
             component={EmployerDetailPage}
           />
           <Route exact path={`${url}/my-profile`} component={ProfilePage} />
-          <Route exact path={`${url}/statistic`} component={StatisticPage} />
           <Route exact path={`${url}/setting`} component={SettingPage} />
           <Route component={NotFoundPage} />
         </Switch>

@@ -5,7 +5,7 @@ import { logoutHandler } from "features/Auth/slices";
 import { MdSettings, MdAccountCircle } from "react-icons/md";
 import { Menu, Layout } from "antd";
 import { pathSystemManager } from "common/constants/path";
-import { RiLogoutCircleRLine } from "react-icons/ri";
+import { RiLogoutCircleRLine, RiFileList3Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -16,7 +16,7 @@ import Header from "components/Header";
 import MSTLogo from "assets/images/mst_logo.png";
 import notification from "components/Notification";
 
-const MenuSystemManage = (props) => {
+const MenuSystemManage = ({ children }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -51,6 +51,13 @@ const MenuSystemManage = (props) => {
 
   const menuSystemManage = [
     {
+      key: `${pathSystemManager.statistic}`,
+      title: `${t("Statistics")}`,
+      icon: <BiLineChart className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
+    },
+    {
       key: `${pathSystemManager.employerManager}`,
       title: `${t("Employers Management")}`,
       icon: <BiBuildings className={classes.menuIcon} />,
@@ -58,16 +65,29 @@ const MenuSystemManage = (props) => {
       onClick: null,
     },
     {
+      icon: <RiFileList3Line className={classes.menuIcon} />,
+      title: `${t("recruitment manager")}`,
+      subMenu: [
+        {
+          key: pathSystemManager.recruitManager,
+          title: `${t("Job post created")}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
+        {
+          key: pathSystemManager.jobTrash,
+          title: `${t("Job posting has been deleted")}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
+      ],
+    },
+    {
       key: `${pathSystemManager.myProfile}`,
       title: `${t("Account Management")}`,
       icon: <MdAccountCircle className={classes.menuIcon} />,
-      isLink: false,
-      onClick: null,
-    },
-    {
-      key: `${pathSystemManager.statistic}`,
-      title: `${t("Statistic")}`,
-      icon: <BiLineChart className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
@@ -150,7 +170,7 @@ const MenuSystemManage = (props) => {
           isShow={isShow}
         />
         <div className={classes.sliderSystem__componentChild}>
-          <div>{props.children}</div>
+          <div>{children}</div>
         </div>
       </div>
     </div>

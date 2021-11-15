@@ -54,7 +54,7 @@
 
     &--actions {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       padding: $pm-10 0;
@@ -78,49 +78,13 @@
 
     &__form {
       justify-content: space-between;
+      
       &--left {
         text-align: center;
-        flex: 0 0 25%;
-      }
-
-      &--right {
-        flex: 0 0 70%;
       }
 
       &--group {
-        display: flex;
-        align-items: center;
         margin-top: $pm-2;
-        flex-wrap: wrap;
-
-        & label {
-          margin-bottom: 0;
-          flex: 0 0 15%;
-          color: $primary-color;
-          font-weight: 700;
-        }
-
-        & div {
-          flex: 0 0 75%;
-        }
-
-        &--text {
-          font-size: 15px;
-          color: $primary-color;
-        }
-      }
-
-      &--actions {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        flex-wrap: wrap;
-        padding: $pm-10 0;
-        row-gap: 10px;
-
-        & > button {
-          flex: 0 0 48%;
-        }
       }
     }
   }

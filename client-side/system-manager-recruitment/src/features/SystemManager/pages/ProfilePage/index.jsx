@@ -18,18 +18,19 @@ import LoadingSuspense from "components/Loading";
 import notification from "components/Notification";
 
 const ProfilePage = () => {
-  const { t } = useTranslation();
-  const [loading, setLoading] = useState();
   ScrollTop();
+  const { t } = useTranslation();
   useTitle(`${t("Account Management")}`);
   const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(null);
+  const [loading, setLoading] = useState();
+  const systemManagerDetail = useSelector(selectSystemManageDetail);
 
   useEffect(() => {
-    dispatch(getSystemManagerDetailAsync());
-  }, [dispatch]);
-
-  const systemManagerDetail = useSelector(selectSystemManageDetail);
+    if (!systemManagerDetail) {
+      dispatch(getSystemManagerDetailAsync());
+    }
+  }, [dispatch, systemManagerDetail]);
 
   const {
     register,
@@ -147,10 +148,7 @@ const ProfilePage = () => {
                   type="button"
                   backgroundcolor="#dd4b39"
                   backgroundcolorhover="#bf0000"
-                  color="#fff"
-                  radius="20px"
-                  uppercase="true"
-                  padding="8px"
+                  uppercase
                   onClick={handleCancelSubmit}
                 >
                   {t("Cancel")}
@@ -159,10 +157,7 @@ const ProfilePage = () => {
                   type="submit"
                   backgroundcolor="#0a426e"
                   backgroundcolorhover="#324554"
-                  color="#fff"
-                  radius="20px"
-                  uppercase="true"
-                  padding="8px"
+                  uppercase
                   loading={loading}
                 >
                   {t("Update Information")}

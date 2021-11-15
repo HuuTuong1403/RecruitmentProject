@@ -75,12 +75,14 @@
   "Reject": "Từ chối",
   "Save": "Lưu",
   "Setting": "Cài đặt",
+  "Create account": "Tạo tài khoản",
   "Sign in as system management": "Đăng nhập với tư cách quản lý hệ thống",
   "Sign in with account and password": "Đăng nhập với tài khoản và mật khẩu",
   "Sign up": "Đăng ký",
   "Signed in successfully": "Đăng nhập thành công",
   "signin": "Đăng nhập",
   "Sorry, the page could not be found": "Rất tiếc, không tìm thấy trang",
+  "Statistics": "Thống kê số liệu",
   "Statistic": "Thống kê",
   "Status": "Trạng thái",
   "System management password setting": "Cài đặt mật khẩu quản lý hệ thống",
@@ -91,5 +93,9 @@
   "Updated data unchanged": "Dữ liệu cập nhật không có sự thay đổi",
   "username": "Tên đăng nhập",
   "wait-moment": "Vui lòng đợi giây lát...",
-  "Work overtime": "Làm việc ngoài giờ"
+  "Work overtime": "Làm việc ngoài giờ",
+  "recruitment manager": "Quản lý tin tuyển dụng",
+  "Job post created": "Tin tuyển dụng đã tạo",
+  "Job posting has been deleted": "Tin tuyển dụng đã xóa",
+  "Recruitment": "Tin tuyển dụng"
 }

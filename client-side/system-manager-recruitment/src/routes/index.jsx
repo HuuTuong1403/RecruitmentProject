@@ -17,18 +17,20 @@ const Routers = () => {
           <Redirect
             exact
             from={pathSystemManager.dashboard}
-            to={pathSystemManager.employerManager}
+            to={pathSystemManager.statistic}
           />
           <PrivateRoute
             exact={false}
             component={SystemManagerPage}
             path={pathSystemManager.dashboard}
           />
-          <Route exact={false} path={pathSystemManager.home}>
-            <AuthPage />
-          </Route>
+          <Route
+            exact={false}
+            path={pathSystemManager.home}
+            component={AuthPage}
+          />
 
-          <Route component={NotFoundPage}/>
+          <Route component={NotFoundPage} />
         </Switch>
       </Suspense>
     </BrowserRouter>

@@ -81,7 +81,8 @@
   "Signed in successfully": "Signed in successfully",
   "signin": "Sign in",
   "Sorry, the page could not be found": "Sorry, the page could not be found",
-  "Statistic": "Statistic",
+  "Statistics": "Statistics",
+  "Create account": "Create account",
   "Status": "Status",
   "System management password setting": "System management password setting",
   "This page does not exist or has an error due to an incorrect link.": "This page does not exist or has an error due to an incorrect link.",
@@ -91,5 +92,10 @@
   "Updated data unchanged": "Updated data unchanged",
   "username": "Username",
   "wait-moment": "Please wait a moment...",
-  "Work overtime": "Work overtime"
+  "Work overtime": "Work overtime",
+  "recruitment manager": "Recruitment manager",
+  "Job post created": "Job post created",
+  "Job posting has been deleted": "Job posting has been deleted",
+  "Statistic": "Statistic",
+  "Recruitment": "Recruitment"
 }

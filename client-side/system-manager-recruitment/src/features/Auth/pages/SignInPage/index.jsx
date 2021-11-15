@@ -87,11 +87,7 @@ const SignInPage = () => {
             type="submit"
             backgroundcolor="#0a426e"
             backgroundcolorhover="#324554"
-            color="#fff"
-            width="100%"
-            radius="20px"
-            uppercase="true"
-            padding="10px"
+            uppercase
             loading={loading}
           >
             {t("signin")}

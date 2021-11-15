@@ -17,3 +17,7 @@ export const selectEmployer = (state) => {
 export const selectSystemManageDetail = (state) => {
   return state?.systemManagement?.systemManager;
 };
+
+export const selectAllJobs = (state) => {
+  return state?.systemManagement?.jobs;
+};
