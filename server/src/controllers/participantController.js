@@ -83,6 +83,9 @@ class participantController {
   getAllParticipant = factory.getAll(Participant);
   getDetailParticipant = factory.getOne(Participant);
   setQueryParticipantManagement = (req, res, next) => {
+    if (req.params.idEvent) {
+      req.query.event = req.params.idEvent;
+    }
     if (req.query.fullName) {
       req.query.fullName = { $regex: req.query.fullName, $options: 'si' };
     }

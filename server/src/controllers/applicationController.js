@@ -237,5 +237,51 @@ class applicationController {
       },
     });
   });
+  getApplicationTodayYesterday = catchAsync(async (req, res, next) => {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+    const year = today.getFullYear();
+    const application = await Application.aggregate([
+      {
+        $lookup: {
+          from: 'jobs', /// Name collection from database, not name from exported schema
+          localField: 'job',
+          foreignField: '_id',
+          as: 'fromjob',
+        },
+      },
+      {
+        $unwind: '$fromjob',
+      }, //
+      {
+        $match: {
+          'fromjob.company': mongoose.Types.ObjectId(req.user.id),
+        },
+      },
+      {
+        $redact: {
+          $cond: [
+            { $eq: [{ $year: '$createdAt' }, year] },
+            '$$KEEP',
+            '$$PRUNE',
+          ],
+        },
+      },
+      {
+        $match: { createdAt: { $gte: yesterday, $lte: today } },
+      },
+      // {
+      //   $group: { _id: '$fromjob.jobTitle', count: { $sum: 1 } },
+      // },
+    ]);
+    res.status(200).json({
+      status: 'success',
+      lengh: application.length,
+      data: {
+        data: application,
+      },
+    });
+  });
 }
 module.exports = new applicationController();

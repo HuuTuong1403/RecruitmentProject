@@ -64,4 +64,7 @@ applicationRouter
 applicationRouter
   .route('/statistic/application-stat')
   .get(applicationController.getApplicationStas);
+applicationRouter
+  .route('/statistic/application-comp')
+  .get(applicationController.getApplicationTodayYesterday);
 module.exports = applicationRouter;
