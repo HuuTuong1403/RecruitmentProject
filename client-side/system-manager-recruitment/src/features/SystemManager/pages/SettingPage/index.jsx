@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
@@ -14,7 +15,6 @@ import classes from "./style.module.scss";
 import InputField from "custom-fields/InputField";
 import LabelField from "custom-fields/LabelField";
 import notification from "components/Notification";
-import { useTitle } from "common/hook/useTitle";
 
 const SettingPage = () => {
   ScrollTop();
@@ -54,10 +54,10 @@ const SettingPage = () => {
   return (
     <div className={classes.changePass}>
       <div className={classes.changePass__wrapped}>
-        <div className={classes["changePass__wrapped--title"]}>
+        <div className={classes.titleDashboard}>
           {t("System management password setting")}
         </div>
-        <div className={classes["changePass__wrapped--subTitle1"]}>
+        <div className={classes.subTitleDashboard}>
           {t("Change login password")}
         </div>
         <form

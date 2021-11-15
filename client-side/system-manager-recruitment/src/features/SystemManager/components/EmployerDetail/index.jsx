@@ -6,6 +6,7 @@ import {
 } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import { BsPeopleFill } from "react-icons/bs";
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { Fragment, useState } from "react";
 import { MdLocationOn, MdLocationCity, MdWork } from "react-icons/md";
 import { useHistory } from "react-router-dom";
@@ -37,7 +38,7 @@ const EmployerDetail = ({ employer }) => {
   const dataSource = [
     {
       title: `${t("Register date")}`,
-      data: moment(employer.createdAt).format("DD/MM/yyyy"),
+      data: moment(employer.createdAt).format(dateFormatPicker),
       icon: <AiOutlineCalendar />,
     },
     {

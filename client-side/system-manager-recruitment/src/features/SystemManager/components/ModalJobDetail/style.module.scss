@@ -1,0 +1,242 @@
+@import "common/styles/Variables.scss";
+
+.jobDetail {
+  background-color: #d9edee;
+
+  &__top {
+    background-color: #fff;
+
+    &--wrapped {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    &--right {
+      flex: 0 0 25%;
+      padding: 0 $pm-14;
+      text-align: center;
+
+      & > img {
+        border: 1px solid #e8e8e8;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        padding: $pm-4;
+        width: 100%;
+        max-width: 200px;
+      }
+    }
+
+    &--left {
+      flex: 0 0 75%;
+      margin-top: $pm-10;
+      padding: 0 $pm-14;
+
+      &--jobTitle {
+        font-size: $text-2xl;
+        font-weight: 700;
+        color: $third-text;
+      }
+
+      &--companyName {
+        font-size: $text-lg;
+      }
+
+      &--website {
+        text-decoration: none !important;
+      }
+
+      &--deadline {
+        font-size: $text-base;
+      }
+
+      &--actions {
+        margin-top: $pm-6;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+
+        & > button {
+          flex: 0 0 48%;
+        }
+      }
+    }
+  }
+
+  &__content {
+    font-size: $text-lg;
+
+    &--map {
+      margin-top: $pm-20;
+      padding: $pm-20;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+
+      &--title {
+        border-bottom: 1px solid #e6e6e6;
+        padding-bottom: $pm-10;
+        font-size: $text-base;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      &--iframe {
+        width: 100%;
+        height: 400px;
+      }
+
+      &--location {
+        line-height: 20px;
+        font-size: $text-base;
+        color: $primary-text;
+        margin: $pm-10 0;
+      }
+    }
+
+    &--wrapped {
+      padding: $pm-10 $pm-20;
+
+      &--title {
+        margin: $pm-10 0;
+        text-transform: uppercase;
+        font-size: 20px;
+        font-weight: 700;
+        color: #212f3f;
+      }
+
+      &--content {
+        margin-left: $pm-12;
+      }
+
+      &--table {
+        margin-top: $pm-20;
+        border: 1px solid #e8e8e8;
+
+        &--top {
+          background-color: $primary-color;
+          padding: $pm-10;
+          color: #fff;
+        }
+
+        &--bottom {
+          padding: $pm-10;
+
+          & > div {
+            padding: $pm-8 $pm-10;
+            border-bottom: 1px solid #e8e8e8;
+            font-weight: 700;
+
+            & > span {
+              font-weight: 400;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.container {
+  display: flex;
+  font-size: $text-lg;
+  row-gap: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  &__card-skill {
+    padding: 3px 6px;
+    border: 1px solid #d2d3d3;
+    color: #575656;
+    border-radius: 5px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .jobDetail {
+    &__top {
+      &--right {
+        flex: 0 0 100%;
+        padding: 0;
+
+        & > img {
+          max-width: 200px;
+        }
+      }
+
+      &--left {
+        flex: 0 0 100%;
+        padding: 0;
+
+        &--jobTitle {
+          font-size: $text-xl;
+        }
+
+        &--companyName {
+          font-size: $text-base;
+        }
+
+        &--deadline {
+          font-size: $text-base;
+        }
+
+        &--actions {
+          flex-direction: column-reverse;
+          & > button {
+            flex: 0 0 100%;
+          }
+        }
+      }
+    }
+
+    &__content {
+      font-size: $text-base;
+
+      &--map {
+        margin-top: $pm-14;
+        padding: $pm-10 0 0 0;
+
+        &--iframe {
+          width: 100%;
+          height: 300px;
+        }
+
+        &--location {
+          font-size: $text-sm;
+          margin: $pm-10;
+        }
+      }
+
+      &--wrapped {
+        padding: $pm-10 0;
+
+        &--title {
+          margin: $pm-10 0;
+          font-size: $text-lg;
+        }
+
+        &--content {
+          margin-left: $pm-6;
+        }
+
+        &--table {
+          margin-top: $pm-20;
+
+          &--bottom {
+            padding: $pm-10 0;
+
+            & > div {
+              padding: $pm-8 $pm-10;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .container {
+    font-size: $text-xs;
+  }
+}

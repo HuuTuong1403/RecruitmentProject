@@ -21,3 +21,7 @@ export const selectSystemManageDetail = (state) => {
 export const selectAllJobs = (state) => {
   return state?.systemManagement?.jobs;
 };
+
+export const selectTabsItem = (state) => {
+  return state?.systemManagement?.tabItem;
+};

@@ -34,7 +34,6 @@ export const fetchAllJobAsync = createAsyncThunk(
   "systemManagement/fetchAllJob",
   async () => {
     const response = await fetchAllJob();
-    console.log(response);
     return response.data.data;
   }
 );

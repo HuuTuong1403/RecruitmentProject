@@ -14,8 +14,7 @@ import {
   selectFavoriteJobs,
   selectApplicationJobs,
 } from "features/JobSeekers/slices/selectors";
-import { AiOutlineGlobal } from "react-icons/ai";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiOutlineGlobal } from "react-icons/ai";
 import { dateFormatPicker } from "common/constants/dateFormat";
 import { FaBuilding } from "react-icons/fa";
 import {
@@ -82,7 +81,6 @@ const JobDetailPage = () => {
     _id,
     workingTime,
     company,
-    scale,
     location,
     benefits,
     description,
@@ -423,15 +421,7 @@ const JobDetailPage = () => {
                         <span>
                           {salary.min
                             ? `${salary.min} - ${salary.max} ${salary.type}`
-                            : `${salary.type}`}
-                        </span>
-                      </div>
-                    )}
-                    {scale && (
-                      <div>
-                        {t("Quantity")}:{" "}
-                        <span>
-                          {scale} {t("people")}
+                            : t(salary.type)}
                         </span>
                       </div>
                     )}

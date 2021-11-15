@@ -1,4 +1,3 @@
-import "antd/dist/antd.css";
 import { BiBuildings, BiLineChart } from "react-icons/bi";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { logoutHandler } from "features/Auth/slices";

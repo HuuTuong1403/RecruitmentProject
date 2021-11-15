@@ -1,13 +1,13 @@
 @import "common/styles/Variables.scss";
 
 a {
-  color: #5d677a;
+  color: $primary-text !important;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
 }
 
 a:hover {
-  color: #f79d25;
+  color: $third-text !important;
   text-decoration: underline;
 }
 

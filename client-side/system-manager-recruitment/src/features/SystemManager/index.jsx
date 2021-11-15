@@ -5,12 +5,13 @@ import MenuSystemManage from "./components/MenuSystemManage";
 import NotFoundPage from "components/404";
 
 const EmployerManagerPage = lazy(() => import("./pages/EmployerManagerPage"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const RecruitmentManagerPage = lazy(() =>
   import("./pages/RecruitmentManagerPage")
 );
-const ProfilePage = lazy(() => import("./pages/ProfilePage"));
-const StatisticPage = lazy(() => import("./pages/StatisticPage"));
+const RecruitmentTrashPage = lazy(() => import("./pages/RecruitmentTrashPage"));
 const SettingPage = lazy(() => import("./pages/SettingPage"));
+const StatisticPage = lazy(() => import("./pages/StatisticPage"));
 
 const SystemManagerPage = () => {
   const { url } = useRouteMatch();
@@ -29,6 +30,11 @@ const SystemManagerPage = () => {
             exact
             path={`${url}/recruit-manage/created`}
             component={RecruitmentManagerPage}
+          />
+          <Route
+            exact
+            path={`${url}/recruit-manage/trash`}
+            component={RecruitmentTrashPage}
           />
           <Route
             exact

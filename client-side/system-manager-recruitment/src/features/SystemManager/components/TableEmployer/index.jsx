@@ -1,3 +1,4 @@
+import { dateFormatPicker } from "common/constants/dateFormat";
 import { Table } from "antd";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -6,7 +7,6 @@ import moment from "moment";
 
 const TableEmployer = ({ employerList }) => {
   const { t } = useTranslation();
-  const dateFormat = "DD/MM/yyyy";
   const history = useHistory();
   const { url } = useRouteMatch();
 
@@ -60,7 +60,7 @@ const TableEmployer = ({ employerList }) => {
     companyName: employer.companyName,
     email: employer.email,
     phoneNumber: employer.phone,
-    createdAt: moment(employer?.createdAt).format(dateFormat),
+    createdAt: moment(employer?.createdAt).format(dateFormatPicker),
     status: employer.status,
   }));
 

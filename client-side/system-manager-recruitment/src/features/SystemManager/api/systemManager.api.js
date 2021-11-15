@@ -71,3 +71,32 @@ export const fetchAllJob = async () => {
     console.log(error);
   }
 };
+
+export const fetchAllJobDeleted = async () => {
+  try {
+    const res = await axiosClient.get("system-manager/jobs/soft-delete/trash");
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const approveJobPosting = async (payload) => {
+  try {
+    const res = await axiosClient.patch(
+      `system-manager/jobs/${payload}/approve`
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const denyJobPosting = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`system-manager/jobs/${payload}/deny`);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

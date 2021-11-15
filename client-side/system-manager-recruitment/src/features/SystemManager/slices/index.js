@@ -10,14 +10,19 @@ const initialState = {
   employers: null,
   employer: null,
   systemManager: null,
-  jobs: null,
+  jobs: [],
+  tabItem: "unapproval",
   status: false,
 };
 
 export const systemManagementSlice = createSlice({
   name: "systemManagement",
   initialState,
-  reducers: {},
+  reducers: {
+    changeTabsItem: (state, action) => {
+      state.tabItem = action.payload;
+    },
+  },
   extraReducers: {
     //Fetch All Employer
     [fetchAllEmployerAsync.pending]: (state) => {
@@ -68,9 +73,10 @@ export const systemManagementSlice = createSlice({
     },
     [fetchAllJobAsync.rejected]: (state) => {
       state.status = false;
-      state.jobs = null;
+      state.jobs = [];
     },
   },
 });
 
+export const { changeTabsItem } = systemManagementSlice.actions;
 export default systemManagementSlice.reducer;

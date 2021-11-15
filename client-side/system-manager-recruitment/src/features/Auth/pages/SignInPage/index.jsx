@@ -1,4 +1,3 @@
-import "antd/dist/antd.css";
 import { FiLock, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { schemaSignIn } from "common/constants/schema";

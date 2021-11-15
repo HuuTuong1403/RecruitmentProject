@@ -1,18 +1,11 @@
 @import "common/styles/Variables.scss";
+@import "common/styles/Global.scss";
 
 .updateProfile {
   padding: $pm-10;
   background-color: $fifth-color;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-
-  &__wrapped {
-    &--title {
-      font-size: $text-3xl;
-      font-weight: 700;
-      border-bottom: 1px solid #e8e8e8;
-    }
-  }
 
   &__form {
     padding: $pm-10;
@@ -69,16 +62,9 @@
 
 @media screen and (max-width: 1024px) {
   .updateProfile {
-    &__wrapped {
-      &--title {
-        font-size: $text-2xl;
-        text-align: center;
-      }
-    }
-
     &__form {
       justify-content: space-between;
-      
+
       &--left {
         text-align: center;
       }
@@ -93,13 +79,6 @@
 @media screen and (max-width: 600px) {
   .updateProfile {
     padding: $pm-4;
-
-    &__wrapped {
-      &--title {
-        font-size: $text-xl;
-        text-align: center;
-      }
-    }
 
     &__form {
       &--left {
