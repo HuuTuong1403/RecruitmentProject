@@ -10,10 +10,16 @@ import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import notification from "components/Notification";
 
-const CompanyIntroduction = ({ company, isReviewed }) => {
+const CompanyIntroduction = ({
+  company,
+  isReviewed,
+  setShowModal,
+  employer,
+}) => {
   const { t } = useTranslation();
   const history = useHistory();
   const user = selectJobSeekerLocal();
+
   const { logo, companyName, address, companyWebsite, companyType, scale } =
     company;
 
@@ -35,13 +41,11 @@ const CompanyIntroduction = ({ company, isReviewed }) => {
     if (user) {
       history.push(`/jobs/employer/${companyName}/review`);
     } else {
-      notification(
-        `${t(
-          "Please login to the job seeker account to perform this function"
-        )}`,
-        "error"
-      );
-      history.push("/home/sign-in");
+      if (employer) {
+        notification(`${t("Please log out of the employer account")}`, "error");
+      } else {
+        setShowModal(true);
+      }
     }
   };
 

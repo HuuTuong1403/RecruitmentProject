@@ -70,7 +70,8 @@ const FormEditReview = ({ review, id }) => {
       className={classes.formEdit__form}
     >
       <h3 className={classes.formEdit__title}>{t("Review form")}</h3>
-
+      <div className={classes.compulsory}>(*: {t("Compulsory")})</div>
+      
       {/* Review Rating */}
       <div className={classes.formEdit__formGroup}>
         <LabelField label={t("Overall rating")} isCompulsory />

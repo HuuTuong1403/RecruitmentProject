@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { FaGooglePlusSquare } from "react-icons/fa";
 import { FiLock, FiUser } from "react-icons/fi";
@@ -7,7 +8,6 @@ import { schemaSignInUser } from "common/constants/schema";
 import { signInGuestAsync } from "features/Home/slices/thunks";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ButtonField from "custom-fields/ButtonField";
@@ -40,8 +40,8 @@ const ModalSignIn = ({ onCloseModal, showModal }) => {
       if (isEmailVerified) {
         setLoading(false);
         notification(`${t("Signed in successfully")}`, "success");
-        history.push(location.pathname);
         onCloseModal();
+        history.push(location.pathname);
       } else {
         setLoading(false);
         setIsVerify(

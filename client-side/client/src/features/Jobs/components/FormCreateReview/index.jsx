@@ -73,7 +73,8 @@ const FormCreateReview = ({ companyDetail, companyName }) => {
       className={classes.formCreate}
     >
       <h3 className={classes.formCreate__title}>{t("Review form")}</h3>
-
+      <div className={classes.compulsory}>(*: {t("Compulsory")})</div>
+      
       {/* Review Rating */}
       <div className={classes.formCreate__formGroup}>
         <LabelField label={t("Overall rating")} isCompulsory />

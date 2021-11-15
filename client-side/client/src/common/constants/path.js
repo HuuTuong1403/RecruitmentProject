@@ -15,6 +15,7 @@ export const pathJobSeeker = {
 };
 
 export const pathEmployer = {
+  statistic: "/employers/dashboard/statistics",
   candidateProfileManage: "/employers/dashboard/candidate-profiles",
   createdEvent: "/employers/dashboard/events/created",
   deletedEvent: "/employers/dashboard/events/deleted",

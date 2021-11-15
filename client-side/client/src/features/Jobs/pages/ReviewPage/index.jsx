@@ -90,7 +90,6 @@ const ReviewPage = () => {
                   <Avatar size={150} shape="square" src={companyDetail.logo} />
                 </div>
               </h2>
-
               {isUpdate ? (
                 statusReview ? (
                   <LoadingSuspense height="40vh" />

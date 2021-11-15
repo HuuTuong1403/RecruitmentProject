@@ -1,4 +1,3 @@
-import { AiOutlineNotification } from "react-icons/ai";
 import { BsListCheck } from "react-icons/bs";
 import {
   Dropdown,
@@ -8,13 +7,13 @@ import {
 } from "reactstrap";
 import { IoMenu } from "react-icons/io5";
 import { logoutJobSeeker } from "features/Home/slices";
-import { MdSettings, MdAccountCircle } from "react-icons/md";
+import { MdSettings, MdAccountCircle, MdEvent } from "react-icons/md";
 import { MSTLogo } from "assets";
 import { resetFavoriteJob } from "features/JobSeekers/slices";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
 import { useDispatch } from "react-redux";
-import { useHistory, NavLink, Link } from "react-router-dom";
+import { useHistory, useLocation, NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "common/hook/useWindowSize";
@@ -24,6 +23,7 @@ import ReactCountryFlag from "react-country-flag";
 
 const Header = () => {
   const history = useHistory();
+  const location = useLocation();
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(localStorage.getItem("lang") || "en-ES");
   const [toggle, setToggle] = useState(false);
@@ -137,9 +137,7 @@ const Header = () => {
                   className={classes["header__lang--profile"]}
                   to={`/jobseekers/events/joined`}
                 >
-                  <AiOutlineNotification
-                    className={classes["header__link--person"]}
-                  />
+                  <MdEvent className={classes["header__link--person"]} />
                   {t("Registered events")}
                 </Link>
                 <Link
@@ -150,7 +148,7 @@ const Header = () => {
                   {t("Settings")}
                 </Link>
                 <Link
-                  to="/"
+                  to={location.pathname}
                   className={classes["header__lang--profile"]}
                   onClick={logoutHandler}
                 >

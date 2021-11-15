@@ -26,6 +26,9 @@ const RecruitManagementPage = lazy(() =>
 );
 const SettingPage = lazy(() => import("./pages/SettingPage"));
 const UpdateEventPage = lazy(() => import("./pages/UpdateEventPage"));
+const EmployerStatisticPage = lazy(() =>
+  import("./pages/EmployerStatisticPage")
+);
 
 const DashboardEmployersPage = () => {
   const { t } = useTranslation();
@@ -45,6 +48,11 @@ const DashboardEmployersPage = () => {
       <HeaderEmployers />
       <MenuEmployer>
         <Switch>
+          <Route
+            exact
+            path={`${url}/statistics`}
+            component={EmployerStatisticPage}
+          />
           <Route
             exact
             path={`${url}/my-profile`}
