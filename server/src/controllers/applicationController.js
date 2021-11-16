@@ -15,7 +15,17 @@ const pass_cv_annoucement = fs.readFileSync(
   `${__dirname}/../public/AnnoucementEmail/Passed_CV_Annoucement.html`,
   'utf-8'
 );
-
+const getDayOfYear = () => {
+  var now = new Date();
+  var start = new Date(now.getFullYear(), 0, 0);
+  var diff =
+    now -
+    start +
+    (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000;
+  var oneDay = 1000 * 60 * 60 * 24;
+  var day = Math.floor(diff / oneDay);
+  return day;
+};
 const replaceHTML = (application) => {
   let output = pass_cv_annoucement.replace(
     /{{%fullName%}}/g,
@@ -238,11 +248,14 @@ class applicationController {
     });
   });
   getApplicationTodayYesterday = catchAsync(async (req, res, next) => {
-    const today = new Date();
-    const yesterday = new Date();
-    yesterday.setDate(today.getDate() - 1);
-    const year = today.getFullYear();
-    const application = await Application.aggregate([
+    var result = {
+      past: 0,
+      current: 0,
+    };
+    const now = new Date();
+    const year = now.getFullYear();
+    const day = getDayOfYear();
+    const applications = await Application.aggregate([
       {
         $lookup: {
           from: 'jobs', /// Name collection from database, not name from exported schema
@@ -260,26 +273,50 @@ class applicationController {
         },
       },
       {
+        $addFields: {
+          day: { $dayOfYear: '$createdAt' },
+        },
+      },
+      {
         $redact: {
           $cond: [
-            { $eq: [{ $year: '$createdAt' }, year] },
+            {
+              $eq: [{ $year: '$createdAt' }, year],
+            },
             '$$KEEP',
             '$$PRUNE',
           ],
         },
       },
       {
-        $match: { createdAt: { $gte: yesterday, $lte: today } },
+        $addFields: {
+          timeline: {
+            $cond: {
+              if: {
+                $eq: ['$day', day],
+              },
+              then: 'current',
+              else: 'past',
+            },
+          },
+        },
       },
-      // {
-      //   $group: { _id: '$fromjob.jobTitle', count: { $sum: 1 } },
-      // },
+      {
+        $group: { _id: '$timeline', count: { $sum: 1 } },
+      },
     ]);
+    for (var i = 0; i < applications.length; i++) {
+      if (applications[i]._id == 'current') {
+        result.current = applications[i].count;
+      }
+      if (applications[i]._id == 'past') {
+        result.past = applications[i].count;
+      }
+    }
     res.status(200).json({
       status: 'success',
-      lengh: application.length,
       data: {
-        data: application,
+        data: result,
       },
     });
   });

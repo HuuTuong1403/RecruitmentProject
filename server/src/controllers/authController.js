@@ -117,7 +117,7 @@ class authController {
     jobSeeker.authenToken = undefined;
     jobSeeker.authenTokenExpired = undefined;
     await jobSeeker.save({ validateBeforeSave: false });
-    res.redirect('https://mst-recruit.surge.sh/home/sign-in?isVerify=success');
+    res.redirect('https://mst-recruit.web.app/home/sign-in?isVerify=success');
   });
   loginJobSeeker = catchAsync(async (req, res, next) => {
     const { username, password } = req.body;
@@ -173,7 +173,7 @@ class authController {
     const resetToken = jobSeeker.createPasswordResetToken();
     await jobSeeker.save({ validateBeforeSave: false });
     //3) Send it to user's email
-    const resetURL = `https://mst-recruit.surge.sh/home/forgot-pass/${resetToken}`;
+    const resetURL = `https://mst-recruit.web.app/home/forgot-pass/${resetToken}`;
     const content = resetPasswordFiles.replace(/{%resetURL%}/g, resetURL);
     try {
       await sendEmail({
@@ -303,7 +303,7 @@ class authController {
     employer.authenToken = undefined;
     employer.authenTokenExpired = undefined;
     await employer.save({ validateBeforeSave: false });
-    res.redirect('https://mst-recruit.surge.sh/employers');
+    res.redirect('https://mst-recruit.web.app/employers');
   });
   forgotEmployerPassword = catchAsync(async (req, res, next) => {
     //1) Get employer based on POST email
@@ -320,7 +320,7 @@ class authController {
     const resetToken = employer.createPasswordResetToken();
     await employer.save({ validateBeforeSave: false });
     //3) Send it to employer's email
-    const resetURL = `https://mst-recruit.surge.sh/employers/forgot-pass/${resetToken}`;
+    const resetURL = `https://mst-recruit.web.app/employers/forgot-pass/${resetToken}`;
     const content = resetPasswordFiles.replace(/{%resetURL%}/g, resetURL);
     try {
       await sendEmail({
