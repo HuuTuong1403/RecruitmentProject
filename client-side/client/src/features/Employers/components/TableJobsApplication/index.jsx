@@ -30,7 +30,7 @@ const TableJobsApplication = ({
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const [showModal, setShhowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [application, setApplication] = useState({});
   const [loadingSaved, setLoadingSaved] = useState(false);
   const [loadingDeleted, setLoadingDeleted] = useState(false);
@@ -38,11 +38,11 @@ const TableJobsApplication = ({
 
   const onOpenModal = (application) => {
     setApplication(application);
-    setShhowModal(true);
+    setShowModal(true);
   };
 
   const onCloseModal = () => {
-    setShhowModal(false);
+    setShowModal(false);
   };
 
   //Save Application In Tabs NOt Saved
@@ -59,7 +59,7 @@ const TableJobsApplication = ({
           nextStatus: "Saved",
         })
       );
-      setShhowModal(false);
+      onCloseModal();
     } else {
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
@@ -83,7 +83,7 @@ const TableJobsApplication = ({
           nextStatus: "Deleted",
         })
       );
-      setShhowModal(false);
+      setShowModal(false);
     } else {
       notification(
         `${t("Error! An error occurred. Please try again later")}`,
@@ -107,7 +107,7 @@ const TableJobsApplication = ({
           nextStatus: "NotSaved",
         })
       );
-      setShhowModal(false);
+      setShowModal(false);
     } else {
       notification(
         `${t("Error! An error occurred. Please try again later")}`,

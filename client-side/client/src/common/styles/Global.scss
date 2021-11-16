@@ -44,6 +44,18 @@
   background-color: green;
 }
 
+.statusDenied {
+  background-color: red;
+}
+
+.statusUnapproval {
+  background-color: $third-text;
+}
+
+.statusApproval {
+  background-color: green;
+}
+
 .titleDashboard {
   font-size: $text-3xl;
   font-weight: 700;

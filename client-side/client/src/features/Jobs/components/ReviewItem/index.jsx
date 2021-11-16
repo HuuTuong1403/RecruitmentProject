@@ -30,6 +30,7 @@ const ReviewItem = ({
     review;
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const otRate = [
     "Totally unsatisfied",
@@ -52,6 +53,7 @@ const ReviewItem = ({
         "error"
       );
     }
+    setVisible(false);
     setLoading(false);
   };
 
@@ -91,7 +93,14 @@ const ReviewItem = ({
         <div className={classes.reviewItem__top}>
           <div className={classes["reviewItem__top--title"]}>{title}</div>
           {currentUser?._id === user._id && (
-            <Dropdown overlay={menuOfCurrentUser} trigger={["click"]}>
+            <Dropdown
+              overlay={menuOfCurrentUser}
+              trigger={["click"]}
+              placement="bottomRight"
+              visible={visible}
+              onVisibleChange={(visible) => setVisible(visible)}
+              arrow
+            >
               <BiDotsHorizontalRounded
                 className={classes["reviewItem__top--icon"]}
               />

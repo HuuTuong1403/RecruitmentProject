@@ -17,23 +17,24 @@
   }
 
   &__wrapped {
-    padding: $pm-10 0;
-    position: relative;
-
-    &--new {
-      position: absolute;
-      right: 0;
-      top: 0;
-      padding: 1px 8px;
-      background-color: red;
-      color: white;
-      border-bottom-left-radius: 10px;
-      font-size: 14px;
-    }
+    padding: 0 0 $pm-10;
   }
 
   &__top {
     text-align: center;
+    position: relative;
+
+    &--new {
+      right: 0;
+      top: 0;
+      border-bottom-left-radius: 10px;
+    }
+
+    &--status {
+      bottom: 0;
+      left: 0;
+      border-top-right-radius: 10px;
+    }
 
     &--logo {
       width: 70%;

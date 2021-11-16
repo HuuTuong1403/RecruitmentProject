@@ -81,6 +81,11 @@ const PostJobPage = () => {
     label: t(item.label),
   }));
 
+  const optionsHideSalary = hideSalaryOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
+
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
     label: province.name,
     value: province.code,
@@ -162,7 +167,7 @@ const PostJobPage = () => {
         dateFormatSendServer
       ),
     };
-    
+
     setLoading(true);
     const result = await postJobEmployer(payload);
     if (result.status === "success") {
@@ -218,7 +223,9 @@ const PostJobPage = () => {
   return (
     <div className={classes.postjob}>
       <div className={classes.postjob__wrapped}>
-        <div className={classes.titleDashboard}>{t("postjobs")} <span>(*: {t("Compulsory")})</span></div>
+        <div className={classes.titleDashboard}>
+          {t("postjobs")} <span>(*: {t("Compulsory")})</span>
+        </div>
         <form onSubmit={handleSubmit(postJobHandler)}>
           {/* Job Title */}
           <div className={classes.postjob__formGroup}>
@@ -331,74 +338,76 @@ const PostJobPage = () => {
           </div>
 
           {/* Job Workplace Address */}
-          <div className={classes.postjob__formGroup}>
-            <LabelField label={t("Workplace address")} isCompulsory />
-            <div className={classes["postjob__formGroup--location"]}>
-              {/* Job Workplace Street */}
-              <div>
-                <InputPostJobField
-                  name="street"
-                  control={control}
-                  defaultValue={
-                    postJobData?.street ?? employerDetail?.address?.street
-                  }
-                  handleAddData={handleAddData}
-                  errors={errors?.street?.message}
-                  placeholder={t("Enter workplace address")}
-                />
-              </div>
+          {employerDetail && employerDetail.address && (
+            <div className={classes.postjob__formGroup}>
+              <LabelField label={t("Workplace address")} isCompulsory />
+              <div className={classes["postjob__formGroup--location"]}>
+                {/* Job Workplace Street */}
+                <div>
+                  <InputPostJobField
+                    name="street"
+                    control={control}
+                    defaultValue={
+                      postJobData?.street ?? employerDetail.address.street
+                    }
+                    handleAddData={handleAddData}
+                    errors={errors?.street?.message}
+                    placeholder={t("Enter workplace address")}
+                  />
+                </div>
 
-              {/* Job Workplace City */}
-              <div>
-                <SelectPostJobField
-                  name="city"
-                  control={control}
-                  defaultValue={
-                    postJobData?.city ?? employerDetail?.address?.city
-                  }
-                  setValue={setValue}
-                  isLocation={true}
-                  list={provinces}
-                  handleAddData={handleAddData}
-                  placeholder={t("choose-province")}
-                  errors={errors?.city?.message}
-                />
-              </div>
+                {/* Job Workplace City */}
+                <div>
+                  <SelectPostJobField
+                    name="city"
+                    control={control}
+                    defaultValue={
+                      postJobData?.city ?? employerDetail.address.city
+                    }
+                    setValue={setValue}
+                    isLocation={true}
+                    list={provinces}
+                    handleAddData={handleAddData}
+                    placeholder={t("choose-province")}
+                    errors={errors?.city?.message}
+                  />
+                </div>
 
-              {/* Job Workplace District */}
-              <div>
-                <SelectPostJobField
-                  name="district"
-                  control={control}
-                  defaultValue={
-                    postJobData?.district ?? employerDetail?.address?.district
-                  }
-                  setValue={setValue}
-                  isLocation={true}
-                  list={districts}
-                  handleAddData={handleAddData}
-                  placeholder={t("choose-district")}
-                  errors={errors?.district?.message}
-                />
-              </div>
+                {/* Job Workplace District */}
+                <div>
+                  <SelectPostJobField
+                    name="district"
+                    control={control}
+                    defaultValue={
+                      postJobData?.district ?? employerDetail.address.district
+                    }
+                    setValue={setValue}
+                    isLocation={true}
+                    list={districts}
+                    handleAddData={handleAddData}
+                    placeholder={t("choose-district")}
+                    errors={errors?.district?.message}
+                  />
+                </div>
 
-              {/* Job Workplace Ward */}
-              <div>
-                <SelectPostJobField
-                  name="ward"
-                  control={control}
-                  defaultValue={
-                    postJobData?.ward ?? employerDetail?.address?.ward
-                  }
-                  list={wards}
-                  isLocation={true}
-                  handleAddData={handleAddData}
-                  placeholder={t("choose-ward")}
-                  errors={errors?.ward?.message}
-                />
+                {/* Job Workplace Ward */}
+                <div>
+                  <SelectPostJobField
+                    name="ward"
+                    control={control}
+                    defaultValue={
+                      postJobData?.ward ?? employerDetail.address.ward
+                    }
+                    list={wards}
+                    isLocation={true}
+                    handleAddData={handleAddData}
+                    placeholder={t("choose-ward")}
+                    errors={errors?.ward?.message}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
           {/* Job Salary */}
           <div className={classes.postjob__formGroup}>
@@ -451,7 +460,7 @@ const PostJobPage = () => {
                   name="typeHideSalary"
                   control={control}
                   defaultValue={postJobData?.typeHideSalary ?? "You'll love it"}
-                  list={hideSalaryOptions}
+                  list={optionsHideSalary}
                   handleAddData={handleAddData}
                 />
               </div>

@@ -31,6 +31,8 @@ import Slider from "react-slick";
 const EventOfEmployerItem = ({
   data,
   isTrash = false,
+  visible,
+  setVisible,
   loading,
   onRestore,
   onDelete,
@@ -236,6 +238,10 @@ const EventOfEmployerItem = ({
           <Dropdown
             overlay={isTrash ? menuTrash : menuDefault}
             trigger={["click"]}
+            placement="bottomRight"
+            visible={visible}
+            onVisibleChange={(visible) => setVisible(visible)}
+            arrow
           >
             <BiDotsVerticalRounded
               className={classes["item__bottom--eventName--icon"]}

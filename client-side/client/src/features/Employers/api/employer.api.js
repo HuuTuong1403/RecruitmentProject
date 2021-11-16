@@ -213,7 +213,7 @@ export const fetchEventDetail = async (payload) => {
 export const fetchParticipantsByIdEvent = async (payload) => {
   try {
     const res = await axiosClient.get(
-      `employer/events/${payload}/participants`
+      `employer/events/${payload}/participants/management/all`
     );
     return res;
   } catch (error) {

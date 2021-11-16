@@ -39,6 +39,7 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
     isNew,
     createdAt,
     aboutCreated,
+    status,
     skills,
   } = data;
 
@@ -92,13 +93,30 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
     setShhowModal(false);
   };
 
+  const classNameStatus = `${classes.status} ${
+    status === "unapproval"
+      ? classes.statusUnapproval
+      : status === "approval"
+      ? classes.statusApproval
+      : classes.statusDenied
+  }`;
+
   return (
     <div className={classes.item}>
       <div className={classes.item__wrapped}>
-        {isNew && (
-          <div className={classes["item__wrapped--new"]}>{t("New")}</div>
-        )}
         <div className={classes.item__top}>
+          {isNew && (
+            <div className={`${classes.isNew} ${classes["item__top--new"]}`}>
+              {t("New")}
+            </div>
+          )}
+          {status && (
+            <div
+              className={`${classNameStatus} ${classes["item__top--status"]}`}
+            >
+              {t(status)}
+            </div>
+          )}
           <img
             className={classes["item__top--logo"]}
             src={company?.logo}

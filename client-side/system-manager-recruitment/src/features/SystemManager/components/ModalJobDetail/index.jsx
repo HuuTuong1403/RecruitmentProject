@@ -36,6 +36,7 @@ const ModalJobDetail = ({
     salary,
     skills,
     level,
+    status,
     finishDate,
   } = data;
 
@@ -90,43 +91,46 @@ const ModalJobDetail = ({
                 )}`}
               </div>
             )}
-            <div className={classes["jobDetail__top--left--actions"]}>
-              <PopoverField
-                title={t("Confirm rejection of job postings")}
-                subTitle={t("Do you want to reject this job posting?")}
-                loading={loading}
-                onClickOk={onReject}
-                titleCancel={t("Cancel")}
-                titleOk={t("Reject")}
-              >
-                <ButtonField
-                  backgroundcolor="#ff4d4f"
-                  backgroundcolorhover="#ff7875"
-                  padding="5px"
-                  uppercase
+            {status !== "unapproval" && (
+              <div className={classes["jobDetail__top--left--actions"]}>
+                <PopoverField
+                  title={t("Confirm rejection of job postings")}
+                  subTitle={t("Do you want to reject this job posting?")}
+                  loading={loading}
+                  onClickOk={onReject}
+                  titleCancel={t("Cancel")}
+                  titleOk={t("Reject")}
                 >
-                  {t("Reject")}
-                </ButtonField>
-              </PopoverField>
+                  <ButtonField
+                    backgroundcolor="#ff4d4f"
+                    backgroundcolorhover="#ff7875"
+                    padding="5px"
+                    uppercase
+                  >
+                    {t("Reject")}
+                  </ButtonField>
+                </PopoverField>
 
-              <PopoverField
-                title={t("Confirmation of approval for job postings")}
-                subTitle={t("Do you want to approve this job posting?")}
-                loading={loading}
-                onClickOk={onApprove}
-                titleCancel={t("Cancel")}
-                titleOk={t("approve")}
-              >
-                <ButtonField
-                  backgroundcolor="#067951"
-                  backgroundcolorhover="#2baa7e"
-                  padding="5px"
-                  uppercase
+                <PopoverField
+                  title={t("Confirmation of approval for job postings")}
+                  subTitle={t("Do you want to approve this job posting?")}
+                  loading={loading}
+                  onClickOk={onApprove}
+                  titleCancel={t("Cancel")}
+                  titleOk={t("approve")}
+                  isSwap
                 >
-                  {t("approve")}
-                </ButtonField>
-              </PopoverField>
-            </div>
+                  <ButtonField
+                    backgroundcolor="#067951"
+                    backgroundcolorhover="#2baa7e"
+                    padding="5px"
+                    uppercase
+                  >
+                    {t("approve")}
+                  </ButtonField>
+                </PopoverField>
+              </div>
+            )}
           </div>
         </div>
       </div>
