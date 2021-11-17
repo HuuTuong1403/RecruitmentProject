@@ -301,3 +301,14 @@ export const fetchParticipantStatistic = async () => {
     console.log(error);
   }
 };
+
+export const fetchApplicationSumStatistic = async () => {
+  try {
+    const res = await axiosClient.get(
+      "employer/applications/statistic/application-comp"
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

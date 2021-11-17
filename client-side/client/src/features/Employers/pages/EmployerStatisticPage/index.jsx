@@ -1,6 +1,7 @@
 import {
   fetchApplicationStatistic,
   fetchParticipantStatistic,
+  fetchApplicationSumStatistic,
 } from "features/Employers/api/employer.api";
 import { useEffect, useState } from "react";
 import { useTitle } from "common/hook/useTitle";
@@ -8,17 +9,18 @@ import { useTranslation } from "react-i18next";
 import BarChartVertical from "components/BarChartVertical";
 import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
-
+import StatisticCardItem from "features/Employers/components/StatisticCardItem";
 const EmployerStatisticPage = () => {
   const { t } = useTranslation();
   const [dataApplication, setDataApplication] = useState([]);
   const [dataParticipant, setDataParticipant] = useState([]);
+  const [dataApplicationSum, setDataApplicationSum] = useState([]);
   const [loading, setLoading] = useState(true);
   useTitle(`${t("Statistics")}`);
 
   const getDataApplication = async () => {
     const result = await fetchApplicationStatistic();
-    if (result) {
+    if (result.status === "success") {
       setDataApplication(result.data.data);
     } else {
       setDataApplication([]);
@@ -28,7 +30,7 @@ const EmployerStatisticPage = () => {
 
   const getDataParticipant = async () => {
     const result = await fetchParticipantStatistic();
-    if (result) {
+    if (result.status === "success") {
       setDataParticipant(result.data.data);
     } else {
       setDataParticipant([]);
@@ -36,15 +38,42 @@ const EmployerStatisticPage = () => {
     setLoading(false);
   };
 
+  const getApplicationSum = async () => {
+    const result = await fetchApplicationSumStatistic();
+    if (result.status === "success") {
+      setDataApplicationSum((prevState) => [
+        ...prevState,
+        {
+          ...result.data.data,
+          title: "Candidate Profile",
+        },
+      ]);
+    } else {
+      setDataApplicationSum([]);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     getDataApplication();
     getDataParticipant();
+    getApplicationSum();
   }, []);
 
   return loading ? (
     <LoadingSuspense height="80vh" />
   ) : (
     <div className={classes.statistics}>
+      <div className={classes.statistics__list}>
+        {dataApplicationSum.map((item, index) => (
+          <StatisticCardItem
+            key={index}
+            title={item.title}
+            sum={item.past + item.current}
+            countCurrent={item.current}
+          />
+        ))}
+      </div>
       <BarChartVertical
         dataStatistic={dataApplication.map((item) => item.count)}
         labels={dataApplication.map((item) => item._id)}

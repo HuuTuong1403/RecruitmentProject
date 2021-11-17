@@ -28,15 +28,16 @@
     }
 
     &--search {
-      display: flex;
       align-items: center;
-      border-radius: 30px;
-      padding: $pm-10;
       background-color: rgba(255, 255, 255, 0.3);
-      margin-top: $pm-10;
       border-radius: 20px;
-      width: 100%;
+      border-radius: 30px;
+      display: flex;
+      flex-wrap: wrap;
       gap: 20px;
+      margin-top: $pm-10;
+      padding: $pm-10;
+      width: 100%;
 
       & > div > div {
         margin-bottom: 0;
@@ -84,7 +85,7 @@
   }
 }
 
-@media screen and (min-width: 1024px) and (max-width: 1280px) {
+@media screen and (max-width: 1280px) {
   .banner {
     height: 45vh;
     &__top {
@@ -93,7 +94,7 @@
   }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .banner {
     height: 35vh;
 
@@ -113,7 +114,7 @@
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 800px) {
+@media screen and (max-width: 800px) {
   .banner {
     height: 30vh;
 
@@ -142,7 +143,7 @@
   }
 }
 
-@media screen and (min-width: 350px) and (max-width: 600px) {
+@media screen and (max-width: 600px) {
   .banner {
     height: 45vh;
 
@@ -158,7 +159,8 @@
       }
 
       &--search {
-        flex-wrap: wrap;
+        gap: 5px;
+
         & > div:first-child {
           width: 100%;
           margin-bottom: $pm-12;
@@ -195,7 +197,7 @@
       }
 
       &--search {
-        flex-wrap: wrap;
+        gap: 5px;
         & > div:first-child {
           width: 100%;
           margin-bottom: $pm-12;

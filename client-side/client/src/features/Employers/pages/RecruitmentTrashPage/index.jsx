@@ -15,7 +15,7 @@ import LoadingSuspense from "components/Loading";
 import NotFoundData from "components/NotFoundData";
 import notification from "components/Notification";
 
-const JobTrashPage = () => {
+const RecruitmentTrashPage = () => {
   ScrollTop();
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -77,4 +77,4 @@ const JobTrashPage = () => {
   );
 };
 
-export default JobTrashPage;
+export default RecruitmentTrashPage;

@@ -2,5 +2,9 @@
 @import "common/styles/Global.scss";
 
 .statistics {
-  
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
 }
