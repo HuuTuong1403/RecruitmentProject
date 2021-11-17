@@ -24,7 +24,7 @@ import {
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect, useCallback, useState } from "react";
 import { IoMdCalendar } from "react-icons/io";
-import { FacebookShareButton, FacebookIcon } from "react-share";
+import { FacebookShareButton, FacebookMessengerShareButton } from "react-share";
 import { Link, useParams, useHistory, useLocation } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import { ScrollTop } from "common/functions";
@@ -34,6 +34,7 @@ import { Tooltip } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { useTitle } from "common/hook/useTitle";
 import { useTranslation } from "react-i18next";
+import { FaFacebook, FaFacebookMessenger } from "react-icons/fa";
 import ButtonField from "custom-fields/ButtonField";
 import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
@@ -254,13 +255,30 @@ const JobDetailPage = () => {
                       {t("Apply now")}
                     </ButtonField>
                   )}
-                  <FacebookShareButton
-                    url={`https://mst-recruit.web.app/${locationUrl.pathname}`}
-                    quote={jobTitle} 
-                    hashtag="#JobInMST"
-                  >
-                    <FacebookIcon size={20} />
-                  </FacebookShareButton>
+                  <div className={classes["jobDetail__share"]}>
+                    <div>Chia sẻ:</div>
+                    <div>
+                      <FacebookShareButton
+                        url={`https://mst-recruit.web.app/${locationUrl.pathname}`}
+                        quote={`Tin tuyển dụng ${jobTitle} của ${company?.companyName}`}
+                        hashtag="#RecruitmentInMST"
+                      >
+                        <FaFacebook
+                          className={classes["jobDetail__share--icon"]}
+                        />
+                      </FacebookShareButton>
+                    </div>
+                    <div>
+                      <FacebookMessengerShareButton
+                        appId="938805363717233"
+                        url={`https://mst-recruit.web.app/${locationUrl.pathname}`}
+                      >
+                        <FaFacebookMessenger
+                          className={classes["jobDetail__share--icon"]}
+                        />
+                      </FacebookMessengerShareButton>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

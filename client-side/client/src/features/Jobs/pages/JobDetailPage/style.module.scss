@@ -44,7 +44,7 @@ p {
         align-items: center;
 
         & > div:first-child {
-          flex: 0 0 75%;
+          flex: 0 0 70%;
           font-size: $text-base;
 
           & > div:nth-child(1) {
@@ -65,12 +65,26 @@ p {
           text-align: center;
 
           & > button {
-            padding: 8px 20px;
-            border-radius: 10px;
-            margin-bottom: $pm-4;
-            width: 100% !important;
+            margin-bottom: $pm-6;
           }
         }
+      }
+    }
+  }
+
+  &__share {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &--icon {
+      font-size: $text-2xl;
+      color: $primary-text;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: $third-text;
       }
     }
   }
@@ -164,10 +178,6 @@ p {
 
           & > div:last-child {
             border-bottom: none;
-            & > button {
-              padding: 8px 20px;
-              border-radius: 10px;
-            }
           }
         }
       }
@@ -216,7 +226,7 @@ p {
           flex-wrap: wrap;
 
           & > div:first-child {
-            flex: 0 0 100%;
+            flex: 0 0 60%;
 
             & > div:nth-child(1) {
               font-size: $text-xl;
@@ -242,12 +252,7 @@ p {
           }
 
           & > div:last-child {
-            flex: 0 0 100%;
-
-            & > button {
-              margin-top: $pm-10;
-              width: 100%;
-            }
+            flex: 0 0 40%;
           }
         }
       }
@@ -370,11 +375,6 @@ p {
 
           & > div:last-child {
             flex: 0 0 100%;
-
-            & > button {
-              margin-top: $pm-10;
-              width: 100%;
-            }
           }
         }
       }
@@ -504,10 +504,6 @@ p {
 
           & > div:last-child {
             flex: 0 0 100%;
-
-            & > button {
-              margin-top: $pm-10;
-            }
           }
         }
       }
@@ -641,10 +637,6 @@ p {
 
           & > div:last-child {
             flex: 0 0 100%;
-
-            & > button {
-              margin-top: $pm-10;
-            }
           }
         }
       }

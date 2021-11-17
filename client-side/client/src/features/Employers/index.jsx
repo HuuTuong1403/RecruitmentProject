@@ -15,7 +15,7 @@ const CandidateProfileManagementPage = lazy(() =>
 const EmployerProfilePage = lazy(() => import("./pages/EmployersProfilePage"));
 const EventManagementPage = lazy(() => import("./pages/EventManagementPage"));
 const EventTrashPage = lazy(() => import("./pages/EventTrashPage"));
-const JobTrashPage = lazy(() => import("./pages/JobTrashPage"));
+const RecruitmentTrashPage = lazy(() => import("./pages/RecruitmentTrashPage"));
 const ParticipantsEventPage = lazy(() =>
   import("./pages/ParticipantsEventPage")
 );
@@ -67,7 +67,7 @@ const DashboardEmployersPage = () => {
           <Route
             exact
             path={`${url}/recruit-manage/trash`}
-            component={JobTrashPage}
+            component={RecruitmentTrashPage}
           />
           <Route
             exact
