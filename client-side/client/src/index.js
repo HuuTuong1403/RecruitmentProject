@@ -15,7 +15,7 @@ render(
     </I18nextProvider>
   </Provider>,
   document.getElementById("root")
-);y
+);
 
 
 reportWebVitals();
