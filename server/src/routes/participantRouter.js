@@ -38,5 +38,7 @@ participantRouter
 participantRouter
   .route('/statistic/participant-stats')
   .get(participantController.getParticipantStat);
-
+participantRouter
+  .route('/statistic/participant-comp')
+  .get(participantController.getParticipantCurrentandPast);
 module.exports = participantRouter;

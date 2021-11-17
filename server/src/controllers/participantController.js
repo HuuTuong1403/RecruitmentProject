@@ -16,7 +16,17 @@ const participantEmail = fs.readFileSync(
   `${__dirname}/../public/EventEmail/participant_event.html`,
   'utf-8'
 );
-
+const getDayOfYear = () => {
+  var now = new Date();
+  var start = new Date(now.getFullYear(), 0, 0);
+  var diff =
+    now -
+    start +
+    (start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000;
+  var oneDay = 1000 * 60 * 60 * 24;
+  var day = Math.floor(diff / oneDay);
+  return day;
+};
 const replaceHTML = (participant) => {
   let output = participantEmail.replace(
     /{{%fullName%}}/g,
@@ -233,6 +243,79 @@ class participantController {
       lengh: participant.length,
       data: {
         data: participant,
+      },
+    });
+  });
+  getParticipantCurrentandPast = catchAsync(async (req, res, next) => {
+    var result = {
+      past: 0,
+      current: 0,
+    };
+    const now = new Date();
+    const year = now.getFullYear();
+    const day = getDayOfYear();
+    const participants = await Participant.aggregate([
+      {
+        $lookup: {
+          from: 'events', /// Name collection from database, not name from exported schema
+          localField: 'event',
+          foreignField: '_id',
+          as: 'fromEvent',
+        },
+      },
+      {
+        $unwind: '$fromEvent',
+      }, //
+      {
+        $match: {
+          'fromEvent.company': mongoose.Types.ObjectId(req.user.id),
+        },
+      },
+      {
+        $addFields: {
+          day: { $dayOfYear: '$createdAt' },
+        },
+      },
+      {
+        $redact: {
+          $cond: [
+            {
+              $eq: [{ $year: '$createdAt' }, year],
+            },
+            '$$KEEP',
+            '$$PRUNE',
+          ],
+        },
+      },
+      {
+        $addFields: {
+          timeline: {
+            $cond: {
+              if: {
+                $eq: ['$day', day],
+              },
+              then: 'current',
+              else: 'past',
+            },
+          },
+        },
+      },
+      {
+        $group: { _id: '$timeline', count: { $sum: 1 } },
+      },
+    ]);
+    for (var i = 0; i < participants.length; i++) {
+      if (participants[i]._id == 'current') {
+        result.current = participants[i].count;
+      }
+      if (participants[i]._id == 'past') {
+        result.past = participants[i].count;
+      }
+    }
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: result,
       },
     });
   });
