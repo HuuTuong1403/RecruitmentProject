@@ -102,6 +102,7 @@ const JobOfEmployerItem = ({ data, statusJob }) => {
           onClickOk={approveJobPostingHandler}
           titleCancel={t("Cancel")}
           titleOk={t("approve")}
+          isSwap
         >
           <div className={`${classes.item__listTile} ${classes.approval}`}>
             <FaCheckCircle className={classes["item__listTile--icon"]} />

@@ -67,6 +67,11 @@ const ModalUpdateJob = ({
     label: t(item.label),
   }));
 
+  const optionsHideSalary = hideSalaryOptions.map((item) => ({
+    value: item.value,
+    label: t(item.label),
+  }));
+
   useEffect(() => {
     if (jobDetail?.salary?.min) {
       setHideSalary(true);
@@ -358,7 +363,7 @@ const ModalUpdateJob = ({
                                   ? "You'll love it"
                                   : jobDetail.salary?.type
                               }
-                              optionList={hideSalaryOptions}
+                              optionList={optionsHideSalary}
                               placeholder={t("choose-workingTime")}
                             />
                           </div>

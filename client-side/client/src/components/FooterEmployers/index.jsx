@@ -84,8 +84,18 @@ const FooterEmployers = () => {
                 <Link to="/employers/dashboard/post-job">{t("postjobs")}</Link>
               </li>
               <li>
-                <Link to="/employers/dashboard/recruit-manage">
+                <Link to="/employers/dashboard/events/post-event">
+                  {t("Create a new event")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/employers/dashboard/recruit-manage/created">
                   {t("recruitment manager")}
+                </Link>
+              </li>
+              <li>
+                <Link to="/employers/dashboard/events/created">
+                  {t("Event management")}
                 </Link>
               </li>
               <li>

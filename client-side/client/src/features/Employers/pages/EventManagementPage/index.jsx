@@ -23,6 +23,7 @@ const EventManagementPage = () => {
   const eventsOfEmployer = useSelector(selectEventsOfEmployer);
   const status = useSelector(selectedStatus);
   const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useTitle(`${t("Manage created events")}`);
   useEffect(() => {
@@ -44,6 +45,7 @@ const EventManagementPage = () => {
         "error"
       );
     }
+    setVisible(false);
     setLoading(false);
   };
 
@@ -59,6 +61,7 @@ const EventManagementPage = () => {
         "error"
       );
     }
+    setVisible(false);
     setLoading(false);
   };
 
@@ -83,6 +86,8 @@ const EventManagementPage = () => {
                   data={event}
                   key={event.slug}
                   loading={loading}
+                  visible={visible}
+                  setVisible={setVisible}
                   onPause={handlePausingEvent}
                   onSoftDelete={handleSoftDeleteEvent}
                 />

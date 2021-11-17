@@ -20,6 +20,7 @@ const EventTrashPage = () => {
   const eventsDeleted = useSelector(selectEventsDeleted);
   const status = useSelector(selectedStatus);
   const [loading, setLoading] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   useTitle(`${t("Manage deleted events")}`);
 
@@ -39,6 +40,7 @@ const EventTrashPage = () => {
         "error"
       );
     }
+    setVisible(false);
     setLoading(false);
   };
 
@@ -54,6 +56,7 @@ const EventTrashPage = () => {
         "error"
       );
     }
+    setVisible(false);
     setLoading(false);
   };
 
@@ -79,6 +82,8 @@ const EventTrashPage = () => {
                   isTrash
                   key={event.slug}
                   loading={loading}
+                  visible={visible}
+                  setVisible={setVisible}
                   onDelete={handleDeleteEvent}
                   onRestore={handleRestoreEvent}
                 />

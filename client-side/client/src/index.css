@@ -160,3 +160,16 @@ a:hover {
   background-color: #f79d25;
   border-color: #f79d25;
 }
+
+.ant-tabs-tab-btn:active,
+.ant-tabs-tab-remove:active {
+  color: #f79d25;
+}
+
+.ant-tabs-ink-bar {
+  background-color: #f79d25;
+}
+
+.ant-popover {
+  z-index: 9999;
+}

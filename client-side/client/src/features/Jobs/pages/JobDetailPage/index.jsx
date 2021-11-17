@@ -24,7 +24,8 @@ import {
 import { fetchJobDetailAsync } from "features/Jobs/slices/thunks";
 import { Fragment, useEffect, useCallback, useState } from "react";
 import { IoMdCalendar } from "react-icons/io";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { FacebookShareButton, FacebookIcon } from "react-share";
+import { Link, useParams, useHistory, useLocation } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
 import { ScrollTop } from "common/functions";
 import { selectEmployerLocal } from "features/Employers/slices/selectors";
@@ -47,6 +48,7 @@ const JobDetailPage = () => {
   const { t } = useTranslation();
   const { slug } = useParams();
   const history = useHistory();
+  const locationUrl = useLocation();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const token = localStorage.getItem("token");
@@ -252,6 +254,13 @@ const JobDetailPage = () => {
                       {t("Apply now")}
                     </ButtonField>
                   )}
+                  <FacebookShareButton
+                    url={`https://mst-recruit.web.app/${locationUrl.pathname}`}
+                    quote={jobTitle} 
+                    hashtag="#JobInMST"
+                  >
+                    <FacebookIcon size={20} />
+                  </FacebookShareButton>
                 </div>
               </div>
             </div>
