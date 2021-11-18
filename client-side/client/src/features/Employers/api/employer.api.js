@@ -312,3 +312,14 @@ export const fetchApplicationSumStatistic = async () => {
     console.log(error);
   }
 };
+
+export const fetchParticipantSumStatistic = async () => {
+  try {
+    const res = await axiosClient.get(
+      "employer/participants/statistic/participant-comp"
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

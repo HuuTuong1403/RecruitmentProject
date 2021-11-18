@@ -2,6 +2,7 @@ import {
   fetchApplicationStatistic,
   fetchParticipantStatistic,
   fetchApplicationSumStatistic,
+  fetchParticipantSumStatistic,
 } from "features/Employers/api/employer.api";
 import { useEffect, useState } from "react";
 import { useTitle } from "common/hook/useTitle";
@@ -10,11 +11,12 @@ import BarChartVertical from "components/BarChartVertical";
 import classes from "./style.module.scss";
 import LoadingSuspense from "components/Loading";
 import StatisticCardItem from "features/Employers/components/StatisticCardItem";
+
 const EmployerStatisticPage = () => {
   const { t } = useTranslation();
   const [dataApplication, setDataApplication] = useState([]);
   const [dataParticipant, setDataParticipant] = useState([]);
-  const [dataApplicationSum, setDataApplicationSum] = useState([]);
+  const [dataStatisticCurrentPass, setDataStatisticCurrentPass] = useState([]);
   const [loading, setLoading] = useState(true);
   useTitle(`${t("Statistics")}`);
 
@@ -41,7 +43,7 @@ const EmployerStatisticPage = () => {
   const getApplicationSum = async () => {
     const result = await fetchApplicationSumStatistic();
     if (result.status === "success") {
-      setDataApplicationSum((prevState) => [
+      setDataStatisticCurrentPass((prevState) => [
         ...prevState,
         {
           ...result.data.data,
@@ -49,7 +51,24 @@ const EmployerStatisticPage = () => {
         },
       ]);
     } else {
-      setDataApplicationSum([]);
+      setDataStatisticCurrentPass([]);
+    }
+    setLoading(false);
+  };
+
+  const getParticipantSum = async () => {
+    const result = await fetchParticipantSumStatistic();
+    if (result.status === "success") {
+      setDataStatisticCurrentPass((prevState) => [
+        ...prevState,
+        {
+          ...result.data.data,
+          title: "Join the event",
+          isEvent: true,
+        },
+      ]);
+    } else {
+      setDataStatisticCurrentPass([]);
     }
     setLoading(false);
   };
@@ -58,6 +77,7 @@ const EmployerStatisticPage = () => {
     getDataApplication();
     getDataParticipant();
     getApplicationSum();
+    getParticipantSum();
   }, []);
 
   return loading ? (
@@ -65,12 +85,13 @@ const EmployerStatisticPage = () => {
   ) : (
     <div className={classes.statistics}>
       <div className={classes.statistics__list}>
-        {dataApplicationSum.map((item, index) => (
+        {dataStatisticCurrentPass.map((item, index) => (
           <StatisticCardItem
             key={index}
             title={item.title}
             sum={item.past + item.current}
             countCurrent={item.current}
+            isEvent={item.isEvent}
           />
         ))}
       </div>

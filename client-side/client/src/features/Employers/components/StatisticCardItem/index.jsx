@@ -1,8 +1,9 @@
 import { FaUsers, FaArrowUp } from "react-icons/fa";
-import classes from "./style.module.scss";
+import { MdEventAvailable } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
 
-const StatisticCardItem = ({ title, sum, countCurrent, icon }) => {
+const StatisticCardItem = ({ title, sum, countCurrent, isEvent }) => {
   const { t } = useTranslation();
 
   return (
@@ -17,7 +18,9 @@ const StatisticCardItem = ({ title, sum, countCurrent, icon }) => {
           </div>
         </div>
         <div className={classes["statisticItem__top--right"]}>
-          <FaUsers className={classes["statisticItem__top--right--icon"]} />
+          {isEvent ? 
+            <MdEventAvailable className={classes["statisticItem__top--right--icon"]} /> : 
+            <FaUsers className={classes["statisticItem__top--right--icon"]} />}
         </div>
       </div>
       <div className={classes.statisticItem__bottom}>
