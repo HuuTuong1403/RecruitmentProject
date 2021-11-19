@@ -3,7 +3,13 @@ import { MdEventAvailable } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import classes from "./style.module.scss";
 
-const StatisticCardItem = ({ title, sum, countCurrent, isEvent }) => {
+const StatisticCardItem = ({
+  title,
+  sum,
+  countCurrent,
+  isEvent,
+  backgroundColor = "#f5365c",
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -17,10 +23,17 @@ const StatisticCardItem = ({ title, sum, countCurrent, isEvent }) => {
             {sum}
           </div>
         </div>
-        <div className={classes["statisticItem__top--right"]}>
-          {isEvent ? 
-            <MdEventAvailable className={classes["statisticItem__top--right--icon"]} /> : 
-            <FaUsers className={classes["statisticItem__top--right--icon"]} />}
+        <div
+          style={{ backgroundColor: backgroundColor }}
+          className={classes["statisticItem__top--right"]}
+        >
+          {isEvent ? (
+            <MdEventAvailable
+              className={classes["statisticItem__top--right--icon"]}
+            />
+          ) : (
+            <FaUsers className={classes["statisticItem__top--right--icon"]} />
+          )}
         </div>
       </div>
       <div className={classes.statisticItem__bottom}>

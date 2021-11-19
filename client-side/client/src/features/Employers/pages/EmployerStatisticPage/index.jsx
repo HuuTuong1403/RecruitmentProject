@@ -16,7 +16,7 @@ const EmployerStatisticPage = () => {
   const { t } = useTranslation();
   const [dataApplication, setDataApplication] = useState([]);
   const [dataParticipant, setDataParticipant] = useState([]);
-  const [dataStatisticCurrentPass, setDataStatisticCurrentPass] = useState([]);
+  const [dataStatisticCurrentPast, setDataStatisticCurrentPast] = useState([]);
   const [loading, setLoading] = useState(true);
   useTitle(`${t("Statistics")}`);
 
@@ -43,15 +43,13 @@ const EmployerStatisticPage = () => {
   const getApplicationSum = async () => {
     const result = await fetchApplicationSumStatistic();
     if (result.status === "success") {
-      setDataStatisticCurrentPass((prevState) => [
+      setDataStatisticCurrentPast((prevState) => [
         ...prevState,
         {
           ...result.data.data,
           title: "Candidate Profile",
         },
       ]);
-    } else {
-      setDataStatisticCurrentPass([]);
     }
     setLoading(false);
   };
@@ -59,16 +57,15 @@ const EmployerStatisticPage = () => {
   const getParticipantSum = async () => {
     const result = await fetchParticipantSumStatistic();
     if (result.status === "success") {
-      setDataStatisticCurrentPass((prevState) => [
+      setDataStatisticCurrentPast((prevState) => [
         ...prevState,
         {
           ...result.data.data,
           title: "Join the event",
           isEvent: true,
+          backgroundColor: "#096dd9",
         },
       ]);
-    } else {
-      setDataStatisticCurrentPass([]);
     }
     setLoading(false);
   };
@@ -77,7 +74,13 @@ const EmployerStatisticPage = () => {
     getDataApplication();
     getDataParticipant();
     getApplicationSum();
-    getParticipantSum();
+    const time = setTimeout(() => {
+      getParticipantSum();
+    }, 200);
+    
+    return () => {
+      clearTimeout(time);
+    };
   }, []);
 
   return loading ? (
@@ -85,13 +88,14 @@ const EmployerStatisticPage = () => {
   ) : (
     <div className={classes.statistics}>
       <div className={classes.statistics__list}>
-        {dataStatisticCurrentPass.map((item, index) => (
+        {dataStatisticCurrentPast.map((item, index) => (
           <StatisticCardItem
             key={index}
             title={item.title}
             sum={item.past + item.current}
             countCurrent={item.current}
             isEvent={item.isEvent}
+            backgroundColor={item.backgroundColor}
           />
         ))}
       </div>
