@@ -1,94 +1,83 @@
-import {
-  dateFormatPicker,
-  dateFormatSendServer,
-} from "common/constants/dateFormat";
-import { addDataFilter } from "features/Employers/slices";
-import { clearNullObject } from "common/functions";
-import { DatePicker } from "antd";
-import { expiredJobOptions } from "common/constants/options";
-import { FaSearch } from "react-icons/fa";
+import { dateFormatPicker, dateFormatSendServer } from 'common/constants/dateFormat'
+import { addDataFilter } from 'features/Employers/slices'
+import { clearNullObject } from 'common/functions'
+import { DatePicker } from 'antd'
+import { expiredJobOptions } from 'common/constants/options'
+import { FaSearch } from 'react-icons/fa'
 import {
   fetchJobsApplicationNotSavedAsync,
   fetchJobsApplicationSavedAsync,
   fetchJobsApplicationDeletedAsync,
-} from "features/Employers/slices/thunks";
-import { selectDataFilter } from "features/Employers/slices/selectors";
-import { useDispatch, useSelector } from "react-redux";
-import { useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import ButtonField from "custom-fields/ButtonField";
-import classes from "./style.module.scss";
-import InputField from "custom-fields/InputField";
-import LabelField from "custom-fields/LabelField";
-import moment from "moment";
-import Select from "react-select";
+} from 'features/Employers/slices/thunks'
+import { selectDataFilter } from 'features/Employers/slices/selectors'
+import { useDispatch, useSelector } from 'react-redux'
+import { useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import ButtonField from 'custom-fields/ButtonField'
+import classes from './style.module.scss'
+import InputField from 'custom-fields/InputField'
+import LabelField from 'custom-fields/LabelField'
+import moment from 'moment'
+import Select from 'react-select'
 
 const SearchJobsApplication = ({ status }) => {
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
-  const searchFullNameRef = useRef(null);
-  const dataFilter = useSelector(selectDataFilter);
-  
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
+  const searchFullNameRef = useRef(null)
+  const dataFilter = useSelector(selectDataFilter)
+
   const optionsExpiredJobs = expiredJobOptions.map((item) => ({
     value: item.value,
     label: t(item.label),
-  }));
+  }))
 
   const [startTime, setStartTime] = useState(
     dataFilter?.startTime
-      ? moment(dataFilter.startTime, dateFormatSendServer).format(
-          dateFormatPicker
-        )
-      : ""
-  );
+      ? moment(dataFilter.startTime, dateFormatSendServer).format(dateFormatPicker)
+      : ''
+  )
 
   const [endTime, setEndTime] = useState(
     dataFilter?.endTime
-      ? moment(dataFilter.endTime, dateFormatSendServer).format(
-          dateFormatPicker
-        )
-      : ""
-  );
+      ? moment(dataFilter.endTime, dateFormatSendServer).format(dateFormatPicker)
+      : ''
+  )
 
-  const [isExpired, setIsExpired] = useState(
-    dataFilter?.isExpired ? dataFilter.isExpired : false
-  );
+  const [isExpired, setIsExpired] = useState(dataFilter?.isExpired ? dataFilter.isExpired : false)
 
   //Handle when change select expired
   const changeExpiredJobs = (selectOption) => {
-    setIsExpired(selectOption.value);
-    console.log(isExpired);
-  };
+    setIsExpired(selectOption.value)
+    console.log(isExpired)
+  }
 
   //Handle Search with filter
   const handleSearchhApplication = (e) => {
-    e.preventDefault();
-    const fullName = searchFullNameRef.current.value;
+    e.preventDefault()
+    const fullName = searchFullNameRef.current.value
 
-    let filter;
+    let filter
     if (fullName || startTime || endTime || isExpired) {
       filter = clearNullObject({
         status,
-        fullName: fullName === "" ? null : fullName,
+        fullName: fullName === '' ? null : fullName,
         startTime:
-          startTime !== ""
+          startTime !== ''
             ? moment(startTime, dateFormatPicker).format(dateFormatSendServer)
             : null,
         endTime:
-          endTime !== ""
-            ? moment(endTime, dateFormatPicker).format(dateFormatSendServer)
-            : null,
+          endTime !== '' ? moment(endTime, dateFormatPicker).format(dateFormatSendServer) : null,
         isExpired: isExpired === false ? null : true,
-      });
-      dispatch(addDataFilter(filter));
-      if (status === "NotSaved") {
-        dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
+      })
+      dispatch(addDataFilter(filter))
+      if (status === 'NotSaved') {
+        dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
       }
-      if (status === "Saved") {
-        dispatch(fetchJobsApplicationSavedAsync({ filter }));
+      if (status === 'Saved') {
+        dispatch(fetchJobsApplicationSavedAsync({ filter }))
       }
-      if (status === "Deleted") {
-        dispatch(fetchJobsApplicationDeletedAsync({ filter }));
+      if (status === 'Deleted') {
+        dispatch(fetchJobsApplicationDeletedAsync({ filter }))
       }
     } else {
       filter = clearNullObject({
@@ -96,32 +85,32 @@ const SearchJobsApplication = ({ status }) => {
         fullName: null,
         startTime: null,
         endTime: null,
-      });
+      })
 
-      dispatch(addDataFilter(filter));
-      if (status === "NotSaved") {
-        dispatch(fetchJobsApplicationNotSavedAsync({ filter: { status } }));
+      dispatch(addDataFilter(filter))
+      if (status === 'NotSaved') {
+        dispatch(fetchJobsApplicationNotSavedAsync({ filter: { status } }))
       }
-      if (status === "Saved") {
-        dispatch(fetchJobsApplicationSavedAsync({ filter: { status } }));
+      if (status === 'Saved') {
+        dispatch(fetchJobsApplicationSavedAsync({ filter: { status } }))
       }
-      if (status === "Deleted") {
-        dispatch(fetchJobsApplicationDeletedAsync({ filter: { status } }));
+      if (status === 'Deleted') {
+        dispatch(fetchJobsApplicationDeletedAsync({ filter: { status } }))
       }
     }
-  };
+  }
 
   //Handle Disabled Date when choose End Date
   const disabledStartTime = (current) => {
-    const endDate = moment(endTime, dateFormatPicker);
-    return current > moment() || current > endDate;
-  };
+    const endDate = moment(endTime, dateFormatPicker)
+    return current > moment() || current > endDate
+  }
 
   //Handle Disabled Date when choose Start Date
   const disabledEndTime = (current) => {
-    const startDate = moment(startTime, dateFormatPicker);
-    return current < startDate || current > moment();
-  };
+    const startDate = moment(startTime, dateFormatPicker)
+    return current < startDate || current > moment()
+  }
 
   return (
     <div className={classes.searchApplication}>
@@ -133,7 +122,7 @@ const SearchJobsApplication = ({ status }) => {
             <div>
               <InputField
                 ref={searchFullNameRef}
-                defaultValue={dataFilter?.fullName ?? ""}
+                defaultValue={dataFilter?.fullName ?? ''}
                 placeholder={t("Search keywords by job seeker's name")}
                 icon={<FaSearch />}
               />
@@ -142,12 +131,12 @@ const SearchJobsApplication = ({ status }) => {
 
           {/* Job Expired */}
           <div>
-            <LabelField label={t("Job Status")} />
+            <LabelField label={t('Job Status')} />
             <div>
               <Select
                 options={optionsExpiredJobs}
                 value={optionsExpiredJobs.filter((option) => {
-                  return option.value === isExpired;
+                  return option.value === isExpired
                 })}
                 onChange={changeExpiredJobs}
               />
@@ -156,21 +145,19 @@ const SearchJobsApplication = ({ status }) => {
 
           {/* Application Start Date */}
           <div>
-            <LabelField label={t("Start date")} />
+            <LabelField label={t('Start date')} />
             <div>
               <DatePicker
-                style={{ minHeight: "38px", width: "100%" }}
+                style={{ minHeight: '38px', width: '100%' }}
                 showNow={false}
                 format={dateFormatPicker}
                 defaultValue={
-                  dataFilter?.startTime
-                    ? moment(dataFilter.startTime, dateFormatSendServer)
-                    : null
+                  dataFilter?.startTime ? moment(dataFilter.startTime, dateFormatSendServer) : null
                 }
-                placeholder={t("Start date")}
+                placeholder={t('Start date')}
                 disabledDate={disabledStartTime}
                 onChange={(_, dateString) => {
-                  setStartTime(dateString);
+                  setStartTime(dateString)
                 }}
               />
             </div>
@@ -178,39 +165,37 @@ const SearchJobsApplication = ({ status }) => {
 
           {/* Application End Date */}
           <div>
-            <LabelField label={t("End date")} />
+            <LabelField label={t('End date')} />
             <div>
               <DatePicker
-                style={{ minHeight: "38px", width: "100%" }}
+                style={{ minHeight: '38px', width: '100%' }}
                 showNow={false}
                 format={dateFormatPicker}
                 defaultValue={
-                  dataFilter?.endTime
-                    ? moment(dataFilter.endTime, dateFormatSendServer)
-                    : null
+                  dataFilter?.endTime ? moment(dataFilter.endTime, dateFormatSendServer) : null
                 }
-                placeholder={t("End date")}
+                placeholder={t('End date')}
                 disabledDate={disabledEndTime}
                 onChange={(_, dateString) => {
-                  setEndTime(dateString);
+                  setEndTime(dateString)
                 }}
               />
             </div>
           </div>
         </div>
-        <div className={classes["searchApplication__form--actions"]}>
+        <div className={classes['searchApplication__form--actions']}>
           <ButtonField
             backgroundcolor="#324554"
             backgroundcolorhover="#333"
             type="submit"
             uppercase
           >
-            {t("search")}
+            {t('search')}
           </ButtonField>
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default SearchJobsApplication;
+export default SearchJobsApplication

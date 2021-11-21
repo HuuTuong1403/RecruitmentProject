@@ -1,27 +1,27 @@
 export const selectedJobSeekerProfile = (state) => {
-  return state?.jobSeeker?.jobSeekerProfile;
-};
+  return state?.jobSeeker?.jobSeekerProfile
+}
 
 export const selectedStatus = (state) => {
-  return state?.jobSeeker?.status;
-};
+  return state?.jobSeeker?.status
+}
 
 export const selectJobs = (state) => {
-  return state?.jobSeeker?.jobs;
-};
+  return state?.jobSeeker?.jobs
+}
 
 export const selectJobSeekerLocal = () => {
-  return JSON.parse(localStorage.getItem("user"));
-};
+  return JSON.parse(localStorage.getItem('user'))
+}
 
 export const selectFavoriteJobs = (state) => {
-  return state?.jobSeeker?.favoriteJobs;
-};
+  return state?.jobSeeker?.favoriteJobs
+}
 
 export const selectApplicationJobs = (state) => {
-  return state?.jobSeeker?.applicationJobs;
-};
+  return state?.jobSeeker?.applicationJobs
+}
 
 export const selectEventsJoined = (state) => {
-  return state?.jobSeeker?.joinedEvent;
-};
+  return state?.jobSeeker?.joinedEvent
+}

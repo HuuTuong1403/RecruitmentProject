@@ -1,73 +1,65 @@
-import { FaEdit } from "react-icons/fa";
-import { Fragment } from "react";
-import { IoPersonCircle } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import { RiFileList3Line } from "react-icons/ri";
-import { selectEmployerLocal } from "features/Employers/slices/selectors";
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
+import { FaEdit } from 'react-icons/fa'
+import { Fragment } from 'react'
+import { IoPersonCircle } from 'react-icons/io5'
+import { Link } from 'react-router-dom'
+import { RiFileList3Line } from 'react-icons/ri'
+import { selectEmployerLocal } from 'features/Employers/slices/selectors'
+import { useTranslation } from 'react-i18next'
+import classes from './style.module.scss'
 
 const BannerHomeEmp = () => {
-  const { t } = useTranslation();
-  const employer = selectEmployerLocal();
+  const { t } = useTranslation()
+  const employer = selectEmployerLocal()
 
   return (
     <section className={classes.bannerEmp}>
       <div className={classes.overlayImage}>
         <div className={classes.bannerEmp__container}>
-          <div className={classes["bannerEmp__container--top"]}>
+          <div className={classes['bannerEmp__container--top']}>
             {employer ? (
               <h1>
-                {t("Welcome back")}, {employer?.companyName}
+                {t('Welcome back')}, {employer?.companyName}
               </h1>
             ) : (
-              <h1>{t("Login for employers")}</h1>
+              <h1>{t('Login for employers')}</h1>
             )}
-            <p>{t("Manage job postings and candidate profiles")}</p>
+            <p>{t('Manage job postings and candidate profiles')}</p>
             {employer ? (
               <div>
                 <Link to="/employers/dashboard">
-                  <RiFileList3Line
-                    className={classes["bannerEmp__container--top--icon"]}
-                  />
-                  {t("Click here")}
+                  <RiFileList3Line className={classes['bannerEmp__container--top--icon']} />
+                  {t('Click here')}
                 </Link>
               </div>
             ) : (
               <div>
                 <Link to="/employers/sign-in">
-                  <IoPersonCircle
-                    className={classes["bannerEmp__container--top--icon"]}
-                  />
-                  {t("signin")}
+                  <IoPersonCircle className={classes['bannerEmp__container--top--icon']} />
+                  {t('signin')}
                 </Link>
               </div>
             )}
           </div>
-          <div className={classes["bannerEmp__container--top"]}>
+          <div className={classes['bannerEmp__container--top']}>
             {employer ? (
               <Fragment>
-                <h1>{t("Or post a job posting looking for candidates")}</h1>
-                <p>{t("Post job and create free Entry Test")}</p>
+                <h1>{t('Or post a job posting looking for candidates')}</h1>
+                <p>{t('Post job and create free Entry Test')}</p>
                 <div>
                   <Link to="/employers/dashboard/post-job">
-                    <FaEdit
-                      className={classes["bannerEmp__container--top--icon"]}
-                    />
-                    {t("Click here")}
+                    <FaEdit className={classes['bannerEmp__container--top--icon']} />
+                    {t('Click here')}
                   </Link>
                 </div>
               </Fragment>
             ) : (
               <Fragment>
-                <h1>{t("Or register to become an employer")}</h1>
-                <p>{t("Quick, easy and effective recruitment")}</p>
+                <h1>{t('Or register to become an employer')}</h1>
+                <p>{t('Quick, easy and effective recruitment')}</p>
                 <div>
                   <Link to="/employers/sign-up">
-                    <FaEdit
-                      className={classes["bannerEmp__container--top--icon"]}
-                    />
-                    {t("Register now")}
+                    <FaEdit className={classes['bannerEmp__container--top--icon']} />
+                    {t('Register now')}
                   </Link>
                 </div>
               </Fragment>
@@ -76,7 +68,7 @@ const BannerHomeEmp = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default BannerHomeEmp;
+export default BannerHomeEmp

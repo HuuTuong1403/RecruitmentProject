@@ -1,7 +1,7 @@
-import { Input } from "antd";
-import { Controller } from "react-hook-form";
-import { Fragment } from "react";
-import ErrorText from "components/ErrorText";
+import { Input } from 'antd'
+import { Controller } from 'react-hook-form'
+import { Fragment } from 'react'
+import ErrorText from 'components/ErrorText'
 
 const TextAreaField = ({
   name,
@@ -10,10 +10,10 @@ const TextAreaField = ({
   maxLength = 100,
   showCount = false,
   rows = 4,
-  placeholder = "",
+  placeholder = '',
   allowClear = true,
 }) => {
-  const { TextArea } = Input;
+  const { TextArea } = Input
 
   return (
     <Fragment>
@@ -34,7 +34,7 @@ const TextAreaField = ({
       />
       {errors && <ErrorText errors={errors} />}
     </Fragment>
-  );
-};
+  )
+}
 
-export default TextAreaField;
+export default TextAreaField

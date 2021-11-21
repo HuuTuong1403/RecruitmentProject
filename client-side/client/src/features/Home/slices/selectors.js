@@ -1,21 +1,21 @@
 export const selectJobsHome = (state) => {
-  return state?.home?.jobs;
-};
+  return state?.home?.jobs
+}
 
 export const selectedProvinces = (state) => {
-  return state?.home?.provinces;
-};
+  return state?.home?.provinces
+}
 
 export const selectedDistricts = (state) => {
-  return state?.home?.districts;
-};
+  return state?.home?.districts
+}
 
 export const selectedWards = (state) => {
-  return state?.home?.wards;
-};
+  return state?.home?.wards
+}
 
 export const selectedUser = (state) => {
-  return state?.home?.user;
-};
+  return state?.home?.user
+}
 
-export const selectLoadingHome = (state) => state?.home?.status;
+export const selectLoadingHome = (state) => state?.home?.status

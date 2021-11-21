@@ -1,55 +1,49 @@
-import { Avatar, Tooltip } from "antd";
-import {
-  dateFormatISO8601,
-  dateFormatHourMinute,
-} from "common/constants/dateFormat";
-import { FaUsers } from "react-icons/fa";
-import { fetchDetailEventAsync } from "features/Events/slices/thunks";
+import { Avatar, Tooltip } from 'antd'
+import { dateFormatISO8601, dateFormatHourMinute } from 'common/constants/dateFormat'
+import { FaUsers } from 'react-icons/fa'
+import { fetchDetailEventAsync } from 'features/Events/slices/thunks'
 import {
   getDetailJobSeekerAsync,
   fetchAllEventJoinedAsync,
-} from "features/JobSeekers/slices/thunks";
-import { MdAccessTime, MdEventAvailable, MdEventBusy } from "react-icons/md";
-import { ScrollTop } from "common/functions";
+} from 'features/JobSeekers/slices/thunks'
+import { MdAccessTime, MdEventAvailable, MdEventBusy } from 'react-icons/md'
+import { ScrollTop } from 'common/functions'
 import {
   selectedJobSeekerProfile,
   selectJobSeekerLocal,
   selectEventsJoined,
-} from "features/JobSeekers/slices/selectors";
-import { selectEmployerLocal } from "features/Employers/slices/selectors";
-import {
-  selectEventDetail,
-  selectStatus,
-} from "features/Events/slices/selectors";
-import { useCallback, useEffect, Fragment, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
-import { useTitle } from "common/hook/useTitle";
-import { useTranslation } from "react-i18next";
-import ButtonField from "custom-fields/ButtonField";
-import classes from "./style.module.scss";
-import LoadingSuspense from "components/Loading";
-import ModalJoinEvent from "features/Events/components/ModalJoinEvent";
-import ModalSignIn from "components/ModalSignIn";
-import moment from "moment";
-import notification from "components/Notification";
-import parse from "html-react-parser";
-import Slider from "react-slick";
+} from 'features/JobSeekers/slices/selectors'
+import { selectEmployerLocal } from 'features/Employers/slices/selectors'
+import { selectEventDetail, selectStatus } from 'features/Events/slices/selectors'
+import { useCallback, useEffect, Fragment, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams, useHistory } from 'react-router-dom'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
+import ButtonField from 'custom-fields/ButtonField'
+import classes from './style.module.scss'
+import LoadingSuspense from 'components/Loading'
+import ModalJoinEvent from 'features/Events/components/ModalJoinEvent'
+import ModalSignIn from 'components/ModalSignIn'
+import moment from 'moment'
+import notification from 'components/Notification'
+import parse from 'html-react-parser'
+import Slider from 'react-slick'
 
 const EventDetailPage = () => {
-  ScrollTop();
-  const { t } = useTranslation();
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const jobSeeker = useSelector(selectedJobSeekerProfile);
-  const { slug } = useParams();
-  const eventDetail = useSelector(selectEventDetail);
-  const loading = useSelector(selectStatus);
-  const user = selectJobSeekerLocal();
-  const token = localStorage.getItem("token");
-  const joinedEvents = useSelector(selectEventsJoined);
-  const [showModal, setShowModal] = useState(false);
-  const employer = selectEmployerLocal();
+  ScrollTop()
+  const { t } = useTranslation()
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const jobSeeker = useSelector(selectedJobSeekerProfile)
+  const { slug } = useParams()
+  const eventDetail = useSelector(selectEventDetail)
+  const loading = useSelector(selectStatus)
+  const user = selectJobSeekerLocal()
+  const token = localStorage.getItem('token')
+  const joinedEvents = useSelector(selectEventsJoined)
+  const [showModal, setShowModal] = useState(false)
+  const employer = selectEmployerLocal()
 
   const {
     _id,
@@ -69,58 +63,58 @@ const EventDetailPage = () => {
     startTime,
     status,
     topic,
-  } = eventDetail;
+  } = eventDetail
 
   const styleImageCover = {
     background: `url(${imageCover}) center center no-repeat`,
-    backgroundSize: "cover",
-  };
+    backgroundSize: 'cover',
+  }
 
-  useTitle(eventName ?? "");
+  useTitle(eventName ?? '')
 
   const getDetailEvent = useCallback(async () => {
-    const result = await dispatch(fetchDetailEventAsync(slug));
+    const result = await dispatch(fetchDetailEventAsync(slug))
     if (result.error) {
-      history.replace("/events/search?type=all");
+      history.replace('/events/search?type=all')
     }
-  }, [dispatch, slug, history]);
+  }, [dispatch, slug, history])
 
   useEffect(() => {
-    getDetailEvent();
-  }, [getDetailEvent]);
+    getDetailEvent()
+  }, [getDetailEvent])
 
   const handleClickLogo = () => {
-    history.push(`/jobs/employer/${company.companyName}`);
-  };
+    history.push(`/jobs/employer/${company.companyName}`)
+  }
 
   const onCloseModal = () => {
-    setShowModal(false);
-  };
+    setShowModal(false)
+  }
 
   useEffect(() => {
     if (!employer) {
       if (token) {
-        dispatch(fetchAllEventJoinedAsync());
+        dispatch(fetchAllEventJoinedAsync())
       }
     }
-  }, [dispatch, token, employer, slug]);
+  }, [dispatch, token, employer, slug])
 
   const applyJoinEvent = () => {
     if (user) {
       if (!jobSeeker) {
-        dispatch(getDetailJobSeekerAsync());
-        setShowModal(true);
+        dispatch(getDetailJobSeekerAsync())
+        setShowModal(true)
       } else {
-        setShowModal(true);
+        setShowModal(true)
       }
     } else {
       if (employer) {
-        notification(`${t("Please log out of the employer account")}`, "error");
+        notification(`${t('Please log out of the employer account')}`, 'error')
       } else {
-        setShowModal(true);
+        setShowModal(true)
       }
     }
-  };
+  }
 
   return (
     <Fragment>
@@ -144,26 +138,26 @@ const EventDetailPage = () => {
             <div style={styleImageCover} className={classes.eventDetail__top}>
               <div className={classes.overlayImage}></div>
             </div>
-            <div className={classes["eventDetail__wrapped--info"]}>
+            <div className={classes['eventDetail__wrapped--info']}>
               <Avatar
                 onClick={handleClickLogo}
-                className={classes["eventDetail__wrapped--info--logo"]}
+                className={classes['eventDetail__wrapped--info--logo']}
                 size={175}
                 shape="square"
                 src={company?.logo}
               />
               <div className={classes.eventDetail__eventInfo}>
                 <div>
-                  <div className={classes["eventDetail__eventInfo--eventName"]}>
-                    {t("Event")} {eventName}
+                  <div className={classes['eventDetail__eventInfo--eventName']}>
+                    {t('Event')} {eventName}
                   </div>
-                  <div className={classes["eventDetail__eventInfo--field"]}>
-                    {t("Event organizer")}: <span>{eventOrganizer}</span>
+                  <div className={classes['eventDetail__eventInfo--field']}>
+                    {t('Event organizer')}: <span>{eventOrganizer}</span>
                   </div>
-                  <div className={classes["eventDetail__eventInfo--field"]}>
-                    {t("Held at")}:{" "}
+                  <div className={classes['eventDetail__eventInfo--field']}>
+                    {t('Held at')}:{' '}
                     {address && (
-                      <Tooltip title={t("View location on google maps")}>
+                      <Tooltip title={t('View location on google maps')}>
                         <a
                           href={`https://www.google.com/maps/place/${address.street}, ${address.ward}, ${address.district}, ${address.city}`}
                           target="_blank"
@@ -174,77 +168,65 @@ const EventDetailPage = () => {
                       </Tooltip>
                     )}
                   </div>
-                  <div className={classes["eventDetail__eventInfo--field"]}>
-                    {t("Event topic")}: <span>{topic}</span>
+                  <div className={classes['eventDetail__eventInfo--field']}>
+                    {t('Event topic')}: <span>{topic}</span>
                   </div>
-                  <div className={classes["eventDetail__eventInfo--field"]}>
+                  <div className={classes['eventDetail__eventInfo--field']}>
                     <MdEventAvailable className={classes.iconField} />
-                    {t("Event start time")}:{" "}
+                    {t('Event start time')}:{' '}
                     <span>
-                      {t("Date")}{" "}
+                      {t('Date')}{' '}
                       {moment(startTime, dateFormatISO8601)
                         .format(dateFormatHourMinute)
-                        .split(" ")
-                        .join(` ${t("At")} `)}
+                        .split(' ')
+                        .join(` ${t('At')} `)}
                     </span>
                   </div>
-                  <div className={classes["eventDetail__eventInfo--field"]}>
+                  <div className={classes['eventDetail__eventInfo--field']}>
                     <MdEventBusy className={classes.iconField} />
-                    {t("Event end time")}:{" "}
+                    {t('Event end time')}:{' '}
                     <span>
-                      {t("Date")}{" "}
+                      {t('Date')}{' '}
                       {moment(endTime, dateFormatISO8601)
                         .format(dateFormatHourMinute)
-                        .split(" ")
-                        .join(` ${t("At")} `)}
+                        .split(' ')
+                        .join(` ${t('At')} `)}
                     </span>
                   </div>
                 </div>
                 <div>
                   {aboutCreated && (
                     <Tooltip
-                      title={`${t("Posted")} ${aboutCreated
-                        .split(" ")
+                      title={`${t('Posted')} ${aboutCreated
+                        .split(' ')
                         .map((string) => t(string))
-                        .join(" ")}`}
+                        .join(' ')}`}
                     >
-                      <div className={classes["eventDetail__eventInfo--field"]}>
+                      <div className={classes['eventDetail__eventInfo--field']}>
                         <MdAccessTime className={classes.iconField} />
                         <span>
                           {aboutCreated
-                            .split(" ")
+                            .split(' ')
                             .map((string) => t(string))
-                            .join(" ")}
+                            .join(' ')}
                         </span>
                       </div>
                     </Tooltip>
                   )}
-                  <div className={classes["eventDetail__eventInfo--field"]}>
-                    {t("Event")}{" "}
-                    <span
-                      className={
-                        classes["eventDetail__eventInfo--field--status"]
-                      }
-                    >
+                  <div className={classes['eventDetail__eventInfo--field']}>
+                    {t('Event')}{' '}
+                    <span className={classes['eventDetail__eventInfo--field--status']}>
                       {t(status)}
                     </span>
                   </div>
-                  <div className={classes["eventDetail__eventInfo--field"]}>
-                    <FaUsers
-                      className={classes["eventDetail__eventInfo--icon"]}
-                    />
+                  <div className={classes['eventDetail__eventInfo--field']}>
+                    <FaUsers className={classes['eventDetail__eventInfo--icon']} />
                     <Tooltip
-                      title={`${t("The event had")} ${participantQuantity} ${
-                        participantQuantity > 1
-                          ? t("participants")
-                          : t("participant")
+                      title={`${t('The event had')} ${participantQuantity} ${
+                        participantQuantity > 1 ? t('participants') : t('participant')
                       }`}
                     >
-                      <span
-                        className={
-                          classes["eventDetail__eventInfo--field--people"]
-                        }
-                      >
+                      <span className={classes['eventDetail__eventInfo--field--people']}>
                         {participantQuantity}/{participantMax}
                       </span>
                     </Tooltip>
@@ -257,7 +239,7 @@ const EventDetailPage = () => {
                       disabled
                       uppercase
                     >
-                      {t("Registered")}
+                      {t('Registered')}
                     </ButtonField>
                   ) : participantQuantity === participantMax ? (
                     <ButtonField
@@ -267,7 +249,7 @@ const EventDetailPage = () => {
                       uppercase
                       disabled
                     >
-                      {t("Enough quantity")}
+                      {t('Enough quantity')}
                     </ButtonField>
                   ) : (
                     <ButtonField
@@ -277,7 +259,7 @@ const EventDetailPage = () => {
                       uppercase
                       onClick={applyJoinEvent}
                     >
-                      {t("Registration")}
+                      {t('Registration')}
                     </ButtonField>
                   )}
                 </div>
@@ -286,39 +268,31 @@ const EventDetailPage = () => {
           </div>
           <div className={classes.eventDetail__content}>
             <div>
-              <div className={classes.eventDetail__title}>
-                {t("Brief description about event")}
-              </div>
+              <div className={classes.eventDetail__title}>{t('Brief description about event')}</div>
               {briefDescription && (
-                <div className={classes["eventDetail__content--text"]}>
+                <div className={classes['eventDetail__content--text']}>
                   {parse(briefDescription)}
                 </div>
               )}
 
-              <div className={classes.eventDetail__title}>
-                {t("Content of event")}
-              </div>
+              <div className={classes.eventDetail__title}>{t('Content of event')}</div>
               {eventContent && (
-                <div className={classes["eventDetail__content--text"]}>
-                  {parse(eventContent)}
-                </div>
+                <div className={classes['eventDetail__content--text']}>{parse(eventContent)}</div>
               )}
             </div>
-            <div className={classes["eventDetail__content--map"]}>
-              <div className={classes["eventDetail__content--map--title"]}>
-                {t("Event information")}
+            <div className={classes['eventDetail__content--map']}>
+              <div className={classes['eventDetail__content--map--title']}>
+                {t('Event information')}
               </div>
               {address && (
                 <Fragment>
-                  <div
-                    className={classes["eventDetail__content--map--location"]}
-                  >
-                    {t("Address")}:{" "}
+                  <div className={classes['eventDetail__content--map--location']}>
+                    {t('Address')}:{' '}
                     <span>{`${address.street}, ${address.ward}, ${address.district}, ${address.city}`}</span>
                   </div>
                   <iframe
                     src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBG4gMA71lLD3zLV38JXsvM3SQ-TT39FpM&q=${address.street},${address.ward},${address.district},${address.city}&zoom=15&language=vi`}
-                    className={classes["eventDetail__content--map--iframe"]}
+                    className={classes['eventDetail__content--map--iframe']}
                     title="Map"
                   ></iframe>
                 </Fragment>
@@ -327,21 +301,19 @@ const EventDetailPage = () => {
           </div>
 
           <div className={classes.eventDetail__anotherImage}>
-            <div className={classes.eventDetail__title}>
-              {t("Some more pictures of the event")}
-            </div>
-            <div className={classes["eventDetail__anotherImage--wrapped"]}>
+            <div className={classes.eventDetail__title}>{t('Some more pictures of the event')}</div>
+            <div className={classes['eventDetail__anotherImage--wrapped']}>
               {images && (
-                <Slider style={{ width: "100%" }} {...settings}>
+                <Slider style={{ width: '100%' }} {...settings}>
                   {images.map((image, index) => {
                     return (
                       <img
-                        className={classes["eventDetail__anotherImage--image"]}
+                        className={classes['eventDetail__anotherImage--image']}
                         key={index}
                         src={image}
                         alt={image}
                       />
-                    );
+                    )
                   })}
                 </Slider>
               )}
@@ -350,8 +322,8 @@ const EventDetailPage = () => {
         </div>
       )}
     </Fragment>
-  );
-};
+  )
+}
 
 const settings = {
   dots: true,
@@ -362,6 +334,6 @@ const settings = {
   autoplay: true,
   pauseOnHover: true,
   rows: 1,
-};
+}
 
-export default EventDetailPage;
+export default EventDetailPage

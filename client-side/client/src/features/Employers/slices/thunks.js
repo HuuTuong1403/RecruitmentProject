@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from '@reduxjs/toolkit'
 import {
   countApplicationStatus,
   fetchAllEventOfEmployer,
@@ -12,100 +12,94 @@ import {
   fetchParticipantsByIdEvent,
   fetchAllEventDeleted,
   getDetailEmployer,
-} from "../api/employer.api";
+} from '../api/employer.api'
 
-export const getDetailEmployerAsync = createAsyncThunk(
-  "employer/getDetailEmployer",
-  async () => {
-    const res = await getDetailEmployer();
-    return res.data.data;
-  }
-);
+export const getDetailEmployerAsync = createAsyncThunk('employer/getDetailEmployer', async () => {
+  const res = await getDetailEmployer()
+  return res.data.data
+})
 
 export const fetchJobsOfEmployerAsync = createAsyncThunk(
-  "employer/fetchJobsOfEmployer",
+  'employer/fetchJobsOfEmployer',
   async () => {
-    const res = await fetchJobsOfEmployer();
-    return res.data.data;
+    const res = await fetchJobsOfEmployer()
+    return res.data.data
   }
-);
+)
 
 export const fetchJobDetailOfEmployerAsync = createAsyncThunk(
-  "employer/fetchJobDetailOfEmployer",
+  'employer/fetchJobDetailOfEmployer',
   async (payload) => {
-    const res = await fetchJobDetailOfEmployer(payload);
-    return res.data.data;
+    const res = await fetchJobDetailOfEmployer(payload)
+    return res.data.data
   }
-);
+)
 
-export const fetchJobDeletedAsync = createAsyncThunk(
-  "employer/fetchJobDeleted",
-  async () => {
-    const res = await fetchJobDeleted();
-    return res.data.data;
-  }
-);
+export const fetchJobDeletedAsync = createAsyncThunk('employer/fetchJobDeleted', async () => {
+  const res = await fetchJobDeleted()
+  return res.data.data
+})
 
 export const fetchJobsApplicationNotSavedAsync = createAsyncThunk(
-  "employer/fetchJobsApplicationNotSaved",
+  'employer/fetchJobsApplicationNotSaved',
   async (payload) => {
-    const res = await fetchJobsApplicationNotSaved(payload);
-    return res.data.data;
+    const res = await fetchJobsApplicationNotSaved(payload)
+    return res.data.data
   }
-);
+)
 
 export const fetchJobsApplicationSavedAsync = createAsyncThunk(
-  "employer/fetchJobsApplicationSaved",
+  'employer/fetchJobsApplicationSaved',
   async (payload) => {
-    const res = await fetchJobsApplicationSaved(payload);
-    return res.data.data;
+    const res = await fetchJobsApplicationSaved(payload)
+    return res.data.data
   }
-);
+)
 
 export const fetchJobsApplicationDeletedAsync = createAsyncThunk(
-  "employer/fetchJobsApplicationDeleted",
+  'employer/fetchJobsApplicationDeleted',
   async (payload) => {
-    const res = await fetchJobsApplicationDeleted(payload);
-    return res.data.data;
+    const res = await fetchJobsApplicationDeleted(payload)
+    return res.data.data
   }
-);
+)
 
 export const countApplicationStatusAsync = createAsyncThunk(
-  "employer/countApplicationStatus",
+  'employer/countApplicationStatus',
   async () => {
-    const res = await countApplicationStatus();
-    return res.data.data;
+    const res = await countApplicationStatus()
+    return res.data.data
   }
-);
+)
 
 export const fetchAllEventOfEmployerAsync = createAsyncThunk(
-  "employer/fetchAllEventOfEmployer",
+  'employer/fetchAllEventOfEmployer',
   async () => {
-    const res = await fetchAllEventOfEmployer();
-    return res.data.data;
+    const res = await fetchAllEventOfEmployer()
+    return res.data.data
   }
-);
+)
 
 export const fetchEventDetailAsync = createAsyncThunk(
-  "employer/fetchEventDetail",
+  'employer/fetchEventDetail',
   async (payload) => {
-    const res = await fetchEventDetail(payload);
-    return res.data.data;
+    const res = await fetchEventDetail(payload)
+    return res.data.data
   }
-);
+)
 
 export const fetchParticipantsByIdEventAsync = createAsyncThunk(
-  "employer/fetchParticipantsByIdEvent",
+  'employer/fetchParticipantsByIdEvent',
   async (payload) => {
-    const res = await fetchParticipantsByIdEvent(payload);
-    return res.data.data;
+    const res = await fetchParticipantsByIdEvent(payload)
+    return res.data.data
   }
-);
+)
 
 export const fetchAllEventDeletedAsync = createAsyncThunk(
-  "employer/fetchAllEventDeleted",
+  'employer/fetchAllEventDeleted',
   async (payload) => {
-    const res = await fetchAllEventDeleted();
-    return res.data.data;
+    const res = await fetchAllEventDeleted()
+    return res.data.data
   }
-);
+)

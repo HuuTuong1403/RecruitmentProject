@@ -1,3 +1,3 @@
 export const selectInfoSignUp = (state) => {
-  return state?.authEmployer?.signUpInformation;
-};
+  return state?.authEmployer?.signUpInformation
+}

@@ -1,5 +1,5 @@
-@import "common/styles/Variables.scss";
-@import "common/styles/Global.scss";
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
 
 .signin {
   height: 100%;
@@ -41,7 +41,7 @@
 
         &::before {
           background: #e9e9e9;
-          content: "";
+          content: '';
           height: 1px;
           left: 50%;
           position: absolute;

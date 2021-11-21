@@ -1,12 +1,12 @@
 import {
   fetchDistrictsByProvinceAsync,
   fetchWardsByDistrictsAsync,
-} from "features/Home/slices/thunks";
-import { Controller } from "react-hook-form";
-import { Fragment, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import ErrorText from "components/ErrorText";
-import Select from "react-select";
+} from 'features/Home/slices/thunks'
+import { Controller } from 'react-hook-form'
+import { Fragment, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import ErrorText from 'components/ErrorText'
+import Select from 'react-select'
 
 const SelectPostJobField = ({
   control,
@@ -19,35 +19,33 @@ const SelectPostJobField = ({
   placeholder,
   setValue,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (defaultValue) {
       if (list.length > 1) {
-        if (name === "city") {
-          const findLocation = list.find((c) => c.label === defaultValue);
-          dispatch(
-            fetchDistrictsByProvinceAsync({ code: findLocation?.value })
-          );
+        if (name === 'city') {
+          const findLocation = list.find((c) => c.label === defaultValue)
+          dispatch(fetchDistrictsByProvinceAsync({ code: findLocation?.value }))
         }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [list.length > 1, defaultValue]);
+  }, [list.length > 1, defaultValue])
 
   useEffect(() => {
     if (defaultValue) {
       if (list.length > 1) {
-        if (name === "district") {
-          const findLocation = list.find((c) => c.label === defaultValue);
+        if (name === 'district') {
+          const findLocation = list.find((c) => c.label === defaultValue)
           if (findLocation) {
-            dispatch(fetchWardsByDistrictsAsync({ code: findLocation.value }));
+            dispatch(fetchWardsByDistrictsAsync({ code: findLocation.value }))
           }
         }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [list.length > 1, defaultValue]);
+  }, [list.length > 1, defaultValue])
 
   return (
     <Fragment>
@@ -61,31 +59,29 @@ const SelectPostJobField = ({
             options={list}
             value={
               isLocation
-                ? list.find((c) => c.label === value) ?? ""
-                : list.find((c) => c.value === value) ?? ""
+                ? list.find((c) => c.label === value) ?? ''
+                : list.find((c) => c.value === value) ?? ''
             }
             isDisabled={list.length <= 1}
             onChange={(selectedOption) => {
               if (isLocation) {
-                onChange(selectedOption.label);
+                onChange(selectedOption.label)
               } else {
-                onChange(selectedOption.value);
+                onChange(selectedOption.value)
               }
 
               if (handleAddData) {
                 handleAddData({
-                  [name]: isLocation
-                    ? selectedOption.label
-                    : selectedOption.value,
-                });
+                  [name]: isLocation ? selectedOption.label : selectedOption.value,
+                })
               }
               if (isLocation && selectedOption.value) {
-                if (name === "city") {
-                  setValue("district", "", { shouldValidate: true });
-                  setValue("ward", "", { shouldValidate: true });
+                if (name === 'city') {
+                  setValue('district', '', { shouldValidate: true })
+                  setValue('ward', '', { shouldValidate: true })
                 }
-                if (name === "district") {
-                  setValue("ward", "", { shouldValidate: true });
+                if (name === 'district') {
+                  setValue('ward', '', { shouldValidate: true })
                 }
               }
             }}
@@ -94,7 +90,7 @@ const SelectPostJobField = ({
       />
       <ErrorText errors={errors} />
     </Fragment>
-  );
-};
+  )
+}
 
-export default SelectPostJobField;
+export default SelectPostJobField

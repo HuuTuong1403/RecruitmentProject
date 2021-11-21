@@ -1,9 +1,9 @@
-import { AiOutlineFrown, AiOutlineMeh, AiOutlineSmile } from "react-icons/ai";
-import { Controller } from "react-hook-form";
-import { Fragment } from "react";
-import { Rate } from "antd";
-import { useTranslation } from "react-i18next";
-import ErrorText from "components/ErrorText";
+import { AiOutlineFrown, AiOutlineMeh, AiOutlineSmile } from 'react-icons/ai'
+import { Controller } from 'react-hook-form'
+import { Fragment } from 'react'
+import { Rate } from 'antd'
+import { useTranslation } from 'react-i18next'
+import ErrorText from 'components/ErrorText'
 
 const RatingField = ({
   name,
@@ -17,15 +17,9 @@ const RatingField = ({
   fontSize,
   errors,
 }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
-  const otRate = [
-    "Totally unsatisfied",
-    "Unsatisfied",
-    "Normal",
-    "Satisfied",
-    "Totally satisfied",
-  ];
+  const otRate = ['Totally unsatisfied', 'Unsatisfied', 'Normal', 'Satisfied', 'Totally satisfied']
 
   const customIcons = {
     1: <AiOutlineFrown />,
@@ -33,7 +27,7 @@ const RatingField = ({
     3: <AiOutlineMeh />,
     4: <AiOutlineSmile />,
     5: <AiOutlineSmile />,
-  };
+  }
 
   return (
     <Fragment>
@@ -54,22 +48,20 @@ const RatingField = ({
                 value={value}
                 defaultValue={value}
                 onChange={(value) => {
-                  onChange(value);
+                  onChange(value)
                   if (setReviewOT) {
-                    setReviewOT(otRate[value - 1]);
+                    setReviewOT(otRate[value - 1])
                   }
                 }}
               />
 
               <span
                 style={{
-                  marginLeft: "10px",
-                  color: `${
-                    value < 3 ? "red" : value === 3 ? "orange" : "green"
-                  }`,
+                  marginLeft: '10px',
+                  color: `${value < 3 ? 'red' : value === 3 ? 'orange' : 'green'}`,
                 }}
               >
-                {value > 0 ? t(`${otRate[value - 1]}`) : ""}
+                {value > 0 ? t(`${otRate[value - 1]}`) : ''}
               </span>
             </Fragment>
           ) : (
@@ -82,12 +74,12 @@ const RatingField = ({
               defaultValue={value}
               onChange={onChange}
             />
-          );
+          )
         }}
       />
       {errors && <ErrorText errors={errors} />}
     </Fragment>
-  );
-};
+  )
+}
 
-export default RatingField;
+export default RatingField
