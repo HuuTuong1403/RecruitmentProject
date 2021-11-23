@@ -9,10 +9,14 @@ const validator = require('./../middlewares/validator');
 const uploadAvatar = require('./../middlewares/uploadAvatar');
 
 const jobRouter = require('./../routes/jobRoutes');
+const jobseekerRouter = require('./job-seekerRoutes');
+const employerRouter = require('./employerRouter');
 
 systemManagerRouter.route('/login').post(authController.loginSystemManager);
 
 systemManagerRouter.use('/jobs', jobRouter);
+systemManagerRouter.use('/job-seeker', jobseekerRouter);
+systemManagerRouter.use('/employer', employerRouter);
 
 systemManagerRouter.use(
   authController.protect,

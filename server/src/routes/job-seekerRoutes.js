@@ -5,7 +5,7 @@ const jobSeekerController = require('./../controllers/jobSeekerController');
 
 const uploadAvatar = require('./../middlewares/uploadAvatar');
 
-const jobseekerRouter = express.Router();
+const jobseekerRouter = express.Router({ mergeParams: true });
 const jobRouter = require('./jobRoutes');
 const applicationRouter = require('./applicationRouter');
 const reviewRouter = require('./reviewRouter');
@@ -30,11 +30,20 @@ jobseekerRouter
   .route('/resetPassword/:token')
   .patch(authController.resetJobSeekerPassword);
 
-jobseekerRouter.use(
-  authController.protect,
-  authController.restrictTo('jobseeker')
-);
-
+jobseekerRouter.use(authController.protect);
+jobseekerRouter
+  .route('/statistic/jobseeker-comp')
+  .get(
+    authController.restrictTo('systemmanager', 'systemadmin'),
+    jobSeekerController.getJobSeekerComp
+  );
+jobseekerRouter
+  .route('/statistic/jobseeker-stat')
+  .get(
+    authController.restrictTo('systemmanager', 'systemadmin'),
+    jobSeekerController.getJobSeekerStat
+  );
+jobseekerRouter.use(authController.restrictTo('jobseeker'));
 jobseekerRouter
   .route('/updatePassword')
   .patch(jobSeekerController.updateJobSeekerPassword);

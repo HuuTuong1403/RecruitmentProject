@@ -1,5 +1,5 @@
 const express = require('express');
-const employerRouter = express.Router();
+const employerRouter = express.Router({ mergeParams: true });
 
 const employerController = require('./../controllers/employerController');
 
@@ -51,10 +51,20 @@ employerRouter
     employerController.getMe
   );
 
-employerRouter.use(
-  authController.protect,
-  authController.restrictTo('employer')
-);
+employerRouter.use(authController.protect);
+employerRouter
+  .route('/statistic/employer-comp')
+  .get(
+    authController.restrictTo('systemmanager', 'systemadmin'),
+    employerController.getEmployerComp
+  );
+employerRouter
+  .route('/statistic/employer-stat')
+  .get(
+    authController.restrictTo('systemmanager', 'systemadmin'),
+    employerController.getEmployerStat
+  );
+employerRouter.use(authController.restrictTo('employer'));
 employerRouter.use('/jobs', jobRoute);
 employerRouter
   .route('/updatePassword')

@@ -5,8 +5,11 @@ const Employer = require('./../models/employerModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
-const sendEmail = require('./../services/email');
 const FilterObject = require('./../utils/filterObject');
+const getDayOfYear = require('./../utils/getDayOfYear');
+
+const sendEmail = require('./../services/email');
+
 const factory = require('./handleFactory');
 var confirmEmailFiles = fs.readFileSync(
   `${__dirname}/../public/ConfirmEmail/ConfirmEmail.html`,
@@ -173,6 +176,88 @@ class employerController {
       status: 'success',
       data: {
         employer: filteredEmployer,
+      },
+    });
+  });
+  getEmployerComp = catchAsync(async (req, res, next) => {
+    let result = {
+      past: 0,
+      current: 0,
+    };
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const employers = await Employer.aggregate([
+      {
+        $addFields: {
+          month: { $month: '$createdAt' },
+          year: { $year: '$createdAt' },
+        },
+      },
+      {
+        $addFields: {
+          timeline: {
+            $cond: {
+              if: {
+                $and: [{ $eq: ['$month', month] }, { $eq: ['$year', year] }],
+              },
+              then: 'current',
+              else: 'past',
+            },
+          },
+        },
+      },
+      {
+        $group: { _id: '$timeline', count: { $sum: 1 } },
+      },
+    ]);
+    for (var i = 0; i < employers.length; i++) {
+      if (employers[i]._id == 'current') {
+        result.current = employers[i].count;
+      }
+      if (employers[i]._id == 'past') {
+        result.past = employers[i].count;
+      }
+    }
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: result,
+      },
+    });
+  });
+  getEmployerStat = catchAsync(async (req, res, next) => {
+    let result = Array(12).fill(0);
+    const now = new Date();
+    const year = now.getFullYear();
+    const employers = await Employer.aggregate([
+      {
+        $addFields: {
+          month: { $month: '$createdAt' },
+        },
+      },
+      {
+        $redact: {
+          $cond: [
+            {
+              $eq: [{ $year: '$createdAt' }, year],
+            },
+            '$$KEEP',
+            '$$PRUNE',
+          ],
+        },
+      },
+      {
+        $group: { _id: '$month', count: { $sum: 1 } },
+      },
+    ]);
+    for (var i = 0; i < employers.length; i++) {
+      result[employers[i]._id - 1] = employers[i].count;
+    }
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: result,
       },
     });
   });

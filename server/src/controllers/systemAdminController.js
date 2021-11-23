@@ -1,3 +1,6 @@
+const Employer = require('./../models/employerModel');
+const JobSeeker = require('./../models/job-seekerModel');
+
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const FilterObject = require('./../utils/filterObject');
@@ -91,6 +94,67 @@ class systemAdminController {
       status: 'success',
       data: {
         systemAdmin: filteredsystemAdmin,
+      },
+    });
+  });
+  getUserStat = catchAsync(async (req, res, next) => {
+    const employers = await Employer.find({}, { createdAt: 1 });
+    const jobSeekers = await JobSeeker.find({}, { createdAt: 1 });
+    let users = employers.concat(jobSeekers);
+
+    const now = new Date();
+    const year = now.getFullYear();
+
+    users = users.map((element) => {
+      return {
+        month: element.createdAt.getMonth(),
+        year: element.createdAt.getFullYear(),
+      };
+    });
+
+    let result = Array(12).fill(0);
+    users.forEach((user) => {
+      if (user.year == year) result[user.month] = result[user.month] + 1;
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: result,
+      },
+    });
+  });
+  getUserComp = catchAsync(async (req, res, next) => {
+    const employers = await Employer.find({}, { createdAt: 1 });
+    const jobSeekers = await JobSeeker.find({}, { createdAt: 1 });
+    let users = employers.concat(jobSeekers);
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    users = users.map((user, index) => {
+      if (
+        user.createdAt.getMonth() == month &&
+        user.createdAt.getFullYear() == year
+      ) {
+        return { timeline: 'current' };
+      } else {
+        return { timeline: 'past' };
+      }
+    });
+    let result = {
+      past: 0,
+      current: 0,
+    };
+    users.forEach((user) => {
+      result[user.timeline] = result[user.timeline] + 1;
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: result,
       },
     });
   });

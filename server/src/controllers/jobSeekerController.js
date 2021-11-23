@@ -1,8 +1,11 @@
 const JobSeeker = require('./../models/job-seekerModel');
+
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('../utils/apiFeatures');
+const getDayOfYear = require('./../utils/getDayOfYear');
 const FilterObject = require('../utils/filterObject');
+
 class JobSeekerController {
   getJobSeeker = catchAsync(async (req, res, next) => {
     const features = new APIFeatures(JobSeeker.findById(req.user.id), {
@@ -142,6 +145,88 @@ class JobSeekerController {
     res.status(200).json({
       status: 'sucess',
       length: length,
+      data: {
+        data: result,
+      },
+    });
+  });
+  getJobSeekerComp = catchAsync(async (req, res, next) => {
+    let result = {
+      past: 0,
+      current: 0,
+    };
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const jobSeekers = await JobSeeker.aggregate([
+      {
+        $addFields: {
+          month: { $month: '$createdAt' },
+          year: { $year: '$createdAt' },
+        },
+      },
+      {
+        $addFields: {
+          timeline: {
+            $cond: {
+              if: {
+                $and: [{ $eq: ['$month', month] }, { $eq: ['$year', year] }],
+              },
+              then: 'current',
+              else: 'past',
+            },
+          },
+        },
+      },
+      {
+        $group: { _id: '$timeline', count: { $sum: 1 } },
+      },
+    ]);
+    for (var i = 0; i < jobSeekers.length; i++) {
+      if (jobSeekers[i]._id == 'current') {
+        result.current = jobSeekers[i].count;
+      }
+      if (jobSeekers[i]._id == 'past') {
+        result.past = jobSeekers[i].count;
+      }
+    }
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: result,
+      },
+    });
+  });
+  getJobSeekerStat = catchAsync(async (req, res, next) => {
+    let result = Array(12).fill(0);
+    const now = new Date();
+    const year = now.getFullYear();
+    const jobSeekers = await JobSeeker.aggregate([
+      {
+        $addFields: {
+          month: { $month: '$createdAt' },
+        },
+      },
+      {
+        $redact: {
+          $cond: [
+            {
+              $eq: [{ $year: '$createdAt' }, year],
+            },
+            '$$KEEP',
+            '$$PRUNE',
+          ],
+        },
+      },
+      {
+        $group: { _id: '$month', count: { $sum: 1 } },
+      },
+    ]);
+    for (var i = 0; i < jobSeekers.length; i++) {
+      result[jobSeekers[i]._id - 1] = jobSeekers[i].count;
+    }
+    res.status(200).json({
+      status: 'success',
       data: {
         data: result,
       },
