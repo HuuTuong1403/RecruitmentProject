@@ -1,6 +1,6 @@
 import { Avatar, Dropdown, Menu } from 'antd'
 import { BiImageAdd } from 'react-icons/bi'
-import { Fragment, useRef } from 'react'
+import { Fragment, useRef, useEffect } from 'react'
 import { MdHighlightOff } from 'react-icons/md'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,6 +11,12 @@ const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
   const [avatarSrc, setAvatarSrc] = useState(src)
   const fileRef = useRef(null)
   const { t } = useTranslation()
+
+  useEffect(() => {
+    return () => {
+      avatarSrc && URL.revokeObjectURL(avatarSrc)
+    }
+  }, [avatarSrc])
 
   const checkValidImage = (file) => {
     const validImageTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/svg']
@@ -30,11 +36,8 @@ const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
   const handleChooseFile = () => {
     if (fileRef.current.files && fileRef.current.files[0]) {
       if (checkValidImage(fileRef.current.files[0])) {
-        var reader = new FileReader()
-        reader.onload = (e) => {
-          setAvatarSrc(e.target.result)
-        }
-        reader.readAsDataURL(fileRef.current.files[0])
+        const src = URL.createObjectURL(fileRef.current.files[0])
+        setAvatarSrc(src)
         changeAvatar(fileRef.current.files[0])
       }
     }

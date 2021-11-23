@@ -15,7 +15,7 @@ import {
 } from 'features/JobSeekers/slices/selectors'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectEventDetail, selectStatus } from 'features/Events/slices/selectors'
-import { useCallback, useEffect, Fragment, useState } from 'react'
+import { useEffect, Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useHistory } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
@@ -72,16 +72,15 @@ const EventDetailPage = () => {
 
   useTitle(eventName ?? '')
 
-  const getDetailEvent = useCallback(async () => {
-    const result = await dispatch(fetchDetailEventAsync(slug))
-    if (result.error) {
-      history.replace('/events/search?type=all')
-    }
-  }, [dispatch, slug, history])
-
   useEffect(() => {
+    async function getDetailEvent() {
+      const result = await dispatch(fetchDetailEventAsync(slug))
+      if (result.error) {
+        history.replace('/events/search?type=all')
+      }
+    }
     getDetailEvent()
-  }, [getDetailEvent])
+  }, [dispatch, slug, history])
 
   const handleClickLogo = () => {
     history.push(`/jobs/employer/${company.companyName}`)

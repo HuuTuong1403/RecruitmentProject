@@ -10,7 +10,7 @@ import {
   fetchAllJobApplicationAsync,
 } from 'features/JobSeekers/slices/thunks'
 import { fetchJobDetailAsync } from 'features/Jobs/slices/thunks'
-import { Fragment, useEffect, useCallback, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { IoMdCalendar } from 'react-icons/io'
 import { FacebookShareButton, FacebookMessengerShareButton } from 'react-share'
 import { Link, useParams, useHistory, useLocation } from 'react-router-dom'
@@ -48,16 +48,15 @@ const JobDetailPage = () => {
   const jobDetail = useSelector(selectedJobDetail)
   const loading = useSelector(selectedStatus)
 
-  const getDetail = useCallback(async () => {
-    const result = await dispatch(fetchJobDetailAsync(slug))
-    if (result.error) {
-      history.replace('/jobs/search?type=all')
-    }
-  }, [dispatch, slug, history])
-
   useEffect(() => {
+    async function getDetail() {
+      const result = await dispatch(fetchJobDetailAsync(slug))
+      if (result.error) {
+        history.replace('/jobs/search?type=all')
+      }
+    }
     getDetail()
-  }, [getDetail])
+  }, [dispatch, slug, history])
 
   useEffect(() => {
     if (!employer) {
