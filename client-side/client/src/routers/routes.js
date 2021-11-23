@@ -1,12 +1,12 @@
-import { lazy } from "react";
-import { PATH, pathJobSeeker, pathEmployer } from "common/constants/path";
+import { lazy } from 'react'
+import { PATH, pathJobSeeker, pathEmployer } from 'common/constants/path'
 
-const DashboardEmployersPage = lazy(() => import("features/Employers"));
-const DashboardJobSeekersPage = lazy(() => import("features/JobSeekers"));
-const EmployersHomePage = lazy(() => import("features/HomeEmployers"));
-const HomePage = lazy(() => import("features/Home"));
-const JobsPage = lazy(() => import("features/Jobs"));
-const EventsPage = lazy(() => import("features/Events"));
+const DashboardEmployersPage = lazy(() => import('features/Employers'))
+const DashboardJobSeekersPage = lazy(() => import('features/JobSeekers'))
+const EmployersHomePage = lazy(() => import('features/HomeEmployers'))
+const HomePage = lazy(() => import('features/Home'))
+const JobsPage = lazy(() => import('features/Jobs'))
+const EventsPage = lazy(() => import('features/Events'))
 
 export const routes = [
   {
@@ -29,19 +29,19 @@ export const routes = [
     path: PATH.events,
     exact: false,
   },
-];
+]
 
 export const privateRoutes = [
   {
     component: DashboardJobSeekersPage,
     exact: false,
     path: pathJobSeeker.jobseekers,
-    role: "JobSeekers",
+    role: 'JobSeekers',
   },
   {
     component: DashboardEmployersPage,
     exact: false,
     path: pathEmployer.dashboard,
-    role: "Employers",
+    role: 'Employers',
   },
-];
+]

@@ -1,35 +1,35 @@
 export const selectedJobs = (state) => {
-  return state?.job?.jobsSearch;
-};
+  return state?.job?.jobsSearch
+}
 
 export const selectedStatus = (state) => {
-  return state?.job?.status;
-};
+  return state?.job?.status
+}
 
 export const selectedStatusReview = (state) => {
-  return state?.job?.statusReview;
-};
+  return state?.job?.statusReview
+}
 
 export const selectedJobDetail = (state) => {
-  return state?.job?.jobDetail;
-};
+  return state?.job?.jobDetail
+}
 
 export const selectedSkills = (state) => {
-  return state?.job?.skills;
-};
+  return state?.job?.skills
+}
 
 export const selectedCompanyDetail = (state) => {
-  return state?.job?.companyDetail;
-};
+  return state?.job?.companyDetail
+}
 
 export const selectedIsFilter = (state) => {
-  return state?.job?.isFilter;
-};
+  return state?.job?.isFilter
+}
 
 export const selectedReviews = (state) => {
-  return state?.job?.reviews;
-};
+  return state?.job?.reviews
+}
 
 export const selectedReviewDetail = (state) => {
-  return state?.job?.reviewDetail;
-};
+  return state?.job?.reviewDetail
+}

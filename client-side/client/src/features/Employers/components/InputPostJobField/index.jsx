@@ -1,14 +1,7 @@
-import { Controller } from "react-hook-form";
-import InputField from "custom-fields/InputField";
+import { Controller } from 'react-hook-form'
+import InputField from 'custom-fields/InputField'
 
-const InputPostJobField = ({
-  name,
-  control,
-  defaultValue,
-  handleAddData,
-  errors,
-  placeholder,
-}) => {
+const InputPostJobField = ({ name, control, defaultValue, handleAddData, errors, placeholder }) => {
   return (
     <Controller
       name={name}
@@ -22,15 +15,15 @@ const InputPostJobField = ({
             onChange={onChange}
             onBlur={(e) => {
               if (handleAddData) {
-                handleAddData({ [name]: e.target.value });
+                handleAddData({ [name]: e.target.value })
               }
             }}
             errors={errors}
           />
-        );
+        )
       }}
     />
-  );
-};
+  )
+}
 
-export default InputPostJobField;
+export default InputPostJobField

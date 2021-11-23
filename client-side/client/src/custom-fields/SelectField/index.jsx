@@ -1,16 +1,9 @@
-import { Controller } from "react-hook-form";
-import { Fragment } from "react";
-import ErrorText from "components/ErrorText";
-import Select from "react-select";
+import { Controller } from 'react-hook-form'
+import { Fragment } from 'react'
+import ErrorText from 'components/ErrorText'
+import Select from 'react-select'
 
-const SelectField = ({
-  control,
-  defaultValue,
-  optionList,
-  name,
-  placeholder,
-  errors,
-}) => {
+const SelectField = ({ control, defaultValue, optionList, name, placeholder, errors }) => {
   return (
     <Fragment>
       <Controller
@@ -22,17 +15,17 @@ const SelectField = ({
             <Select
               placeholder={placeholder}
               options={optionList}
-              value={optionList.find((c) => c.value === value) ?? ""}
+              value={optionList.find((c) => c.value === value) ?? ''}
               onChange={(selectedOption) => {
-                onChange(selectedOption.value);
+                onChange(selectedOption.value)
               }}
             />
-          );
+          )
         }}
       />
       <ErrorText errors={errors} />
     </Fragment>
-  );
-};
+  )
+}
 
-export default SelectField;
+export default SelectField

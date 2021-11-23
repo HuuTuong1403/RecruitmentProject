@@ -1,34 +1,34 @@
-import { addInfoSignUp } from "features/HomeEmployers/slices";
-import { companyTypeOptions } from "common/constants/options";
-import { Fragment, useState } from "react";
-import { IoMdArrowBack } from "react-icons/io";
-import { schemaSignUpStep3 } from "common/constants/schema";
-import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
-import { signUpEmployer } from "features/HomeEmployers/api/homeEmployer.api";
-import { Switch } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm, Controller } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { yupResolver } from "@hookform/resolvers/yup";
-import ButtonField from "custom-fields/ButtonField";
-import classes from "./style.module.scss";
-import InputField from "custom-fields/InputField";
-import LabelField from "custom-fields/LabelField";
-import notification from "components/Notification";
-import Select from "react-select";
+import { addInfoSignUp } from 'features/HomeEmployers/slices'
+import { companyTypeOptions } from 'common/constants/options'
+import { Fragment, useState } from 'react'
+import { IoMdArrowBack } from 'react-icons/io'
+import { schemaSignUpStep3 } from 'common/constants/schema'
+import { selectInfoSignUp } from 'features/HomeEmployers/slices/selectors'
+import { signUpEmployer } from 'features/HomeEmployers/api/homeEmployer.api'
+import { Switch } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm, Controller } from 'react-hook-form'
+import { useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { yupResolver } from '@hookform/resolvers/yup'
+import ButtonField from 'custom-fields/ButtonField'
+import classes from './style.module.scss'
+import InputField from 'custom-fields/InputField'
+import LabelField from 'custom-fields/LabelField'
+import notification from 'components/Notification'
+import Select from 'react-select'
 
 const StepThreeSignUp = ({ onBackStep }) => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const infoSignUp = useSelector(selectInfoSignUp);
-  const history = useHistory();
-  const [loading, setLoading] = useState(false);
-  const [OT, setOT] = useState(false);
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const infoSignUp = useSelector(selectInfoSignUp)
+  const history = useHistory()
+  const [loading, setLoading] = useState(false)
+  const [OT, setOT] = useState(false)
   const options = companyTypeOptions.map((item) => ({
     value: item.value,
     label: t(item.label),
-  }));
+  }))
 
   const {
     register,
@@ -36,12 +36,12 @@ const StepThreeSignUp = ({ onBackStep }) => {
     formState: { errors },
     control,
   } = useForm({
-    mode: "all",
+    mode: 'all',
     resolver: yupResolver(schemaSignUpStep3),
-  });
+  })
 
   const submitStep3Handler = async (item) => {
-    dispatch(addInfoSignUp({ ...infoSignUp, ...item }));
+    dispatch(addInfoSignUp({ ...infoSignUp, ...item }))
     const signUpEmployerObj = {
       email: infoSignUp.email,
       phone: infoSignUp.phone,
@@ -55,53 +55,47 @@ const StepThreeSignUp = ({ onBackStep }) => {
       companyType: item.Type,
       ot: OT,
       TIN: item.TIN,
-    };
-    setLoading(true);
-    const result = await signUpEmployer(signUpEmployerObj);
-    if (result.status === "success") {
-      setLoading(false);
-      notification(`${t("Successful account registration")}`, "success");
-      dispatch(addInfoSignUp({}));
-      history.push("/employers/sign-in");
-    } else {
-      setLoading(false);
-      notification(
-        `${result.message ?? "Đăng ký tài khoản thất bại"}`,
-        "error"
-      );
     }
-  };
+    setLoading(true)
+    const result = await signUpEmployer(signUpEmployerObj)
+    if (result.status === 'success') {
+      setLoading(false)
+      notification(`${t('Successful account registration')}`, 'success')
+      dispatch(addInfoSignUp({}))
+      history.push('/employers/sign-in')
+    } else {
+      setLoading(false)
+      notification(`${result.message ?? 'Đăng ký tài khoản thất bại'}`, 'error')
+    }
+  }
 
   return (
     <Fragment>
       <div className={classes.titleAuth}>
-        {t("Step")} 3: {t("Representative information")}
+        {t('Step')} 3: {t('Representative information')}
       </div>
-      <form
-        className={classes.stepthree__form}
-        onSubmit={handleSubmit(submitStep3Handler)}
-      >
+      <form className={classes.stepthree__form} onSubmit={handleSubmit(submitStep3Handler)}>
         <InputField
           type="text"
-          placeholder={t("phd-taxCode")}
-          {...register("TIN")}
+          placeholder={t('phd-taxCode')}
+          {...register('TIN')}
           defaultValue={infoSignUp?.TIN}
           errors={errors.TIN?.message}
         />
 
-        <div className={classes["stepthree__select-scale"]}>
+        <div className={classes['stepthree__select-scale']}>
           <Controller
             control={control}
             name="Type"
             defaultValue={infoSignUp?.Type}
             render={({ field: { onChange, value } }) => (
               <Select
-                className={classes["stepthree__select-scale--select"]}
-                placeholder={t("phd-companyType")}
+                className={classes['stepthree__select-scale--select']}
+                placeholder={t('phd-companyType')}
                 value={options.find((c) => c.value === value)}
                 options={options}
                 onChange={(selectedOption) => {
-                  onChange(selectedOption.value);
+                  onChange(selectedOption.value)
                 }}
               />
             )}
@@ -109,11 +103,11 @@ const StepThreeSignUp = ({ onBackStep }) => {
           {errors.Type?.message && <p>{t(`${errors.Type?.message}`)}</p>}
         </div>
 
-        <div className={classes["stepthree__check-box"]}>
-          <LabelField label={`${t("Work overtime")}:`} />
+        <div className={classes['stepthree__check-box']}>
+          <LabelField label={`${t('Work overtime')}:`} />
           <Switch
-            checkedChildren={t("Do allow")}
-            unCheckedChildren={t("Do not allow")}
+            checkedChildren={t('Do allow')}
+            unCheckedChildren={t('Do not allow')}
             checked={OT}
             defaultChecked={OT}
             onChange={() => setOT((prevState) => !prevState)}
@@ -128,8 +122,8 @@ const StepThreeSignUp = ({ onBackStep }) => {
             uppercase
             onClick={onBackStep}
           >
-            <IoMdArrowBack style={{ marginRight: "10px" }} />
-            {t("back")}
+            <IoMdArrowBack style={{ marginRight: '10px' }} />
+            {t('back')}
           </ButtonField>
           <ButtonField
             type="submit"
@@ -138,12 +132,12 @@ const StepThreeSignUp = ({ onBackStep }) => {
             uppercase
             loading={loading}
           >
-            {t("signup")}
+            {t('signup')}
           </ButtonField>
         </div>
       </form>
     </Fragment>
-  );
-};
+  )
+}
 
-export default StepThreeSignUp;
+export default StepThreeSignUp

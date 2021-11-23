@@ -1,11 +1,11 @@
-import { dateFormatPicker } from "common/constants/dateFormat";
-import { FaBirthdayCake, FaCity } from "react-icons/fa";
-import { Fragment } from "react";
-import { ImUser } from "react-icons/im";
-import { MdEmail, MdSmartphone, MdLocationOn } from "react-icons/md";
-import AvatarUpload from "components/AvatarUpload";
-import classes from "./style.module.scss";
-import moment from "moment";
+import { dateFormatPicker } from 'common/constants/dateFormat'
+import { FaBirthdayCake, FaCity } from 'react-icons/fa'
+import { Fragment } from 'react'
+import { ImUser } from 'react-icons/im'
+import { MdEmail, MdSmartphone, MdLocationOn } from 'react-icons/md'
+import AvatarUpload from 'components/AvatarUpload'
+import classes from './style.module.scss'
+import moment from 'moment'
 
 const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
   return (
@@ -19,9 +19,7 @@ const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
             size={120}
           />
         </div>
-        <div className={`${classes.left__group} ${classes.fullname}`}>
-          {jobSeeker.fullname}
-        </div>
+        <div className={`${classes.left__group} ${classes.fullname}`}>{jobSeeker.fullname}</div>
         <div className={classes.left__group}>
           <ImUser className={classes.icon} />
           {jobSeeker.username}
@@ -44,8 +42,7 @@ const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
           <Fragment>
             <div className={`${classes.left__group} ${classes.address}`}>
               <MdLocationOn className={classes.icon} />
-              {jobSeeker.address.street}, {jobSeeker.address.ward},{" "}
-              {jobSeeker.address.district}
+              {jobSeeker.address.street}, {jobSeeker.address.ward}, {jobSeeker.address.district}
             </div>
             <div className={`${classes.left__group} ${classes.address}`}>
               <FaCity className={classes.icon} />
@@ -55,7 +52,7 @@ const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProfileJobSeeker;
+export default ProfileJobSeeker

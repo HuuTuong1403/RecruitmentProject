@@ -1,4 +1,4 @@
-@import "common/styles/Variables.scss";
+@import 'common/styles/Variables.scss';
 
 .loading {
   display: flex;
@@ -24,7 +24,7 @@
         transform-origin: 40px 40px;
 
         &::after {
-          content: " ";
+          content: ' ';
           display: block;
           position: absolute;
           width: 7px;

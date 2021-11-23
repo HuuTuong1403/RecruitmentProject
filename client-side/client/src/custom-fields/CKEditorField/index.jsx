@@ -1,31 +1,22 @@
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import { Controller } from "react-hook-form";
-import { Fragment } from "react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import ErrorText from "components/ErrorText";
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import { Controller } from 'react-hook-form'
+import { Fragment } from 'react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import ErrorText from 'components/ErrorText'
 
 const CKEditorField = ({
   name,
   control,
   defaultValue,
-  placeholder = "",
+  placeholder = '',
   handleAddData,
   errors,
   setText,
 }) => {
   const config = {
     placeholder: placeholder,
-    toolbar: [
-      "undo",
-      "redo",
-      "|",
-      "bold",
-      "italic",
-      "link",
-      "bulletedList",
-      "numberedList",
-    ],
-  };
+    toolbar: ['undo', 'redo', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
+  }
 
   return (
     <Fragment>
@@ -39,14 +30,14 @@ const CKEditorField = ({
             config={config}
             data={value}
             onChange={(event, editor) => {
-              onChange(editor.getData());
+              onChange(editor.getData())
               if (setText) {
-                setText(editor.getData());
+                setText(editor.getData())
               }
             }}
             onBlur={(event, editor) => {
               if (handleAddData) {
-                handleAddData({ [name]: editor.getData() });
+                handleAddData({ [name]: editor.getData() })
               }
             }}
           />
@@ -54,7 +45,7 @@ const CKEditorField = ({
       />
       <ErrorText errors={errors} />
     </Fragment>
-  );
-};
+  )
+}
 
-export default CKEditorField;
+export default CKEditorField

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 import {
   fetchCompanyDetailAsync,
   fetchJobDetailAsync,
@@ -7,7 +7,7 @@ import {
   fetchReviewDetailAsync,
   fetchReviewOfCompanyAsync,
   fetchSkillsAsync,
-} from "./thunks";
+} from './thunks'
 
 const initialState = {
   jobsSearch: [],
@@ -19,101 +19,101 @@ const initialState = {
   status: false,
   statusReview: false,
   isFilter: false,
-};
+}
 
 export const jobSlice = createSlice({
-  name: "jobs",
+  name: 'jobs',
   initialState,
   reducers: {
     toggleOpenFilter: (state) => {
-      state.isFilter = !state.isFilter;
+      state.isFilter = !state.isFilter
     },
     deleteReviewOfCompany: (state, action) => {
-      const id = action.payload;
-      state.reviews = state.reviews.filter((review) => review._id !== id);
+      const id = action.payload
+      state.reviews = state.reviews.filter((review) => review._id !== id)
     },
   },
   extraReducers: {
     [fetchJobsSearchAsync.pending]: (state) => {
-      state.status = true;
+      state.status = true
     },
     [fetchJobsSearchAsync.fulfilled]: (state, action) => {
-      state.jobsSearch = action.payload;
-      state.status = false;
+      state.jobsSearch = action.payload
+      state.status = false
     },
     [fetchJobsSearchAsync.rejected]: (state) => {
-      state.jobsSearch = [];
-      state.status = false;
+      state.jobsSearch = []
+      state.status = false
     },
     [fetchJobsAllAsync.pending]: (state) => {
-      state.jobsSearch = [];
-      state.status = true;
+      state.jobsSearch = []
+      state.status = true
     },
     [fetchJobsAllAsync.fulfilled]: (state, action) => {
-      state.jobsSearch = action.payload;
-      state.status = false;
+      state.jobsSearch = action.payload
+      state.status = false
     },
     [fetchJobsAllAsync.rejected]: (state) => {
-      state.jobsSearch = [];
-      state.status = false;
+      state.jobsSearch = []
+      state.status = false
     },
     [fetchJobDetailAsync.pending]: (state) => {
-      state.status = true;
+      state.status = true
     },
     [fetchJobDetailAsync.fulfilled]: (state, action) => {
-      state.jobDetail = action.payload;
-      state.status = false;
+      state.jobDetail = action.payload
+      state.status = false
     },
     [fetchJobDetailAsync.rejected]: (state) => {
-      state.jobDetail = {};
-      state.status = false;
+      state.jobDetail = {}
+      state.status = false
     },
     [fetchSkillsAsync.pending]: (state) => {
-      state.skills = [];
+      state.skills = []
     },
     [fetchSkillsAsync.fulfilled]: (state, action) => {
-      state.skills = action.payload;
+      state.skills = action.payload
     },
     [fetchSkillsAsync.rejected]: (state) => {
-      state.skills = [];
+      state.skills = []
     },
     [fetchCompanyDetailAsync.pending]: (state) => {
-      state.status = true;
+      state.status = true
     },
     [fetchCompanyDetailAsync.fulfilled]: (state, action) => {
-      state.companyDetail = action.payload;
-      state.status = false;
+      state.companyDetail = action.payload
+      state.status = false
     },
     [fetchCompanyDetailAsync.rejected]: (state) => {
-      state.companyDetail = null;
-      state.status = false;
+      state.companyDetail = null
+      state.status = false
     },
     [fetchReviewOfCompanyAsync.pending]: (state) => {
-      state.statusReview = true;
-      state.reviews = null;
+      state.statusReview = true
+      state.reviews = null
     },
     [fetchReviewOfCompanyAsync.fulfilled]: (state, action) => {
-      state.reviews = action.payload;
-      state.statusReview = false;
+      state.reviews = action.payload
+      state.statusReview = false
     },
     [fetchReviewOfCompanyAsync.rejected]: (state) => {
-      state.reviews = null;
-      state.statusReview = false;
+      state.reviews = null
+      state.statusReview = false
     },
     [fetchReviewDetailAsync.pending]: (state) => {
-      state.statusReview = true;
-      state.reviewDetail = null;
+      state.statusReview = true
+      state.reviewDetail = null
     },
     [fetchReviewDetailAsync.fulfilled]: (state, action) => {
-      state.reviewDetail = action.payload;
-      state.statusReview = false;
+      state.reviewDetail = action.payload
+      state.statusReview = false
     },
     [fetchReviewDetailAsync.rejected]: (state) => {
-      state.reviewDetail = null;
-      state.statusReview = false;
+      state.reviewDetail = null
+      state.statusReview = false
     },
   },
-});
+})
 
-export const { toggleOpenFilter, deleteReviewOfCompany } = jobSlice.actions;
-export default jobSlice.reducer;
+export const { toggleOpenFilter, deleteReviewOfCompany } = jobSlice.actions
+export default jobSlice.reducer

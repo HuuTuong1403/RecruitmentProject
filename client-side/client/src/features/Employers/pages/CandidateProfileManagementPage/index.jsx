@@ -3,7 +3,7 @@ import {
   fetchJobsApplicationSavedAsync,
   fetchJobsApplicationNotSavedAsync,
   countApplicationStatusAsync,
-} from "features/Employers/slices/thunks";
+} from 'features/Employers/slices/thunks'
 import {
   selectJobsApplicationNotSaved,
   selectJobsApplicationSaved,
@@ -12,56 +12,56 @@ import {
   selectDataFilter,
   selectCountApplication,
   selectedStatus,
-} from "features/Employers/slices/selectors";
-import { changeTabsItem } from "features/Employers/slices";
-import { Fragment, useEffect } from "react";
-import { ScrollTop } from "common/functions";
-import { Tabs } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { useTitle } from "common/hook/useTitle";
-import { useTranslation } from "react-i18next";
-import { useWindowSize } from "common/hook/useWindowSize";
-import classes from "./style.module.scss";
-import LoadingSuspense from "components/Loading";
-import NotFounđData from "components/NotFoundData";
-import SearchJobsApplication from "features/Employers/components/SearchJobsApplication";
-import TableJobsApplication from "features/Employers/components/TableJobsApplication";
+} from 'features/Employers/slices/selectors'
+import { changeTabsItem } from 'features/Employers/slices'
+import { Fragment, useEffect } from 'react'
+import { ScrollTop } from 'common/functions'
+import { Tabs } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
+import { useWindowSize } from 'common/hook/useWindowSize'
+import classes from './style.module.scss'
+import LoadingSuspense from 'components/Loading'
+import NotFounđData from 'components/NotFoundData'
+import SearchJobsApplication from 'features/Employers/components/SearchJobsApplication'
+import TableJobsApplication from 'features/Employers/components/TableJobsApplication'
 
 const CandidateProfileManagementPage = () => {
-  ScrollTop();
-  const { t } = useTranslation();
-  useTitle(`${t("Manage candidate profiles")}`);
-  const { TabPane } = Tabs;
-  const dispatch = useDispatch();
-  const [width] = useWindowSize();
-  const loading = useSelector(selectedStatus);
-  const activeTab = useSelector(selectTabsItem);
-  const dataFilter = useSelector(selectDataFilter);
-  const countApplication = useSelector(selectCountApplication);
+  ScrollTop()
+  const { t } = useTranslation()
+  useTitle(`${t('Manage candidate profiles')}`)
+  const { TabPane } = Tabs
+  const dispatch = useDispatch()
+  const [width] = useWindowSize()
+  const loading = useSelector(selectedStatus)
+  const activeTab = useSelector(selectTabsItem)
+  const dataFilter = useSelector(selectDataFilter)
+  const countApplication = useSelector(selectCountApplication)
 
-  const jobsApplicationNotSaved = useSelector(selectJobsApplicationNotSaved);
-  const jobsApplicationSaved = useSelector(selectJobsApplicationSaved);
-  const jobsApplicationDeleted = useSelector(selectJobsApplicationDeleted);
+  const jobsApplicationNotSaved = useSelector(selectJobsApplicationNotSaved)
+  const jobsApplicationSaved = useSelector(selectJobsApplicationSaved)
+  const jobsApplicationDeleted = useSelector(selectJobsApplicationDeleted)
 
   useEffect(() => {
-    let filter;
+    let filter
     if (dataFilter) {
-      filter = dataFilter;
-      dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
+      filter = dataFilter
+      dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
     } else {
       filter = {
-        status: "NotSaved",
-      };
-      dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
+        status: 'NotSaved',
+      }
+      dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
     }
-    dispatch(countApplicationStatusAsync());
-  }, [dispatch, dataFilter]);
+    dispatch(countApplicationStatusAsync())
+  }, [dispatch, dataFilter])
 
   //Handle change Tab and Call API
   const handleChangeTabs = (activeKey) => {
     if (activeKey !== activeTab) {
-      let filter;
-      dispatch(changeTabsItem(activeKey));
+      let filter
+      dispatch(changeTabsItem(activeKey))
       if (dataFilter) {
         if (
           dataFilter.fullName ||
@@ -69,35 +69,33 @@ const CandidateProfileManagementPage = () => {
           dataFilter.endTime ||
           dataFilter.isExpired
         ) {
-          filter = { ...dataFilter, status: activeKey };
+          filter = { ...dataFilter, status: activeKey }
         } else {
-          filter = { status: activeKey };
+          filter = { status: activeKey }
         }
       } else {
         filter = {
           status: activeKey,
-        };
+        }
       }
 
-      if (activeKey === "NotSaved") {
-        dispatch(fetchJobsApplicationNotSavedAsync({ filter }));
+      if (activeKey === 'NotSaved') {
+        dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
       }
-      if (activeKey === "Saved") {
-        dispatch(fetchJobsApplicationSavedAsync({ filter }));
+      if (activeKey === 'Saved') {
+        dispatch(fetchJobsApplicationSavedAsync({ filter }))
       }
-      if (activeKey === "Deleted") {
-        dispatch(fetchJobsApplicationDeletedAsync({ filter }));
+      if (activeKey === 'Deleted') {
+        dispatch(fetchJobsApplicationDeletedAsync({ filter }))
       }
     }
-  };
+  }
 
   return loading ? (
     <LoadingSuspense height="80vh" />
   ) : (
     <Fragment>
-      <div className={classes.titleDashboard}>
-        {t("Manage candidate profiles")}
-      </div>
+      <div className={classes.titleDashboard}>{t('Manage candidate profiles')}</div>
 
       <SearchJobsApplication status={activeTab} />
 
@@ -105,56 +103,35 @@ const CandidateProfileManagementPage = () => {
         <Tabs
           defaultActiveKey={activeTab}
           type="line"
-          size={width < 500 ? "small" : width < 800 ? "middle" : "large"}
+          size={width < 500 ? 'small' : width < 800 ? 'middle' : 'large'}
           onChange={handleChangeTabs}
           centered
         >
-          <TabPane
-            tab={`${t("Resume Applied")} (${countApplication?.NotSaved})`}
-            key="NotSaved"
-          >
+          <TabPane tab={`${t('Resume Applied')} (${countApplication?.NotSaved})`} key="NotSaved">
             {jobsApplicationNotSaved.length === 0 ? (
-              <NotFounđData
-                title={t("There are currently no resumes applying")}
-              />
+              <NotFounđData title={t('There are currently no resumes applying')} />
             ) : (
-              <TableJobsApplication
-                isNotSaved
-                jobsApplication={jobsApplicationNotSaved}
-              />
+              <TableJobsApplication isNotSaved jobsApplication={jobsApplicationNotSaved} />
             )}
           </TabPane>
-          <TabPane
-            tab={`${t("Bookmarked Resumes")} (${countApplication?.Saved})`}
-            key="Saved"
-          >
+          <TabPane tab={`${t('Bookmarked Resumes')} (${countApplication?.Saved})`} key="Saved">
             {jobsApplicationSaved.length === 0 ? (
-              <NotFounđData
-                title={t("There are currently no saved profiles")}
-              />
+              <NotFounđData title={t('There are currently no saved profiles')} />
             ) : (
               <TableJobsApplication jobsApplication={jobsApplicationSaved} />
             )}
           </TabPane>
-          <TabPane
-            tab={`${t("Deleted Resumes")} (${countApplication?.Deleted})`}
-            key="Deleted"
-          >
+          <TabPane tab={`${t('Deleted Resumes')} (${countApplication?.Deleted})`} key="Deleted">
             {jobsApplicationDeleted.length === 0 ? (
-              <NotFounđData
-                title={t("There are currently no deleted profiles")}
-              />
+              <NotFounđData title={t('There are currently no deleted profiles')} />
             ) : (
-              <TableJobsApplication
-                isDelete
-                jobsApplication={jobsApplicationDeleted}
-              />
+              <TableJobsApplication isDelete jobsApplication={jobsApplicationDeleted} />
             )}
           </TabPane>
         </Tabs>
       </div>
     </Fragment>
-  );
-};
+  )
+}
 
-export default CandidateProfileManagementPage;
+export default CandidateProfileManagementPage
