@@ -1,43 +1,37 @@
-import { applyJob } from "features/JobSeekers/api/jobSeeker.api";
+import { applyJob } from 'features/JobSeekers/api/jobSeeker.api'
 import {
   fetchAllJobApplicationAsync,
   getDetailJobSeekerAsync,
-} from "features/JobSeekers/slices/thunks";
-import { Modal } from "antd";
-import { schemaApplyJob } from "common/constants/schema";
-import { selectedJobSeekerProfile } from "features/JobSeekers/slices/selectors";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { yupResolver } from "@hookform/resolvers/yup";
-import ButtonField from "custom-fields/ButtonField";
-import classes from "./style.module.scss";
-import InputField from "custom-fields/InputField";
-import InputUploadCv from "features/Jobs/components/InputUploadCv";
-import LabelField from "custom-fields/LabelField";
-import notification from "components/Notification";
-import CKEditorField from "custom-fields/CKEditorField";
+} from 'features/JobSeekers/slices/thunks'
+import { Modal } from 'antd'
+import { schemaApplyJob } from 'common/constants/schema'
+import { selectedJobSeekerProfile } from 'features/JobSeekers/slices/selectors'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { yupResolver } from '@hookform/resolvers/yup'
+import ButtonField from 'custom-fields/ButtonField'
+import classes from './style.module.scss'
+import InputField from 'custom-fields/InputField'
+import InputUploadCv from 'features/Jobs/components/InputUploadCv'
+import LabelField from 'custom-fields/LabelField'
+import notification from 'components/Notification'
+import CKEditorField from 'custom-fields/CKEditorField'
 
-const ModalApplyJob = ({
-  showModal,
-  onCloseModal,
-  idJob,
-  jobTitle,
-  companyName,
-}) => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const jobSeeker = useSelector(selectedJobSeekerProfile);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const cvFileRef = useRef(null);
+const ModalApplyJob = ({ showModal, onCloseModal, idJob, jobTitle, companyName }) => {
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const jobSeeker = useSelector(selectedJobSeekerProfile)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const cvFileRef = useRef(null)
 
   useEffect(() => {
     if (!jobSeeker) {
-      dispatch(getDetailJobSeekerAsync());
+      dispatch(getDetailJobSeekerAsync())
     }
-  }, [dispatch, jobSeeker]);
+  }, [dispatch, jobSeeker])
 
   const {
     register,
@@ -45,41 +39,35 @@ const ModalApplyJob = ({
     formState: { errors },
     control,
   } = useForm({
-    mode: "all",
+    mode: 'all',
     resolver: yupResolver(schemaApplyJob),
-  });
+  })
 
   const applyJobHandle = async (dataApplyJob) => {
     if (cvFileRef.current.files[0]) {
-      setLoading(true);
-      const { fullName, phone, description } = dataApplyJob;
-      const data = new FormData();
-      data.append("fullName", fullName);
-      data.append("phone", phone);
-      data.append("CV", cvFileRef.current.files[0]);
+      setLoading(true)
+      const { fullName, phone, description } = dataApplyJob
+      const data = new FormData()
+      data.append('fullName', fullName)
+      data.append('phone', phone)
+      data.append('CV', cvFileRef.current.files[0])
       if (description) {
-        data.append("description", description);
+        data.append('description', description)
       }
-      const result = await applyJob({ idJob, data });
-      if (result.status === "success") {
-        dispatch(fetchAllJobApplicationAsync());
-        notification(
-          `${t("Successful job application submission")}`,
-          "success"
-        );
-        setLoading(false);
-        onCloseModal();
+      const result = await applyJob({ idJob, data })
+      if (result.status === 'success') {
+        dispatch(fetchAllJobApplicationAsync())
+        notification(`${t('Successful job application submission')}`, 'success')
+        setLoading(false)
+        onCloseModal()
       } else {
-        setLoading(false);
-        notification(
-          `${t("Error! An error occurred. Please try again later")}`,
-          "error"
-        );
+        setLoading(false)
+        notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
       }
     } else {
-      setError("CV file cannot be empty");
+      setError('CV file cannot be empty')
     }
-  };
+  }
 
   return (
     <Modal
@@ -91,27 +79,25 @@ const ModalApplyJob = ({
       footer={null}
     >
       <div className={classes.modalApplyJob}>
-        <div className={classes.modalTitle}>
-          {t("Submit a job application")}
-        </div>
+        <div className={classes.modalTitle}>{t('Submit a job application')}</div>
         <h3 className={classes.modalApplyJob__jobTitle}>
-          <span>{t("Apply for the job")}: </span>
+          <span>{t('Apply for the job')}: </span>
           <span>{jobTitle} </span>
-          <span>{t("at")} </span>
+          <span>{t('at')} </span>
           <span>{companyName}</span>
         </h3>
-        <div className={classes.compulsory}>(*: {t("Compulsory")})</div>
+        <div className={classes.compulsory}>(*: {t('Compulsory')})</div>
         <form onSubmit={handleSubmit(applyJobHandle)}>
           {/* Full name */}
           <div className={classes.modalApplyJob__formGroup}>
             <div>
-              <LabelField label={t("full name")} isCompulsory />
+              <LabelField label={t('full name')} isCompulsory />
             </div>
             <div>
               <InputField
-                placeholder={t("phd-fullname")}
+                placeholder={t('phd-fullname')}
                 defaultValue={jobSeeker?.fullname}
-                {...register("fullName")}
+                {...register('fullName')}
                 errors={errors?.fullName?.message}
               />
             </div>
@@ -120,13 +106,13 @@ const ModalApplyJob = ({
           {/* Phone */}
           <div className={classes.modalApplyJob__formGroup}>
             <div>
-              <LabelField label={t("Phone")} isCompulsory />
+              <LabelField label={t('Phone')} isCompulsory />
             </div>
             <div>
               <InputField
-                placeholder={t("phd-phone-signup")}
+                placeholder={t('phd-phone-signup')}
                 defaultValue={jobSeeker?.phone}
-                {...register("phone")}
+                {...register('phone')}
                 errors={errors?.phone?.message}
               />
             </div>
@@ -135,13 +121,13 @@ const ModalApplyJob = ({
           {/* CV */}
           <div className={classes.modalApplyJob__formGroup}>
             <div>
-              <LabelField label={t("CV")} isCompulsory />
+              <LabelField label={t('CV')} isCompulsory />
             </div>
             <div>
               <InputUploadCv
                 error={error}
                 setError={setError}
-                placeholder={t("Select CV to apply")}
+                placeholder={t('Select CV to apply')}
                 ref={cvFileRef}
               />
             </div>
@@ -151,14 +137,14 @@ const ModalApplyJob = ({
           <div>
             <LabelField
               label={t(
-                "What skills, projects or achievements make you a good candidate for this position?"
+                'What skills, projects or achievements make you a good candidate for this position?'
               )}
             />
             <CKEditorField
               control={control}
               name="description"
               placeholder={t(
-                "Give more specific examples to make your application more convincing..."
+                'Give more specific examples to make your application more convincing...'
               )}
             />
           </div>
@@ -171,13 +157,13 @@ const ModalApplyJob = ({
               loading={loading}
               uppercase
             >
-              {t("Apply now")}
+              {t('Apply now')}
             </ButtonField>
           </div>
         </form>
       </div>
     </Modal>
-  );
-};
+  )
+}
 
-export default ModalApplyJob;
+export default ModalApplyJob

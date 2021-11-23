@@ -1,8 +1,8 @@
-import { Controller } from "react-hook-form";
-import { DatePicker } from "antd";
-import { Fragment } from "react";
-import ErrorText from "components/ErrorText";
-import moment from "moment";
+import { Controller } from 'react-hook-form'
+import { DatePicker } from 'antd'
+import { Fragment } from 'react'
+import ErrorText from 'components/ErrorText'
+import moment from 'moment'
 
 const DatePickerField = ({
   control,
@@ -17,7 +17,7 @@ const DatePickerField = ({
   allowClear = false,
   defaultValue,
 }) => {
-  const onOk = (value) => {};
+  const onOk = (value) => {}
 
   return (
     <Fragment>
@@ -28,43 +28,43 @@ const DatePickerField = ({
         render={({ field: { onChange, value } }) => {
           return (
             <DatePicker
-              style={{ minHeight: "38px", width: "100%" }}
+              style={{ minHeight: '38px', width: '100%' }}
               dateRender={(current) => {
-                const style = {};
+                const style = {}
                 if (disabledDate(current)) {
-                  style.textDecoration = "line-through";
+                  style.textDecoration = 'line-through'
                 }
                 return (
                   <div className="ant-picker-cell-inner" style={style}>
                     {current.date()}
                   </div>
-                );
+                )
               }}
               showNow={false}
               format={dateFormat}
-              defaultValue={value ? moment(value, dateFormat) : ""}
-              value={value ? moment(value, dateFormat) : ""}
+              defaultValue={value ? moment(value, dateFormat) : ''}
+              value={value ? moment(value, dateFormat) : ''}
               placeholder={placeholder}
               showTime={showTime}
               disabledDate={disabledDate}
               allowClear={allowClear}
               onChange={(_, dateString) => {
-                onChange(dateString);
+                onChange(dateString)
                 if (setDate) {
-                  setDate(dateString);
+                  setDate(dateString)
                 }
                 if (handleAddData) {
-                  handleAddData({ [name]: dateString });
+                  handleAddData({ [name]: dateString })
                 }
               }}
               onOk={onOk}
             />
-          );
+          )
         }}
       />
       <ErrorText errors={errors} />
     </Fragment>
-  );
-};
+  )
+}
 
-export default DatePickerField;
+export default DatePickerField

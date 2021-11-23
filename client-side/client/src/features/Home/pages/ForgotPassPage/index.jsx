@@ -1,61 +1,51 @@
-import { forgotPassJobSeeker } from "../../api/home.api";
-import { ScrollTop } from "common/functions";
-import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { useTitle } from "common/hook/useTitle";
-import { useTranslation } from "react-i18next";
-import AuthComponent from "components/AuthComponent";
-import ForgotPassNotify from "components/ForgotPassNotify";
-import notification from "components/Notification";
-import SendMail from "components/SendMail";
+import { forgotPassJobSeeker } from 'features/Home/api/home.api'
+import { ScrollTop } from 'common/functions'
+import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
+import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
+import AuthComponent from 'components/AuthComponent'
+import ForgotPassNotify from 'components/ForgotPassNotify'
+import notification from 'components/Notification'
+import SendMail from 'components/SendMail'
 
 const ForgotPassPage = () => {
-  ScrollTop();
-  const { t } = useTranslation();
-  const history = useHistory();
-  const [isNotify, setIsNotify] = useState(false);
-  useTitle(`${t("forgotpass")}`);
-  const [loading, setLoading] = useState(false);
+  ScrollTop()
+  const { t } = useTranslation()
+  const history = useHistory()
+  const [isNotify, setIsNotify] = useState(false)
+  useTitle(`${t('forgotpass')}`)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const user = selectJobSeekerLocal();
-    if (user) history.push("/home");
-  });
+    const user = selectJobSeekerLocal()
+    if (user) history.push('/home')
+  })
 
   const onSubmit = async (data) => {
-    setLoading(true);
+    setLoading(true)
     try {
-      const result = await forgotPassJobSeeker(data);
-      if (result.status === "success") {
-        setLoading(false);
-        notification(
-          `${t("Password recovery request has been sent successfully")}`,
-          "success"
-        );
-        setIsNotify((prevState) => !prevState);
+      const result = await forgotPassJobSeeker(data)
+      if (result.status === 'success') {
+        setLoading(false)
+        notification(`${t('Password recovery request has been sent successfully')}`, 'success')
+        setIsNotify((prevState) => !prevState)
       } else {
-        setLoading(false);
-        notification(`${t("Email address not found in system")}`, "error");
+        setLoading(false)
+        notification(`${t('Email address not found in system')}`, 'error')
       }
     } catch (error) {
-      setLoading(false);
-      notification(
-        `${t("Error! An error occurred. Please try again later")}`,
-        "error"
-      );
+      setLoading(false)
+      notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
     }
-  };
+  }
 
   return (
     <AuthComponent>
-      {!isNotify ? (
-        <SendMail loading={loading} onSubmit={onSubmit} />
-      ) : (
-        <ForgotPassNotify />
-      )}
+      {!isNotify ? <SendMail loading={loading} onSubmit={onSubmit} /> : <ForgotPassNotify />}
     </AuthComponent>
-  );
-};
+  )
+}
 
-export default ForgotPassPage;
+export default ForgotPassPage

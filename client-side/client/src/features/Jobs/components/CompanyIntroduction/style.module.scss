@@ -1,4 +1,4 @@
-@import "common/styles/Variables.scss";
+@import 'common/styles/Variables.scss';
 
 .companyIntroduction {
   padding: $pm-20;
@@ -94,7 +94,7 @@
 
       &--action {
         flex: 0 0 13%;
-        
+
         &--follower {
           font-size: $text-xs;
         }

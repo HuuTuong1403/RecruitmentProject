@@ -1,18 +1,18 @@
-import { fetchProvincesAsync } from "features/Home/slices/thunks";
-import { fetchSkillsAsync } from "features/Jobs/slices/thunks";
-import { ToastContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { withTranslation } from "react-i18next";
-import Routers from "./routers";
+import { fetchProvincesAsync } from 'features/Home/slices/thunks'
+import { fetchSkillsAsync } from 'features/Jobs/slices/thunks'
+import { ToastContainer } from 'react-toastify'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { withTranslation } from 'react-i18next'
+import Routers from './routers'
 
 const App = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchProvincesAsync());
-    dispatch(fetchSkillsAsync());
-  }, [dispatch]);
+    dispatch(fetchProvincesAsync())
+    dispatch(fetchSkillsAsync())
+  }, [dispatch])
 
   return (
     <div>
@@ -30,7 +30,7 @@ const App = () => {
         pauseOnHover
       />
     </div>
-  );
-};
+  )
+}
 
-export default withTranslation()(App);
+export default withTranslation()(App)

@@ -1,66 +1,66 @@
-import { AiFillDashboard } from "react-icons/ai";
-import { BsListCheck } from "react-icons/bs";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { logoutJobSeeker } from "features/Home/slices";
-import { MdSettings, MdAccountCircle, MdMenu, MdEvent } from "react-icons/md";
-import { Menu, Layout } from "antd";
-import { pathJobSeeker } from "common/constants/path";
-import { resetFavoriteJob } from "features/JobSeekers/slices";
-import { RiLogoutCircleRLine } from "react-icons/ri";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
-import notification from "components/Notification";
+import { AiFillDashboard } from 'react-icons/ai'
+import { BsListCheck } from 'react-icons/bs'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { logoutJobSeeker } from 'features/Home/slices'
+import { MdSettings, MdAccountCircle, MdMenu, MdEvent } from 'react-icons/md'
+import { Menu, Layout } from 'antd'
+import { pathJobSeeker } from 'common/constants/path'
+import { resetFavoriteJob } from 'features/JobSeekers/slices'
+import { RiLogoutCircleRLine } from 'react-icons/ri'
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import classes from './style.module.scss'
+import notification from 'components/Notification'
 
 const MenuJobSeeker = ({ children }) => {
-  const { t } = useTranslation();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const { Sider } = Layout;
-  const [width, setWidth] = useState("300");
-  const [isShow, setIsShow] = useState(false);
-  const [showClose, setShowClose] = useState(true);
-  const { SubMenu } = Menu;
+  const { t } = useTranslation()
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const { Sider } = Layout
+  const [width, setWidth] = useState('300')
+  const [isShow, setIsShow] = useState(false)
+  const [showClose, setShowClose] = useState(true)
+  const { SubMenu } = Menu
 
   const closeMenuHandler = () => {
-    setWidth("0");
-    setIsShow(true);
-  };
+    setWidth('0')
+    setIsShow(true)
+  }
 
   const openMenuHandler = () => {
-    setWidth("300");
-    setIsShow(false);
-  };
+    setWidth('300')
+    setIsShow(false)
+  }
 
   const logoutHandler = () => {
-    dispatch(logoutJobSeeker());
-    dispatch(resetFavoriteJob());
-    notification(`${t("Log out successful")}`, "success");
-  };
+    dispatch(logoutJobSeeker())
+    dispatch(resetFavoriteJob())
+    notification(`${t('Log out successful')}`, 'success')
+  }
 
   const menuJobSeeker = [
     {
       key: pathJobSeeker.myProfile,
-      title: `${t("Account Management")}`,
+      title: `${t('Account Management')}`,
       icon: <MdAccountCircle className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       icon: <BsListCheck className={classes.menuIcon} />,
-      title: `${t("My Jobs")}`,
+      title: `${t('My Jobs')}`,
       subMenu: [
         {
           key: pathJobSeeker.jobSaved,
-          title: `${t("Saved jobs")}`,
+          title: `${t('Saved jobs')}`,
           icon: null,
           isLink: false,
           onClick: null,
         },
         {
           key: pathJobSeeker.jobApplied,
-          title: `${t("Applied jobs")}`,
+          title: `${t('Applied jobs')}`,
           icon: null,
           isLink: false,
           onClick: null,
@@ -69,34 +69,31 @@ const MenuJobSeeker = ({ children }) => {
     },
     {
       key: pathJobSeeker.eventsJoined,
-      title: `${t("Registered events")}`,
+      title: `${t('Registered events')}`,
       icon: <MdEvent className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       key: pathJobSeeker.settingAccount,
-      title: `${t("Settings")}`,
+      title: `${t('Settings')}`,
       icon: <MdSettings className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
-      key: "logout",
-      title: `${t("Log out")}`,
+      key: 'logout',
+      title: `${t('Log out')}`,
       icon: <RiLogoutCircleRLine className={classes.menuIcon} />,
       isLink: true,
       onClick: logoutHandler,
     },
-  ];
+  ]
 
   return (
     <div className={classes.sliderJobSeeker}>
       {isShow && (
-        <div
-          onClick={openMenuHandler}
-          className={classes.sliderJobSeeker__menuClose}
-        >
+        <div onClick={openMenuHandler} className={classes.sliderJobSeeker__menuClose}>
           <MdMenu />
         </div>
       )}
@@ -105,65 +102,51 @@ const MenuJobSeeker = ({ children }) => {
         style={
           showClose
             ? {
-                backgroundColor: "#fff",
-                maxHeight: "88vh",
-                overflowY: "auto",
-                overflowX: "hidden",
+                backgroundColor: '#fff',
+                maxHeight: '88vh',
+                overflowY: 'auto',
+                overflowX: 'hidden',
               }
             : {
-                backgroundColor: "#fff",
+                backgroundColor: '#fff',
               }
         }
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
           if (!isShow) {
-            setWidth("300");
+            setWidth('300')
           }
           if (broken) {
-            setWidth("230");
-            setIsShow(false);
-            setShowClose(false);
+            setWidth('230')
+            setIsShow(false)
+            setShowClose(false)
           } else {
-            setShowClose(true);
+            setShowClose(true)
           }
         }}
       >
         <div className={classes.sliderJobSeeker__menuHeader}>
-          <AiFillDashboard style={{ marginRight: "8px" }} />
+          <AiFillDashboard style={{ marginRight: '8px' }} />
           My MST Center
           {showClose && <div onClick={closeMenuHandler}>x</div>}
         </div>
-        <Menu
-          mode="inline"
-          style={{ fontSize: "16px" }}
-          selectedKeys={[location.pathname]}
-        >
+        <Menu mode="inline" style={{ fontSize: '16px' }} selectedKeys={[location.pathname]}>
           {menuJobSeeker.map((item, index) =>
             item?.subMenu ? (
               <SubMenu icon={item.icon} key={index} title={item.title}>
                 {item?.subMenu.map((subMenu) => (
                   <Menu.Item key={subMenu.key}>
-                    <NavLink
-                      activeClassName={classes.sliderJobSeeker__active}
-                      to={subMenu.key}
-                    >
+                    <NavLink activeClassName={classes.sliderJobSeeker__active} to={subMenu.key}>
                       {subMenu.title}
                     </NavLink>
                   </Menu.Item>
                 ))}
               </SubMenu>
             ) : (
-              <Menu.Item
-                onClick={item.onClick ?? null}
-                key={item.key}
-                icon={item.icon ?? null}
-              >
+              <Menu.Item onClick={item.onClick ?? null} key={item.key} icon={item.icon ?? null}>
                 {!item.isLink ? (
-                  <NavLink
-                    activeClassName={classes.sliderJobSeeker__active}
-                    to={item.key}
-                  >
+                  <NavLink activeClassName={classes.sliderJobSeeker__active} to={item.key}>
                     {item.title}
                   </NavLink>
                 ) : (
@@ -176,7 +159,7 @@ const MenuJobSeeker = ({ children }) => {
       </Sider>
       <div className={classes.sliderJobSeeker__blockRight}>{children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default MenuJobSeeker;
+export default MenuJobSeeker

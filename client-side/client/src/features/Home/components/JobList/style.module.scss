@@ -1,4 +1,4 @@
-@import "common/styles/Variables.scss";
+@import 'common/styles/Variables.scss';
 
 .joblist {
   background-color: $third-color;
@@ -44,7 +44,7 @@
         }
 
         &::after {
-          content: "→";
+          content: '→';
           margin-left: 5px;
           font-size: 17px;
         }

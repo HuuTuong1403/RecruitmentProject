@@ -1,9 +1,9 @@
-@import "common/styles/Variables.scss";
+@import 'common/styles/Variables.scss';
 
 .banner {
   margin-top: $pm-10;
   height: 60vh;
-  background: url("/assets/images/banner-home.jpg") center center no-repeat;
+  background: url('/assets/images/banner-home.jpg') center center no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;

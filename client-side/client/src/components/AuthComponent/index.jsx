@@ -1,68 +1,39 @@
-import {
-  BackgroundForgot,
-  EmployerAuthLottie,
-  GuestLogInLottie,
-  GuestRegisterLottie,
-} from "assets";
-import { useRouteMatch } from "react-router";
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
-import Lottie from "lottie-react";
+import { BackgroundForgot, EmployerAuthLottie, GuestLogInLottie, GuestRegisterLottie } from 'assets'
+import { useRouteMatch } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import classes from './style.module.scss'
+import Lottie from 'lottie-react'
 
 const AuthComponent = ({ children, isChangePass = false }) => {
-  const { url } = useRouteMatch();
-  const { t } = useTranslation();
+  const { url } = useRouteMatch()
+  const { t } = useTranslation()
 
   return (
     <section className={classes.auth}>
       <div className={classes.auth__container}>
-        <div className={classes["auth__container--title"]}>
-          {t("welcome-to-MST")}
-        </div>
-        <div className={classes["auth__container--wrapped"]}>
-          <div className={classes["auth__container--wrapped--column-left"]}>
-            {url === "/home/sign-in" && (
-              <Lottie animationData={GuestLogInLottie} loop={false} />
+        <div className={classes['auth__container--title']}>{t('welcome-to-MST')}</div>
+        <div className={classes['auth__container--wrapped']}>
+          <div className={classes['auth__container--wrapped--column-left']}>
+            {url === '/home/sign-in' && <Lottie animationData={GuestLogInLottie} loop={false} />}
+            {url === '/home/sign-up' && <Lottie animationData={GuestRegisterLottie} loop={false} />}
+            {url === '/home/forgot-pass' && (
+              <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
             )}
-            {url === "/home/sign-up" && (
-              <Lottie animationData={GuestRegisterLottie} loop={false} />
-            )}
-            {url === "/home/forgot-pass" && (
-              <img
-                src={BackgroundForgot}
-                alt="ForgotPassImage"
-                style={{ maxWidth: "100%" }}
-              />
-            )}
-            {url === "/employers/sign-in" && (
-              <Lottie animationData={EmployerAuthLottie} />
-            )}
-            {url === "/employers/sign-up" && (
-              <Lottie animationData={EmployerAuthLottie} />
-            )}
-            {url === "/employers/forgot-pass" && (
-              <img
-                src={BackgroundForgot}
-                alt="ForgotPassImage"
-                style={{ maxWidth: "100%" }}
-              />
+            {url === '/employers/sign-in' && <Lottie animationData={EmployerAuthLottie} />}
+            {url === '/employers/sign-up' && <Lottie animationData={EmployerAuthLottie} />}
+            {url === '/employers/forgot-pass' && (
+              <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
             )}
 
             {isChangePass && (
-              <img
-                src={BackgroundForgot}
-                alt="ForgotPassImage"
-                style={{ maxWidth: "100%" }}
-              />
+              <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
             )}
           </div>
-          <div className={classes["auth__container--wrapped--column-right"]}>
-            {children}
-          </div>
+          <div className={classes['auth__container--wrapped--column-right']}>{children}</div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default AuthComponent;
+export default AuthComponent

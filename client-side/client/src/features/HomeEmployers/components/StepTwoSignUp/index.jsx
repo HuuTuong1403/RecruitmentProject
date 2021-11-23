@@ -1,32 +1,28 @@
-import { addInfoSignUp } from "features/HomeEmployers/slices";
-import { FaBuilding } from "react-icons/fa";
+import { addInfoSignUp } from 'features/HomeEmployers/slices'
+import { FaBuilding } from 'react-icons/fa'
 import {
   fetchDistrictsByProvinceAsync,
   fetchWardsByDistrictsAsync,
-} from "features/Home/slices/thunks";
-import { Fragment } from "react";
-import { IoMdArrowBack, IoMdArrowForward } from "react-icons/io";
-import { scaleOptions } from "common/constants/options";
-import { schemaSignUpStep2 } from "common/constants/schema";
-import {
-  selectedDistricts,
-  selectedProvinces,
-  selectedWards,
-} from "features/Home/slices/selectors";
-import { selectInfoSignUp } from "features/HomeEmployers/slices/selectors";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm, Controller } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { yupResolver } from "@hookform/resolvers/yup";
-import ButtonField from "custom-fields/ButtonField";
-import classes from "./style.module.scss";
-import InputField from "custom-fields/InputField";
-import Select from "react-select";
+} from 'features/Home/slices/thunks'
+import { Fragment } from 'react'
+import { IoMdArrowBack, IoMdArrowForward } from 'react-icons/io'
+import { scaleOptions } from 'common/constants/options'
+import { schemaSignUpStep2 } from 'common/constants/schema'
+import { selectedDistricts, selectedProvinces, selectedWards } from 'features/Home/slices/selectors'
+import { selectInfoSignUp } from 'features/HomeEmployers/slices/selectors'
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm, Controller } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { yupResolver } from '@hookform/resolvers/yup'
+import ButtonField from 'custom-fields/ButtonField'
+import classes from './style.module.scss'
+import InputField from 'custom-fields/InputField'
+import Select from 'react-select'
 
 const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const infoSignUp = useSelector(selectInfoSignUp);
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const infoSignUp = useSelector(selectInfoSignUp)
   const {
     register,
     handleSubmit,
@@ -34,39 +30,39 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
     control,
     setValue,
   } = useForm({
-    mode: "all",
+    mode: 'all',
     resolver: yupResolver(schemaSignUpStep2),
-  });
+  })
 
   const options = scaleOptions.map((item) => ({
     value: item.value,
     label: t(item.label),
-  }));
+  }))
   const provinces = useSelector(selectedProvinces).map((province) => ({
     value: province.code,
     label: province.name,
-  }));
-  provinces.unshift({ value: "", label: `${t("choose-province")}` });
+  }))
+  provinces.unshift({ value: '', label: `${t('choose-province')}` })
 
   const districts = useSelector(selectedDistricts).map((district) => ({
     value: district.code,
     label: district.name,
-  }));
-  districts.unshift({ value: "", label: `${t("choose-district")}` });
+  }))
+  districts.unshift({ value: '', label: `${t('choose-district')}` })
 
   const wards = useSelector(selectedWards).map((ward) => ({
     value: ward.code,
     label: ward.name,
-  }));
-  wards.unshift({ value: "", label: `${t("choose-ward")}` });
+  }))
+  wards.unshift({ value: '', label: `${t('choose-ward')}` })
 
-  const { Address } = infoSignUp;
+  const { Address } = infoSignUp
 
   const submitStep2Handler = (data) => {
-    const { province, district, ward, address, ...newData } = data;
-    const provinceLabel = provinces.find((c) => c.value === Number(province));
-    const districtLabel = districts.find((c) => c.value === Number(district));
-    const wardLabel = wards.find((c) => c.value === Number(ward));
+    const { province, district, ward, address, ...newData } = data
+    const provinceLabel = provinces.find((c) => c.value === Number(province))
+    const districtLabel = districts.find((c) => c.value === Number(district))
+    const wardLabel = wards.find((c) => c.value === Number(ward))
 
     const dataLabel = {
       ...newData,
@@ -76,38 +72,38 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
         ward: wardLabel,
         address: address,
       },
-    };
-    dispatch(addInfoSignUp({ ...infoSignUp, ...dataLabel }));
-    onNextStep();
-  };
+    }
+    dispatch(addInfoSignUp({ ...infoSignUp, ...dataLabel }))
+    onNextStep()
+  }
 
   return (
     <Fragment>
       <div className={classes.titleAuth}>
-        {t("Step")} 2: {t("business information")}
+        {t('Step')} 2: {t('business information')}
       </div>
       <form onSubmit={handleSubmit(submitStep2Handler)}>
         <InputField
-          placeholder={t("phd-companyName")}
-          {...register("companyName")}
+          placeholder={t('phd-companyName')}
+          {...register('companyName')}
           defaultValue={infoSignUp?.companyName}
           errors={errors.companyName?.message}
           icon={<FaBuilding />}
         />
 
-        <div className={classes["steptwo__select-scale"]}>
+        <div className={classes['steptwo__select-scale']}>
           <Controller
             control={control}
             name="scale"
             defaultValue={infoSignUp?.scale}
             render={({ field: { onChange, value } }) => (
               <Select
-                className={classes["steptwo__select-scale--select"]}
-                placeholder={t("phd-select-scale")}
+                className={classes['steptwo__select-scale--select']}
+                placeholder={t('phd-select-scale')}
                 value={options.find((c) => c.value === value)}
                 options={options}
                 onChange={(selectedOption) => {
-                  onChange(selectedOption.value);
+                  onChange(selectedOption.value)
                 }}
               />
             )}
@@ -116,44 +112,42 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
         </div>
 
         <InputField
-          placeholder={t("phd-companyWebsite")}
-          {...register("websiteCompany")}
+          placeholder={t('phd-companyWebsite')}
+          {...register('websiteCompany')}
           defaultValue={infoSignUp?.websiteCompany}
           errors={errors.websiteCompany?.message}
         />
 
-        <div className={classes["steptwo__select-scale"]}>
+        <div className={classes['steptwo__select-scale']}>
           <Controller
             control={control}
             name="province"
             defaultValue={Number(Address?.province.value)}
             render={({ field: { onChange, value } }) => (
               <Select
-                className={classes["steptwo__select-scale--select"]}
-                placeholder={t("choose-province")}
+                className={classes['steptwo__select-scale--select']}
+                placeholder={t('choose-province')}
                 value={provinces.find((c) => c.value === value)}
                 options={provinces}
                 onChange={(selectedOption) => {
-                  onChange(selectedOption.value);
-                  if (selectedOption.value !== "") {
-                    setValue("district", "", { shouldValidate: true });
-                    setValue("ward", "", { shouldValidate: true });
+                  onChange(selectedOption.value)
+                  if (selectedOption.value !== '') {
+                    setValue('district', '', { shouldValidate: true })
+                    setValue('ward', '', { shouldValidate: true })
                     dispatch(
                       fetchDistrictsByProvinceAsync({
                         code: selectedOption.value,
                       })
-                    );
+                    )
                   }
                 }}
               />
             )}
           />
-          {errors.province?.message && (
-            <p>{t(`${errors.province?.message}`)}</p>
-          )}
+          {errors.province?.message && <p>{t(`${errors.province?.message}`)}</p>}
         </div>
 
-        <div className={classes["steptwo__select-scale"]}>
+        <div className={classes['steptwo__select-scale']}>
           <Controller
             control={control}
             name="district"
@@ -161,30 +155,28 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
             render={({ field: { onChange, value } }) => (
               <Select
                 isDisabled={districts.length <= 1}
-                className={classes["steptwo__select-scale--select"]}
-                placeholder={t("choose-district")}
+                className={classes['steptwo__select-scale--select']}
+                placeholder={t('choose-district')}
                 value={districts.find((c) => c.value === value)}
                 options={districts}
                 onChange={(selectedOption) => {
-                  onChange(selectedOption.value);
-                  if (selectedOption.value !== "") {
-                    setValue("ward", "", { shouldValidate: true });
+                  onChange(selectedOption.value)
+                  if (selectedOption.value !== '') {
+                    setValue('ward', '', { shouldValidate: true })
                     dispatch(
                       fetchWardsByDistrictsAsync({
                         code: selectedOption.value,
                       })
-                    );
+                    )
                   }
                 }}
               />
             )}
           />
-          {errors.district?.message && (
-            <p>{t(`${errors.district?.message}`)}</p>
-          )}
+          {errors.district?.message && <p>{t(`${errors.district?.message}`)}</p>}
         </div>
 
-        <div className={classes["steptwo__select-scale"]}>
+        <div className={classes['steptwo__select-scale']}>
           <Controller
             control={control}
             name="ward"
@@ -192,12 +184,12 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
             render={({ field: { onChange, value } }) => (
               <Select
                 isDisabled={wards.length <= 1}
-                className={classes["steptwo__select-scale--select"]}
-                placeholder={t("choose-ward")}
+                className={classes['steptwo__select-scale--select']}
+                placeholder={t('choose-ward')}
                 value={wards.find((c) => c.value === value)}
                 options={wards}
                 onChange={(selectedOption) => {
-                  onChange(selectedOption.value);
+                  onChange(selectedOption.value)
                 }}
               />
             )}
@@ -206,8 +198,8 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
         </div>
 
         <InputField
-          placeholder={t("phd-companyAddress")}
-          {...register("address")}
+          placeholder={t('phd-companyAddress')}
+          {...register('address')}
           defaultValue={Address?.address}
           errors={errors.address?.message}
         />
@@ -220,8 +212,8 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
             uppercase
             onClick={onBackStep}
           >
-            <IoMdArrowBack style={{ marginRight: "10px" }} />
-            {t("back")}
+            <IoMdArrowBack style={{ marginRight: '10px' }} />
+            {t('back')}
           </ButtonField>
           <ButtonField
             type="submit"
@@ -229,13 +221,13 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
             backgroundcolorhover="#324554"
             uppercase
           >
-            {t("next")}
-            <IoMdArrowForward style={{ marginLeft: "10px" }} />
+            {t('next')}
+            <IoMdArrowForward style={{ marginLeft: '10px' }} />
           </ButtonField>
         </div>
       </form>
     </Fragment>
-  );
-};
+  )
+}
 
-export default StepTwoSignUp;
+export default StepTwoSignUp

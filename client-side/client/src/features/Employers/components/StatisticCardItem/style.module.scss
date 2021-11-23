@@ -1,5 +1,5 @@
-@import "common/styles/Variables.scss";
-@import "common/styles/Global.scss";
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
 
 .statisticItem {
   background-color: white;
@@ -34,7 +34,6 @@
 
     &--right {
       align-items: center;
-      background-color: #f5365c;
       border-radius: 50%;
       box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
       color: #fff;

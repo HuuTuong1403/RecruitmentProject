@@ -2,79 +2,72 @@ import {
   dateFormatWithTime,
   dateFormatWithTimeSendServer,
   dateFormatISO8601,
-} from "common/constants/dateFormat";
-import {
-  selectedProvinces,
-  selectedDistricts,
-  selectedWards,
-} from "features/Home/slices/selectors";
-import {
-  selectEventDetailEmployer,
-  selectedStatus,
-} from "features/Employers/slices/selectors";
-import { fetchEventDetailAsync } from "features/Employers/slices/thunks";
-import { Fragment, useEffect, useState } from "react";
-import { schemaPostEvent } from "common/constants/schema";
-import { updateEventEmployer } from "features/Employers/api/employer.api";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
-import { useTitle } from "common/hook/useTitle";
-import { useTranslation } from "react-i18next";
-import { yupResolver } from "@hookform/resolvers/yup";
-import ButtonField from "custom-fields/ButtonField";
-import CKEditorField from "custom-fields/CKEditorField";
-import classes from "./style.module.scss";
-import DatePickerField from "custom-fields/DatePickerField";
-import InputBorderField from "custom-fields/InputBorderField";
-import InputField from "custom-fields/InputField";
-import InputUploadImage from "custom-fields/InputUploadImage";
-import LabelField from "custom-fields/LabelField";
-import LoadingSuspense from "components/Loading";
-import moment from "moment";
-import notification from "components/Notification";
-import SelectLocationField from "custom-fields/SelectLocationField";
-import Slider from "react-slick";
+} from 'common/constants/dateFormat'
+import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
+import { selectEventDetailEmployer, selectedStatus } from 'features/Employers/slices/selectors'
+import { fetchEventDetailAsync } from 'features/Employers/slices/thunks'
+import { Fragment, useEffect, useState } from 'react'
+import { schemaPostEvent } from 'common/constants/schema'
+import { updateEventEmployer } from 'features/Employers/api/employer.api'
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
+import { yupResolver } from '@hookform/resolvers/yup'
+import ButtonField from 'custom-fields/ButtonField'
+import CKEditorField from 'custom-fields/CKEditorField'
+import classes from './style.module.scss'
+import DatePickerField from 'custom-fields/DatePickerField'
+import InputBorderField from 'custom-fields/InputBorderField'
+import InputField from 'custom-fields/InputField'
+import InputUploadImage from 'custom-fields/InputUploadImage'
+import LabelField from 'custom-fields/LabelField'
+import LoadingSuspense from 'components/Loading'
+import moment from 'moment'
+import notification from 'components/Notification'
+import SelectLocationField from 'custom-fields/SelectLocationField'
+import Slider from 'react-slick'
 
 const UpdateEventPage = () => {
-  const { t } = useTranslation();
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const eventDetail = useSelector(selectEventDetailEmployer);
-  const status = useSelector(selectedStatus);
-  const [loading, setLoading] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [simpleImage, setSimpleImage] = useState([]);
-  const [multipleImage, setMultipleImage] = useState([]);
-  const [errorSimpleImage, setErrorSimpleImage] = useState("");
-  const [errorMultipleImage, setErrorMultipleImage] = useState("");
-  const [simpleFileName, setSimpleFileName] = useState("");
-  const [multipleFileName, setMultipleFileName] = useState("");
+  const { t } = useTranslation()
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const eventDetail = useSelector(selectEventDetailEmployer)
+  const status = useSelector(selectedStatus)
+  const [loading, setLoading] = useState(false)
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [simpleImage, setSimpleImage] = useState([])
+  const [multipleImage, setMultipleImage] = useState([])
+  const [errorSimpleImage, setErrorSimpleImage] = useState('')
+  const [errorMultipleImage, setErrorMultipleImage] = useState('')
+  const [simpleFileName, setSimpleFileName] = useState('')
+  const [multipleFileName, setMultipleFileName] = useState('')
 
   const provinces = useSelector(selectedProvinces)?.map((province) => ({
     label: province.name,
     value: province.code,
-  }));
-  provinces.unshift({ label: `${t("choose-province")}`, value: "" });
+  }))
+  provinces.unshift({ label: `${t('choose-province')}`, value: '' })
 
   const districts = useSelector(selectedDistricts)?.map((district) => ({
     label: district.name,
     value: district.code,
-  }));
-  districts.unshift({ label: `${t("choose-district")}`, value: "" });
+  }))
+  districts.unshift({ label: `${t('choose-district')}`, value: '' })
 
   const wards = useSelector(selectedWards)?.map((ward) => ({
     label: ward.name,
     value: ward.code,
-  }));
-  wards.unshift({ label: `${t("choose-ward")}`, value: "" });
+  }))
+  wards.unshift({ label: `${t('choose-ward')}`, value: '' })
 
-  useTitle(eventDetail?.eventName ?? "");
+  useTitle(eventDetail?.eventName ?? '')
 
   useEffect(() => {
-    dispatch(fetchEventDetailAsync(id));
-  }, [dispatch, id]);
+    dispatch(fetchEventDetailAsync(id))
+  }, [dispatch, id])
 
   const {
     register,
@@ -83,14 +76,14 @@ const UpdateEventPage = () => {
     control,
     setValue,
   } = useForm({
-    mode: "all",
+    mode: 'all',
     resolver: yupResolver(schemaPostEvent),
-  });
+  })
 
   const updateEventHandler = async (dataUpdate) => {
     if (multipleImage.length <= 10) {
-      setLoading(true);
-      setErrorMultipleImage("");
+      setLoading(true)
+      setErrorMultipleImage('')
       const {
         briefDescription,
         city,
@@ -105,69 +98,62 @@ const UpdateEventPage = () => {
         street,
         topic,
         ward,
-      } = dataUpdate;
+      } = dataUpdate
 
       const start = startDate
-        ? moment(startTime, dateFormatWithTime).format(
-            dateFormatWithTimeSendServer
-          )
-        : moment(new Date(startTime)).format(dateFormatWithTimeSendServer);
+        ? moment(startTime, dateFormatWithTime).format(dateFormatWithTimeSendServer)
+        : moment(new Date(startTime)).format(dateFormatWithTimeSendServer)
 
       const end = endDate
-        ? moment(endTime, dateFormatWithTime).format(
-            dateFormatWithTimeSendServer
-          )
-        : moment(new Date(endTime)).format(dateFormatWithTimeSendServer);
+        ? moment(endTime, dateFormatWithTime).format(dateFormatWithTimeSendServer)
+        : moment(new Date(endTime)).format(dateFormatWithTimeSendServer)
 
-      const payload = new FormData();
-      payload.append("eventName", eventName);
-      payload.append("topic", topic);
-      payload.append("eventOrganizer", eventOrganizer);
-      payload.append("participantMax", participantMax);
-      payload.append("location", location);
-      payload.append("address[street]", street);
-      payload.append("address[ward]", ward);
-      payload.append("address[district]", district);
-      payload.append("address[city]", city);
-      payload.append("startTime", start);
-      payload.append("endTime", end);
-      payload.append("briefDescription", briefDescription);
-      payload.append("eventContent", eventContent);
+      const payload = new FormData()
+      payload.append('eventName', eventName)
+      payload.append('topic', topic)
+      payload.append('eventOrganizer', eventOrganizer)
+      payload.append('participantMax', participantMax)
+      payload.append('location', location)
+      payload.append('address[street]', street)
+      payload.append('address[ward]', ward)
+      payload.append('address[district]', district)
+      payload.append('address[city]', city)
+      payload.append('startTime', start)
+      payload.append('endTime', end)
+      payload.append('briefDescription', briefDescription)
+      payload.append('eventContent', eventContent)
       if (simpleImage.length > 0) {
-        payload.append("imageCover", simpleImage[0].image);
+        payload.append('imageCover', simpleImage[0].image)
       }
       if (multipleImage.length > 0) {
-        multipleImage.forEach((item) => payload.append("images", item.image));
+        multipleImage.forEach((item) => payload.append('images', item.image))
       }
-      const result = await updateEventEmployer(id, payload);
-      if (result.status === "success") {
-        dispatch(fetchEventDetailAsync(id));
-        setSimpleImage([]);
-        setMultipleImage([]);
-        setSimpleFileName("");
-        setMultipleFileName("");
-        notification(`${t("Edit successful event")}`, "success");
+      const result = await updateEventEmployer(id, payload)
+      if (result.status === 'success') {
+        dispatch(fetchEventDetailAsync(id))
+        setSimpleImage([])
+        setMultipleImage([])
+        setSimpleFileName('')
+        setMultipleFileName('')
+        notification(`${t('Edit successful event')}`, 'success')
       } else {
-        notification(
-          `${t("Error! An error occurred. Please try again later")}`,
-          "error"
-        );
+        notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
       }
-      setLoading(false);
+      setLoading(false)
     } else {
-      setErrorMultipleImage("No more than 10 images can be selected");
+      setErrorMultipleImage('No more than 10 images can be selected')
     }
-  };
+  }
 
   const disabledStartTime = (current) => {
-    const disabledDate = moment(endDate, dateFormatWithTime);
-    return current < moment() || current > disabledDate;
-  };
+    const disabledDate = moment(endDate, dateFormatWithTime)
+    return current < moment() || current > disabledDate
+  }
 
   const disabledEndTime = (current) => {
-    const disabledDate = moment(startDate, dateFormatWithTime);
-    return current < disabledDate || current < moment();
-  };
+    const disabledDate = moment(startDate, dateFormatWithTime)
+    return current < disabledDate || current < moment()
+  }
 
   return status ? (
     <LoadingSuspense height="80vh" />
@@ -175,7 +161,7 @@ const UpdateEventPage = () => {
     <div className={classes.editEvent}>
       <div className={classes.editEvent__wrapped}>
         <div className={classes.titleDashboard}>
-          {t("Edit event")} <span>(*: {t("Compulsory")})</span>
+          {t('Edit event')} <span>(*: {t('Compulsory')})</span>
         </div>
         {eventDetail && (
           <Fragment>
@@ -183,12 +169,12 @@ const UpdateEventPage = () => {
               {eventDetail.images.map((image, index) => {
                 return (
                   <img
-                    className={classes["editEvent__slider--logo"]}
+                    className={classes['editEvent__slider--logo']}
                     key={index}
                     src={image}
                     alt={image}
                   />
-                );
+                )
               })}
             </Slider>
 
@@ -196,20 +182,20 @@ const UpdateEventPage = () => {
               {/* 1. General information about the event */}
               <Fragment>
                 <div className={classes.subTitleDashboard}>
-                  1. {t("General information about the event")}
+                  1. {t('General information about the event')}
                 </div>
                 {/* Event Name */}
                 <div className={classes.editEvent__formGroupField}>
                   <div>
-                    <LabelField label={t("Event name")} isCompulsory />
+                    <LabelField label={t('Event name')} isCompulsory />
                   </div>
                   <div>
                     <InputBorderField
                       fontSize="18px"
                       bold="700"
-                      placeholder={t("Enter event name")}
+                      placeholder={t('Enter event name')}
                       defaultValue={eventDetail.eventName}
-                      {...register("eventName")}
+                      {...register('eventName')}
                       errors={errors?.eventName?.message}
                     />
                   </div>
@@ -218,15 +204,15 @@ const UpdateEventPage = () => {
                 {/* Event Topic */}
                 <div className={classes.editEvent__formGroupField}>
                   <div>
-                    <LabelField label={t("Event topic")} isCompulsory />
+                    <LabelField label={t('Event topic')} isCompulsory />
                   </div>
                   <div>
                     <InputBorderField
                       fontSize="18px"
                       bold="700"
-                      placeholder={t("Enter event topic")}
+                      placeholder={t('Enter event topic')}
                       defaultValue={eventDetail.topic}
-                      {...register("topic")}
+                      {...register('topic')}
                       errors={errors?.topic?.message}
                     />
                   </div>
@@ -235,15 +221,15 @@ const UpdateEventPage = () => {
                 {/* Event Organizer */}
                 <div className={classes.editEvent__formGroupField}>
                   <div>
-                    <LabelField label={t("Event organizer")} isCompulsory />
+                    <LabelField label={t('Event organizer')} isCompulsory />
                   </div>
                   <div>
                     <InputBorderField
                       fontSize="18px"
                       bold="700"
-                      placeholder={t("Enter event organizer")}
+                      placeholder={t('Enter event organizer')}
                       defaultValue={eventDetail.eventOrganizer}
-                      {...register("eventOrganizer")}
+                      {...register('eventOrganizer')}
                       errors={errors?.eventOrganizer?.message}
                     />
                   </div>
@@ -252,15 +238,15 @@ const UpdateEventPage = () => {
                 {/* Event Location */}
                 <div className={classes.editEvent__formGroupField}>
                   <div>
-                    <LabelField label={t("Event venue")} isCompulsory />
+                    <LabelField label={t('Event venue')} isCompulsory />
                   </div>
                   <div>
                     <InputBorderField
                       fontSize="18px"
                       bold="700"
-                      placeholder={t("Enter event venue")}
+                      placeholder={t('Enter event venue')}
                       defaultValue={eventDetail.location}
-                      {...register("location")}
+                      {...register('location')}
                       errors={errors?.location?.message}
                     />
                   </div>
@@ -269,18 +255,15 @@ const UpdateEventPage = () => {
                 {/* Event Participant Max */}
                 <div className={classes.editEvent__formGroupField}>
                   <div>
-                    <LabelField
-                      label={t("Maximum number of participants")}
-                      isCompulsory
-                    />
+                    <LabelField label={t('Maximum number of participants')} isCompulsory />
                   </div>
                   <div>
                     <InputBorderField
                       fontSize="18px"
                       bold="700"
-                      placeholder={t("phd-participantMax-event")}
+                      placeholder={t('phd-participantMax-event')}
                       defaultValue={eventDetail.participantMax}
-                      {...register("participantMax")}
+                      {...register('participantMax')}
                       errors={errors?.participantMax?.message}
                     />
                   </div>
@@ -289,27 +272,24 @@ const UpdateEventPage = () => {
                 <div className={classes.editEvent__formGroupFlex}>
                   {/* Event Start Time */}
                   <div>
-                    <LabelField label={t("Event start time")} isCompulsory />
+                    <LabelField label={t('Event start time')} isCompulsory />
                     <DatePickerField
                       name="startTime"
                       control={control}
                       setDate={setStartDate}
                       dateFormat={dateFormatWithTime}
-                      defaultValue={moment(
-                        eventDetail.startTime,
-                        dateFormatISO8601
-                      )}
+                      defaultValue={moment(eventDetail.startTime, dateFormatISO8601)}
                       showTime
                       allowClear
                       disabledDate={disabledStartTime}
                       errors={errors?.startTime?.message}
-                      placeholder={t("phd-startTime-event")}
+                      placeholder={t('phd-startTime-event')}
                     />
                   </div>
 
                   {/* Event End Time */}
                   <div>
-                    <LabelField label={t("Event end time")} isCompulsory />
+                    <LabelField label={t('Event end time')} isCompulsory />
                     <DatePickerField
                       name="endTime"
                       control={control}
@@ -317,13 +297,10 @@ const UpdateEventPage = () => {
                       allowClear
                       setDate={setEndDate}
                       dateFormat={dateFormatWithTime}
-                      defaultValue={moment(
-                        eventDetail.endTime,
-                        dateFormatISO8601
-                      )}
+                      defaultValue={moment(eventDetail.endTime, dateFormatISO8601)}
                       disabledDate={disabledEndTime}
                       errors={errors?.endTime?.message}
-                      placeholder={t("phd-endTime-event")}
+                      placeholder={t('phd-endTime-event')}
                     />
                   </div>
                 </div>
@@ -333,29 +310,29 @@ const UpdateEventPage = () => {
               {eventDetail.address && (
                 <Fragment>
                   <div className={classes.subTitleDashboard}>
-                    2. {t("Information about the venue")}
+                    2. {t('Information about the venue')}
                   </div>
                   <div className={classes.editEvent__formGroupFlex}>
                     {/* Event Street */}
                     <div>
-                      <LabelField label={t("Address")} isCompulsory />
+                      <LabelField label={t('Address')} isCompulsory />
                       <InputField
-                        {...register("street")}
+                        {...register('street')}
                         defaultValue={eventDetail.address.street}
                         errors={errors?.street?.message}
-                        placeholder={t("Enter workplace address")}
+                        placeholder={t('Enter workplace address')}
                       />
                     </div>
 
                     {/* Event City */}
                     <div>
-                      <LabelField label={t("Province")} isCompulsory />
+                      <LabelField label={t('Province')} isCompulsory />
                       <SelectLocationField
                         name="city"
                         control={control}
                         locationList={provinces}
                         defaultValue={eventDetail.address.city}
-                        placeholder={t("choose-province")}
+                        placeholder={t('choose-province')}
                         errors={errors?.city?.message}
                         setValue={setValue}
                       />
@@ -363,13 +340,13 @@ const UpdateEventPage = () => {
 
                     {/* Event District */}
                     <div>
-                      <LabelField label={t("District")} isCompulsory />
+                      <LabelField label={t('District')} isCompulsory />
                       <SelectLocationField
                         name="district"
                         control={control}
                         locationList={districts}
                         defaultValue={eventDetail.address.district}
-                        placeholder={t("choose-district")}
+                        placeholder={t('choose-district')}
                         errors={errors?.district?.message}
                         setValue={setValue}
                       />
@@ -377,13 +354,13 @@ const UpdateEventPage = () => {
 
                     {/* Event Ward */}
                     <div>
-                      <LabelField label={t("Ward")} isCompulsory />
+                      <LabelField label={t('Ward')} isCompulsory />
                       <SelectLocationField
                         name="ward"
                         control={control}
                         locationList={wards}
                         defaultValue={eventDetail.address.ward}
-                        placeholder={t("choose-ward")}
+                        placeholder={t('choose-ward')}
                         errors={errors?.ward?.message}
                       />
                     </div>
@@ -394,27 +371,24 @@ const UpdateEventPage = () => {
               {/* 3. Information about event content */}
               <Fragment>
                 <div className={classes.subTitleDashboard}>
-                  3. {t("Information about event content")}
+                  3. {t('Information about event content')}
                 </div>
 
                 <div>
-                  <LabelField
-                    label={t("Brief description of the event")}
-                    isCompulsory
-                  />
+                  <LabelField label={t('Brief description of the event')} isCompulsory />
                   <CKEditorField
                     name="briefDescription"
-                    placeholder={t("phd-briefDescription-event")}
+                    placeholder={t('phd-briefDescription-event')}
                     defaultValue={eventDetail.briefDescription}
                     control={control}
                     errors={errors?.briefDescription?.message}
                   />
                 </div>
                 <div>
-                  <LabelField label={t("Event content")} isCompulsory />
+                  <LabelField label={t('Event content')} isCompulsory />
                   <CKEditorField
                     name="eventContent"
-                    placeholder={t("phd-eventContent-event")}
+                    placeholder={t('phd-eventContent-event')}
                     defaultValue={eventDetail.eventContent}
                     control={control}
                     errors={errors?.eventContent?.message}
@@ -425,13 +399,13 @@ const UpdateEventPage = () => {
               {/* 4. Change event image */}
               <Fragment>
                 <div className={classes.subTitleDashboard}>
-                  4. {t("Change images of the event")}
+                  4. {t('Change images of the event')}
                 </div>
                 {/* Event Image Cover */}
                 <div>
-                  <LabelField label={t("Image cover")} isCompulsory />
+                  <LabelField label={t('Image cover')} isCompulsory />
                   <InputUploadImage
-                    placeholder={t("Choose image cover")}
+                    placeholder={t('Choose image cover')}
                     images={simpleImage}
                     fileName={simpleFileName}
                     setFileName={setSimpleFileName}
@@ -443,12 +417,9 @@ const UpdateEventPage = () => {
 
                 {/* Event Some More Image */}
                 <div>
-                  <LabelField
-                    label={t("Some more pictures (Up to 10 pictures)")}
-                    isCompulsory
-                  />
+                  <LabelField label={t('Some more pictures (Up to 10 pictures)')} isCompulsory />
                   <InputUploadImage
-                    placeholder={t("Choose some other pictures")}
+                    placeholder={t('Choose some other pictures')}
                     isMultiple
                     fileName={multipleFileName}
                     setFileName={setMultipleFileName}
@@ -460,7 +431,7 @@ const UpdateEventPage = () => {
                 </div>
               </Fragment>
 
-              <div className={classes["editEvent__wrapped--actions"]}>
+              <div className={classes['editEvent__wrapped--actions']}>
                 <ButtonField
                   type="submit"
                   backgroundcolor="#0a426e"
@@ -468,7 +439,7 @@ const UpdateEventPage = () => {
                   uppercase
                   loading={loading}
                 >
-                  {t("Edit event")}
+                  {t('Edit event')}
                 </ButtonField>
               </div>
             </form>
@@ -476,8 +447,8 @@ const UpdateEventPage = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
 const settings = {
   dots: true,
@@ -488,6 +459,6 @@ const settings = {
   autoplay: true,
   pauseOnHover: true,
   rows: 1,
-};
+}
 
-export default UpdateEventPage;
+export default UpdateEventPage

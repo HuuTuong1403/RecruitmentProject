@@ -1,73 +1,73 @@
-import { AiFillDashboard, AiOutlineLineChart } from "react-icons/ai";
-import { FaEdit } from "react-icons/fa";
-import { IoIosPeople } from "react-icons/io";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { logoutEmployer } from "features/HomeEmployers/slices";
-import { MdMenu } from "react-icons/md";
-import { MdSettings, MdAccountCircle, MdEvent } from "react-icons/md";
-import { Menu, Layout } from "antd";
-import { pathEmployer } from "common/constants/path";
-import { RiLogoutCircleRLine, RiFileList3Line } from "react-icons/ri";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
-import notification from "components/Notification";
+import { AiFillDashboard, AiOutlineLineChart } from 'react-icons/ai'
+import { FaEdit } from 'react-icons/fa'
+import { IoIosPeople } from 'react-icons/io'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { logoutEmployer } from 'features/HomeEmployers/slices'
+import { MdMenu } from 'react-icons/md'
+import { MdSettings, MdAccountCircle, MdEvent } from 'react-icons/md'
+import { Menu, Layout } from 'antd'
+import { pathEmployer } from 'common/constants/path'
+import { RiLogoutCircleRLine, RiFileList3Line } from 'react-icons/ri'
+import { useDispatch } from 'react-redux'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import classes from './style.module.scss'
+import notification from 'components/Notification'
 
 const MenuEmployer = ({ children }) => {
-  const { t } = useTranslation();
-  const location = useLocation();
-  const dispatch = useDispatch();
-  const { Sider } = Layout;
-  const [width, setWidth] = useState("300");
-  const [isShow, setIsShow] = useState(false);
-  const [showClose, setShowClose] = useState(true);
-  const { SubMenu } = Menu;
+  const { t } = useTranslation()
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const { Sider } = Layout
+  const [width, setWidth] = useState('300')
+  const [isShow, setIsShow] = useState(false)
+  const [showClose, setShowClose] = useState(true)
+  const { SubMenu } = Menu
 
   const closeMenuHandler = () => {
-    setWidth("0");
-    setIsShow(true);
-  };
+    setWidth('0')
+    setIsShow(true)
+  }
 
   const openMenuHandler = () => {
-    setWidth("300");
-    setIsShow(false);
-  };
+    setWidth('300')
+    setIsShow(false)
+  }
 
   const logoutHandler = () => {
-    dispatch(logoutEmployer());
-    notification(`${t("Log out successful")}`, "success");
-  };
+    dispatch(logoutEmployer())
+    notification(`${t('Log out successful')}`, 'success')
+  }
 
   const menuEmployer = [
     {
       key: `${pathEmployer.statistic}`,
-      title: `${t("Statistics")}`,
+      title: `${t('Statistics')}`,
       icon: <AiOutlineLineChart className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       key: `${pathEmployer.postJob}`,
-      title: `${t("postjobs")}`,
+      title: `${t('postjobs')}`,
       icon: <FaEdit className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       icon: <RiFileList3Line className={classes.menuIcon} />,
-      title: `${t("recruitment manager")}`,
+      title: `${t('recruitment manager')}`,
       subMenu: [
         {
           key: pathEmployer.recruitManager,
-          title: `${t("Job post created")}`,
+          title: `${t('Job post created')}`,
           icon: null,
           isLink: false,
           onClick: null,
         },
         {
           key: pathEmployer.jobTrash,
-          title: `${t("Job posting has been deleted")}`,
+          title: `${t('Job posting has been deleted')}`,
           icon: null,
           isLink: false,
           onClick: null,
@@ -76,25 +76,25 @@ const MenuEmployer = ({ children }) => {
     },
     {
       icon: <MdEvent className={classes.menuIcon} />,
-      title: `${t("Event management")}`,
+      title: `${t('Event management')}`,
       subMenu: [
         {
           key: pathEmployer.postEvent,
-          title: `${t("Create a new event")}`,
+          title: `${t('Create a new event')}`,
           icon: null,
           isLink: false,
           onClick: null,
         },
         {
           key: pathEmployer.createdEvent,
-          title: `${t("Events created")}`,
+          title: `${t('Events created')}`,
           icon: null,
           isLink: false,
           onClick: null,
         },
         {
           key: pathEmployer.deletedEvent,
-          title: `${t("Events deleted")}`,
+          title: `${t('Events deleted')}`,
           icon: null,
           isLink: false,
           onClick: null,
@@ -103,41 +103,38 @@ const MenuEmployer = ({ children }) => {
     },
     {
       key: `${pathEmployer.candidateProfileManage}`,
-      title: `${t("Manage candidate profiles")}`,
+      title: `${t('Manage candidate profiles')}`,
       icon: <IoIosPeople className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       key: `${pathEmployer.myProfile}`,
-      title: `${t("Account Management")}`,
+      title: `${t('Account Management')}`,
       icon: <MdAccountCircle className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       key: `${pathEmployer.settingAccount}`,
-      title: `${t("Settings")}`,
+      title: `${t('Settings')}`,
       icon: <MdSettings className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
-      key: "logout",
-      title: `${t("Log out")}`,
+      key: 'logout',
+      title: `${t('Log out')}`,
       icon: <RiLogoutCircleRLine className={classes.menuIcon} />,
       isLink: true,
       onClick: logoutHandler,
     },
-  ];
+  ]
 
   return (
     <div className={classes.sliderEmployer}>
       {isShow && (
-        <div
-          onClick={openMenuHandler}
-          className={classes.sliderEmployer__menuClose}
-        >
+        <div onClick={openMenuHandler} className={classes.sliderEmployer__menuClose}>
           <MdMenu />
         </div>
       )}
@@ -146,63 +143,49 @@ const MenuEmployer = ({ children }) => {
         style={
           showClose
             ? {
-                backgroundColor: "#fff",
-                maxHeight: "88vh",
-                overflowY: "auto",
-                overflowX: "hidden",
+                backgroundColor: '#fff',
+                maxHeight: '88vh',
+                overflowY: 'auto',
+                overflowX: 'hidden',
               }
-            : { backgroundColor: "#fff" }
+            : { backgroundColor: '#fff' }
         }
         breakpoint="lg"
         collapsedWidth="0"
         onBreakpoint={(broken) => {
           if (!isShow) {
-            setWidth("300");
+            setWidth('300')
           }
           if (broken) {
-            setWidth("230");
-            setIsShow(false);
-            setShowClose(false);
+            setWidth('230')
+            setIsShow(false)
+            setShowClose(false)
           } else {
-            setShowClose(true);
+            setShowClose(true)
           }
         }}
       >
         <div className={classes.sliderEmployer__menuHeader}>
-          <AiFillDashboard style={{ marginRight: "8px" }} />
+          <AiFillDashboard style={{ marginRight: '8px' }} />
           My MST Center
           {showClose && <div onClick={closeMenuHandler}>x</div>}
         </div>
-        <Menu
-          mode="inline"
-          style={{ fontSize: "16px" }}
-          selectedKeys={[location.pathname]}
-        >
+        <Menu mode="inline" style={{ fontSize: '16px' }} selectedKeys={[location.pathname]}>
           {menuEmployer.map((item, index) =>
             item?.subMenu ? (
               <SubMenu icon={item.icon} key={index} title={item.title}>
                 {item?.subMenu.map((subMenu) => (
                   <Menu.Item key={subMenu.key}>
-                    <NavLink
-                      activeClassName={classes.sliderEmployer__active}
-                      to={subMenu.key}
-                    >
+                    <NavLink activeClassName={classes.sliderEmployer__active} to={subMenu.key}>
                       {subMenu.title}
                     </NavLink>
                   </Menu.Item>
                 ))}
               </SubMenu>
             ) : (
-              <Menu.Item
-                onClick={item.onClick ?? null}
-                key={item.key}
-                icon={item.icon ?? null}
-              >
+              <Menu.Item onClick={item.onClick ?? null} key={item.key} icon={item.icon ?? null}>
                 {!item.isLink ? (
-                  <NavLink
-                    activeClassName={classes.sliderEmployer__active}
-                    to={item.key}
-                  >
+                  <NavLink activeClassName={classes.sliderEmployer__active} to={item.key}>
                     {item.title}
                   </NavLink>
                 ) : (
@@ -215,7 +198,7 @@ const MenuEmployer = ({ children }) => {
       </Sider>
       <div className={classes.sliderEmployer__blockRight}>{children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default MenuEmployer;
+export default MenuEmployer

@@ -1,72 +1,67 @@
-import { Avatar } from "antd";
-import {
-  fetchCompanyDetailAsync,
-  fetchReviewDetailAsync,
-} from "features/Jobs/slices/thunks";
-import { Link } from "react-router-dom";
-import { ScrollTop } from "common/functions";
+import { Avatar } from 'antd'
+import { fetchCompanyDetailAsync, fetchReviewDetailAsync } from 'features/Jobs/slices/thunks'
+import { Link } from 'react-router-dom'
+import { ScrollTop } from 'common/functions'
 import {
   selectedCompanyDetail,
   selectedStatus,
   selectedStatusReview,
   selectedReviewDetail,
-} from "features/Jobs/slices/selectors";
-import { selectJobSeekerLocal } from "features/JobSeekers/slices/selectors";
-import { useEffect, useCallback } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useTitle } from "common/hook/useTitle";
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
-import FormCreateReview from "features/Jobs/components/FormCreateReview";
-import FormEditReview from "features/Jobs/components/FormEditReview";
-import LoadingSuspense from "components/Loading";
-import notification from "components/Notification";
+} from 'features/Jobs/slices/selectors'
+import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
+import { useEffect, useCallback } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
+import classes from './style.module.scss'
+import FormCreateReview from 'features/Jobs/components/FormCreateReview'
+import FormEditReview from 'features/Jobs/components/FormEditReview'
+import LoadingSuspense from 'components/Loading'
+import notification from 'components/Notification'
 
 const ReviewPage = () => {
-  ScrollTop();
-  const { t } = useTranslation();
-  let query = new URLSearchParams(useLocation().search);
-  const { companyName } = useParams();
-  const dispatch = useDispatch();
-  const user = selectJobSeekerLocal();
-  const history = useHistory();
-  const companyDetail = useSelector(selectedCompanyDetail);
-  const status = useSelector(selectedStatus);
-  const isUpdate = query.get("type") === "update";
-  const id = query.get("id");
-  const review = useSelector(selectedReviewDetail);
-  const statusReview = useSelector(selectedStatusReview);
+  ScrollTop()
+  const { t } = useTranslation()
+  let query = new URLSearchParams(useLocation().search)
+  const { companyName } = useParams()
+  const dispatch = useDispatch()
+  const user = selectJobSeekerLocal()
+  const history = useHistory()
+  const companyDetail = useSelector(selectedCompanyDetail)
+  const status = useSelector(selectedStatus)
+  const isUpdate = query.get('type') === 'update'
+  const id = query.get('id')
+  const review = useSelector(selectedReviewDetail)
+  const statusReview = useSelector(selectedStatusReview)
 
-  useTitle(`${t("Add your review for")} ${companyName}`);
+  useTitle(`${t('Add your review for')} ${companyName}`)
 
   useEffect(() => {
     if (!user) {
       notification(
-        `${t(
-          "Please login to the job seeker account to perform this function"
-        )}`,
-        "error"
-      );
-      history.push("/home/sign-in");
+        `${t('Please login to the job seeker account to perform this function')}`,
+        'error'
+      )
+      history.push('/home/sign-in')
     }
-  });
+  })
 
   const getDetail = useCallback(async () => {
-    const result = await dispatch(fetchCompanyDetailAsync(companyName));
+    const result = await dispatch(fetchCompanyDetailAsync(companyName))
     if (result.error) {
-      history.replace("/home");
+      history.replace('/home')
     }
-  }, [dispatch, companyName, history]);
+  }, [dispatch, companyName, history])
 
   useEffect(() => {
-    getDetail();
-  }, [getDetail]);
+    getDetail()
+  }, [getDetail])
 
   useEffect(() => {
-    dispatch(fetchReviewDetailAsync(id));
-  }, [dispatch, id]);
+    dispatch(fetchReviewDetailAsync(id))
+  }, [dispatch, id])
 
   return (
     <div className={classes.review}>
@@ -76,17 +71,17 @@ const ReviewPage = () => {
         <div className={classes.review__wrapped}>
           {companyDetail && (
             <div className={classes.review__left}>
-              <h2 className={classes["review__left--title"]}>
-                <div className={classes["review__left--title--subTitle"]}>
-                  <div>{t("Review")}</div>
+              <h2 className={classes['review__left--title']}>
+                <div className={classes['review__left--title--subTitle']}>
+                  <div>{t('Review')}</div>
                   <div>{companyName}</div>
-                  <div className={classes["review__left--title--subTitle2"]}>
+                  <div className={classes['review__left--title--subTitle2']}>
                     {t(
-                      "Your review will be of great help to the developer community looking for work."
+                      'Your review will be of great help to the developer community looking for work.'
                     )}
                   </div>
                 </div>
-                <div className={classes["review__left--title--logo"]}>
+                <div className={classes['review__left--title--logo']}>
                   <Avatar size={150} shape="square" src={companyDetail.logo} />
                 </div>
               </h2>
@@ -97,47 +92,42 @@ const ReviewPage = () => {
                   review && <FormEditReview review={review} id={id} />
                 )
               ) : (
-                <FormCreateReview
-                  companyName={companyName}
-                  companyDetail={companyDetail}
-                />
+                <FormCreateReview companyName={companyName} companyDetail={companyDetail} />
               )}
             </div>
           )}
           <div className={classes.review__right}>
-            <h2 className={classes["review__right--title"]}>
-              {t("Guidelines & Conditions of Evaluation")}
+            <h2 className={classes['review__right--title']}>
+              {t('Guidelines & Conditions of Evaluation')}
             </h2>
             <div>
               {t(
-                "All reviews must comply with the Review Guidelines & Conditions to be displayed on the website."
+                'All reviews must comply with the Review Guidelines & Conditions to be displayed on the website.'
               )}
             </div>
-            <div className={classes["review__right--list"]}>
-              <div>{t("Please")}:</div>
+            <div className={classes['review__right--list']}>
+              <div>{t('Please')}:</div>
               <ul>
-                <li>{t("Do not use offensive or derogatory words")}</li>
-                <li>{t("Do not provide personal information")}</li>
+                <li>{t('Do not use offensive or derogatory words')}</li>
+                <li>{t('Do not provide personal information')}</li>
                 <li>
-                  {t(
-                    "Do not provide confidential information, business secrets of the company"
-                  )}
+                  {t('Do not provide confidential information, business secrets of the company')}
                 </li>
               </ul>
             </div>
             <div>
               {t(
-                "Thank you for giving the most honest reviews. See more detailed information on the Guidelines & Conditions of assessment"
+                'Thank you for giving the most honest reviews. See more detailed information on the Guidelines & Conditions of assessment'
               )}
             </div>
-            <div className={classes["review__right--link"]}>
-              <Link to="/">{t("Here")}</Link>
+            <div className={classes['review__right--link']}>
+              <Link to="/">{t('Here')}</Link>
             </div>
           </div>
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ReviewPage;
+export default ReviewPage
