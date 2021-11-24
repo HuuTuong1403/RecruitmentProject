@@ -1,10 +1,10 @@
 import { Avatar, Dropdown, Menu } from "antd";
-import { useState } from "react";
-import { Fragment, useRef } from "react";
-import { MdHighlightOff } from "react-icons/md";
 import { BiImageAdd } from "react-icons/bi";
-import classes from "./style.module.scss";
+import { Fragment, useRef, useEffect } from "react";
+import { MdHighlightOff } from "react-icons/md";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import classes from "./style.module.scss";
 import notification from "components/Notification";
 
 const AvatarUpload = (props) => {
@@ -12,6 +12,12 @@ const AvatarUpload = (props) => {
   const [avatarSrc, setAvatarSrc] = useState(src);
   const fileRef = useRef(null);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    return () => {
+      avatarSrc && URL.revokeObjectURL(avatarSrc);
+    };
+  }, [avatarSrc]);
 
   const checkValidImage = (file) => {
     const validImageTypes = [
@@ -36,11 +42,8 @@ const AvatarUpload = (props) => {
   const handleChooseFile = () => {
     if (fileRef.current.files && fileRef.current.files[0]) {
       if (checkValidImage(fileRef.current.files[0])) {
-        var reader = new FileReader();
-        reader.onload = (e) => {
-          setAvatarSrc(e.target.result);
-        };
-        reader.readAsDataURL(fileRef.current.files[0]);
+        const src = URL.createObjectURL(fileRef.current.files[0]);
+        setAvatarSrc(src);
         changeAvatar(fileRef.current.files[0]);
       }
     }
