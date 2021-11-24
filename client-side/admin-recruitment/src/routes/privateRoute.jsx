@@ -1,7 +1,7 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect } from 'react-router-dom'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isLoggedIn = localStorage.getItem("token");
+  const isLoggedIn = localStorage.getItem('token')
 
   return (
     <Route
@@ -10,11 +10,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         return isLoggedIn ? (
           <Component {...props} />
         ) : (
-          <Redirect to={{ pathname: "/", state: { from: props.location } }} />
-        );
+          <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+        )
       }}
     />
-  );
-};
+  )
+}
 
-export default PrivateRoute;
+export default PrivateRoute

@@ -1,22 +1,22 @@
-import { Button } from "antd";
-import { useState } from "react";
-import classes from "./style.module.scss";
+import { Button } from 'antd'
+import { useState } from 'react'
+import classes from './style.module.scss'
 
 const ButtonField = (props) => {
-  const [hover, setHover] = useState(false);
+  const [hover, setHover] = useState(false)
 
   const style = {
     backgroundColor: props.backgroundcolor,
     color: props.color,
     width: props.width,
     borderRadius: props.radius,
-    textTransform: props.uppercase === "true" ? "uppercase" : "",
+    textTransform: props.uppercase === 'true' ? 'uppercase' : '',
     padding: props.padding,
-  };
+  }
 
   const styleHover = {
     backgroundColor: props.backgroundcolorhover,
-  };
+  }
 
   return (
     <Button
@@ -25,11 +25,11 @@ const ButtonField = (props) => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{ ...style, ...(hover ? styleHover : null) }}
-      className={`${classes.button} ${props.disabled ? classes.disabled : ""}`}
+      className={`${classes.button} ${props.disabled ? classes.disabled : ''}`}
     >
       {props.children}
     </Button>
-  );
-};
+  )
+}
 
-export default ButtonField;
+export default ButtonField

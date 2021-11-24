@@ -1,8 +1,7 @@
-import { Controller } from "react-hook-form";
-import { DatePicker } from "antd";
-import { Fragment } from "react";
-import ErrorText from "components/ErrorText";
-
+import { Controller } from 'react-hook-form'
+import { DatePicker } from 'antd'
+import { Fragment } from 'react'
+import ErrorText from 'components/ErrorText'
 
 const DatePickerFieldRHF = (props) => {
   const {
@@ -15,9 +14,9 @@ const DatePickerFieldRHF = (props) => {
     placeholder,
     showTime,
     value,
-  } = props;
+  } = props
 
-  const onOk = (value) => {};
+  const onOk = (value) => {}
 
   return (
     <Fragment>
@@ -27,17 +26,17 @@ const DatePickerFieldRHF = (props) => {
         defaultValue={value}
         render={({ field: { onChange } }) => (
           <DatePicker
-            style={{ minHeight: "38px", width: "100%" }}
+            style={{ minHeight: '38px', width: '100%' }}
             dateRender={(current) => {
-              const style = {};
+              const style = {}
               if (disabledDate(current)) {
-                style.textDecoration = "line-through";
+                style.textDecoration = 'line-through'
               }
               return (
                 <div className="ant-picker-cell-inner" style={style}>
                   {current.date()}
                 </div>
-              );
+              )
             }}
             showNow={false}
             format={dateFormat}
@@ -46,9 +45,9 @@ const DatePickerFieldRHF = (props) => {
             showTime={showTime}
             disabledDate={disabledDate}
             onChange={(_, dateString) => {
-              onChange(dateString);
+              onChange(dateString)
               if (handleAddData) {
-                handleAddData({ [name]: dateString });
+                handleAddData({ [name]: dateString })
               }
             }}
             onOk={onOk}
@@ -57,7 +56,7 @@ const DatePickerFieldRHF = (props) => {
       />
       <ErrorText errors={errors} />
     </Fragment>
-  );
-};
+  )
+}
 
-export default DatePickerFieldRHF;
+export default DatePickerFieldRHF

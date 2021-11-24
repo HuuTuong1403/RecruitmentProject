@@ -1,6 +1,6 @@
-import axiosClient from "api/axiosClient";
+import axiosClient from 'api/axiosClient'
 
 export const signInAuth = async (payload) => {
-  const res = await axiosClient.post("system-admin/login", payload);
-  return res;
-};
+  const res = await axiosClient.post('system-admin/login', payload)
+  return res
+}

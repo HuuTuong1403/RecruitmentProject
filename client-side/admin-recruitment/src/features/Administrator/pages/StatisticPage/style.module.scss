@@ -1,0 +1,9 @@
+@import 'common/styles/Variables.scss';
+
+.statistics {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
