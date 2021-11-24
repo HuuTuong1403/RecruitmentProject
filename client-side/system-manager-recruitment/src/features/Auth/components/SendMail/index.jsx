@@ -1,40 +1,37 @@
 // import notification from "components/Notification";
-import { Link } from "react-router-dom";
-import { schemaSendMail } from "common/constants/schema";
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { yupResolver } from "@hookform/resolvers/yup";
-import ButtonField from "custom-fields/ButtonField";
-import classes from "./style.module.scss";
-import InputField from "custom-fields/InputField";
-import LabelField from "custom-fields/LabelField";
+import { Link } from 'react-router-dom'
+import { schemaSendMail } from 'common/constants/schema'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
+import { yupResolver } from '@hookform/resolvers/yup'
+import ButtonField from 'custom-fields/ButtonField'
+import classes from './style.module.scss'
+import InputField from 'custom-fields/InputField'
+import LabelField from 'custom-fields/LabelField'
 
 const SendMail = ({ changeToNotify }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: "all",
+    mode: 'all',
     resolver: yupResolver(schemaSendMail),
-  });
+  })
 
   const onSubmit = async (data) => {
-    console.log(data);
-    changeToNotify();
-  };
+    console.log(data)
+    changeToNotify()
+  }
 
   return (
     <div className={classes.sendmail}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className={classes["sendmail__form"]}
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className={classes['sendmail__form']}>
         <LabelField label="Email" isCompulsory={true} />
         <InputField
-          placeholder={t("phd-email")}
-          {...register("email")}
+          placeholder={t('phd-email')}
+          {...register('email')}
           errors={errors.email?.message}
         />
 
@@ -44,15 +41,15 @@ const SendMail = ({ changeToNotify }) => {
           backgroundcolorhover="#324554"
           uppercase
         >
-          {t("confirm email")}
+          {t('confirm email')}
         </ButtonField>
       </form>
 
       <div>
-        <Link to="/">{t("back sign in")}</Link>
+        <Link to="/">{t('back sign in')}</Link>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SendMail;
+export default SendMail

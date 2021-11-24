@@ -1,0 +1,87 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.statisticItem {
+  background-color: white;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  flex: 0 0 23%;
+  padding: $pm-16 $pm-20;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &--left {
+      &--title {
+        text-transform: capitalize;
+        color: $primary-text;
+        font-size: $text-sm;
+      }
+
+      &--count {
+        font-size: $text-xl;
+        font-weight: 600;
+        color: $third-text;
+      }
+    }
+
+    &--right {
+      align-items: center;
+      border-radius: 50%;
+      box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
+      color: #fff;
+      display: inline-flex;
+      justify-content: center;
+      padding: $pm-12;
+      text-align: center;
+
+      &--icon {
+        font-size: $text-xl;
+      }
+    }
+  }
+
+  &__bottom {
+    margin-top: $pm-16;
+    font-size: $text-base;
+    color: $primary-text;
+
+    &--left {
+      color: #2dce89;
+      font-weight: bold;
+
+      & > svg {
+        vertical-align: text-top;
+      }
+    }
+
+    &--right {
+      margin-left: $pm-10;
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .statisticItem {
+    flex: 0 0 32%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .statisticItem {
+    flex: 0 0 48%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .statisticItem {
+    flex: 0 0 100%;
+  }
+}

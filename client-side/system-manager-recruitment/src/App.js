@@ -1,7 +1,7 @@
-import { ToastContainer } from "react-toastify";
-import { withTranslation } from "react-i18next";
-import React from "react";
-import Routers from "routes";
+import { ToastContainer } from 'react-toastify'
+import { withTranslation } from 'react-i18next'
+import React from 'react'
+import Routers from 'routes'
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         pauseOnHover
       />
     </div>
-  );
+  )
 }
 
-export default withTranslation()(App);
+export default withTranslation()(App)

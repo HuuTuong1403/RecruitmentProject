@@ -1,0 +1,54 @@
+@import 'common/styles/Variables.scss';
+
+.barChart {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  width: 95%;
+  margin: $pm-20 auto;
+
+  &__title {
+    background-color: #e1e1e1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $pm-20;
+
+    &:first-child {
+      font-weight: 500;
+      font-size: $text-lg;
+      text-transform: uppercase;
+      color: $primary-color;
+      padding: $pm-12 $pm-32;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .barChart {
+    width: 100%;
+
+    &__title {
+      margin-bottom: $pm-14;
+
+      &:first-child {
+        font-size: $text-base;
+        padding: $pm-10 $pm-16;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .barChart {
+    width: 100%;
+
+    &__title {
+      margin-bottom: $pm-10;
+
+      &:first-child {
+        font-size: $text-sm;
+        padding: $pm-10 $pm-16;
+      }
+    }
+  }
+}

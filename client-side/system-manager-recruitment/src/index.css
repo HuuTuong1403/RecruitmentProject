@@ -1,7 +1,7 @@
-@import "react-toastify/dist/ReactToastify.css";
-@import "bootstrap/dist/css/bootstrap.min.css";
-@import "antd/dist/antd.css";
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800&display=swap");
+@import 'react-toastify/dist/ReactToastify.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'antd/dist/antd.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800&display=swap');
 
 * {
   box-sizing: border-box;
@@ -9,7 +9,7 @@
 
 body {
   margin: 0;
-  font-family: "Roboto", sans-serif !important;
+  font-family: 'Roboto', sans-serif !important;
   background-color: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -78,9 +78,7 @@ a:hover {
 .ant-menu-light .ant-menu-submenu-title:hover {
   color: #f79d25 !important;
 }
-.ant-menu-submenu:hover
-  > .ant-menu-submenu-title
-  > .ant-menu-submenu-expand-icon,
+.ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-expand-icon,
 .ant-menu-submenu:hover > .ant-menu-submenu-title > .ant-menu-submenu-arrow {
   color: #f79d25 !important;
 }
