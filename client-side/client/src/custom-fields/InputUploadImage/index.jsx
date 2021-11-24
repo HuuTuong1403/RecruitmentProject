@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import classes from './style.module.scss'
 import ErrorText from 'components/ErrorText'
 import ImageContainer from 'components/ImageContainer'
@@ -12,6 +13,14 @@ const InputUploadImage = ({
   fileName,
   setFileName,
 }) => {
+  useEffect(() => {
+    return () => {
+      if (!isMultiple) {
+        images && images.forEach((image) => URL.revokeObjectURL(image.src))
+      }
+    }
+  }, [images, isMultiple])
+
   const checkValidImage = (file) => {
     const validCvImage = ['image/jpg', 'image/jpeg', 'image/png', 'image/svg']
 
@@ -74,6 +83,8 @@ const InputUploadImage = ({
     if (isMultiple) {
       const fileNameList = fileName.split(', ')
       const newFileName = fileNameList.filter((item, i) => i !== index)
+      const imageDelete = images.find((item) => item.id === id)
+      URL.revokeObjectURL(imageDelete.src)
       setFileName(newFileName.join(', '))
       setImages((prevState) => prevState.filter((item) => item.id !== id))
     } else {

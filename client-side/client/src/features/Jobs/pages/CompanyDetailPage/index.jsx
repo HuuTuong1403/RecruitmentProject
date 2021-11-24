@@ -9,7 +9,7 @@ import { Progress, Rate } from 'antd'
 import { ScrollTop } from 'common/functions'
 import { selectedJobSeekerProfile } from 'features/JobSeekers/slices/selectors'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
-import { useEffect, useCallback, Fragment } from 'react'
+import { useEffect, Fragment } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
@@ -42,16 +42,15 @@ const CompanyDetailPage = () => {
 
   useTitle(companyName)
 
-  const getDetail = useCallback(async () => {
-    const result = await dispatch(fetchCompanyDetailAsync(companyName))
-    if (result.error) {
-      history.replace('/home')
-    }
-  }, [dispatch, companyName, history])
-
   useEffect(() => {
+    async function getDetail() {
+      const result = await dispatch(fetchCompanyDetailAsync(companyName))
+      if (result.error) {
+        history.replace('/')
+      }
+    }
     getDetail()
-  }, [getDetail])
+  }, [dispatch, companyName, history])
 
   useEffect(() => {
     if (companyDetail && companyDetail._id) {

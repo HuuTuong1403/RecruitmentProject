@@ -44,7 +44,7 @@ const CandidateProfileManagementPage = () => {
   const jobsApplicationDeleted = useSelector(selectJobsApplicationDeleted)
 
   useEffect(() => {
-    let filter
+    let filter = {}
     if (dataFilter) {
       filter = dataFilter
       dispatch(fetchJobsApplicationNotSavedAsync({ filter }))

@@ -9,7 +9,7 @@ import {
   selectedReviewDetail,
 } from 'features/Jobs/slices/selectors'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
-import { useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -48,16 +48,15 @@ const ReviewPage = () => {
     }
   })
 
-  const getDetail = useCallback(async () => {
-    const result = await dispatch(fetchCompanyDetailAsync(companyName))
-    if (result.error) {
-      history.replace('/home')
-    }
-  }, [dispatch, companyName, history])
-
   useEffect(() => {
+    async function getDetail() {
+      const result = await dispatch(fetchCompanyDetailAsync(companyName))
+      if (result.error) {
+        history.replace('/home')
+      }
+    }
     getDetail()
-  }, [getDetail])
+  }, [dispatch, companyName, history])
 
   useEffect(() => {
     dispatch(fetchReviewDetailAsync(id))

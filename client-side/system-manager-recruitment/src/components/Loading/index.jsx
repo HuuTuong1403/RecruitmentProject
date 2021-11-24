@@ -1,14 +1,14 @@
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
-import ReactTypingEffect from "react-typing-effect";
+import { useTranslation } from 'react-i18next'
+import classes from './style.module.scss'
+import ReactTypingEffect from 'react-typing-effect'
 
 const LoadingSuspense = ({ height, showText = false }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   return (
-    <div style={{ height: `${height}` }} className={classes["loading"]}>
-      <div className={classes["loading__wrapped"]}>
-        <div className={classes["loading__wrapped--lds-roller"]}>
+    <div style={{ height: `${height}` }} className={classes['loading']}>
+      <div className={classes['loading__wrapped']}>
+        <div className={classes['loading__wrapped--lds-roller']}>
           <div></div>
           <div></div>
           <div></div>
@@ -19,9 +19,9 @@ const LoadingSuspense = ({ height, showText = false }) => {
           <div></div>
         </div>
         {showText && (
-          <div className={classes["loading__wrapped--text"]}>
+          <div className={classes['loading__wrapped--text']}>
             <ReactTypingEffect
-              text={[`${t("loading-suspense")}`, `${t("wait-moment")}`]}
+              text={[`${t('loading-suspense')}`, `${t('wait-moment')}`]}
               cursorRenderer={(cursor) => <div>{cursor}</div>}
               eraseDelay={1000}
               eraseSpeed={5}
@@ -32,7 +32,7 @@ const LoadingSuspense = ({ height, showText = false }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoadingSuspense;
+export default LoadingSuspense

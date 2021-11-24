@@ -1,20 +1,20 @@
-import { Fragment, useEffect } from "react";
-import { selectSystemManageLocal } from "features/SystemManager/slices/selectors";
-import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
-import ChangeLang from "components/ChangeLang";
-import ChangePassPage from "./pages/ChangePass";
-import ForgotPassPage from "./pages/ForgotPassPage";
-import NotFoundPage from "components/404";
-import SignInPage from "./pages/SignInPage";
+import { Fragment, useEffect } from 'react'
+import { selectSystemManageLocal } from 'features/SystemManager/slices/selectors'
+import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom'
+import ChangeLang from 'components/ChangeLang'
+import ChangePassPage from './pages/ChangePass'
+import ForgotPassPage from './pages/ForgotPassPage'
+import NotFoundPage from 'components/404'
+import SignInPage from './pages/SignInPage'
 
 const AuthPage = () => {
-  const { url } = useRouteMatch();
-  const history = useHistory();
+  const { url } = useRouteMatch()
+  const history = useHistory()
 
   useEffect(() => {
-    const systemManage = selectSystemManageLocal();
-    if (systemManage) history.push("/dashboard");
-  });
+    const systemManage = selectSystemManageLocal()
+    if (systemManage) history.push('/dashboard')
+  })
 
   return (
     <Fragment>
@@ -26,7 +26,7 @@ const AuthPage = () => {
         <Route component={NotFoundPage} />
       </Switch>
     </Fragment>
-  );
-};
+  )
+}
 
-export default AuthPage;
+export default AuthPage

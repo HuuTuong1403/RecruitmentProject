@@ -1,17 +1,13 @@
-@import "common/styles/Variables.scss";
+@import 'common/styles/Variables.scss';
 
 .auth {
-  background: url("/assets/images/bg_auth.jpg") center center no-repeat;
+  background: url('/assets/images/bg_auth.jpg') center center no-repeat;
   background-size: cover;
   height: 100vh;
 
   &__wrapped {
     align-items: center;
-    background: linear-gradient(
-      to bottom,
-      rgba(5, 16, 59, 0.5) 0%,
-      rgba(80, 84, 106, 0.65) 40%
-    );
+    background: linear-gradient(to bottom, rgba(5, 16, 59, 0.5) 0%, rgba(80, 84, 106, 0.65) 40%);
     display: flex;
     height: 100%;
     justify-content: center;
@@ -46,24 +42,24 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .auth {
-      &__container {
-        flex: 0 0 90%;
-  
-        &--title {
-          font-size: $text-2xl;
-        }
-  
-        &--content {
-          font-size: $text-lg;
-        }
-  
-        &--form {
-          padding: $pm-24 0;
-        }
+  .auth {
+    &__container {
+      flex: 0 0 90%;
+
+      &--title {
+        font-size: $text-2xl;
+      }
+
+      &--content {
+        font-size: $text-lg;
+      }
+
+      &--form {
+        padding: $pm-24 0;
       }
     }
   }
+}
 
 @media screen and (max-width: 450px) {
   .auth {

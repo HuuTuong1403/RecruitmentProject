@@ -1,39 +1,39 @@
-import { fetchAllEmployerAsync } from "features/SystemManager/slices/thunks";
-import { Fragment } from "react";
-import { ScrollTop } from "common/functions";
+import { fetchAllEmployerAsync } from 'features/SystemManager/slices/thunks'
+import { Fragment } from 'react'
+import { ScrollTop } from 'common/functions'
 import {
   selectEmployers,
   selectStatus,
   selectEmployer,
-} from "features/SystemManager/slices/selectors";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useTitle } from "common/hook/useTitle";
-import { useTranslation } from "react-i18next";
-import LoadingSuspense from "components/Loading";
-import TableEmployer from "features/SystemManager/components/TableEmployer";
+} from 'features/SystemManager/slices/selectors'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
+import LoadingSuspense from 'components/Loading'
+import TableEmployer from 'features/SystemManager/components/TableEmployer'
 
 const EmployerManagerPage = () => {
-  ScrollTop();
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const employerList = useSelector(selectEmployers);
-  const employer = useSelector(selectEmployer);
-  const loading = useSelector(selectStatus);
-  useTitle(`${t("Employers Management")}`);
+  ScrollTop()
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const employerList = useSelector(selectEmployers)
+  const employer = useSelector(selectEmployer)
+  const loading = useSelector(selectStatus)
+  useTitle(`${t('Employers Management')}`)
 
   useEffect(() => {
     if (employerList) {
       if (employer) {
-        const test = employerList?.find((item) => item.id === employer?.id);
+        const test = employerList?.find((item) => item.id === employer?.id)
         if (test?.status !== employer?.status) {
-          dispatch(fetchAllEmployerAsync());
+          dispatch(fetchAllEmployerAsync())
         }
       }
     } else {
-      dispatch(fetchAllEmployerAsync());
+      dispatch(fetchAllEmployerAsync())
     }
-  }, [dispatch, employer, employerList]);
+  }, [dispatch, employer, employerList])
 
   return (
     <Fragment>
@@ -43,7 +43,7 @@ const EmployerManagerPage = () => {
         employerList && <TableEmployer employerList={employerList} />
       )}
     </Fragment>
-  );
-};
+  )
+}
 
-export default EmployerManagerPage;
+export default EmployerManagerPage

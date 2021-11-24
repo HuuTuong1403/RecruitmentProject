@@ -48,11 +48,10 @@ const SearchJobsApplication = ({ status }) => {
   //Handle when change select expired
   const changeExpiredJobs = (selectOption) => {
     setIsExpired(selectOption.value)
-    console.log(isExpired)
   }
 
   //Handle Search with filter
-  const handleSearchhApplication = (e) => {
+  const handleSearchApplication = (e) => {
     e.preventDefault()
     const fullName = searchFullNameRef.current.value
 
@@ -114,7 +113,7 @@ const SearchJobsApplication = ({ status }) => {
 
   return (
     <div className={classes.searchApplication}>
-      <form onSubmit={handleSearchhApplication}>
+      <form onSubmit={handleSearchApplication}>
         <div className={classes.searchApplication__form}>
           {/* JobSeeker Name */}
           <div>

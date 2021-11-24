@@ -1,52 +1,47 @@
-import {
-  AiOutlineCalendar,
-  AiOutlineGlobal,
-  AiOutlineMail,
-  AiOutlinePhone,
-} from "react-icons/ai";
-import { BiArrowBack } from "react-icons/bi";
-import { BsPeopleFill } from "react-icons/bs";
-import { dateFormatPicker } from "common/constants/dateFormat";
-import { Fragment, useState } from "react";
-import { MdLocationOn, MdLocationCity, MdWork } from "react-icons/md";
-import { useHistory } from "react-router-dom";
-import { useTitle } from "common/hook/useTitle";
-import { useTranslation } from "react-i18next";
-import ButtonField from "custom-fields/ButtonField";
-import classes from "./style.module.scss";
-import ModalSignUp from "../ModalSignUp";
-import moment from "moment";
+import { AiOutlineCalendar, AiOutlineGlobal, AiOutlineMail, AiOutlinePhone } from 'react-icons/ai'
+import { BiArrowBack } from 'react-icons/bi'
+import { BsPeopleFill } from 'react-icons/bs'
+import { dateFormatPicker } from 'common/constants/dateFormat'
+import { Fragment, useState } from 'react'
+import { MdLocationOn, MdLocationCity, MdWork } from 'react-icons/md'
+import { useHistory } from 'react-router-dom'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
+import ButtonField from 'custom-fields/ButtonField'
+import classes from './style.module.scss'
+import ModalSignUp from '../ModalSignUp'
+import moment from 'moment'
 
 const EmployerDetail = ({ employer }) => {
-  const { t } = useTranslation();
-  const history = useHistory();
-  const [showModal, setShhowModal] = useState(false);
-  useTitle(employer.companyName);
+  const { t } = useTranslation()
+  const history = useHistory()
+  const [showModal, setShhowModal] = useState(false)
+  useTitle(employer.companyName)
 
   const handleBackToEmployerList = () => {
-    history.push("/dashboard/employers");
-  };
+    history.push('/dashboard/employers')
+  }
 
   const onOpenModal = () => {
-    setShhowModal(true);
-  };
+    setShhowModal(true)
+  }
 
   const onCloseModal = () => {
-    setShhowModal(false);
-  };
+    setShhowModal(false)
+  }
 
   const dataSource = [
     {
-      title: `${t("Register date")}`,
+      title: `${t('Register date')}`,
       data: moment(employer.createdAt).format(dateFormatPicker),
       icon: <AiOutlineCalendar />,
     },
     {
-      title: `${t("Company name")}`,
+      title: `${t('Company name')}`,
       data: employer.companyName,
     },
     {
-      title: `${t("Company website")}`,
+      title: `${t('Company website')}`,
       data: (
         <a href={employer.companyWebsite} target="_blank" rel="noreferrer">
           {employer.companyWebsite}
@@ -55,60 +50,58 @@ const EmployerDetail = ({ employer }) => {
       icon: <AiOutlineGlobal />,
     },
     {
-      title: "Email",
+      title: 'Email',
       data: employer.email,
       icon: <AiOutlineMail />,
     },
     {
-      title: `${t("phone number")}`,
+      title: `${t('phone number')}`,
       data: employer.phone,
       icon: <AiOutlinePhone />,
     },
     {
-      title: `${t("Address")}`,
+      title: `${t('Address')}`,
       data:
-        employer.address.street &&
-        employer.address.ward &&
-        employer.address.district
+        employer.address.street && employer.address.ward && employer.address.district
           ? `${employer.address.street}, ${employer.address.ward},
       ${employer.address.district}`
-          : "Không có",
+          : 'Không có',
       icon: <MdLocationOn />,
     },
     {
-      title: `${t("Area")}`,
-      data: employer.address.city ?? "Không có",
+      title: `${t('Area')}`,
+      data: employer.address.city ?? 'Không có',
       icon: <MdLocationCity />,
     },
     {
-      title: `${t("Work overtime")}`,
-      data: employer.ot ? "Có" : "Không",
+      title: `${t('Work overtime')}`,
+      data: employer.ot ? 'Có' : 'Không',
       icon: <MdWork />,
     },
     {
-      title: `${t("Number of employees")}`,
-      data: `${employer.scale} ${t("employee")}`,
+      title: `${t('Number of employees')}`,
+      data: `${employer.scale} ${t('employee')}`,
       icon: <BsPeopleFill />,
     },
     {
-      title: `${t("Company type")}`,
+      title: `${t('Company type')}`,
       data: employer.companyType,
     },
-  ];
+  ]
 
   return (
     <div className={classes.employer}>
       <div className={classes.employer__wrapped}>
-        <div className={classes["employer__wrapped--top"]}>
-          <div className={classes["employer__wrapped--top--left"]}>
+        <div className={classes['employer__wrapped--top']}>
+          <div className={classes['employer__wrapped--top--left']}>
             <div>
               <BiArrowBack onClick={handleBackToEmployerList} />
             </div>
             <div>{employer.companyName}</div>
           </div>
-          <div className={classes["employer__wrapped--top--right"]}>
-            {employer.status === "approval" ? (
-              <div className={classes.employer__approval}>{t("approval")}</div>
+          <div className={classes['employer__wrapped--top--right']}>
+            {employer.status === 'approval' ? (
+              <div className={classes.employer__approval}>{t('approval')}</div>
             ) : (
               <Fragment>
                 <div>
@@ -118,7 +111,7 @@ const EmployerDetail = ({ employer }) => {
                     radius="5px"
                     padding="5px"
                   >
-                    {t("Reject")}
+                    {t('Reject')}
                   </ButtonField>
                 </div>
                 <div>
@@ -129,19 +122,15 @@ const EmployerDetail = ({ employer }) => {
                     padding="5px"
                     onClick={onOpenModal}
                   >
-                    {t("approve")}
+                    {t('approve')}
                   </ButtonField>
-                  <ModalSignUp
-                    showModal={showModal}
-                    onCloseModal={onCloseModal}
-                    id={employer.id}
-                  />
+                  <ModalSignUp showModal={showModal} onCloseModal={onCloseModal} id={employer.id} />
                 </div>
               </Fragment>
             )}
           </div>
         </div>
-        <div className={classes["employer__wrapped--content"]}>
+        <div className={classes['employer__wrapped--content']}>
           <table>
             <tbody>
               {dataSource.map((item, index) => (
@@ -158,7 +147,7 @@ const EmployerDetail = ({ employer }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EmployerDetail;
+export default EmployerDetail
