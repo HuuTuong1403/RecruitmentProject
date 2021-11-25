@@ -3,7 +3,7 @@ import { selectEvents, selectStatus } from 'features/Events/slices/selectors'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
-import EventItem from '../EventItem'
+import EventItem from 'features/Events/components/EventItem'
 import LoadingSuspense from 'components/Loading'
 import NotFoundData from 'components/NotFoundData'
 

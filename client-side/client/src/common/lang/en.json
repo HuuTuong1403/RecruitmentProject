@@ -203,7 +203,7 @@
   "error-participantMax-number": "Maximum number of participants must be numeric",
   "error-pass-pattern": "Password minimum eight characters, uppercase letter, lowercase letter, number and one special character",
   "error-pass-required": "Password is not empty",
-  "error-phone-pattern": "Phone number has 10 number. Phone number is Viettel, Vinaphone, Mobile and Vietnamobile",
+  "error-phone-pattern": "Phone number has 10 number. Phone number is Viettel, Vinaphone, Mobifone and Vietnamobile",
   "error-phone-required": "Phone number is not empty",
   "error-rating-review": "Please choose overall rating",
   "error-salary-minEqualMax": "The maximum salary is not equal to the minimum salary",

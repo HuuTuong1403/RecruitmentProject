@@ -65,7 +65,7 @@
   "error-newPassSameCurrentPass": "The new password must not be the same as the current password",
   "error-pass-pattern": "Password minimum eight characters, uppercase letter, lowercase letter, number and one special character",
   "error-pass-required": "Password is not empty",
-  "error-phone-pattern": "Phone number has 10 number. Phone number is Viettel, Vinaphone, Mobile and Vietnamobile",
+  "error-phone-pattern": "Phone number has 10 number. Phone number is Viettel, Vinaphone, Mobifone and Vietnamobile",
   "error-phone-required": "Phone number is not empty",
   "error-username-required": "Username is not empty",
   "Error! An error occurred. Please try again later": "Error! An error occurred. Please try again later",

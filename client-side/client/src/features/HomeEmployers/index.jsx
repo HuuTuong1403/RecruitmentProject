@@ -3,7 +3,7 @@ import { ScrollTop } from 'common/functions'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import FooterEmployers from 'components/FooterEmployers'
 import HeaderEmployers from 'components/HeaderEmployers'
-import NotFoundPage from '../../components/404'
+import NotFoundPage from 'components/404'
 
 const ChangePassEmployerPage = lazy(() => import('./pages/ChangePassEmployerPage'))
 const ForgotPassEmployerPage = lazy(() => import('./pages/ForgotPassEmployerPage'))

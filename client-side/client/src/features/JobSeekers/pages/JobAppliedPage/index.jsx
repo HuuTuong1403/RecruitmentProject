@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
-import JobItem from '../../components/JobItem'
+import JobItem from 'features/JobSeekers/components/JobItem'
 import LoadingSuspense from 'components/Loading'
 import NotFoundData from 'components/NotFoundData'
 
