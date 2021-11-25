@@ -3,7 +3,7 @@ import { selectJobsHome } from 'features/Home/slices/selectors'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
-import JobItem from '../JobItem'
+import JobItem from 'features/Home/components/JobItem'
 import Slider from 'react-slick'
 
 const JobList = () => {

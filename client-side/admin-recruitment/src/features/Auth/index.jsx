@@ -1,19 +1,19 @@
-import { Fragment, lazy, useEffect } from "react";
-import { selectAdminLocal } from "features/Administrator/slices/selectors";
-import { Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
-import ChangeLang from "components/ChangeLang";
-import NotFoundPage from "components/404";
+import { Fragment, lazy, useEffect } from 'react'
+import { selectAdminLocal } from 'features/Administrator/slices/selectors'
+import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom'
+import ChangeLang from 'components/ChangeLang'
+import NotFoundPage from 'components/404'
 
-const SignInPage = lazy(() => import("./pages/SignInPage"));
+const SignInPage = lazy(() => import('./pages/SignInPage'))
 
 const AuthPage = () => {
-  const history = useHistory();
-  const { url } = useRouteMatch();
+  const history = useHistory()
+  const { url } = useRouteMatch()
 
   useEffect(() => {
-    const admin = selectAdminLocal();
-    if (admin) history.push("/dashboard");
-  });
+    const admin = selectAdminLocal()
+    if (admin) history.push('/dashboard')
+  })
 
   return (
     <Fragment>
@@ -23,7 +23,7 @@ const AuthPage = () => {
         <Route component={NotFoundPage} />
       </Switch>
     </Fragment>
-  );
-};
+  )
+}
 
-export default AuthPage;
+export default AuthPage

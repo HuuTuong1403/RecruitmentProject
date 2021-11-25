@@ -9,7 +9,7 @@ import {
   salaryOptions,
 } from 'common/constants/options'
 import { selectedProvinces } from 'features/Home/slices/selectors'
-import { selectedSkills } from '../../slices/selectors'
+import { selectedSkills } from 'features/Jobs/slices/selectors'
 import { toggleOpenFilter } from 'features/Jobs/slices'
 import { useHistory, useLocation } from 'react-router-dom'
 import { useRef, useState } from 'react'

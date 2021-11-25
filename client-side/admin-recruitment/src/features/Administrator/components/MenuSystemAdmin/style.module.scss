@@ -1,4 +1,4 @@
-@import "common/styles/Variables.scss";
+@import 'common/styles/Variables.scss';
 
 a {
   color: #5d677a;
@@ -61,7 +61,7 @@ a:hover {
     padding-top: $pm-32;
 
     & > div {
-      margin: 0 $pm-24;      
+      margin: 0 $pm-24;
     }
   }
 }

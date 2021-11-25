@@ -1,16 +1,12 @@
-import { Fragment } from "react";
-import { useTranslation } from "react-i18next";
-import classes from "./style.module.scss";
+import { Fragment } from 'react'
+import { useTranslation } from 'react-i18next'
+import classes from './style.module.scss'
 
 const ErrorText = (props) => {
-  const { t } = useTranslation();
-  const { errors } = props;
+  const { t } = useTranslation()
+  const { errors } = props
 
-  return (
-    <Fragment>
-      {errors && <p className={classes.errorText}>{t(errors)}</p>}
-    </Fragment>
-  );
-};
+  return <Fragment>{errors && <p className={classes.errorText}>{t(errors)}</p>}</Fragment>
+}
 
-export default ErrorText;
+export default ErrorText
