@@ -146,10 +146,14 @@ exports.checkReviewExists = async (req, res, next) => {
 };
 exports.checkParticipantQuantityEvent = async (req, res, next) => {
   const event = await Event.findById(req.body.event);
-  if (event.participantMax <= event.participantQuantity) {
-    return next(
-      new AppError(`Sự kiện đã đủ số lượng thành viên đăng ký tham gia`, 400)
-    );
+  if (event) {
+    if (event.participantMax <= event.participantQuantity) {
+      return next(
+        new AppError(`Sự kiện đã đủ số lượng thành viên đăng ký tham gia`, 400)
+      );
+    }
+  } else {
+    return next(new AppError(`Không tìm thấy sự kiện`, 404));
   }
   next();
 };
