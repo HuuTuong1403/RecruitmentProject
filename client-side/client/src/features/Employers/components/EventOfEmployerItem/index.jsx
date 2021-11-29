@@ -12,9 +12,9 @@ import {
   MdEventBusy,
   MdRestore,
 } from 'react-icons/md'
-import { Menu, Dropdown } from 'antd'
+import { Menu, Dropdown, Tooltip } from 'antd'
 import { RiFileList3Line } from 'react-icons/ri'
-import { Tooltip } from 'antd'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
@@ -25,8 +25,6 @@ import Slider from 'react-slick'
 const EventOfEmployerItem = ({
   data,
   isTrash = false,
-  visible,
-  setVisible,
   loading,
   onRestore,
   onDelete,
@@ -36,6 +34,7 @@ const EventOfEmployerItem = ({
   const dispatch = useDispatch()
   const history = useHistory()
   const { t } = useTranslation()
+  const [visible, setVisible] = useState(false)
 
   const {
     _id,

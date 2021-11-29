@@ -143,8 +143,9 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
           </div>
 
           {/* Address */}
-          {currentUser.address && (
+          {currentUser.address ? (
             <Fragment>
+              {/* Field address if current user have address information */}
               {/* Street */}
               <div className={classes.modalJoinEvent__formGroup}>
                 <div>
@@ -213,6 +214,74 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
                 </div>
               </div>
             </Fragment>
+          ) : (
+            <Fragment>
+              {/* Field address if current user not have address information */}
+              {/* Street */}
+              <div className={classes.modalJoinEvent__formGroup}>
+                <div>
+                  <LabelField label={t('Address')} isCompulsory />
+                </div>
+                <div>
+                  <InputField
+                    placeholder={t('phd-address')}
+                    {...register('street')}
+                    errors={errors?.street?.message}
+                  />
+                </div>
+              </div>
+
+              {/* City */}
+              <div className={classes.modalJoinEvent__formGroup}>
+                <div>
+                  <LabelField label={t('Province')} isCompulsory />
+                </div>
+                <div>
+                  <SelectLocationField
+                    setValue={setValue}
+                    name="city"
+                    control={control}
+                    locationList={provinces}
+                    placeholder={t('choose-province')}
+                    errors={errors?.city?.message}
+                  />
+                </div>
+              </div>
+
+              {/* District */}
+              <div className={classes.modalJoinEvent__formGroup}>
+                <div>
+                  <LabelField label={t('District')} isCompulsory />
+                </div>
+                <div>
+                  <SelectLocationField
+                    setValue={setValue}
+                    name="district"
+                    control={control}
+                    locationList={districts}
+                    placeholder={t('choose-district')}
+                    errors={errors?.district?.message}
+                  />
+                </div>
+              </div>
+
+              {/* Ward */}
+              <div className={classes.modalJoinEvent__formGroup}>
+                <div>
+                  <LabelField label={t('Ward')} isCompulsory />
+                </div>
+                <div>
+                  <SelectLocationField
+                    setValue={setValue}
+                    name="ward"
+                    control={control}
+                    locationList={wards}
+                    placeholder={t('choose-ward')}
+                    errors={errors?.ward?.message}
+                  />
+                </div>
+              </div>
+            </Fragment>
           )}
 
           {/* Interesting field */}
@@ -223,6 +292,7 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
             <div>
               <Select
                 isMulti
+                menuPlacement="top"
                 placeholder={t('Choose the field that interests you')}
                 options={skills}
                 value={selectSkill}

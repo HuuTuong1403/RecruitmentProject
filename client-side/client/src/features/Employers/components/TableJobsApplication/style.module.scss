@@ -7,4 +7,28 @@
     cursor: pointer;
     margin-right: $pm-8;
   }
+
+  &__actions {
+    text-align: end;
+    margin-bottom: $pm-10;
+
+    & > button {
+      max-width: 25%;
+    }
+
+    &--icon {
+      margin-right: 5px;
+      font-size: $text-lg;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .table {
+    &__actions {
+      & > button {
+        max-width: 100%;
+      }
+    }
+  }
 }
