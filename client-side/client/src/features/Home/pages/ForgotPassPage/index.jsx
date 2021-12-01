@@ -1,5 +1,5 @@
 import { forgotPassJobSeeker } from 'features/Home/api/home.api'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -11,7 +11,7 @@ import notification from 'components/Notification'
 import SendMail from 'components/SendMail'
 
 const ForgotPassPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   const history = useHistory()
   const [isNotify, setIsNotify] = useState(false)

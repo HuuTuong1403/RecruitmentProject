@@ -1,5 +1,6 @@
 import { DK, MSTLogo } from 'assets'
 import { FaFacebookF } from 'react-icons/fa'
+import { footerHomeList } from 'common/constants/options'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import classes from './styles.module.scss'
@@ -37,60 +38,18 @@ const Footer = () => {
       </div>
       <div className={classes['footer__blbottom']}>
         <div className={classes['footer__blbottom--top']}>
-          <div>
-            <h3>{t('jobseekers')}</h3>
-            <ul>
-              <li>
-                <a href="/">{t('newjobs')}</a>
-              </li>
-              <li>
-                <Link to="/jobs">{t('searchjobs')}</Link>
-              </li>
-              <li>
-                <Link to="/events/search?status=NotYetOccur">{t('Event not yet occured')}</Link>
-              </li>
-              <li>
-                <Link to="/events">{t('Search events')}</Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>{t('employers')}</h3>
-            <ul>
-              <li>
-                <Link to={'/employers/dashboard/post-job'}>{t('postjobs')}</Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>{t('helpcenter')}</h3>
-            <ul>
-              <li>
-                <a href="/">{t('customersupport')}</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>{t('jobsinprovince')}</h3>
-            <ul>
-              <li>
-                <Link to="/jobs/search?location%city=Thành%20phố%20Hồ%20Chí%20Minh">
-                  {t('jobsinHCM')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/jobs/search?location%city=Thành%20phố%20Đà%20Nẵng">{t('jobsinDN')}</Link>
-              </li>
-              <li>
-                <Link to="/jobs/search?location%city=Thành%20phố%20Hà%20Nội">{t('jobsinHN')}</Link>
-              </li>
-              <li>
-                <Link to="/jobs/search?location%city=Thành%20phố%20Hải%20Phòng">
-                  {t('jobsinHP')}
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {footerHomeList.map((item) => (
+            <div key={item.titleFooter}>
+              <h3>{t(item.titleFooter)}</h3>
+              <ul>
+                {item.contentFooter.map((itemContent) => (
+                  <li key={itemContent.title}>
+                    <Link to={itemContent.href}>{t(itemContent.title)}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
         <div className={classes['footer__blbottom--bottom']}>
           <p>

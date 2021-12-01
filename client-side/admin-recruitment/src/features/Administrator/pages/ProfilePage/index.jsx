@@ -1,6 +1,6 @@
 import { getAdministratorDetailAsync } from 'features/Administrator/slices/thunks'
 import { schemaUpdateProfile } from 'common/constants/schema'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectAdminDetail } from 'features/Administrator/slices/selectors'
 import { updateProfileAdministrator } from 'features/Administrator/api/admin.api'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,7 +18,7 @@ import LoadingSuspense from 'components/Loading'
 import notification from 'components/Notification'
 
 const ProfilePage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   const [loading, setLoading] = useState()
   const [avatar, setAvatar] = useState(null)

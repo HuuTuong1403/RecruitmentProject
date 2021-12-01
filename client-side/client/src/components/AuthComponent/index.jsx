@@ -1,4 +1,10 @@
-import { BackgroundForgot, EmployerAuthLottie, GuestLogInLottie, GuestRegisterLottie } from 'assets'
+import {
+  BackgroundForgot,
+  EmployerSignInLottie,
+  GuestLogInLottie,
+  GuestRegisterLottie,
+  EmployerSignUpLottie,
+} from 'assets'
 import { useRouteMatch } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
@@ -19,8 +25,8 @@ const AuthComponent = ({ children, isChangePass = false }) => {
             {url === '/home/forgot-pass' && (
               <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
             )}
-            {url === '/employers/sign-in' && <Lottie animationData={EmployerAuthLottie} />}
-            {url === '/employers/sign-up' && <Lottie animationData={EmployerAuthLottie} />}
+            {url === '/employers/sign-in' && <Lottie animationData={EmployerSignInLottie} />}
+            {url === '/employers/sign-up' && <Lottie animationData={EmployerSignUpLottie} />}
             {url === '/employers/forgot-pass' && (
               <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
             )}

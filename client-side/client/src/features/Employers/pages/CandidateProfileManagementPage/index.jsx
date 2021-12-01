@@ -14,8 +14,8 @@ import {
   selectedStatus,
 } from 'features/Employers/slices/selectors'
 import { changeTabsItem } from 'features/Employers/slices'
-import { Fragment, useEffect } from 'react'
-import { ScrollTop } from 'common/functions'
+import { Fragment, useEffect, useState } from 'react'
+import { scrollToTop } from 'common/functions'
 import { Tabs } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
@@ -28,12 +28,13 @@ import SearchJobsApplication from 'features/Employers/components/SearchJobsAppli
 import TableJobsApplication from 'features/Employers/components/TableJobsApplication'
 
 const CandidateProfileManagementPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Manage candidate profiles')}`)
   const { TabPane } = Tabs
   const dispatch = useDispatch()
   const [width] = useWindowSize()
+  const [selectProfile, setSelectProfile] = useState([])
   const loading = useSelector(selectedStatus)
   const activeTab = useSelector(selectTabsItem)
   const dataFilter = useSelector(selectDataFilter)
@@ -118,7 +119,12 @@ const CandidateProfileManagementPage = () => {
             {jobsApplicationSaved.length === 0 ? (
               <NotFounđData title={t('There are currently no saved profiles')} />
             ) : (
-              <TableJobsApplication jobsApplication={jobsApplicationSaved} />
+              <TableJobsApplication
+                jobsApplication={jobsApplicationSaved}
+                selectProfileList={selectProfile}
+                setSelectProfileList={setSelectProfile}
+                isSaved
+              />
             )}
           </TabPane>
           <TabPane tab={`${t('Deleted Resumes')} (${countApplication?.Deleted})`} key="Deleted">

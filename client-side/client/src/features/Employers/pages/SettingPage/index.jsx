@@ -1,7 +1,7 @@
 import { FiLock } from 'react-icons/fi'
 import { logoutEmployer } from 'features/HomeEmployers/slices'
 import { schemaChangePass } from 'common/constants/schema'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { updatePassEmployer } from 'features/Employers/api/employer.api'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
@@ -17,7 +17,7 @@ import LabelField from 'custom-fields/LabelField'
 import notification from 'components/Notification'
 
 const SettingPage = () => {
-  ScrollTop()
+  scrollToTop()
 
   const { t } = useTranslation()
   useTitle(`${t('Settings')}`)

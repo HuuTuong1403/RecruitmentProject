@@ -15,7 +15,7 @@ import { IoMdCalendar } from 'react-icons/io'
 import { FacebookShareButton, FacebookMessengerShareButton } from 'react-share'
 import { Link, useParams, useHistory, useLocation } from 'react-router-dom'
 import { MdLocationOn } from 'react-icons/md'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { Tooltip } from 'antd'
@@ -33,7 +33,7 @@ import notification from 'components/Notification'
 import parse from 'html-react-parser'
 
 const JobDetailPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   const { slug } = useParams()
   const history = useHistory()

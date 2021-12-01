@@ -1,7 +1,7 @@
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 
 const UserManagementPage = () => {
-  ScrollTop()
+  scrollToTop()
   return (
     <div>
       <h1>User Management Page</h1>

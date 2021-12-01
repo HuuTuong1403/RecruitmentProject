@@ -1,7 +1,7 @@
 import { Avatar } from 'antd'
 import { fetchCompanyDetailAsync, fetchReviewDetailAsync } from 'features/Jobs/slices/thunks'
 import { Link } from 'react-router-dom'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import {
   selectedCompanyDetail,
   selectedStatus,
@@ -22,7 +22,7 @@ import LoadingSuspense from 'components/Loading'
 import notification from 'components/Notification'
 
 const ReviewPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   let query = new URLSearchParams(useLocation().search)
   const { companyName } = useParams()

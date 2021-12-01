@@ -1,4 +1,4 @@
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { useState, useEffect } from 'react'
 import { fetchSumUsers, fetchStatisticUsersMonthly } from 'features/Administrator/api/admin.api'
 import { useTranslation } from 'react-i18next'
@@ -24,7 +24,7 @@ const MONTH_OF_YEAR = [
 ]
 
 const StatisticPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Statistics')}`)
   const [loading, setLoading] = useState(true)

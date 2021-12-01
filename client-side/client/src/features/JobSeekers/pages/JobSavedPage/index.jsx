@@ -1,5 +1,5 @@
 import { fetchAllFavoriteJobAsync } from 'features/JobSeekers/slices/thunks'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { Fragment, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
@@ -11,7 +11,7 @@ import LoadingSuspense from 'components/Loading'
 import NotFoundData from 'components/NotFoundData'
 
 const JobSavedPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const favoriteJobs = useSelector(selectFavoriteJobs)

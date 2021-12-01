@@ -1,12 +1,16 @@
+import { announceApplication } from 'features/Employers/api/employer.api'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaFileDownload, FaSave, FaTrash } from 'react-icons/fa'
-import { Modal, Avatar } from 'antd'
+import { MdNotificationsActive } from 'react-icons/md'
 import { MdRestorePage } from 'react-icons/md'
+import { Modal, Avatar } from 'antd'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
 import LabelField from 'custom-fields/LabelField'
 import moment from 'moment'
+import notification from 'components/Notification'
 import parse from 'html-react-parser'
 import PopoverField from 'custom-fields/PopoverField'
 
@@ -19,17 +23,31 @@ const ModalViewProfileApplication = ({
   onRestore,
   isDelete = false,
   isNotSaved = false,
+  isSaved = false,
   loadingSaved = false,
   loadingDeleted = false,
   loadingRestore = false,
 }) => {
   const { t } = useTranslation()
-
   const { createdAt, cvPath, description, fullName, job, jobSeeker, status, phone, _id } =
     application
+  const [loading, setLoading] = useState(false)
 
   const handleDownloadCV = () => {
     window.open(cvPath, '_blank')
+  }
+
+  //Announce Applicationd
+  const handleClickAnnounceApplication = async () => {
+    setLoading(true)
+    const result = await announceApplication({ id: _id })
+    if (result.status === 'success') {
+      notification(`${t('Notification sent to selected candidate')}`, 'success')
+    } else {
+      notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
+    }
+
+    setLoading(false)
   }
 
   return (
@@ -75,10 +93,12 @@ const ModalViewProfileApplication = ({
               <div className={classes['modalProfile__field--text']}>{phone}</div>
             </div>
 
-            <div className={classes.modalProfile__field}>
-              <LabelField label={`${t('Address')}:`} />
-              <div className={classes['modalProfile__field--text']}>{jobSeeker?.address?.city}</div>
-            </div>
+            {jobSeeker?.address && (
+              <div className={classes.modalProfile__field}>
+                <LabelField label={`${t('Address')}:`} />
+                <div className={classes['modalProfile__field--text']}>{jobSeeker.address.city}</div>
+              </div>
+            )}
 
             <div className={classes.modalProfile__field}>
               <LabelField label={`${t('Submission date')}:`} />
@@ -97,6 +117,28 @@ const ModalViewProfileApplication = ({
                 <FaFileDownload className={classes.modalProfile__icon} />
                 {t('Download CV')}
               </ButtonField>
+
+              {isSaved && (
+                <PopoverField
+                  title={t('Confirm notification delivery')}
+                  subTitle={t('Do you want to announce the admission to the candidate?')}
+                  loading={loading}
+                  onClickOk={handleClickAnnounceApplication}
+                  titleCancel={t('Cancel')}
+                  titleOk={t('Send')}
+                  isSwap
+                >
+                  <ButtonField
+                    backgroundcolor="#067951"
+                    backgroundcolorhover="#2baa7e"
+                    padding="5px"
+                  >
+                    <MdNotificationsActive className={classes.modalProfile__icon} />
+                    {t('Pass notification')}
+                  </ButtonField>
+                </PopoverField>
+              )}
+
               {isNotSaved && (
                 <PopoverField
                   title={t('Confirm to save this profile')}
@@ -198,16 +240,18 @@ const ModalViewProfileApplication = ({
             </div>
           </div>
 
-          <div>
-            <LabelField
-              label={t(
-                'What skills, projects or achievements make you a good candidate for this position?'
-              )}
-            />
-            <div className={classes['modalProfile__field--description']}>
-              {description ? parse(description) : ''}
+          {description && (
+            <div>
+              <LabelField
+                label={t(
+                  'What skills, projects or achievements make you a good candidate for this position?'
+                )}
+              />
+              <div className={classes['modalProfile__field--description']}>
+                {parse(description)}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </Modal>

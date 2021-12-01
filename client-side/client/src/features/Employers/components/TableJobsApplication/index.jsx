@@ -1,33 +1,43 @@
-import { dateFormatPicker } from 'common/constants/dateFormat'
-import {
-  saveApplication,
-  deleteApplication,
-  restoreApplication,
-} from 'features/Employers/api/employer.api'
 import {
   savedJobApplication,
   deletedJobAppication,
   restoredJobApplication,
   handleChangeCountStatus,
 } from 'features/Employers/slices'
+import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaFileDownload, FaEye, FaSave, FaTrash } from 'react-icons/fa'
-import { MdRestorePage } from 'react-icons/md'
+import { MdRestorePage, MdNotificationsActive } from 'react-icons/md'
+import {
+  saveApplication,
+  deleteApplication,
+  restoreApplication,
+  announceApplication,
+} from 'features/Employers/api/employer.api'
 import { Table, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
+import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
 import ModalViewProfileApplication from 'features/Employers/components/ModalViewProfileApplication'
 import moment from 'moment'
 import notification from 'components/Notification'
 import PopoverField from 'custom-fields/PopoverField'
 
-const TableJobsApplication = ({ jobsApplication, isDelete = false, isNotSaved = false }) => {
+const TableJobsApplication = ({
+  jobsApplication,
+  isDelete = false,
+  isNotSaved = false,
+  isSaved = false,
+  selectProfileList,
+  setSelectProfileList,
+}) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
   const [showModal, setShowModal] = useState(false)
   const [application, setApplication] = useState({})
+  const [loading, setLoading] = useState(false)
   const [loadingSaved, setLoadingSaved] = useState(false)
   const [loadingDeleted, setLoadingDeleted] = useState(false)
   const [loadingRestore, setLoadingRetore] = useState(false)
@@ -41,7 +51,7 @@ const TableJobsApplication = ({ jobsApplication, isDelete = false, isNotSaved = 
     setShowModal(false)
   }
 
-  //Save Application In Tabs NOt Saved
+  //Save Application In Tabs Not Saved
   const handleClickSaveApplication = async (id) => {
     setLoadingSaved(true)
     const result = await saveApplication(id)
@@ -102,6 +112,23 @@ const TableJobsApplication = ({ jobsApplication, isDelete = false, isNotSaved = 
       notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
     }
     setLoadingRetore(false)
+  }
+
+  //Announce Application In Tabs Saved
+  const handleClickAnnounceApplication = async () => {
+    setLoading(true)
+    if (selectProfileList.length > 0) {
+      const result = await announceApplication({ id: selectProfileList })
+      if (result.status === 'success') {
+        setSelectProfileList([])
+        notification(`${t('Notification sent to selected candidate')}`, 'success')
+      } else {
+        notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
+      }
+    } else {
+      notification(`${t('Please select candidates to be notified')}`, 'error')
+    }
+    setLoading(false)
   }
 
   const columns = [
@@ -242,14 +269,33 @@ const TableJobsApplication = ({ jobsApplication, isDelete = false, isNotSaved = 
     }
   })
 
+  const rowSelect = {
+    selectedRowKeys: selectProfileList,
+    onSelectAll: (selected, selectedRows) => {
+      if (!selected) {
+        setSelectProfileList([])
+      } else {
+        setSelectProfileList(selectedRows.map((item) => item.key))
+      }
+    },
+    onSelect: (record, isSelect) => {
+      if (isSelect) {
+        setSelectProfileList((prevState) => [...prevState, record.key])
+      } else {
+        setSelectProfileList((prevState) => prevState.filter((item) => item !== record.key))
+      }
+    },
+  }
+
   return (
-    <div>
+    <Fragment>
       <ModalViewProfileApplication
         showModal={showModal}
         onCloseModal={onCloseModal}
         application={application}
         isDelete={isDelete}
         isNotSaved={isNotSaved}
+        isSaved={isSaved}
         loadingSaved={loadingSaved}
         loadingDeleted={loadingDeleted}
         loadingRestore={loadingRestore}
@@ -257,9 +303,23 @@ const TableJobsApplication = ({ jobsApplication, isDelete = false, isNotSaved = 
         onSave={handleClickSaveApplication}
         onRestore={handleClickRestoreApplication}
       />
+      {isSaved && (
+        <div className={classes.table__actions}>
+          <ButtonField
+            backgroundcolor="#067951"
+            backgroundcolorhover="#2baa7e"
+            onClick={handleClickAnnounceApplication}
+            loading={loading}
+          >
+            <MdNotificationsActive className={classes['table__actions--icon']} />
+            {t('Pass notification')}
+          </ButtonField>
+        </div>
+      )}
       <Table
         bordered
         scroll={{ x: 'max-content' }}
+        rowSelection={isSaved && { type: 'checkbox', ...rowSelect }}
         columns={columns}
         dataSource={data}
         pagination={{
@@ -268,7 +328,7 @@ const TableJobsApplication = ({ jobsApplication, isDelete = false, isNotSaved = 
         showSorterTooltip={false}
         style={{ cursor: 'pointer' }}
       />
-    </div>
+    </Fragment>
   )
 }
 

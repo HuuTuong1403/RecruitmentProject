@@ -1,9 +1,9 @@
 import { Fragment } from 'react'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import IssueAccountForm from 'features/Administrator/components/IssueAccountForm'
 
 const IssueAccountPage = () => {
-  ScrollTop()
+  scrollToTop()
   return (
     <Fragment>
       <IssueAccountForm title={'Issue Account System Manager'} />

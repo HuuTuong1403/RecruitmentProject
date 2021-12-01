@@ -5,7 +5,7 @@ import {
 } from 'features/SystemManager/slices/selectors'
 import { changeTabsItem } from 'features/SystemManager/slices'
 import { fetchAllJobAsync } from 'features/SystemManager/slices/thunks'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { Tabs } from 'antd'
 import { useEffect, Fragment } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,7 +18,7 @@ import LoadingSuspense from 'components/Loading'
 import NotFoundData from 'components/NotFoundData'
 
 const RecruitmentManagerPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   const { TabPane } = Tabs
   useTitle(`${t('Manage job postings created')}`)

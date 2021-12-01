@@ -1,7 +1,8 @@
-import { restoreEvent, deleteEvent } from 'features/Employers/api/employer.api'
-import { selectEventsDeleted, selectedStatus } from 'features/Employers/slices/selectors'
 import { fetchAllEventDeletedAsync } from 'features/Employers/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
+import { restoreEvent, deleteEvent } from 'features/Employers/api/employer.api'
+import { scrollToTop } from 'common/functions'
+import { selectEventsDeleted, selectedStatus } from 'features/Employers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
@@ -12,12 +13,12 @@ import NotFoundData from 'components/NotFoundData'
 import notification from 'components/Notification'
 
 const EventTrashPage = () => {
+  scrollToTop()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const eventsDeleted = useSelector(selectEventsDeleted)
   const status = useSelector(selectedStatus)
   const [loading, setLoading] = useState(false)
-  const [visible, setVisible] = useState(false)
 
   useTitle(`${t('Manage deleted events')}`)
 
@@ -34,7 +35,6 @@ const EventTrashPage = () => {
     } else {
       notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
     }
-    setVisible(false)
     setLoading(false)
   }
 
@@ -47,7 +47,6 @@ const EventTrashPage = () => {
     } else {
       notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
     }
-    setVisible(false)
     setLoading(false)
   }
 
@@ -71,8 +70,6 @@ const EventTrashPage = () => {
                   isTrash
                   key={event.slug}
                   loading={loading}
-                  visible={visible}
-                  setVisible={setVisible}
                   onDelete={handleDeleteEvent}
                   onRestore={handleRestoreEvent}
                 />

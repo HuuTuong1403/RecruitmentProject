@@ -251,4 +251,5 @@ export const {
   restoredJobApplication,
   savedJobApplication,
 } = employerSlice.actions
+
 export default employerSlice.reducer

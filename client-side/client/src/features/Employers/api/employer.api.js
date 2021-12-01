@@ -141,6 +141,18 @@ export const restoreApplication = async (payload) => {
   }
 }
 
+export const announceApplication = async (payload) => {
+  try {
+    const res = await axiosClient.post(
+      'employer/applications/management/anounce-applicants',
+      payload
+    )
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const countApplicationStatus = async () => {
   try {
     const res = await axiosClient.get('employer/applications/management/status/count')
