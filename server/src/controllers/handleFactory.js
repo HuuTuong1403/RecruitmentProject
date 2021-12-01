@@ -132,7 +132,9 @@ exports.getAll = (Model, ModelName) =>
   });
 exports.getDeletedAll = (Model) =>
   catchAsync(async (req, res, next) => {
-    const docs = await Model.findWithDeleted({ deleted: true });
+    let filter = req.query;
+    filter.deleted = true;
+    const docs = await Model.findWithDeleted(filter);
     res.status(200).json({
       status: 'success',
       results: docs.length,

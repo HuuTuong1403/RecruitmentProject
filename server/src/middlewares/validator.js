@@ -4,6 +4,7 @@ const SystemAdmin = require('../models/system-adminModel');
 const Application = require('./../models/application');
 const Review = require('./../models/reviewModel');
 const Event = require('./../models/eventModel');
+const Job = require('./../models/JobModel');
 const AppError = require('../utils/appError');
 
 exports.isEmployerUsernameUnique = async (req, res, next) => {
@@ -154,6 +155,18 @@ exports.checkParticipantQuantityEvent = async (req, res, next) => {
     }
   } else {
     return next(new AppError(`Không tìm thấy sự kiện`, 404));
+  }
+  next();
+};
+exports.checkStatusWhenUpdateJob = async (req, res, next) => {
+  const job = await Job.findById(req.params.id);
+  if (job.status == 'approval') {
+    return next(
+      new AppError(
+        `Không thể chỉnh sửa tin tuyển dụng khi đã được phê duyệt`,
+        400
+      )
+    );
   }
   next();
 };

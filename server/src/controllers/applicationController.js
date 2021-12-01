@@ -143,7 +143,11 @@ class applicationController {
   getApplication = factory.getOne(Application);
   updateApplication = factory.updateOne(Application);
   announceApplicants = catchAsync(async (req, res, next) => {
-    let application = await Application.find({ _id: { $in: req.body.id } });
+    let application = await Application.updateMany(
+      { _id: { $in: req.body.id } },
+      { status: 'Announced' }
+    );
+    application = await Application.find({ _id: { $in: req.body.id } });
     application = application.forEach(async (el) => {
       const content = replaceHTML(el);
       try {
@@ -164,6 +168,7 @@ class applicationController {
     return res.status(200).json({
       status: 'success',
       message: 'Đã gửi thông báo đến cho ứng viên thành công',
+      data: application,
     });
   });
   countAppicantsAccoridingToStatus = catchAsync(async (req, res, next) => {

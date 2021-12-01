@@ -5,7 +5,7 @@ const authController = require('./../controllers/authController');
 const jobRouter = express.Router({ mergeParams: true });
 
 const customJobQuery = require('../middlewares/jobQuery');
-
+const validator = require('./../middlewares/validator');
 const setCreateJob = require('./../middlewares/setCreateJob');
 const applicationRouter = require('./applicationRouter');
 
@@ -53,15 +53,37 @@ jobRouter
     jobController.getDeletedJob
   );
 
-jobRouter.use(authController.restrictTo('systemmanager'));
-
-jobRouter.route('/view/all').get(jobController.getAllJob);
-jobRouter.route('/view/:id').get(jobController.getJobAccrodingtoID);
+jobRouter
+  .route('/view/all')
+  .get(authController.restrictTo('systemmanager'), jobController.getAllJob);
+jobRouter
+  .route('/view/:id')
+  .get(
+    authController.restrictTo('systemmanager'),
+    jobController.getJobAccrodingtoID
+  );
 jobRouter
   .route('/:id/approve')
-  .patch(jobController.approveJob, jobController.updateJob);
+  .patch(
+    authController.restrictTo('systemmanager'),
+    jobController.approveJob,
+    jobController.updateJob
+  );
 jobRouter
   .route('/:id/deny')
-  .patch(jobController.denyJob, jobController.updateJob);
-jobRouter.route('/hard-delete/:id').delete(jobController.deleteJob);
+  .patch(
+    authController.restrictTo('systemmanager'),
+    jobController.denyJob,
+    jobController.updateJob
+  );
+jobRouter
+  .route('/:id')
+  .patch(
+    authController.restrictTo('employer'),
+    validator.checkStatusWhenUpdateJob,
+    jobController.updateJob
+  );
+jobRouter
+  .route('/hard-delete/:id')
+  .delete(authController.restrictTo('systemmanager'), jobController.deleteJob);
 module.exports = jobRouter;
