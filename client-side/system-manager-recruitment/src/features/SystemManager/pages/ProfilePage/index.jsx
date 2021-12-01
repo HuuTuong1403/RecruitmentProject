@@ -1,6 +1,6 @@
 import { getSystemManagerDetailAsync } from 'features/SystemManager/slices/thunks'
 import { schemaUpdateProfile } from 'common/constants/schema'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectSystemManageDetail } from 'features/SystemManager/slices/selectors'
 import { upadteProfileSystemManager } from 'features/SystemManager/api/systemManager.api'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,7 +18,7 @@ import LoadingSuspense from 'components/Loading'
 import notification from 'components/Notification'
 
 const ProfilePage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Account Management')}`)
   const dispatch = useDispatch()

@@ -4,7 +4,7 @@ import {
   fetchEmployerStatisticMonthly,
   fetchJobSeekerStatisticMonthly,
 } from 'features/SystemManager/api/systemManager.api'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { useEffect, useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
@@ -29,7 +29,7 @@ const MONTH_OF_YEAR = [
 ]
 
 const StatisticPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Statistics')}`)
   const [loading, setLoading] = useState(true)
