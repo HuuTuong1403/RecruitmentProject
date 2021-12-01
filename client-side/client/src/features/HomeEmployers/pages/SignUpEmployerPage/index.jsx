@@ -1,6 +1,6 @@
 import { addInfoSignUp } from 'features/HomeEmployers/slices'
 import { Link } from 'react-router-dom'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectInfoSignUp } from 'features/HomeEmployers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,7 +15,7 @@ import StepThreeSignUp from 'features/HomeEmployers/components/StepThreeSignUp'
 import StepTwoSignUp from 'features/HomeEmployers/components/StepTwoSignUp'
 
 const SignUpEmployerPage = () => {
-  ScrollTop()
+  scrollToTop()
 
   useEffect(() => {
     const employer = selectEmployerLocal()

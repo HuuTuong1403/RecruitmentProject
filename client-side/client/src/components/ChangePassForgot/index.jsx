@@ -1,5 +1,5 @@
 import { schemaChangePassForgot } from 'common/constants/schema'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -10,7 +10,7 @@ import InputField from 'custom-fields/InputField'
 import LabelField from 'custom-fields/LabelField'
 
 const ChangePassForgot = ({ loading, onSubmit }) => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
 
   const {

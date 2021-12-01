@@ -103,17 +103,13 @@ const Header = ({ isShow, onOpen, onClose }) => {
         <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} className={classes['header__lang']}>
           <DropdownToggle caret>{lang.slice(0, 2).toUpperCase()}</DropdownToggle>
           <DropdownMenu>
-            <DropdownItem>
-              <div onClick={changeLangViHandler}>
-                <ReactCountryFlag countryCode="VN" svg className={classes['header__ic--flag']} />
-                VI
-              </div>
+            <DropdownItem onClick={changeLangViHandler}>
+              <ReactCountryFlag countryCode="VN" svg className={classes['header__ic--flag']} />
+              VI
             </DropdownItem>
-            <DropdownItem>
-              <div onClick={changeLangEnHandler}>
-                <ReactCountryFlag countryCode="US" svg className={classes['header__ic--flag']} />
-                EN
-              </div>
+            <DropdownItem onClick={changeLangEnHandler}>
+              <ReactCountryFlag countryCode="US" svg className={classes['header__ic--flag']} />
+              EN
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>

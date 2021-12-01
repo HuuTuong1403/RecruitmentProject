@@ -6,7 +6,7 @@ import {
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { getDetailJobSeekerAsync } from 'features/JobSeekers/slices/thunks'
 import { schemaUpdateProfileJobSeeker } from 'common/constants/schema'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectedJobSeekerProfile, selectedStatus } from 'features/JobSeekers/slices/selectors'
 import { updateProfileJobSeeker } from 'features/JobSeekers/api/jobSeeker.api'
 import { useForm } from 'react-hook-form'
@@ -27,7 +27,7 @@ import SelectLocationField from 'custom-fields/SelectLocationField'
 import LoadingSuspense from 'components/Loading'
 
 const UserProfilePage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Account Management')}`)
 

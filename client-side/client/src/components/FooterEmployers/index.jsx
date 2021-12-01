@@ -1,5 +1,7 @@
 import { DK, MSTLogo } from 'assets'
 import { FaFacebookF } from 'react-icons/fa'
+import { footerHomeEmployerList } from 'common/constants/options'
+import { Fragment } from 'react'
 import { IoMdMail } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 import { MdPhone } from 'react-icons/md'
@@ -39,78 +41,38 @@ const FooterEmployers = () => {
       </div>
       <div className={classes['footer__blbottom']}>
         <div className={classes['footer__blbottom--top']}>
-          <div>
-            <h3>{t('contact-info')}</h3>
-            <ul>
-              <li>
-                <a href="tel:+84396084832">
-                  <MdPhone />
-                  {t('Phone')} 1: (84) 396084832
-                </a>
-              </li>
-              <li>
-                <a href="tel:+84949488160">
-                  <MdPhone />
-                  {t('Phone')} 2: (84) 949488160
-                </a>
-              </li>
-              <li>
-                <a href="mailto:mst.recruitment10@gmail.com">
-                  <IoMdMail />
-                  mst.recruitment10@gmail.com
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>{t('company')}</h3>
-            <ul>
-              <li>
-                <a href="/">{t('about-us')}</a>
-              </li>
-              <li>
-                <a href="/">{t('leadership')}</a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>{t('dashboard')}</h3>
-            <ul>
-              <li>
-                <Link to="/employers/dashboard/post-job">{t('postjobs')}</Link>
-              </li>
-              <li>
-                <Link to="/employers/dashboard/events/post-event">{t('Create a new event')}</Link>
-              </li>
-              <li>
-                <Link to="/employers/dashboard/recruit-manage/created">
-                  {t('recruitment manager')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/employers/dashboard/events/created">{t('Event management')}</Link>
-              </li>
-              <li>
-                <Link to="/employers/dashboard/candidate-profiles">
-                  {t('Manage candidate profiles')}
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h3>{t('help')}</h3>
-            <ul>
-              <li>
-                <a href="/">{t('support')}</a>
-              </li>
-              <li>
-                <a href="/">{t('term of use')}</a>
-              </li>
-              <li>
-                <a href="/">{t('privacy policy')}</a>
-              </li>
-            </ul>
-          </div>
+          {footerHomeEmployerList.map((item) => (
+            <div key={item.titleFooter}>
+              <h3>{t(item.titleFooter)}</h3>
+              <ul>
+                {item.contentFooter.map((itemContent) => (
+                  <li key={itemContent.title}>
+                    {itemContent.isTagA ? (
+                      <a href={itemContent.href}>
+                        {itemContent.isPhone && (
+                          <Fragment>
+                            <MdPhone />
+                            {itemContent.title
+                              .split(' ')
+                              .map((item) => (item === 'Phone' ? t(item) : item))
+                              .join(' ')}
+                          </Fragment>
+                        )}
+                        {itemContent.isMail && (
+                          <Fragment>
+                            <IoMdMail />
+                            {itemContent.title}
+                          </Fragment>
+                        )}
+                      </a>
+                    ) : (
+                      <Link to={itemContent.href}>{t(itemContent.title)}</Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
         <div className={classes['footer__blbottom--bottom']}>
           <p>

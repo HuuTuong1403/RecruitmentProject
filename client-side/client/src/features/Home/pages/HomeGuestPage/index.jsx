@@ -1,6 +1,6 @@
 import { fetchJobsAsync } from 'features/Home/slices/thunks'
 import { Fragment, useEffect } from 'react'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectJobsHome, selectLoadingHome } from 'features/Home/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
@@ -10,7 +10,7 @@ import JobList from 'features/Home/components/JobList'
 import LoadingSuspense from 'components/Loading'
 
 const HomeGuestPage = () => {
-  ScrollTop()
+  scrollToTop()
   const dispatch = useDispatch()
   const { t } = useTranslation()
 

@@ -1,5 +1,4 @@
 import { schemaChangePassForgot } from 'common/constants/schema'
-import { ScrollTop } from 'common/functions'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory, useParams } from 'react-router-dom'
@@ -13,7 +12,6 @@ import InputField from 'custom-fields/InputField'
 import LabelField from 'custom-fields/LabelField'
 
 const ChangePassPage = () => {
-  ScrollTop()
   const { t } = useTranslation()
   const history = useHistory()
   const { token } = useParams()

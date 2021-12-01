@@ -6,7 +6,7 @@ import {
 import { fetchCompanyDetailAsync, fetchReviewOfCompanyAsync } from 'features/Jobs/slices/thunks'
 import { getDetailJobSeekerAsync } from 'features/JobSeekers/slices/thunks'
 import { Progress, Rate } from 'antd'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectedJobSeekerProfile } from 'features/JobSeekers/slices/selectors'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { useEffect, Fragment } from 'react'
@@ -25,7 +25,7 @@ import parse from 'html-react-parser'
 import ReviewItem from 'features/Jobs/components/ReviewItem'
 
 const CompanyDetailPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   const { companyName } = useParams()
   const dispatch = useDispatch()

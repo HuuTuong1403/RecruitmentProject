@@ -19,7 +19,7 @@ import { getDetailEmployerAsync } from 'features/Employers/slices/thunks'
 import { IoLibrary } from 'react-icons/io5'
 import { MdGroup } from 'react-icons/md'
 import { schemaUpdateProfileEmployer } from 'common/constants/schema'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectEmployerDetail, selectedStatus } from 'features/Employers/slices/selectors'
 import { updateProfileEmployer } from 'features/Employers/api/employer.api'
 import { useEffect, useState } from 'react'
@@ -27,7 +27,7 @@ import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js'
+import { yupResolver } from '@hookform/resolvers/yup'
 import AvatarUpload from 'components/AvatarUpload'
 import ButtonField from 'custom-fields/ButtonField'
 import CKEditorField from 'custom-fields/CKEditorField'
@@ -41,8 +41,7 @@ import SelectField from 'custom-fields/SelectField'
 import SelectLocationField from 'custom-fields/SelectLocationField'
 
 const EmployerProfilePage = () => {
-  ScrollTop()
-
+  scrollToTop()
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const employerDetail = useSelector(selectEmployerDetail)

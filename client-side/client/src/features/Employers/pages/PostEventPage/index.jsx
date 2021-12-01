@@ -1,7 +1,8 @@
-import { dateFormatWithTime, dateFormatWithTimeSendServer } from 'common/constants/dateFormat'
-import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { createEventEmployer } from 'features/Employers/api/employer.api'
+import { dateFormatWithTime, dateFormatWithTimeSendServer } from 'common/constants/dateFormat'
 import { schemaPostEvent } from 'common/constants/schema'
+import { scrollToTop } from 'common/functions'
+import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
@@ -16,10 +17,11 @@ import InputField from 'custom-fields/InputField'
 import InputUploadImage from 'custom-fields/InputUploadImage'
 import LabelField from 'custom-fields/LabelField'
 import moment from 'moment'
-import SelectLocationField from 'custom-fields/SelectLocationField'
 import notification from 'components/Notification'
+import SelectLocationField from 'custom-fields/SelectLocationField'
 
 const PostEventPage = () => {
+  scrollToTop()
   const { t } = useTranslation()
   useTitle(t('Create a new event'))
   const [startDate, setStartDate] = useState('')
