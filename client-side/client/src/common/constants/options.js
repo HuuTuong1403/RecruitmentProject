@@ -128,3 +128,76 @@ export const expiredJobOptions = [
   { value: false, label: 'Job postings' },
   { value: true, label: 'Job has expired' },
 ]
+
+export const footerHomeList = [
+  {
+    titleFooter: 'jobseekers',
+    contentFooter: [
+      { href: '/jobs/search?createdAt=1', title: 'newjobs' },
+      { href: '/jobs', title: 'searchjobs' },
+      { href: '/events/search?status=NotYetOccur', title: 'Event not yet occured' },
+      { href: '/events', title: 'Search events' },
+    ],
+  },
+  {
+    titleFooter: 'employers',
+    contentFooter: [
+      { href: '/employers/dashboard/post-job', title: 'postjobs' },
+      { href: '/employers/dashboard/events/post-event', title: 'Event organization' },
+    ],
+  },
+  {
+    titleFooter: 'helpcenter',
+    contentFooter: [{ href: '/', title: 'customersupport' }],
+  },
+  {
+    titleFooter: 'jobsinprovince',
+    contentFooter: [
+      { href: '/jobs/search?location%city=Thành%20phố%20Hồ%20Chí%20Minh', title: 'jobsinHCM' },
+      { href: '/jobs/search?location%city=Thành%20phố%20Đà%20Nẵng', title: 'jobsinDN' },
+      { href: '/jobs/search?location%city=Thành%20phố%20Hà%20Nội', title: 'jobsinHN' },
+      { href: '/jobs/search?location%city=Thành%20phố%20Hải%20Phòng', title: 'jobsinHP' },
+    ],
+  },
+]
+
+export const footerHomeEmployerList = [
+  {
+    titleFooter: 'contact-info',
+    contentFooter: [
+      { href: 'tel:+84396084832', title: 'Phone 1: (84) 396084832', isTagA: true, isPhone: true },
+      { href: 'tel:+84949488160', title: 'Phone 2: (84) 949488160', isTagA: true, isPhone: true },
+      {
+        href: 'mailto:mst.recruitment10@gmail.com',
+        title: 'mst.recruitment10@gmail.com',
+        isTagA: true,
+        isMail: true,
+      },
+    ],
+  },
+  {
+    titleFooter: 'company',
+    contentFooter: [
+      { href: '/employers', title: 'about-us' },
+      { href: '/employers', title: 'leadership' },
+    ],
+  },
+  {
+    titleFooter: 'dashboard',
+    contentFooter: [
+      { href: '/employers/dashboard/post-job', title: 'postjobs' },
+      { href: '/employers/dashboard/events/post-event', title: 'Create a new event' },
+      { href: '/employers/dashboard/recruit-manage/created', title: 'recruitment manager' },
+      { href: '/employers/dashboard/events/created', title: 'Event management' },
+      { href: '/employers/dashboard/candidate-profiles', title: 'Manage candidate profiles' },
+    ],
+  },
+  {
+    titleFooter: 'help',
+    contentFooter: [
+      { href: '/employers', title: 'support' },
+      { href: '/employers', title: 'term of use' },
+      { href: '/employers', title: 'privacy policy' },
+    ],
+  },
+]

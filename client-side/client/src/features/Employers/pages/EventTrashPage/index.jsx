@@ -1,7 +1,8 @@
-import { restoreEvent, deleteEvent } from 'features/Employers/api/employer.api'
-import { selectEventsDeleted, selectedStatus } from 'features/Employers/slices/selectors'
 import { fetchAllEventDeletedAsync } from 'features/Employers/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
+import { restoreEvent, deleteEvent } from 'features/Employers/api/employer.api'
+import { scrollToTop } from 'common/functions'
+import { selectEventsDeleted, selectedStatus } from 'features/Employers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +13,7 @@ import NotFoundData from 'components/NotFoundData'
 import notification from 'components/Notification'
 
 const EventTrashPage = () => {
+  scrollToTop()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const eventsDeleted = useSelector(selectEventsDeleted)

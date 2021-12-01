@@ -1,5 +1,5 @@
 import { resetPassEmployer } from 'features/HomeEmployers/api/homeEmployer.api'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
@@ -8,7 +8,7 @@ import ChangePassForgot from 'components/ChangePassForgot'
 import notification from 'components/Notification'
 
 const ChangePassEmployerPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   const history = useHistory()
   useTitle(`${t('Change pass employer')}`)

@@ -1,5 +1,5 @@
 import { Fragment, lazy } from 'react'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
@@ -12,7 +12,7 @@ const SignInGuestPage = lazy(() => import('./pages/SignInGuestPage'))
 const SignUpGuestPage = lazy(() => import('./pages/SignUpGuestPage'))
 
 const HomePage = () => {
-  ScrollTop()
+  scrollToTop()
   const { url } = useRouteMatch()
 
   return (

@@ -4,16 +4,17 @@ import {
   selectedStatus,
 } from 'features/Employers/slices/selectors'
 import { exportParticipantExcel } from 'features/Employers/api/employer.api'
-import { Fragment, useEffect, useState } from 'react'
-import { RiFileExcel2Fill } from 'react-icons/ri'
-import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
-import { useTitle } from 'common/hook/useTitle'
-import { useTranslation } from 'react-i18next'
 import {
   fetchParticipantsByIdEventAsync,
   fetchEventDetailAsync,
 } from 'features/Employers/slices/thunks'
+import { Fragment, useEffect, useState } from 'react'
+import { RiFileExcel2Fill } from 'react-icons/ri'
+import { scrollToTop } from 'common/functions'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
 import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
 import LoadingSuspense from 'components/Loading'
@@ -22,6 +23,7 @@ import notification from 'components/Notification'
 import TableParticipantsEvent from 'features/Employers/components/TableParticipantsEvent'
 
 const ParticipantsEventPage = () => {
+  scrollToTop()
   const { t } = useTranslation()
   const { id } = useParams()
   const dispatch = useDispatch()

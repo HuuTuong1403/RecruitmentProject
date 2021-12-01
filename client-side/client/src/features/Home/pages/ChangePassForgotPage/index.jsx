@@ -1,5 +1,5 @@
 import { resetPassword } from 'features/Home/api/home.api'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
@@ -8,7 +8,7 @@ import ChangePassForgot from 'components/ChangePassForgot'
 import notification from 'components/Notification'
 
 const ChangePassForgotPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Change pass jobseeker')}`)
   const history = useHistory()

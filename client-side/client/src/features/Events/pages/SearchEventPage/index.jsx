@@ -1,7 +1,7 @@
 import { clearNullObject } from 'common/functions'
 import { fetchSearchEventsAsync } from 'features/Events/slices/thunks'
 import { Fragment, useEffect } from 'react'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
@@ -10,7 +10,7 @@ import EventListSearch from 'features/Events/components/EventListSearch'
 import SearchEventHeader from 'features/Events/components/SearchEventHeader'
 
 const SearchEventPage = () => {
-  ScrollTop()
+  scrollToTop()
   const dispatch = useDispatch()
   const { t } = useTranslation()
   let query = new URLSearchParams(useLocation().search)

@@ -1,7 +1,7 @@
 import { FiLock, FiUser } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { schemaSignInEmployer } from 'common/constants/schema'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { signInEmployerAsync } from 'features/HomeEmployers/slices/thunks'
@@ -19,7 +19,7 @@ import InputField from 'custom-fields/InputField'
 import notification from 'components/Notification'
 
 const SignInEmployerPage = () => {
-  ScrollTop()
+  scrollToTop()
 
   useEffect(() => {
     const employer = selectEmployerLocal()

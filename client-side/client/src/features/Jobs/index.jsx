@@ -1,7 +1,7 @@
 import { fetchJobsAllAsync } from './slices/thunks'
 import { Fragment, useEffect } from 'react'
 import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom'
-import { ScrollTop } from 'common/functions'
+import { scrollToTop } from 'common/functions'
 import { useDispatch } from 'react-redux'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
@@ -12,7 +12,7 @@ import CompanyDetailPage from './pages/CompanyDetailPage'
 import ReviewPage from './pages/ReviewPage'
 
 const JobsPage = () => {
-  ScrollTop()
+  scrollToTop()
   const { url } = useRouteMatch()
   const dispatch = useDispatch()
   let query = new URLSearchParams(useLocation().search)
