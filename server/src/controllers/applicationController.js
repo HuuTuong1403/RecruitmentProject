@@ -145,7 +145,7 @@ class applicationController {
   announceApplicants = catchAsync(async (req, res, next) => {
     let application = await Application.updateMany(
       { _id: { $in: req.body.id } },
-      { status: 'Announced' }
+      { isAnnounced: true }
     );
     application = await Application.find({ _id: { $in: req.body.id } });
     application = application.forEach(async (el) => {

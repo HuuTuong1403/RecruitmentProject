@@ -40,9 +40,13 @@ const applicationSchema = new mongoose.Schema(
       type: String,
       default: 'NotSaved',
       enum: {
-        values: ['NotSaved', 'Saved', 'Deleted', 'Announced'],
-        message: 'Trạng thái hồ sơ gồm có: NotSaved, Saved, Deleted, Announced',
+        values: ['NotSaved', 'Saved', 'Deleted'],
+        message: 'Trạng thái hồ sơ gồm có: NotSaved, Saved, Deleted',
       },
+    },
+    isAnnounced: {
+      type: Boolean,
+      default: false,
     },
     createdAt: {
       type: Date,
