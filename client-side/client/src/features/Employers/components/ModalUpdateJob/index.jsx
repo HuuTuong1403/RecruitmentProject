@@ -1,4 +1,14 @@
-import { dateFormatISO8601WithZ, dateFormatPicker } from 'common/constants/dateFormat'
+import { clearNullObject } from 'common/functions'
+import { Collapse, Switch, Modal } from 'antd'
+import {
+  dateFormatISO8601WithZ,
+  dateFormatPicker,
+  dateFormatSendServer,
+} from 'common/constants/dateFormat'
+import {
+  fetchJobsOfEmployerAsync,
+  fetchJobDetailOfEmployerAsync,
+} from 'features/Employers/slices/thunks'
 import {
   hideSalaryOptions,
   levelOptions,
@@ -6,14 +16,14 @@ import {
   typeSalaryOptions,
   workingTimeOptions,
 } from 'common/constants/options'
+import { schemaPostJobEmployer } from 'common/constants/schema'
 import {
   selectJobsDetailEmployer,
   selectStatusJobDetail,
 } from 'features/Employers/slices/selectors'
-import { Collapse, Switch, Modal } from 'antd'
-import { schemaPostJobEmployer } from 'common/constants/schema'
+import { updateJob } from 'features/Employers/api/employer.api'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useState, Fragment, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -43,6 +53,7 @@ const ModalUpdateJob = ({
   wards,
 }) => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const jobDetail = useSelector(selectJobsDetailEmployer)
   const [hideSalary, setHideSalary] = useState(false)
@@ -88,8 +99,69 @@ const ModalUpdateJob = ({
 
   const submitUpdateJob = async (dataUpdateJob) => {
     setLoading(true)
-    console.log(dataUpdateJob)
-    notification('Update success', 'successs')
+    const {
+      jobTitle,
+      street,
+      min,
+      max,
+      description,
+      requirements,
+      city,
+      district,
+      ward,
+      level,
+      position,
+      workingTimeStart,
+      workingTimeFinish,
+      finishDate,
+      benefits,
+      reason,
+      typeHideSalary,
+      responsibilities,
+      type,
+    } = dataUpdateJob
+
+    const data = {
+      workingTime: {
+        start: workingTimeStart,
+        finish: workingTimeFinish,
+      },
+      location: {
+        city,
+        district,
+        ward,
+        street,
+      },
+      benefits,
+      description,
+      jobTitle,
+      position,
+      reason,
+      requirements,
+      responsibilities,
+      salary: clearNullObject({
+        min: hideSalary ? min : null,
+        max: hideSalary ? max : null,
+        type: hideSalary ? type : typeHideSalary,
+      }),
+      skills: selectSkill.map((item) => item.label),
+      level,
+      finishDate:
+        moment(finishDate).format(dateFormatPicker) ===
+        moment(jobDetail.finishDate).format(dateFormatPicker)
+          ? moment(jobDetail.finishDate).format(dateFormatSendServer)
+          : moment(finishDate, dateFormatPicker).format(dateFormatSendServer),
+    }
+
+    const result = await updateJob({ id: jobDetail._id, data })
+    if (result.status === 'success') {
+      notification(`${t('Successful job posting update')}`, 'success')
+      onCloseModal()
+      dispatch(fetchJobsOfEmployerAsync())
+      dispatch(fetchJobDetailOfEmployerAsync(jobDetail.slug))
+    } else {
+      notification(`${result.message}`, 'error')
+    }
     setLoading(false)
   }
 
@@ -306,7 +378,7 @@ const ModalUpdateJob = ({
                               <InputPostJobField
                                 name="min"
                                 control={control}
-                                defaultValue={jobDetail.salary?.min}
+                                defaultValue={jobDetail.salary?.min ?? 1}
                                 errors={errors?.min?.message}
                                 placeholder={t('Enter the minimum salary')}
                               />
@@ -316,8 +388,9 @@ const ModalUpdateJob = ({
                               <InputPostJobField
                                 name="max"
                                 control={control}
-                                defaultValue={jobDetail.salary?.max}
+                                defaultValue={jobDetail.salary?.max ?? 10}
                                 errors={errors?.max?.message}
+                                placeholder={t('Enter the maximum salary')}
                               />
                             </div>
                           </div>
@@ -412,8 +485,9 @@ const ModalUpdateJob = ({
                     backgroundcolor="#0a426e"
                     backgroundcolorhover="#0a436ead"
                     loading={loading}
+                    uppercase
                   >
-                    {t('Update')}
+                    {t('Update job posting')}
                   </ButtonField>
                 </div>
               </form>

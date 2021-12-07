@@ -285,6 +285,13 @@ const TableJobsApplication = ({
         setSelectProfileList((prevState) => prevState.filter((item) => item !== record.key))
       }
     },
+    // getCheckboxProps: (record) => {
+    //   console.log(record)
+    //   return {
+    //     disabled: record.status === 'Announced',
+    //     name: record.name,
+    //   }
+    // },
   }
 
   return (

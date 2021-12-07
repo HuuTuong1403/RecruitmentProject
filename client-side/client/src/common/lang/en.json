@@ -240,6 +240,7 @@
   "Event management": "Event anagement",
   "Event name": "Event name",
   "Event not yet occured": "Event not yet occured",
+  "Event organization": "Event organization",
   "Event organizer": "Event organizer",
   "Event registration information": "Event registration information",
   "Event registration list": "Event registration list",
@@ -575,6 +576,7 @@
   "Submit registration form": "Submit registration form",
   "Successful account registration": "Successful account registration",
   "Successful job application submission": "Successful job application submission",
+  "Successful job posting update": "Successful job posting update",
   "Successful new event creation": "Successful new event creation",
   "Successfully deleted profile": "Successfully deleted profile",
   "Successfully restored event": "Successfully restored event",
@@ -623,6 +625,7 @@
   "Unsatisfied": "Unsatisfied",
   "Update information successful": "Update your information successful",
   "Update Information": "Update Information",
+  "Update job posting": "Update job posting",
   "Update": "Update",
   "Updated data unchanged": "Updated data unchanged",
   "Upload business logo": "Upload business logo",
@@ -669,6 +672,5 @@
   "You haven't deleted any events yet": "You haven't deleted any events yet",
   "You'll love it": "You'll love it",
   "Your account has been activated. Please login to use the system": "Your account has been activated. Please login to use the system",
-  "Your review will be of great help to the developer community looking for work.": "Your review will be of great help to the developer community looking for work.",
-  "Event organization": "Event organization"
+  "Your review will be of great help to the developer community looking for work.": "Your review will be of great help to the developer community looking for work."
 }

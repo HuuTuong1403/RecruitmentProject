@@ -81,6 +81,15 @@ export const restoreJob = async (payload) => {
   }
 }
 
+export const updateJob = async ({ id, data }) => {
+  try {
+    const res = await axiosClient.patch(`employer/jobs/${id}`, data)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const fetchJobsApplicationNotSaved = async (payload) => {
   try {
     const res = await axiosClient.get('employer/applications/management', {

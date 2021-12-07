@@ -20,8 +20,8 @@ const JobList = () => {
           </Link>
         </div>
         <Slider style={{ width: '85%' }} {...settings}>
-          {jobs.map((job) => {
-            return <JobItem key={job._id} job={job} />
+          {jobs.map((job, index) => {
+            return index < 27 && <JobItem key={job._id} job={job} />
           })}
         </Slider>
       </div>

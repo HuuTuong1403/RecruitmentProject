@@ -6,7 +6,6 @@ import {
 import { fetchCompanyDetailAsync, fetchReviewOfCompanyAsync } from 'features/Jobs/slices/thunks'
 import { getDetailJobSeekerAsync } from 'features/JobSeekers/slices/thunks'
 import { Progress, Rate } from 'antd'
-import { scrollToTop } from 'common/functions'
 import { selectedJobSeekerProfile } from 'features/JobSeekers/slices/selectors'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { useEffect, Fragment } from 'react'
@@ -21,11 +20,10 @@ import JobActiveItem from 'features/Jobs/components/JobActiveItem'
 import LoadingSuspense from 'components/Loading'
 import ModalSignIn from 'components/ModalSignIn'
 import NotFoundData from 'components/NotFoundData'
+import PaginationWrap from 'components/PaginationWrap'
 import parse from 'html-react-parser'
-import ReviewItem from 'features/Jobs/components/ReviewItem'
 
 const CompanyDetailPage = () => {
-  scrollToTop()
   const { t } = useTranslation()
   const { companyName } = useParams()
   const dispatch = useDispatch()
@@ -125,10 +123,11 @@ const CompanyDetailPage = () => {
                 </div>
               ) : (
                 <div className={classes['companyDetail__wrapped--jobActiveList']}>
-                  {companyDetail.jobs.map((job, index) => {
-                    if (index <= 6) return <JobActiveItem key={job._id} jobActive={job} />
-                    else return null
-                  })}
+                  {companyDetail.jobs
+                    .filter((item) => !item.isExpired)
+                    .map(
+                      (job, index) => index < 6 && <JobActiveItem key={job._id} jobActive={job} />
+                    )}
                 </div>
               ))}
 
@@ -181,14 +180,13 @@ const CompanyDetailPage = () => {
                         ? `${companyDetail.ratingsQuantity} ${t('review')}`
                         : `${companyDetail.ratingsQuantity} ${t('reviews')}`}
                     </div>
-                    {reviewsOfCampany.map((review) => (
-                      <ReviewItem
-                        key={review._id}
-                        review={review}
-                        currentUser={currentUser}
-                        companyName={companyName}
-                      />
-                    ))}
+                    <PaginationWrap
+                      array={reviewsOfCampany}
+                      currentUser={currentUser}
+                      companyName={companyName}
+                      numEachPage={10}
+                      isReview
+                    />
                   </Fragment>
                 ))}
             </div>

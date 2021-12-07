@@ -243,6 +243,7 @@
   "Event management": "Quản lý sự kiện",
   "Event name": "Tên sự kiện",
   "Event not yet occured": "Sự kiện chưa diễn ra",
+  "Event organization": "Tổ chức sự kiện",
   "Event organizer": "Người tổ chức sự kiện",
   "Event registration information": "Thông tin đã đăng ký sự kiện",
   "Event registration list": "Danh sách đăng ký sự kiện",
@@ -581,6 +582,7 @@
   "Submit registration form": "Gửi mẫu đăng ký",
   "Successful account registration": "Đăng ký tài khoản thành công",
   "Successful job application submission": "Nộp đơn ứng tuyển công việc thành công",
+  "Successful job posting update": "Cập nhật tin tuyển dụng thành công",
   "Successful new event creation": "Tạo sự kiện mới thành công",
   "Successfully deleted profile": "Đã xóa hồ sơ thành công",
   "Successfully restored event": "Đã khôi phục sự kiện thành công",
@@ -629,6 +631,7 @@
   "Unsatisfied": "Không hài lòng",
   "Update information successful": "Cập nhật thông tin của bạn thành công",
   "Update Information": "Cập nhật thông tin",
+  "Update job posting": "Cập nhật tin tuyển dụng",
   "Update": "Cập nhật",
   "Updated data unchanged": "Dữ liệu cập nhật không có sự thay đổi",
   "Upload business logo": "Tải lên logo doanh nghiệp",
@@ -676,6 +679,5 @@
   "You haven't deleted any events yet": "Bạn chưa xóa bất kỳ sự kiện nào",
   "You'll love it": "Bạn sẽ yêu nó",
   "Your account has been activated. Please login to use the system": "Tài khoản của đã được kích hoạt. Vui lòng đăng nhập để sử dụng hệ thống",
-  "Your review will be of great help to the developer community looking for work.": "Đánh giá của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc.",
-  "Event organization": "Tổ chức sự kiện"
+  "Your review will be of great help to the developer community looking for work.": "Đánh giá của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc."
 }

@@ -59,7 +59,9 @@ const ReviewPage = () => {
   }, [dispatch, companyName, history])
 
   useEffect(() => {
-    dispatch(fetchReviewDetailAsync(id))
+    if (id) {
+      dispatch(fetchReviewDetailAsync(id))
+    }
   }, [dispatch, id])
 
   return (

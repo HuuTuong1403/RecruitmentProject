@@ -53,10 +53,11 @@
       margin-top: $pm-10;
       display: flex;
       justify-content: space-between;
+      gap: 5px;
 
-      & button {
-        flex: 0 0 32%;
-      }
+      // & button {
+      //   flex: 0 0 32%;
+      // }
     }
     &--actionsTrash {
       margin-top: $pm-10;

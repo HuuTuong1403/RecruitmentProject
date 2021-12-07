@@ -3,9 +3,9 @@ import { selectEvents, selectStatus } from 'features/Events/slices/selectors'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
-import EventItem from 'features/Events/components/EventItem'
 import LoadingSuspense from 'components/Loading'
 import NotFoundData from 'components/NotFoundData'
+import PaginationWrap from 'components/PaginationWrap'
 
 const EventListSearch = () => {
   const { t } = useTranslation()
@@ -30,9 +30,7 @@ const EventListSearch = () => {
             {eventsSearch.length === 0 ? (
               <NotFoundData title={t('There are currently no events matching your criteria')} />
             ) : (
-              eventsSearch.map((event) => {
-                return <EventItem key={event.slug} event={event} />
-              })
+              <PaginationWrap array={eventsSearch} isEvent />
             )}
           </Fragment>
         )}

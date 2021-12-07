@@ -9,6 +9,7 @@ import { BiDotsHorizontalRounded, BiTrash, BiEdit } from 'react-icons/bi'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { deleteReview } from 'features/JobSeekers/api/jobSeeker.api'
 import { deleteReviewOfCompany } from 'features/Jobs/slices'
+import { fetchCompanyDetailAsync } from 'features/Jobs/slices/thunks'
 import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Rate, Menu, Dropdown } from 'antd'
@@ -36,6 +37,7 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
     if (result.status === 204) {
       notification(`${t('Deleting successful review')}`, 'success')
       dispatch(deleteReviewOfCompany(_id))
+      dispatch(fetchCompanyDetailAsync(companyName))
     } else {
       notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
     }

@@ -181,15 +181,17 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
                 <IoMdEye className={classes.item__icon} />
                 {t('Details')}
               </ButtonField>
-              <ButtonField
-                backgroundcolor="#067951"
-                backgroundcolorhover="#2baa7e"
-                onClick={onOpenModal}
-                padding="2px"
-              >
-                <MdEdit className={classes.item__icon} />
-                {t('Edit')}
-              </ButtonField>
+              {status !== 'approval' && (
+                <ButtonField
+                  backgroundcolor="#067951"
+                  backgroundcolorhover="#2baa7e"
+                  onClick={onOpenModal}
+                  padding="2px"
+                >
+                  <MdEdit className={classes.item__icon} />
+                  {t('Edit')}
+                </ButtonField>
+              )}
               <PopoverField
                 title={t('Confirm move job postings to trash')}
                 subTitle={t('Do you want to  move this job postings to trash?')}
