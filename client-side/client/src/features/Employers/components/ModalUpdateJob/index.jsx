@@ -24,7 +24,7 @@ import {
 import { updateJob } from 'features/Employers/api/employer.api'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
-import { useState, Fragment, useEffect } from 'react'
+import { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
 import ButtonField from 'custom-fields/ButtonField'
@@ -56,7 +56,7 @@ const ModalUpdateJob = ({
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const jobDetail = useSelector(selectJobsDetailEmployer)
-  const [hideSalary, setHideSalary] = useState(false)
+  const [hideSalary, setHideSalary] = useState(true)
   const status = useSelector(selectStatusJobDetail)
   const { Panel } = Collapse
 
@@ -79,12 +79,6 @@ const ModalUpdateJob = ({
     value: item.value,
     label: t(item.label),
   }))
-
-  useEffect(() => {
-    if (jobDetail?.salary?.min) {
-      setHideSalary(true)
-    }
-  }, [jobDetail?.salary?.min])
 
   const {
     register,
@@ -447,11 +441,12 @@ const ModalUpdateJob = ({
 
                       {/* Job Benefits */}
                       <div className={classes.bottom}>
-                        <LabelField label={t('Benefits of joining the job')} />
+                        <LabelField label={t('Benefits of joining the job')} isCompulsory />
                         <CKEditorField
                           name="benefits"
                           control={control}
                           defaultValue={jobDetail.benefits ? parse(jobDetail.benefits) : ''}
+                          errors={errors?.benefits?.message}
                         />
                       </div>
 

@@ -194,6 +194,7 @@
   "error-file-size": "File is too big. File must be less than 5MB",
   "error-file-type": "Please choose your image have type jpg, jpeg, png, svg",
   "error-fullname-signup": "Full Name is not empty",
+  "error-jobBenefits-postJob": "Please enter the job benefits",
   "error-jobDescription-postJob": "Please enter the job description",
   "error-jobRequirement-postJob": "Please enter the job requirements",
   "error-jobTitle-postJob": "Please enter job title",

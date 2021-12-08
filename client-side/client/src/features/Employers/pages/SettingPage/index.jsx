@@ -52,10 +52,10 @@ const SettingPage = () => {
   return (
     <div className={classes.employerSetting}>
       <div className={classes.employerSetting__wrapped}>
-        <div className={classes.titleDashboard}>{t('Employer account settings')}</div>
-        <div className={classes.subTitleDashboard}>
-          {t('Change login password')} <span>(*: {t('Compulsory')})</span>
+        <div className={classes.titleDashboard}>
+          {t('Employer account settings')} <span>(*: {t('Compulsory')})</span>
         </div>
+        <div className={classes.subTitleDashboard}>{t('Change login password')}</div>
         <form
           className={classes['employerSetting__wrapped--changePass']}
           onSubmit={handleSubmit(submitChangePassHandler)}

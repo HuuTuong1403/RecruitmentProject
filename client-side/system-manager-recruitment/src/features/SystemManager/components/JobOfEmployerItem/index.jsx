@@ -139,6 +139,7 @@ const JobOfEmployerItem = ({ data, statusJob }) => {
   return (
     <Fragment>
       <ModalJobDetail
+        statusJob={statusJob}
         showModal={showModal}
         onCloseModal={onCloseModal}
         data={data}

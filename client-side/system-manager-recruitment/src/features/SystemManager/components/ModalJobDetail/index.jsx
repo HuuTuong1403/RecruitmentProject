@@ -13,7 +13,15 @@ import moment from 'moment'
 import parse from 'html-react-parser'
 import PopoverField from 'custom-fields/PopoverField'
 
-const ModalJobDetail = ({ showModal, onCloseModal, data, onApprove, onReject, loading }) => {
+const ModalJobDetail = ({
+  showModal,
+  onCloseModal,
+  data,
+  onApprove,
+  onReject,
+  loading,
+  statusJob,
+}) => {
   const { t } = useTranslation()
   const {
     workingTime,
@@ -78,25 +86,27 @@ const ModalJobDetail = ({ showModal, onCloseModal, data, onApprove, onReject, lo
                 {`${t('Deadline to apply')}: ${moment(finishDate).format(dateFormatPicker)}`}
               </div>
             )}
-            {status !== 'unapproval' && (
+            {(status !== 'approval' && statusJob !== 'deleted') && (
               <div className={classes['jobDetail__top--left--actions']}>
-                <PopoverField
-                  title={t('Confirm rejection of job postings')}
-                  subTitle={t('Do you want to reject this job posting?')}
-                  loading={loading}
-                  onClickOk={onReject}
-                  titleCancel={t('Cancel')}
-                  titleOk={t('Reject')}
-                >
-                  <ButtonField
-                    backgroundcolor="#ff4d4f"
-                    backgroundcolorhover="#ff7875"
-                    padding="5px"
-                    uppercase
+                {status !== 'denied' && (
+                  <PopoverField
+                    title={t('Confirm rejection of job postings')}
+                    subTitle={t('Do you want to reject this job posting?')}
+                    loading={loading}
+                    onClickOk={onReject}
+                    titleCancel={t('Cancel')}
+                    titleOk={t('Reject')}
                   >
-                    {t('Reject')}
-                  </ButtonField>
-                </PopoverField>
+                    <ButtonField
+                      backgroundcolor="#ff4d4f"
+                      backgroundcolorhover="#ff7875"
+                      padding="5px"
+                      uppercase
+                    >
+                      {t('Reject')}
+                    </ButtonField>
+                  </PopoverField>
+                )}
 
                 <PopoverField
                   title={t('Confirmation of approval for job postings')}

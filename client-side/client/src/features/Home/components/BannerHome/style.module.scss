@@ -106,8 +106,10 @@
       }
 
       &--search {
+        gap: 10px;
+
         & > div:last-child {
-          width: 15%;
+          width: 10%;
         }
       }
     }
@@ -126,8 +128,10 @@
       }
 
       &--search {
+        gap: 10px;
+
         & > div:first-child {
-          width: 50%;
+          width: 55%;
         }
 
         & > div:not(:first-child):not(:last-child) {
@@ -136,7 +140,7 @@
           }
         }
         & > div:last-child {
-          width: 20%;
+          width: 15%;
         }
       }
     }

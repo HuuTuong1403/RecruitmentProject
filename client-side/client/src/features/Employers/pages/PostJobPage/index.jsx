@@ -477,12 +477,13 @@ const PostJobPage = () => {
 
           {/* Job Benefits */}
           <div className={classes.postjob__formGroup}>
-            <LabelField label={t('Benefits of joining the job')} />
+            <LabelField label={t('Benefits of joining the job')} isCompulsory />
             <CKEditorField
               name="benefits"
               control={control}
               defaultValue={postJobData?.benefits}
               handleAddData={handleAddData}
+              errors={errors?.benefits?.message}
             />
           </div>
 

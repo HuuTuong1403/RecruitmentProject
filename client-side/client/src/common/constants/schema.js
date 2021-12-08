@@ -127,6 +127,7 @@ export const schemaPostJobEmployer = yup.object({
     .notOneOf([yup.ref('min'), null], 'error-salary-minEqualMax'),
   description: yup.string().required('error-jobDescription-postJob'),
   requirements: yup.string().required('error-jobRequirement-postJob'),
+  benefits: yup.string().required('error-jobBenefits-postJob'),
   city: yup
     .string()
     .notOneOf(['Chọn tỉnh/thành...', 'Choose province...'], 'error-select-province'),

@@ -307,7 +307,7 @@ const JobDetailPage = () => {
                     </div>
                   </Fragment>
                 )}
-                {skills && (
+                {skills && skills.length > 0 && (
                   <Fragment>
                     <div className={classes['jobDetail__content--wrapped--title']}>
                       {t('Skill')}

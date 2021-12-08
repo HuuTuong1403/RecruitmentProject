@@ -196,6 +196,7 @@
   "error-file-size": "Tệp quá lớn. Tệp phải nhỏ hơn 5MB",
   "error-file-type": "Vui lòng chọn tệp hình ảnh jpg, jpeg, png, svg",
   "error-fullname-signup": "Tên đầy đủ không được trống",
+  "error-jobBenefits-postJob": "Vui lòng nhập mô tả lợi ích công việc",
   "error-jobDescription-postJob": "Vui lòng nhập mô tả công việc",
   "error-jobRequirement-postJob": "Vui lòng nhập yêu cầu công việc",
   "error-jobTitle-postJob": "Vui lòng nhập tiêu đề công việc",
