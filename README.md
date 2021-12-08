@@ -6,20 +6,11 @@
  - Database: [MongoDB](https://www.mongodb.com)
  - Deploy: [Firebase](https://firebase.google.com)
 
-## Các chức năng chính của dự án
- | Job Seeker                         | Employer                                 | System Manager               | System Admin                        |
- | ---------------------------------- | -------------------------------------    | ---------------------------- | ------------                        |
- | ✅ Tìm kiếm công việc phù hợp      | ✅ Đăng tin tuyển dụng                  | ✅ Xem số liệu thống kê     | ✅ Xem số liệu thống kê            |
- | ✅ Tìm kiếm sự kiện trên hệ thống  | ✅ Tổ chức sự kiện                      | ✅ Phê duyệt nhà tuyển dụng | ✅ Cấp tài khoản quản lý hệ thống  |
- | ✅ Ứng tuyển công viêc             | ✅ Quản lý tài khoản                    | ✅ Quản lý tin tuyển dụng   | ✅ Cấp tài khoản quản trị hệ thống |
- | ✅ Tham gia sự kiện                | ✅ Quản lý tin tuyển dụng               | ⬜️ Tạo gói dịch vụ          | ⬜️ Quản lý người dùng              |
- | ✅ Đánh giá doanh nghiệp           | ✅ Quản lý sự kiện                      | ⬜️ Quản lý gói dịch vụ      |                                     |
- | ✅ Lưu việc làm                    | ✅ Quản lý hồ sơ ứng viên               |                              |                                     |
- | ✅ Quản lý tài khoản               | ✅ Quản lý thành viên tham gia sự kiện  |                              |                                     |
- | ⬜️ Tạo CV trực tuyến               | ✅ Xem số liệu thống kê                 |                              |                                     |
- | ⬜️ Tham gia Entry Test             | ⬜️ Tạo Entry Test                       |                              |                                     |
- |                                    | ⬜️ Quản lý Entry Test                   |                              |                                     |
- |                                    | ⬜️ Đăng ký gói dịch vụ                  |                              |                                     |
+## Một số hình ảnh của dự án
+|                                     |                                     |                                     |                                   |
+|                    :---:            |                :---:                |                   :---:             |                :---:              |
+| ![](Screenshots/Screenshot01.png)   | ![](Screenshots/Screenshot02.png)   | ![](Screenshots/Screenshot03.png)   | ![](Screenshots/Screenshot04.png) |
+| ![](Screenshots/Screenshot05.png)   | ![](Screenshots/Screenshot06.png)   | ![](Screenshots/Screenshot07.png)   | ![](Screenshots/Screenshot08.png) |
 
 ## Các địa chỉ Website của Frontend đã deploy lên Firebase
  - Website của JobSeeker, Employer: [https://mst-recruit.web.app](https://mst-recruit.web.app)
@@ -37,6 +28,21 @@
 
 ## Video demo của dự án
 [![Youtube Badge](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/7dZrxulxSPc)
+
+## Các chức năng chính của dự án
+ | Job Seeker                         | Employer                                 | System Manager               | System Admin                        |
+ | ---------------------------------- | -------------------------------------    | ---------------------------- | ------------                        |
+ | ✅ Tìm kiếm công việc phù hợp      | ✅ Đăng tin tuyển dụng                  | ✅ Xem số liệu thống kê     | ✅ Xem số liệu thống kê            |
+ | ✅ Tìm kiếm sự kiện trên hệ thống  | ✅ Tổ chức sự kiện                      | ✅ Phê duyệt nhà tuyển dụng | ✅ Cấp tài khoản quản lý hệ thống  |
+ | ✅ Ứng tuyển công viêc             | ✅ Quản lý tài khoản                    | ✅ Quản lý tin tuyển dụng   | ✅ Cấp tài khoản quản trị hệ thống |
+ | ✅ Tham gia sự kiện                | ✅ Quản lý tin tuyển dụng               | ⬜️ Tạo gói dịch vụ          | ⬜️ Quản lý người dùng              |
+ | ✅ Đánh giá doanh nghiệp           | ✅ Quản lý sự kiện                      | ⬜️ Quản lý gói dịch vụ      |                                     |
+ | ✅ Lưu việc làm                    | ✅ Quản lý hồ sơ ứng viên               |                              |                                     |
+ | ✅ Quản lý tài khoản               | ✅ Quản lý thành viên tham gia sự kiện  |                              |                                     |
+ | ⬜️ Tạo CV trực tuyến               | ✅ Xem số liệu thống kê                 |                              |                                     |
+ | ⬜️ Tham gia Entry Test             | ⬜️ Tạo Entry Test                       |                              |                                     |
+ |                                     | ⬜️ Quản lý Entry Test                   |                              |                                     |
+ |                                     | ⬜️ Đăng ký gói dịch vụ                  |                              |                                     |
 
 ## Thông tin liên hệ
  - GVHD: Thầy **Nguyễn Thanh Phước**
