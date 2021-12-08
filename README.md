@@ -1,6 +1,6 @@
 # Dự án xây dựng nền tảng hỗ trợ doanh nghiệp ngành CNTT tuyển dụng
 
-[Video Demo](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/7dZrxulxSPc)
+## Video Demo[![Youtube Badge](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/7dZrxulxSPc)
 
 ## Các công nghệ đã sử dụng trong dự án
  - Frontend: [ReactJS](https://reactjs.org)
