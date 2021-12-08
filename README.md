@@ -9,7 +9,7 @@
 ## Các chức năng chính của dự án
  | Job Seeker                         | Employer                                 | System Manager               | System Admin                        |
  | ---------------------------------- | -------------------------------------    | ---------------------------- | ------------                        |
- | [x] Tìm kiếm công việc phù hợp     | [x] Đăng tin tuyển dụng                  | [x] Xem số liệu thống kê     | [x] Xem số liệu thống kê            |
+ | <div>[x] Tìm kiếm công việc phù hợp</div>     | [x] Đăng tin tuyển dụng                  | [x] Xem số liệu thống kê     | [x] Xem số liệu thống kê            |
  | [x] Tìm kiếm sự kiện trên hệ thống | [x] Tổ chức sự kiện                      | [x] Phê duyệt nhà tuyển dụng | [x] Cấp tài khoản quản lý hệ thống  |
  | [x] Ứng tuyển công viêc            | [x] Quản lý tài khoản                    | [x] Quản lý tin tuyển dụng   | [x] Cấp tài khoản quản trị hệ thống |
  | [x] Tham gia sự kiện               | [x] Quản lý tin tuyển dụng               | [ ] Tạo gói dịch vụ          | [ ] Quản lý người dùng              |
