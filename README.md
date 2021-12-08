@@ -7,15 +7,19 @@
  - Deploy: [Firebase](https://firebase.google.com)
 
 ## Các chức năng chính của dự án
- - [x] Tìm kiếm việc làm cho người tìm việc
- - [x] Ứng tuyển vào công việc
- - [x] Tham gia sự kiện được tổ chức của doanh nghiệp
- - [x] Doanh nghiệp đăng tin tuyển dụng
- - [x] Doanh nghiệp tổ chức sự kiện
- - [x] Doanh nghiệp xem số liệu thống kê
- - [ ] Tạo CV trực tuyến
- - [ ] Đăng ký gói dịch vụ
- - [ ] Tìm kiếm hồ sơ ứng viên
+ | Job Seeker                         | Employer                                 | System Manager               | System Admin                        |
+ | ---------------------------------- | -------------------------------------    | ---------------------------- | ------------                        |
+ | [x] Tìm kiếm công việc phù hợp     | [x] Đăng tin tuyển dụng                  | [x] Xem số liệu thống kê     | [x] Xem số liệu thống kê            |
+ | [x] Tìm kiếm sự kiện trên hệ thống | [x] Tổ chức sự kiện                      | [x] Phê duyệt nhà tuyển dụng | [x] Cấp tài khoản quản lý hệ thống  |
+ | [x] Ứng tuyển công viêc            | [x] Quản lý tài khoản                    | [x] Quản lý tin tuyển dụng   | [x] Cấp tài khoản quản trị hệ thống |
+ | [x] Tham gia sự kiện               | [x] Quản lý tin tuyển dụng               | [ ] Tạo gói dịch vụ          | [ ] Quản lý người dùng              |
+ | [x] Đánh giá doanh nghiệp          | [x] Quản lý sự kiện                      | [ ] Quản lý gói dịch vụ      |                                     |
+ | [x] Lưu việc làm                   | [x] Quản lý hồ sơ ứng viên               |                              |                                     |
+ | [x] Quản lý tài khoản              | [x] Quản lý thành viên tham gia sự kiện  |                              |                                     |
+ | [ ] Tạo CV trực tuyến              | [x] Xem số liệu thống kê                 |                              |                                     |
+ | [ ] Tham gia Entry Test            | [ ] Tạo Entry Test                       |                              |                                     |
+ |                                    | [ ] Quản lý Entry Test                   |                              |                                     |
+ |                                    | [ ] Đăng ký gói dịch vụ                  |                              |                                     |
 
 ## Các địa chỉ Website của Frontend đã deploy lên Firebase
  - Website của JobSeeker, Employer: [https://mst-recruit.web.app](https://mst-recruit.web.app)
