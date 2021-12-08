@@ -18,7 +18,7 @@
  - Website cho System Admin: [https://admin-mst-recruit.web.app](https://admin-mst-recruit.web.app)
 
 ## Cấu trúc thư mục
- - [Repository Document](https://github.com/HuuTuong1403/RecruitmentProject/tree/main/Tasks): Các tài liệu của dự án
+ - [Repository Document](https://github.com/HuuTuong1403/RecruitmentProject/tree/main/Document): Các tài liệu của dự án
  - Frontend:
    - [Repository Client](https://github.com/HuuTuong1403/RecruitmentProject/tree/main/client-side/client): Mã nguồn của Khách hàng (JobSeeker, Employer)
    - [Repository System Manager](https://github.com/HuuTuong1403/RecruitmentProject/tree/main/client-side/system-manager-recruitment): Mã nguồn của Quản lý hệ thống (System Manager)
@@ -47,7 +47,7 @@
 ## Thông tin liên hệ
  - GVHD: Thầy **Nguyễn Thanh Phước**
  - Thành viên:
-   - **Nguyễn Hữu Tường**:
+   - **Nguyễn Hữu Tường**
      - [Github](https://github.com/HuuTuong1403)
      - [Facebook](https://www.facebook.com/huutuong1403)
    - **Đặng Nguyễn Hoài Thư**
