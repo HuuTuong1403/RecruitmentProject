@@ -1,7 +1,5 @@
 # Dự án xây dựng nền tảng hỗ trợ doanh nghiệp ngành CNTT tuyển dụng
 
-## Video Demo[![Youtube Badge](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/7dZrxulxSPc)
-
 ## Các công nghệ đã sử dụng trong dự án
  - Frontend: [ReactJS](https://reactjs.org)
  - Backend: [NodeJS](https://nodejs.org/en) + [ExpressJS](https://expressjs.com)
@@ -29,6 +27,9 @@
    - [Repository System Admin](https://github.com/HuuTuong1403/RecruitmentProject/tree/main/client-side/admin-recruitment): Mã nguồn của Quản trị hệ thống (System Admin)
  - Backend:
    - [Repository Server](https://github.com/HuuTuong1403/RecruitmentProject/tree/main/server): Mã nguồn của Backend
+
+## Video demo của dự án
+[![Youtube Badge](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://youtu.be/7dZrxulxSPc)
 
 ## Thông tin liên hệ
  - GVHD: Thầy **Nguyễn Thanh Phước**
