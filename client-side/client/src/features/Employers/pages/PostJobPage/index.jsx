@@ -6,7 +6,7 @@ import { clearNullObject } from 'common/functions'
 import { getDetailEmployerAsync } from 'features/Employers/slices/thunks'
 import { postJobEmployer } from 'features/Employers/api/employer.api'
 import { schemaPostJobEmployer } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
 import { Switch } from 'antd'
 import {
@@ -34,7 +34,7 @@ import Select from 'react-select'
 import SelectPostJobField from 'features/Employers/components/SelectPostJobField'
 
 const PostJobPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('postjobs')}`)
   const dispatch = useDispatch()

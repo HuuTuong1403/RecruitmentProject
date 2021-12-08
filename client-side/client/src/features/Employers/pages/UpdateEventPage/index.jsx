@@ -6,7 +6,7 @@ import {
 import { fetchEventDetailAsync } from 'features/Employers/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
 import { schemaPostEvent } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { selectEventDetailEmployer, selectedStatus } from 'features/Employers/slices/selectors'
 import { updateEventEmployer } from 'features/Employers/api/employer.api'
@@ -31,7 +31,7 @@ import SelectLocationField from 'custom-fields/SelectLocationField'
 import Slider from 'react-slick'
 
 const UpdateEventPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const { id } = useParams()
   const dispatch = useDispatch()

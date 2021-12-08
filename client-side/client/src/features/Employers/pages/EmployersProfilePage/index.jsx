@@ -19,7 +19,7 @@ import { getDetailEmployerAsync } from 'features/Employers/slices/thunks'
 import { IoLibrary } from 'react-icons/io5'
 import { MdGroup } from 'react-icons/md'
 import { schemaUpdateProfileEmployer } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerDetail, selectedStatus } from 'features/Employers/slices/selectors'
 import { updateProfileEmployer } from 'features/Employers/api/employer.api'
 import { useEffect, useState } from 'react'
@@ -41,7 +41,7 @@ import SelectField from 'custom-fields/SelectField'
 import SelectLocationField from 'custom-fields/SelectLocationField'
 
 const EmployerProfilePage = () => {
-  scrollToTop()
+  ScrollToTop()
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const employerDetail = useSelector(selectEmployerDetail)

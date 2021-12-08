@@ -3,7 +3,7 @@ import { FaGoogle } from 'react-icons/fa'
 import { FiLock, FiUser } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { schemaSignInUser } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { signInGuestAsync } from 'features/Home/slices/thunks'
@@ -22,7 +22,7 @@ import InputField from 'custom-fields/InputField'
 import notification from 'components/Notification'
 
 const SignInGuestPage = () => {
-  scrollToTop()
+  ScrollToTop()
   useEffect(() => {
     const user = selectJobSeekerLocal()
     if (user) history.push('/jobseekers')

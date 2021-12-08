@@ -1,6 +1,6 @@
 import { fetchJobsOfEmployerAsync } from 'features/Employers/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectJobsOfEmployer, selectedStatus } from 'features/Employers/slices/selectors'
 import { softDeleteJob } from 'features/Employers/api/employer.api'
 import { useSelector, useDispatch } from 'react-redux'
@@ -14,7 +14,7 @@ import NotFoundData from 'components/NotFoundData'
 import notification from 'components/Notification'
 
 const RecruitManagementPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const status = useSelector(selectedStatus)

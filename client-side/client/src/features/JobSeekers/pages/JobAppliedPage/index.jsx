@@ -1,6 +1,6 @@
 import { fetchAllJobApplicationAsync } from 'features/JobSeekers/slices/thunks'
 import { Fragment, useEffect } from 'react'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectApplicationJobs, selectedStatus } from 'features/JobSeekers/slices/selectors'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
@@ -11,7 +11,7 @@ import LoadingSuspense from 'components/Loading'
 import NotFoundData from 'components/NotFoundData'
 
 const JobAppliedPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const loading = useSelector(selectedStatus)

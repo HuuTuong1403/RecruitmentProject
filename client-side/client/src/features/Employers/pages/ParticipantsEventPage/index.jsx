@@ -10,7 +10,7 @@ import {
 } from 'features/Employers/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
 import { RiFileExcel2Fill } from 'react-icons/ri'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
@@ -23,7 +23,7 @@ import notification from 'components/Notification'
 import TableParticipantsEvent from 'features/Employers/components/TableParticipantsEvent'
 
 const ParticipantsEventPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const { id } = useParams()
   const dispatch = useDispatch()

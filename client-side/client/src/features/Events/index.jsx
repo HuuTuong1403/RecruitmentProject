@@ -1,7 +1,7 @@
 import { fetcAllEventsAsync } from './slices/thunks'
 import { Fragment, useEffect } from 'react'
 import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { useDispatch } from 'react-redux'
 import EventDetailPage from './pages/EventDetailPage'
 import Footer from 'components/Footer'
@@ -10,7 +10,7 @@ import NotFoundPage from 'components/404'
 import SearchEventPage from './pages/SearchEventPage'
 
 const EventsPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { url } = useRouteMatch()
   const dispatch = useDispatch()
   let query = new URLSearchParams(useLocation().search)

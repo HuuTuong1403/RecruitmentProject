@@ -1,5 +1,5 @@
 import { Fragment, lazy } from 'react'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import FooterEmployers from 'components/FooterEmployers'
 import HeaderEmployers from 'components/HeaderEmployers'
@@ -12,7 +12,7 @@ const SignInEmployerPage = lazy(() => import('./pages/SignInEmployerPage'))
 const SignUpEmployerPage = lazy(() => import('./pages/SignUpEmployerPage'))
 
 const EmployersHomePage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { url } = useRouteMatch()
 
   return (

@@ -7,7 +7,7 @@ import {
   fetchAllEventJoinedAsync,
 } from 'features/JobSeekers/slices/thunks'
 import { MdAccessTime, MdEventAvailable, MdEventBusy } from 'react-icons/md'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import {
   selectedJobSeekerProfile,
   selectJobSeekerLocal,
@@ -31,7 +31,7 @@ import parse from 'html-react-parser'
 import Slider from 'react-slick'
 
 const EventDetailPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const history = useHistory()
   const dispatch = useDispatch()
