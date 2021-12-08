@@ -7,12 +7,13 @@
  - Deploy: [Firebase](https://firebase.google.com)
 
 ## Các chức năng chính của dự án
- - Tìm kiếm việc làm cho người tìm việc
- - Ứng tuyển vào công việc
- - Tham gia sự kiện được tổ chức của doanh nghiệp
- - Doanh nghiệp đăng tin tuyển dụng
- - Doanh nghiệp tổ chức sự kiện
- - Doanh nghiệp xem số liệu thống kê
+ - [] Tìm kiếm việc làm cho người tìm việc
+ - [] Ứng tuyển vào công việc
+ - [] Tham gia sự kiện được tổ chức của doanh nghiệp
+ - [] Doanh nghiệp đăng tin tuyển dụng
+ - [] Doanh nghiệp tổ chức sự kiện
+ - [] Doanh nghiệp xem số liệu thống kê
+ - [x] Tạo CV
 
 ## Các địa chỉ Website của Frontend đã deploy lên Firebase
  - Website của JobSeeker, Employer: [https://mst-recruit.web.app](https://mst-recruit.web.app)
