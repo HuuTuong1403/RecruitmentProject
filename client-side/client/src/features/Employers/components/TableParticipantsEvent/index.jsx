@@ -12,7 +12,7 @@ const TableParticipantsEvent = ({ participants, onSelect }) => {
       dataIndex: 'fullName',
       key: 'fullName',
       sorter: (a, b) => a.fullName.length - b.fullName.length,
-    },y
+    },
     {
       title: `${t('dob')}`,
       dataIndex: 'dob',
