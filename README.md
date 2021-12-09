@@ -4,7 +4,8 @@
  - Frontend: [ReactJS](https://reactjs.org)
  - Backend: [NodeJS](https://nodejs.org/en) + [ExpressJS](https://expressjs.com)
  - Database: [MongoDB](https://www.mongodb.com)
- - Deploy: [Firebase](https://firebase.google.com)
+ - Deploy FE: [Firebase](https://firebase.google.com)
+ - Deploy BE: [Heroku](https://www.heroku.com)
 
 ## Một số hình ảnh của dự án
 |                                     |                                     |                                     |                                   |
