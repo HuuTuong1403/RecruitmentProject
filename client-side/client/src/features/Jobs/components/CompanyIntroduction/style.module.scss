@@ -1,4 +1,5 @@
 @import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
 
 .companyIntroduction {
   padding: $pm-20;
@@ -11,54 +12,39 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+  }
 
-    &--left {
-      flex: 0 0 20%;
-      text-align: center;
-      border: 1px solid #e5e5e5;
-      border-radius: 4px;
-      background-color: #fff;
+  &__left {
+    flex: 0 0 20%;
+    text-align: center;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background-color: #fff;
+  }
 
-      &--logo {
-        & img {
-          object-fit: contain;
-        }
-      }
+  &__left-logo {
+    & img {
+      object-fit: contain;
+    }
+  }
+
+  &__right {
+    flex: 0 0 60%;
+    color: $primary-text;
+
+    &__companyName {
+      font-size: $text-lg;
+      text-transform: uppercase;
+      font-weight: 700;
     }
 
-    &--right {
-      flex: 0 0 60%;
-      color: $primary-text;
-
-      &--companyName {
-        font-size: $text-lg;
-        text-transform: uppercase;
-        font-weight: 700;
-      }
-    }
-
-    &--action {
-      flex: 0 0 15%;
-
-      &--follower {
-        font-size: $text-lg;
-        text-align: center;
-        color: $primary-text;
-        margin-bottom: $pm-4;
-
-        & span {
-          font-weight: 700;
-        }
-      }
-    }
-
-    &--title {
+    &__title {
       font-weight: 700;
       font-size: $text-base;
       margin: $pm-2 0;
     }
 
-    &--link {
+    &__link {
       font-size: $text-base !important;
 
       &:hover {
@@ -66,39 +52,48 @@
       }
     }
 
-    &--icon {
+    &__icon {
       font-size: $text-base;
       margin-right: $pm-4;
+    }
+  }
+
+  &__action {
+    flex: 0 0 15%;
+  }
+
+  &__action-follower {
+    font-size: $text-lg;
+    text-align: center;
+    color: $primary-text;
+    margin-bottom: $pm-4;
+
+    & span {
+      font-weight: 700;
     }
   }
 }
 
 @media screen and (max-width: 1196px) {
   .companyIntroduction {
-    &__wrapped {
-      &--action {
-        &--follower {
-          font-size: $text-sm;
-        }
-      }
+    &__action-follower {
+      font-size: $text-sm;
     }
   }
 }
 
 @media screen and (max-width: 900px) {
   .companyIntroduction {
-    &__wrapped {
-      &--right {
-        flex: 0 0 55%;
-      }
+    &__right {
+      flex: 0 0 55%;
+    }
 
-      &--action {
-        flex: 0 0 13%;
+    &__action {
+      flex: 0 0 13%;
+    }
 
-        &--follower {
-          font-size: $text-xs;
-        }
-      }
+    &__action-follower {
+      font-size: $text-xs;
     }
   }
 }
@@ -109,34 +104,26 @@
 
     &__wrapped {
       row-gap: 10px;
+    }
 
-      &--left {
-        flex: 0 0 100%;
-        padding: $pm-14;
+    &__left {
+      flex: 0 0 100%;
+      padding: $pm-14;
+    }
+
+    &__right {
+      flex: 0 0 100%;
+
+      &__companyName {
+        text-align: center;
+        font-size: $text-base;
       }
 
-      &--right {
-        flex: 0 0 100%;
-
-        &--companyName {
-          text-align: center;
-          font-size: $text-base;
-        }
-      }
-
-      &--action {
-        flex: 0 0 100%;
-
-        &--follower {
-          font-size: $text-base;
-        }
-      }
-
-      &--title {
+      &__title {
         font-size: $text-sm;
       }
 
-      &--link {
+      &__link {
         font-size: $text-sm !important;
 
         &:hover {
@@ -144,9 +131,17 @@
         }
       }
 
-      &--icon {
+      &__icon {
         font-size: $text-sm;
       }
+    }
+
+    &__action {
+      flex: 0 0 100%;
+    }
+
+    &__action-follower {
+      font-size: $text-base;
     }
   }
 }

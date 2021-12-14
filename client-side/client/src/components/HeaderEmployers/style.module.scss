@@ -1,4 +1,5 @@
 @import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
 
 .header {
   align-items: center;
@@ -23,19 +24,17 @@
 
   &__link {
     border-right: 1px solid #e8e8e8;
-    color: $primary-text;
-    font-size: 16px;
+    color: $primary-text !important;
+    font-size: 16px !important;
     font-weight: 400;
     padding-right: 15px;
 
-    &--active {
+    &:hover {
       color: $third-text !important;
     }
 
-    &--person {
-      font-size: 20px;
-      margin-right: 4px;
-      vertical-align: middle;
+    &--active {
+      color: $third-text !important;
     }
 
     &--emp {
@@ -59,10 +58,6 @@
       color: $second-text !important;
       text-decoration: none;
     }
-  }
-
-  &__link:hover {
-    color: #fcb716c0;
   }
 
   &__lang {

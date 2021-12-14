@@ -14,37 +14,40 @@ const JobItem = ({ job }) => {
   }
 
   return (
-    <div className={classes.jobitem}>
-      <div className={classes.jobitem__container}>
-        <div className={classes['jobitem__container--logo']}>
+    <div className={classes.jobItem}>
+      <div className={classes.jobItem__container}>
+        <div className={classes['jobItem__container-logo']}>
           <img
             onClick={() => handleClickImage(company?.companyName)}
             src={company?.logo}
             alt="Logo"
           />
         </div>
-        <div className={classes['jobitem__container--detail']}>
+        <div className={classes['jobItem__container-detail']}>
           <div>
-            <Link className={classes['jobitem__container--detail--namejob']} to={`/jobs/${slug}`}>
+            <Link
+              className={`${classes['jobItem__container-detail__jobTitle']} ${classes['link-no-border']} ${classes.bold}`}
+              to={`/jobs/${slug}`}
+            >
               {jobTitle}
             </Link>
           </div>
           <div>
             <Link
-              className={classes['jobitem__container--detail--namecompany']}
+              className={`${classes['jobItem__container-detail__companyName']} ${classes['link-no-border']}`}
               to={`/jobs/employer/${company?.companyName}`}
             >
               {company?.companyName}
             </Link>
           </div>
-          <div className={classes['jobitem__container--detail--salary']}>
+          <div className={classes['jobItem__container-detail__salary']}>
             <BiDollarCircle style={{ marginRight: '5px' }} />
             <div>
               {salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)}
             </div>
           </div>
           {location.city && (
-            <div className={classes['jobitem__container--detail--location']}>
+            <div className={classes['jobItem__container-detail__location']}>
               <MdLocationOn style={{ marginRight: '5px' }} />
               <span>{location.city}</span>
             </div>

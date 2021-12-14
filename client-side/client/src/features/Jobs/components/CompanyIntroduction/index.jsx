@@ -44,42 +44,40 @@ const CompanyIntroduction = ({ company, isReviewed, setShowModal, employer }) =>
   return (
     <div className={classes.companyIntroduction}>
       <div className={classes.companyIntroduction__wrapped}>
-        <div className={classes['companyIntroduction__wrapped--left']}>
+        <div className={classes['companyIntroduction__left']}>
           <Avatar
-            className={classes['companyIntroduction__wrapped--left--logo']}
+            className={classes['companyIntroduction__left-logo']}
             size={200}
             shape="square"
             src={logo}
           />
         </div>
-        <div className={classes['companyIntroduction__wrapped--right']}>
-          <div className={classes['companyIntroduction__wrapped--right--companyName']}>
-            {companyName}
-          </div>
-          <div className={classes['companyIntroduction__wrapped--title']}>{t('Location')}</div>
+        <div className={classes.companyIntroduction__right}>
+          <div className={classes.companyIntroduction__right__companyName}>{companyName}</div>
+          <div className={classes.companyIntroduction__right__title}>{t('Location')}</div>
           <div>
-            <IoLocationOutline className={classes['companyIntroduction__wrapped--icon']} />
+            <IoLocationOutline className={classes.companyIntroduction__right__icon} />
             {`${address?.street ? `${address?.street}, ` : ''}
               ${address?.ward ? `${address?.ward}, ` : ''}
               ${address?.district ? `${address?.district}, ` : ''}
               ${address?.city ? address?.city : ''}`}
           </div>
           <hr />
-          <div className={classes['companyIntroduction__wrapped--title']}>
+          <div className={classes.companyIntroduction__right__title}>
             {t('Information about company')}
           </div>
           <div>
-            <IoIosPeople className={classes['companyIntroduction__wrapped--icon']} />
+            <IoIosPeople className={classes.companyIntroduction__right__icon} />
             {t('Company size')}: {scale}
           </div>
           <div>
-            <FaGavel className={classes['companyIntroduction__wrapped--icon']} />
+            <FaGavel className={classes.companyIntroduction__right__icon} />
             {t('Company type')}: {companyType}
           </div>
           <div>
-            <AiOutlineGlobal className={classes['companyIntroduction__wrapped--icon']} />
+            <AiOutlineGlobal className={classes.companyIntroduction__right__icon} />
             <a
-              className={classes['companyIntroduction__wrapped--link']}
+              className={`${classes.companyIntroduction__right__link} ${classes['link-no-border']}`}
               href={companyWebsite}
               target="_blank"
               rel="noreferrer"
@@ -88,8 +86,8 @@ const CompanyIntroduction = ({ company, isReviewed, setShowModal, employer }) =>
             </a>
           </div>
         </div>
-        <div className={classes['companyIntroduction__wrapped--action']}>
-          <div className={classes['companyIntroduction__wrapped--action--follower']}>
+        <div className={classes.companyIntroduction__action}>
+          <div className={classes['companyIntroduction__action-follower']}>
             <span>200</span> {t('followers')}
           </div>
           <ButtonField

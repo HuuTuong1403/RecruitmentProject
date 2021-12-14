@@ -72,17 +72,17 @@ const ReviewPage = () => {
         <div className={classes.review__wrapped}>
           {companyDetail && (
             <div className={classes.review__left}>
-              <h2 className={classes['review__left--title']}>
-                <div className={classes['review__left--title--subTitle']}>
+              <h2 className={classes.review__left__head}>
+                <div className={classes['review__left__head-text']}>
                   <div>{t('Review')}</div>
                   <div>{companyName}</div>
-                  <div className={classes['review__left--title--subTitle2']}>
+                  <div className={classes['review__left__head-title']}>
                     {t(
                       'Your review will be of great help to the developer community looking for work.'
                     )}
                   </div>
                 </div>
-                <div className={classes['review__left--title--logo']}>
+                <div className={classes['review__left__head-logo']}>
                   <Avatar size={150} shape="square" src={companyDetail.logo} />
                 </div>
               </h2>
@@ -98,7 +98,7 @@ const ReviewPage = () => {
             </div>
           )}
           <div className={classes.review__right}>
-            <h2 className={classes['review__right--title']}>
+            <h2 className={classes.review__right__title}>
               {t('Guidelines & Conditions of Evaluation')}
             </h2>
             <div>
@@ -106,7 +106,7 @@ const ReviewPage = () => {
                 'All reviews must comply with the Review Guidelines & Conditions to be displayed on the website.'
               )}
             </div>
-            <div className={classes['review__right--list']}>
+            <div className={classes.review__right__list}>
               <div>{t('Please')}:</div>
               <ul>
                 <li>{t('Do not use offensive or derogatory words')}</li>
@@ -121,8 +121,10 @@ const ReviewPage = () => {
                 'Thank you for giving the most honest reviews. See more detailed information on the Guidelines & Conditions of assessment'
               )}
             </div>
-            <div className={classes['review__right--link']}>
-              <Link to="/">{t('Here')}</Link>
+            <div className={classes['review__right__link']}>
+              <Link className={`${classes.link} ${classes.bold}`} to="/">
+                {t('Here')}
+              </Link>
             </div>
           </div>
         </div>

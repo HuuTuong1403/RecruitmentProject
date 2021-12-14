@@ -75,7 +75,7 @@ const HeaderEmployers = () => {
           alt="MST LOGO"
           className={classes.header__logo}
         />
-        <NavLink className={classes.header__home} to="/employers">
+        <NavLink className={classes['link-no-border']} to="/employers">
           <IoHome />
         </NavLink>
       </div>
@@ -87,7 +87,7 @@ const HeaderEmployers = () => {
             className={classes['header__link']}
             onClick={toggleMenuChildClick}
           >
-            <MdAccountCircle className={classes['header__link--person']} />
+            <MdAccountCircle className={classes['icon-gb-18']} />
             {t('signin')}
           </NavLink>
         ) : (
@@ -100,60 +100,70 @@ const HeaderEmployers = () => {
               className={classes['header__lang']}
             >
               <DropdownToggle caret>
-                <Link to={`/employers/dashboard/statistics`} onClick={toggleMenuChildClick}>
-                  <MdAccountCircle className={classes['header__link--person']} />
+                <Link
+                  className={`${classes['link-no-border']}`}
+                  to={`/employers/dashboard/statistics`}
+                  onClick={toggleMenuChildClick}
+                >
+                  <MdAccountCircle className={classes['icon-gb-18']} />
                   {employer.companyName}
                 </Link>
               </DropdownToggle>
               <DropdownMenu>
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
                   to={`/employers/dashboard/post-job`}
                 >
-                  <FaEdit className={classes['header__link--person']} />
+                  <FaEdit className={classes['icon-gb-18']} />
                   {t('postjobs')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
                   to={`/employers/dashboard/recruit-manage/created`}
                 >
-                  <RiFileList3Line className={classes['header__link--person']} />
+                  <RiFileList3Line className={classes['icon-gb-18']} />
                   {t('recruitment manager')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
                   to={`/employers/dashboard/events/created`}
                 >
-                  <MdEvent className={classes['header__link--person']} />
+                  <MdEvent className={classes['icon-gb-18']} />
                   {t('Event management')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
                   to={`/employers/dashboard/candidate-profiles`}
                 >
-                  <IoIosPeople className={classes['header__link--person']} />
+                  <IoIosPeople className={classes['icon-gb-18']} />
                   {t('Manage candidate profiles')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
                   to={`/employers/dashboard/my-profile`}
                 >
-                  <MdAccountCircle className={classes['header__link--person']} />
+                  <MdAccountCircle className={classes['icon-gb-18']} />
                   {t('Account Management')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
                   to={`/employers/dashboard/setting-account`}
                 >
-                  <MdSettings className={classes['header__link--person']} />
+                  <MdSettings className={classes['icon-gb-18']} />
                   {t('Settings')}
                 </Link>
+                
                 <Link
                   to={location.pathname}
                   className={classes['header__lang--profile']}
                   onClick={logoutHandler}
                 >
-                  <RiLogoutCircleRLine className={classes['header__link--person']} />
+                  <RiLogoutCircleRLine className={classes['icon-gb-18']} />
                   {t('Log out')}
                 </Link>
               </DropdownMenu>

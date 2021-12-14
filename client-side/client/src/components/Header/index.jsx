@@ -68,14 +68,12 @@ const Header = () => {
 
   return (
     <header className={classes.header}>
-      <div>
-        <img
-          onClick={clickLogoHandler}
-          src={MSTLogo}
-          alt="MST LOGO"
-          className={classes.header__logo}
-        />
-      </div>
+      <img
+        onClick={clickLogoHandler}
+        src={MSTLogo}
+        alt="MST LOGO"
+        className={classes.header__logo}
+      />
       <div style={styleResize} className={classes['header__block-right']}>
         {!user ? (
           <NavLink
@@ -84,7 +82,7 @@ const Header = () => {
             className={classes['header__link']}
             onClick={toggleMenuChildClick}
           >
-            <MdAccountCircle className={classes['header__link--person']} />
+            <MdAccountCircle className={classes['icon-gb-18']} />
             {t('signin')}
           </NavLink>
         ) : (
@@ -97,37 +95,54 @@ const Header = () => {
               className={classes['header__lang']}
             >
               <DropdownToggle caret>
-                <Link to={`/jobseekers/my-profile`} onClick={toggleMenuChildClick}>
-                  <MdAccountCircle className={classes['header__link--person']} />
+                <Link
+                  className={`${classes['link-no-border']}`}
+                  to={`/jobseekers/my-profile`}
+                  onClick={toggleMenuChildClick}
+                >
+                  <MdAccountCircle className={classes['icon-gb-18']} />
                   {user.fullname}
                 </Link>
               </DropdownToggle>
               <DropdownMenu>
-                <Link className={classes['header__lang--profile']} to={`/jobseekers/my-profile`}>
-                  <MdAccountCircle className={classes['header__link--person']} />
+                <Link
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
+                  to={`/jobseekers/my-profile`}
+                >
+                  <MdAccountCircle className={classes['icon-gb-18']} />
                   {t('Account Management')}
                 </Link>
-                <Link className={classes['header__lang--profile']} to={`/jobseekers/job-saved`}>
-                  <BsListCheck className={classes['header__link--person']} />
+
+                <Link
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
+                  to={`/jobseekers/job-saved`}
+                >
+                  <BsListCheck className={classes['icon-gb-18']} />
                   {t('My Jobs')}
                 </Link>
-                <Link className={classes['header__lang--profile']} to={`/jobseekers/events/joined`}>
-                  <MdEvent className={classes['header__link--person']} />
+
+                <Link
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
+                  to={`/jobseekers/events/joined`}
+                >
+                  <MdEvent className={classes['icon-gb-18']} />
                   {t('Registered events')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang--profile']} ${classes.link}`}
                   to={`/jobseekers/setting-account`}
                 >
-                  <MdSettings className={classes['header__link--person']} />
+                  <MdSettings className={classes['icon-gb-18']} />
                   {t('Settings')}
                 </Link>
+
                 <Link
                   to={location.pathname}
                   className={classes['header__lang--profile']}
                   onClick={logoutHandler}
                 >
-                  <RiLogoutCircleRLine className={classes['header__link--person']} />
+                  <RiLogoutCircleRLine className={classes['icon-gb-18']} />
                   {t('Log out')}
                 </Link>
               </DropdownMenu>

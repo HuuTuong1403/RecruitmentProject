@@ -4,49 +4,90 @@
 .modalInfo {
   padding: 0 $pm-10;
 
-  &__address {
-    color: $primary-text;
-    margin-top: $pm-10;
-    font-size: $text-xl;
-    font-weight: 500;
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
 
-  &__content {
-    padding: 0 $pm-20 $pm-20;
+  &__content-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: $pm-8;
+    flex-wrap: wrap;
 
-    &--field {
+    & > label {
+      flex: 0 0 25%;
+      text-align: end;
+    }
+
+    & > div {
+      color: $primary-text;
+      font-size: $text-base;
+      flex: 0 0 73%;
+    }
+
+    &__interesting {
       display: flex;
-      justify-content: space-between;
-      margin-top: $pm-8;
+      gap: 10px;
+      row-gap: 10px;
       flex-wrap: wrap;
+    }
 
-      & > label {
-        flex: 0 0 25%;
-        text-align: end;
+    &__link {
+      font-weight: 500;
+      padding: $pm-2 $pm-8;
+      border: 1px solid lightgray;
+      border-radius: 5px;
+
+      &:hover {
+        text-decoration: none !important;
       }
+    }
+  }
 
-      & > div {
-        color: $primary-text;
-        font-size: $text-lg;
-        flex: 0 0 73%;
-      }
+  &__content-body {
+    flex: 0 0 65%;
+  }
 
-      &--interesting {
-        display: flex;
-        gap: 10px;
-        row-gap: 10px;
-        flex-wrap: wrap;
-      }
+  &__content-map {
+    padding-top: $pm-8;
+    flex: 0 0 25%;
 
-      &--link {
-        font-weight: 500;
-        padding: $pm-2 $pm-8;
-        border: 1px solid lightgray;
-        border-radius: 5px;
+    &__address {
+      display: block;
+      color: $primary-text;
+      text-align: center;
+      margin-bottom: $pm-4;
+    }
 
-        &:hover {
-          text-decoration: none !important;
-        }
+    &__iframe {
+      min-height: 212px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .modalInfo {
+    &__content {
+      flex-direction: column-reverse;
+      gap: 10px;
+    }
+
+    &__content-body {
+      flex: 0 0 100%;
+    }
+
+    &__content-map {
+      flex: 0 0 100%;
+
+      &__iframe {
+        width: 100%;
+        min-height: 250px;
       }
     }
   }
@@ -56,26 +97,35 @@
   .modalInfo {
     padding: 0 $pm-4;
 
-    &__address {
-      margin-top: $pm-6;
-      font-size: $text-base;
+    &__content {
+      flex-direction: column-reverse;
+      gap: 10px;
     }
 
-    &__content {
-      padding: 0;
-      &--field {
-        margin-top: $pm-6;
+    &__content-field {
+      margin-top: $pm-6;
 
-        & > label {
-          flex: 0 0 100%;
-          text-align: start;
-        }
+      & > label {
+        flex: 0 0 100%;
+        text-align: start;
+      }
 
-        & > div {
-          padding-left: $pm-14;
-          flex: 0 0 100%;
-          font-size: $text-base;
-        }
+      & > div {
+        padding-left: $pm-14;
+        flex: 0 0 100%;
+        font-size: $text-sm;
+      }
+    }
+
+    &__content-body {
+      flex: 0 0 100%;
+    }
+
+    &__content-map {
+      flex: 0 0 100%;
+
+      &__iframe {
+        min-height: 250px;
       }
     }
   }

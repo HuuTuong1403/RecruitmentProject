@@ -27,15 +27,15 @@ const FeatureC = () => {
   return (
     <div className={classes.featureC}>
       <div className={classes.featureC__wrapped}>
-        <div className={classes['featureC__wrapped--title']}>{t('Main features')}</div>
-        <ul className={classes['featureC__wrapped--bottom']}>
+        <div className={classes.featureC__title}>{t('Main features')}</div>
+        <ul className={classes.featureC__bottom}>
           {features.map((item, index) => (
-            <li key={index}>
-              <p>
+            <li className={classes.featureC__bottom__item} key={index}>
+              <p className={classes.featureC__bottom__icon}>
                 <span>{item.icon}</span>
               </p>
-              <p>{item.title}</p>
-              <p>{item.content}</p>
+              <p className={classes.featureC__bottom__title}>{item.title}</p>
+              <p className={classes.featureC__bottom__content}>{item.content}</p>
             </li>
           ))}
         </ul>

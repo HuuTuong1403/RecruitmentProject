@@ -88,26 +88,26 @@ const CompanyDetailPage = () => {
             />
 
             {/* Company Description */}
-            <div className={classes['companyDetail__wrapped--title']}>{t('About us')}</div>
-            <div className={classes['companyDetail__content']}>
+            <div className={classes.companyDetail__title}>{t('About us')}</div>
+            <div className={classes.companyDetail__content}>
               {companyDetail.description && (
-                <div className={classes['companyDetail__content--description']}>
+                <div className={classes['companyDetail__content-description']}>
                   {parse(companyDetail.description)}
                 </div>
               )}
               {companyDetail.address && (
-                <div className={classes['companyDetail__content--map']}>
-                  <div className={classes['companyDetail__content--map--title']}>
+                <div className={classes['companyDetail__content-map']}>
+                  <div className={classes['companyDetail__content-map__title']}>
                     {t('Address company')}
                   </div>
-                  <div className={classes['companyDetail__content--map--location']}>
+                  <div className={classes['companyDetail__content-map__location']}>
                     {`${t('Address')}: ${companyDetail.address.street}, ${
                       companyDetail.address.ward
                     }, ${companyDetail.address.district}, ${companyDetail.address.city}`}
                   </div>
                   <iframe
                     src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBG4gMA71lLD3zLV38JXsvM3SQ-TT39FpM&q=${companyDetail.address.street},${companyDetail.address.ward},${companyDetail.address.district},${companyDetail.address.city}&zoom=15&language=vi`}
-                    className={classes['companyDetail__content--map--iframe']}
+                    className={classes['companyDetail__content-map__iframe']}
                     title="Map"
                   ></iframe>
                 </div>
@@ -115,14 +115,14 @@ const CompanyDetailPage = () => {
             </div>
 
             {/* Company Job Active */}
-            <div className={classes['companyDetail__wrapped--title']}>{t('Job active')}</div>
+            <div className={classes.companyDetail__title}>{t('Job active')}</div>
             {companyDetail.jobs &&
               (companyDetail.jobs.length === 0 ? (
-                <div className={classes['companyDetail__wrapped--reviewList']}>
+                <div className={classes.companyDetail__reviewList}>
                   <NotFoundData title={t('This company has no reviews')} />
                 </div>
               ) : (
-                <div className={classes['companyDetail__wrapped--jobActiveList']}>
+                <div className={classes.companyDetail__jobActiveList}>
                   {companyDetail.jobs
                     .filter((item) => !item.isExpired)
                     .map(
@@ -132,14 +132,14 @@ const CompanyDetailPage = () => {
               ))}
 
             {/* Company Rating Statistic */}
-            <div className={classes['companyDetail__wrapped--title']}>{t('Rating Statistics')}</div>
-            <div className={classes['companyDetail__wrapped--reviewList']}>
-              {companyDetail.ratingsQuantity <= 5 ? (
+            <div className={classes.companyDetail__title}>{t('Rating Statistics')}</div>
+            <div className={classes.companyDetail__reviewList}>
+              {companyDetail.ratingsQuantity < 5 ? (
                 <NotFoundData title={t('Not enough data for statistics')} />
               ) : (
-                <div className={classes['companyDetail__wrapped--reviewList--statistic']}>
+                <div className={classes.companyDetail__reviewList__statistic}>
                   <div>
-                    <span className={classes['companyDetail__wrapped--reviewList--rating']}>
+                    <span className={classes.companyDetail__reviewList__rating}>
                       {companyDetail.ratingsAverage}
                     </span>
                     <Rate
@@ -158,7 +158,13 @@ const CompanyDetailPage = () => {
                       percent={(companyDetail.ratingsAverage * 100) / 5}
                     />
                   </div>
-                  <div className={classes['companyDetail__wrapped--reviewList--recommend']}>
+                  <div
+                    className={`${classes.companyDetail__reviewList__recommend} ${
+                      companyDetail.ratingsAverage >= 3
+                        ? classes['companyDetail__reviewList__recommend--work']
+                        : classes['companyDetail__reviewList__recommend--no-work']
+                    }`}
+                  >
                     {companyDetail.ratingsAverage >= 3
                       ? t('Recommended to work here')
                       : t('Not recommended to work here')}
@@ -168,14 +174,14 @@ const CompanyDetailPage = () => {
             </div>
 
             {/* Company Review */}
-            <div className={classes['companyDetail__wrapped--title']}>{t('Company reviews')}</div>
-            <div className={classes['companyDetail__wrapped--reviewList']}>
+            <div className={classes.companyDetail__title}>{t('Company reviews')}</div>
+            <div className={classes.companyDetail__reviewList}>
               {reviewsOfCampany &&
                 (reviewsOfCampany.length === 0 ? (
                   <NotFoundData title={t('This company has no reviews')} />
                 ) : (
                   <Fragment>
-                    <div className={classes['companyDetail__wrapped--reviewList--quantity']}>
+                    <div className={classes.companyDetail__reviewList__quantity}>
                       {companyDetail.ratingsQuantity <= 1
                         ? `${companyDetail.ratingsQuantity} ${t('review')}`
                         : `${companyDetail.ratingsQuantity} ${t('reviews')}`}

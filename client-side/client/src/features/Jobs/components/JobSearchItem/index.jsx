@@ -74,60 +74,80 @@ const JobSearchItem = ({ job, setShowModal, employer }) => {
 
   return (
     <div className={classes.searchItem}>
-      <div className={classes.searchItem__figure}>
+      <div className={classes['searchItem-wrap']}>
         {isNew && (
-          <div className={`${classes.isNew} ${classes['searchItem__figure--new']}`}>{t('New')}</div>
+          <div className={`${classes.isNew} ${classes['searchItem-wrap--new']}`}>{t('New')}</div>
         )}
         <div className={classes.imageItem}>
           <Link to={`/jobs/employer/${company?.companyName}`}>
             <img src={company?.logo} alt="" />
           </Link>
         </div>
-        <div className={classes['searchItem__figure--figcaption']}>
-          <div className={classes['searchItem__figure--figcaption--jobTitle']}>
-            <Link to={`/jobs/${slug}`}>{jobTitle}</Link>
+        <div className={classes['searchItem-block-right']}>
+          <div className={classes['searchItem-block-right__header']}>
+            <div className={classes['searchItem-block-right__header-left']}>
+              <Link
+                className={`${classes['link']} ${classes['link-fz-18']} ${classes['bold']}`}
+                to={`/jobs/${slug}`}
+              >
+                {jobTitle}
+              </Link>
+            </div>
+
             <div>
-              <IoMdTime style={{ marginRight: '5px', fontSize: '18px' }} />
+              <IoMdTime className={classes['icon-gb-18']} />
               {aboutCreated
                 .split(' ')
                 .map((string) => t(string))
                 .join(' ')}
             </div>
           </div>
-          <div className={classes['searchItem__figure--figcaption--companyName']}>
-            <Link to={`/jobs/employer/${company?.companyName}`}>
-              <FaBuilding style={{ marginRight: '5px' }} />
+
+          <div className={classes['searchItem-block-right__companyName']}>
+            <Link
+              className={`${classes['link-no-border']} ${classes['link-fz-16']}`}
+              to={`/jobs/employer/${company?.companyName}`}
+            >
+              <FaBuilding className={classes['icon-gb-18']} />
               {company?.companyName}
             </Link>
+
             {favoriteJobs?.some((item) => item._id === _id) ? (
               <div onClick={removeSaveJobHandler}>
-                <AiFillHeart style={{ marginRight: '5px', color: 'red' }} />
+                <AiFillHeart className={classes['icon-gb-18-red']} />
                 <span style={{ color: 'red' }}>{t('Job posting saved')}</span>
               </div>
             ) : (
               <div onClick={saveJobHandler}>
-                <AiOutlineHeart style={{ marginRight: '5px' }} />
+                <AiOutlineHeart className={classes['icon-gb-18']} />
                 <span>{t('Save Job')}</span>
               </div>
             )}
           </div>
-          <div className={classes['searchItem__figure--figcaption--salary']}>
+
+          <div className={classes['searchItem-block-right__salary']}>
             <div>
-              <BiDollarCircle style={{ marginRight: '5px' }} />
+              <BiDollarCircle className={classes['icon-gb-18']} />
               {t('Salary')}:{' '}
               {salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)}
             </div>
+
             <div>
-              <MdLocationOn style={{ marginRight: '5px' }} />
+              <MdLocationOn className={classes['icon-gb-18']} />
               {location.city}
             </div>
           </div>
-          <div className={classes['searchItem__figure--figcaption--skill']}>
+
+          <div className={classes['searchItem-block-right__skill']}>
             <div>{t('Skill')}: </div>
             {skills.map((skill, index) => {
               return (
                 <Fragment key={index}>
-                  <Link onClick={handleClickSkill} to={`/jobs/search?skills=${skill}`}>
+                  <Link
+                    className={`${classes['link-no-border']} ${classes['link-fz-14']}`}
+                    onClick={handleClickSkill}
+                    to={`/jobs/search?skills=${skill}`}
+                  >
                     {skill}
                   </Link>
                   <span>{skills.length - 1 === index ? '' : '|'}</span>
@@ -135,13 +155,14 @@ const JobSearchItem = ({ job, setShowModal, employer }) => {
               )
             })}
           </div>
-          <div className={classes['searchItem__figure--figcaption--date']}>
+
+          <div className={classes['searchItem-block-right__date']}>
             <div>
-              <IoMdCalendar style={{ marginRight: '5px', fontSize: '18px' }} />
+              <IoMdCalendar className={classes['icon-gb-18']} />
               {t('post date')}: {moment(createdAt).format(dateFormatPicker)}
             </div>
             <div>
-              <IoMdCalendar style={{ marginRight: '5px', fontSize: '18px' }} />
+              <IoMdCalendar className={classes['icon-gb-18']} />
               {t('expiration date')}: {moment(finishDate).format(dateFormatPicker)}
             </div>
           </div>

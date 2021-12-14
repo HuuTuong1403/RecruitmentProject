@@ -59,9 +59,11 @@ const SignUpEmployerPage = () => {
           {step === 1 && <StepOneSignUp onSubmit={onSubmitHandler} />}
           {step === 2 && <StepTwoSignUp onBackStep={onBackStep} onNextStep={onNextStep} />}
           {step === 3 && <StepThreeSignUp onBackStep={onBackStep} />}
-          <div className={classes['signup_emp__wrapped--signin']}>
+          <div className={classes['signup_emp__wrapped-signin']}>
             <span>{t('have-account')} </span>
-            <Link to="/employers/sign-in">{t('signin')}</Link>
+            <Link className={`${classes.link} ${classes.bold}`} to="/employers/sign-in">
+              {t('signin')}
+            </Link>
           </div>
         </div>
       </div>

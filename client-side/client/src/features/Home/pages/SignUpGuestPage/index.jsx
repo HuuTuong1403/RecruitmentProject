@@ -59,7 +59,7 @@ const SignUpGuestPage = () => {
           {step === 1 && (
             <Fragment>
               <div className={classes.titleAuth}>{t('signup')}</div>
-              <form onSubmit={handleSubmit(onSubmit)} className={classes['signup__wrapped--form']}>
+              <form onSubmit={handleSubmit(onSubmit)} className={classes['signup__wrapped-form']}>
                 <InputField
                   placeholder={t('phd-fullname')}
                   {...register('fullname')}
@@ -106,9 +106,11 @@ const SignUpGuestPage = () => {
             </Fragment>
           )}
           {step === 2 && <VerifyNotification />}
-          <div className={classes['signup__wrapped--social']}>
+          <div className={classes['signup__wrapped-signin']}>
             <span>{t('have-account')} </span>
-            <Link to="/home/sign-in">{t('signin')}</Link>
+            <Link className={`${classes.link} ${classes.bold}`} to="/home/sign-in">
+              {t('signin')}
+            </Link>
           </div>
         </div>
       </div>

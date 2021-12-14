@@ -1,3 +1,4 @@
+import { FaAngleLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { schemaSendMail } from 'common/constants/schema'
 import { useForm } from 'react-hook-form'
@@ -26,7 +27,7 @@ const SendMail = ({ onSubmit, loading, isEmployer = false }) => {
         <div className={classes.contentAuth}>{t('content-sendmail')}</div>
         <div className={classes.titleAuth}>{t('forgotpass')}</div>
         <div className={classes.compulsory}>(*: {t('Compulsory')})</div>
-        <form onSubmit={handleSubmit(onSubmit)} className={classes['sendMail__wrapped--form']}>
+        <form onSubmit={handleSubmit(onSubmit)} className={classes['sendMail__wrapped-form']}>
           <LabelField label={t('label-email-send')} isCompulsory />
           <InputField
             placeholder={t('phd-email-sendmail')}
@@ -45,9 +46,13 @@ const SendMail = ({ onSubmit, loading, isEmployer = false }) => {
           </ButtonField>
         </form>
 
-        <div>
-          <Link to={isEmployer ? '/employers/sign-in' : '/home/sign-in'}>{t('back-signin')}</Link>
-        </div>
+        <Link
+          className={`${classes['link-no-border']} ${classes['link-fz-16']} ${classes['medium']}`}
+          to={isEmployer ? '/employers/sign-in' : '/home/sign-in'}
+        >
+          <FaAngleLeft className={classes['icon-gb-18']} />
+          {t('back-signin')}
+        </Link>
       </div>
     </div>
   )

@@ -4,13 +4,6 @@
 .eventItem {
   margin-bottom: $pm-20;
 
-  &__icon {
-    margin-right: 5px;
-    font-size: $text-lg;
-    vertical-align: sub;
-    color: $primary-text;
-  }
-
   &__wrapped {
     display: flex;
     overflow: hidden;
@@ -29,27 +22,18 @@
     padding-left: 15px;
     width: 100%;
 
-    &--eventName {
+    &__head {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-
-      & > a {
-        flex: 0 0 75%;
-        color: $primary-text;
-        font-weight: 700;
-        font-size: $text-xl !important;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        &:hover {
-          color: $third-text;
-        }
-      }
     }
 
-    &--time {
+    &__head-eventName {
+      flex: 1;
+    }
+
+    &__time {
       font-size: $text-base;
       margin: $pm-4 0;
 
@@ -59,7 +43,7 @@
       }
     }
 
-    &--field {
+    &__field {
       font-size: $text-base;
       margin: $pm-4 0;
       display: flex;
@@ -98,23 +82,20 @@
     &__content {
       padding-left: 0;
 
-      &--eventName {
-        & > div {
-          margin-top: $pm-4;
-        }
+      &__head-eventName {
+        flex: 0 0 100%;
 
-        & > a {
-          flex: 0 0 100%;
+        & a {
           font-size: $text-base !important;
         }
       }
 
-      &--time {
+      &__time {
         font-size: $text-sm;
         margin: $pm-4 0;
       }
 
-      &--field {
+      &__field {
         font-size: $text-sm;
         margin: $pm-4 0;
       }

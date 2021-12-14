@@ -9,76 +9,75 @@
   justify-content: center;
   align-items: center;
 
-  &__top {
+  &__wrapped {
     color: white;
     text-align: center;
     width: 80%;
+  }
+  &__wrapped-title {
+    font-size: $text-4xl;
+    font-weight: 700;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
-    &--title {
-      font-size: $text-4xl;
-      font-weight: 700;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
+  &__wrapped-content {
+    font-weight: 400;
+    font-size: $text-base;
+  }
 
-    &--content {
-      font-weight: 400;
-      font-size: $text-base;
-    }
+  &__wrapped-search {
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    border-radius: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: $pm-10;
+    padding: $pm-10;
+    width: 100%;
 
-    &--search {
-      align-items: center;
-      background-color: rgba(255, 255, 255, 0.3);
-      border-radius: 20px;
-      border-radius: 30px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: $pm-10;
-      padding: $pm-10;
-      width: 100%;
-
-      & > div > div {
-        margin-bottom: 0;
-        & > div {
-          color: $primary-text;
-        }
-      }
-
-      & > div:first-child {
-        width: 60%;
-
-        & > span {
-          border-radius: 20px;
-        }
-
-        & > span > input {
-          padding: 4px;
-        }
-      }
-
-      & > div:not(:first-child):not(:last-child) {
-        width: 25%;
+    & > div > div {
+      margin-bottom: 0;
+      & > div {
         color: $primary-text;
-        text-align: start;
+      }
+    }
+
+    & > div:first-child {
+      width: 60%;
+
+      & > span {
+        border-radius: 20px;
       }
 
-      & > div:last-child {
-        width: 10%;
+      & > span > input {
+        padding: 4px;
+      }
+    }
 
-        & > button {
-          padding: 6px 12px;
-          border: none;
-          color: white;
-          border-radius: 20px;
-          cursor: pointer;
-          background-color: $second-color;
-          transition: all 0.3s ease-in-out;
+    & > div:not(:first-child):not(:last-child) {
+      width: 25%;
+      color: $primary-text;
+      text-align: start;
+    }
 
-          &:hover {
-            background-color: #333;
-          }
+    & > div:last-child {
+      width: 10%;
+
+      & > button {
+        padding: 6px 12px;
+        border: none;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        background-color: $second-color;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+          background-color: #333;
         }
       }
     }
@@ -88,7 +87,7 @@
 @media screen and (max-width: 1280px) {
   .banner {
     height: 45vh;
-    &__top {
+    &__wrapped {
       width: 90%;
     }
   }
@@ -98,19 +97,19 @@
   .banner {
     height: 35vh;
 
-    &__top {
+    &__wrapped {
       width: 90%;
+    }
 
-      &--title {
-        font-size: $text-3xl;
-      }
+    &__wrapped-title {
+      font-size: $text-3xl;
+    }
 
-      &--search {
-        gap: 10px;
+    &__wrapped-search {
+      gap: 10px;
 
-        & > div:last-child {
-          width: 10%;
-        }
+      & > div:last-child {
+        width: 10%;
       }
     }
   }
@@ -120,28 +119,28 @@
   .banner {
     height: 30vh;
 
-    &__top {
+    &__wrapped {
       width: 90%;
+    }
 
-      &--title {
-        font-size: $text-3xl;
+    &__wrapped-title {
+      font-size: $text-3xl;
+    }
+
+    &__wrapped-search {
+      gap: 10px;
+
+      & > div:first-child {
+        width: 55%;
       }
 
-      &--search {
-        gap: 10px;
-
-        & > div:first-child {
-          width: 55%;
+      & > div:not(:first-child):not(:last-child) {
+        & > div {
+          white-space: nowrap;
         }
-
-        & > div:not(:first-child):not(:last-child) {
-          & > div {
-            white-space: nowrap;
-          }
-        }
-        & > div:last-child {
-          width: 15%;
-        }
+      }
+      & > div:last-child {
+        width: 15%;
       }
     }
   }
@@ -151,34 +150,34 @@
   .banner {
     height: 45vh;
 
-    &__top {
+    &__wrapped {
       width: 90%;
+    }
 
-      &--title {
-        font-size: $text-lg;
+    &__wrapped-title {
+      font-size: $text-lg;
+    }
+
+    &__wrapped-content {
+      font-size: $text-base;
+    }
+
+    &__wrapped-search {
+      gap: 5px;
+
+      & > div:first-child {
+        width: 100%;
+        margin-bottom: $pm-12;
       }
-
-      &--content {
-        font-size: $text-base;
+      & > div:not(:first-child):not(:last-child) {
+        width: 100%;
+        margin-bottom: $pm-12;
       }
+      & > div:last-child {
+        width: 100%;
 
-      &--search {
-        gap: 5px;
-
-        & > div:first-child {
+        & > button {
           width: 100%;
-          margin-bottom: $pm-12;
-        }
-        & > div:not(:first-child):not(:last-child) {
-          width: 100%;
-          margin-bottom: $pm-12;
-        }
-        & > div:last-child {
-          width: 100%;
-
-          & > button {
-            width: 100%;
-          }
         }
       }
     }
@@ -189,33 +188,33 @@
   .banner {
     height: 55vh;
 
-    &__top {
+    &__wrapped {
       width: 90%;
+    }
 
-      &--title {
-        font-size: 15px;
+    &__wrapped-title {
+      font-size: 15px;
+    }
+
+    &__wrapped-content {
+      font-size: $text-sm;
+    }
+
+    &__wrapped-search {
+      gap: 5px;
+      & > div:first-child {
+        width: 100%;
+        margin-bottom: $pm-12;
       }
-
-      &--content {
-        font-size: $text-sm;
+      & > div:not(:first-child):not(:last-child) {
+        width: 100%;
+        margin-bottom: $pm-12;
       }
+      & > div:last-child {
+        width: 100%;
 
-      &--search {
-        gap: 5px;
-        & > div:first-child {
+        & > button {
           width: 100%;
-          margin-bottom: $pm-12;
-        }
-        & > div:not(:first-child):not(:last-child) {
-          width: 100%;
-          margin-bottom: $pm-12;
-        }
-        & > div:last-child {
-          width: 100%;
-
-          & > button {
-            width: 100%;
-          }
         }
       }
     }

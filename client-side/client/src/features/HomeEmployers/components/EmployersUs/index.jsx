@@ -7,11 +7,11 @@ const EmployersUs = () => {
   return (
     <div className={classes.employerUs}>
       <div className={classes.employerUs__wrapped}>
-        <p className={classes['employerUs__wrapped--title']}>{t('Our customer')}</p>
-        <div className={classes['employerUs__wrapped--block']}>
-          <ul>
+        <p className={classes.employerUs__title}>{t('Our customer')}</p>
+        <div className={classes.employerUs__block}>
+          <ul className={classes['employerUs__block-list']}>
             {images.map((image, index) => (
-              <li key={index}>
+              <li className={classes['employerUs__block-item']} key={index}>
                 <img src={image.src} alt="" />
               </li>
             ))}

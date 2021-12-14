@@ -13,9 +13,9 @@ const JobList = () => {
   return (
     <div className={classes.joblist}>
       <div className={classes.joblist__container}>
-        <div className={classes['joblist__container--title']}>
+        <div className={classes['joblist__container-title']}>
           <div>{t('home-news-recruiment')}</div>
-          <Link className={classes['joblist__container--title--all']} to="/jobs/search?type=all">
+          <Link className={classes['joblist__container-title--all']} to="/jobs/search?type=all">
             {t('seeAll')}
           </Link>
         </div>

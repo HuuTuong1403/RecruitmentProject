@@ -16,27 +16,25 @@ const AuthComponent = ({ children, isChangePass = false }) => {
 
   return (
     <section className={classes.auth}>
-      <div className={classes.auth__container}>
-        <div className={classes['auth__container--title']}>{t('welcome-to-MST')}</div>
-        <div className={classes['auth__container--wrapped']}>
-          <div className={classes['auth__container--wrapped--column-left']}>
-            {url === '/home/sign-in' && <Lottie animationData={GuestLogInLottie} loop={false} />}
-            {url === '/home/sign-up' && <Lottie animationData={GuestRegisterLottie} loop={false} />}
-            {url === '/home/forgot-pass' && (
-              <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
-            )}
-            {url === '/employers/sign-in' && <Lottie animationData={EmployerSignInLottie} />}
-            {url === '/employers/sign-up' && <Lottie animationData={EmployerSignUpLottie} />}
-            {url === '/employers/forgot-pass' && (
-              <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
-            )}
+      <div className={classes['auth__title']}>{t('welcome-to-MST')}</div>
+      <div className={classes['auth__wrapped']}>
+        <div className={classes['auth__wrapped-left']}>
+          {url === '/home/sign-in' && <Lottie animationData={GuestLogInLottie} loop={false} />}
+          {url === '/home/sign-up' && <Lottie animationData={GuestRegisterLottie} loop={false} />}
+          {url === '/home/forgot-pass' && (
+            <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
+          )}
+          {url === '/employers/sign-in' && <Lottie animationData={EmployerSignInLottie} />}
+          {url === '/employers/sign-up' && <Lottie animationData={EmployerSignUpLottie} />}
+          {url === '/employers/forgot-pass' && (
+            <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
+          )}
 
-            {isChangePass && (
-              <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
-            )}
-          </div>
-          <div className={classes['auth__container--wrapped--column-right']}>{children}</div>
+          {isChangePass && (
+            <img src={BackgroundForgot} alt="ForgotPassImage" style={{ maxWidth: '100%' }} />
+          )}
         </div>
+        <div className={classes['auth__wrapped-right']}>{children}</div>
       </div>
     </section>
   )

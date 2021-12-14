@@ -183,6 +183,14 @@ export const footerHomeEmployerList = [
     ],
   },
   {
+    titleFooter: 'help',
+    contentFooter: [
+      { href: '/employers', title: 'support' },
+      { href: '/employers', title: 'term of use' },
+      { href: '/employers', title: 'privacy policy' },
+    ],
+  },
+  {
     titleFooter: 'dashboard',
     contentFooter: [
       { href: '/employers/dashboard/post-job', title: 'postjobs' },
@@ -190,14 +198,6 @@ export const footerHomeEmployerList = [
       { href: '/employers/dashboard/recruit-manage/created', title: 'recruitment manager' },
       { href: '/employers/dashboard/events/created', title: 'Event management' },
       { href: '/employers/dashboard/candidate-profiles', title: 'Manage candidate profiles' },
-    ],
-  },
-  {
-    titleFooter: 'help',
-    contentFooter: [
-      { href: '/employers', title: 'support' },
-      { href: '/employers', title: 'term of use' },
-      { href: '/employers', title: 'privacy policy' },
     ],
   },
 ]

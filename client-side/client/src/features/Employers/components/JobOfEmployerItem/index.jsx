@@ -101,14 +101,17 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
           {status && (
             <div className={`${classNameStatus} ${classes['item__top--status']}`}>{t(status)}</div>
           )}
-          <img className={classes['item__top--logo']} src={company?.logo} alt={company?.logo} />
+          <img className={classes['item__top-logo']} src={company?.logo} alt={company?.logo} />
         </div>
         <div className={classes.item__bottom}>
-          <Link to={`/jobs/${slug}`} className={`${classes.titleItem} ${classes.hideText}`}>
+          <Link
+            to={`/jobs/${slug}`}
+            className={`${classes.titleItem} ${classes['link-one-line']} `}
+          >
             {jobTitle}
           </Link>
           {salary && (
-            <div className={classes['item__bottom--salary']}>
+            <div className={classes['item__bottom-salary']}>
               <BiDollarCircle style={{ marginRight: '5px' }} />
               {`${t('Salary')}: ${
                 salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)
@@ -129,7 +132,7 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
             <IoMdCalendar style={{ marginRight: '5px' }} />
             {`${t('Deadline to apply')}: ${moment(finishDate).format(dateFormatPicker)}`}
           </div>
-          <div className={classes['item__wrapped--aboutCreated']}>
+          <div>
             <IoMdTime style={{ marginRight: '5px' }} />
             {`${t('Posted')} ${aboutCreated
               .split(' ')
@@ -150,7 +153,7 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
           />
 
           {isTrash ? (
-            <div className={classes['item__bottom--actionsTrash']}>
+            <div className={classes['item__bottom-actionsTrash']}>
               <ButtonField backgroundcolor="#dd4b39" backgroundcolorhover="#ff7875" padding="2px">
                 <MdDeleteForever className={classes.item__icon} />
                 {t('Delete permanently')}
@@ -171,7 +174,7 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
               </PopoverField>
             </div>
           ) : (
-            <div className={classes['item__bottom--actions']}>
+            <div className={classes['item__bottom-actions']}>
               <ButtonField
                 backgroundcolor="#0a426e"
                 backgroundcolorhover="#0a436ead"

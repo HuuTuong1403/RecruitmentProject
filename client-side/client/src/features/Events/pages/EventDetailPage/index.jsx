@@ -137,23 +137,25 @@ const EventDetailPage = () => {
             <div style={styleImageCover} className={classes.eventDetail__top}>
               <div className={classes.overlayImage}></div>
             </div>
-            <div className={classes['eventDetail__wrapped--info']}>
+
+            <div className={classes['eventDetail__wrapped-info']}>
               <Avatar
                 onClick={handleClickLogo}
-                className={classes['eventDetail__wrapped--info--logo']}
+                className={classes['eventDetail__wrapped-logo']}
                 size={175}
                 shape="square"
                 src={company?.logo}
               />
-              <div className={classes.eventDetail__eventInfo}>
+
+              <div className={classes.eventInfor}>
                 <div>
-                  <div className={classes['eventDetail__eventInfo--eventName']}>
+                  <div className={classes.eventInfor__eventName}>
                     {t('Event')} {eventName}
                   </div>
-                  <div className={classes['eventDetail__eventInfo--field']}>
+                  <div className={classes.eventInfor__field}>
                     {t('Event organizer')}: <span>{eventOrganizer}</span>
                   </div>
-                  <div className={classes['eventDetail__eventInfo--field']}>
+                  <div className={classes.eventInfor__field}>
                     {t('Held at')}:{' '}
                     {address && (
                       <Tooltip title={t('View location on google maps')}>
@@ -161,16 +163,17 @@ const EventDetailPage = () => {
                           href={`https://www.google.com/maps/place/${address.street}, ${address.ward}, ${address.district}, ${address.city}`}
                           target="_blank"
                           rel="noreferrer"
+                          className={classes["link-no-border"]}
                         >
                           {location}
                         </a>
                       </Tooltip>
                     )}
                   </div>
-                  <div className={classes['eventDetail__eventInfo--field']}>
+                  <div className={classes.eventInfor__field}>
                     {t('Event topic')}: <span>{topic}</span>
                   </div>
-                  <div className={classes['eventDetail__eventInfo--field']}>
+                  <div className={classes.eventInfor__field}>
                     <MdEventAvailable className={classes.iconField} />
                     {t('Event start time')}:{' '}
                     <span>
@@ -181,7 +184,7 @@ const EventDetailPage = () => {
                         .join(` ${t('At')} `)}
                     </span>
                   </div>
-                  <div className={classes['eventDetail__eventInfo--field']}>
+                  <div className={classes.eventInfor__field}>
                     <MdEventBusy className={classes.iconField} />
                     {t('Event end time')}:{' '}
                     <span>
@@ -201,8 +204,8 @@ const EventDetailPage = () => {
                         .map((string) => t(string))
                         .join(' ')}`}
                     >
-                      <div className={classes['eventDetail__eventInfo--field']}>
-                        <MdAccessTime className={classes.iconField} />
+                      <div className={classes.eventInfor__field}>
+                        <MdAccessTime className={classes.eventInfor__icon} />
                         <span>
                           {aboutCreated
                             .split(' ')
@@ -212,24 +215,23 @@ const EventDetailPage = () => {
                       </div>
                     </Tooltip>
                   )}
-                  <div className={classes['eventDetail__eventInfo--field']}>
+                  <div className={classes.eventInfor__field}>
                     {t('Event')}{' '}
-                    <span className={classes['eventDetail__eventInfo--field--status']}>
-                      {t(status)}
-                    </span>
+                    <span className={classes['eventInfor__field-status']}>{t(status)}</span>
                   </div>
-                  <div className={classes['eventDetail__eventInfo--field']}>
-                    <FaUsers className={classes['eventDetail__eventInfo--icon']} />
+                  <div className={classes.eventInfor__field}>
+                    <FaUsers className={classes.eventInfor__icon} />
                     <Tooltip
                       title={`${t('The event had')} ${participantQuantity} ${
                         participantQuantity > 1 ? t('participants') : t('participant')
                       }`}
                     >
-                      <span className={classes['eventDetail__eventInfo--field--people']}>
+                      <span className={classes.eventInfor__people}>
                         {participantQuantity}/{participantMax}
                       </span>
                     </Tooltip>
                   </div>
+
                   {joinedEvents?.some((item) => item?.event?._id === _id) ? (
                     <ButtonField
                       backgroundcolor="#0a426e"
@@ -265,33 +267,32 @@ const EventDetailPage = () => {
               </div>
             </div>
           </div>
-          <div className={classes.eventDetail__content}>
+
+          <div className={classes.eventContent}>
             <div>
-              <div className={classes.eventDetail__title}>{t('Brief description about event')}</div>
+              <div className={classes.eventContent__title}>
+                {t('Brief description about event')}
+              </div>
               {briefDescription && (
-                <div className={classes['eventDetail__content--text']}>
-                  {parse(briefDescription)}
-                </div>
+                <div className={classes.eventContent__text}>{parse(briefDescription)}</div>
               )}
 
-              <div className={classes.eventDetail__title}>{t('Content of event')}</div>
+              <div className={classes.eventContent__title}>{t('Content of event')}</div>
               {eventContent && (
-                <div className={classes['eventDetail__content--text']}>{parse(eventContent)}</div>
+                <div className={classes.eventContent__text}>{parse(eventContent)}</div>
               )}
             </div>
-            <div className={classes['eventDetail__content--map']}>
-              <div className={classes['eventDetail__content--map--title']}>
-                {t('Event information')}
-              </div>
+            <div className={classes.eventContent__map}>
+              <div className={classes['eventContent__map-title']}>{t('Event information')}</div>
               {address && (
                 <Fragment>
-                  <div className={classes['eventDetail__content--map--location']}>
+                  <div className={classes['eventContent__map-location']}>
                     {t('Address')}:{' '}
                     <span>{`${address.street}, ${address.ward}, ${address.district}, ${address.city}`}</span>
                   </div>
                   <iframe
                     src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBG4gMA71lLD3zLV38JXsvM3SQ-TT39FpM&q=${address.street},${address.ward},${address.district},${address.city}&zoom=15&language=vi`}
-                    className={classes['eventDetail__content--map--iframe']}
+                    className={classes['eventContent__map-iframe']}
                     title="Map"
                   ></iframe>
                 </Fragment>
@@ -299,15 +300,17 @@ const EventDetailPage = () => {
             </div>
           </div>
 
-          <div className={classes.eventDetail__anotherImage}>
-            <div className={classes.eventDetail__title}>{t('Some more pictures of the event')}</div>
-            <div className={classes['eventDetail__anotherImage--wrapped']}>
+          <div className={classes.eventImage}>
+            <div className={classes.eventContent__title}>
+              {t('Some more pictures of the event')}
+            </div>
+            <div className={classes.eventImage__wrapped}>
               {images && (
                 <Slider style={{ width: '100%' }} {...settings}>
                   {images.map((image, index) => {
                     return (
                       <img
-                        className={classes['eventDetail__anotherImage--image']}
+                        className={classes['eventImage__wrapped-img']}
                         key={index}
                         src={image}
                         alt={image}

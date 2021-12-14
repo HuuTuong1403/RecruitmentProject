@@ -8,6 +8,7 @@
 
   &:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
   }
 
   &__icon {
@@ -35,38 +36,35 @@
       left: 0;
       border-top-right-radius: 10px;
     }
+  }
 
-    &--logo {
-      width: 70%;
-      object-fit: contain;
-    }
+  &__top-logo {
+    width: 70%;
+    object-fit: contain;
   }
 
   &__bottom {
     padding: 0 $pm-10;
+  }
 
-    &--salary {
-      color: #008563;
-    }
+  &__bottom-salary {
+    color: #008563;
+  }
 
-    &--actions {
-      margin-top: $pm-10;
-      display: flex;
-      justify-content: space-between;
-      gap: 5px;
+  &__bottom-actions {
+    margin-top: $pm-10;
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+  }
 
-      // & button {
-      //   flex: 0 0 32%;
-      // }
-    }
-    &--actionsTrash {
-      margin-top: $pm-10;
-      display: flex;
-      justify-content: space-between;
+  &__bottom-actionsTrash {
+    margin-top: $pm-10;
+    display: flex;
+    justify-content: space-between;
 
-      & button {
-        flex: 0 0 49%;
-      }
+    & button {
+      flex: 0 0 49%;
     }
   }
 }
@@ -79,18 +77,12 @@
 }
 
 @media screen and (max-width: 600px) {
-  .hideText {
-    white-space: pre-wrap;
-  }
-
   .item {
     flex: 0 0 100%;
     border: 1px solid #e5e5e5;
 
-    &__top {
-      &--logo {
-        width: 80%;
-      }
+    &__top-logo {
+      width: 80%;
     }
   }
 }

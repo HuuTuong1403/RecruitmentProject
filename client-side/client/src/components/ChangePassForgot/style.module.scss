@@ -1,15 +1,13 @@
 @import 'common/styles/Variables.scss';
 @import 'common/styles/Global.scss';
 
-.changepass {
+.changePass {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  &__wrapped {
-    &--form {
-      width: 100%;
-    }
+  &__form {
+    width: 100%;
   }
 }

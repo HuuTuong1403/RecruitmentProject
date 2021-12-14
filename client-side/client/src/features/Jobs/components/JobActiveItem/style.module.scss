@@ -4,36 +4,46 @@
 .jobActive {
   border-bottom: 1px solid #e5e5e5;
   padding: $pm-10 $pm-20;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.25s linear;
   flex: 0 0 48%;
   min-width: 0;
 
   &:hover {
     border-radius: 5px;
     box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
   }
 
   &__wrapped {
     font-size: $text-base !important;
+  }
 
-    &--jobTitle {
-      font-weight: 700;
+  &__wrapped-jobTitle {
+    font-size: $text-lg !important;
+    font-weight: 700;
 
-      &:hover {
-        text-decoration: none !important;
-      }
+    &:hover {
+      text-decoration: none !important;
     }
+  }
 
-    &--salary {
-      color: #008563;
-    }
+  &__wrapped-salary {
+    color: #008563;
   }
 }
 
 @media screen and (max-width: 800px) {
   .jobActive {
     padding: $pm-8;
-    flex: 0 0 45%;
+    flex: 0 0 47%;
+
+    &__wrapped {
+      font-size: $text-sm !important;
+    }
+
+    &__wrapped-jobTitle {
+      font-size: $text-base !important;
+    }
   }
 }
 
@@ -51,10 +61,10 @@
 
     &__wrapped {
       font-size: $text-xs !important;
+    }
 
-      &--jobTitle {
-        font-size: $text-sm !important;
-      }
+    &__wrapped-jobTitle {
+      font-size: $text-sm !important;
     }
   }
 }

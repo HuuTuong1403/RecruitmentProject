@@ -44,13 +44,13 @@ const Statistic = () => {
   return (
     <div className={classes.statistic}>
       <div className={classes.statistic__wrapped}>
-        <div className={classes['statistic__wrapped--title']}>{t('Statistics')}</div>
+        <div className={classes.statistic__title}>{t('Statistics')}</div>
 
-        <ul className={classes['statistic__wrapped--bottom']}>
+        <ul className={classes.statistic__bottom}>
           {statisticList.map((item, index) => (
-            <li key={index}>
-              <div className={classes['statistic__wrapped--bottom--icon']}>{item.icon}</div>
-              <div className={classes['statistic__wrapped--bottom--description']}>
+            <li className={classes.statistic__bottom__item} key={index}>
+              <div className={classes.statistic__bottom__icon}>{item.icon}</div>
+              <div className={classes.statistic__bottom__desc}>
                 <h2>{item.statisticNum}</h2>
                 <p>{item.description}</p>
               </div>

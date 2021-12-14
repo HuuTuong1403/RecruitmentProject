@@ -1,4 +1,5 @@
 @import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
 
 .header {
   align-items: center;
@@ -6,7 +7,7 @@
   display: flex;
   height: $h-header;
   justify-content: space-between;
-  border-bottom: 1px solid #e8e8e8;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   position: relative;
 
   &__logo {
@@ -23,19 +24,17 @@
 
   &__link {
     border-right: 1px solid #e8e8e8;
-    color: $primary-text;
-    font-size: 16px;
+    color: $primary-text !important;
+    font-size: $text-base !important;
     font-weight: 400;
     padding-right: 15px;
 
-    &--active {
+    &:hover {
       color: $third-text !important;
     }
 
-    &--person {
-      font-size: 20px;
-      margin-right: 4px;
-      vertical-align: middle;
+    &--active {
+      color: $third-text !important;
     }
 
     &--emp {
@@ -61,9 +60,6 @@
     }
   }
 
-  &__link:hover {
-    color: $third-text;
-  }
 
   &__lang {
     color: $primary-text;

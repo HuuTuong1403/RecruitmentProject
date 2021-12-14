@@ -37,57 +37,71 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
 
   return (
     <div className={classes.jobItem}>
-      <div className={classes.jobItem__figure}>
-        {isNew && <div className={classes['jobItem__figure--new']}>{t('New')}</div>}
+      <div className={classes.jobItem__container}>
+        {isNew && <div className={`${classes.isNew} ${classes['jobItem--new']}`}>{t('New')}</div>}
         {company && (
-          <div className={classes['jobItem__figure--image']}>
+          <div className={classes['jobItem__container-img']}>
             <Link to={`/jobs/employer/${company.companyName}`}>
               <img src={company.logo} alt="" />
             </Link>
           </div>
         )}
-        <div className={classes['jobItem__figure--figcaption']}>
-          <div className={classes['jobItem__figure--figcaption--jobTitle']}>
-            <Link to={`/jobs/${slug}`}>{jobTitle}</Link>
+        <div className={classes['jobItem__container-content']}>
+          <div className={classes['jobItem__container-content__head']}>
+            <div className={classes['jobItem__container-content__head__jobTitle']}>
+              <Link
+                className={`${classes.link} ${classes.bold} ${classes['link-fz-18']}`}
+                to={`/jobs/${slug}`}
+              >
+                {jobTitle}
+              </Link>
+            </div>
             <div>
-              <IoMdTime style={{ marginRight: '5px', fontSize: '18px' }} />
+              <IoMdTime className={classes['icon-gb-18']} />
               {aboutCreated
                 .split(' ')
                 .map((string) => t(string))
                 .join(' ')}
             </div>
           </div>
-          <div className={classes['jobItem__figure--figcaption--companyName']}>
-            <Link to={`/jobs/employer/${company?.companyName}`}>
-              <FaBuilding style={{ marginRight: '5px' }} />
+
+          <div className={classes['jobItem__container-content__companyName']}>
+            <Link
+              className={`${classes['link-no-border']} ${classes['link-fz-16']}`}
+              to={`/jobs/employer/${company?.companyName}`}
+            >
+              <FaBuilding className={classes['icon-gb-18']} />
               {company?.companyName}
             </Link>
           </div>
-          <div className={classes['jobItem__figure--figcaption--salary']}>
+
+          <div className={classes['jobItem__container-content__salary']}>
             <div>
-              <BiDollarCircle style={{ marginRight: '5px' }} />
+              <BiDollarCircle className={classes['icon-gb-18']} />
               {t('Salary')}:{' '}
               {salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)}
             </div>
             <div>
-              <MdLocationOn style={{ marginRight: '5px' }} />
+              <MdLocationOn className={classes['icon-gb-18']} />
               {location.city}
             </div>
           </div>
-          <div className={classes['jobItem__figure--figcaption--date']}>
+
+          <div className={classes['jobItem__container-content__date']}>
             {!isApplied ? (
               <div>
-                <IoMdCalendar style={{ marginRight: '5px', fontSize: '18px' }} />
+                <IoMdCalendar className={classes['icon-gb-18']} />
                 {t('expiration date')}: {moment(finishDate).format(dateFormatPicker)}
               </div>
             ) : (
               <div>
-                <IoMdCalendar style={{ marginRight: '5px', fontSize: '18px' }} />
+                <IoMdCalendar className={classes['icon-gb-18']} />
                 {t('Submission date')}: {moment(createdAt).format(dateFormatPicker)}
               </div>
             )}
           </div>
-          <div className={classes['jobItem__figure--figcaption--action']}>
+
+          <div className={classes['jobItem__container-content__action']}>
             {isApplied ? (
               <ButtonField
                 backgroundcolor="#324554"

@@ -24,12 +24,12 @@ const ChangePassForgot = ({ loading, onSubmit }) => {
 
   return (
     <AuthComponent isChangePass>
-      <div className={classes.changepass}>
-        <div className={classes.changepass__wrapped}>
+      <div className={classes.changePass}>
+        <div className={classes.changePass__wrapped}>
           <div className={classes.contentAuth}>{t('content-change-pass')}</div>
           <div className={classes.titleAuth}>{t('changepass')}</div>
           <div className={classes.compulsory}>(*: {t('Compulsory')})</div>
-          <form onSubmit={handleSubmit(onSubmit)} className={classes['changepass__wrapped--form']}>
+          <form onSubmit={handleSubmit(onSubmit)} className={classes['changePass__form']}>
             <LabelField label={t('newpass')} isCompulsory />
             <InputField
               type="password"

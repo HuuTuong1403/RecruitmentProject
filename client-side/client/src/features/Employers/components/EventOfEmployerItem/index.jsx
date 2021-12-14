@@ -85,13 +85,13 @@ const EventOfEmployerItem = ({
     <Menu>
       <Menu.Item key="0">
         <div onClick={changeParticipantPage} className={classes.item__listTile}>
-          <RiFileList3Line className={classes['item__listTile--icon']} />
+          <RiFileList3Line className={classes['item__listTile-icon']} />
           <span>{t('View member list')}</span>
         </div>
       </Menu.Item>
       <Menu.Item key="2">
         <div onClick={changeEditEventPage} className={classes.item__listTile}>
-          <MdEdit className={classes['item__listTile--icon']} />
+          <MdEdit className={classes['item__listTile-icon']} />
           <span>{t('Edit event')}</span>
         </div>
       </Menu.Item>
@@ -105,7 +105,7 @@ const EventOfEmployerItem = ({
           titleOk={t('Move')}
         >
           <div className={classes.item__listTile}>
-            <MdDelete className={classes['item__listTile--icon']} />
+            <MdDelete className={classes['item__listTile-icon']} />
             <span>{t('Move to trash')}</span>
           </div>
         </PopoverField>
@@ -122,7 +122,7 @@ const EventOfEmployerItem = ({
             isSwap
           >
             <div className={classes.item__listTile}>
-              <FaPlayCircle className={classes['item__listTile--icon']} />
+              <FaPlayCircle className={classes['item__listTile-icon']} />
               <span>{t('Continue event')}</span>
             </div>
           </PopoverField>
@@ -136,7 +136,7 @@ const EventOfEmployerItem = ({
             titleOk={t('Pausing')}
           >
             <div className={classes.item__listTile}>
-              <FaPauseCircle className={classes['item__listTile--icon']} />
+              <FaPauseCircle className={classes['item__listTile-icon']} />
               <span>{t('Pausing event')}</span>
             </div>
           </PopoverField>
@@ -158,12 +158,12 @@ const EventOfEmployerItem = ({
           isSwap
         >
           <div className={classes.item__listTile}>
-            <MdRestore className={classes['item__listTile--icon']} />
+            <MdRestore className={classes['item__listTile-icon']} />
             <span>{t('Restore event')}</span>
           </div>
         </PopoverField>
       </Menu.Item>
-      <Menu.Item key="2">
+      <Menu.Item key="1">
         <PopoverField
           title={t('Confirm to permanently delete the event')}
           subTitle={t('Do you want to permanently delete this event?')}
@@ -173,7 +173,7 @@ const EventOfEmployerItem = ({
           titleOk={t('Delete')}
         >
           <div className={classes.item__listTile}>
-            <MdDeleteForever className={classes['item__listTile--icon']} />
+            <MdDeleteForever className={classes['item__listTile-icon']} />
             <span>{t('Delete permanently')}</span>
           </div>
         </PopoverField>
@@ -195,27 +195,26 @@ const EventOfEmployerItem = ({
           </div>
         )}
       </div>
+
       <div className={classes.item__top}>
-        <div className={classes['item__top--wrapped']}>
-          <Slider className={classes['item__top--wrapped--slider']} {...settings}>
+        <div className={classes['item__top-wrapped']}>
+          <Slider className={classes['item__top-slider']} {...settings}>
             {[imageCover, ...images].map((image, index) => {
               return (
-                <img
-                  className={classes['item__top--wrapped--logo']}
-                  key={index}
-                  src={image}
-                  alt={image}
-                />
+                <img className={classes['item__top-logo']} key={index} src={image} alt={image} />
               )
             })}
           </Slider>
         </div>
       </div>
       <div className={classes.item__bottom}>
-        <div className={classes['item__bottom--eventName']}>
+        <div className={classes['item__bottom-eventName']}>
           {/* Event name */}
           <Tooltip title={`${t('Click to see details of event')} ${eventName}`}>
-            <Link to={`/events/view/${slug}`} className={classes['item__bottom--eventName--link']}>
+            <Link
+              to={`/events/view/${slug}`}
+              className={`${classes['item__bottom-eventName__link']} ${classes['link-one-line']}`}
+            >
               {t('Event')} {eventName}
             </Link>
           </Tooltip>
@@ -228,12 +227,12 @@ const EventOfEmployerItem = ({
             onVisibleChange={(visible) => setVisible(visible)}
             arrow
           >
-            <BiDotsVerticalRounded className={classes['item__bottom--eventName--icon']} />
+            <BiDotsVerticalRounded className={classes['item__bottom-eventName__icon']} />
           </Dropdown>
         </div>
 
         {/* Event about created */}
-        <div className={classes['item__bottom--field']}>
+        <div className={classes['item__bottom-field']}>
           <MdAccessTime className={classes.iconField} />
           {t('Posted')}{' '}
           <span>
@@ -245,12 +244,12 @@ const EventOfEmployerItem = ({
         </div>
 
         {/* Event Topic */}
-        <div className={classes['item__bottom--field']}>
+        <div className={classes['item__bottom-field']}>
           {t('Event topic')}: <span>{topic}</span>
         </div>
 
         {/* Event location */}
-        <div className={classes['item__bottom--field']}>
+        <div className={classes['item__bottom-field']}>
           {t('Held at')}:{' '}
           {address && (
             <Tooltip title={t('View location on google maps')}>
@@ -266,7 +265,7 @@ const EventOfEmployerItem = ({
         </div>
 
         {/* Event participate */}
-        <div className={classes['item__bottom--field']}>
+        <div className={classes['item__bottom-field']}>
           <FaUsers className={classes.iconField} />
           <span>
             {participantQuantity}/{participantMax}{' '}
@@ -275,7 +274,7 @@ const EventOfEmployerItem = ({
         </div>
 
         {/* Event start time */}
-        <div className={classes['item__bottom--field']}>
+        <div className={classes['item__bottom-field']}>
           <MdEventAvailable className={classes.iconField} />
           {t('Event start time')}:{' '}
           <span>
@@ -284,7 +283,7 @@ const EventOfEmployerItem = ({
         </div>
 
         {/* Event end time */}
-        <div className={classes['item__bottom--field']}>
+        <div className={classes['item__bottom-field']}>
           <MdEventBusy className={classes.iconField} />
           {t('Event end time')}:{' '}
           <span>

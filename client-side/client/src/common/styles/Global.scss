@@ -1,7 +1,135 @@
+.icon-gb-18 {
+  font-size: $text-lg;
+  margin: -$pm-2 $pm-2 0 0;
+}
+
+.icon-gb-red {
+  font-size: $text-lg;
+  margin: -$pm-2 $pm-2 0 0;
+  color: red;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.link-fz-14 {
+  font-size: $text-sm !important;
+}
+
+.link-fz-16 {
+  font-size: $text-base !important;
+}
+
+.link-fz-18 {
+  font-size: $text-lg !important;
+}
+
+.link-fz-20 {
+  font-size: $text-xl !important;
+}
+
+// CSS tag <a> have border bottom
+.link {
+  position: relative;
+  display: inline-block;
+  color: $primary-text !important;
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+}
+
+.link:hover {
+  color: $third-text !important ;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background-color: $third-text !important;
+  transition: all 0.25s ease-in-out;
+}
+
+.link:hover::after {
+  width: 90%;
+}
+
+//css tag <a> no border bottom
+.link-no-border {
+  position: relative;
+  display: inline-block;
+  color: $primary-text !important;
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+}
+
+.link-no-border:hover {
+  color: $third-text !important ;
+}
+
+.link-one-line {
+  position: relative;
+  color: $primary-text !important;
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  max-height: 2rem;
+  overflow: hidden;
+}
+
+.link-one-line:hover {
+  color: $third-text !important ;
+}
+
 .hideText {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 700px) {
+  .link-fz-18 {
+    font-size: $text-base !important;
+  }
+
+  .link-fz-16 {
+    font-size: $text-sm !important;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .link-fz-14 {
+    font-size: $text-sm !important;
+  }
+
+  .link-fz-18 {
+    font-size: $text-sm !important;
+  }
+
+  .link-fz-16 {
+    font-size: $text-sm !important;
+  }
+
+  .icon-gb-18 {
+    font-size: $text-sm;
+    margin: -$pm-2 $pm-2 0 0;
+  }
+
+  .icon-gb-red {
+    font-size: $text-sm;
+    margin: -$pm-2 $pm-2 0 0;
+    color: red;
+  }
 }
 
 .modalTitle {
@@ -108,7 +236,6 @@
 }
 
 .imageItem {
-  height: 165px;
   flex: 0 0 200px;
   max-width: 200px;
   border: 1px solid #e5e5e5;

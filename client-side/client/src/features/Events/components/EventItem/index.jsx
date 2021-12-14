@@ -46,10 +46,17 @@ const EventItem = ({ event }) => {
           </Link>
         </div>
         <div className={classes.eventItem__content}>
-          <div className={classes['eventItem__content--eventName']}>
-            <Link to={`/events/view/${slug}`}>{eventName}</Link>
+          <div className={classes['eventItem__content__head']}>
+            <div className={classes['eventItem__content__head-eventName']}>
+              <Link
+                className={`${classes.link} ${classes.bold} ${classes['link-fz-18']}`}
+                to={`/events/view/${slug}`}
+              >
+                {eventName}
+              </Link>
+            </div>
             <div>
-              <IoMdTime className={classes.eventItem__icon} />
+              <IoMdTime className={classes['icon-gb-18']} />
               {aboutCreated
                 .split(' ')
                 .map((string) => t(string))
@@ -57,21 +64,21 @@ const EventItem = ({ event }) => {
             </div>
           </div>
 
-          <div className={classes['eventItem__content--field']}>
+          <div className={classes['eventItem__content__field']}>
             <div>
               {t('Event topic')}: <span>{topic}</span>
             </div>
             <div>
               {t('Event status')}: <span>{t('Event')}</span>{' '}
-              <span className={classes['eventItem__content--field--status']}>{t(status)}</span>
+              <span className={classes['eventItem__content__field--status']}>{t(status)}</span>
             </div>
           </div>
 
-          <div className={classes['eventItem__content--time']}>
+          <div className={classes['eventItem__content__time']}>
             {t('Event organizer')}: <span>{eventOrganizer}</span>
           </div>
 
-          <div className={classes['eventItem__content--time']}>
+          <div className={classes['eventItem__content__time']}>
             {t('Event time')}:{' '}
             <span>
               {t('From')} {start}
@@ -82,7 +89,7 @@ const EventItem = ({ event }) => {
             </span>
           </div>
 
-          <div className={classes['eventItem__content--field']}>
+          <div className={classes['eventItem__content__field']}>
             <div>
               {t('Event venue')}: <span>{location}</span>
             </div>
@@ -91,7 +98,7 @@ const EventItem = ({ event }) => {
               <span>
                 {participantQuantity}/{participantMax}
               </span>{' '}
-              <FaUsers className={classes.eventItem__icon} />
+              <FaUsers className={classes['icon-gb-18']} />
             </div>
           </div>
         </div>
