@@ -45,11 +45,7 @@
     }
 
     &__link {
-      font-size: $text-base !important;
-
-      &:hover {
-        text-decoration: none;
-      }
+      font-size: $text-sm !important;
     }
 
     &__icon {

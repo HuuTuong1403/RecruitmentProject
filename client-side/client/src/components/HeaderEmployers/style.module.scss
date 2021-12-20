@@ -15,7 +15,7 @@
     padding: 0 $pm-48;
   }
 
-  &__block-right {
+  &__right {
     align-items: center;
     display: flex;
     gap: 15px;
@@ -36,27 +36,32 @@
     &--active {
       color: $third-text !important;
     }
+  }
 
-    &--emp {
-      width: 250px;
-      background-color: #fcb616 !important;
-      color: $second-text !important;
-      padding: 15.2px;
-      text-transform: uppercase;
-      transition: all 0.3s ease-in-out;
+  &__link-to-jsk {
+    width: 250px;
+    background-color: #fcb616 !important;
+    color: $second-text !important;
+    text-transform: uppercase;
+    height: $h-header;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+
+    &__wrap {
+      & > span:last-child {
+        color: rgb(243, 235, 235) !important;
+        font-size: 14px;
+        font-weight: 400;
+        text-transform: none;
+        transition: all 0.2s linear;
+      }
     }
 
-    &--emp > span:last-child {
-      color: rgb(243, 235, 235) !important;
-      font-size: 14px;
-      font-weight: 400;
-      text-transform: none;
-    }
-
-    &--emp:hover {
+    &:hover {
       background-color: $third-text !important;
       color: $second-text !important;
-      text-decoration: none;
     }
   }
 
@@ -66,16 +71,6 @@
     padding-right: $pm-20;
     font-size: 16px;
     font-weight: 400;
-
-    &--profile {
-      width: 100%;
-      display: inline-block;
-      margin: $pm-10 0 $pm-10 $pm-8;
-
-      &:last-child {
-        color: red !important;
-      }
-    }
 
     & > button {
       background-color: transparent !important;
@@ -92,23 +87,28 @@
     }
   }
 
-  &__ic {
-    &--menu {
-      display: none;
-      cursor: pointer;
+  &__lang-profile {
+    width: 100%;
+    display: inline-block;
+    margin: $pm-10 0 $pm-10 $pm-8;
+
+    &:last-child {
+      color: red !important;
     }
-    &--flag {
-      margin-right: 5px;
-      width: 1.25rem !important;
-    }
+  }
+
+  &__icon-menu {
+    display: none;
+    cursor: pointer;
+  }
+  &__icon-flag {
+    margin-right: 5px;
+    width: 1.25rem !important;
   }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .header {
-    height: calc(100% - 97%);
-    position: relative;
-
     &__logo {
       padding: 0 $pm-16;
     }
@@ -118,7 +118,6 @@
 @media screen and (max-width: 800px) {
   .header {
     height: 3%;
-    position: relative;
 
     &__logo {
       max-width: 85%;
@@ -131,13 +130,18 @@
   .header {
     display: block;
 
-    &__block-right {
-      display: none;
-      text-align: start;
+    &__logo {
+      max-width: 42%;
+      padding: 0 $pm-16;
     }
 
-    &__block-right > a {
-      padding: 10px;
+    &__right {
+      display: none;
+      text-align: start;
+
+      & > a {
+        padding: 10px;
+      }
     }
 
     &__lang {
@@ -149,31 +153,20 @@
       border-bottom: 1px solid #e8e8e8;
       border-right: 0px;
       display: block;
-
-      &--emp {
-        display: grid;
-        padding: 10px;
-        width: 100%;
-      }
-
-      &--emp > br {
-        display: none;
-      }
     }
 
-    &__logo {
-      max-width: 42%;
-      padding: 0 $pm-16;
+    &__link-to-jsk {
+      width: 100%;
+      justify-content: flex-start;
+      height: 50px;
     }
 
-    &__ic {
-      &--menu {
-        display: block;
-        font-size: $text-5xl;
-        position: absolute;
-        right: 5%;
-        top: 0;
-      }
+    &__icon-menu {
+      display: block;
+      font-size: $text-5xl;
+      position: absolute;
+      right: 5%;
+      top: 0;
     }
   }
 }
@@ -182,13 +175,14 @@
   .header {
     display: block;
 
-    &__block-right {
-      display: none;
-      text-align: start;
+    &__logo {
+      max-width: 42%;
+      padding: 0 $pm-16;
     }
 
-    &__block-right > a {
-      padding: 10px;
+    &__right {
+      display: none;
+      text-align: start;
     }
 
     &__lang {
@@ -200,45 +194,30 @@
       border-bottom: 1px solid #e8e8e8;
       border-right: 0px;
       display: block;
-
-      &--emp {
-        display: grid;
-        padding: 10px;
-      }
-
-      &--emp > br {
-        display: none;
-      }
     }
 
-    &__logo {
-      max-width: 42%;
-      padding: 0 $pm-16;
-    }
-
-    &__ic {
-      &--menu {
-        display: block;
-        font-size: $text-4xl;
-        position: absolute;
-        right: 5%;
-        top: 0;
-      }
+    &__icon-menu {
+      display: block;
+      font-size: $text-4xl;
+      position: absolute;
+      right: 5%;
+      top: 15%;
     }
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
   .header {
     display: block;
 
-    &__block-right {
-      display: none;
-      text-align: start;
+    &__logo {
+      max-width: 42%;
+      padding: 0 $pm-16;
     }
 
-    &__block-right > a {
-      padding: 10px;
+    &__right {
+      display: none;
+      text-align: start;
     }
 
     &__lang {
@@ -250,30 +229,14 @@
       border-bottom: 1px solid #e8e8e8;
       border-right: 0px;
       display: block;
-
-      &--emp {
-        display: grid;
-        padding: 10px;
-      }
-
-      &--emp > br {
-        display: none;
-      }
     }
 
-    &__logo {
-      max-width: 42%;
-      padding: 0 $pm-16;
-    }
-
-    &__ic {
-      &--menu {
-        display: block;
-        font-size: $text-3xl;
-        position: absolute;
-        right: 5%;
-        top: 0;
-      }
+    &__icon-menu {
+      display: block;
+      font-size: $text-3xl;
+      position: absolute;
+      right: 5%;
+      top: 0;
     }
   }
 }
@@ -282,13 +245,14 @@
   .header {
     display: block;
 
-    &__block-right {
-      display: none;
-      text-align: start;
+    &__logo {
+      max-width: 42%;
+      padding: 0 $pm-16;
     }
 
-    &__block-right > a {
-      padding: 10px;
+    &__right {
+      display: none;
+      text-align: start;
     }
 
     &__lang {
@@ -300,30 +264,18 @@
       border-bottom: 1px solid #e8e8e8;
       border-right: 0px;
       display: block;
-
-      &--emp {
-        display: grid;
-        padding: 10px;
-      }
-
-      &--emp > br {
-        display: none;
-      }
     }
 
-    &__logo {
-      max-width: 42%;
-      padding: 0 $pm-16;
+    &__link-to-jsk {
+      height: 56.25px;
     }
 
-    &__ic {
-      &--menu {
-        display: block;
-        font-size: $text-2xl;
-        position: absolute;
-        right: 5%;
-        top: 0;
-      }
+    &__icon-menu {
+      display: block;
+      font-size: $text-2xl;
+      position: absolute;
+      right: 5%;
+      top: 0;
     }
   }
 }

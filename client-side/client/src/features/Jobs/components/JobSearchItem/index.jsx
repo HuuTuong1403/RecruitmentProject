@@ -114,7 +114,7 @@ const JobSearchItem = ({ job, setShowModal, employer }) => {
 
             {favoriteJobs?.some((item) => item._id === _id) ? (
               <div onClick={removeSaveJobHandler}>
-                <AiFillHeart className={classes['icon-gb-18-red']} />
+                <AiFillHeart className={classes['icon-gb-red']} />
                 <span style={{ color: 'red' }}>{t('Job posting saved')}</span>
               </div>
             ) : (
