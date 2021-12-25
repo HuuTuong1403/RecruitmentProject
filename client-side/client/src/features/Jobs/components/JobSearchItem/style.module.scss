@@ -3,6 +3,12 @@
 
 .searchItem {
   margin-bottom: $pm-20;
+  transition: all 0.2s linear;
+
+  &:hover,
+  &:focus {
+    transform: translateY(-2px);
+  }
 }
 
 .searchItem-wrap {
@@ -16,6 +22,30 @@
     bottom: 0;
     right: 0;
     border-top-left-radius: 10px;
+  }
+}
+
+.imageItem {
+  position: relative;
+
+  &__overlay {
+    background-color: rgba(232, 236, 241, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  &--expired {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red !important;
+    font-weight: 600;
+    font-size: $text-lg;
+    text-transform: capitalize;
   }
 }
 

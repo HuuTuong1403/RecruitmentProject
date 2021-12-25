@@ -83,6 +83,7 @@ const JobDetailPage = () => {
     skills,
     level,
     finishDate,
+    isExpired,
   } = jobDetail
 
   useTitle(jobTitle ?? '')
@@ -154,6 +155,13 @@ const JobDetailPage = () => {
                 <div className={classes['jobDetail__top-logo']}>
                   <Link to={`/jobs/employer/${company?.companyName}`}>
                     <img src={company?.logo} alt={company?.companyName} />
+                    {isExpired && (
+                      <div className={classes['jobDetail__top-logo__overlay']}>
+                        <div className={classes['jobDetail__top-logo--expired']}>
+                          {t('Expired')}
+                        </div>
+                      </div>
+                    )}
                   </Link>
                 </div>
               )}

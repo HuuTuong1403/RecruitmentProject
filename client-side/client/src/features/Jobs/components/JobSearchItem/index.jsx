@@ -35,6 +35,7 @@ const JobSearchItem = ({ job, setShowModal, employer }) => {
     createdAt,
     finishDate,
     slug,
+    isExpired,
     isNew,
   } = job
 
@@ -81,6 +82,11 @@ const JobSearchItem = ({ job, setShowModal, employer }) => {
         <div className={classes.imageItem}>
           <Link to={`/jobs/employer/${company?.companyName}`}>
             <img src={company?.logo} alt="" />
+            {isExpired && (
+              <div className={classes.imageItem__overlay}>
+                <div className={classes['imageItem--expired']}>{t('Expired')}</div>
+              </div>
+            )}
           </Link>
         </div>
         <div className={classes['searchItem-block-right']}>
