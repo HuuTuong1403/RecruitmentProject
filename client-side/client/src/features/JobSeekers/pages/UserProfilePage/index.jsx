@@ -74,10 +74,11 @@ const UserProfilePage = () => {
   const handleUpdateProfile = async (dataUpdateProfile) => {
     setLoading(true)
     const { city, district, ward, street, DOB, fullname, phone } = dataUpdateProfile
+
     if (
       !avatar &&
-      moment(DOB).format(dateFormatPicker) ===
-        moment(detailJobSeeker?.DOB).format(dateFormatPicker) &&
+      moment(new Date(detailJobSeeker?.DOB)).format(dateFormatPicker) ===
+        moment(DOB).format(dateFormatPicker) &&
       city === detailJobSeeker?.address?.city &&
       district === detailJobSeeker?.address?.district &&
       ward === detailJobSeeker?.address?.ward &&
@@ -88,15 +89,11 @@ const UserProfilePage = () => {
       setLoading(false)
       notification(`${t('Updated data unchanged')}`, 'error')
     } else {
-      let date
-      if (
-        moment(DOB).format(dateFormatPicker) ===
-        moment(detailJobSeeker?.DOB).format(dateFormatPicker)
-      ) {
-        date = moment(detailJobSeeker?.DOB).format(dateFormatSendServer)
-      } else {
-        date = moment(DOB).format(dateFormatSendServer)
-      }
+      const date =
+        moment(new Date(detailJobSeeker?.DOB)).format(dateFormatPicker) ===
+        moment(new Date(DOB)).format(dateFormatPicker)
+          ? moment(detailJobSeeker?.DOB).format(dateFormatSendServer)
+          : moment(DOB, dateFormatPicker).format(dateFormatSendServer)
 
       const payload = new FormData()
       payload.append('address[city]', city)

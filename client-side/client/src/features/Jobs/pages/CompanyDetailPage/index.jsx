@@ -35,9 +35,10 @@ const CompanyDetailPage = () => {
   const [showModal, setShowModal] = useState(false)
   const token = localStorage.getItem('token')
   const employer = selectEmployerLocal()
+  const jobCurrentActive = companyDetail?.jobs?.filter((item) => !item.isExpired)
 
   const isReviewed = reviewsOfCampany?.some((item) => item.user?._id === currentUser?._id)
-
+  
   useTitle(companyName)
 
   useEffect(() => {
@@ -117,17 +118,15 @@ const CompanyDetailPage = () => {
             {/* Company Job Active */}
             <div className={classes.companyDetail__title}>{t('Job active')}</div>
             {companyDetail.jobs &&
-              (companyDetail.jobs.length === 0 ? (
+              (jobCurrentActive.length === 0 ? (
                 <div className={classes.companyDetail__reviewList}>
-                  <NotFoundData title={t('This company has no reviews')} />
+                  <NotFoundData title={t('This company has no jobs currently hiring')} />
                 </div>
               ) : (
                 <div className={classes.companyDetail__jobActiveList}>
-                  {companyDetail.jobs
-                    .filter((item) => !item.isExpired)
-                    .map(
-                      (job, index) => index < 6 && <JobActiveItem key={job._id} jobActive={job} />
-                    )}
+                  {jobCurrentActive.map(
+                    (job, index) => index < 6 && <JobActiveItem key={job._id} jobActive={job} />
+                  )}
                 </div>
               ))}
 
