@@ -62,7 +62,7 @@ const BarChartVertical = ({ labels, dataStatistic, labelY, labelDataSet, title, 
   return (
     <div className={classes.barChart}>
       <div className={classes.barChart__title}>
-        <div>{title}</div>
+        <div>{`${title} (${new Date().getFullYear()})`}</div>
         <div>
           <Tooltip placement="topRight" title={tooltip}>
             <FaQuestionCircle />

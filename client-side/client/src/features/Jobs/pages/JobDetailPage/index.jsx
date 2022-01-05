@@ -246,7 +246,7 @@ const JobDetailPage = () => {
                     </ButtonField>
                   )}
                   <div className={classes['jobDetail__top-infor__actions-share']}>
-                    <div>Chia sẻ:</div>
+                    <div>{t("Share")}:</div>
 
                     <FacebookShareButton
                       url={`https://mst-recruit.web.app/${locationUrl.pathname}`}

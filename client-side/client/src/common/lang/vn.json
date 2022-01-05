@@ -260,6 +260,7 @@
   "events found": "sự kiện đã tìm thấy",
   "events": "sự kiện",
   "expiration date": "Ngày hết hạn",
+  "Expired": "Đã hết hạn",
   "Export Excel file": "Xuất tệp excel",
   "Extra salary for OT": "Lương bổ sung cho OT",
   "feature": "Tính năng",
@@ -551,6 +552,7 @@
   "Setting": "Cài đặt",
   "Settings": "Cài đặt",
   "SeviceDesk Leader": "Trưởng nhóm hỗ trợ người dùng",
+  "Share": "Chia sẻ",
   "Show salary": "Hiển thị mức lương",
   "Sign in as a job seeker": "Đăng nhập với tư cách ứng viên tìm việc",
   "Sign in as an employer": "Đăng nhập với tư cách nhà tuyển dụng",
@@ -680,6 +682,5 @@
   "You haven't deleted any events yet": "Bạn chưa xóa bất kỳ sự kiện nào",
   "You'll love it": "Bạn sẽ yêu nó",
   "Your account has been activated. Please login to use the system": "Tài khoản của đã được kích hoạt. Vui lòng đăng nhập để sử dụng hệ thống",
-  "Your review will be of great help to the developer community looking for work.": "Đánh giá của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc.",
-  "Expired": "Đã hết hạn"
+  "Your review will be of great help to the developer community looking for work.": "Đánh giá của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc."
 }

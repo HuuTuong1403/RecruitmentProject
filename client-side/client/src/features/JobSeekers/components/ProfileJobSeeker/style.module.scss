@@ -1,9 +1,10 @@
 @import 'common/styles/Variables.scss';
 
 .icon {
-  margin-right: 5px;
-  font-size: $text-lg;
+  margin-right: 3px;
+  font-size: $text-xl;
   color: $primary-text;
+  vertical-align: text-top;
 }
 
 .fullname {
