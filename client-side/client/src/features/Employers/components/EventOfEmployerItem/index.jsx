@@ -2,7 +2,7 @@ import { resetDataEvent, resetDataParticipants } from 'features/Employers/slices
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { dateFormatISO8601, dateFormatHourMinute } from 'common/constants/dateFormat'
 import { FaUsers, FaPauseCircle, FaPlayCircle } from 'react-icons/fa'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import {
   MdAccessTime,
   MdDelete,
@@ -211,12 +211,14 @@ const EventOfEmployerItem = ({
         <div className={classes['item__bottom-eventName']}>
           {/* Event name */}
           <Tooltip title={`${t('Click to see details of event')} ${eventName}`}>
-            <Link
-              to={`/events/view/${slug}`}
+            <a
+              href={`/events/view/${slug}`}
               className={`${classes['item__bottom-eventName__link']} ${classes['link-one-line']}`}
+              target="_blank"
+              rel="noreferrer"
             >
               {t('Event')} {eventName}
-            </Link>
+            </a>
           </Tooltip>
 
           <Dropdown

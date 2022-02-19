@@ -80,24 +80,26 @@ const JobSearchItem = ({ job, setShowModal, employer }) => {
           <div className={`${classes.isNew} ${classes['searchItem-wrap--new']}`}>{t('New')}</div>
         )}
         <div className={classes.imageItem}>
-          <Link to={`/jobs/employer/${company?.companyName}`}>
+          <a target="_blank" href={`/jobs/employer/${company?.companyName}`} rel="noreferrer">
             <img src={company?.logo} alt="" />
             {isExpired && (
               <div className={classes.imageItem__overlay}>
                 <div className={classes['imageItem--expired']}>{t('Expired')}</div>
               </div>
             )}
-          </Link>
+          </a>
         </div>
         <div className={classes['searchItem-block-right']}>
           <div className={classes['searchItem-block-right__header']}>
             <div className={classes['searchItem-block-right__header-left']}>
-              <Link
+              <a
+                target="_blank"
                 className={`${classes['link']} ${classes['link-fz-18']} ${classes['bold']}`}
-                to={`/jobs/${slug}`}
+                href={`/jobs/${slug}`}
+                rel="noreferrer"
               >
                 {jobTitle}
-              </Link>
+              </a>
             </div>
 
             <div>
@@ -110,13 +112,15 @@ const JobSearchItem = ({ job, setShowModal, employer }) => {
           </div>
 
           <div className={classes['searchItem-block-right__companyName']}>
-            <Link
+            <a
               className={`${classes['link-no-border']} ${classes['link-fz-16']}`}
-              to={`/jobs/employer/${company?.companyName}`}
+              href={`/jobs/employer/${company?.companyName}`}
+              target="_blank"
+              rel="noreferrer"
             >
               <FaBuilding className={classes['icon-gb-18']} />
               {company?.companyName}
-            </Link>
+            </a>
 
             {favoriteJobs?.some((item) => item._id === _id) ? (
               <div onClick={removeSaveJobHandler}>

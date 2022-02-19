@@ -1,7 +1,6 @@
 import { dateFormatISO8601, dateFormatHourMinute } from 'common/constants/dateFormat'
 import { FaUsers } from 'react-icons/fa'
 import { IoMdTime } from 'react-icons/io'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import moment from 'moment'
@@ -41,19 +40,21 @@ const EventItem = ({ event }) => {
           <div className={`${classes.isNew} ${classes['eventItem__wrapped--new']}`}>{t('New')}</div>
         )}
         <div className={classes.imageItem}>
-          <Link to={`/jobs/employer/${company?.companyName}`}>
+          <a href={`/jobs/employer/${company?.companyName}`} target="_blank" rel="noreferrer">
             <img src={company?.logo} alt="" />
-          </Link>
+          </a>
         </div>
         <div className={classes.eventItem__content}>
           <div className={classes['eventItem__content__head']}>
             <div className={classes['eventItem__content__head-eventName']}>
-              <Link
+              <a
                 className={`${classes.link} ${classes.bold} ${classes['link-fz-18']}`}
-                to={`/events/view/${slug}`}
+                href={`/events/view/${slug}`}
+                target="_blank"
+                rel="noreferrer"
               >
                 {eventName}
-              </Link>
+              </a>
             </div>
             <div>
               <IoMdTime className={classes['icon-gb-18']} />

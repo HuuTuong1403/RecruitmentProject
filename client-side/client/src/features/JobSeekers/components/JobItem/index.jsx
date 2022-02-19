@@ -3,7 +3,6 @@ import { BiDollarCircle } from 'react-icons/bi'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaBuilding } from 'react-icons/fa'
 import { IoMdCalendar, IoMdTime } from 'react-icons/io'
-import { Link } from 'react-router-dom'
 import { MdLocationOn, MdDeleteForever } from 'react-icons/md'
 import { removeFavoriteJob } from 'features/JobSeekers/api/jobSeeker.api'
 import { removeJobOfFavorire } from 'features/JobSeekers/slices'
@@ -41,20 +40,22 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
         {isNew && <div className={`${classes.isNew} ${classes['jobItem--new']}`}>{t('New')}</div>}
         {company && (
           <div className={classes['jobItem__container-img']}>
-            <Link to={`/jobs/employer/${company.companyName}`}>
+            <a href={`/jobs/employer/${company.companyName}`} target="_blank" rel="noreferrer">
               <img src={company.logo} alt="" />
-            </Link>
+            </a>
           </div>
         )}
         <div className={classes['jobItem__container-content']}>
           <div className={classes['jobItem__container-content__head']}>
             <div className={classes['jobItem__container-content__head__jobTitle']}>
-              <Link
+              <a
                 className={`${classes.link} ${classes.bold} ${classes['link-fz-18']}`}
-                to={`/jobs/${slug}`}
+                href={`/jobs/${slug}`}
+                target="_blank"
+                rel="noreferrer"
               >
                 {jobTitle}
-              </Link>
+              </a>
             </div>
             <div>
               <IoMdTime className={classes['icon-gb-18']} />
@@ -66,13 +67,15 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
           </div>
 
           <div className={classes['jobItem__container-content__companyName']}>
-            <Link
+            <a
               className={`${classes['link-no-border']} ${classes['link-fz-16']}`}
-              to={`/jobs/employer/${company?.companyName}`}
+              href={`/jobs/employer/${company?.companyName}`}
+              target="_blank"
+              rel="noreferrer"
             >
               <FaBuilding className={classes['icon-gb-18']} />
               {company?.companyName}
-            </Link>
+            </a>
           </div>
 
           <div className={classes['jobItem__container-content__salary']}>

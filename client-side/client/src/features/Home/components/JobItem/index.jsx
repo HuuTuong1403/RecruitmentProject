@@ -1,5 +1,5 @@
 import { BiDollarCircle } from 'react-icons/bi'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { MdLocationOn } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
@@ -25,20 +25,24 @@ const JobItem = ({ job }) => {
         </div>
         <div className={classes['jobItem__container-detail']}>
           <div>
-            <Link
+            <a
+              href={`/jobs/${slug}`}
               className={`${classes['jobItem__container-detail__jobTitle']} ${classes['link-no-border']} ${classes.bold}`}
-              to={`/jobs/${slug}`}
+              target="_blank"
+              rel="noreferrer"
             >
               {jobTitle}
-            </Link>
+            </a>
           </div>
           <div>
-            <Link
+            <a
               className={`${classes['jobItem__container-detail__companyName']} ${classes['link-no-border']}`}
-              to={`/jobs/employer/${company?.companyName}`}
+              href={`/jobs/employer/${company?.companyName}`}
+              target="_blank"
+              rel="noreferrer"
             >
               {company?.companyName}
-            </Link>
+            </a>
           </div>
           <div className={classes['jobItem__container-detail__salary']}>
             <BiDollarCircle style={{ marginRight: '5px' }} />

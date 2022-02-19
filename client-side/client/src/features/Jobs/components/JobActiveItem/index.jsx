@@ -2,7 +2,6 @@ import { BiDollarCircle } from 'react-icons/bi'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaBuilding } from 'react-icons/fa'
 import { IoMdCalendar } from 'react-icons/io'
-import { Link } from 'react-router-dom'
 import { MdLocationOn } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
@@ -15,12 +14,14 @@ const JobActiveItem = ({ jobActive }) => {
   return (
     <div className={classes.jobActive}>
       <div className={classes['jobActive__wrapped']}>
-        <Link
+        <a
           className={`${classes['jobActive__wrapped-jobTitle']} ${classes['link-one-line']}`}
-          to={`/jobs/${slug}`}
+          href={`/jobs/${slug}`}
+          target="_blank"
+          rel="noreferrer"
         >
           {jobTitle}
-        </Link>
+        </a>
         <div className={classes.hideText}>
           <FaBuilding style={{ marginRight: '5px' }} />
           {company.companyName}

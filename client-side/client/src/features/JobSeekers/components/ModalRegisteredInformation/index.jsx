@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { Modal } from 'antd'
 import { Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
@@ -56,12 +55,14 @@ const ModalRegisteredInformation = ({ createdAt, data, onCloseModal, showModal }
               <div className={classes['modalInfo__content-field__interesting']}>
                 {interestingField.map((item, index) => (
                   <Tooltip key={index} title={`${t('View jobs with skill')} ${item}`}>
-                    <Link
+                    <a
                       className={`${classes['modalInfo__content-field__link']} ${classes['link-no-border']} ${classes['link-fz-14']}`}
-                      to={`/jobs/search?skills=${item}`}
+                      href={`/jobs/search?skills=${item}`}
+                      target="_blank"
+                      rel="noreferrer"
                     >
                       {item}
-                    </Link>
+                    </a>
                   </Tooltip>
                 ))}
               </div>

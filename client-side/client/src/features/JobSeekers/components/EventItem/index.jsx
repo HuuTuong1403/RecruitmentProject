@@ -4,7 +4,6 @@ import {
   dateFormatHourMinute,
 } from 'common/constants/dateFormat'
 import { FaEye } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
 import { MdEventAvailable, MdEventBusy, MdToday } from 'react-icons/md'
 import { Tooltip } from 'antd'
 import { useState } from 'react'
@@ -83,12 +82,14 @@ const EventItem = ({ data }) => {
         <div className={classes['eventItem__bottom-title']}>
           {/* Event name */}
           <Tooltip title={t('Click to see details of event')}>
-            <Link
+            <a
               className={`${classes['link-one-line']} ${classes.bold}`}
-              to={`/events/view/${slug}`}
+              href={`/events/view/${slug}`}
+              target="_blank"
+              rel="noreferrer"
             >
               {t('Event')} {eventName}
-            </Link>
+            </a>
           </Tooltip>
 
           <span> {t('of')} </span>
@@ -96,12 +97,14 @@ const EventItem = ({ data }) => {
           {/* Event company */}
           {companyName && (
             <Tooltip title={`${t('Click to see details of company')} ${companyName}`}>
-              <Link
+              <a
                 className={`${classes['link-one-line']} ${classes.bold}`}
-                to={`/jobs/employer/${companyName}`}
+                href={`/jobs/employer/${companyName}`}
+                target="_blank"
+                rel="noreferrer"
               >
                 {companyName}
-              </Link>
+              </a>
             </Tooltip>
           )}
         </div>

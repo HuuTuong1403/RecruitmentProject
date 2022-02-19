@@ -4,7 +4,6 @@ import { dateFormatPicker } from 'common/constants/dateFormat'
 import { fetchJobDetailOfEmployerAsync } from 'features/Employers/slices/thunks'
 import { handChangeJobSlug } from 'features/Employers/slices'
 import { IoMdCalendar, IoMdEye, IoMdTime } from 'react-icons/io'
-import { Link, useHistory } from 'react-router-dom'
 import { MdDelete, MdDeleteForever, MdEdit, MdLocationOn, MdRestore } from 'react-icons/md'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
 import { selectJobSlug } from 'features/Employers/slices/selectors'
@@ -35,7 +34,6 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
 
   const { t } = useTranslation()
   const [showModal, setShhowModal] = useState(false)
-  const history = useHistory()
   const dispatch = useDispatch()
   const slugState = useSelector(selectJobSlug)
   const [selectSkill, setSelectSkill] = useState([])
@@ -63,7 +61,9 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
   wards.unshift({ label: `${t('choose-ward')}`, value: '' })
 
   const handleShowDetail = () => {
-    history.push(`/jobs/${slug}`)
+    // history.push(`/jobs/${slug}`)
+    const jobNewTab = window.open(`/jobs/${slug}`, '_blank')
+    jobNewTab.focus()
   }
 
   const onOpenModal = () => {
@@ -104,12 +104,14 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
           <img className={classes['item__top-logo']} src={company?.logo} alt={company?.logo} />
         </div>
         <div className={classes.item__bottom}>
-          <Link
-            to={`/jobs/${slug}`}
+          <a
+            href={`/jobs/${slug}`}
             className={`${classes.titleItem} ${classes['link-one-line']} `}
+            target="_blank"
+            rel="noreferrer"
           >
             {jobTitle}
-          </Link>
+          </a>
           {salary && (
             <div className={classes['item__bottom-salary']}>
               <BiDollarCircle style={{ marginRight: '5px' }} />
