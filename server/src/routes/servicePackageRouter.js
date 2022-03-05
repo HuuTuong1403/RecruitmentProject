@@ -12,17 +12,21 @@ servicePackageRouter
     authController.restrictTo('systemmanager'),
     servicePackageController.setBodyServicePackage,
     servicePackageController.createServicePackage
-  );
+  )
+  .get(servicePackageController.getAllServicePackage);
+servicePackageRouter
+  .route('/:id')
+  .patch(
+    authController.protect,
+    authController.restrictTo('systemmanager'),
+    servicePackageController.setBodyServicePackage,
+    servicePackageController.updateServicePackage
+  )
+  .get(servicePackageController.getServicePackage);
 servicePackageRouter.use(
   authController.protect,
   authController.restrictTo('systemmanager')
 );
-servicePackageRouter
-  .route('/:id')
-  .patch(
-    servicePackageController.setBodyServicePackage,
-    servicePackageController.updateServicePackage
-  );
 servicePackageRouter
   .route('/soft-delete/:id')
   .delete(servicePackageController.softDeleteServicePackage);

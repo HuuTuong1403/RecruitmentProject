@@ -24,5 +24,7 @@ class servicePackageController {
   getAllDeletedServicePackage = factory.getDeletedAll(ServicePackage);
   getDeletedServicePackage = factory.getDeletedOne(ServicePackage);
   restoreServicePackage = factory.restoreOne(ServicePackage);
+  getAllServicePackage = factory.getAll(ServicePackage);
+  getServicePackage = factory.getOne(ServicePackage);
 }
 module.exports = new servicePackageController();
