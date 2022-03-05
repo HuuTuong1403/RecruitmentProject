@@ -11,13 +11,14 @@ const uploadAvatar = require('./../middlewares/uploadAvatar');
 const jobRouter = require('./../routes/jobRoutes');
 const jobseekerRouter = require('./job-seekerRoutes');
 const employerRouter = require('./employerRouter');
+const servicePackageRouter = require('./servicePackageRouter');
 
 systemManagerRouter.route('/login').post(authController.loginSystemManager);
 
 systemManagerRouter.use('/jobs', jobRouter);
 systemManagerRouter.use('/job-seeker', jobseekerRouter);
 systemManagerRouter.use('/employer', employerRouter);
-
+systemManagerRouter.use('/service-package', servicePackageRouter);
 systemManagerRouter.use(
   authController.protect,
   authController.restrictTo('systemmanager')

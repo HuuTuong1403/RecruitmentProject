@@ -1,20 +1,13 @@
-const fs = require('fs');
-
 const Employer = require('./../models/employerModel');
 
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
-const APIFeatures = require('./../utils/apiFeatures');
 const FilterObject = require('./../utils/filterObject');
-const getDayOfYear = require('./../utils/getDayOfYear');
 
-const sendEmail = require('./../services/email');
+const Email = require('./../services/email');
 
 const factory = require('./handleFactory');
-var confirmEmailFiles = fs.readFileSync(
-  `${__dirname}/../public/ConfirmEmail/ConfirmEmail.html`,
-  'utf-8'
-);
+
 class employerController {
   sendInformation = catchAsync(async (req, res, next) => {
     const newEmployer = await Employer.create({
@@ -40,13 +33,8 @@ class employerController {
     const authenURL = `${req.protocol}://${req.get(
       'host'
     )}/api/v1/employer/authentication/${authenToken}`;
-    const content = confirmEmailFiles.replace(/{%authenURL%}/g, authenURL);
     try {
-      await sendEmail({
-        email: newEmployer.email,
-        subject: '[MST-Company] Xác thực tài khoản (Hợp lệ trong vòng 10 phút)',
-        content,
-      });
+      await new Email(newEmployer, authenURL).sendConfirmEmail();
       const filteredEmployer = FilterObject(
         newEmployer,
         'companyName',

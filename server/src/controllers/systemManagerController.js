@@ -6,13 +6,8 @@ const SystemManager = require('./../models/system-managerModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
-const sendEmail = require('./../services/email');
+const email = require('./../services/email');
 const FilterObject = require('./../utils/filterObject');
-
-var issueAcountEmailFiles = fs.readFileSync(
-  `${__dirname}/../public/IssueAccount/IssueAccountEmail.html`,
-  'utf-8'
-);
 
 class systemManagerController {
   getAllEmployer = catchAsync(async (req, res, next) => {
@@ -66,18 +61,8 @@ class systemManagerController {
 
     await employer.save();
 
-    //Send email to employer
-    var content = issueAcountEmailFiles.replace(
-      /{%username%}/g,
-      req.body.username
-    );
-    content = content.replace(/{%password%}/g, req.body.password);
     try {
-      await sendEmail({
-        email: employer.email,
-        subject: `[MST-Company] Yêu cầu cấp tài khoản cho công ty ${employer.companyName} thành công`,
-        content,
-      });
+      await new email(employer, null).sendIssueAccountEmail(req.body.password);
       employer.password = undefined;
       res.status(200).json({
         status: 'success',

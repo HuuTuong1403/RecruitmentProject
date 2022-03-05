@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
-const Employer = require('./employerModel');
-const JobSeeker = require('./job-seekerModel');
 const addressSchema = require('./addressModel');
 const mongoose_delete = require('mongoose-delete');
 

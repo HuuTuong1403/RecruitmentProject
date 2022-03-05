@@ -25,6 +25,7 @@
     "firebase-admin": "^10.0.0",
     "helmet": "^4.6.0",
     "hpp": "^0.2.3",
+    "html-to-text": "^8.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
     "mongoose-delete": "^0.5.4",
@@ -32,6 +33,7 @@
     "multer": "^1.4.3",
     "nodemailer": "^6.6.5",
     "slugify": "^1.6.0",
+    "socket.io": "^4.4.1",
     "validator": "^13.6.0",
     "xss-clean": "^0.1.1"
   },

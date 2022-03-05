@@ -11,7 +11,7 @@ const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('./../utils/apiFeatures');
 
-const sendEmail = require('./../services/email');
+const email = require('./../services/email');
 const participantEmail = fs.readFileSync(
   `${__dirname}/../public/EventEmail/participant_event.html`,
   'utf-8'
@@ -27,29 +27,7 @@ const getDayOfYear = () => {
   var day = Math.floor(diff / oneDay);
   return day;
 };
-const replaceHTML = (participant) => {
-  let output = participantEmail.replace(
-    /{{%fullName%}}/g,
-    participant.fullName
-  );
-  output = output.replace(/{{%phone%}}/g, participant.phone);
-  output = output.replace(
-    /{{%address%}}/g,
-    `${participant.address.street}, ${participant.address.ward}, ${participant.address.district}, ${participant.address.city}`
-  );
-  output = output.replace(
-    /{{%interestingField%}}/g,
-    participant.interestingField
-  );
-  output = output.replace(/{{%logo%}}/g, participant.event.company.logo);
-  output = output.replace(/{{%imgCover%}}/g, participant.event.imageCover);
-  output = output.replace(/{{%eventName%}}/g, participant.event.eventName);
-  output = output.replace(
-    /{{%location%}}/g,
-    `${participant.event.address.street}, ${participant.event.address.ward}, ${participant.event.address.district}, ${participant.event.address.city}`
-  );
-  return output;
-};
+
 class participantController {
   setParticipantBodyCreation = (req, res, next) => {
     req.body.event = req.params.idEvent;
@@ -70,13 +48,12 @@ class participantController {
   createParticipant = catchAsync(async (req, res, next) => {
     const participant = await Participant.create(req.body);
     let participantCreated = await Participant.findById(participant.id);
-    const content = replaceHTML(participantCreated);
     try {
-      await sendEmail({
+      const user = {
         email: participantCreated.participant.email,
-        subject: `[${participantCreated.event.company.companyName}] Thông báo đăng ký tham gia sự kiện ${participantCreated.event.eventName} thành công`,
-        content,
-      });
+        participant: participantCreated,
+      };
+      await new email(user, null).sendParticipantEmail();
     } catch (err) {
       return next(
         new AppError(

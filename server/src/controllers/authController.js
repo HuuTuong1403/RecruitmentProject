@@ -4,21 +4,15 @@ const crypto = require('crypto');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Token = require('./../services/token');
-const sendEmail = require('./../services/email');
+const email = require('./../services/email');
 const FilterObject = require('./../utils/filterObject');
 
 const JobSeeker = require('./../models/job-seekerModel');
 const SystemManager = require('./../models/system-managerModel');
 const Employer = require('./../models/employerModel');
 const SystemAdmin = require('./../models/system-adminModel');
-var confirmEmailFiles = fs.readFileSync(
-  `${__dirname}/../public/ConfirmEmail/ConfirmEmail.html`,
-  'utf-8'
-);
-var resetPasswordFiles = fs.readFileSync(
-  `${__dirname}/../public/ResetPassword/ResetPassword.html`,
-  'utf-8'
-);
+const Email = require('./../services/email');
+
 class authController {
   signUpJobSeeker = catchAsync(async (req, res, next) => {
     //1) Create job seeker
@@ -37,13 +31,8 @@ class authController {
     const authenURL = `${req.protocol}://${req.get(
       'host'
     )}/api/v1/job-seeker/authentication/${authenToken}`;
-    const content = confirmEmailFiles.replace(/{%authenURL%}/g, authenURL);
     try {
-      await sendEmail({
-        email: newJobSeeker.email,
-        subject: '[MST-Company] Xác thực tài khoản (Hợp lệ trong vòng 10 phút)',
-        content,
-      });
+      await new Email(newJobSeeker, authenURL).sendConfirmEmail();
       const filteredJobSeeker = FilterObject(
         newJobSeeker,
         'fullname',
@@ -89,14 +78,8 @@ class authController {
       const authenURL = `${req.protocol}://${req.get(
         'host'
       )}/api/v1/job-seeker/authentication/${authenToken}`;
-      const content = confirmEmailFiles.replace(/{%authenURL%}/g, authenURL);
       try {
-        await sendEmail({
-          email: jobSeeker.email,
-          subject:
-            '[MST-Company] Xác thực tài khoản (Hợp lệ trong vòng 10 phút)',
-          content,
-        });
+        await new Email(jobSeeker, authenURL).sendConfirmEmail();
         return next(
           new AppError(
             'Token đã hết hạn, vui lòng kiểm tra lại hộp thư email để nhận lại link xác nhận email mới nhất',
@@ -174,14 +157,8 @@ class authController {
     await jobSeeker.save({ validateBeforeSave: false });
     //3) Send it to user's email
     const resetURL = `https://mst-recruit.web.app/home/forgot-pass/${resetToken}`;
-    const content = resetPasswordFiles.replace(/{%resetURL%}/g, resetURL);
     try {
-      await sendEmail({
-        email: jobSeeker.email,
-        subject:
-          '[MST-Company] Khôi phục mật khẩu của bạn (Hợp lệ trong vòng 10 phút)',
-        content,
-      });
+      await new email(jobSeeker, resetURL).sendResetPassword();
       res.status(200).json({
         status: 'success',
         message: 'Đã gửi yêu cầu khôi phục mật khẩu thành công',
@@ -190,6 +167,7 @@ class authController {
       jobSeeker.passwordResetToken = undefined;
       jobSeeker.passwordResetExpires = undefined;
       await jobSeeker.save({ validateBeforeSave: false });
+      console.log(err);
       return next(
         new AppError(
           'There was an error sending this email. Try again later!',
@@ -275,14 +253,8 @@ class authController {
       const authenURL = `${req.protocol}://${req.get(
         'host'
       )}/api/v1/employer/authentication/${authenToken}`;
-      const content = confirmEmailFiles.replace(/{%authenURL%}/g, authenURL);
       try {
-        await sendEmail({
-          email: employer.email,
-          subject:
-            '[MST-Company] Xác thực tài khoản (Hợp lệ trong vòng 10 phút)',
-          content,
-        });
+        await new Email(employer, authenURL).sendConfirmEmail();
         return next(
           new AppError(
             'Token đã hết hạn, vui lòng kiểm tra lại hộp thư email để nhận lại link xác nhận email mới nhất',
@@ -321,14 +293,8 @@ class authController {
     await employer.save({ validateBeforeSave: false });
     //3) Send it to employer's email
     const resetURL = `https://mst-recruit.web.app/employers/forgot-pass/${resetToken}`;
-    const content = resetPasswordFiles.replace(/{%resetURL%}/g, resetURL);
     try {
-      await sendEmail({
-        email: employer.email,
-        subject:
-          '[MST-Company] Khôi phục mật khẩu của bạn (Hợp lệ trong vòng 10 phút)',
-        content,
-      });
+      await new email(employer, resetURL).sendResetPassword();
       res.status(200).json({
         status: 'success',
         message: 'Đã gửi yêu cầu khôi phục mật khẩu thành công',

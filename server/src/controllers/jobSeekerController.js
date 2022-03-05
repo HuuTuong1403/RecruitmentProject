@@ -3,7 +3,6 @@ const JobSeeker = require('./../models/job-seekerModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const APIFeatures = require('../utils/apiFeatures');
-const getDayOfYear = require('./../utils/getDayOfYear');
 const FilterObject = require('../utils/filterObject');
 
 class JobSeekerController {
