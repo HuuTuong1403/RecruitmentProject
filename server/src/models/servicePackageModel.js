@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const mongoose_delete = require('mongoose-delete');
+const Service = require('./serviceModel');
 const priceSchema = new mongoose.Schema(
   {
     VND: {
@@ -47,27 +48,27 @@ const servicePackageSchema = new mongoose.Schema(
       trim: true,
       unique: [true, 'Mã code không được trùng'],
     },
-    servicePackageType: {
-      type: String,
-      default: 'Free',
-      enum: {
-        values: [
-          'Free',
-          'Basic',
-          'ExtraBasic',
-          'Premium',
-          'ExtraPremium',
-          'VIP',
-        ],
-        message:
-          'Các loại gói dịch vụ là: Free, Basic, Extra Basic, Premium, Extra Premium hoặc VIP',
-      },
+    services: {
+      type: [{}],
+      required: [true, 'Gói dịch vụ phải có ít nhất một dịch vụ'],
+    },
+    postQuantity: {
+      type: Number,
+      required: [true, 'Gói dịch vụ phải có số lượng bài đăng'],
     },
   },
   {
     timestamps: true,
   }
 );
+servicePackageSchema.pre('save', async function (next) {
+  const servicePromises = this.services.map(
+    async (id) =>
+      await Service.findById(id, { serviceName: 1, description: 1, price: 1 })
+  );
+  this.services = await Promise.all(servicePromises);
+  next();
+});
 servicePackageSchema.plugin(mongoose_delete, {
   deletedBy: true,
   overrideMethods: true,
