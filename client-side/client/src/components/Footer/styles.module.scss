@@ -1,259 +1,238 @@
 @import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
 
 .footer {
   background-color: #e9e9e9;
   color: $primary-text;
 
-  &__bltop {
+  &__head {
     display: flex;
     align-items: center;
     padding: $pm-10 $pm-10;
     margin: 0 $pm-48;
+  }
 
-    &--left {
-      display: flex;
-      align-items: center;
-      flex: 0 0 75%;
-      max-width: 75%;
+  &__head-left {
+    display: flex;
+    align-items: center;
+    flex: 0 0 75%;
+    max-width: 75%;
 
-      & > img {
-        cursor: pointer;
-      }
-
-      & > ul {
-        list-style: none;
-        display: flex;
-        gap: 15px;
-        margin-left: $pm-20;
-        margin-top: $pm-16;
-
-        & > li {
-          cursor: pointer;
-          transition: all 0.3s ease-in-out;
-          font-size: 14px;
-          position: relative;
-
-          & > a {
-            color: $primary-text;
-            font-size: 16px;
-          }
-
-          & > a:hover {
-            color: $third-text;
-            text-decoration: underline;
-          }
-        }
-
-        & > li:after {
-          content: '';
-          position: absolute;
-          width: 1px;
-          height: 68%;
-          background-color: $primary-text;
-          top: 6px;
-          right: -7px;
-        }
-
-        & > li:last-child:after {
-          width: 0;
-          height: 0;
-        }
-      }
+    & > img {
+      cursor: pointer;
     }
 
-    &--right {
-      flex: 0 0 25%;
-      justify-content: flex-end;
-      align-items: center;
-      max-width: 25%;
+    & > ul {
+      list-style: none;
       display: flex;
+      gap: 15px;
+      margin-left: $pm-20;
+      margin-top: $pm-16;
 
-      & > div {
-        margin: 0 $pm-10 0 0;
-        font-size: 16px;
-      }
-
-      & > a {
-        align-items: center;
-        background-color: $primary-text;
-        color: #fff !important;
-        border-radius: 50%;
-        display: flex;
-        height: 2.125rem;
-        justify-content: center;
-        margin-right: $pm-10;
-        width: 2.125rem;
+      & > li {
+        cursor: pointer;
         transition: all 0.3s ease-in-out;
+        font-size: 14px;
+        position: relative;
       }
 
-      & > a:hover {
-        background-color: $third-text;
+      & > li:after {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 68%;
+        background-color: $primary-text;
+        top: 6px;
+        right: -7px;
       }
 
-      & > img {
-        width: 106px;
-        height: 40px;
-        display: inline-block;
+      & > li:last-child:after {
+        width: 0;
+        height: 0;
       }
     }
   }
 
-  &__blbottom {
-    margin: 0 $pm-48;
-    &--top {
+  &__head-right {
+    flex: 0 0 25%;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 25%;
+    display: flex;
+
+    & > div {
+      margin: 0 $pm-10 0 0;
+      font-size: 16px;
+    }
+
+    & > a {
+      align-items: center;
+      background-color: $primary-text;
+      color: #fff !important;
+      border-radius: 50%;
       display: flex;
-      flex-wrap: wrap;
-      border-bottom: 1px solid $primary-text;
-      padding: $pm-10 0;
+      height: 2.125rem;
+      justify-content: center;
+      margin-right: $pm-10;
+      width: 2.125rem;
+      transition: all 0.3s ease-in-out;
+    }
 
-      & > div {
-        flex: 0 0 25%;
-        & > h3 {
-          text-transform: uppercase;
-          color: #182642;
-          font-size: 16px;
-          font-weight: 700;
-        }
+    & > a:hover {
+      background-color: $third-text;
+    }
 
-        & > ul {
-          list-style: none;
-          padding: 0;
+    & > img {
+      width: 106px;
+      height: 40px;
+      display: inline-block;
+    }
+  }
 
-          & > li {
-            & > a {
-              color: $primary-text;
-              font-size: 16px;
-            }
+  &__bottom {
+    margin: 0 $pm-48;
+  }
 
-            & > a:hover {
-              color: $third-text;
-              text-decoration: underline;
-            }
-          }
+  &__bottom-top {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $primary-text;
+    padding: $pm-10 0;
+
+    & > div {
+      flex: 0 0 25%;
+      
+      & > h3 {
+        text-transform: uppercase;
+        color: #182642;
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      & > ul {
+        list-style: none;
+        padding: 0;
+
+        & > li {
+          margin-top: 2px;
         }
       }
     }
+  }
 
-    &--bottom {
-      text-align: center;
-      font-size: 16px;
-      padding: $pm-20 0;
-    }
+  &__bottom-bottom {
+    text-align: center;
+    font-size: 16px;
+    padding: $pm-20 0;
   }
 }
 
 @media screen and (max-width: 1024px) {
   .footer {
-    display: block;
-    &__bltop {
+    &__head {
       margin: 0 0;
+    }
 
-      &--right {
-        & > div {
-          display: none;
+    &__head-right {
+      & > div {
+        display: none;
+      }
+    }
+
+    &__bottom {
+      margin: 0 $pm-16;
+    }
+
+    &__bottom-top {
+      & > div {
+        flex: 0 0 25%;
+        margin-bottom: $pm-14;
+
+        & > h3 {
+          font-size: 16px;
         }
       }
     }
 
-    &__blbottom {
-      margin: 0 $pm-16;
-      &--top {
-        & > div {
-          flex: 0 0 33.33%;
-          margin-bottom: 15px;
-          & > h3 {
-            font-size: 16px;
-          }
-
-          & > ul > li > a {
-            font-size: 16px;
-          }
-        }
-      }
-
-      &--bottom {
-        font-size: 15px;
-        padding: $pm-20 0;
-      }
+    &__bottom-bottom {
+      font-size: 15px;
+      padding: $pm-20 0;
     }
   }
 }
 
 @media screen and (max-width: 800px) {
   .footer {
-    display: block;
-    &__bltop {
+    &__head {
       margin: 0 0;
-      &--left {
-        display: none;
-      }
+    }
 
-      &--right {
-        justify-content: center;
-        max-width: 100%;
-        flex: 0 0 100%;
+    &__head-left {
+      display: none;
+    }
+
+    &__head-right {
+      justify-content: center;
+      max-width: 100%;
+      flex: 0 0 100%;
+    }
+
+    &__bottom {
+      margin: 0 $pm-16;
+    }
+
+    &__bottom-top {
+      & > div {
+        flex: 0 0 33.3334%;
+        margin-bottom: $pm-14;
+
+        & > h3 {
+          font-size: $text-base;
+        }
       }
     }
 
-    &__blbottom {
-      margin: 0 $pm-16;
-      &--top {
-        & > div {
-          flex: 0 0 33.33%;
-          margin-bottom: 15px;
-          & > h3 {
-            font-size: 15px;
-          }
-
-          & > ul > li > a {
-            font-size: 15px;
-          }
-        }
-      }
-
-      &--bottom {
-        font-size: 14px;
-        padding: $pm-20 0;
-      }
+    &__bottom-bottom {
+      font-size: 14px;
+      padding: $pm-16 0;
     }
   }
 }
 
 @media screen and (max-width: 600px) {
   .footer {
-    &__bltop {
+    &__head {
       margin: 0 0;
-      &--left {
-        display: none;
-      }
+    }
 
-      &--right {
-        justify-content: center;
-        max-width: 100%;
-        flex: 0 0 100%;
+    &__head-left {
+      display: none;
+    }
+
+    &__head-right {
+      justify-content: center;
+      max-width: 100%;
+      flex: 0 0 100%;
+    }
+
+    &__bottom {
+      margin: 0 $pm-16;
+    }
+
+    &__bottom-top {
+      & > div {
+        flex: 0 0 50%;
+        margin-bottom: $pm-14;
+
+        & > h3 {
+          font-size: 13px;
+        }
       }
     }
 
-    &__blbottom {
-      margin: 0 $pm-16;
-      &--top {
-        & > div {
-          flex: 0 0 50%;
-          margin-bottom: 15px;
-          & > h3 {
-            font-size: 14px;
-          }
-
-          & > ul > li > a {
-            font-size: 14px;
-          }
-        }
-      }
-
-      &--bottom {
-        font-size: 12px;
-        padding: $pm-20 0;
-      }
+    &__bottom-bottom {
+      font-size: 12px;
+      padding: $pm-14 0;
     }
   }
 }

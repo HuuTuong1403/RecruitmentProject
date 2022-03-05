@@ -15,7 +15,7 @@ const BannerHomeEmp = () => {
     <section className={classes.bannerEmp}>
       <div className={classes.overlayImage}>
         <div className={classes.bannerEmp__container}>
-          <div className={classes['bannerEmp__container--top']}>
+          <div className={classes['bannerEmp__container-top']}>
             {employer ? (
               <h1>
                 {t('Welcome back')}, {employer?.companyName}
@@ -27,27 +27,27 @@ const BannerHomeEmp = () => {
             {employer ? (
               <div>
                 <Link to="/employers/dashboard">
-                  <RiFileList3Line className={classes['bannerEmp__container--top--icon']} />
+                  <RiFileList3Line className={classes['bannerEmp__container-top__icon']} />
                   {t('Click here')}
                 </Link>
               </div>
             ) : (
               <div>
                 <Link to="/employers/sign-in">
-                  <IoPersonCircle className={classes['bannerEmp__container--top--icon']} />
+                  <IoPersonCircle className={classes['bannerEmp__container-top__icon']} />
                   {t('signin')}
                 </Link>
               </div>
             )}
           </div>
-          <div className={classes['bannerEmp__container--top']}>
+          <div className={classes['bannerEmp__container-top']}>
             {employer ? (
               <Fragment>
                 <h1>{t('Or post a job posting looking for candidates')}</h1>
                 <p>{t('Post job and create free Entry Test')}</p>
                 <div>
                   <Link to="/employers/dashboard/post-job">
-                    <FaEdit className={classes['bannerEmp__container--top--icon']} />
+                    <FaEdit className={classes['bannerEmp__container-top__icon']} />
                     {t('Click here')}
                   </Link>
                 </div>
@@ -58,7 +58,7 @@ const BannerHomeEmp = () => {
                 <p>{t('Quick, easy and effective recruitment')}</p>
                 <div>
                   <Link to="/employers/sign-up">
-                    <FaEdit className={classes['bannerEmp__container--top--icon']} />
+                    <FaEdit className={classes['bannerEmp__container-top__icon']} />
                     {t('Register now')}
                   </Link>
                 </div>

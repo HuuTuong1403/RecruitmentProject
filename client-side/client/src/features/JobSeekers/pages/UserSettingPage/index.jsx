@@ -1,7 +1,7 @@
 import { FiLock } from 'react-icons/fi'
 import { logoutJobSeeker } from 'features/Home/slices'
 import { schemaChangePass } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { updatePassJobSeeker } from 'features/JobSeekers/api/jobSeeker.api'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
@@ -18,7 +18,7 @@ import LabelField from 'custom-fields/LabelField'
 import notification from 'components/Notification'
 
 const UserSettingPage = () => {
-  scrollToTop()
+  ScrollToTop()
 
   const { t } = useTranslation()
   const dispatch = useDispatch()

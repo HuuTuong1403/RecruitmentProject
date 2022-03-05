@@ -1,7 +1,7 @@
 import { createEventEmployer } from 'features/Employers/api/employer.api'
 import { dateFormatWithTime, dateFormatWithTimeSendServer } from 'common/constants/dateFormat'
 import { schemaPostEvent } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -21,7 +21,7 @@ import notification from 'components/Notification'
 import SelectLocationField from 'custom-fields/SelectLocationField'
 
 const PostEventPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   useTitle(t('Create a new event'))
   const [startDate, setStartDate] = useState('')

@@ -8,29 +8,12 @@
 
   &:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
   }
 
   &__top {
     position: relative;
     height: 200px;
-
-    &--logo {
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      top: 0;
-      left: 0;
-      right: 0;
-      object-fit: contain;
-      opacity: 0.15;
-    }
-
-    &--cover {
-      height: 100%;
-      width: 100%;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-      object-fit: cover;
-    }
 
     &--new {
       right: 0;
@@ -45,50 +28,65 @@
     }
   }
 
+  &__top-cover {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    object-fit: cover;
+  }
+
+  &__top-logo {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    object-fit: contain;
+    opacity: 0.15;
+  }
+
   &__bottom {
     padding: $pm-10;
+  }
 
-    &--title {
-      font-weight: bold;
-      text-transform: uppercase;
+  &__bottom-title {
+    font-weight: bold;
+    text-transform: uppercase;
 
-      & > span {
-        color: $primary-text;
-        font-size: $text-base;
-      }
-
-      & > a {
-        &:hover {
-          text-decoration: none !important;
-        }
-      }
+    & > span {
+      color: $primary-text;
+      font-size: $text-base;
     }
 
-    &--field {
-      font-size: $text-base;
-      margin-top: $pm-2;
+    & > a {
+      font-size: $text-base !important;
+      display: inline !important;
+    }
+  }
 
-      & > span {
-        font-weight: bold;
-        color: $primary-text;
-      }
+  &__bottom-field {
+    font-size: $text-base;
+    margin-top: $pm-2;
 
-      & > a {
-        font-weight: bold;
+    & > span {
+      font-weight: bold;
+      color: $primary-text;
+    }
 
-        &:hover {
-          text-decoration: none !important;
-        }
-      }
+    & > a {
+      font-weight: bold;
+      display: inline !important;
     }
   }
 
   &__actions {
     margin: 0 $pm-10;
-    &--icon {
-      margin-right: $pm-6;
-      font-size: $text-lg;
-    }
+  }
+
+  &__actions-icon {
+    margin-right: $pm-6;
+    font-size: $text-lg;
   }
 }
 
@@ -99,9 +97,10 @@
 
     &__actions {
       margin: 0 $pm-10;
-      &--icon {
-        font-size: $text-base;
-      }
+    }
+
+    &__actions-icon {
+      font-size: $text-base;
     }
   }
 }

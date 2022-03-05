@@ -2,7 +2,7 @@ import { clearNullObject } from 'common/functions'
 import { fetchAllFavoriteJobAsync } from 'features/JobSeekers/slices/thunks'
 import { fetchJobsSearchAsync } from 'features/Jobs/slices/thunks'
 import { Fragment, useEffect } from 'react'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
@@ -12,7 +12,7 @@ import JobSearchList from 'features/Jobs/components/JobSearchList'
 import SearchHeader from 'features/Jobs/components/SearchHeader'
 
 const SearchJobPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const dispatch = useDispatch()
   const { t } = useTranslation()
   let query = new URLSearchParams(useLocation().search)

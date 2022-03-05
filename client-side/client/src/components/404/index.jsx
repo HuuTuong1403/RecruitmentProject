@@ -8,14 +8,16 @@ const Page404 = ({ isEmployer = false }) => {
   const { t } = useTranslation()
   return (
     <div className={classes.container}>
-      <div className={classes['container__content']}>
-        <div className={classes['container__content--title']}>
+      <div className={classes.container__content}>
+        <div className={classes.container__title}>
           {t('Sorry, the page could not be found')}
         </div>
-        <div className={classes['container__content--body']}>
+        <div className={classes.container__body}>
           {t('This page does not exist or is corrupted due to incorrect URL.')}
         </div>
-        <Link to={isEmployer ? '/employers' : '/home'}>{t('Back to home page')}</Link>
+        <Link className={`${classes['link-no-border']} ${classes["link-fz-16"]}`} to={isEmployer ? '/employers' : '/home'}>
+          {t('Back to home page')}
+        </Link>
       </div>
       <Lottie className={classes.container__lottie} animationData={PageNotFoundLottie} />
     </div>

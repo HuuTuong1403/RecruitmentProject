@@ -6,76 +6,71 @@
   padding-bottom: 20px;
   margin-bottom: 20px;
 
-  &__wrapped {
-    &--title {
-      font-weight: 600;
-      font-size: 24px;
-      padding-top: 20px;
-      text-transform: uppercase;
-      text-align: center;
-    }
+  &__title {
+    font-weight: 600;
+    font-size: 24px;
+    padding-top: 20px;
+    text-transform: uppercase;
+    text-align: center;
+  }
 
-    &--block {
-      max-width: 1170px;
-      margin: 0 auto;
+  &__block {
+    max-width: 1170px;
+    margin: 0 auto;
+  }
 
-      & > ul {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+  &__block-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 0;
+  }
 
-        & > li {
-          padding: 10px;
-          border: 1px solid #ccc;
-          width: 150px;
-          height: 65px;
-          text-align: center;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
-          margin: 15px 1% 15px 0;
+  &__block-item {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 150px;
+    height: 65px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 15px 1% 15px 0;
 
-          & > img {
-            max-width: 100%;
-            max-height: 100%;
-          }
-        }
-      }
+    & > img {
+      max-width: 100%;
+      max-height: 100%;
     }
   }
 }
 
 @media screen and (max-width: 1024px) {
   .employerUs {
-    &__wrapped {
-      &--title {
-        margin-bottom: 30px;
-        font-size: 21px;
-      }
+    &__title {
+      margin-bottom: 30px;
+      font-size: 21px;
+    }
 
-      &--block {
-        max-width: 96%;
-      }
+    &__block {
+      max-width: 96%;
     }
   }
 }
 
 @media screen and (max-width: 500px) {
   .employerUs {
-    &__wrapped {
-      &--title {
-        margin-bottom: 30px;
-        font-size: 21px;
-      }
+    &__title {
+      margin-bottom: 30px;
+      font-size: 21px;
+    }
 
-      &--block {
-        max-width: 96%;
+    &__block {
+      max-width: 96%;
+    }
 
-        & > ul {
-          justify-content: space-evenly;
-        }
-      }
+    &__block-item {
+      justify-content: space-evenly;
     }
   }
 }

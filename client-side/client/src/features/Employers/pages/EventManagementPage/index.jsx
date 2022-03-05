@@ -1,7 +1,7 @@
 import { fetchAllEventOfEmployerAsync } from 'features/Employers/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
 import { pauseEventEmployer, softDeleteEvent } from 'features/Employers/api/employer.api'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEventsOfEmployer, selectedStatus } from 'features/Employers/slices/selectors'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
@@ -13,7 +13,7 @@ import NotFoundData from 'components/NotFoundData'
 import notification from 'components/Notification'
 
 const EventManagementPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const eventsOfEmployer = useSelector(selectEventsOfEmployer)

@@ -6,6 +6,11 @@ $third-color: #f5f8fa;
 $fourth-color: #2196f3;
 $fifth-color: #fff;
 
+//Text Color
+$primary-text: #5d677a;
+$second-text: #fff;
+$third-text: #f79d25;
+
 //Font Size
 $text-xs: 0.75rem; //12px
 $text-sm: 0.875rem; //14px
@@ -20,11 +25,6 @@ $text-6xl: 3.75rem; //60px
 $text-7xl: 4.5rem; //72px
 $text-8xl: 6rem; //96px
 $text-9xl: 8rem; //128px
-
-//Text Color
-$primary-text: #5d677a;
-$second-text: #fff;
-$third-text: #f79d25;
 
 //Margin-Padding
 $pm-2: 0.125rem;
@@ -47,5 +47,5 @@ $pm-160: 10rem;
 $pm-192: 12rem;
 
 //Header
-$h-header: 12vh;
+$h-header: 75px;
 $h-footer: 10rem;

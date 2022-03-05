@@ -1,10 +1,14 @@
 @import 'common/styles/Variables.scss';
 
 .reviewItem {
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #ccc;
+  transition: all 0.2s linear;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
 
   &:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    transform: translateX(1px);
   }
 
   &__listTile {
@@ -18,7 +22,7 @@
       }
     }
 
-    &--icon {
+    &__icon {
       font-size: $text-xl;
       vertical-align: text-bottom;
       margin-right: $pm-8;
@@ -33,17 +37,11 @@
     font-size: $text-base;
   }
 
-  &__title {
-    margin-top: $pm-10;
-    font-size: $text-xl;
-    font-weight: 500;
-  }
-
   &__top {
     display: flex;
     justify-content: space-between;
 
-    &--title {
+    &__title {
       font-size: $text-2xl;
       flex: 0 0 95%;
       font-weight: 600;
@@ -52,9 +50,9 @@
       white-space: nowrap;
     }
 
-    &--icon {
-      font-size: $text-3xl;
+    &__icon {
       cursor: pointer;
+      font-size: $text-3xl;
       transition: all 0.2s ease-in-out;
 
       &:hover {
@@ -64,12 +62,22 @@
     }
   }
 
+  &__createDay {
+    font-size: $text-base;
+  }
+
+  &__title {
+    margin-top: $pm-10;
+    font-size: $text-xl;
+    font-weight: 500;
+  }
+
   &__rating {
     margin-left: $pm-14;
     display: flex;
     align-items: flex-end;
 
-    &--icon {
+    &__icon {
       margin-left: $pm-10;
       margin-right: $pm-4;
       font-size: $text-xl;
@@ -81,15 +89,11 @@
     }
   }
 
-  &__createDay {
-    font-size: $text-base;
-  }
-
   &__ot {
     margin-left: $pm-14;
     font-size: $text-lg;
 
-    &--icon {
+    &__icon {
       margin-right: $pm-4;
       font-size: $text-2xl;
       vertical-align: text-bottom;
@@ -111,7 +115,7 @@
     }
 
     &__top {
-      &--title {
+      &__title {
         font-size: $text-xl;
       }
     }
@@ -123,7 +127,7 @@
         flex: 0 0 100%;
       }
 
-      &--icon {
+      &__icon {
         margin-top: $pm-6;
         margin-left: 0;
         margin-right: $pm-4;
@@ -134,7 +138,7 @@
       margin-left: $pm-14;
       font-size: $text-base;
 
-      &--icon {
+      &__icon {
         font-size: $text-xl;
       }
     }

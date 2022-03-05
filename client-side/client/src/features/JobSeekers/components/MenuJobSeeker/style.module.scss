@@ -1,14 +1,13 @@
 @import 'common/styles/Variables.scss';
 
 a {
-  color: $primary-text;
+  color: $primary-text !important;
   text-decoration: none;
   transition: all 0.3s ease-in-out;
 }
 
 a:hover {
   color: $third-text;
-  text-decoration: underline;
 }
 
 .menuIcon {
@@ -17,7 +16,7 @@ a:hover {
 
 .sliderJobSeeker {
   display: flex;
-  height: 100vh -$h-header;
+  height: 88vh;
 
   ::-webkit-scrollbar {
     width: 4px;

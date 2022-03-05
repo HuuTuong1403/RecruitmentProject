@@ -1,6 +1,7 @@
 @import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
 
-.jobitem {
+.jobItem {
   width: 90%;
   background-color: $fifth-color;
   border: 1px solid #e8e8e8;
@@ -17,179 +18,169 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
 
-    &--logo {
-      min-width: 25%;
-      margin-left: $pm-16;
-      width: 70px;
-      height: 70px;
-      padding: $pm-6;
-      border: 1px solid #e5e5e5;
-      border-radius: 5px;
-      background-color: #fff;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
+  &__container-logo {
+    min-width: 25%;
+    margin-left: $pm-16;
+    width: 70px;
+    height: 70px;
+    padding: $pm-6;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 
-      & > img {
-        max-width: 100%;
-        object-fit: cover;
-      }
+    & > img {
+      max-width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__container-detail {
+    width: 70%;
+    padding-left: $pm-10;
+
+    &__jobTitle {
+      font-size: 15px !important;
     }
 
-    &--detail {
-      width: 70%;
-      padding-left: $pm-10;
+    &__companyName {
+      font-size: $text-sm !important;
+    }
 
-      &--namejob {
-        color: $primary-text;
-        font-weight: 700;
-        font-size: $text-base !important;
+    & > div {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
 
-        &:hover {
-          color: $third-text;
-        }
-      }
+    &__salary {
+      color: #008563;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
 
-      &--namecompany {
-        color: $primary-text;
-        font-size: $text-sm !important;
-
-        &:hover {
-          color: $primary-text;
-        }
-      }
-
-      & > div {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-
-      &--salary {
-        color: #008563;
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-      }
-
-      &--location {
-        font-size: 14px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-      }
+    &__location {
+      font-size: 14px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1024px) {
-  .jobitem {
+@media screen and (max-width: 1024px) {
+  .jobItem {
     min-width: 90%;
     margin: $pm-4 $pm-4 $pm-16 $pm-4;
 
     &__container {
       margin: $pm-4 0;
+    }
 
-      &--logo {
-        width: 75px;
-        height: 75px;
-      }
+    &__container-logo {
+      width: 75px;
+      height: 75px;
     }
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 790px) {
-  .jobitem {
+@media screen and (max-width: 800px) {
+  .jobItem {
     min-width: 70%;
     margin: $pm-4 $pm-4;
 
     &__container {
       margin: $pm-4 0;
+    }
 
-      &--detail {
-        max-width: 65%;
-        padding-left: 0;
+    &__container-detail {
+      max-width: 65%;
+      padding-left: 0;
 
-        &--namejob {
-          font-size: 14px !important;
-        }
+      &__jobTitle {
+        font-size: $text-sm !important;
+      }
 
-        &--namecompany {
-          font-size: 12px !important;
-        }
-        &--salary {
-          font-size: 12px;
-        }
-        &--location {
-          font-size: 12px;
-        }
+      &__companyName {
+        font-size: 13px !important;
+      }
+
+      &__salary {
+        font-size: 12px;
+      }
+
+      &__location {
+        font-size: 12px;
       }
     }
   }
 }
 
-@media screen and (min-width: 350px) and (max-width: 600px) {
-  .jobitem {
+@media screen and (max-width: 600px) {
+  .jobItem {
     min-width: 90%;
 
-    &__container {
-      &--logo {
-        margin-left: $pm-10;
-        width: 65px;
-        height: 65px;
-        max-width: 30%;
+    &__container-logo {
+      margin-left: $pm-10;
+      width: 65px;
+      height: 65px;
+      max-width: 30%;
+    }
+
+    &__container-detail {
+      max-width: 65%;
+      padding-left: 0;
+
+      &__jobTitle {
+        font-size: 13px !important;
       }
 
-      &--detail {
-        max-width: 65%;
-        padding-left: 0;
+      &__companyName {
+        font-size: 12px !important;
+      }
 
-        &--namejob {
-          font-size: 14px !important;
-        }
-        &--namecompany {
-          font-size: 12px !important;
-        }
-        &--salary {
-          font-size: 12px;
-        }
-        &--location {
-          font-size: 12px;
-        }
+      &__salary {
+        font-size: 12px;
+      }
+
+      &__location {
+        font-size: 12px;
       }
     }
   }
 }
 
 @media screen and (max-width: 350px) {
-  .jobitem {
+  .jobItem {
     min-width: 90%;
 
-    &__container {
-      &--logo {
-        margin-left: $pm-10;
-        width: 60px;
-        height: 50px;
-        min-width: 25%;
+    &__container-logo {
+      margin-left: $pm-10;
+      width: 60px;
+      height: 50px;
+      min-width: 25%;
+    }
+
+    &__container-detail {
+      min-width: 60%;
+      padding-left: $pm-8;
+
+      &__jobTitle {
+        font-size: $text-xs !important;
       }
-
-      &--detail {
-        min-width: 60%;
-        padding-left: $pm-8;
-
-        &--namejob {
-          font-size: 12px !important;
-        }
-        &--namecompany {
-          font-size: 10px !important;
-        }
-        &--salary {
-          font-size: 10px;
-        }
-        &--location {
-          font-size: 10px;
-        }
+      &__companyName {
+        font-size: 11px !important;
+      }
+      &__salary {
+        font-size: 10px;
+      }
+      &__location {
+        font-size: 10px;
       }
     }
   }

@@ -2,27 +2,17 @@ import { Fragment, useState } from 'react'
 import { selectedJobs, selectedStatus } from 'features/Jobs/slices/selectors'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { Pagination } from 'antd'
 import classes from './style.module.scss'
-import JobSearchItem from 'features/Jobs/components/JobSearchItem'
 import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
 import ModalSignIn from 'components/ModalSignIn'
+import NotFoundData from 'components/NotFoundData'
+import PaginationWrap from 'components/PaginationWrap'
 
 const JobSearchList = ({ employer }) => {
   const { t } = useTranslation()
   const jobsSearch = useSelector(selectedJobs)
   const loading = useSelector(selectedStatus)
-  const [value, setValue] = useState({ min: 0, max: 5 })
   const [showModal, setShowModal] = useState(false)
-  const numEachPage = 5
-
-  const handleChangePage = (val) => {
-    setValue({
-      min: (val - 1) * numEachPage,
-      max: val * numEachPage,
-    })
-  }
 
   const onCloseModal = () => setShowModal(false)
 
@@ -45,23 +35,13 @@ const JobSearchList = ({ employer }) => {
             {jobsSearch.length === 0 ? (
               <NotFoundData title={t('There are currently no jobs matching your criteria')} />
             ) : (
-              jobsSearch.slice(value.min, value.max).map((job) => {
-                return (
-                  <JobSearchItem
-                    setShowModal={setShowModal}
-                    key={job.slug}
-                    job={job}
-                    employer={employer}
-                  />
-                )
-              })
+              <PaginationWrap
+                array={jobsSearch}
+                setShowModal={setShowModal}
+                employer={employer}
+                isJob
+              />
             )}
-            <Pagination
-              defaultCurrent={1}
-              defaultPageSize={numEachPage}
-              onChange={handleChangePage}
-              total={jobsSearch.length}
-            />
           </Fragment>
         )}
       </div>

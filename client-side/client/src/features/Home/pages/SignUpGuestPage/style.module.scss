@@ -7,33 +7,24 @@
   justify-content: center;
   align-items: center;
 
-  &__wrapped {
-    &--form {
-      width: 100%;
+  &__wrapped-signin {
+    margin: 30px 0;
+    text-align: center;
+
+    & > span {
+      font-weight: 400;
     }
+  }
 
-    &--social {
-      text-align: center;
-      font-weight: 700;
-      margin-top: 20px;
-
-      & > span {
-        font-weight: 400;
-      }
-
-      & > a {
-        text-decoration: underline;
-      }
-    }
+  &__wrapped-form {
+    width: 100%;
   }
 }
 
 @media screen and (max-width: 400px) {
   .signup {
-    &__wrapped {
-      &--social {
-        font-size: $text-sm;
-      }
+    &__wrapped-signin {
+      margin: 20px 0;
     }
   }
 }

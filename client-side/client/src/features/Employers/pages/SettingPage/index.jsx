@@ -1,7 +1,7 @@
 import { FiLock } from 'react-icons/fi'
 import { logoutEmployer } from 'features/HomeEmployers/slices'
 import { schemaChangePass } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { updatePassEmployer } from 'features/Employers/api/employer.api'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
@@ -17,7 +17,7 @@ import LabelField from 'custom-fields/LabelField'
 import notification from 'components/Notification'
 
 const SettingPage = () => {
-  scrollToTop()
+  ScrollToTop()
 
   const { t } = useTranslation()
   useTitle(`${t('Settings')}`)
@@ -52,10 +52,10 @@ const SettingPage = () => {
   return (
     <div className={classes.employerSetting}>
       <div className={classes.employerSetting__wrapped}>
-        <div className={classes.titleDashboard}>{t('Employer account settings')}</div>
-        <div className={classes.subTitleDashboard}>
-          {t('Change login password')} <span>(*: {t('Compulsory')})</span>
+        <div className={classes.titleDashboard}>
+          {t('Employer account settings')} <span>(*: {t('Compulsory')})</span>
         </div>
+        <div className={classes.subTitleDashboard}>{t('Change login password')}</div>
         <form
           className={classes['employerSetting__wrapped--changePass']}
           onSubmit={handleSubmit(submitChangePassHandler)}

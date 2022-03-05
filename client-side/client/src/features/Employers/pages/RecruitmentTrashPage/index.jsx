@@ -2,7 +2,7 @@ import { selectJobTrash, selectedStatus } from 'features/Employers/slices/select
 import { fetchJobDeletedAsync } from 'features/Employers/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
 import { restoreJob } from 'features/Employers/api/employer.api'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
@@ -13,7 +13,7 @@ import NotFoundData from 'components/NotFoundData'
 import notification from 'components/Notification'
 
 const RecruitmentTrashPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const jobTrash = useSelector(selectJobTrash)

@@ -4,32 +4,30 @@
   color: $primary-text;
   padding: $pm-24;
 
-  &__container {
-    &--title {
-      font-size: $text-3xl;
-      font-weight: 700;
-      margin-bottom: 15px;
-      text-align: center;
-    }
+  &__title {
+    font-size: $text-3xl;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-align: center;
+  }
 
-    &--wrapped {
-      border: 1px solid #e8e8e8;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-      display: flex;
-      margin: auto;
-      max-width: 1170px;
+  &__wrapped {
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    display: flex;
+    margin: auto;
+    max-width: 1170px;
+  }
 
-      &--column-left {
-        border-right: 1px solid #e8e8e8;
-        display: flex;
-        width: 50%;
-      }
+  &__wrapped-left {
+    border-right: 1px solid #e8e8e8;
+    display: flex;
+    width: 50%;
+  }
 
-      &--column-right {
-        padding: 30px 50px;
-        width: 50%;
-      }
-    }
+  &__wrapped-right {
+    padding: 30px 50px;
+    width: 50%;
   }
 }
 
@@ -37,10 +35,8 @@
   .auth {
     padding: $pm-32;
 
-    &__container {
-      &--title {
-        font-size: $text-2xl;
-      }
+    &__title {
+      font-size: $text-2xl;
     }
   }
 }
@@ -49,22 +45,21 @@
   .auth {
     padding: $pm-24;
 
-    &__container {
-      &--title {
-        font-size: $text-xl;
-      }
+    &__title {
+      font-size: $text-xl;
+    }
 
-      &--wrapped {
-        display: block;
+    &__wrapped {
+      display: block;
+    }
 
-        &--column-left {
-          display: none;
-        }
-        &--column-right {
-          padding: 10px 30px;
-          width: 100%;
-        }
-      }
+    &__wrapped-left {
+      display: none;
+    }
+
+    &__wrapped-right {
+      padding: 10px 30px;
+      width: 100%;
     }
   }
 }
@@ -73,22 +68,21 @@
   .auth {
     padding: $pm-20;
 
-    &__container {
-      &--title {
-        font-size: $text-lg;
-      }
+    &__title {
+      font-size: $text-lg;
+    }
 
-      &--wrapped {
-        display: block;
+    &__wrapped {
+      display: block;
+    }
 
-        &--column-left {
-          display: none;
-        }
-        &--column-right {
-          width: 100%;
-          padding: 10px 30px;
-        }
-      }
+    &__wrapped-left {
+      display: none;
+    }
+
+    &__wrapped-right {
+      width: 100%;
+      padding: 10px 30px;
     }
   }
 }
@@ -97,22 +91,21 @@
   .auth {
     padding: $pm-16;
 
-    &__container {
-      &--title {
-        font-size: $text-base;
-      }
+    &__title {
+      font-size: $text-base;
+    }
 
-      &--wrapped {
-        display: block;
+    &__wrapped {
+      display: block;
+    }
 
-        &--column-left {
-          display: none;
-        }
-        &--column-right {
-          width: 100%;
-          padding: 0 10px;
-        }
-      }
+    &__wrapped-left {
+      display: none;
+    }
+
+    &__wrapped-right {
+      width: 100%;
+      padding: 0 10px;
     }
   }
 }

@@ -62,13 +62,14 @@ const TableParticipantsEvent = ({ participants, onSelect }) => {
   ]
 
   const data = participants.map((participantItem) => {
-    const { id, fullName, phone, createdAt, status, interestingField, participant } =
+    const { id, fullName, phone, createdAt, status, interestingField, participant, address } =
       participantItem
+
     return {
       key: id,
       fullName: fullName,
       dob: moment(participant.DOB).format(dateFormatPicker),
-      address: `${participant.address.street}, ${participant.address.ward}, ${participant.address.district}, ${participant.address.city}`,
+      address: `${address.street}, ${address.ward}, ${address.district}, ${address.city}`,
       phone: phone,
       email: participant.email,
       interestingField: interestingField.length > 0 ? interestingField.join(', ') : 'Không có',

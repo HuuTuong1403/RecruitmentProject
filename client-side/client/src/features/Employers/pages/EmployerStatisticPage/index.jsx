@@ -4,7 +4,7 @@ import {
   fetchApplicationSumStatistic,
   fetchParticipantSumStatistic,
 } from 'features/Employers/api/employer.api'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { useEffect, useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
@@ -14,7 +14,7 @@ import LoadingSuspense from 'components/Loading'
 import StatisticCardItem from 'features/Employers/components/StatisticCardItem'
 
 const EmployerStatisticPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const [dataApplication, setDataApplication] = useState([])
   const [dataParticipant, setDataParticipant] = useState([])

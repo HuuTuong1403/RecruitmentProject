@@ -8,6 +8,7 @@
 
   &:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
   }
 
   &__wrapped {
@@ -28,78 +29,80 @@
 
   &__top {
     height: 200px;
+  }
 
-    &--wrapped {
-      position: relative;
-      &--slider {
-        z-index: -1;
-        position: absolute;
-        display: block;
-        top: 0;
-        left: 0;
-        right: 0;
-      }
+  &__top-wrapped {
+    position: relative;
+  }
 
-      &--logo {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-      }
-    }
+  &__top-slider {
+    z-index: -1;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &__top-logo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
   }
 
   &__bottom {
     padding: $pm-10;
+  }
 
-    &--eventName {
-      display: flex;
-      justify-content: space-between;
+  &__bottom-eventName {
+    display: flex;
+    justify-content: space-between;
 
-      &--link {
-        flex: 0 0 90%;
-        font-weight: bold;
-        text-transform: uppercase;
-      }
-
-      &--icon {
-        font-size: $text-2xl;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-
-        &:hover {
-          background-color: #e8e8e8;
-          border-radius: 50%;
-        }
-      }
+    &__link {
+      flex: 1;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: $text-base !important;
     }
 
-    &--field {
-      font-size: $text-base;
-      margin-top: $pm-2;
+    &__icon {
+      font-size: $text-2xl;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
 
-      & > span {
-        font-weight: bold;
-        color: $primary-text;
+      &:hover {
+        background-color: #e8e8e8;
+        border-radius: 50%;
       }
+    }
+  }
 
-      & > a {
-        font-weight: bold;
+  &__bottom-field {
+    font-size: $text-base;
+    margin-top: $pm-2;
 
-        &:hover {
-          text-decoration: none !important;
-        }
+    & > span {
+      font-weight: bold;
+      color: $primary-text;
+    }
+
+    & > a {
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: none !important;
       }
     }
   }
 
   &__listTile {
     font-size: $text-base;
+  }
 
-    &--icon {
-      font-size: $text-xl;
-      vertical-align: text-bottom;
-      margin-right: $pm-8;
-    }
+  &__listTile-icon {
+    font-size: $text-xl;
+    vertical-align: text-bottom;
+    margin-right: $pm-8;
   }
 }
 

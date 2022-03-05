@@ -13,15 +13,15 @@ const JobList = () => {
   return (
     <div className={classes.joblist}>
       <div className={classes.joblist__container}>
-        <div className={classes['joblist__container--title']}>
+        <div className={classes['joblist__container-title']}>
           <div>{t('home-news-recruiment')}</div>
-          <Link className={classes['joblist__container--title--all']} to="/jobs/search?type=all">
+          <Link className={classes['joblist__container-title--all']} to="/jobs/search?type=all">
             {t('seeAll')}
           </Link>
         </div>
         <Slider style={{ width: '85%' }} {...settings}>
-          {jobs.map((job) => {
-            return <JobItem key={job._id} job={job} />
+          {jobs.map((job, index) => {
+            return index < 27 && <JobItem key={job._id} job={job} />
           })}
         </Slider>
       </div>

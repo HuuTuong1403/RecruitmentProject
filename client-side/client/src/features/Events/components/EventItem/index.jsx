@@ -1,7 +1,6 @@
 import { dateFormatISO8601, dateFormatHourMinute } from 'common/constants/dateFormat'
 import { FaUsers } from 'react-icons/fa'
 import { IoMdTime } from 'react-icons/io'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import moment from 'moment'
@@ -41,15 +40,24 @@ const EventItem = ({ event }) => {
           <div className={`${classes.isNew} ${classes['eventItem__wrapped--new']}`}>{t('New')}</div>
         )}
         <div className={classes.imageItem}>
-          <Link to={`/jobs/employer/${company?.companyName}`}>
+          <a href={`/jobs/employer/${company?.companyName}`} target="_blank" rel="noreferrer">
             <img src={company?.logo} alt="" />
-          </Link>
+          </a>
         </div>
         <div className={classes.eventItem__content}>
-          <div className={classes['eventItem__content--eventName']}>
-            <Link to={`/events/view/${slug}`}>{eventName}</Link>
+          <div className={classes['eventItem__content__head']}>
+            <div className={classes['eventItem__content__head-eventName']}>
+              <a
+                className={`${classes.link} ${classes.bold} ${classes['link-fz-18']}`}
+                href={`/events/view/${slug}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {eventName}
+              </a>
+            </div>
             <div>
-              <IoMdTime className={classes.eventItem__icon} />
+              <IoMdTime className={classes['icon-gb-18']} />
               {aboutCreated
                 .split(' ')
                 .map((string) => t(string))
@@ -57,21 +65,21 @@ const EventItem = ({ event }) => {
             </div>
           </div>
 
-          <div className={classes['eventItem__content--field']}>
+          <div className={classes['eventItem__content__field']}>
             <div>
               {t('Event topic')}: <span>{topic}</span>
             </div>
             <div>
               {t('Event status')}: <span>{t('Event')}</span>{' '}
-              <span className={classes['eventItem__content--field--status']}>{t(status)}</span>
+              <span className={classes['eventItem__content__field--status']}>{t(status)}</span>
             </div>
           </div>
 
-          <div className={classes['eventItem__content--time']}>
+          <div className={classes['eventItem__content__time']}>
             {t('Event organizer')}: <span>{eventOrganizer}</span>
           </div>
 
-          <div className={classes['eventItem__content--time']}>
+          <div className={classes['eventItem__content__time']}>
             {t('Event time')}:{' '}
             <span>
               {t('From')} {start}
@@ -82,7 +90,7 @@ const EventItem = ({ event }) => {
             </span>
           </div>
 
-          <div className={classes['eventItem__content--field']}>
+          <div className={classes['eventItem__content__field']}>
             <div>
               {t('Event venue')}: <span>{location}</span>
             </div>
@@ -91,7 +99,7 @@ const EventItem = ({ event }) => {
               <span>
                 {participantQuantity}/{participantMax}
               </span>{' '}
-              <FaUsers className={classes.eventItem__icon} />
+              <FaUsers className={classes['icon-gb-18']} />
             </div>
           </div>
         </div>

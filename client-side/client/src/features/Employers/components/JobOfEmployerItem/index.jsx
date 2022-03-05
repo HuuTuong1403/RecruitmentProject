@@ -4,7 +4,6 @@ import { dateFormatPicker } from 'common/constants/dateFormat'
 import { fetchJobDetailOfEmployerAsync } from 'features/Employers/slices/thunks'
 import { handChangeJobSlug } from 'features/Employers/slices'
 import { IoMdCalendar, IoMdEye, IoMdTime } from 'react-icons/io'
-import { Link, useHistory } from 'react-router-dom'
 import { MdDelete, MdDeleteForever, MdEdit, MdLocationOn, MdRestore } from 'react-icons/md'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
 import { selectJobSlug } from 'features/Employers/slices/selectors'
@@ -35,7 +34,6 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
 
   const { t } = useTranslation()
   const [showModal, setShhowModal] = useState(false)
-  const history = useHistory()
   const dispatch = useDispatch()
   const slugState = useSelector(selectJobSlug)
   const [selectSkill, setSelectSkill] = useState([])
@@ -63,7 +61,9 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
   wards.unshift({ label: `${t('choose-ward')}`, value: '' })
 
   const handleShowDetail = () => {
-    history.push(`/jobs/${slug}`)
+    // history.push(`/jobs/${slug}`)
+    const jobNewTab = window.open(`/jobs/${slug}`, '_blank')
+    jobNewTab.focus()
   }
 
   const onOpenModal = () => {
@@ -101,14 +101,19 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
           {status && (
             <div className={`${classNameStatus} ${classes['item__top--status']}`}>{t(status)}</div>
           )}
-          <img className={classes['item__top--logo']} src={company?.logo} alt={company?.logo} />
+          <img className={classes['item__top-logo']} src={company?.logo} alt={company?.logo} />
         </div>
         <div className={classes.item__bottom}>
-          <Link to={`/jobs/${slug}`} className={`${classes.titleItem} ${classes.hideText}`}>
+          <a
+            href={`/jobs/${slug}`}
+            className={`${classes.titleItem} ${classes['link-one-line']} `}
+            target="_blank"
+            rel="noreferrer"
+          >
             {jobTitle}
-          </Link>
+          </a>
           {salary && (
-            <div className={classes['item__bottom--salary']}>
+            <div className={classes['item__bottom-salary']}>
               <BiDollarCircle style={{ marginRight: '5px' }} />
               {`${t('Salary')}: ${
                 salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)
@@ -129,7 +134,7 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
             <IoMdCalendar style={{ marginRight: '5px' }} />
             {`${t('Deadline to apply')}: ${moment(finishDate).format(dateFormatPicker)}`}
           </div>
-          <div className={classes['item__wrapped--aboutCreated']}>
+          <div>
             <IoMdTime style={{ marginRight: '5px' }} />
             {`${t('Posted')} ${aboutCreated
               .split(' ')
@@ -150,7 +155,7 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
           />
 
           {isTrash ? (
-            <div className={classes['item__bottom--actionsTrash']}>
+            <div className={classes['item__bottom-actionsTrash']}>
               <ButtonField backgroundcolor="#dd4b39" backgroundcolorhover="#ff7875" padding="2px">
                 <MdDeleteForever className={classes.item__icon} />
                 {t('Delete permanently')}
@@ -171,7 +176,7 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
               </PopoverField>
             </div>
           ) : (
-            <div className={classes['item__bottom--actions']}>
+            <div className={classes['item__bottom-actions']}>
               <ButtonField
                 backgroundcolor="#0a426e"
                 backgroundcolorhover="#0a436ead"
@@ -181,15 +186,17 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
                 <IoMdEye className={classes.item__icon} />
                 {t('Details')}
               </ButtonField>
-              <ButtonField
-                backgroundcolor="#067951"
-                backgroundcolorhover="#2baa7e"
-                onClick={onOpenModal}
-                padding="2px"
-              >
-                <MdEdit className={classes.item__icon} />
-                {t('Edit')}
-              </ButtonField>
+              {status !== 'approval' && (
+                <ButtonField
+                  backgroundcolor="#067951"
+                  backgroundcolorhover="#2baa7e"
+                  onClick={onOpenModal}
+                  padding="2px"
+                >
+                  <MdEdit className={classes.item__icon} />
+                  {t('Edit')}
+                </ButtonField>
+              )}
               <PopoverField
                 title={t('Confirm move job postings to trash')}
                 subTitle={t('Do you want to  move this job postings to trash?')}

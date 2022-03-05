@@ -90,16 +90,21 @@ const ModalSignIn = ({ onCloseModal, showModal }) => {
               errors={errors.password?.message}
               icon={<FiLock />}
             />
-            <div className={classes['modalSignIn__formSignIn--link']}>
-              <Link to="/home/forgot-pass">{t('forgotpass')}</Link>
+            <div className={classes.modalSignIn__forgot}>
+              <Link
+                className={`${classes['link']} ${classes['link-fz-14']} ${classes['medium']}`}
+                to="/home/forgot-pass"
+              >
+                {t('forgotpass')}
+              </Link>
             </div>
           </div>
 
           <div className={classes.modalSignIn__actions}>
-            <div className={classes['modalSignIn__actions--social']}>
+            <div className={classes['modalSignIn__actions-social']}>
               {t('Sign in with')}: <FaGooglePlusSquare className={classes.modalSignIn__icon} />
             </div>
-            <div className={classes['modalSignIn__actions--default']}>
+            <div className={classes['modalSignIn__actions-default']}>
               <ButtonField
                 type="submit"
                 backgroundcolor="#0a426e"
@@ -115,7 +120,12 @@ const ModalSignIn = ({ onCloseModal, showModal }) => {
         </form>
         <div className={classes.modalSignIn__signUp}>
           <span>{t('no-account')} </span>
-          <Link to="/home/sign-up">{t('signup')}</Link>
+          <Link
+            className={`${classes['link']} ${classes['link-fz-14']} ${classes['medium']}`}
+            to="/home/sign-up"
+          >
+            {t('signup')}
+          </Link>
         </div>
       </div>
     </Modal>

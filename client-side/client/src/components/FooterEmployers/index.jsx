@@ -13,25 +13,34 @@ const FooterEmployers = () => {
 
   return (
     <footer className={classes.footer}>
-      <div className={classes['footer__bltop']}>
-        <div className={classes['footer__bltop--left']}>
+      <div className={classes['footer__head']}>
+        <div className={classes['footer__head-left']}>
           <img src={MSTLogo} alt="MST LOGO" />
           <ul>
             <li>
-              <a href="/">{t('introduce')}</a>
+              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+                {t('introduce')}
+              </a>
             </li>
             <li>
-              <a href="/">{t('feature')}</a>
+              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+                {t('feature')}
+              </a>
             </li>
             <li>
-              <a href="/">{t('service')}</a>
+              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+                {t('service')}
+              </a>
             </li>
             <li>
-              <a href="/">{t('quote')}</a>
+              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+                {t('quote')}
+              </a>
             </li>
           </ul>
         </div>
-        <div className={classes['footer__bltop--right']}>
+
+        <div className={classes['footer__head-right']}>
           <div>{t('connect now')}</div>
           <a href="https://www.facebook.com" target="_blank" rel="nofollow noopener noreferrer">
             <FaFacebookF />
@@ -39,8 +48,9 @@ const FooterEmployers = () => {
           <img src={DK} alt="Đã đăng ký bộ công thương" />
         </div>
       </div>
-      <div className={classes['footer__blbottom']}>
-        <div className={classes['footer__blbottom--top']}>
+
+      <div className={classes['footer__bottom']}>
+        <div className={classes['footer__bottom-top']}>
           {footerHomeEmployerList.map((item) => (
             <div key={item.titleFooter}>
               <h3>{t(item.titleFooter)}</h3>
@@ -48,10 +58,13 @@ const FooterEmployers = () => {
                 {item.contentFooter.map((itemContent) => (
                   <li key={itemContent.title}>
                     {itemContent.isTagA ? (
-                      <a href={itemContent.href}>
+                      <a
+                        href={itemContent.href}
+                        className={`${classes['link']} ${classes['link-fz-16']}`}
+                      >
                         {itemContent.isPhone && (
                           <Fragment>
-                            <MdPhone />
+                            <MdPhone className={classes['icon-gb-18']} />
                             {itemContent.title
                               .split(' ')
                               .map((item) => (item === 'Phone' ? t(item) : item))
@@ -60,13 +73,18 @@ const FooterEmployers = () => {
                         )}
                         {itemContent.isMail && (
                           <Fragment>
-                            <IoMdMail />
+                            <IoMdMail className={classes['icon-gb-18']} />
                             {itemContent.title}
                           </Fragment>
                         )}
                       </a>
                     ) : (
-                      <Link to={itemContent.href}>{t(itemContent.title)}</Link>
+                      <Link
+                        className={`${classes['link']} ${classes['link-fz-16']}`}
+                        to={itemContent.href}
+                      >
+                        {t(itemContent.title)}
+                      </Link>
                     )}
                   </li>
                 ))}
@@ -74,7 +92,8 @@ const FooterEmployers = () => {
             </div>
           ))}
         </div>
-        <div className={classes['footer__blbottom--bottom']}>
+
+        <div className={classes['footer__bottom-bottom']}>
           <p>
             <strong>{t('Service Joint Stock Company')}</strong>
           </p>

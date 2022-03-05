@@ -6,7 +6,7 @@ import {
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { getDetailJobSeekerAsync } from 'features/JobSeekers/slices/thunks'
 import { schemaUpdateProfileJobSeeker } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectedJobSeekerProfile, selectedStatus } from 'features/JobSeekers/slices/selectors'
 import { updateProfileJobSeeker } from 'features/JobSeekers/api/jobSeeker.api'
 import { useForm } from 'react-hook-form'
@@ -27,7 +27,7 @@ import SelectLocationField from 'custom-fields/SelectLocationField'
 import LoadingSuspense from 'components/Loading'
 
 const UserProfilePage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Account Management')}`)
 
@@ -74,10 +74,11 @@ const UserProfilePage = () => {
   const handleUpdateProfile = async (dataUpdateProfile) => {
     setLoading(true)
     const { city, district, ward, street, DOB, fullname, phone } = dataUpdateProfile
+
     if (
       !avatar &&
-      moment(DOB).format(dateFormatPicker) ===
-        moment(detailJobSeeker?.DOB).format(dateFormatPicker) &&
+      moment(new Date(detailJobSeeker?.DOB)).format(dateFormatPicker) ===
+        moment(DOB).format(dateFormatPicker) &&
       city === detailJobSeeker?.address?.city &&
       district === detailJobSeeker?.address?.district &&
       ward === detailJobSeeker?.address?.ward &&
@@ -88,15 +89,11 @@ const UserProfilePage = () => {
       setLoading(false)
       notification(`${t('Updated data unchanged')}`, 'error')
     } else {
-      let date
-      if (
-        moment(DOB).format(dateFormatPicker) ===
-        moment(detailJobSeeker?.DOB).format(dateFormatPicker)
-      ) {
-        date = moment(detailJobSeeker?.DOB).format(dateFormatSendServer)
-      } else {
-        date = moment(DOB).format(dateFormatSendServer)
-      }
+      const date =
+        moment(new Date(detailJobSeeker?.DOB)).format(dateFormatPicker) ===
+        moment(new Date(DOB)).format(dateFormatPicker)
+          ? moment(detailJobSeeker?.DOB).format(dateFormatSendServer)
+          : moment(DOB, dateFormatPicker).format(dateFormatSendServer)
 
       const payload = new FormData()
       payload.append('address[city]', city)

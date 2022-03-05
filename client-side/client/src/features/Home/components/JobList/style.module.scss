@@ -10,50 +10,50 @@
     flex-wrap: wrap;
     padding: 0 0 $pm-24 0;
     background-color: $fifth-color;
+  }
 
-    &--title {
-      display: inline;
-      width: 100%;
-      font-weight: 600;
+  &__container-title {
+    display: inline;
+    width: 100%;
+    font-weight: 600;
+    color: $primary-text;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 24px;
+    background-color: #e8e8e8;
+    text-transform: uppercase;
+    position: relative;
+
+    & > div {
+      max-width: 70%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &--all {
+      position: absolute;
+      right: 1%;
+      top: 25%;
+      font-size: 14px !important;
+      text-transform: none;
       color: $primary-text;
-      padding: 10px;
-      margin-bottom: 10px;
-      font-size: 24px;
-      background-color: #e8e8e8;
-      text-transform: uppercase;
-      position: relative;
 
-      & > div {
-        max-width: 70%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      &:hover,
+      &:focus {
+        color: $third-text;
       }
 
-      &--all {
-        position: absolute;
-        right: 1%;
-        top: 25%;
-        font-size: 14px !important;
-        text-transform: none;
-        color: $primary-text;
-
-        &:hover,
-        &:focus {
-          color: $third-text;
-        }
-
-        &::after {
-          content: '→';
-          margin-left: 5px;
-          font-size: 17px;
-        }
+      &::after {
+        content: '→';
+        margin-left: 5px;
+        font-size: 17px;
       }
     }
   }
 }
 
-@media screen and (min-width: 800px) and (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .joblist {
     padding: $pm-20;
   }
@@ -63,18 +63,16 @@
   .joblist {
     padding: $pm-20;
 
-    &__container {
-      &--title {
-        font-size: 14px;
+    &__container-title {
+      font-size: 14px;
 
-        &--all {
-          right: 1%;
-          top: 20%;
-          font-size: 12px !important;
+      &--all {
+        right: 1%;
+        top: 20%;
+        font-size: 12px !important;
 
-          &::after {
-            font-size: 15px;
-          }
+        &::after {
+          font-size: 15px;
         }
       }
     }

@@ -3,7 +3,6 @@ import { BiDollarCircle } from 'react-icons/bi'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaBuilding } from 'react-icons/fa'
 import { IoMdCalendar, IoMdTime } from 'react-icons/io'
-import { Link } from 'react-router-dom'
 import { MdLocationOn, MdDeleteForever } from 'react-icons/md'
 import { removeFavoriteJob } from 'features/JobSeekers/api/jobSeeker.api'
 import { removeJobOfFavorire } from 'features/JobSeekers/slices'
@@ -37,57 +36,75 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
 
   return (
     <div className={classes.jobItem}>
-      <div className={classes.jobItem__figure}>
-        {isNew && <div className={classes['jobItem__figure--new']}>{t('New')}</div>}
+      <div className={classes.jobItem__container}>
+        {isNew && <div className={`${classes.isNew} ${classes['jobItem--new']}`}>{t('New')}</div>}
         {company && (
-          <div className={classes['jobItem__figure--image']}>
-            <Link to={`/jobs/employer/${company.companyName}`}>
+          <div className={classes['jobItem__container-img']}>
+            <a href={`/jobs/employer/${company.companyName}`} target="_blank" rel="noreferrer">
               <img src={company.logo} alt="" />
-            </Link>
+            </a>
           </div>
         )}
-        <div className={classes['jobItem__figure--figcaption']}>
-          <div className={classes['jobItem__figure--figcaption--jobTitle']}>
-            <Link to={`/jobs/${slug}`}>{jobTitle}</Link>
+        <div className={classes['jobItem__container-content']}>
+          <div className={classes['jobItem__container-content__head']}>
+            <div className={classes['jobItem__container-content__head__jobTitle']}>
+              <a
+                className={`${classes.link} ${classes.bold} ${classes['link-fz-18']}`}
+                href={`/jobs/${slug}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {jobTitle}
+              </a>
+            </div>
             <div>
-              <IoMdTime style={{ marginRight: '5px', fontSize: '18px' }} />
+              <IoMdTime className={classes['icon-gb-18']} />
               {aboutCreated
                 .split(' ')
                 .map((string) => t(string))
                 .join(' ')}
             </div>
           </div>
-          <div className={classes['jobItem__figure--figcaption--companyName']}>
-            <Link to={`/jobs/employer/${company?.companyName}`}>
-              <FaBuilding style={{ marginRight: '5px' }} />
+
+          <div className={classes['jobItem__container-content__companyName']}>
+            <a
+              className={`${classes['link-no-border']} ${classes['link-fz-16']}`}
+              href={`/jobs/employer/${company?.companyName}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FaBuilding className={classes['icon-gb-18']} />
               {company?.companyName}
-            </Link>
+            </a>
           </div>
-          <div className={classes['jobItem__figure--figcaption--salary']}>
+
+          <div className={classes['jobItem__container-content__salary']}>
             <div>
-              <BiDollarCircle style={{ marginRight: '5px' }} />
+              <BiDollarCircle className={classes['icon-gb-18']} />
               {t('Salary')}:{' '}
               {salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)}
             </div>
             <div>
-              <MdLocationOn style={{ marginRight: '5px' }} />
+              <MdLocationOn className={classes['icon-gb-18']} />
               {location.city}
             </div>
           </div>
-          <div className={classes['jobItem__figure--figcaption--date']}>
+
+          <div className={classes['jobItem__container-content__date']}>
             {!isApplied ? (
               <div>
-                <IoMdCalendar style={{ marginRight: '5px', fontSize: '18px' }} />
+                <IoMdCalendar className={classes['icon-gb-18']} />
                 {t('expiration date')}: {moment(finishDate).format(dateFormatPicker)}
               </div>
             ) : (
               <div>
-                <IoMdCalendar style={{ marginRight: '5px', fontSize: '18px' }} />
+                <IoMdCalendar className={classes['icon-gb-18']} />
                 {t('Submission date')}: {moment(createdAt).format(dateFormatPicker)}
               </div>
             )}
           </div>
-          <div className={classes['jobItem__figure--figcaption--action']}>
+
+          <div className={classes['jobItem__container-content__action']}>
             {isApplied ? (
               <ButtonField
                 backgroundcolor="#324554"

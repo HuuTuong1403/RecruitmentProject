@@ -1,5 +1,5 @@
 import { forgotPassEmployer } from 'features/HomeEmployers/api/homeEmployer.api'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -11,7 +11,7 @@ import notification from 'components/Notification'
 import SendMail from 'components/SendMail'
 
 const ForgotPassEmployerPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const history = useHistory()

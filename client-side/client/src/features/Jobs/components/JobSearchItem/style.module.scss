@@ -3,150 +3,133 @@
 
 .searchItem {
   margin-bottom: $pm-20;
+  transition: all 0.2s linear;
 
-  &__figure {
+  &:hover,
+  &:focus {
+    transform: translateY(-2px);
+  }
+}
+
+.searchItem-wrap {
+  display: flex;
+  overflow: hidden;
+  padding: 15px;
+  border: 1px solid #e5e5e5;
+  position: relative;
+
+  &--new {
+    bottom: 0;
+    right: 0;
+    border-top-left-radius: 10px;
+  }
+}
+
+.imageItem {
+  position: relative;
+
+  &__overlay {
+    background-color: rgba(232, 236, 241, 0.8);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 4px;
+  }
+
+  &--expired {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: red !important;
+    font-weight: 600;
+    font-size: $text-lg;
+    text-transform: capitalize;
+  }
+}
+
+.searchItem-block-right {
+  padding-left: 15px;
+  width: 100%;
+
+  &__header {
     display: flex;
-    overflow: hidden;
-    padding: 15px;
-    border: 1px solid #e5e5e5;
-    position: relative;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    &--new {
-      bottom: 0;
-      right: 0;
-      border-top-left-radius: 10px;
-    }
+  &__header-left {
+    flex: 1;
+  }
 
-    &--figcaption {
-      padding-left: 15px;
-      width: 100%;
+  &__companyName {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: $pm-4 0;
 
-      &--jobTitle {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
+    & > div {
+      cursor: pointer;
+      transition: all 0.25s ease-in-out;
 
-        & > a {
-          flex: 0 0 75%;
-          color: $primary-text;
-          font-weight: 700;
-          font-size: $text-xl !important;
-          overflow: hidden;
-          text-overflow: ellipsis;
-
-          &:hover {
-            color: $third-text;
-          }
-        }
-      }
-
-      &--companyName {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin: $pm-6 0;
-
-        & > a {
-          color: $primary-text;
-          font-size: $text-lg !important;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-
-          &:hover {
-            color: $third-text;
-          }
-        }
-
-        & > div {
-          cursor: pointer;
-          transition: all 0.3s ease-in-out;
-
-          &:hover {
-            font-weight: 600;
-          }
-        }
-      }
-
-      &--salary {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-
-        & > div:first-child {
-          color: #008563;
-        }
-      }
-
-      &--skill {
-        margin: $pm-6 0;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 5px;
-
-        & > span {
-          margin-right: 3px;
-        }
-
-        & > a {
-          font-size: $text-sm !important;
-
-          &:hover {
-            color: $third-text !important;
-            text-decoration: none;
-          }
-        }
-      }
-
-      &--date {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      &:hover {
+        color: red;
       }
     }
+  }
+
+  &__salary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    & > div:first-child {
+      color: #008563;
+    }
+  }
+
+  &__skill {
+    margin: $pm-4 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    & > span {
+      margin-right: 3px;
+    }
+  }
+
+  &__date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $pm-6;
   }
 }
 
 @media screen and (max-width: 700px) {
   .searchItem {
     margin-bottom: $pm-20;
+  }
 
-    &__figure {
-      &--figcaption {
-        padding-left: 0;
-        font-size: $text-sm;
+  .searchItem-block-right {
+    padding-left: 0;
+    font-size: $text-sm;
 
-        &--jobTitle {
-          & > a {
-            font-size: $text-base !important;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
+    &__companyName {
+      margin: $pm-4 0;
+    }
 
-        &--companyName {
-          margin: $pm-4 0;
+    &__date {
+      display: block;
 
-          & > a {
-            font-size: $text-sm !important;
-          }
-        }
-
-        &--date {
-          display: block;
-
-          & > div {
-            margin-bottom: $pm-4;
-          }
-
-          & > div > svg {
-            font-size: 15px !important;
-          }
-        }
+      & > div {
+        margin-bottom: $pm-4;
       }
     }
   }
@@ -155,57 +138,32 @@
 @media screen and (max-width: 440px) {
   .searchItem {
     margin-bottom: $pm-20;
+  }
 
-    &__figure {
-      &--figcaption {
-        padding-left: 0;
-        font-size: $text-xs;
+  .searchItem-block-right {
+    padding-left: 0;
+    font-size: $text-xs;
 
-        &--jobTitle {
-          & > a {
-            font-size: $text-sm !important;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            flex: 0 0 100%;
-          }
-        }
+    &__header {
+      gap: 2px;
+    }
 
-        &--companyName {
-          margin: $pm-4 0;
+    &__header-left {
+      flex: 0 0 100%;
+    }
 
-          & > a {
-            font-size: $text-xs !important;
-          }
-        }
+    &__companyName {
+      margin: $pm-4 0;
+      gap: 2px;
+    }
 
-        &--skill {
-          & > a {
-            font-size: $text-xs !important;
-          }
-        }
+    &__salary {
+      & > div {
+        flex: 0 0 100%;
+      }
 
-        &--salary {
-          & > div {
-            flex: 0 0 100%;
-          }
-
-          & > div:last-child {
-            margin-top: $pm-6;
-          }
-        }
-
-        &--date {
-          display: block;
-
-          & > div {
-            margin-bottom: $pm-4;
-          }
-
-          & > div > svg {
-            font-size: 15px !important;
-          }
-        }
+      & > div:last-child {
+        margin-top: $pm-6;
       }
     }
   }

@@ -4,104 +4,111 @@
   padding: $pm-64 0;
   background-color: #d9edee;
 
-  &__content {
-    display: table;
+  &__wrapped {
+    padding: 0 $pm-48;
+  }
 
-    &--map {
+  &__jobActiveList {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: $pm-10;
+    gap: 20px;
+    background-color: #fff;
+  }
+
+  &__reviewList {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: $pm-10;
+    background-color: #fff;
+
+    &__recommend {
+      font-weight: 500;
       font-size: $text-lg;
-      background-color: #fff;
-      float: right;
-      width: 30%;
-      background-color: white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-      border-radius: 5px;
-      padding: $pm-10;
 
-      &--title {
-        border-bottom: 1px solid #e6e6e6;
-        padding-bottom: $pm-10;
-        font-size: $text-base;
-        text-align: center;
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-
-      &--iframe {
-        width: 100%;
-        height: 300px;
-      }
-
-      &--location {
-        line-height: 20px;
-        font-size: $text-base;
+      &--work {
         color: $primary-text;
-        margin: $pm-10 0;
+      }
+
+      &--no-work {
+        color: #eb3939;
       }
     }
 
-    &--description {
-      width: 68%;
-      float: left;
-      font-size: $text-base;
-      padding: $pm-20;
-      background-color: #fff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-      border-radius: 10px;
+    &__rating {
+      font-size: $text-3xl;
+      font-weight: 500;
+      color: #4287f5;
+      vertical-align: sub;
+      margin-right: $pm-10;
+    }
+
+    &__statistic {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    &__quantity {
+      border-bottom: 1px solid lightgrey;
+      font-size: $text-2xl;
+      margin: $pm-10 0;
     }
   }
 
-  &__wrapped {
-    padding: 0 $pm-48;
+  &__title {
+    text-transform: uppercase;
+    font-size: $text-xl;
+    font-weight: 700;
+    margin: $pm-24 0 $pm-10 0;
+  }
 
-    &--title {
+  &__content {
+    display: table;
+  }
+
+  &__content-description {
+    width: 68%;
+    float: left;
+    font-size: $text-base;
+    padding: $pm-20;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+  }
+
+  &__content-map {
+    font-size: $text-lg;
+    background-color: #fff;
+    float: right;
+    width: 30%;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    &__title {
+      border-bottom: 1px solid #e6e6e6;
+      padding: $pm-10;
+      font-size: $text-base;
+      text-align: center;
       text-transform: uppercase;
-      font-size: $text-xl;
-      font-weight: 700;
-      margin: $pm-24 0 $pm-10 0;
+      font-weight: bold;
     }
 
-    &--jobActiveList {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-      border-radius: 5px;
-      display: flex;
-      flex-wrap: wrap;
-      padding: $pm-10;
-      gap: 30px;
-      background-color: #fff;
+    &__iframe {
+      width: 100%;
+      height: 300px;
     }
 
-    &--reviewList {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-      border-radius: 5px;
+    &__location {
+      line-height: 20px;
+      font-size: $text-base;
+      color: $primary-text;
       padding: $pm-10;
-      background-color: #fff;
-
-      &--rating {
-        font-size: $text-3xl;
-        font-weight: 500;
-        color: #4287f5;
-        vertical-align: sub;
-        margin-right: $pm-10;
-      }
-
-      &--recommend {
-        font-weight: 500;
-        font-size: $text-lg;
-      }
-
-      &--statistic {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-
-      &--quantity {
-        border-bottom: 1px solid lightgrey;
-        font-size: $text-2xl;
-        margin: $pm-10 0;
-      }
     }
   }
 }
@@ -110,31 +117,28 @@
   .companyDetail {
     padding: $pm-32 0;
 
-    &__content {
-      &--map {
-        width: 40%;
-        padding: $pm-10 0 0 0;
+    &__wrapped {
+      padding: 0 $pm-24;
+    }
 
-        &--iframe {
-          width: 100%;
-          height: 300px;
-        }
+    &__content-map {
+      width: 40%;
+      padding: $pm-10 0 0 0;
 
-        &--location {
-          font-size: $text-sm;
-          margin: $pm-10;
-        }
+      &__iframe {
+        width: 100%;
+        height: 300px;
       }
 
-      &--description {
+      &__location {
         font-size: $text-sm;
-        padding: $pm-14;
-        width: 58%;
       }
     }
 
-    &__wrapped {
-      padding: 0 $pm-24;
+    &__content-description {
+      font-size: $text-sm;
+      padding: $pm-14;
+      width: 58%;
     }
   }
 }
@@ -143,54 +147,56 @@
   .companyDetail {
     padding: $pm-24 0;
 
-    &__content {
-      &--map {
-        margin-top: $pm-20;
-        width: 100%;
-        padding: $pm-10 0 0 0;
+    &__wrapped {
+      padding: 0 $pm-16;
+    }
 
-        &--iframe {
-          width: 100%;
-          height: 300px;
-        }
+    &__jobActiveList {
+      gap: 10px;
+    }
 
-        &--location {
-          font-size: $text-sm;
-          margin: $pm-10;
+    &__title {
+      font-size: $text-lg;
+    }
+
+    &__reviewList {
+      &__recommend {
+        font-weight: 500;
+        font-size: $text-base;
+      }
+
+      &__statistic {
+        & div {
+          flex: 0 0 100%;
+          text-align: center;
         }
       }
 
-      &--description {
-        font-size: $text-sm;
-        padding: $pm-8;
-        width: 100%;
+      &__quantity {
+        font-size: $text-lg;
       }
     }
 
-    &__wrapped {
-      padding: 0 $pm-16;
+    &__content-map {
+      margin-top: $pm-20;
+      width: 100%;
+      padding: $pm-10 0 0 0;
 
-      &--title {
-        font-size: $text-lg;
+      &__iframe {
+        width: 100%;
+        height: 300px;
       }
 
-      &--reviewList {
-        &--recommend {
-          font-weight: 500;
-          font-size: $text-base;
-        }
-
-        &--statistic {
-          & div {
-            flex: 0 0 100%;
-            text-align: center;
-          }
-        }
-
-        &--quantity {
-          font-size: $text-lg;
-        }
+      &__location {
+        font-size: $text-sm;
+        margin: $pm-10;
       }
+    }
+
+    &__content-description {
+      font-size: $text-sm;
+      padding: $pm-8;
+      width: 100%;
     }
   }
 }

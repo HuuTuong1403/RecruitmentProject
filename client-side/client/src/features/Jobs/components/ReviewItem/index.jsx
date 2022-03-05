@@ -9,6 +9,7 @@ import { BiDotsHorizontalRounded, BiTrash, BiEdit } from 'react-icons/bi'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { deleteReview } from 'features/JobSeekers/api/jobSeeker.api'
 import { deleteReviewOfCompany } from 'features/Jobs/slices'
+import { fetchCompanyDetailAsync } from 'features/Jobs/slices/thunks'
 import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Rate, Menu, Dropdown } from 'antd'
@@ -36,6 +37,7 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
     if (result.status === 204) {
       notification(`${t('Deleting successful review')}`, 'success')
       dispatch(deleteReviewOfCompany(_id))
+      dispatch(fetchCompanyDetailAsync(companyName))
     } else {
       notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
     }
@@ -47,7 +49,7 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
     <Menu>
       <Menu.Item key="0">
         <div className={classes.reviewItem__listTile}>
-          <BiEdit className={classes['reviewItem__listTile--icon']} />
+          <BiEdit className={classes.reviewItem__listTile__icon} />
           <Link to={`/jobs/employer/${companyName}/review?type=update&id=${_id}`}>
             {t('Edit review')}
           </Link>
@@ -63,7 +65,7 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
           onClickOk={handleDeleteReview}
         >
           <div className={classes.reviewItem__listTile}>
-            <BiTrash className={classes['reviewItem__listTile--icon']} />
+            <BiTrash className={classes.reviewItem__listTile__icon} />
             <span>{t('Delete review')}</span>
           </div>
         </PopoverField>
@@ -75,7 +77,7 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
     <div className={classes.reviewItem}>
       <div className={classes.reviewItem__wrapped}>
         <div className={classes.reviewItem__top}>
-          <div className={classes['reviewItem__top--title']}>{title}</div>
+          <div className={classes.reviewItem__top__title}>{title}</div>
           {currentUser?._id === user._id && (
             <Dropdown
               overlay={menuOfCurrentUser}
@@ -85,7 +87,7 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
               onVisibleChange={(visible) => setVisible(visible)}
               arrow
             >
-              <BiDotsHorizontalRounded className={classes['reviewItem__top--icon']} />
+              <BiDotsHorizontalRounded className={classes.reviewItem__top__icon} />
             </Dropdown>
           )}
         </div>
@@ -99,12 +101,12 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
           </div>
           {rating < 3 ? (
             <div>
-              <AiOutlineDislike className={classes['reviewItem__rating--icon']} />
+              <AiOutlineDislike className={classes.reviewItem__rating__icon} />
               {t('Not recommended')}
             </div>
           ) : (
             <div className={classes['reviewItem__rating--active']}>
-              <AiOutlineLike className={classes['reviewItem__rating--icon']} />
+              <AiOutlineLike className={classes.reviewItem__rating__icon} />
               {t('Recommened')}
             </div>
           )}
@@ -113,17 +115,17 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
         <Fragment>
           {otValue < 3 ? (
             <div style={{ color: 'red' }} className={classes.reviewItem__ot}>
-              <AiOutlineFrown className={classes['reviewItem__ot--icon']} />
+              <AiOutlineFrown className={classes.reviewItem__ot__icon} />
               {t(ot)}
             </div>
           ) : otValue === 3 ? (
             <div style={{ color: 'orange' }} className={classes.reviewItem__ot}>
-              <AiOutlineMeh className={classes['reviewItem__ot--icon']} />
+              <AiOutlineMeh className={classes.reviewItem__ot__icon} />
               {t(ot)}
             </div>
           ) : (
             <div style={{ color: 'green' }} className={classes.reviewItem__ot}>
-              <AiOutlineSmile className={classes['reviewItem__ot--icon']} />
+              <AiOutlineSmile className={classes.reviewItem__ot__icon} />
               {t(ot)}
             </div>
           )}

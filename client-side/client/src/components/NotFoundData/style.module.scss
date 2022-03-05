@@ -7,21 +7,19 @@
 
   &__wrapped {
     text-align: center;
+  }
 
-    &--notify {
-      font-size: $text-xl;
-      font-weight: 600;
-    }
+  &__wrapped-notify {
+    font-size: $text-xl;
+    font-weight: 600;
   }
 }
 
 @media screen and (max-width: 540px) {
   .notFoundData {
-    &__wrapped {
-      &--notify {
-        font-size: $text-sm;
-        font-weight: 600;
-      }
+    &__wrapped-notify {
+      font-size: $text-sm;
+      font-weight: 600;
     }
   }
 }

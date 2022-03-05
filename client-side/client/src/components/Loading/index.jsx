@@ -8,7 +8,7 @@ const LoadingSuspense = ({ height, showText = false }) => {
   return (
     <div style={{ height: `${height}` }} className={classes['loading']}>
       <div className={classes['loading__wrapped']}>
-        <div className={classes['loading__wrapped--lds-roller']}>
+        <div className={classes['loading__lds-roller']}>
           <div></div>
           <div></div>
           <div></div>
@@ -19,7 +19,7 @@ const LoadingSuspense = ({ height, showText = false }) => {
           <div></div>
         </div>
         {showText && (
-          <div className={classes['loading__wrapped--text']}>
+          <div className={classes['loading__text']}>
             <ReactTypingEffect
               text={[`${t('loading-suspense')}`, `${t('wait-moment')}`]}
               cursorRenderer={(cursor) => <div>{cursor}</div>}

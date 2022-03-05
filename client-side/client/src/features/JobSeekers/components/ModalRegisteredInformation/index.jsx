@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { Modal } from 'antd'
 import { Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
@@ -24,49 +23,64 @@ const ModalRegisteredInformation = ({ createdAt, data, onCloseModal, showModal }
         <div className={classes.modalTitle}>
           {t('Event registration information')} {event.eventName}
         </div>
-        <h3 className={classes.modalInfo__address}>
-          {t('Event held address')}: {event.address.street}, {event.address.ward},{' '}
-          {event.address.district}, {event.address.city}
-        </h3>
+
         <div className={classes.modalInfo__content}>
-          <div className={classes['modalInfo__content--field']}>
-            <LabelField label={`${t('full name')}:`} />
-            <div>{fullName}</div>
-          </div>
-          <div className={classes['modalInfo__content--field']}>
-            <LabelField label={`${t('Phone')}:`} />
-            <div>{phone}</div>
-          </div>
-          <div className={classes['modalInfo__content--field']}>
-            <LabelField label={`${t('Address')}:`} />
-            <div>
-              {address.street}, {address.ward}, {address.district}, {address.city}
+          <div className={classes['modalInfo__content-body']}>
+            <div className={classes['modalInfo__content-field']}>
+              <LabelField label={`${t('full name')}:`} />
+              <div>{fullName}</div>
+            </div>
+            <div className={classes['modalInfo__content-field']}>
+              <LabelField label={`${t('Phone')}:`} />
+              <div>{phone}</div>
+            </div>
+            <div className={classes['modalInfo__content-field']}>
+              <LabelField label={`${t('Address')}:`} />
+              <div>
+                {address.street}, {address.ward}, {address.district}, {address.city}
+              </div>
+            </div>
+            <div className={classes['modalInfo__content-field']}>
+              <LabelField label={`${t('Status')}:`} />
+              <div className={classStatus}>{t(status)}</div>
+            </div>
+            <div className={classes['modalInfo__content-field']}>
+              <LabelField label={`${t('Registered to participate on')}:`} />
+              <div>
+                {t('Date')} {createdAt}
+              </div>
+            </div>
+            <div className={classes['modalInfo__content-field']}>
+              <LabelField label={`${t('Interesting field')}:`} />
+              <div className={classes['modalInfo__content-field__interesting']}>
+                {interestingField.map((item, index) => (
+                  <Tooltip key={index} title={`${t('View jobs with skill')} ${item}`}>
+                    <a
+                      className={`${classes['modalInfo__content-field__link']} ${classes['link-no-border']} ${classes['link-fz-14']}`}
+                      href={`/jobs/search?skills=${item}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item}
+                    </a>
+                  </Tooltip>
+                ))}
+              </div>
             </div>
           </div>
-          <div className={classes['modalInfo__content--field']}>
-            <LabelField label={`${t('Status')}:`} />
-            <div className={classStatus}>{t(status)}</div>
-          </div>
-          <div className={classes['modalInfo__content--field']}>
-            <LabelField label={`${t('Registered to participate on')}:`} />
-            <div>
-              {t('Date')} {createdAt}
-            </div>
-          </div>
-          <div className={classes['modalInfo__content--field']}>
-            <LabelField label={`${t('Interesting field')}:`} />
-            <div className={classes['modalInfo__content--field--interesting']}>
-              {interestingField.map((item, index) => (
-                <Tooltip key={index} title={`${t('View jobs with skill')} ${item}`}>
-                  <Link
-                    className={classes['modalInfo__content--field--link']}
-                    to={`/jobs/search?skills=${item}`}
-                  >
-                    {item}
-                  </Link>
-                </Tooltip>
-              ))}
-            </div>
+
+          <div className={classes['modalInfo__content-map']}>
+            <span className={classes['modalInfo__content-map__address']}>
+              {event.address.street}, {event.address.ward}, {event.address.district},{' '}
+              {event.address.city}
+            </span>
+
+            <iframe
+              src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBG4gMA71lLD3zLV38JXsvM3SQ-TT39FpM&q=${event.address.street}, ${event.address.ward},
+          ${event.address.district}, ${event.address.city}&zoom=15&language=vi`}
+              className={classes['modalInfo__content-map__iframe']}
+              title="Map"
+            ></iframe>
           </div>
         </div>
       </div>

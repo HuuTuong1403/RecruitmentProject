@@ -3,7 +3,7 @@ import { FaGoogle } from 'react-icons/fa'
 import { FiLock, FiUser } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { schemaSignInUser } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { signInGuestAsync } from 'features/Home/slices/thunks'
@@ -22,7 +22,7 @@ import InputField from 'custom-fields/InputField'
 import notification from 'components/Notification'
 
 const SignInGuestPage = () => {
-  scrollToTop()
+  ScrollToTop()
   useEffect(() => {
     const user = selectJobSeekerLocal()
     if (user) history.push('/jobseekers')
@@ -95,7 +95,7 @@ const SignInGuestPage = () => {
               {t('Your account has been activated. Please login to use the system')}
             </div>
           )}
-          <form onSubmit={handleSubmit(onSubmit)} className={classes['signin__wrapped--form']}>
+          <form onSubmit={handleSubmit(onSubmit)} className={classes['signin__wrapped-form']}>
             <InputField
               placeholder={t('phd-username-signin')}
               {...register('username')}
@@ -111,8 +111,13 @@ const SignInGuestPage = () => {
               icon={<FiLock />}
             />
 
-            <div className={classes['signin__wrapped--form--link']}>
-              <Link to="/home/forgot-pass">{t('forgotpass')}</Link>
+            <div className={classes['signin__wrapped-form-link']}>
+              <Link
+                className={`${classes['link']} ${classes['medium']}`}
+                to="/home/forgot-pass"
+              >
+                {t('forgotpass')}
+              </Link>
             </div>
             <ButtonField
               type="submit"
@@ -125,19 +130,26 @@ const SignInGuestPage = () => {
             </ButtonField>
           </form>
 
-          <div className={classes['signin__wrapped--social']}>
-            <div className={classes['signin__wrapped--social--line']}>
+          <div className={classes['signin__wrapped-social']}>
+            <div className={classes['signin__wrapped-line']}>
               <span>{t('or-signin')}</span>
             </div>
-            <div className={classes['signin__wrapped--social--google']}>
+
+            <div className={classes['signin__wrapped-google']}>
               <ButtonField backgroundcolor="#dd4b39" backgroundcolorhover="#bf0000" uppercase>
                 <FaGoogle style={{ marginRight: '5px' }} />
                 <span> {t('signin-google')}</span>
               </ButtonField>
             </div>
-            <div className={classes['signin__wrapped--social--signup']}>
+
+            <div className={classes['signin__wrapped-signup']}>
               <span>{t('no-account')} </span>
-              <Link to="/home/sign-up">{t('signup')}</Link>
+              <Link
+                className={`${classes['link']} ${classes['bold']} `}
+                to="/home/sign-up"
+              >
+                {t('signup')}
+              </Link>
             </div>
           </div>
         </div>

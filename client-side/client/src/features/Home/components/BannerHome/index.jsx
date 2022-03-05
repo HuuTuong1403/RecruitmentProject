@@ -40,8 +40,8 @@ const BannerHome = () => {
 
   return (
     <div className={classes.banner}>
-      <div className={classes.banner__top}>
-        <div className={classes['banner__top--title']}>
+      <div className={classes.banner__wrapped}>
+        <div className={classes['banner__wrapped-title']}>
           <ReactTypingEffect
             text={[`${t('find-job-for-you')}`, `${t('slogan-banner-2')}`]}
             cursorRenderer={(cursor) => <div>{cursor}</div>}
@@ -50,8 +50,8 @@ const BannerHome = () => {
             speed={100}
           />
         </div>
-        <div className={classes['banner__top--content']}>{t('search-minute')}</div>
-        <form className={classes['banner__top--search']} onSubmit={searchSubmitHandler}>
+        <div className={classes['banner__wrapped-content']}>{t('search-minute')}</div>
+        <form className={classes['banner__wrapped-search']} onSubmit={searchSubmitHandler}>
           <div>
             <InputField ref={searchKeyRef} placeholder={t('search-key')} icon={<FaSearch />} />
           </div>

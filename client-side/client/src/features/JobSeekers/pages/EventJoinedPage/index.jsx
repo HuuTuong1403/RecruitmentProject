@@ -1,4 +1,4 @@
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,7 +11,7 @@ import LoadingSuspense from 'components/Loading'
 import NotFoundData from 'components/NotFoundData'
 
 const EventJoinedPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const loading = useSelector(selectedStatus)

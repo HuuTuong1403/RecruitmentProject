@@ -1,7 +1,7 @@
 import { FiLock, FiUser } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { schemaSignInEmployer } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { signInEmployerAsync } from 'features/HomeEmployers/slices/thunks'
@@ -19,7 +19,7 @@ import InputField from 'custom-fields/InputField'
 import notification from 'components/Notification'
 
 const SignInEmployerPage = () => {
-  scrollToTop()
+  ScrollToTop()
 
   useEffect(() => {
     const employer = selectEmployerLocal()
@@ -72,7 +72,7 @@ const SignInEmployerPage = () => {
         <div className={classes.signin_emp__wrapped}>
           <div className={classes.contentAuth}>{t('content-signin-emp')}</div>
           <div className={classes.titleAuth}>{t('signin')}</div>
-          <form onSubmit={handleSubmit(onSubmit)} className={classes['signin_emp__wrapped--form']}>
+          <form onSubmit={handleSubmit(onSubmit)} className={classes['signin_emp__wrapped-form']}>
             <InputField
               placeholder={t('phd-username-emp-signin')}
               {...register('username')}
@@ -88,8 +88,10 @@ const SignInEmployerPage = () => {
               icon={<FiLock />}
             />
 
-            <div className={classes['signin_emp__wrapped--form--link']}>
-              <Link to="/employers/forgot-pass">{t('forgotpass')}</Link>
+            <div className={classes['signin_emp__wrapped-link']}>
+              <Link className={`${classes.link} ${classes.bold}`} to="/employers/forgot-pass">
+                {t('forgotpass')}
+              </Link>
             </div>
             <ButtonField
               type="submit"
@@ -101,9 +103,11 @@ const SignInEmployerPage = () => {
               {t('signin')}
             </ButtonField>
           </form>
-          <div className={classes['signin_emp__wrapped--signup']}>
+          <div className={classes['signin_emp__wrapped-signup']}>
             <span>{t('no-account')} </span>
-            <Link to="/employers/sign-up">{t('signup')}</Link>
+            <Link className={`${classes.link} ${classes.bold}`} to="/employers/sign-up">
+              {t('signup')}
+            </Link>
           </div>
         </div>
       </div>

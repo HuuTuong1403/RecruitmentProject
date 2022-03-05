@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { schemaSignUpUser } from 'common/constants/schema'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { signUpGuest } from 'features/Home/api/home.api'
 import { useForm } from 'react-hook-form'
@@ -17,7 +17,7 @@ import notification from 'components/Notification'
 import VerifyNotification from 'features/Home/components/VerifyNotification'
 
 const SignUpGuestPage = () => {
-  scrollToTop()
+  ScrollToTop()
   useEffect(() => {
     const user = selectJobSeekerLocal()
     if (user) history.push('/home')
@@ -59,7 +59,7 @@ const SignUpGuestPage = () => {
           {step === 1 && (
             <Fragment>
               <div className={classes.titleAuth}>{t('signup')}</div>
-              <form onSubmit={handleSubmit(onSubmit)} className={classes['signup__wrapped--form']}>
+              <form onSubmit={handleSubmit(onSubmit)} className={classes['signup__wrapped-form']}>
                 <InputField
                   placeholder={t('phd-fullname')}
                   {...register('fullname')}
@@ -106,9 +106,11 @@ const SignUpGuestPage = () => {
             </Fragment>
           )}
           {step === 2 && <VerifyNotification />}
-          <div className={classes['signup__wrapped--social']}>
+          <div className={classes['signup__wrapped-signin']}>
             <span>{t('have-account')} </span>
-            <Link to="/home/sign-in">{t('signin')}</Link>
+            <Link className={`${classes.link} ${classes.bold}`} to="/home/sign-in">
+              {t('signin')}
+            </Link>
           </div>
         </div>
       </div>

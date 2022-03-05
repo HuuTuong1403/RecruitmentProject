@@ -28,18 +28,6 @@ p {
   margin-bottom: 0 !important;
 }
 
-a {
-  color: #5d677a !important;
-  text-decoration: none;
-  font-size: 16px !important;
-  transition: all 0.3s ease-in-out;
-}
-
-a:hover {
-  color: #f79d25 !important;
-  text-decoration: underline;
-}
-
 .css-9gakcf-option {
   background-color: white !important;
   color: black !important;

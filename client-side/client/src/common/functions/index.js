@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 export const clearNullObject = (object) => {
   for (var key in object) {
     if (object[key] === null || object[key] === undefined || object[key] === 'null') {
@@ -7,6 +9,8 @@ export const clearNullObject = (object) => {
   return object
 }
 
-export const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+export const ScrollToTop = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
 }

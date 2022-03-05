@@ -1,4 +1,5 @@
 @import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
 
 p {
   margin: 0 0 10px;
@@ -11,74 +12,101 @@ p {
   &__top {
     background-color: #fff;
     padding: 20px;
+  }
 
-    &--wrapped {
-      display: flex;
-      align-items: center;
+  &__top-wrapped {
+    display: flex;
+    align-items: center;
+  }
 
-      &--companyWebsite {
-        text-decoration: none !important;
-      }
+  &__top-logo {
+    flex: 0 0 25%;
+    padding: 0 15px;
+    text-align: center;
 
-      & > div:first-child {
-        flex: 0 0 25%;
-        padding: 0 15px;
-        text-align: center;
+    & > a {
+      position: relative;
+      display: inline-block;
+    }
 
-        & > a > img {
-          border: 1px solid #e8e8e8;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
-          border-radius: 10px;
-          padding: $pm-4;
-          width: 100%;
-          max-width: 200px;
-          min-height: 100px;
-        }
-      }
+    & > a > img {
+      border-radius: 4px;
+      border: 1px solid #e8e8e8;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+      padding: $pm-4;
+      width: 100%;
+      max-width: 200px;
+      min-height: 100px;
+    }
 
-      & > div:last-child {
-        flex: 0 0 75%;
-        margin-top: $pm-10;
-        padding: 0 15px;
-        display: flex;
-        align-items: center;
+    &__overlay {
+      background-color: rgba(232, 236, 241, 0.8);
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border-radius: 4px;
+    }
 
-        & > div:first-child {
-          flex: 0 0 70%;
-          font-size: $text-base;
-
-          & > div:nth-child(1) {
-            font-size: $text-2xl;
-            font-weight: 700;
-            color: $third-text;
-          }
-
-          & > div:nth-child(2) {
-            & a {
-              font-size: $text-lg !important;
-            }
-          }
-        }
-
-        & > div:last-child {
-          flex: 0 0 25%;
-          text-align: center;
-
-          & > button {
-            margin-bottom: $pm-6;
-          }
-        }
-      }
+    &--expired {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: red !important;
+      font-weight: 600;
+      font-size: $text-lg;
+      text-transform: capitalize;
     }
   }
 
-  &__share {
+  &__top-infor {
+    flex: 0 0 75%;
+    margin-top: $pm-10;
+    padding: 0 15px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
 
-    &--icon {
+    &__content {
+      flex: 0 0 70%;
+      font-size: $text-base;
+    }
+
+    &__content-jobTitle {
+      font-size: $text-2xl;
+      font-weight: 700;
+      color: $third-text;
+    }
+
+    &__content-companyName {
+      & a {
+        font-size: $text-lg !important;
+      }
+    }
+
+    &__content-field {
+      color: $primary-text;
+      margin-bottom: $pm-2;
+    }
+
+    &__actions {
+      flex: 0 0 25%;
+      text-align: center;
+
+      & > button {
+        margin-bottom: $pm-6;
+      }
+    }
+
+    &__actions-share {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    &__actions-icon {
       font-size: $text-2xl;
       color: $primary-text;
       transition: all 0.3s ease-in-out;
@@ -93,104 +121,103 @@ p {
     padding: 20px;
     font-size: $text-lg;
     background-color: #fff;
+  }
 
-    &--map {
+  &__content-wrapped {
+    padding: 30px;
+    display: flex;
+
+    &__body {
+      flex: 0 0 65%;
+      padding-right: $pm-10;
+    }
+
+    &__title {
+      margin: $pm-32 0 $pm-10 0;
+      text-transform: uppercase;
+      font-size: 20px;
+      font-weight: 700;
+      color: #212f3f;
+    }
+
+    &__title:first-child {
+      margin: 0 0 $pm-10 0;
+    }
+
+    &__content {
+      margin-left: $pm-10;
+    }
+  }
+
+  &__content-address {
+    flex: 0 0 35%;
+
+    &__map {
       flex: 0 0 33%;
       background-color: white;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
       border-radius: 5px;
-      padding: $pm-20;
-
-      &--title {
-        border-bottom: 1px solid #e6e6e6;
-        padding-bottom: $pm-10;
-        font-size: $text-base;
-        text-align: center;
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-
-      &--iframe {
-        width: 100%;
-        height: 400px;
-      }
-
-      &--location {
-        line-height: 20px;
-        font-size: $text-base;
-        color: $primary-text;
-        margin: $pm-10 0;
-      }
     }
 
-    &--wrapped {
-      padding: 30px;
-      display: flex;
+    &__title {
+      border-bottom: 1px solid #e6e6e6;
+      padding: $pm-10 0;
+      font-size: $text-base;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
 
-      & > div:nth-child(1) {
-        flex: 0 0 65%;
-        padding-right: $pm-10;
-      }
+    &__iframe {
+      width: 100%;
+      height: 400px;
+    }
 
-      & > div:nth-child(2) {
-        flex: 0 0 35%;
-      }
+    &__location {
+      line-height: 20px;
+      font-size: $text-base;
+      color: $primary-text;
+      padding: $pm-10;
+    }
+  }
 
-      &--title {
-        margin: $pm-32 0 $pm-10 0;
-        text-transform: uppercase;
-        font-size: 20px;
+  &__content-table {
+    border: 1px solid #e8e8e8;
+    position: sticky;
+    top: 50px;
+
+    &__top {
+      background-color: $primary-color;
+      padding: 10px;
+      color: #fff;
+    }
+
+    &__bottom {
+      padding: 10px;
+
+      & > div {
+        padding: $pm-8 $pm-10;
+        border-bottom: 1px solid #e8e8e8;
         font-weight: 700;
-        color: #212f3f;
-      }
 
-      &--title:first-child {
-        margin: 0 0 $pm-10 0;
-      }
-
-      &--content {
-        margin-left: $pm-10;
-      }
-
-      &--table {
-        border: 1px solid #e8e8e8;
-        position: sticky;
-        top: 50px;
-
-        &--top {
-          background-color: $primary-color;
-          padding: 10px;
-          color: #fff;
+        & > span {
+          font-weight: 400;
         }
+      }
 
-        &--bottom {
-          padding: 10px;
-
-          & > div {
-            padding: $pm-8 $pm-10;
-            border-bottom: 1px solid #e8e8e8;
-            font-weight: 700;
-
-            & > span {
-              font-weight: 400;
-            }
-          }
-
-          & > div:last-child {
-            border-bottom: none;
-          }
-        }
+      & > div:last-child {
+        border-bottom: none;
       }
     }
   }
-}
 
-.container {
-  display: flex;
-  font-size: $text-lg;
-  row-gap: 8px;
-  flex-wrap: wrap;
-  gap: 8px;
+  &__card {
+    display: flex;
+    font-size: $text-lg;
+    row-gap: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 
   &__card-skill {
     padding: 3px 6px;
@@ -210,112 +237,109 @@ p {
 @media screen and (max-width: 1248px) {
   .jobDetail {
     padding: 15px;
+
     &__top {
       padding: 15px;
+    }
 
-      &--wrapped {
-        flex-wrap: wrap;
+    &__top-wrapped {
+      flex-wrap: wrap;
+    }
 
-        & > div:first-child {
-          flex: 0 0 35%;
+    &__top-logo {
+      flex: 0 0 30%;
+    }
+
+    &__top-infor {
+      flex: 0 0 70%;
+      padding: 0 5px;
+      flex-wrap: wrap;
+
+      &__content {
+        flex: 0 0 65%;
+
+        & > a {
+          font-size: $text-lg;
         }
+      }
 
-        & > div:last-child {
-          flex: 0 0 65%;
-          padding: 0 5px;
-          flex-wrap: wrap;
+      &__content-jobTitle {
+        font-size: $text-xl;
+      }
 
-          & > div:first-child {
-            flex: 0 0 60%;
-
-            & > div:nth-child(1) {
-              font-size: $text-xl;
-            }
-            & > div:nth-child(2) {
-              & a {
-                font-size: $text-lg !important;
-              }
-            }
-
-            & > a {
-              font-size: $text-lg;
-              margin: $pm-4 0;
-            }
-            & > div:nth-child(4) {
-              font-size: $text-lg;
-              margin: $pm-4 0;
-            }
-            & > div:nth-child(5) {
-              font-size: $text-lg;
-              margin: $pm-4 0;
-            }
-          }
-
-          & > div:last-child {
-            flex: 0 0 40%;
-          }
+      &__content-companyName {
+        & a {
+          font-size: $text-lg !important;
         }
+      }
+
+      &__content-field {
+        font-size: $text-lg;
+      }
+
+      &__actions {
+        flex: 0 0 35%;
       }
     }
 
     &__content {
       padding: 10px;
       font-size: $text-base;
+    }
 
-      &--map {
-        margin-top: $pm-20;
+    &__content-wrapped {
+      padding: 10px;
+      flex-wrap: wrap;
+
+      &__body {
+        width: 100%;
+        flex: 0 0 100%;
+        padding-right: 0;
       }
 
-      &--wrapped {
-        padding: 10px;
-        flex-wrap: wrap;
+      &__title {
+        margin: $pm-20 0 $pm-8 0;
+        font-size: $text-lg;
+      }
 
-        & > div:nth-child(1) {
-          width: 100%;
-          flex: 0 0 100%;
-          padding-right: 0;
+      &__title:first-child {
+        margin: 0 0 $pm-6 0;
+      }
+
+      &__content {
+        margin-left: $pm-8;
+        font-size: $text-lg;
+      }
+    }
+
+    &__content-address {
+      flex: 0 0 100%;
+
+      &__map {
+        margin-top: $pm-20;
+      }
+    }
+
+    &__content-table {
+      position: relative;
+      top: 0;
+      margin-top: $pm-10;
+      font-size: $text-lg;
+
+      &__top {
+        padding: 8px;
+      }
+
+      &__bottom {
+        padding: $pm-8;
+
+        & > div {
+          padding: $pm-4 $pm-6;
         }
 
-        & > div:nth-child(2) {
-          flex: 0 0 100%;
-        }
-
-        &--title {
-          margin: $pm-20 0 $pm-8 0;
-          font-size: $text-lg;
-        }
-
-        &--title:first-child {
-          margin: 0 0 $pm-6 0;
-        }
-
-        &--content {
-          margin-left: $pm-8;
-          font-size: $text-lg;
-        }
-
-        &--table {
-          position: relative;
-          top: 0;
-          margin-top: $pm-10;
-          font-size: $text-lg;
-
-          &--top {
-            padding: 8px;
-          }
-
-          &--bottom {
-            padding: 8px;
-
-            & > div {
-              padding: $pm-4 $pm-6;
-            }
-
-            & > div:last-child {
-              & > button {
-                margin-bottom: 0;
-              }
-            }
+        & > div:last-child {
+          & > button {
+            margin-bottom: 0;
           }
         }
       }
@@ -326,396 +350,381 @@ p {
 @media screen and (max-width: 900px) {
   .jobDetail {
     padding: 15px;
+
     &__top {
       padding: 15px;
+    }
 
-      &--wrapped {
-        flex-wrap: wrap;
+    &__top-wrapped {
+      flex-wrap: wrap;
+    }
 
-        & > div:first-child {
-          flex: 0 0 35%;
+    &__top-logo {
+      flex: 0 0 35%;
 
-          & > a > img {
-            width: 100%;
-            max-width: 150px;
-            min-height: 70px;
-          }
+      & > a > img {
+        width: 100%;
+        max-width: 150px;
+        min-height: 70px;
+      }
+    }
+
+    &__top-infor {
+      flex: 0 0 65%;
+      padding: 0 5px;
+      flex-wrap: wrap;
+
+      &__content {
+        flex: 0 0 100%;
+
+        & > a {
+          font-size: $text-lg !important;
         }
+      }
 
-        & > div:last-child {
-          flex: 0 0 65%;
-          padding: 0 5px;
-          flex-wrap: wrap;
+      &__content-jobTitle {
+        font-size: $text-xl;
+      }
 
-          & > div:first-child {
-            flex: 0 0 100%;
-
-            & > div:nth-child(1) {
-              font-size: $text-xl;
-            }
-            & > div:nth-child(2) {
-              & > a {
-                font-size: $text-lg !important;
-              }
-            }
-
-            & > a {
-              font-size: $text-lg !important;
-              margin: $pm-4 0;
-            }
-            & > div:nth-child(4) {
-              font-size: $text-lg;
-              margin: $pm-4 0;
-            }
-            & > div:nth-child(5) {
-              font-size: $text-lg;
-              margin: $pm-4 0;
-            }
-          }
-
-          & > div:last-child {
-            flex: 0 0 100%;
-          }
+      &__content-companyName {
+        & > a {
+          font-size: $text-lg !important;
         }
+      }
+
+      &__content-field {
+        font-size: $text-lg;
+      }
+
+      &__actions {
+        flex: 0 0 100%;
       }
     }
 
     &__content {
       padding: 8px;
       font-size: $text-sm;
+    }
 
-      &--map {
-        margin-top: $pm-20;
-        padding: $pm-10 0 0 0;
+    &__content-wrapped {
+      padding: 8px;
+      flex-wrap: wrap;
 
-        &--location {
-          font-size: $text-sm;
-          margin: $pm-10;
-        }
+      &__body {
+        width: 100%;
+        flex: 0 0 100%;
+        padding-right: 0;
       }
 
-      &--wrapped {
+      &__title {
+        margin: $pm-20 0 $pm-8 0;
+        font-size: $text-xl;
+      }
+
+      &__title:first-child {
+        margin: 0 0 $pm-6 0;
+      }
+
+      &__content {
+        margin-left: $pm-8;
+        font-size: $text-base;
+      }
+    }
+
+    &__content-address {
+      flex: 0 0 100%;
+
+      &__map {
+        margin-top: $pm-20;
+      }
+
+      &__location {
+        font-size: $text-sm;
+      }
+    }
+
+    &__content-table {
+      position: relative;
+      top: 0;
+      margin-top: $pm-10;
+      font-size: $text-lg;
+
+      &__top {
         padding: 8px;
-        flex-wrap: wrap;
+      }
 
-        & > div:nth-child(1) {
-          width: 100%;
-          flex: 0 0 100%;
-          padding-right: 0;
+      &__bottom {
+        padding: 8px;
+
+        & > div {
+          padding: $pm-4 $pm-6;
         }
 
-        & > div:nth-child(2) {
-          flex: 0 0 100%;
-        }
-
-        &--title {
-          margin: $pm-20 0 $pm-8 0;
-          font-size: $text-xl;
-        }
-
-        &--title:first-child {
-          margin: 0 0 $pm-6 0;
-        }
-
-        &--content {
-          margin-left: $pm-8;
-          font-size: $text-base;
-        }
-
-        &--table {
-          position: relative;
-          top: 0;
-          margin-top: $pm-10;
-          font-size: $text-lg;
-
-          &--top {
-            padding: 8px;
-          }
-
-          &--bottom {
-            padding: 8px;
-
-            & > div {
-              padding: $pm-4 $pm-6;
-            }
-
-            & > div:last-child {
-              & > button {
-                margin-bottom: 0;
-              }
-            }
+        & > div:last-child {
+          & > button {
+            margin-bottom: 0;
           }
         }
       }
     }
-  }
-  .container {
-    font-size: $text-base;
+
+    &__card {
+      font-size: $text-base;
+    }
   }
 }
 
 @media screen and (max-width: 700px) {
   .jobDetail {
     padding: 10px;
+
     &__top {
       padding: 10px;
+    }
 
-      &--wrapped {
-        flex-wrap: wrap;
+    &__top-wrapped {
+      flex-wrap: wrap;
+    }
 
-        & > div:first-child {
-          flex: 0 0 100%;
+    &__top-logo {
+      flex: 0 0 100%;
 
-          & > a > img {
-            display: none;
-          }
+      & > a,
+      & > a > img {
+        display: none;
+      }
+    }
+
+    &__top-infor {
+      flex: 0 0 100%;
+      padding: 0 5px;
+      flex-wrap: wrap;
+
+      &__content {
+        flex: 0 0 100%;
+
+        & > a {
+          font-size: $text-base !important;
         }
+      }
 
-        & > div:last-child {
-          flex: 0 0 100%;
-          padding: 0 5px;
-          flex-wrap: wrap;
+      &__content-jobTitle {
+        font-size: $text-lg;
+      }
 
-          & > div:first-child {
-            flex: 0 0 100%;
-
-            & > div:nth-child(1) {
-              font-size: $text-xl;
-            }
-            & > div:nth-child(2) {
-              & > a {
-                font-size: $text-base !important;
-              }
-            }
-
-            & > a {
-              font-size: $text-base !important;
-              margin: $pm-4 0;
-            }
-            & > div:nth-child(4) {
-              font-size: $text-base;
-              margin: $pm-4 0;
-            }
-            & > div:nth-child(5) {
-              font-size: $text-base;
-              margin: $pm-4 0;
-            }
-          }
-
-          & > div:last-child {
-            flex: 0 0 100%;
-          }
+      &__content-companyName {
+        & > a {
+          font-size: $text-base !important;
         }
+      }
+
+      &__content-field {
+        font-size: $text-base;
+      }
+
+      &__actions {
+        flex: 0 0 100%;
       }
     }
 
     &__content {
       padding: 5px;
       font-size: $text-base;
+    }
 
-      &--map {
-        margin-top: $pm-14;
-        padding: $pm-10 0 0 0;
+    &__content-wrapped {
+      padding: 5px;
+      flex-wrap: wrap;
 
-        &--iframe {
-          width: 100%;
-          height: 350px;
-        }
-
-        &--location {
-          font-size: $text-sm;
-          margin: $pm-10;
-        }
+      &__body {
+        width: 100%;
+        flex: 0 0 100%;
+        padding-right: 0;
       }
 
-      &--wrapped {
+      &__title {
+        margin: $pm-20 0 $pm-8 0;
+        font-size: $text-xl;
+      }
+
+      &__title:first-child {
+        margin: 0 0 $pm-6 0;
+      }
+
+      &__content {
+        margin-left: $pm-8;
+      }
+    }
+
+    &__content-address {
+      flex: 0 0 100%;
+
+      &__map {
+        margin-top: $pm-14;
+      }
+
+      &__iframe {
+        width: 100%;
+        height: 350px;
+      }
+
+      &__location {
+        font-size: $text-sm;
+      }
+    }
+
+    &__content-table {
+      position: relative;
+      top: 0;
+      margin-top: $pm-10;
+
+      &__top {
         padding: 5px;
-        flex-wrap: wrap;
+      }
 
-        & > div:nth-child(1) {
-          width: 100%;
-          flex: 0 0 100%;
-          padding-right: 0;
+      &__bottom {
+        padding: 5px;
+
+        & > div {
+          padding: $pm-4 $pm-6;
         }
 
-        & > div:nth-child(2) {
-          flex: 0 0 100%;
-        }
-
-        &--title {
-          margin: $pm-20 0 $pm-8 0;
-          font-size: $text-xl;
-        }
-
-        &--title:first-child {
-          margin: 0 0 $pm-6 0;
-        }
-
-        &--content {
-          margin-left: $pm-8;
-        }
-
-        &--table {
-          position: relative;
-          top: 0;
-          margin-top: $pm-10;
-
-          &--top {
-            padding: 5px;
-          }
-
-          &--bottom {
-            padding: 5px;
-
-            & > div {
-              padding: $pm-4 $pm-6;
-            }
-
-            & > div:last-child {
-              & > button {
-                margin-bottom: 0;
-              }
-            }
+        & > div:last-child {
+          & > button {
+            margin-bottom: 0;
           }
         }
       }
     }
-  }
 
-  .container {
-    font-size: $text-sm;
+    &__card {
+      font-size: $text-sm;
+    }
   }
 }
 
 @media screen and (max-width: 400px) {
   .jobDetail {
     padding: 10px;
+
     &__top {
       padding: 10px;
+    }
 
-      &--wrapped {
-        flex-wrap: wrap;
+    &__top-wrapped {
+      flex-wrap: wrap;
+    }
 
-        & > div:first-child {
-          flex: 0 0 100%;
+    &__top-infor {
+      flex: 0 0 100%;
+      padding: 0 5px;
+      flex-wrap: wrap;
 
-          & > a > img {
-            display: none;
-          }
+      &__content {
+        flex: 0 0 100%;
+
+        & > a {
+          font-size: $text-sm !important;
         }
+      }
 
-        & > div:last-child {
-          flex: 0 0 100%;
-          padding: 0 5px;
-          flex-wrap: wrap;
+      &__content-jobTitle {
+        font-size: $text-base;
+      }
 
-          & > div:first-child {
-            flex: 0 0 100%;
-
-            & > div:nth-child(1) {
-              font-size: $text-lg;
-            }
-            & > div:nth-child(2) {
-              & > a {
-                font-size: $text-sm !important;
-              }
-            }
-
-            & > a {
-              font-size: $text-sm !important;
-              margin: $pm-4 0;
-            }
-            & > div:nth-child(4) {
-              font-size: $text-sm;
-              margin: $pm-4 0;
-            }
-            & > div:nth-child(5) {
-              font-size: $text-sm;
-              margin: $pm-4 0;
-            }
-          }
-
-          & > div:last-child {
-            flex: 0 0 100%;
-          }
+      &__content-companyName {
+        & > a {
+          font-size: $text-sm !important;
         }
+      }
+
+      &__content-field {
+        font-size: $text-sm;
+        margin: $pm-4 0;
+      }
+
+      &__actions {
+        flex: 0 0 100%;
       }
     }
 
     &__content {
       padding: 5px;
       font-size: $text-sm;
+    }
 
-      &--map {
-        margin-top: $pm-14;
-        padding: $pm-10 0 0 0;
+    &__content-wrapped {
+      padding: 5px;
+      flex-wrap: wrap;
 
-        &--iframe {
-          width: 100%;
-          height: 300px;
-        }
-
-        &--location {
-          font-size: $text-sm;
-          margin: $pm-10;
-        }
+      &__body {
+        width: 100%;
+        flex: 0 0 100%;
+        padding-right: 0;
       }
 
-      &--wrapped {
+      &__title {
+        margin: $pm-20 0 $pm-8 0;
+        font-size: $text-lg;
+      }
+
+      &__title:first-child {
+        margin: 0 0 $pm-6 0;
+      }
+
+      &__content {
+        margin-left: $pm-8;
+      }
+    }
+
+    &__content-address {
+      flex: 0 0 100%;
+
+      &__title {
+        font-size: $text-sm;
+      }
+
+      &__map {
+        margin-top: $pm-14;
+      }
+
+      &__iframe {
+        width: 100%;
+        height: 300px;
+      }
+
+      &__location {
+        font-size: $text-sm;
+      }
+    }
+
+    &__content-table {
+      position: relative;
+      top: 0;
+      margin-top: $pm-10;
+
+      &__top {
         padding: 5px;
-        flex-wrap: wrap;
+      }
 
-        & > div:nth-child(1) {
-          width: 100%;
-          flex: 0 0 100%;
-          padding-right: 0;
+      &__bottom {
+        padding: 5px;
+
+        & > div {
+          padding: $pm-4 $pm-6;
+          font-size: $text-sm;
         }
 
-        & > div:nth-child(2) {
-          flex: 0 0 100%;
-        }
-
-        &--title {
-          margin: $pm-20 0 $pm-8 0;
-          font-size: $text-lg;
-        }
-
-        &--title:first-child {
-          margin: 0 0 $pm-6 0;
-        }
-
-        &--content {
-          margin-left: $pm-8;
-        }
-
-        &--table {
-          position: relative;
-          top: 0;
-          margin-top: $pm-10;
-
-          &--top {
-            padding: 5px;
-          }
-
-          &--bottom {
-            padding: 5px;
-
-            & > div {
-              padding: $pm-4 $pm-6;
-            }
-
-            & > div:last-child {
-              & > button {
-                margin-bottom: 0;
-              }
-            }
+        & > div:last-child {
+          & > button {
+            margin-bottom: 0;
           }
         }
       }
     }
-  }
 
-  .container {
-    font-size: $text-xs;
+    &__card {
+      font-size: $text-sm;
+    }
   }
 }

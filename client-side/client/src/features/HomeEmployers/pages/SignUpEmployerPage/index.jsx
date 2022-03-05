@@ -1,6 +1,6 @@
 import { addInfoSignUp } from 'features/HomeEmployers/slices'
 import { Link } from 'react-router-dom'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectInfoSignUp } from 'features/HomeEmployers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,7 +15,7 @@ import StepThreeSignUp from 'features/HomeEmployers/components/StepThreeSignUp'
 import StepTwoSignUp from 'features/HomeEmployers/components/StepTwoSignUp'
 
 const SignUpEmployerPage = () => {
-  scrollToTop()
+  ScrollToTop()
 
   useEffect(() => {
     const employer = selectEmployerLocal()
@@ -59,9 +59,11 @@ const SignUpEmployerPage = () => {
           {step === 1 && <StepOneSignUp onSubmit={onSubmitHandler} />}
           {step === 2 && <StepTwoSignUp onBackStep={onBackStep} onNextStep={onNextStep} />}
           {step === 3 && <StepThreeSignUp onBackStep={onBackStep} />}
-          <div className={classes['signup_emp__wrapped--signin']}>
+          <div className={classes['signup_emp__wrapped-signin']}>
             <span>{t('have-account')} </span>
-            <Link to="/employers/sign-in">{t('signin')}</Link>
+            <Link className={`${classes.link} ${classes.bold}`} to="/employers/sign-in">
+              {t('signin')}
+            </Link>
           </div>
         </div>
       </div>

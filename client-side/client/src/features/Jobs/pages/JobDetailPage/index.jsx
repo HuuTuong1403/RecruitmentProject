@@ -15,7 +15,7 @@ import { IoMdCalendar } from 'react-icons/io'
 import { FacebookShareButton, FacebookMessengerShareButton } from 'react-share'
 import { Link, useParams, useHistory, useLocation } from 'react-router-dom'
 import { MdLocationOn } from 'react-icons/md'
-import { scrollToTop } from 'common/functions'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { Tooltip } from 'antd'
@@ -33,7 +33,7 @@ import notification from 'components/Notification'
 import parse from 'html-react-parser'
 
 const JobDetailPage = () => {
-  scrollToTop()
+  ScrollToTop()
   const { t } = useTranslation()
   const { slug } = useParams()
   const history = useHistory()
@@ -83,6 +83,7 @@ const JobDetailPage = () => {
     skills,
     level,
     finishDate,
+    isExpired,
   } = jobDetail
 
   useTitle(jobTitle ?? '')
@@ -149,20 +150,34 @@ const JobDetailPage = () => {
             <ModalSignIn showModal={showModal} onCloseModal={onCloseModal} />
           )}
           <div className={classes.jobDetail__top}>
-            <div className={classes['jobDetail__top--wrapped']}>
+            <div className={classes['jobDetail__top-wrapped']}>
               {company?.logo && (
-                <div>
+                <div className={classes['jobDetail__top-logo']}>
                   <Link to={`/jobs/employer/${company?.companyName}`}>
                     <img src={company?.logo} alt={company?.companyName} />
+                    {isExpired && (
+                      <div className={classes['jobDetail__top-logo__overlay']}>
+                        <div className={classes['jobDetail__top-logo--expired']}>
+                          {t('Expired')}
+                        </div>
+                      </div>
+                    )}
                   </Link>
                 </div>
               )}
-              <div>
-                <div>
-                  {jobTitle && <div>{jobTitle}</div>}
+              <div className={classes['jobDetail__top-infor']}>
+                <div className={classes['jobDetail__top-infor__content']}>
+                  {jobTitle && (
+                    <div className={classes['jobDetail__top-infor__content-jobTitle']}>
+                      {jobTitle}
+                    </div>
+                  )}
                   {company?.companyName && (
-                    <div>
-                      <Link to={`/jobs/employer/${company?.companyName}`}>
+                    <div className={classes['jobDetail__top-infor__content-companyName']}>
+                      <Link
+                        className={classes['link-no-border']}
+                        to={`/jobs/employer/${company?.companyName}`}
+                      >
                         <FaBuilding style={{ marginRight: '8px' }} />
                         {company?.companyName}
                       </Link>
@@ -173,20 +188,20 @@ const JobDetailPage = () => {
                       href={company?.companyWebsite}
                       target="_blank"
                       rel="noreferrer"
-                      className={classes['jobDetail__top--wrapped--companyWebsite']}
+                      className={classes['link-no-border']}
                     >
                       <AiOutlineGlobal style={{ marginRight: '8px' }} />
                       {company?.companyWebsite}
                     </a>
                   )}
                   {finishDate && (
-                    <div>
+                    <div className={classes['jobDetail__top-infor__content-field']}>
                       <IoMdCalendar style={{ marginRight: '8px', fontSize: '18px' }} />
                       {`${t('Deadline to apply')}: ${moment(finishDate).format(dateFormatPicker)}`}
                     </div>
                   )}
                 </div>
-                <div>
+                <div className={classes['jobDetail__top-infor__actions']}>
                   {favoriteJobs?.some((item) => item._id === _id) ? (
                     <ButtonField
                       backgroundcolor="rgba(0,0,0,.08)"
@@ -230,93 +245,96 @@ const JobDetailPage = () => {
                       {t('Apply now')}
                     </ButtonField>
                   )}
-                  <div className={classes['jobDetail__share']}>
-                    <div>Chia sẻ:</div>
-                    <div>
-                      <FacebookShareButton
-                        url={`https://mst-recruit.web.app/${locationUrl.pathname}`}
-                        quote={`Tin tuyển dụng ${jobTitle} của ${company?.companyName}`}
-                        hashtag="#RecruitmentInMST"
-                      >
-                        <FaFacebook className={classes['jobDetail__share--icon']} />
-                      </FacebookShareButton>
-                    </div>
-                    <div>
-                      <FacebookMessengerShareButton
-                        appId="938805363717233"
-                        url={`https://mst-recruit.web.app/${locationUrl.pathname}`}
-                      >
-                        <FaFacebookMessenger className={classes['jobDetail__share--icon']} />
-                      </FacebookMessengerShareButton>
-                    </div>
+                  <div className={classes['jobDetail__top-infor__actions-share']}>
+                    <div>{t("Share")}:</div>
+
+                    <FacebookShareButton
+                      url={`https://mst-recruit.web.app/${locationUrl.pathname}`}
+                      quote={`Tin tuyển dụng ${jobTitle} của ${company?.companyName}`}
+                      hashtag="#RecruitmentInMST"
+                    >
+                      <FaFacebook className={classes['jobDetail__top-infor__actions-icon']} />
+                    </FacebookShareButton>
+
+                    <FacebookMessengerShareButton
+                      appId="938805363717233"
+                      url={`https://mst-recruit.web.app/${locationUrl.pathname}`}
+                    >
+                      <FaFacebookMessenger
+                        className={classes['jobDetail__top-infor__actions-icon']}
+                      />
+                    </FacebookMessengerShareButton>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className={classes.jobDetail__content}>
-            <div className={classes['jobDetail__content--wrapped']}>
-              <div>
+            <div className={classes['jobDetail__content-wrapped']}>
+              <div className={classes['jobDetail__content-wrapped__body']}>
                 {reason && (
                   <Fragment>
-                    <div className={classes['jobDetail__content--wrapped--title']}>
+                    <div className={classes['jobDetail__content-wrapped__title']}>
                       {t('Reasons To Join Us')}
                     </div>
-                    <div className={classes['jobDetail__content--wrapped--content']}>
+                    <div className={classes['jobDetail__content-wrapped__content']}>
                       {parse(parse(reason))}
                     </div>
                   </Fragment>
                 )}
                 {description && (
                   <Fragment>
-                    <div className={classes['jobDetail__content--wrapped--title']}>
+                    <div className={classes['jobDetail__content-wrapped__title']}>
                       {t('Job description')}
                     </div>
-                    <div className={classes['jobDetail__content--wrapped--content']}>
+                    <div className={classes['jobDetail__content-wrapped__content']}>
                       {parse(parse(description))}
                     </div>
                   </Fragment>
                 )}
                 {requirements && (
                   <Fragment>
-                    <div className={classes['jobDetail__content--wrapped--title']}>
+                    <div className={classes['jobDetail__content-wrapped__title']}>
                       {t('Job requirements')}
                     </div>
-                    <div className={classes['jobDetail__content--wrapped--content']}>
+                    <div className={classes['jobDetail__content-wrapped__content']}>
                       {parse(parse(requirements))}
                     </div>
                   </Fragment>
                 )}
                 {benefits && (
                   <Fragment>
-                    <div className={classes['jobDetail__content--wrapped--title']}>
+                    <div className={classes['jobDetail__content-wrapped__title']}>
                       {t('Benefits')}
                     </div>
-                    <div className={classes['jobDetail__content--wrapped--content']}>
+                    <div className={classes['jobDetail__content-wrapped__content']}>
                       {parse(parse(benefits))}
                     </div>
                   </Fragment>
                 )}
                 {responsibilities && (
                   <Fragment>
-                    <div className={classes['jobDetail__content--wrapped--title']}>
+                    <div className={classes['jobDetail__content-wrapped__title']}>
                       {t('Responsibilities')}
                     </div>
-                    <div className={classes['jobDetail__content--wrapped--content']}>
+                    <div className={classes['jobDetail__content-wrapped__content']}>
                       {parse(parse(responsibilities))}
                     </div>
                   </Fragment>
                 )}
-                {skills && (
+                {skills && skills.length > 0 && (
                   <Fragment>
-                    <div className={classes['jobDetail__content--wrapped--title']}>
-                      {t('Skill')}
-                    </div>
-                    <div className={classes['container']}>
+                    <div className={classes['jobDetail__content-wrapped__title']}>{t('Skill')}</div>
+                    <div className={classes.jobDetail__card}>
                       {skills?.map((skill, index) => (
-                        <div className={classes['container__card-skill']} key={index}>
+                        <div className={classes['jobDetail__card-skill']} key={index}>
                           <Tooltip title={`${t('View jobs with skill')} ${skill}`}>
-                            <Link to={`/jobs/search?skills=${skill}`}>{skill}</Link>
+                            <Link
+                              className={classes['link-no-border']}
+                              to={`/jobs/search?skills=${skill}`}
+                            >
+                              {skill}
+                            </Link>
                           </Tooltip>
                         </div>
                       ))}
@@ -324,28 +342,29 @@ const JobDetailPage = () => {
                   </Fragment>
                 )}
               </div>
-              <div>
+
+              <div className={classes['jobDetail__content-address']}>
                 {location && (
-                  <div className={classes['jobDetail__content--map']}>
-                    <div className={classes['jobDetail__content--map--title']}>
+                  <div className={classes['jobDetail__content-address__map']}>
+                    <div className={classes['jobDetail__content-address__title']}>
                       {t('Workplace address')}
                     </div>
-                    <div className={classes['jobDetail__content--map--location']}>
-                      <MdLocationOn style={{ marginRight: '8px' }} />
+                    <div className={classes['jobDetail__content-address__location']}>
+                      <MdLocationOn style={{ margin: '-4px 2px 0 0', fontSize: '16px' }} />
                       {`${location.street}, ${location.ward}, ${location.district}, ${location.city}`}
                     </div>
                     <iframe
                       src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBG4gMA71lLD3zLV38JXsvM3SQ-TT39FpM&q=${location.street},${location.ward},${location.district},${location.city}&zoom=15&language=vi`}
-                      className={classes['jobDetail__content--map--iframe']}
+                      className={classes['jobDetail__content-address__iframe']}
                       title="Map"
                     ></iframe>
                   </div>
                 )}
-                <div className={classes['jobDetail__content--wrapped--table']}>
-                  <div className={classes['jobDetail__content--wrapped--table--top']}>
+                <div className={classes['jobDetail__content-table']}>
+                  <div className={classes['jobDetail__content-table__top']}>
                     {t('Recruitment information')}
                   </div>
-                  <div className={classes['jobDetail__content--wrapped--table--bottom']}>
+                  <div className={classes['jobDetail__content-table__bottom']}>
                     {workingTime && (
                       <div>
                         {t('Working time')}:{' '}

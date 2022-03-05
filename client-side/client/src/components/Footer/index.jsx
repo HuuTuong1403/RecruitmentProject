@@ -10,25 +10,34 @@ const Footer = () => {
 
   return (
     <footer className={classes.footer}>
-      <div className={classes['footer__bltop']}>
-        <div className={classes['footer__bltop--left']}>
+      <div className={classes['footer__head']}>
+        <div className={classes['footer__head-left']}>
           <img src={MSTLogo} alt="MST LOGO" />
           <ul>
             <li>
-              <a href="/">{t('introduce')}</a>
+              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+                {t('introduce')}
+              </a>
             </li>
             <li>
-              <a href="/">{t('contact')}</a>
+              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+                {t('contact')}
+              </a>
             </li>
             <li>
-              <a href="/">{t('terms of service')}</a>
+              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+                {t('terms of service')}
+              </a>
             </li>
             <li>
-              <a href="/">{t('privacy policy')}</a>
+              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+                {t('privacy policy')}
+              </a>
             </li>
           </ul>
         </div>
-        <div className={classes['footer__bltop--right']}>
+
+        <div className={classes['footer__head-right']}>
           <div>{t('connect now')}</div>
           <a href="https://www.facebook.com" target="_blank" rel="nofollow noopener noreferrer">
             <FaFacebookF />
@@ -36,22 +45,28 @@ const Footer = () => {
           <img src={DK} alt="Đã đăng ký bộ công thương" />
         </div>
       </div>
-      <div className={classes['footer__blbottom']}>
-        <div className={classes['footer__blbottom--top']}>
+
+      <div className={classes['footer__bottom']}>
+        <div className={classes['footer__bottom-top']}>
           {footerHomeList.map((item) => (
             <div key={item.titleFooter}>
               <h3>{t(item.titleFooter)}</h3>
               <ul>
                 {item.contentFooter.map((itemContent) => (
                   <li key={itemContent.title}>
-                    <Link to={itemContent.href}>{t(itemContent.title)}</Link>
+                    <Link
+                      className={`${classes['link']} ${classes['link-fz-16']}`}
+                      to={itemContent.href}
+                    >
+                      {t(itemContent.title)}
+                    </Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <div className={classes['footer__blbottom--bottom']}>
+        <div className={classes['footer__bottom-bottom']}>
           <p>
             <strong>{t('Service Joint Stock Company')}</strong>
           </p>

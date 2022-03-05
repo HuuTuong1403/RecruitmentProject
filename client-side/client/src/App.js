@@ -2,7 +2,7 @@ import { fetchProvincesAsync } from 'features/Home/slices/thunks'
 import { fetchSkillsAsync } from 'features/Jobs/slices/thunks'
 import { ToastContainer } from 'react-toastify'
 import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, Fragment } from 'react'
 import { withTranslation } from 'react-i18next'
 import Routers from './routers'
 
@@ -15,7 +15,7 @@ const App = () => {
   }, [dispatch])
 
   return (
-    <div>
+    <Fragment>
       <Routers />
       <ToastContainer
         position="top-right"
@@ -29,7 +29,7 @@ const App = () => {
         draggable
         pauseOnHover
       />
-    </div>
+    </Fragment>
   )
 }
 

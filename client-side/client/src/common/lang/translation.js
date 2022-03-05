@@ -4,7 +4,7 @@ import tranlate_en from './en.json'
 import tranlate_vn from './vn.json'
 
 const lang = () => {
-  let locale = localStorage.getItem('lang') || navigator.language
+  let locale = localStorage.getItem('lang') || "en-ES"
   localStorage.setItem('lang', locale)
   return locale
 }

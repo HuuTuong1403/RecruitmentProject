@@ -75,19 +75,19 @@ const HeaderEmployers = () => {
           alt="MST LOGO"
           className={classes.header__logo}
         />
-        <NavLink className={classes.header__home} to="/employers">
+        <NavLink className={classes['link-no-border']} to="/employers">
           <IoHome />
         </NavLink>
       </div>
-      <div style={styleResize} className={classes['header__block-right']}>
+      <div style={styleResize} className={classes.header__right}>
         {!employer ? (
           <NavLink
             activeClassName={classes['header__link--active']}
             to="/employers/sign-in"
-            className={classes['header__link']}
+            className={classes.header__link}
             onClick={toggleMenuChildClick}
           >
-            <MdAccountCircle className={classes['header__link--person']} />
+            <MdAccountCircle className={classes['icon-gb-18']} />
             {t('signin')}
           </NavLink>
         ) : (
@@ -97,63 +97,73 @@ const HeaderEmployers = () => {
               toggle={hoverProfileHandler}
               onMouseEnter={hoverProfileHandler}
               onMouseLeave={hoverProfileHandler}
-              className={classes['header__lang']}
+              className={classes.header__lang}
             >
               <DropdownToggle caret>
-                <Link to={`/employers/dashboard/statistics`} onClick={toggleMenuChildClick}>
-                  <MdAccountCircle className={classes['header__link--person']} />
+                <Link
+                  className={classes['link-no-border']}
+                  to={`/employers/dashboard/statistics`}
+                  onClick={toggleMenuChildClick}
+                >
+                  <MdAccountCircle className={classes['icon-gb-18']} />
                   {employer.companyName}
                 </Link>
               </DropdownToggle>
               <DropdownMenu>
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
                   to={`/employers/dashboard/post-job`}
                 >
-                  <FaEdit className={classes['header__link--person']} />
+                  <FaEdit className={classes['icon-gb-18']} />
                   {t('postjobs')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
                   to={`/employers/dashboard/recruit-manage/created`}
                 >
-                  <RiFileList3Line className={classes['header__link--person']} />
+                  <RiFileList3Line className={classes['icon-gb-18']} />
                   {t('recruitment manager')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
                   to={`/employers/dashboard/events/created`}
                 >
-                  <MdEvent className={classes['header__link--person']} />
+                  <MdEvent className={classes['icon-gb-18']} />
                   {t('Event management')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
                   to={`/employers/dashboard/candidate-profiles`}
                 >
-                  <IoIosPeople className={classes['header__link--person']} />
+                  <IoIosPeople className={classes['icon-gb-18']} />
                   {t('Manage candidate profiles')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
                   to={`/employers/dashboard/my-profile`}
                 >
-                  <MdAccountCircle className={classes['header__link--person']} />
+                  <MdAccountCircle className={classes['icon-gb-18']} />
                   {t('Account Management')}
                 </Link>
+
                 <Link
-                  className={classes['header__lang--profile']}
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
                   to={`/employers/dashboard/setting-account`}
                 >
-                  <MdSettings className={classes['header__link--person']} />
+                  <MdSettings className={classes['icon-gb-18']} />
                   {t('Settings')}
                 </Link>
+
                 <Link
                   to={location.pathname}
-                  className={classes['header__lang--profile']}
+                  className={classes['header__lang-profile']}
                   onClick={logoutHandler}
                 >
-                  <RiLogoutCircleRLine className={classes['header__link--person']} />
+                  <RiLogoutCircleRLine className={classes['icon-gb-18']} />
                   {t('Log out')}
                 </Link>
               </DropdownMenu>
@@ -164,32 +174,34 @@ const HeaderEmployers = () => {
           <NavLink
             activeClassName={classes['header__link--active']}
             to="/employers/sign-up"
-            className={classes['header__link']}
+            className={classes.header__link}
             onClick={toggleMenuChildClick}
           >
             {t('signup')}
           </NavLink>
         )}
-        <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} className={classes['header__lang']}>
+        <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} className={classes.header__lang}>
           <DropdownToggle caret>{lang.slice(0, 2).toUpperCase()}</DropdownToggle>
           <DropdownMenu>
             <DropdownItem onClick={changeLangViHandler}>
-              <ReactCountryFlag countryCode="VN" svg className={classes['header__ic--flag']} />
+              <ReactCountryFlag countryCode="VN" svg className={classes['header__icon-flag']} />
               VI
             </DropdownItem>
             <DropdownItem onClick={changeLangEnHandler}>
-              <ReactCountryFlag countryCode="US" svg className={classes['header__ic--flag']} />
+              <ReactCountryFlag countryCode="US" svg className={classes['header__icon-flag']} />
               EN
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <Link to="/" className={classes['header__link--emp']}>
-          <span>{t('jobseekers-site')}</span>
-          <br />
-          <span>{t('searchjobs')}</span>
+        <Link to="/" className={classes['header__link-to-jsk']}>
+          <div className={classes['header__link-to-jsk__wrap']}>
+            <span>{t('jobseekers-site')}</span>
+            <br />
+            <span>{t('searchjobs')}</span>
+          </div>
         </Link>
       </div>
-      <div className={classes['header__ic--menu']}>
+      <div className={classes['header__icon-menu']}>
         <IoMenu onClick={toggleMenuHandler} />
       </div>
     </header>
