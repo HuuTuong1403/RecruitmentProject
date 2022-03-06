@@ -2,7 +2,7 @@ import { FaUsers, FaArrowUp, FaBuilding } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const StatisticCardItem = ({
+export const StatisticCardItem = ({
   title,
   sum,
   countCurrent,
@@ -38,5 +38,3 @@ const StatisticCardItem = ({
     </div>
   )
 }
-
-export default StatisticCardItem

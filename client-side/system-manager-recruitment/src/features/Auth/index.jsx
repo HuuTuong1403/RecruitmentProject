@@ -1,10 +1,9 @@
 import { Fragment, useEffect } from 'react'
 import { selectSystemManageLocal } from 'features/SystemManager/slices/selectors'
 import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom'
-import ChangeLang from 'components/ChangeLang'
+import { ChangeLang, Page404 } from 'components'
 import ChangePassPage from './pages/ChangePass'
 import ForgotPassPage from './pages/ForgotPassPage'
-import NotFoundPage from 'components/404'
 import SignInPage from './pages/SignInPage'
 
 const AuthPage = () => {
@@ -23,7 +22,7 @@ const AuthPage = () => {
         <Route exact path={`${url}`} component={SignInPage} />
         <Route exact path={`/forgot-pass`} component={ForgotPassPage} />
         <Route exact path="/forgot-pass/:token" component={ChangePassPage} />
-        <Route component={NotFoundPage} />
+        <Route component={Page404} />
       </Switch>
     </Fragment>
   )

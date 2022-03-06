@@ -1,6 +1,6 @@
 import classes from './style.module.scss'
 
-const AuthComponent = ({ title, children }) => {
+export const AuthComponent = ({ title, children }) => {
   return (
     <div className={classes.auth}>
       <div className={classes.auth__wrapped}>
@@ -13,5 +13,3 @@ const AuthComponent = ({ title, children }) => {
     </div>
   )
 }
-
-export default AuthComponent

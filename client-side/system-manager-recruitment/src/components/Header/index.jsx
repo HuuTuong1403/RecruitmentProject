@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import ReactCountryFlag from 'react-country-flag'
 
-const Header = ({ isShow, onOpen, onClose }) => {
+export const Header = ({ isShow, onOpen, onClose }) => {
   const dispatch = useDispatch()
   const { t, i18n } = useTranslation()
   const [lang, setLang] = useState(localStorage.getItem('lang') || 'en-ES')
@@ -80,6 +80,15 @@ const Header = ({ isShow, onOpen, onClose }) => {
           <NavLink
             activeClassName={classes['header__link--active']}
             className={classes['header__link']}
+            to="/dashboard/package-manage/created"
+          >
+            {t('Service Package')}
+          </NavLink>
+        </div>
+        <div>
+          <NavLink
+            activeClassName={classes['header__link--active']}
+            className={classes['header__link']}
             to="/dashboard/my-profile"
           >
             {t('Account')}
@@ -118,5 +127,3 @@ const Header = ({ isShow, onOpen, onClose }) => {
     </header>
   )
 }
-
-export default Header

@@ -1,12 +1,12 @@
+import { EmployerDetail } from 'features/SystemManager/components'
 import { fetchEmployerDetailAsync } from 'features/SystemManager/slices/thunks'
 import { Fragment, useEffect } from 'react'
+import { LoadingSuspense } from 'components'
 import { scrollToTop } from 'common/functions'
+import { selectStatus, selectEmployer } from 'features/SystemManager/slices/selectors'
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { selectStatus, selectEmployer } from 'features/SystemManager/slices/selectors'
-import EmployerDetail from 'features/SystemManager/components/EmployerDetail'
-import Loading from 'components/Loading'
 
 const EmployerDetailPage = () => {
   scrollToTop()
@@ -21,7 +21,11 @@ const EmployerDetailPage = () => {
 
   return (
     <Fragment>
-      {loading ? <Loading showText={false} /> : employer && <EmployerDetail employer={employer} />}
+      {loading ? (
+        <LoadingSuspense showText={false} />
+      ) : (
+        employer && <EmployerDetail employer={employer} />
+      )}
     </Fragment>
   )
 }

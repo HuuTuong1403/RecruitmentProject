@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import ReactCountryFlag from 'react-country-flag'
 
-const ChangeLang = () => {
+export const ChangeLang = () => {
   const { t, i18n } = useTranslation()
   const [lang, setLang] = useState(localStorage.getItem('lang') || 'en-ES')
 
@@ -49,5 +49,3 @@ const ChangeLang = () => {
     </div>
   )
 }
-
-export default ChangeLang

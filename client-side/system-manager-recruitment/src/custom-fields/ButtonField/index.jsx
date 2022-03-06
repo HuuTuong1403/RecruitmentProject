@@ -2,7 +2,7 @@ import { Button } from 'antd'
 import { useState } from 'react'
 import classes from './style.module.scss'
 
-const ButtonField = ({
+export const ButtonField = ({
   backgroundcolor,
   color = '#fff',
   backgroundcolorhover,
@@ -43,5 +43,3 @@ const ButtonField = ({
     </Button>
   )
 }
-
-export default ButtonField

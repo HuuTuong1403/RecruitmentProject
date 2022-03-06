@@ -1,11 +1,10 @@
 import { fetchAllJobDeleted } from 'features/SystemManager/api/systemManager.api'
+import { JobOfEmployerList } from 'features/SystemManager/components'
 import { useEffect, useState, Fragment } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
+import { LoadingSuspense, NotFoundData } from 'components'
 import classes from './style.module.scss'
-import JobOfEmployerList from 'features/SystemManager/components/JobOfEmployerList'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
 
 const RecruitmentTrashPage = () => {
   const { t } = useTranslation()

@@ -6,14 +6,12 @@ import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js'
-import ButtonField from 'custom-fields/ButtonField'
+import { WrappedInput as InputField, ButtonField, LabelField } from 'custom-fields'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
-import notification from 'components/Notification'
 
-const ModalSignUp = ({ showModal, onCloseModal, id }) => {
+export const ModalSignUp = ({ showModal, onCloseModal, id }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -119,5 +117,3 @@ const ModalSignUp = ({ showModal, onCloseModal, id }) => {
     </Modal>
   )
 }
-
-export default ModalSignUp

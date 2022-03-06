@@ -77,3 +77,14 @@ export const schemaUpdateProfile = yup
       .matches(/((09|03|07|08|05)+([0-9]{8})\b)/g, 'error-phone-pattern'),
   })
   .required()
+
+export const schemaCreateService = yup
+  .object({
+    serviceName: yup.string().required('error-serviceName'),
+    description: yup.string().required('error-serviceDesc'),
+    price: yup
+      .number()
+      .typeError('error-servicePriceNum')
+      .required('error-servicePrice'),
+  })
+  .required()

@@ -4,6 +4,9 @@ import {
   fetchEmployerDetail,
   getSystemManagerDetail,
   fetchAllJob,
+  getAllServicePackage,
+  getAllService,
+  getAllDeletedService,
 } from '../api/systemManager.api'
 
 export const fetchAllEmployerAsync = createAsyncThunk(
@@ -34,3 +37,24 @@ export const fetchAllJobAsync = createAsyncThunk('systemManagement/fetchAllJob',
   const response = await fetchAllJob()
   return response.data.data
 })
+
+export const getAllServicePackageAsync = createAsyncThunk(
+  'systemManagement/getAllServicePackage',
+  async () => {
+    const response = await getAllServicePackage()
+    return response.data.data
+  }
+)
+
+export const getAllServiceAsync = createAsyncThunk('systemManagement/getAllService', async () => {
+  const response = await getAllService()
+  return response.data.data
+})
+
+export const getAllDeletedServiceAsync = createAsyncThunk(
+  'systemManagement/getAllDeleted',
+  async () => {
+    const response = await getAllDeletedService()
+    return response.data.data
+  }
+)

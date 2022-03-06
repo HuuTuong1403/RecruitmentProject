@@ -1,4 +1,5 @@
 import { AiOutlineGlobal } from 'react-icons/ai'
+import { ButtonField, PopoverField } from 'custom-fields'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaBuilding } from 'react-icons/fa'
 import { Fragment } from 'react'
@@ -7,13 +8,11 @@ import { MdLocationOn } from 'react-icons/md'
 import { Modal } from 'antd'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
 import moment from 'moment'
 import parse from 'html-react-parser'
-import PopoverField from 'custom-fields/PopoverField'
 
-const ModalJobDetail = ({
+export const ModalJobDetail = ({
   showModal,
   onCloseModal,
   data,
@@ -86,7 +85,7 @@ const ModalJobDetail = ({
                 {`${t('Deadline to apply')}: ${moment(finishDate).format(dateFormatPicker)}`}
               </div>
             )}
-            {(status !== 'approval' && statusJob !== 'deleted') && (
+            {status !== 'approval' && statusJob !== 'deleted' && (
               <div className={classes['jobDetail__top--left--actions']}>
                 {status !== 'denied' && (
                   <PopoverField
@@ -255,5 +254,3 @@ const ModalJobDetail = ({
     </Modal>
   )
 }
-
-export default ModalJobDetail

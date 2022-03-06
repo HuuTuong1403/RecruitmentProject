@@ -1,9 +1,9 @@
+import { ErrorText } from 'components'
 import { forwardRef } from 'react'
 import { Input } from 'reactstrap'
 import classes from './style.module.scss'
-import ErrorText from 'components/ErrorText'
 
-const WrappedInput = forwardRef(({ errors, fontSize, bold = 'normal', ...props }, ref) => {
+export const WrappedInput = forwardRef(({ errors, fontSize, bold = 'normal', ...props }, ref) => {
   const style = {
     fontSize: fontSize,
     fontWeight: bold,
@@ -19,5 +19,3 @@ const WrappedInput = forwardRef(({ errors, fontSize, bold = 'normal', ...props }
     </div>
   )
 })
-
-export default WrappedInput

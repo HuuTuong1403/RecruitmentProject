@@ -5,6 +5,7 @@ import {
 } from 'features/SystemManager/slices/selectors'
 import { changeTabsItem } from 'features/SystemManager/slices'
 import { fetchAllJobAsync } from 'features/SystemManager/slices/thunks'
+import { JobOfEmployerList } from 'features/SystemManager/components'
 import { scrollToTop } from 'common/functions'
 import { Tabs } from 'antd'
 import { useEffect, Fragment } from 'react'
@@ -12,10 +13,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { useWindowSize } from 'common/hook/useWindowSize'
+import { LoadingSuspense, NotFoundData } from 'components'
 import classes from './style.module.scss'
-import JobOfEmployerList from 'features/SystemManager/components/JobOfEmployerList'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
 
 const RecruitmentManagerPage = () => {
   scrollToTop()

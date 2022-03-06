@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 
-const notification = (content, type) => {
+export const notification = (content, type) => {
   if (type === 'success') {
     return toast.success(content)
   }
@@ -8,5 +8,3 @@ const notification = (content, type) => {
     return toast.error(content)
   }
 }
-
-export default notification

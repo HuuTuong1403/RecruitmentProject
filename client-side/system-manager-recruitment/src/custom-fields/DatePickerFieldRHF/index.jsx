@@ -1,9 +1,9 @@
 import { Controller } from 'react-hook-form'
 import { DatePicker } from 'antd'
+import { ErrorText } from 'components'
 import { Fragment } from 'react'
-import ErrorText from 'components/ErrorText'
 
-const DatePickerFieldRHF = ({
+export const DatePickerFieldRHF = ({
   control,
   dateFormat,
   disabledDate,
@@ -56,5 +56,3 @@ const DatePickerFieldRHF = ({
     </Fragment>
   )
 }
-
-export default DatePickerFieldRHF

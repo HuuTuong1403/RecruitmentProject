@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const ForgotPassNotify = () => {
+export const ForgotPassNotify = () => {
   const { t } = useTranslation()
 
   return (
@@ -19,5 +19,3 @@ const ForgotPassNotify = () => {
     </div>
   )
 }
-
-export default ForgotPassNotify

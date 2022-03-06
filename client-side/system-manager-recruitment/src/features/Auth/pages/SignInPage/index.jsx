@@ -1,3 +1,5 @@
+import { AuthComponent } from 'features/Auth/components'
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import { FiLock, FiUser } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { schemaSignIn } from 'common/constants/schema'
@@ -9,12 +11,8 @@ import { useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AuthComponent from 'features/Auth/components/AuthComponent'
-import ButtonField from 'custom-fields/ButtonField'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
-import notification from 'components/Notification'
 
 const SignInPage = () => {
   const { t } = useTranslation()

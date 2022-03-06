@@ -1,13 +1,13 @@
 import { Avatar, Dropdown, Menu } from 'antd'
-import { useState, useEffect } from 'react'
+import { BiImageAdd } from 'react-icons/bi'
 import { Fragment, useRef } from 'react'
 import { MdHighlightOff } from 'react-icons/md'
-import { BiImageAdd } from 'react-icons/bi'
-import classes from './style.module.scss'
+import { notification } from 'components'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import notification from 'components/Notification'
+import classes from './style.module.scss'
 
-const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
+export const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
   const [avatarSrc, setAvatarSrc] = useState(src)
   const fileRef = useRef(null)
   const { t } = useTranslation()
@@ -87,4 +87,3 @@ const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
     </Fragment>
   )
 }
-export default AvatarUpload
