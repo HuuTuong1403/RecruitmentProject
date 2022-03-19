@@ -1,4 +1,6 @@
+import { AvatarUpload, LoadingSuspense, notification } from 'components'
 import { getSystemManagerDetailAsync } from 'features/SystemManager/slices/thunks'
+import { LabelField, ButtonField } from 'custom-fields'
 import { schemaUpdateProfile } from 'common/constants/schema'
 import { scrollToTop } from 'common/functions'
 import { selectSystemManageDetail } from 'features/SystemManager/slices/selectors'
@@ -8,14 +10,9 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup.js'
-import AvatarUpload from 'components/AvatarUpload'
-import ButtonField from 'custom-fields/ButtonField'
+import { WrappedInput as InputProfileField } from 'features/SystemManager/components'
+import { yupResolver } from '@hookform/resolvers/yup'
 import classes from './style.module.scss'
-import InputProfileField from 'features/SystemManager/components/InputProfileField'
-import LabelField from 'custom-fields/LabelField'
-import LoadingSuspense from 'components/Loading'
-import notification from 'components/Notification'
 
 const ProfilePage = () => {
   scrollToTop()

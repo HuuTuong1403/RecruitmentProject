@@ -4,14 +4,13 @@ import {
   fetchEmployerStatisticMonthly,
   fetchJobSeekerStatisticMonthly,
 } from 'features/SystemManager/api/systemManager.api'
+import { BarChartVertical, LoadingSuspense } from 'components'
 import { scrollToTop } from 'common/functions'
+import { StatisticCardItem } from 'features/SystemManager/components'
 import { useEffect, useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import BarChartVertical from 'components/BarChartVertical'
 import classes from './style.module.scss'
-import LoadingSuspense from 'components/Loading'
-import StatisticCardItem from 'features/SystemManager/components/StatisticCardItem'
 
 const MONTH_OF_YEAR = [
   'January',

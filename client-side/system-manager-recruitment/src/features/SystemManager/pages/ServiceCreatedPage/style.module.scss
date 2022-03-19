@@ -1,0 +1,97 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.service {
+  background-color: $fifth-color;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $pm-10 $pm-10 0;
+
+    &__left {
+      display: flex;
+      align-items: center;
+
+      & > div:first-child {
+        margin-right: $pm-10;
+        font-size: $text-xl;
+
+        & > svg {
+          cursor: pointer;
+          color: rgba(0, 0, 21, 0.5);
+          transition: all 0.25s ease-in-out;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+      }
+
+      & > div:last-child {
+        color: $primary-text;
+        font-size: $text-xl;
+      }
+    }
+
+    &__right {
+      margin-right: $pm-10;
+      font-size: $text-base;
+      cursor: pointer;
+      color: $primary-text;
+      transition: all 0.25s ease-in-out;
+
+      &:hover {
+        color: $third-text;
+      }
+    }
+  }
+
+  &__body {
+    padding: $pm-10;
+  }
+
+  &__table {
+    padding: $pm-10 $pm-14;
+    margin-top: $pm-10;
+    border-top: 1px solid #ddd;
+
+    &__title {
+      font-size: $text-xl;
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: $pm-6;
+      color: $second-color;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .service {
+    &__header {
+      &__left {
+        & > div:first-child {
+          font-size: $text-sm;
+        }
+
+        & > div:last-child {
+          font-size: $text-sm;
+        }
+      }
+
+      &__right {
+        font-size: $text-sm;
+        margin-right: 0;
+      }
+    }
+
+    &__table {
+      &__title {
+        font-size: $text-base;
+      }
+    }
+  }
+}

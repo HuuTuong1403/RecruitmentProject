@@ -1,5 +1,6 @@
 import axiosClient from 'api/axiosClient'
 
+// #region API for Employer
 export const fetchAlLEmployer = async () => {
   try {
     const res = await axiosClient.get('system-manager/manage/employer')
@@ -57,7 +58,9 @@ export const upadteProfileSystemManager = async (payload) => {
     console.log(error)
   }
 }
+// #endregion
 
+// #region API for Job Posting
 export const fetchAllJob = async () => {
   try {
     const res = await axiosClient.get('system-manager/jobs/view/all')
@@ -93,7 +96,9 @@ export const denyJobPosting = async (payload) => {
     console.log(error)
   }
 }
+// #endregion
 
+// #region API for statistic dashboard
 export const fetchSumJobSeeker = async () => {
   try {
     const res = await axiosClient.get('system-manager/job-seeker/statistic/jobseeker-comp')
@@ -129,3 +134,116 @@ export const fetchEmployerStatisticMonthly = async () => {
     console.log(error)
   }
 }
+// #endregion
+
+// #region API for Service Package
+export const getAllServicePackage = async () => {
+  try {
+    const res = await axiosClient.get('service-package')
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const createServicePackage = async (payload) => {
+  try {
+    const res = await axiosClient.post('system-manager/service-package', payload)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateServicePackage = async (id, data) => {
+  try {
+    const res = await axiosClient.patch(`system-manager/service-package/${id}`, data)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const softDeleteServicePackage = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`system-manager/service-package/soft-delete/${payload}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const restoreServicePackage = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`system-manager/service-package/restore/${payload}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllServicePackageDeleted = async () => {
+  try {
+    const res = await axiosClient.get('system-manager/service-package/soft-delete/trash')
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+// #endregion
+
+// #region API for Service
+export const getAllService = async () => {
+  try {
+    const res = await axiosClient.get('system-manager/service')
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const createService = async (payload) => {
+  try {
+    const res = await axiosClient.post('system-manager/service', payload)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateService = async (id, data) => {
+  try {
+    const res = await axiosClient.patch(`system-manager/service/${id}`, data)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const softDeleteService = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`system-manager/service/soft-delete/${payload}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const restoreService = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`system-manager/service/restore/${payload}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllDeletedService = async (payload) => {
+  try {
+    const res = await axiosClient.get('system-manager/service/soft-delete/trash')
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+// #endregion

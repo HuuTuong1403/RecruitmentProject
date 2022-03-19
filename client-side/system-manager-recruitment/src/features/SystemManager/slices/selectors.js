@@ -25,3 +25,15 @@ export const selectAllJobs = (state) => {
 export const selectTabsItem = (state) => {
   return state?.systemManagement?.tabItem
 }
+
+export const selectServicePackages = (state) => {
+  return state?.systemManagement?.servicePackages
+}
+
+export const selectServices = (state) => {
+  return state?.systemManagement?.services
+}
+
+export const selectDeletedServices = (state) => {
+  return state?.systemManagement?.deletedServices
+}

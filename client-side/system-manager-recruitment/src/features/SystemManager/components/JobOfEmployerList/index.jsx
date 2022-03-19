@@ -1,11 +1,11 @@
 import { Fragment, useState } from 'react'
+import { JobOfEmployerItem } from 'features/SystemManager/components'
 import { Pagination } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { NotFoundData } from 'components'
 import classes from './style.module.scss'
-import JobOfEmployerItem from 'features/SystemManager/components/JobOfEmployerItem'
-import NotFoundData from 'components/NotFoundData'
 
-const JobOfEmployerList = ({ listRender, max, status = '' }) => {
+export const JobOfEmployerList = ({ listRender, max, status = '' }) => {
   const { t } = useTranslation()
   const [value, setValue] = useState({ min: 0, max: max })
 
@@ -38,5 +38,3 @@ const JobOfEmployerList = ({ listRender, max, status = '' }) => {
     </Fragment>
   )
 }
-
-export default JobOfEmployerList

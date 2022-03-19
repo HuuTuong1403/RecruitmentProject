@@ -1,18 +1,18 @@
 import { AiOutlineCalendar, AiOutlineGlobal, AiOutlineMail, AiOutlinePhone } from 'react-icons/ai'
 import { BiArrowBack } from 'react-icons/bi'
 import { BsPeopleFill } from 'react-icons/bs'
+import { ButtonField } from 'custom-fields'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { Fragment, useState } from 'react'
 import { MdLocationOn, MdLocationCity, MdWork } from 'react-icons/md'
+import { ModalSignUp } from 'features/SystemManager/components'
 import { useHistory } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import ModalSignUp from 'features/SystemManager/components/ModalSignUp'
 import moment from 'moment'
 
-const EmployerDetail = ({ employer }) => {
+export const EmployerDetail = ({ employer }) => {
   const { t } = useTranslation()
   const history = useHistory()
   const [showModal, setShhowModal] = useState(false)
@@ -149,5 +149,3 @@ const EmployerDetail = ({ employer }) => {
     </div>
   )
 }
-
-export default EmployerDetail

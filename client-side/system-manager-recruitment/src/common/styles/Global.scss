@@ -58,6 +58,36 @@
   text-transform: capitalize;
 }
 
+.icon {
+  margin-right: $pm-4;
+  font-size: 18px;
+  transition: all 0.25s ease-in-out;
+
+  &__edit {
+    color: $edit-color;
+
+    &:hover {
+      color: #3366cc9e;
+    }
+  }
+
+  &__delete {
+    color: $delete-color;
+
+    &:hover {
+      color: #ff7f81ab;
+    }
+  }
+
+  &__restore {
+    color: $restore-color;
+
+    &:hover {
+      color: #368b799c;
+    }
+  }
+}
+
 @media screen and (max-width: 900px) {
   .titleDashboard {
     font-size: $text-2xl;

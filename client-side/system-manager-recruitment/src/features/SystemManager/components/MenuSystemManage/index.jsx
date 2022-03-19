@@ -1,4 +1,6 @@
 import { BiBuildings, BiLineChart } from 'react-icons/bi'
+import { FiPackage } from 'react-icons/fi'
+import { Header, notification } from 'components'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { logoutHandler } from 'features/Auth/slices'
 import { MdSettings, MdAccountCircle } from 'react-icons/md'
@@ -11,11 +13,9 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowSize } from 'common/hook/useWindowSize'
 import classes from './style.module.scss'
-import Header from 'components/Header'
 import MSTLogo from 'assets/images/mst_logo.png'
-import notification from 'components/Notification'
 
-const MenuSystemManage = ({ children }) => {
+export const MenuSystemManage = ({ children }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const dispatch = useDispatch()
@@ -77,6 +77,26 @@ const MenuSystemManage = ({ children }) => {
         {
           key: pathSystemManager.jobTrash,
           title: `${t('Job posting has been deleted')}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
+      ],
+    },
+    {
+      icon: <FiPackage className={classes.menuIcon} />,
+      title: `${t('Service Package Management')}`,
+      subMenu: [
+        {
+          key: pathSystemManager.packageCreated,
+          title: `${t('Service Package Created')}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
+        {
+          key: pathSystemManager.packageTrash,
+          title: `${t('Service Package Deleted')}`,
           icon: null,
           isLink: false,
           onClick: null,
@@ -157,5 +177,3 @@ const MenuSystemManage = ({ children }) => {
     </div>
   )
 }
-
-export default MenuSystemManage

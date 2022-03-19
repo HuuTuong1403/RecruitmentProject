@@ -1,0 +1,15 @@
+@import 'common/styles/Variables.scss';
+
+.formService {
+  padding: $pm-10 $pm-14;
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & > button {
+      flex: 0 0 48%;
+    }
+  }
+}

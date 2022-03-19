@@ -1,17 +1,17 @@
-import { fetchAllEmployerAsync } from 'features/SystemManager/slices/thunks'
-import { Fragment } from 'react'
-import { scrollToTop } from 'common/functions'
 import {
   selectEmployers,
   selectStatus,
   selectEmployer,
 } from 'features/SystemManager/slices/selectors'
+import { fetchAllEmployerAsync } from 'features/SystemManager/slices/thunks'
+import { Fragment } from 'react'
+import { LoadingSuspense } from 'components'
+import { scrollToTop } from 'common/functions'
+import { TableEmployer } from 'features/SystemManager/components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import LoadingSuspense from 'components/Loading'
-import TableEmployer from 'features/SystemManager/components/TableEmployer'
 
 const EmployerManagerPage = () => {
   scrollToTop()

@@ -5,7 +5,7 @@ import animationData from 'assets/lottie/pageNotFound.json'
 import classes from './styles.module.scss'
 import Lottie from 'lottie-react'
 
-const Page404 = () => {
+export const Page404 = () => {
   const { t } = useTranslation()
   useTitle(`${t('Not found page')}`)
 
@@ -25,4 +25,3 @@ const Page404 = () => {
   )
 }
 
-export default Page404

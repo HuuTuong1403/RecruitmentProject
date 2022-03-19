@@ -7,16 +7,16 @@ import { fetchAllJobAsync } from 'features/SystemManager/slices/thunks'
 import { IoMdCalendar, IoMdTime } from 'react-icons/io'
 import { MdLocationOn } from 'react-icons/md'
 import { Menu, Dropdown } from 'antd'
+import { ModalJobDetail } from 'features/SystemManager/components'
+import { PopoverField } from 'custom-fields'
 import { useDispatch } from 'react-redux'
 import { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import ModalJobDetail from 'features/SystemManager/components/ModalJobDetail'
 import moment from 'moment'
-import notification from 'components/Notification'
-import PopoverField from 'custom-fields/PopoverField'
 
-const JobOfEmployerItem = ({ data, statusJob }) => {
+export const JobOfEmployerItem = ({ data, statusJob }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -211,5 +211,3 @@ const JobOfEmployerItem = ({ data, statusJob }) => {
     </Fragment>
   )
 }
-
-export default JobOfEmployerItem

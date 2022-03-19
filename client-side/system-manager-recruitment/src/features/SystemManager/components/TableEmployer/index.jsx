@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import moment from 'moment'
 
-const TableEmployer = ({ employerList }) => {
+export const TableEmployer = ({ employerList }) => {
   const { t } = useTranslation()
   const history = useHistory()
   const { url } = useRouteMatch()
@@ -79,5 +79,3 @@ const TableEmployer = ({ employerList }) => {
     </div>
   )
 }
-
-export default TableEmployer

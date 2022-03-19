@@ -4,6 +4,9 @@ import {
   fetchEmployerDetailAsync,
   getSystemManagerDetailAsync,
   fetchAllJobAsync,
+  getAllServicePackageAsync,
+  getAllServiceAsync,
+  getAllDeletedServiceAsync,
 } from './thunks'
 
 const initialState = {
@@ -12,6 +15,9 @@ const initialState = {
   systemManager: null,
   jobs: [],
   tabItem: 'unapproval',
+  servicePackages: [],
+  services: [],
+  deletedServices: [],
   status: false,
 }
 
@@ -24,7 +30,7 @@ export const systemManagementSlice = createSlice({
     },
   },
   extraReducers: {
-    //Fetch All Employer
+    // #region Fetch All Employer
     [fetchAllEmployerAsync.pending]: (state) => {
       state.status = true
     },
@@ -36,8 +42,9 @@ export const systemManagementSlice = createSlice({
       state.status = false
       state.employers = null
     },
+    // #endregion
 
-    //Fetch detail Employer
+    // #region Fetch detail Employer
     [fetchEmployerDetailAsync.pending]: (state) => {
       state.status = true
     },
@@ -49,8 +56,9 @@ export const systemManagementSlice = createSlice({
       state.status = false
       state.employer = null
     },
+    // #endregion
 
-    //Get Detail System Manager
+    // #region Get Detail System Manager
     [getSystemManagerDetailAsync.pending]: (state) => {
       state.status = true
     },
@@ -62,8 +70,9 @@ export const systemManagementSlice = createSlice({
       state.status = false
       state.systemManager = null
     },
+    // #endregion
 
-    //Fetch Data Job
+    // #region Fetch Data Job
     [fetchAllJobAsync.pending]: (state) => {
       state.status = true
     },
@@ -75,6 +84,49 @@ export const systemManagementSlice = createSlice({
       state.status = false
       state.jobs = []
     },
+    // #endregion
+
+    // #region Get All Service Package
+    [getAllServicePackageAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAllServicePackageAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.servicePackages = action.payload
+    },
+    [getAllServicePackageAsync.rejected]: (state) => {
+      state.status = false
+      state.servicePackages = []
+    },
+    // #endregion
+
+    // #region Get All Service
+    [getAllServiceAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAllServiceAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.services = action.payload
+    },
+    [getAllServiceAsync.rejected]: (state) => {
+      state.status = false
+      state.services = []
+    },
+    // #endregion
+
+    // #region Get All Deleted Service
+    [getAllDeletedServiceAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAllDeletedServiceAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.deletedServices = action.payload
+    },
+    [getAllDeletedServiceAsync.rejected]: (state) => {
+      state.status = false
+      state.deletedServices = []
+    },
+    // #endregion
   },
 })
 

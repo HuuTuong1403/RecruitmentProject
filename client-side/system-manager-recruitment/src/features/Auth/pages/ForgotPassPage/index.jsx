@@ -1,9 +1,7 @@
+import { AuthComponent, ForgotPassNotify, SendMail } from 'features/Auth/components'
 import { useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import AuthComponent from 'features/Auth/components/AuthComponent'
-import ForgotPassNotify from 'features/Auth/components/ForgotPassNotify'
-import SendMail from 'features/Auth/components/SendMail'
 
 const ForgotPassPage = () => {
   const { t } = useTranslation()
