@@ -22,6 +22,11 @@ servicePackageRouter
     servicePackageController.setBodyServicePackage,
     servicePackageController.updateServicePackage
   )
+  .delete(
+    authController.protect,
+    authController.restrictTo('systemmanager'),
+    servicePackageController.deleteServicePackage
+  )
   .get(servicePackageController.getServicePackage);
 servicePackageRouter.use(
   authController.protect,

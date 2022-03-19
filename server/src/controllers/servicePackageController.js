@@ -16,6 +16,7 @@ class servicePackageController {
       };
       req.body.VND = undefined;
     }
+    req.body.extantQuantity = req.body.postQuantity;
     next();
   };
   createServicePackage = factory.createOne(ServicePackage);
@@ -26,5 +27,6 @@ class servicePackageController {
   restoreServicePackage = factory.restoreOne(ServicePackage);
   getAllServicePackage = factory.getAll(ServicePackage);
   getServicePackage = factory.getOne(ServicePackage);
+  deleteServicePackage = factory.deleteOne(ServicePackage);
 }
 module.exports = new servicePackageController();

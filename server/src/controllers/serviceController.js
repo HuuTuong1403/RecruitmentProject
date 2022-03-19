@@ -10,5 +10,6 @@ class ServiceController {
   restoreService = factory.restoreOne(Service);
   getAllService = factory.getAll(Service);
   getService = factory.getOne(Service);
+  deleteService = factory.deleteOne(Service);
 }
 module.exports = new ServiceController();

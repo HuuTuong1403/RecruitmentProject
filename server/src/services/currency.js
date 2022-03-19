@@ -15,3 +15,19 @@ exports.VNDtoEURExchange = async (amount) => {
   const response = await axios.request(options);
   return (amount * response.data.conversion_rates.EUR).toFixed();
 };
+exports.USDtoVNDExchange = async (amount) => {
+  var options = {
+    method: 'GET',
+    url: `https://v6.exchangerate-api.com/v6/${process.env.API_KEY_CURRENCY}/latest/USD`,
+  };
+  const response = await axios.request(options);
+  return (amount * response.data.conversion_rates.VND).toFixed();
+};
+exports.USDtoEURExchange = async (amount) => {
+  var options = {
+    method: 'GET',
+    url: `https://v6.exchangerate-api.com/v6/${process.env.API_KEY_CURRENCY}/latest/USD`,
+  };
+  const response = await axios.request(options);
+  return (amount * response.data.conversion_rates.EUR).toFixed();
+};

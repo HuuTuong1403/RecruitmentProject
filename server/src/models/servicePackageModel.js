@@ -52,6 +52,10 @@ const servicePackageSchema = new mongoose.Schema(
       type: [{}],
       required: [true, 'Gói dịch vụ phải có ít nhất một dịch vụ'],
     },
+    extantQuantity: {
+      type: Number,
+      required: [true, 'Gói dịch vụ phải có số lượng còn lại của bài đăng'],
+    },
     postQuantity: {
       type: Number,
       required: [true, 'Gói dịch vụ phải có số lượng bài đăng'],

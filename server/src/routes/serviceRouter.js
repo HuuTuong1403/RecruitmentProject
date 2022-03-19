@@ -13,7 +13,8 @@ ServiceRouter.route('/')
   .get(ServiceController.getAllService);
 ServiceRouter.route('/:id')
   .patch(ServiceController.updateService)
-  .get(ServiceController.getService);
+  .get(ServiceController.getService)
+  .delete(ServiceController.deleteService);
 
 ServiceRouter.route('/soft-delete/:id').delete(
   ServiceController.softDeleteService
