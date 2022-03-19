@@ -7,7 +7,11 @@ import { getAllServiceAsync, getAllDeletedServiceAsync } from 'features/SystemMa
 import { notification } from 'components'
 import { PopoverField } from 'custom-fields'
 import { selectServices, selectDeletedServices } from 'features/SystemManager/slices/selectors'
-import { softDeleteService, restoreService } from 'features/SystemManager/api/systemManager.api'
+import {
+  softDeleteService,
+  restoreService,
+  hardDeleteService,
+} from 'features/SystemManager/api/systemManager.api'
 import { Table, Tooltip } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -21,12 +25,13 @@ const ServiceCreatedPage = () => {
   const history = useHistory()
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  useTitle(`${t('Create service')}`)
   const [isUpdate, setIsUpdate] = useState(false)
   const [dataUpdate, setDataUpdate] = useState(null)
   const [loading, setLoading] = useState(false)
   const [isDeleted, setIsDeleted] = useState(false)
   const services = useSelector(isDeleted ? selectDeletedServices : selectServices)
+
+  useTitle(isDeleted ? `${t('Deleted service')}` : `${t('Create service')}`)
 
   useEffect(() => {
     if (isDeleted) {
@@ -41,7 +46,7 @@ const ServiceCreatedPage = () => {
     setDataUpdate(dataUpdate)
   }
 
-  const handleDeleteService = async ({ key }) => {
+  const handleSoftDeleteService = async ({ key }) => {
     setLoading(true)
     const result = await softDeleteService(key)
     if (result.status === 204) {
@@ -65,11 +70,83 @@ const ServiceCreatedPage = () => {
     setLoading(false)
   }
 
+  const handleHardDeleteService = async ({ key }) => {
+    setLoading(true)
+    const result = await hardDeleteService(key)
+    if (result.status === 204) {
+      notification(t('Delete service successfully'), 'success')
+      dispatch(getAllDeletedServiceAsync())
+    } else {
+      notification(t('Error! An error occurred. Please try again later'), 'error')
+    }
+    setLoading(false)
+  }
+
   const handleClickServiceDeleted = () => {
     setIsDeleted(!isDeleted)
   }
 
   const columns = [
+    {
+      title: '#',
+      dataIndex: 'stt',
+      key: 'stt',
+      render: (text) => <div style={{ textAlign: 'center' }}>{text}</div>,
+    },
+    {
+      dataIndex: 'action',
+      key: 'action',
+      render: (text, record) => (
+        <div className={classes.service__table__action}>
+          {isDeleted ? (
+            <Fragment>
+              <PopoverField
+                title={t('Confirm restore service')}
+                subTitle={t('Do you want to restore this service?')}
+                loading={loading}
+                onClickOk={() => handleRestoreService(record)}
+                titleCancel={t('Cancel')}
+                titleOk={t('Restore')}
+                isSwap
+              >
+                <FaTrashRestore className={`${classes.icon} ${classes.icon__restore}`} />
+              </PopoverField>
+
+              <PopoverField
+                title={t('Confirm delete forever service')}
+                subTitle={t('Do you want to delete forever this service?')}
+                loading={loading}
+                onClickOk={() => handleHardDeleteService(record)}
+                titleCancel={t('Cancel')}
+                titleOk={t('Delete')}
+              >
+                <FaTrash className={`${classes.icon} ${classes.icon__delete}`} />
+              </PopoverField>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Tooltip title={t('Edit')}>
+                <FaEdit
+                  className={`${classes.icon} ${classes.icon__edit}`}
+                  onClick={() => handleUpdateSerivce(record)}
+                />
+              </Tooltip>
+
+              <PopoverField
+                title={t('Confirm delete service')}
+                subTitle={t('Do you want to delete this service?')}
+                loading={loading}
+                onClickOk={() => handleSoftDeleteService(record)}
+                titleCancel={t('Cancel')}
+                titleOk={t('Delete')}
+              >
+                <FaTrash className={`${classes.icon} ${classes.icon__delete}`} />
+              </PopoverField>
+            </Fragment>
+          )}
+        </div>
+      ),
+    },
     {
       title: `${t('Service name')}`,
       dataIndex: 'serviceName',
@@ -98,50 +175,6 @@ const ServiceCreatedPage = () => {
       title: `${t('Created date')}`,
       dataIndex: 'createdAt',
       key: 'createdAt',
-    },
-    {
-      title: `${t('Action')}`,
-      dataIndex: 'action',
-      key: 'action',
-      render: (text, record) => (
-        <div className={classes.service__table__action}>
-          {isDeleted ? (
-            <Fragment>
-              <PopoverField
-                title={t('Confirm restore service')}
-                subTitle={t('Do you want to restore this service?')}
-                loading={loading}
-                onClickOk={() => handleRestoreService(record)}
-                titleCancel={t('Cancel')}
-                titleOk={t('Restore')}
-                isSwap
-              >
-                <FaTrashRestore className={`${classes.icon} ${classes.icon__restore}`} />
-              </PopoverField>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <Tooltip title={t('Edit')}>
-                <FaEdit
-                  className={`${classes.icon} ${classes.icon__edit}`}
-                  onClick={() => handleUpdateSerivce(record)}
-                />
-              </Tooltip>
-
-              <PopoverField
-                title={t('Confirm delete service')}
-                subTitle={t('Do you want to delete this service?')}
-                loading={loading}
-                onClickOk={() => handleDeleteService(record)}
-                titleCancel={t('Cancel')}
-                titleOk={t('Delete')}
-              >
-                <FaTrash className={`${classes.icon} ${classes.icon__delete}`} />
-              </PopoverField>
-            </Fragment>
-          )}
-        </div>
-      ),
     },
   ]
 
@@ -175,13 +208,21 @@ const ServiceCreatedPage = () => {
         {services && (
           <Table
             columns={columns}
-            dataSource={services.map((service) => ({
+            dataSource={services.map((service, index) => ({
+              stt: index + 1,
               key: service._id,
               serviceName: service.serviceName,
               serviceDesc: service.description,
               servicePrice: service.price,
               createdAt: moment(service.createdAt).format(dateFormatPicker),
             }))}
+            onRow={(record, rowIndex) => {
+              return {
+                onClick: (event) => {
+                  handleUpdateSerivce(record)
+                },
+              }
+            }}
             pagination={{ pageSize: 5 }}
             scroll={{ x: 'max-content' }}
             style={{ cursor: 'pointer' }}

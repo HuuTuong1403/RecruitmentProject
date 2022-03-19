@@ -1,15 +1,16 @@
+import { selectServicePackages, selectStatus } from 'features/SystemManager/slices/selectors'
 import { ButtonField } from 'custom-fields'
-import { FormCreateServicePackage } from 'features/SystemManager/components'
 import { getAllServicePackageAsync } from 'features/SystemManager/slices/thunks'
 import { LoadingSuspense, NotFoundData } from 'components'
 import { MdAddCircleOutline } from 'react-icons/md'
-import { selectServicePackages, selectStatus } from 'features/SystemManager/slices/selectors'
+import { TableServicePackage } from 'features/SystemManager/components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { useState, useEffect, Fragment } from 'react'
+import { useEffect } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
+import { pathSystemManager } from 'common/constants/path'
 
 const ServicePackageCreatedPage = () => {
   const { t } = useTranslation()
@@ -18,7 +19,6 @@ const ServicePackageCreatedPage = () => {
   useTitle(`${t('Service Package Management')}`)
   const status = useSelector(selectStatus)
   const servicePackages = useSelector(selectServicePackages)
-  const [showFormServicePackage, setShowFormServicePackage] = useState(false)
 
   useEffect(() => {
     dispatch(getAllServicePackageAsync())
@@ -34,7 +34,7 @@ const ServicePackageCreatedPage = () => {
           backgroundcolorhover="#324554"
           radius="5px"
           width="20%"
-          onClick={() => setShowFormServicePackage(!showFormServicePackage)}
+          onClick={() => history.push(pathSystemManager.packageCreateItem)}
         >
           <MdAddCircleOutline className={classes.icon} />
           {t('Create Service Package')}
@@ -51,15 +51,12 @@ const ServicePackageCreatedPage = () => {
           {t('Add Service')}
         </ButtonField>
       </div>
-      <div className={classes.servicePackage__formWrapper}>
-        {showFormServicePackage && <FormCreateServicePackage />}
-      </div>
       {servicePackages && (
         <div>
           {servicePackages.length === 0 ? (
             <NotFoundData title={`${t('There are currently no service package').toUpperCase()}`} />
           ) : (
-            <Fragment></Fragment>
+            <TableServicePackage datas={servicePackages} />
           )}
         </div>
       )}

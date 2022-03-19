@@ -75,7 +75,7 @@ export const MenuSystemManage = ({ children }) => {
           onClick: null,
         },
         {
-          key: pathSystemManager.jobTrash,
+          key: pathSystemManager.recruitTrash,
           title: `${t('Job posting has been deleted')}`,
           icon: null,
           isLink: false,
@@ -88,7 +88,7 @@ export const MenuSystemManage = ({ children }) => {
       title: `${t('Service Package Management')}`,
       subMenu: [
         {
-          key: pathSystemManager.packageCreated,
+          key: pathSystemManager.packageListCreated,
           title: `${t('Service Package Created')}`,
           icon: null,
           isLink: false,

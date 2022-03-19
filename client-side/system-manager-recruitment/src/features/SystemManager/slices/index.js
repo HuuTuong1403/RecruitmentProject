@@ -16,6 +16,7 @@ const initialState = {
   jobs: [],
   tabItem: 'unapproval',
   servicePackages: [],
+  servicePackage: null,
   services: [],
   deletedServices: [],
   status: false,

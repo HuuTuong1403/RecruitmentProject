@@ -6,7 +6,7 @@ import {
   fetchAllJob,
   getAllServicePackage,
   getAllService,
-  getAllDeletedService,
+  getAllDeletedService
 } from '../api/systemManager.api'
 
 export const fetchAllEmployerAsync = createAsyncThunk(
