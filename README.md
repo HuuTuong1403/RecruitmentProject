@@ -38,8 +38,8 @@
  | ✅ Ứng tuyển công viêc             | ✅ Quản lý tài khoản                    | ✅ Quản lý tin tuyển dụng   | ✅ Cấp tài khoản quản trị hệ thống |
  | ✅ Tham gia sự kiện                | ✅ Quản lý tin tuyển dụng               | ✅ Tạo dịch vụ              | ⬜️ Quản lý người dùng              |
  | ✅ Đánh giá doanh nghiệp           | ✅ Quản lý sự kiện                      | ✅ Quản lý dịch vụ          |                                     |
- | ✅ Lưu việc làm                    | ✅ Quản lý hồ sơ ứng viên               | ⬜️ Tạo gói dịch vụ          |                                     |
- | ✅ Quản lý tài khoản               | ✅ Quản lý thành viên tham gia sự kiện  | ⬜️ Quản lý gói dịch vụ      |                                     |
+ | ✅ Lưu việc làm                    | ✅ Quản lý hồ sơ ứng viên               | ✅ Tạo gói dịch vụ          |                                     |
+ | ✅ Quản lý tài khoản               | ✅ Quản lý thành viên tham gia sự kiện  | ✅ Quản lý gói dịch vụ      |                                     |
  | ⬜️ Tạo CV trực tuyến               | ✅ Xem số liệu thống kê                 |                              |                                     |
  | ⬜️ Tham gia Entry Test             | ⬜️ Tạo Entry Test                       |                              |                                     |
  |                                     | ⬜️ Quản lý Entry Test                   |                              |                                     |
