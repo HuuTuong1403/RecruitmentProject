@@ -202,11 +202,12 @@ const ServiceCreatedPage = () => {
         </div>
       )}
       <div className={classes.service__table}>
-        <div className={classes.service__table__title}>
+        <div className={classes.titleTable}>
           {isDeleted ? t('List of service deleted') : t('List of services in system')}
         </div>
         {services && (
           <Table
+            bordered
             columns={columns}
             dataSource={services.map((service, index) => ({
               stt: index + 1,

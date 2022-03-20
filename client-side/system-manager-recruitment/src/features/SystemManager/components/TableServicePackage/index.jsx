@@ -1,11 +1,64 @@
-import { Table } from 'antd'
-import { Fragment } from 'react'
+import {
+  getAllServicePackageAsync,
+  getAllServicePackageDeletedAsync,
+} from 'features/SystemManager/slices/thunks'
+import {
+  softDeleteServicePackage,
+  restoreServicePackage,
+  hardDeleteServicePackage,
+} from 'features/SystemManager/api/systemManager.api'
+import { FaEdit, FaTrash, FaTrashRestore } from 'react-icons/fa'
+import { Fragment, useState } from 'react'
+import { notification } from 'components'
+import { pathSystemManager as path } from 'common/constants/path'
+import { PopoverField } from 'custom-fields'
+import { Table, Tooltip } from 'antd'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import NumberFormat from 'react-number-format'
 import classes from './style.module.scss'
+import NumberFormat from 'react-number-format'
 
-export const TableServicePackage = ({ datas }) => {
+export const TableServicePackage = ({ datas, isTrash = false }) => {
   const { t } = useTranslation()
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
+
+  const handleSoftDeleteServicePackage = async ({ key }) => {
+    setLoading(true)
+    const result = await softDeleteServicePackage(key)
+    if (result.status === 204) {
+      notification(t('Delete service package successfully'), 'success')
+      dispatch(getAllServicePackageAsync())
+    } else {
+      notification(t('Error! An error occurred. Please try again later'), 'error')
+    }
+    setLoading(false)
+  }
+
+  const handleRestoreServicePackage = async ({ key }) => {
+    setLoading(true)
+    const result = await restoreServicePackage(key)
+    if (result.status === 'success') {
+      notification(t('Restore service package successfully'), 'success')
+      dispatch(getAllServicePackageDeletedAsync())
+    } else {
+      notification(t('Error! An error occurred. Please try again later'), 'error')
+    }
+  }
+
+  const handleHardDeleteService = async ({ key }) => {
+    setLoading(true)
+    const result = await hardDeleteServicePackage(key)
+    if (result.status === 204) {
+      notification(t('Delete service package successfully'), 'success')
+      dispatch(getAllServicePackageDeletedAsync())
+    } else {
+      notification(t('Error! An error occurred. Please try again later'), 'error')
+    }
+    setLoading(false)
+  }
 
   const columns = [
     {
@@ -13,6 +66,62 @@ export const TableServicePackage = ({ datas }) => {
       dataIndex: 'stt',
       key: 'stt',
       render: (text) => <div style={{ textAlign: 'center' }}>{text}</div>,
+    },
+    {
+      dataIndex: 'action',
+      key: 'action',
+      render: (text, record) => (
+        <div className={classes.service__table__action}>
+          {isTrash ? (
+            <Fragment>
+              <Fragment>
+                <PopoverField
+                  title={t('Confirm restore service package')}
+                  subTitle={t('Do you want to restore this service package?')}
+                  loading={loading}
+                  onClickOk={() => handleRestoreServicePackage(record)}
+                  titleCancel={t('Cancel')}
+                  titleOk={t('Restore')}
+                  isSwap
+                >
+                  <FaTrashRestore className={`${classes.icon} ${classes.icon__restore}`} />
+                </PopoverField>
+
+                <PopoverField
+                  title={t('Confirm delete forever service package')}
+                  subTitle={t('Do you want to delete forever this service package?')}
+                  loading={loading}
+                  onClickOk={() => handleHardDeleteService(record)}
+                  titleCancel={t('Cancel')}
+                  titleOk={t('Delete')}
+                >
+                  <FaTrash className={`${classes.icon} ${classes.icon__delete}`} />
+                </PopoverField>
+              </Fragment>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Tooltip title={t('Edit')}>
+                <FaEdit
+                  className={`${classes.icon} ${classes.icon__edit}`}
+                  onClick={() => history.push(`${path.packageCreateItem}?id=${record.key}`)}
+                />
+              </Tooltip>
+
+              <PopoverField
+                title={t('Confirm delete service package')}
+                subTitle={t('Do you want to delete this service package?')}
+                loading={loading}
+                onClickOk={() => handleSoftDeleteServicePackage(record)}
+                titleCancel={t('Cancel')}
+                titleOk={t('Delete')}
+              >
+                <FaTrash className={`${classes.icon} ${classes.icon__delete}`} />
+              </PopoverField>
+            </Fragment>
+          )}
+        </div>
+      ),
     },
     {
       title: `${t('Service package code')}`,
@@ -129,6 +238,7 @@ export const TableServicePackage = ({ datas }) => {
 
   return (
     <Table
+      bordered
       columns={columns}
       dataSource={dataSource}
       pagination={{ pageSize: 5 }}

@@ -1,16 +1,17 @@
-import { selectServicePackages, selectStatus } from 'features/SystemManager/slices/selectors'
 import { ButtonField } from 'custom-fields'
+import { clearServicePackage } from 'features/SystemManager/slices'
+import { Fragment, useEffect } from 'react'
 import { getAllServicePackageAsync } from 'features/SystemManager/slices/thunks'
 import { LoadingSuspense, NotFoundData } from 'components'
 import { MdAddCircleOutline } from 'react-icons/md'
+import { pathSystemManager } from 'common/constants/path'
+import { selectServicePackages, selectStatus } from 'features/SystemManager/slices/selectors'
 import { TableServicePackage } from 'features/SystemManager/components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { useEffect } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
-import { pathSystemManager } from 'common/constants/path'
 
 const ServicePackageCreatedPage = () => {
   const { t } = useTranslation()
@@ -34,7 +35,10 @@ const ServicePackageCreatedPage = () => {
           backgroundcolorhover="#324554"
           radius="5px"
           width="20%"
-          onClick={() => history.push(pathSystemManager.packageCreateItem)}
+          onClick={() => {
+            history.push(pathSystemManager.packageCreateItem)
+            dispatch(clearServicePackage())
+          }}
         >
           <MdAddCircleOutline className={classes.icon} />
           {t('Create Service Package')}
@@ -56,7 +60,12 @@ const ServicePackageCreatedPage = () => {
           {servicePackages.length === 0 ? (
             <NotFoundData title={`${t('There are currently no service package').toUpperCase()}`} />
           ) : (
-            <TableServicePackage datas={servicePackages} />
+            <Fragment>
+              <div className={classes.titleTable}>
+                {t("List of service packages in system")}
+              </div>
+              <TableServicePackage datas={servicePackages} />
+            </Fragment>
           )}
         </div>
       )}

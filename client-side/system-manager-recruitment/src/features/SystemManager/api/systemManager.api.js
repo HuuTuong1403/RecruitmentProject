@@ -155,6 +155,15 @@ export const createServicePackage = async (payload) => {
   }
 }
 
+export const getByIdServicePackage = async (payload) => {
+  try {
+    const res = await axiosClient.get(`service-package/${payload}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const updateServicePackage = async (id, data) => {
   try {
     const res = await axiosClient.patch(`system-manager/service-package/${id}`, data)
@@ -187,7 +196,7 @@ export const hardDeleteServicePackage = async (payload) => {
     const res = axiosClient.delete(`system-manager/service-package/${payload}`)
     return res
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 }
 

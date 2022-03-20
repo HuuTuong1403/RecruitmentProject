@@ -17,7 +17,9 @@ const ServicePackageListCreated = lazy(() =>
 const ServicePackageCreateItem = lazy(() =>
   import('./pages/ServicePackageCreated/ServicePackageCreatedItem')
 )
-const ServicePackageTrashPage = lazy(() => import('./pages/ServicePackageTrashPage'))
+const ServicePackageTrashList = lazy(() =>
+  import('./pages/ServicePackageCreated/ServicePackageTrashList')
+)
 const ServiceCreatedPage = lazy(() => import('./pages/ServiceCreatedPage'))
 
 const SystemManagerPage = () => {
@@ -34,7 +36,7 @@ const SystemManagerPage = () => {
           <Route exact path={path.settings} component={SettingPage} />
           <Route exact path={path.packageListCreated} component={ServicePackageListCreated} />
           <Route exact path={path.packageCreateItem} component={ServicePackageCreateItem} />
-          <Route exact path={path.packageTrash} component={ServicePackageTrashPage} />
+          <Route exact path={path.packageTrash} component={ServicePackageTrashList} />
           <Route exact path={path.serviceCreated} component={ServiceCreatedPage} />
           <Route component={Page404} />
         </Switch>

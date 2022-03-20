@@ -19,7 +19,6 @@ export const SelectMultiField = ({
         control={control}
         defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => {
-
           return (
             <Select
               isMulti
