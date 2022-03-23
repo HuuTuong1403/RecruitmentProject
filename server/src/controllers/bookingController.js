@@ -7,7 +7,7 @@ const Booking = require('./../models/bookingModel');
 const ServicePackage = require('./../models/servicePackageModel');
 const configuration = require('./../configuration/paypalConfiguration');
 const currency = require('./../services/currency');
-
+const createBooking = require('./../utils/createBooking');
 paypal.configure(configuration);
 
 class bookingController {
@@ -123,15 +123,12 @@ class bookingController {
           const servicePackage = await ServicePackage.findById(
             idServicePackage
           );
-          const newBooking = {
-            servicePackage: servicePackage.id,
-            employer: user,
-            price: servicePackage.price,
+          const booking = await createBooking(
+            user,
+            servicePackage,
             paidPrice,
-            status: 'Paid',
-            paymentMethods: 'Paypal',
-          };
-          const booking = await Booking.create(newBooking);
+            'Paypal'
+          );
           res.status(201).json({
             status: 'success',
             data: { data: booking },
@@ -233,15 +230,12 @@ class bookingController {
     if (secureHash === signed) {
       const paidPrice = req.body.paidPrice;
       const servicePackage = await ServicePackage.findById(idServicePackage);
-      const newBooking = {
-        servicePackage: servicePackage.id,
-        employer: user,
-        price: servicePackage.price,
+      const booking = await createBooking(
+        user,
+        servicePackage,
         paidPrice,
-        status: 'Paid',
-        paymentMethods: 'VNPay',
-      };
-      const booking = await Booking.create(newBooking);
+        'VNPay'
+      );
       res.status(201).json({
         status: 'success',
         data: { data: booking },

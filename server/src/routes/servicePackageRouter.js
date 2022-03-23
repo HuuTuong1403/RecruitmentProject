@@ -19,6 +19,7 @@ servicePackageRouter
   .patch(
     authController.protect,
     authController.restrictTo('systemmanager'),
+    servicePackageController.setSerivesBody,
     servicePackageController.setBodyServicePackage,
     servicePackageController.updateServicePackage
   )
