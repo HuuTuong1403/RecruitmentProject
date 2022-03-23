@@ -37,3 +37,11 @@ export const selectServices = (state) => {
 export const selectDeletedServices = (state) => {
   return state?.systemManagement?.deletedServices
 }
+
+export const selectServicePackage = (state) => {
+  return state?.systemManagement?.servicePackage
+}
+
+export const selectServicePackageDeleted = (state) => {
+  return state?.systemManagement?.servicePackagesDeleted
+}

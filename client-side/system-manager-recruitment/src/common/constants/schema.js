@@ -82,9 +82,29 @@ export const schemaCreateService = yup
   .object({
     serviceName: yup.string().required('error-serviceName'),
     description: yup.string().required('error-serviceDesc'),
-    price: yup
+    price: yup.number().typeError('error-servicePriceNum').required('error-servicePrice'),
+  })
+  .required()
+
+export const schemaCreatePackageService = yup
+  .object({
+    servicePackageCode: yup.string().required('error-servicePackageCode'),
+    packageName: yup.string().required('error-packageName'),
+    postType: yup
+      .string()
+      .notOneOf(['Chọn loại bài đăng...', 'Choose post type...'], 'error-select-postType')
+      .required('error-postType'),
+    services: yup.array().required('error-service').nullable(true),
+    postQuantity: yup
       .number()
-      .typeError('error-servicePriceNum')
-      .required('error-servicePrice'),
+      .typeError('error-postQuantityNum')
+      .required('error-postQuantity')
+      .test(
+        'error-postQuantityGreaterThan0',
+        'Post quantity must greater than 0',
+        (val) => val > 0
+      ),
+    description: yup.string().required('error-packageDescription'),
+    VND: yup.number().typeError('error-packagePriceNum').required('error-packagePrice'),
   })
   .required()

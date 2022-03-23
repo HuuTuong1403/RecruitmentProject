@@ -4,7 +4,15 @@ import { Fragment } from 'react'
 import { WrappedInput } from 'custom-fields'
 import NumberFormat from 'react-number-format'
 
-export const InputNumField = ({ control, nameCtrl, placeholder, errors }) => {
+export const InputNumField = ({
+  control,
+  nameCtrl,
+  placeholder,
+  errors,
+  suffix = '₫',
+  disabled = false,
+  ...props
+}) => {
   return (
     <Fragment>
       <Controller
@@ -15,12 +23,14 @@ export const InputNumField = ({ control, nameCtrl, placeholder, errors }) => {
             <NumberFormat
               value={value}
               name={name}
+              disabled={disabled}
               placeholder={placeholder}
               thousandsGroupStyle="thousand"
               thousandSeparator={true}
               customInput={WrappedInput}
-              suffix="₫"
+              suffix={suffix}
               onValueChange={(v) => onChange(v.value)}
+              {...props}
             />
           )
         }}

@@ -1,0 +1,30 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.table {
+  &__price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__item {
+      margin-left: $pm-10;
+      font-size: $text-base;
+      color: $price-color;
+    }
+  }
+
+  &__service {
+    &__title {
+      font-weight: 500;
+    }
+
+    &__body {
+      text-indent: $pm-12;
+
+      &__price {
+        color: $price-color;
+      }
+    }
+  }
+}

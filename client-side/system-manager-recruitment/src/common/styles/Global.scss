@@ -88,6 +88,14 @@
   }
 }
 
+.titleTable {
+  font-size: $text-xl;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: $pm-6;
+  color: $second-color;
+}
+
 @media screen and (max-width: 900px) {
   .titleDashboard {
     font-size: $text-2xl;
