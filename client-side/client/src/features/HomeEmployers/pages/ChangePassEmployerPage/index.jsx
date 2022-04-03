@@ -1,11 +1,10 @@
+import { ChangePassForgot, notification } from 'components'
 import { resetPassEmployer } from 'features/HomeEmployers/api/homeEmployer.api'
 import { ScrollToTop } from 'common/functions'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import ChangePassForgot from 'components/ChangePassForgot'
-import notification from 'components/Notification'
 
 const ChangePassEmployerPage = () => {
   ScrollToTop()

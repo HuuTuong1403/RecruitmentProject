@@ -16,18 +16,19 @@ import { useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
-import CKEditorField from 'custom-fields/CKEditorField'
+import {
+  ButtonField,
+  CKEditorField,
+  DatePickerField,
+  InputBorderField,
+  WrappedInput as InputField,
+  InputUploadImage,
+  LabelField,
+  SelectLocationField,
+} from 'custom-fields'
+import { LoadingSuspense, notification } from 'components'
 import classes from './style.module.scss'
-import DatePickerField from 'custom-fields/DatePickerField'
-import InputBorderField from 'custom-fields/InputBorderField'
-import InputField from 'custom-fields/InputField'
-import InputUploadImage from 'custom-fields/InputUploadImage'
-import LabelField from 'custom-fields/LabelField'
-import LoadingSuspense from 'components/Loading'
 import moment from 'moment'
-import notification from 'components/Notification'
-import SelectLocationField from 'custom-fields/SelectLocationField'
 import Slider from 'react-slick'
 
 const UpdateEventPage = () => {

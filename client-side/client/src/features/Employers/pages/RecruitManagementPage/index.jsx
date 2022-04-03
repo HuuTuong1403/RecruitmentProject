@@ -6,12 +6,9 @@ import { softDeleteJob } from 'features/Employers/api/employer.api'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
+import { JobOfEmployerItem } from 'features/Employers/components'
+import { LoadingSuspense, NotFoundData, notification } from 'components'
 import classes from './style.module.scss'
-import JobOfEmployerItem from 'features/Employers/components/JobOfEmployerItem'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
-
-import notification from 'components/Notification'
 
 const RecruitManagementPage = () => {
   ScrollToTop()

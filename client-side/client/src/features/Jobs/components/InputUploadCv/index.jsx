@@ -1,8 +1,8 @@
 import { useState, forwardRef } from 'react'
+import { ErrorText } from 'components'
 import classes from './style.module.scss'
-import ErrorText from 'components/ErrorText'
 
-const InputUploadCv = forwardRef(({ error, setError, placeholder = '' }, ref) => {
+export const InputUploadCv = forwardRef(({ error, setError, placeholder = '' }, ref) => {
   const [fileName, setFileName] = useState('')
 
   const checkValidCvFile = (file) => {
@@ -58,5 +58,3 @@ const InputUploadCv = forwardRef(({ error, setError, placeholder = '' }, ref) =>
     </div>
   )
 })
-
-export default InputUploadCv

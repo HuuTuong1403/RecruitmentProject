@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './styles.module.scss'
 import Lottie from 'lottie-react'
 
-const Page404 = ({ isEmployer = false }) => {
+export const Page404 = ({ isEmployer = false }) => {
   const { t } = useTranslation()
   return (
     <div className={classes.container}>
@@ -23,5 +23,3 @@ const Page404 = ({ isEmployer = false }) => {
     </div>
   )
 }
-
-export default Page404

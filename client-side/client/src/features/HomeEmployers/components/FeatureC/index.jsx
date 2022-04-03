@@ -3,7 +3,7 @@ import { FaBullhorn, FaInfo } from 'react-icons/fa'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const FeatureC = () => {
+export const FeatureC = () => {
   const { t } = useTranslation()
 
   const features = [
@@ -43,5 +43,3 @@ const FeatureC = () => {
     </div>
   )
 }
-
-export default FeatureC

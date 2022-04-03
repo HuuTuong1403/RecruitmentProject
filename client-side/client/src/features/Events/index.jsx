@@ -3,10 +3,8 @@ import { Fragment, useEffect } from 'react'
 import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom'
 import { ScrollToTop } from 'common/functions'
 import { useDispatch } from 'react-redux'
+import { Header, Footer, Page404 } from 'components'
 import EventDetailPage from './pages/EventDetailPage'
-import Footer from 'components/Footer'
-import Header from 'components/Header'
-import NotFoundPage from 'components/404'
 import SearchEventPage from './pages/SearchEventPage'
 
 const EventsPage = () => {
@@ -28,7 +26,7 @@ const EventsPage = () => {
       <Switch>
         <Route exact path={`${url}/search`} component={SearchEventPage} />
         <Route exact path={`${url}/view/:slug`} component={EventDetailPage} />
-        <Route component={NotFoundPage} />
+        <Route component={Page404} />
       </Switch>
       <Footer />
     </Fragment>

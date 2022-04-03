@@ -1,14 +1,14 @@
-import { Controller } from 'react-hook-form'
 import {
   fetchDistrictsByProvinceAsync,
   fetchWardsByDistrictsAsync,
 } from 'features/Home/slices/thunks'
+import { Controller } from 'react-hook-form'
+import { ErrorText } from 'components'
 import { Fragment, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import ErrorText from 'components/ErrorText'
 import Select from 'react-select'
 
-const SelectLocationField = ({
+export const SelectLocationField = ({
   control,
   defaultValue,
   locationList,
@@ -88,5 +88,3 @@ const SelectLocationField = ({
     </Fragment>
   )
 }
-
-export default SelectLocationField

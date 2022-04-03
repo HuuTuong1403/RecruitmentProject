@@ -13,11 +13,11 @@ import { selectJobSeekerLocal, selectFavoriteJobs } from 'features/JobSeekers/sl
 import { toggleOpenFilter } from 'features/Jobs/slices'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
-import notification from 'components/Notification'
 
-const JobSearchItem = ({ job, setShowModal, employer }) => {
+export const JobSearchItem = ({ job, setShowModal, employer }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const isOpen = useSelector(selectedIsFilter)
@@ -181,5 +181,3 @@ const JobSearchItem = ({ job, setShowModal, employer }) => {
     </div>
   )
 }
-
-export default JobSearchItem

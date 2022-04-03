@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { FaGooglePlusSquare } from 'react-icons/fa'
 import { FiLock, FiUser } from 'react-icons/fi'
@@ -6,16 +5,17 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Modal } from 'antd'
 import { schemaSignInUser } from 'common/constants/schema'
 import { signInGuestAsync } from 'features/Home/slices/thunks'
+import { signInEmployerAsync } from 'features/HomeEmployers/slices/thunks'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, WrappedInput as InputField } from 'custom-fields'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import notification from 'components/Notification'
 
-const ModalSignIn = ({ onCloseModal, showModal }) => {
+export const ModalSignIn = ({ onCloseModal, showModal, isEmployee = false }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -32,27 +32,38 @@ const ModalSignIn = ({ onCloseModal, showModal }) => {
 
   const signInHandler = async (dataLogIn) => {
     setLoading(true)
-    const result = await dispatch(signInGuestAsync(dataLogIn))
-    const { data, status } = result.payload
-
-    if (status === 'success') {
-      const { isEmailVerified } = data?.JobSeeker
-      if (isEmailVerified) {
-        setLoading(false)
+    if (isEmployee) {
+      const result = await dispatch(signInEmployerAsync(dataLogIn))
+      const { status } = result.payload
+      if (status === 'success') {
         notification(`${t('Signed in successfully')}`, 'success')
         onCloseModal()
         history.push(location.pathname)
       } else {
-        setLoading(false)
-        setIsVerify(
-          'The account has not been activated. Please check your email inbox for activation'
-        )
+        notification(`${t('Login information is incorrect. Please try again')}`, 'error')
+        reset()
       }
     } else {
-      setLoading(false)
-      reset()
-      notification(`${t('Login information is incorrect. Please try again')}`, 'error')
+      const result = await dispatch(signInGuestAsync(dataLogIn))
+      const { data, status } = result.payload
+
+      if (status === 'success') {
+        const { isEmailVerified } = data?.JobSeeker
+        if (isEmailVerified) {
+          notification(`${t('Signed in successfully')}`, 'success')
+          onCloseModal()
+          history.push(location.pathname)
+        } else {
+          setIsVerify(
+            'The account has not been activated. Please check your email inbox for activation'
+          )
+        }
+      } else {
+        notification(`${t('Login information is incorrect. Please try again')}`, 'error')
+        reset()
+      }
     }
+    setLoading(false)
   }
 
   return (
@@ -66,7 +77,9 @@ const ModalSignIn = ({ onCloseModal, showModal }) => {
     >
       <div className={classes.modalSignIn}>
         <div className={classes.modalSignIn__title}>
-          {t('Please login to the job seeker account to perform this function')}
+          {isEmployee
+            ? t('Please login to the employer account to perform this function')
+            : t('Please login to the job seeker account to perform this function')}
         </div>
         {isVerify && (
           <div className={classes.modalSignIn__verify}>
@@ -122,7 +135,7 @@ const ModalSignIn = ({ onCloseModal, showModal }) => {
           <span>{t('no-account')} </span>
           <Link
             className={`${classes['link']} ${classes['link-fz-14']} ${classes['medium']}`}
-            to="/home/sign-up"
+            to={isEmployee ? '/employers/sign-up' : '/home/sign-up'}
           >
             {t('signup')}
           </Link>
@@ -131,5 +144,3 @@ const ModalSignIn = ({ onCloseModal, showModal }) => {
     </Modal>
   )
 }
-
-export default ModalSignIn

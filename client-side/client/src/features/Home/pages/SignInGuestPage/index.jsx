@@ -15,11 +15,9 @@ import { useState, useEffect } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AuthComponent from 'components/AuthComponent'
-import ButtonField from 'custom-fields/ButtonField'
+import { AuthComponent, notification } from 'components'
+import { ButtonField, WrappedInput as InputField } from 'custom-fields'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import notification from 'components/Notification'
 
 const SignInGuestPage = () => {
   ScrollToTop()
@@ -112,10 +110,7 @@ const SignInGuestPage = () => {
             />
 
             <div className={classes['signin__wrapped-form-link']}>
-              <Link
-                className={`${classes['link']} ${classes['medium']}`}
-                to="/home/forgot-pass"
-              >
+              <Link className={`${classes['link']} ${classes['medium']}`} to="/home/forgot-pass">
                 {t('forgotpass')}
               </Link>
             </div>
@@ -144,10 +139,7 @@ const SignInGuestPage = () => {
 
             <div className={classes['signin__wrapped-signup']}>
               <span>{t('no-account')} </span>
-              <Link
-                className={`${classes['link']} ${classes['bold']} `}
-                to="/home/sign-up"
-              >
+              <Link className={`${classes['link']} ${classes['bold']} `} to="/home/sign-up">
                 {t('signup')}
               </Link>
             </div>

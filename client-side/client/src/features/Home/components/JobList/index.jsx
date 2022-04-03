@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom'
 import { selectJobsHome } from 'features/Home/slices/selectors'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { JobItem } from 'features/Home/components'
 import classes from './style.module.scss'
-import JobItem from 'features/Home/components/JobItem'
 import Slider from 'react-slick'
 
-const JobList = () => {
+export const JobList = () => {
   const { t } = useTranslation()
   const jobs = useSelector(selectJobsHome)
 
@@ -64,5 +64,3 @@ const settings = {
     },
   ],
 }
-
-export default JobList

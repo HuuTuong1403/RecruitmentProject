@@ -1,9 +1,9 @@
+import { ErrorText } from 'components'
 import { useEffect } from 'react'
+import { ImageContainer } from 'components'
 import classes from './style.module.scss'
-import ErrorText from 'components/ErrorText'
-import ImageContainer from 'components/ImageContainer'
 
-const InputUploadImage = ({
+export const InputUploadImage = ({
   error,
   setError,
   images,
@@ -123,5 +123,3 @@ const InputUploadImage = ({
     </div>
   )
 }
-
-export default InputUploadImage

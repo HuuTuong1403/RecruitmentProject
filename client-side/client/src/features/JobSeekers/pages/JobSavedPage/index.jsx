@@ -1,14 +1,13 @@
 import { fetchAllFavoriteJobAsync } from 'features/JobSeekers/slices/thunks'
-import { ScrollToTop } from 'common/functions'
 import { Fragment, useEffect } from 'react'
+import { JobItem } from 'features/JobSeekers/components'
+import { NotFoundData, LoadingSuspense } from 'components'
+import { ScrollToTop } from 'common/functions'
+import { selectFavoriteJobs, selectedStatus } from 'features/JobSeekers/slices/selectors'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import { selectFavoriteJobs, selectedStatus } from 'features/JobSeekers/slices/selectors'
 import classes from './style.module.scss'
-import JobItem from 'features/JobSeekers/components/JobItem'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
 
 const JobSavedPage = () => {
   ScrollToTop()

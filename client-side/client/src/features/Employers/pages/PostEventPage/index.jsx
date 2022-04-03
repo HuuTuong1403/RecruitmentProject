@@ -9,16 +9,18 @@ import { useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
-import CKEditorField from 'custom-fields/CKEditorField'
+import {
+  ButtonField,
+  CKEditorField,
+  DatePickerField,
+  WrappedInput as InputField,
+  InputUploadImage,
+  LabelField,
+  SelectLocationField,
+} from 'custom-fields'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import DatePickerField from 'custom-fields/DatePickerField'
-import InputField from 'custom-fields/InputField'
-import InputUploadImage from 'custom-fields/InputUploadImage'
-import LabelField from 'custom-fields/LabelField'
 import moment from 'moment'
-import notification from 'components/Notification'
-import SelectLocationField from 'custom-fields/SelectLocationField'
 
 const PostEventPage = () => {
   ScrollToTop()

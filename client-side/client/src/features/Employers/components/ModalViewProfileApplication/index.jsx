@@ -1,20 +1,18 @@
 import { announceApplication } from 'features/Employers/api/employer.api'
+import { ButtonField, LabelField, PopoverField } from 'custom-fields'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaFileDownload, FaSave, FaTrash } from 'react-icons/fa'
 import { MdNotificationsActive } from 'react-icons/md'
 import { MdRestorePage } from 'react-icons/md'
 import { Modal, Avatar } from 'antd'
+import { notification } from 'components'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import LabelField from 'custom-fields/LabelField'
 import moment from 'moment'
-import notification from 'components/Notification'
 import parse from 'html-react-parser'
-import PopoverField from 'custom-fields/PopoverField'
 
-const ModalViewProfileApplication = ({
+export const ModalViewProfileApplication = ({
   showModal,
   onCloseModal,
   application,
@@ -257,5 +255,3 @@ const ModalViewProfileApplication = ({
     </Modal>
   )
 }
-
-export default ModalViewProfileApplication

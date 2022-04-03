@@ -1,21 +1,23 @@
 import { fetchReviewDetailAsync } from 'features/Jobs/slices/thunks'
 import { schemaWriteReview } from 'common/constants/schema'
 import { updateReview } from 'features/JobSeekers/api/jobSeeker.api'
-import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
-import CKEditorField from 'custom-fields/CKEditorField'
+import {
+  ButtonField,
+  CKEditorField,
+  WrappedInput as InputField,
+  LabelField,
+  RatingField,
+} from 'custom-fields'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
-import notification from 'components/Notification'
 import parse from 'html-react-parser'
-import RatingField from 'custom-fields/RatingField'
 
-const FormEditReview = ({ review, id }) => {
+export const FormEditReview = ({ review, id }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const [reviewOT, setReviewOT] = useState(review.ot)
@@ -147,5 +149,3 @@ const FormEditReview = ({ review, id }) => {
     </form>
   )
 }
-
-export default FormEditReview

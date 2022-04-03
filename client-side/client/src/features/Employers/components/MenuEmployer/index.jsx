@@ -11,10 +11,10 @@ import { RiLogoutCircleRLine, RiFileList3Line } from 'react-icons/ri'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import notification from 'components/Notification'
 
-const MenuEmployer = ({ children }) => {
+export const MenuEmployer = ({ children }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const dispatch = useDispatch()
@@ -200,5 +200,3 @@ const MenuEmployer = ({ children }) => {
     </div>
   )
 }
-
-export default MenuEmployer

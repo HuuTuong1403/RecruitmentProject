@@ -1,5 +1,3 @@
-import { clearNullObject } from 'common/functions'
-import { Collapse, Switch, Modal } from 'antd'
 import {
   dateFormatISO8601WithZ,
   dateFormatPicker,
@@ -16,33 +14,36 @@ import {
   typeSalaryOptions,
   workingTimeOptions,
 } from 'common/constants/options'
-import { schemaPostJobEmployer } from 'common/constants/schema'
 import {
   selectJobsDetailEmployer,
   selectStatusJobDetail,
 } from 'features/Employers/slices/selectors'
+import { clearNullObject } from 'common/functions'
+import { Collapse, Switch, Modal } from 'antd'
+import { schemaPostJobEmployer } from 'common/constants/schema'
 import { updateJob } from 'features/Employers/api/employer.api'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
-import CKEditorField from 'custom-fields/CKEditorField'
+import {
+  ButtonField,
+  CKEditorField,
+  DatePickerField,
+  InputBorderField,
+  LabelField,
+  SelectField,
+  SelectLocationField,
+} from 'custom-fields'
+import { InputPostJobField } from 'features/Employers/components'
+import { LoadingSuspense, notification } from 'components'
 import classes from './style.module.scss'
-import DatePickerField from 'custom-fields/DatePickerField'
-import InputBorderField from 'custom-fields/InputBorderField'
-import InputPostJobField from 'features/Employers/components/InputPostJobField'
-import LabelField from 'custom-fields/LabelField'
-import LoadingSuspense from 'components/Loading'
 import moment from 'moment'
-import notification from 'components/Notification'
 import parse from 'html-react-parser'
 import Select from 'react-select'
-import SelectField from 'custom-fields/SelectField'
-import SelectLocationField from 'custom-fields/SelectLocationField'
 
-const ModalUpdateJob = ({
+export const ModalUpdateJob = ({
   showModal,
   onCloseModal,
   selectSkill,
@@ -493,5 +494,3 @@ const ModalUpdateJob = ({
     </Modal>
   )
 }
-
-export default ModalUpdateJob

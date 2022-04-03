@@ -4,7 +4,7 @@ import { MdLocationOn } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const JobItem = ({ job }) => {
+export const JobItem = ({ job }) => {
   const { jobTitle, salary, location, company, slug } = job
   const { t } = useTranslation()
   const history = useHistory()
@@ -61,5 +61,3 @@ const JobItem = ({ job }) => {
     </div>
   )
 }
-
-export default JobItem

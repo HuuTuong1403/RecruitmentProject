@@ -1,14 +1,13 @@
+import { fetchAllEventJoinedAsync } from 'features/JobSeekers/slices/thunks'
+import { Fragment, useEffect } from 'react'
 import { ScrollToTop } from 'common/functions'
+import { selectEventsJoined, selectedStatus } from 'features/JobSeekers/slices/selectors'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllEventJoinedAsync } from 'features/JobSeekers/slices/thunks'
-import { selectEventsJoined, selectedStatus } from 'features/JobSeekers/slices/selectors'
-import { Fragment, useEffect } from 'react'
+import { EventItem } from 'features/JobSeekers/components'
+import { LoadingSuspense, NotFoundData } from 'components'
 import classes from './style.module.scss'
-import EventItem from 'features/JobSeekers/components/EventItem'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
 
 const EventJoinedPage = () => {
   ScrollToTop()

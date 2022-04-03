@@ -1,7 +1,14 @@
 import { Controller } from 'react-hook-form'
-import InputField from 'custom-fields/InputField'
+import { WrappedInput as InputField } from 'custom-fields'
 
-const InputPostJobField = ({ name, control, defaultValue, handleAddData, errors, placeholder }) => {
+export const InputPostJobField = ({
+  name,
+  control,
+  defaultValue,
+  handleAddData,
+  errors,
+  placeholder,
+}) => {
   return (
     <Controller
       name={name}
@@ -25,5 +32,3 @@ const InputPostJobField = ({ name, control, defaultValue, handleAddData, errors,
     />
   )
 }
-
-export default InputPostJobField

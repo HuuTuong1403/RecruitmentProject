@@ -1,3 +1,5 @@
+import { AuthComponent, notification } from 'components'
+import { ButtonField, WrappedInput as InputField } from 'custom-fields'
 import { FiLock, FiUser } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import { schemaSignInEmployer } from 'common/constants/schema'
@@ -12,11 +14,7 @@ import { useState, useEffect } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AuthComponent from 'components/AuthComponent'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import notification from 'components/Notification'
 
 const SignInEmployerPage = () => {
   ScrollToTop()

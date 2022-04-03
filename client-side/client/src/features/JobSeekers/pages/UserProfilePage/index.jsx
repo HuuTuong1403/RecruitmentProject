@@ -3,11 +3,11 @@ import {
   dateFormatPicker,
   dateFormatSendServer,
 } from 'common/constants/dateFormat'
-import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { getDetailJobSeekerAsync } from 'features/JobSeekers/slices/thunks'
 import { schemaUpdateProfileJobSeeker } from 'common/constants/schema'
 import { ScrollToTop } from 'common/functions'
 import { selectedJobSeekerProfile, selectedStatus } from 'features/JobSeekers/slices/selectors'
+import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { updateProfileJobSeeker } from 'features/JobSeekers/api/jobSeeker.api'
 import { useForm } from 'react-hook-form'
 import { useSelector, useDispatch } from 'react-redux'
@@ -15,16 +15,17 @@ import { useState, useEffect } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
+import {
+  ButtonField,
+  DatePickerField,
+  WrappedInput as InputField,
+  LabelField,
+  SelectLocationField,
+} from 'custom-fields'
+import { notification, LoadingSuspense } from 'components'
+import { ProfileJobSeeker } from 'features/JobSeekers/components'
 import classes from './style.module.scss'
-import DatePickerField from 'custom-fields/DatePickerField'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
 import moment from 'moment'
-import notification from 'components/Notification'
-import ProfileJobSeeker from 'features/JobSeekers/components/ProfileJobSeeker'
-import SelectLocationField from 'custom-fields/SelectLocationField'
-import LoadingSuspense from 'components/Loading'
 
 const UserProfilePage = () => {
   ScrollToTop()

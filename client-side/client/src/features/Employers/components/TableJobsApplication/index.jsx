@@ -1,4 +1,10 @@
 import {
+  saveApplication,
+  deleteApplication,
+  restoreApplication,
+  announceApplication,
+} from 'features/Employers/api/employer.api'
+import {
   savedJobApplication,
   deletedJobAppication,
   restoredJobApplication,
@@ -7,24 +13,17 @@ import {
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaFileDownload, FaEye, FaSave, FaTrash } from 'react-icons/fa'
 import { MdRestorePage, MdNotificationsActive } from 'react-icons/md'
-import {
-  saveApplication,
-  deleteApplication,
-  restoreApplication,
-  announceApplication,
-} from 'features/Employers/api/employer.api'
 import { Table, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, PopoverField } from 'custom-fields'
+import { ModalViewProfileApplication } from 'features/Employers/components'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import ModalViewProfileApplication from 'features/Employers/components/ModalViewProfileApplication'
 import moment from 'moment'
-import notification from 'components/Notification'
-import PopoverField from 'custom-fields/PopoverField'
 
-const TableJobsApplication = ({
+export const TableJobsApplication = ({
   jobsApplication,
   isDelete = false,
   isNotSaved = false,
@@ -338,5 +337,3 @@ const TableJobsApplication = ({
     </Fragment>
   )
 }
-
-export default TableJobsApplication

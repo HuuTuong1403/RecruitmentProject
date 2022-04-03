@@ -10,15 +10,17 @@ import { useForm } from 'react-hook-form'
 import { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
+import {
+  ButtonField,
+  WrappedInput as InputField,
+  LabelField,
+  SelectLocationField,
+} from 'custom-fields'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
-import notification from 'components/Notification'
 import Select from 'react-select'
-import SelectLocationField from 'custom-fields/SelectLocationField'
 
-const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
+export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -317,5 +319,3 @@ const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
     </Modal>
   )
 }
-
-export default ModalJoinEvent

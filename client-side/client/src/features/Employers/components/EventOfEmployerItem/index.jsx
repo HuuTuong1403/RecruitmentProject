@@ -1,8 +1,3 @@
-import { resetDataEvent, resetDataParticipants } from 'features/Employers/slices'
-import { BiDotsVerticalRounded } from 'react-icons/bi'
-import { dateFormatISO8601, dateFormatHourMinute } from 'common/constants/dateFormat'
-import { FaUsers, FaPauseCircle, FaPlayCircle } from 'react-icons/fa'
-import { useHistory } from 'react-router-dom'
 import {
   MdAccessTime,
   MdDelete,
@@ -12,17 +7,22 @@ import {
   MdEventBusy,
   MdRestore,
 } from 'react-icons/md'
+import { BiDotsVerticalRounded } from 'react-icons/bi'
+import { dateFormatISO8601, dateFormatHourMinute } from 'common/constants/dateFormat'
+import { FaUsers, FaPauseCircle, FaPlayCircle } from 'react-icons/fa'
 import { Menu, Dropdown, Tooltip } from 'antd'
+import { resetDataEvent, resetDataParticipants } from 'features/Employers/slices'
 import { RiFileList3Line } from 'react-icons/ri'
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { PopoverField } from 'custom-fields'
 import classes from './style.module.scss'
 import moment from 'moment'
-import PopoverField from 'custom-fields/PopoverField'
 import Slider from 'react-slick'
 
-const EventOfEmployerItem = ({
+export const EventOfEmployerItem = ({
   data,
   isTrash = false,
   loading,
@@ -308,5 +308,3 @@ const settings = {
   rows: 1,
   arrows: false,
 }
-
-export default EventOfEmployerItem

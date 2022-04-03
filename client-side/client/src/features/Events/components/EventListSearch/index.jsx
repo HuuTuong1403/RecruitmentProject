@@ -2,12 +2,10 @@ import { Fragment } from 'react'
 import { selectEvents, selectStatus } from 'features/Events/slices/selectors'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { LoadingSuspense, PaginationCus, NotFoundData } from 'components'
 import classes from './style.module.scss'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
-import PaginationWrap from 'components/PaginationWrap'
 
-const EventListSearch = () => {
+export const EventListSearch = () => {
   const { t } = useTranslation()
   const eventsSearch = useSelector(selectEvents)
   const loading = useSelector(selectStatus)
@@ -30,7 +28,7 @@ const EventListSearch = () => {
             {eventsSearch.length === 0 ? (
               <NotFoundData title={t('There are currently no events matching your criteria')} />
             ) : (
-              <PaginationWrap array={eventsSearch} isEvent />
+              <PaginationCus array={eventsSearch} isEvent />
             )}
           </Fragment>
         )}
@@ -38,4 +36,3 @@ const EventListSearch = () => {
     </section>
   )
 }
-export default EventListSearch

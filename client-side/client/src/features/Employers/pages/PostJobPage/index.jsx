@@ -1,14 +1,3 @@
-import { dateFormatPicker, dateFormatSendServer } from 'common/constants/dateFormat'
-import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
-import { selectPostJobData, selectEmployerDetail } from 'features/Employers/slices/selectors'
-import { addDataPostJob, resetDataPostJob } from 'features/Employers/slices'
-import { clearNullObject } from 'common/functions'
-import { getDetailEmployerAsync } from 'features/Employers/slices/thunks'
-import { postJobEmployer } from 'features/Employers/api/employer.api'
-import { schemaPostJobEmployer } from 'common/constants/schema'
-import { ScrollToTop } from 'common/functions'
-import { selectedSkills } from 'features/Jobs/slices/selectors'
-import { Switch } from 'antd'
 import {
   hideSalaryOptions,
   levelOptions,
@@ -16,22 +5,29 @@ import {
   typeSalaryOptions,
   workingTimeOptions,
 } from 'common/constants/options'
+import { addDataPostJob, resetDataPostJob } from 'features/Employers/slices'
+import { ButtonField, CKEditorField, DatePickerField, LabelField } from 'custom-fields'
+import { clearNullObject } from 'common/functions'
+import { dateFormatPicker, dateFormatSendServer } from 'common/constants/dateFormat'
+import { getDetailEmployerAsync } from 'features/Employers/slices/thunks'
+import { InputPostJobField, SelectPostJobField } from 'features/Employers/components'
+import { notification } from 'components'
+import { postJobEmployer } from 'features/Employers/api/employer.api'
+import { schemaPostJobEmployer } from 'common/constants/schema'
+import { ScrollToTop } from 'common/functions'
+import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
+import { selectedSkills } from 'features/Jobs/slices/selectors'
+import { selectPostJobData, selectEmployerDetail } from 'features/Employers/slices/selectors'
+import { Switch } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
-import CKEditorField from 'custom-fields/CKEditorField'
 import classes from './style.module.scss'
-import DatePickerField from 'custom-fields/DatePickerField'
-import InputPostJobField from 'features/Employers/components/InputPostJobField'
-import LabelField from 'custom-fields/LabelField'
 import moment from 'moment'
-import notification from 'components/Notification'
 import Select from 'react-select'
-import SelectPostJobField from 'features/Employers/components/SelectPostJobField'
 
 const PostJobPage = () => {
   ScrollToTop()

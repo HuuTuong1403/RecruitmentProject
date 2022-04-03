@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const EmployersUs = () => {
+export const EmployersUs = () => {
   const { t } = useTranslation()
 
   return (
@@ -32,5 +32,3 @@ const images = [
   { src: 'https://images.careerbuilder.vn/content/images/logo/18.png' },
   { src: 'https://images.careerbuilder.vn/content/images/logo/22.png' },
 ]
-
-export default EmployersUs

@@ -1,13 +1,13 @@
+import { AvatarUpload } from 'components'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaBirthdayCake, FaCity } from 'react-icons/fa'
 import { Fragment } from 'react'
 import { ImUser } from 'react-icons/im'
 import { MdEmail, MdSmartphone, MdLocationOn } from 'react-icons/md'
-import AvatarUpload from 'components/AvatarUpload'
 import classes from './style.module.scss'
 import moment from 'moment'
 
-const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
+export const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
   return (
     <div className={classes.left}>
       <div>
@@ -54,5 +54,3 @@ const ProfileJobSeeker = ({ jobSeeker, changeAvatar }) => {
     </div>
   )
 }
-
-export default ProfileJobSeeker

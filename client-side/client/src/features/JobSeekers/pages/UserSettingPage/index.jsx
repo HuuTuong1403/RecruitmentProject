@@ -1,5 +1,8 @@
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import { FiLock } from 'react-icons/fi'
 import { logoutJobSeeker } from 'features/Home/slices'
+import { notification } from 'components'
+import { resetFavoriteJob } from 'features/JobSeekers/slices'
 import { schemaChangePass } from 'common/constants/schema'
 import { ScrollToTop } from 'common/functions'
 import { updatePassJobSeeker } from 'features/JobSeekers/api/jobSeeker.api'
@@ -10,12 +13,7 @@ import { useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { resetFavoriteJob } from 'features/JobSeekers/slices'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
-import notification from 'components/Notification'
 
 const UserSettingPage = () => {
   ScrollToTop()

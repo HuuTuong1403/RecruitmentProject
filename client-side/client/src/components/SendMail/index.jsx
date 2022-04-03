@@ -1,15 +1,13 @@
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import { FaAngleLeft } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { schemaSendMail } from 'common/constants/schema'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
 
-const SendMail = ({ onSubmit, loading, isEmployer = false }) => {
+export const SendMail = ({ onSubmit, loading, isEmployer = false }) => {
   const { t } = useTranslation()
 
   const {
@@ -57,5 +55,3 @@ const SendMail = ({ onSubmit, loading, isEmployer = false }) => {
     </div>
   )
 }
-
-export default SendMail

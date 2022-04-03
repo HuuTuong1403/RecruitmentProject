@@ -3,13 +3,11 @@ import { ScrollToTop } from 'common/functions'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AuthComponent from 'components/AuthComponent'
-import ButtonField from 'custom-fields/ButtonField'
+import { AuthComponent } from 'components'
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
 
-const ChangePassForgot = ({ loading, onSubmit }) => {
+export const ChangePassForgot = ({ loading, onSubmit }) => {
   ScrollToTop()
   const { t } = useTranslation()
 
@@ -61,5 +59,3 @@ const ChangePassForgot = ({ loading, onSubmit }) => {
     </AuthComponent>
   )
 }
-
-export default ChangePassForgot

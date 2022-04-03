@@ -1,9 +1,9 @@
 import { Controller } from 'react-hook-form'
+import { ErrorText } from 'components'
 import { Fragment } from 'react'
-import ErrorText from 'components/ErrorText'
 import Select from 'react-select'
 
-const SelectField = ({ control, defaultValue, optionList, name, placeholder, errors }) => {
+export const SelectField = ({ control, defaultValue, optionList, name, placeholder, errors }) => {
   return (
     <Fragment>
       <Controller
@@ -27,5 +27,3 @@ const SelectField = ({ control, defaultValue, optionList, name, placeholder, err
     </Fragment>
   )
 }
-
-export default SelectField

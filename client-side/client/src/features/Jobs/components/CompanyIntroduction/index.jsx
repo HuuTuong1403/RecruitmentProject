@@ -1,16 +1,16 @@
 import { AiOutlineGlobal } from 'react-icons/ai'
 import { Avatar } from 'antd'
+import { ButtonField } from 'custom-fields'
 import { FaGavel } from 'react-icons/fa'
 import { IoIosPeople } from 'react-icons/io'
 import { IoLocationOutline } from 'react-icons/io5'
+import { notification } from 'components'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import notification from 'components/Notification'
 
-const CompanyIntroduction = ({ company, isReviewed, setShowModal, employer }) => {
+export const CompanyIntroduction = ({ company, isReviewed, setShowModal, employer }) => {
   const { t } = useTranslation()
   const history = useHistory()
   const user = selectJobSeekerLocal()
@@ -125,5 +125,3 @@ const CompanyIntroduction = ({ company, isReviewed, setShowModal, employer }) =>
     </div>
   )
 }
-
-export default CompanyIntroduction

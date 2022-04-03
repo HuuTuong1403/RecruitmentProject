@@ -1,10 +1,9 @@
 import { Fragment, useState } from 'react'
 import { Pagination } from 'antd'
-import EventItem from 'features/Events/components/EventItem'
-import JobSearchItem from 'features/Jobs/components/JobSearchItem'
-import ReviewItem from 'features/Jobs/components/ReviewItem'
+import { EventItem } from 'features/Events/components'
+import { JobSearchItem, ReviewItem } from 'features/Jobs/components'
 
-const PaginationCus = ({ array, numEachPage = 5, ...args }) => {
+export const PaginationCus = ({ array, numEachPage = 5, ...args }) => {
   const [value, setValue] = useState({ min: 0, max: numEachPage })
   const {
     setShowModal,
@@ -48,5 +47,3 @@ const PaginationCus = ({ array, numEachPage = 5, ...args }) => {
     </Fragment>
   )
 }
-
-export default PaginationCus

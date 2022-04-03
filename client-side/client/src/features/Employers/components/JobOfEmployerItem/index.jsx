@@ -1,22 +1,21 @@
-import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { BiDollarCircle } from 'react-icons/bi'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { fetchJobDetailOfEmployerAsync } from 'features/Employers/slices/thunks'
 import { handChangeJobSlug } from 'features/Employers/slices'
 import { IoMdCalendar, IoMdEye, IoMdTime } from 'react-icons/io'
 import { MdDelete, MdDeleteForever, MdEdit, MdLocationOn, MdRestore } from 'react-icons/md'
+import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
 import { selectJobSlug } from 'features/Employers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, PopoverField } from 'custom-fields'
+import { ModalUpdateJob } from 'features/Employers/components'
 import classes from './style.module.scss'
-import ModalUpdateJob from 'features/Employers/components/ModalUpdateJob'
 import moment from 'moment'
-import PopoverField from 'custom-fields/PopoverField'
 
-const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
+export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
   const {
     _id,
     jobTitle,
@@ -217,5 +216,3 @@ const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
     </div>
   )
 }
-
-export default JobOfEmployerItem

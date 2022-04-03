@@ -8,8 +8,7 @@ import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import JobSearchList from 'features/Jobs/components/JobSearchList'
-import SearchHeader from 'features/Jobs/components/SearchHeader'
+import { SearchHeader, JobSearchList } from 'features/Jobs/components'
 
 const SearchJobPage = () => {
   ScrollToTop()

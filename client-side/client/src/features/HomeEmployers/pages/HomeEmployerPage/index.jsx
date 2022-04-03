@@ -1,12 +1,9 @@
+import { BannerHomeEmp, EmployersUs, FeatureC, Statistic } from 'features/HomeEmployers/components'
 import { Fragment } from 'react'
 import { ScrollToTop } from 'common/functions'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import BannerHomeEmp from 'features/HomeEmployers/components/BannerHome'
-import EmployersUs from 'features/HomeEmployers/components/EmployersUs'
-import FeatureC from 'features/HomeEmployers/components/FeatureC'
 import ScrollAnimation from 'react-animate-on-scroll'
-import Statistic from 'features/HomeEmployers/components/Statistic'
 
 const HomeEmployerPage = () => {
   ScrollToTop()

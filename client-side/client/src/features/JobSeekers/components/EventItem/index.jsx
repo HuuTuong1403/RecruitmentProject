@@ -8,12 +8,12 @@ import { MdEventAvailable, MdEventBusy, MdToday } from 'react-icons/md'
 import { Tooltip } from 'antd'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField } from 'custom-fields'
+import { ModalRegisteredInformation } from 'features/JobSeekers/components'
 import classes from './style.module.scss'
-import ModalRegisteredInformation from 'features/JobSeekers/components/ModalRegisteredInformation'
 import moment from 'moment'
 
-const EventItem = ({ data }) => {
+export const EventItem = ({ data }) => {
   const { t } = useTranslation()
   const {
     event: {
@@ -175,5 +175,3 @@ const EventItem = ({ data }) => {
     </div>
   )
 }
-
-export default EventItem

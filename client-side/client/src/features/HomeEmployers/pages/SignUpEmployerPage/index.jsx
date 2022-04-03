@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom'
 import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectInfoSignUp } from 'features/HomeEmployers/slices/selectors'
+import { StepOneSignUp, StepTwoSignUp, StepThreeSignUp } from 'features/HomeEmployers/components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import AuthComponent from 'components/AuthComponent'
+import { AuthComponent } from 'components'
 import classes from './style.module.scss'
-import StepOneSignUp from 'features/HomeEmployers/components/StepOneSignUp'
-import StepThreeSignUp from 'features/HomeEmployers/components/StepThreeSignUp'
-import StepTwoSignUp from 'features/HomeEmployers/components/StepTwoSignUp'
 
 const SignUpEmployerPage = () => {
   ScrollToTop()

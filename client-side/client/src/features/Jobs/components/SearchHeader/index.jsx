@@ -1,13 +1,14 @@
-import { Collapse } from 'reactstrap'
-import { FaFilter } from 'react-icons/fa'
-import { FaSearch } from 'react-icons/fa'
-import { selectedIsFilter } from 'features/Jobs/slices/selectors'
 import {
   dateCreatedAtOptions,
   levelOptions,
   positionOptions,
   salaryOptions,
 } from 'common/constants/options'
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
+import { Collapse } from 'reactstrap'
+import { FaFilter } from 'react-icons/fa'
+import { FaSearch } from 'react-icons/fa'
+import { selectedIsFilter } from 'features/Jobs/slices/selectors'
 import { selectedProvinces } from 'features/Home/slices/selectors'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
 import { toggleOpenFilter } from 'features/Jobs/slices'
@@ -15,13 +16,10 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
 import Select from 'react-select'
 
-const SearchHeader = () => {
+export const SearchHeader = () => {
   let query = new URLSearchParams(useLocation().search)
   const type = query.get('type')
   const history = useHistory()
@@ -266,5 +264,3 @@ const SearchHeader = () => {
     </section>
   )
 }
-
-export default SearchHeader

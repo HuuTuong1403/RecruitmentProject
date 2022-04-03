@@ -6,8 +6,7 @@ import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import EventListSearch from 'features/Events/components/EventListSearch'
-import SearchEventHeader from 'features/Events/components/SearchEventHeader'
+import { EventListSearch, SearchEventHeader } from 'features/Events/components'
 
 const SearchEventPage = () => {
   ScrollToTop()

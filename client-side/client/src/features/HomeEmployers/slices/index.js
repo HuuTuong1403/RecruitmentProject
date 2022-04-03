@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { signInEmployerAsync } from './thunks'
+import { getAllServicePackageAsync, signInEmployerAsync } from './thunks'
 
 const initialState = {
   signUpInformation: {},
+  servicePackages: [],
   employer: null,
+  packageId: '',
   status: false,
 }
 
@@ -18,6 +20,10 @@ export const authEmployerSlice = createSlice({
       state.employer = null
       localStorage.removeItem('token')
       localStorage.removeItem('employer')
+    },
+    getPackagePayment: (state, action) => {
+      state.packageId = action.payload
+      return state.packageId
     },
   },
   extraReducers: {
@@ -40,9 +46,23 @@ export const authEmployerSlice = createSlice({
       state.employer = null
       state.status = false
     },
+    // #region Get All Service Packages
+    [getAllServicePackageAsync.pending]: (state) => {
+      state.status = true
+      state.servicesPackages = []
+    },
+    [getAllServicePackageAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.servicePackages = action.payload
+    },
+    [getAllServicePackageAsync.rejected]: (state) => {
+      state.employer = null
+      state.status = false
+    },
+    // #endregion
   },
 })
 
-export const { addInfoSignUp, logoutEmployer } = authEmployerSlice.actions
+export const { addInfoSignUp, logoutEmployer, getPackagePayment } = authEmployerSlice.actions
 
 export default authEmployerSlice.reducer

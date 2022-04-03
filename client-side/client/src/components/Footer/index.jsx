@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import classes from './styles.module.scss'
 
-const Footer = () => {
+export const Footer = () => {
   const { t } = useTranslation()
 
   return (
@@ -90,5 +90,3 @@ const Footer = () => {
     </footer>
   )
 }
-
-export default Footer

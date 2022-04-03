@@ -15,13 +15,13 @@ import { Link } from 'react-router-dom'
 import { Rate, Menu, Dropdown } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { notification } from 'components'
+import { PopoverField } from 'custom-fields'
 import classes from './style.module.scss'
 import moment from 'moment'
-import notification from 'components/Notification'
 import parse from 'html-react-parser'
-import PopoverField from 'custom-fields/PopoverField'
 
-const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => {
+export const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => {
   const { t } = useTranslation()
   const { _id, title, rating, ot, createdAt, improvement, interesting, user } = review
   const dispatch = useDispatch()
@@ -138,5 +138,3 @@ const ReviewItem = ({ review = null, currentUser = null, companyName = '' }) => 
     </div>
   )
 }
-
-export default ReviewItem

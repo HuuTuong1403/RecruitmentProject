@@ -7,11 +7,10 @@ import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, WrappedInput as InputField } from 'custom-fields'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
 
-const StepOneSignUp = ({ onSubmit }) => {
+export const StepOneSignUp = ({ onSubmit }) => {
   const { t } = useTranslation()
 
   const infoSignUp = useSelector(selectInfoSignUp)
@@ -66,5 +65,3 @@ const StepOneSignUp = ({ onSubmit }) => {
     </Fragment>
   )
 }
-
-export default StepOneSignUp

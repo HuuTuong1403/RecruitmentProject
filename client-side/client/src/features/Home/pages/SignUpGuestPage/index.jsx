@@ -1,3 +1,4 @@
+import { AuthComponent, notification } from 'components'
 import { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { schemaSignUpUser } from 'common/constants/schema'
@@ -8,13 +9,10 @@ import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
+import { VerifyNotification } from 'features/Home/components'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AuthComponent from 'components/AuthComponent'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, WrappedInput as InputField } from 'custom-fields'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import notification from 'components/Notification'
-import VerifyNotification from 'features/Home/components/VerifyNotification'
 
 const SignUpGuestPage = () => {
   ScrollToTop()

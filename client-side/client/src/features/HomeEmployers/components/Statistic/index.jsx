@@ -3,7 +3,7 @@ import { FaBriefcase, FaBuilding, FaIdBadge, FaSearch, FaSeedling } from 'react-
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const Statistic = () => {
+export const Statistic = () => {
   const { t } = useTranslation()
 
   const statisticList = [
@@ -61,5 +61,3 @@ const Statistic = () => {
     </div>
   )
 }
-
-export default Statistic

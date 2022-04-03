@@ -1,3 +1,4 @@
+import { AuthComponent, ForgotPassNotify, notification, SendMail } from 'components'
 import { forgotPassJobSeeker } from 'features/Home/api/home.api'
 import { ScrollToTop } from 'common/functions'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
@@ -5,10 +6,6 @@ import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import AuthComponent from 'components/AuthComponent'
-import ForgotPassNotify from 'components/ForgotPassNotify'
-import notification from 'components/Notification'
-import SendMail from 'components/SendMail'
 
 const ForgotPassPage = () => {
   ScrollToTop()

@@ -4,12 +4,12 @@ import { useHistory } from 'react-router'
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { WrappedInput as InputField } from 'custom-fields'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
 import ReactTypingEffect from 'react-typing-effect'
 import Select from 'react-select'
 
-const BannerHome = () => {
+export const BannerHome = () => {
   const { t } = useTranslation()
   const [searchProvince, setSearchProvince] = useState('Tất cả')
   const searchKeyRef = useRef()
@@ -73,5 +73,3 @@ const BannerHome = () => {
     </div>
   )
 }
-
-export default BannerHome

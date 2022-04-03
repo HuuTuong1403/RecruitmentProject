@@ -1,9 +1,8 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import { LoadingSuspense, Page404 } from 'components'
 import { PATH, pathJobSeeker, pathEmployer } from 'common/constants/path'
 import { routes, privateRoutes } from './routes'
 import { Suspense } from 'react'
-import LoadingSuspense from 'components/Loading'
-import NotFoundPage from 'components/404'
 import PrivateRoute from './privateRoutes'
 
 const Routers = () => {
@@ -36,7 +35,7 @@ const Routers = () => {
             )
           })}
           <Route path="*">
-            <NotFoundPage />
+            <Page404 />
           </Route>
         </Switch>
       </Suspense>
