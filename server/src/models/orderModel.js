@@ -17,12 +17,11 @@ const priceSchema = new mongoose.Schema(
   },
   { _id: false }
 );
-bookingSchema = new mongoose.Schema(
+orderSchema = new mongoose.Schema(
   {
-    servicePackage: {
-      type: {},
-      require: [true, 'Đơn hàng phải có gói dịch vụ'],
-    },
+    servicePackages: [
+      { type: {}, require: [true, 'Đơn hàng phải có gói dịch vụ'] },
+    ],
     employer: {
       type: mongoose.Schema.ObjectId,
       ref: 'Employer',
@@ -54,12 +53,12 @@ bookingSchema = new mongoose.Schema(
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
-bookingSchema.pre('save', async function (next) {
-  const embededServicePackage = await ServicePackage.findById(
-    this.servicePackage
+orderSchema.pre('save', async function (next) {
+  const servicePackagePromises = this.servicePackages.map(
+    async (id) => await ServicePackage.findById(id)
   );
-  this.servicePackage = embededServicePackage;
+  this.servicePackages = await Promise.all(servicePackagePromises);
   next();
 });
-const Booking = mongoose.model('Booking', bookingSchema);
-module.exports = Booking;
+const Order = mongoose.model('Order', orderSchema);
+module.exports = Order;

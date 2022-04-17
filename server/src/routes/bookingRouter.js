@@ -29,11 +29,19 @@ bookingRouter
   .route('/vnpay/vnpay_ipn')
   .get(bookingController.setBodyPaidPrice, bookingController.getVNPayPayment);
 bookingRouter
-  .route('/')
-  .post(bookingController.createBooking)
-  .get(bookingController.getAllBooking);
+  .route('/available')
+  .get(
+    authController.protect,
+    authController.restrictTo('employer'),
+    bookingController.setQueryAvailableBooking,
+    bookingController.getAllBooking
+  );
 bookingRouter
   .route('/:id')
   .get(bookingController.getBooking)
   .patch(bookingController.updateBooking);
+bookingRouter
+  .route('/')
+  .post(bookingController.createBooking)
+  .get(bookingController.getAllBooking);
 module.exports = bookingRouter;

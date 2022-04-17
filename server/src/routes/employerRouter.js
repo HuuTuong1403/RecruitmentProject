@@ -12,7 +12,8 @@ const reviewRouter = require('./reviewRouter');
 const applicationRouter = require('./applicationRouter');
 const eventRouter = require('./eventRouter');
 const participantRouter = require('./participantRouter');
-const bookingRouter = require('./bookingRouter');
+// const bookingRouter = require('./bookingRouter');
+const cartRouter = require('./cartRouter');
 
 employerRouter.use('/applications', applicationRouter);
 employerRouter.use('/reviews', reviewRouter);
@@ -22,7 +23,8 @@ employerRouter.use(
   authController.restrictTo('employer'),
   eventRouter
 );
-employerRouter.use('/payment', bookingRouter);
+employerRouter.use('/cart', cartRouter);
+// employerRouter.use('/payment', bookingRouter);
 employerRouter.use('/participants', participantRouter);
 employerRouter.use(
   '/jobs',

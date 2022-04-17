@@ -9,6 +9,8 @@ const reviewRouter = require('./reviewRouter');
 const eventRouter = require('./eventRouter');
 const chatRouter = require('./chatRouter');
 const servicePackageRouter = require('./servicePackageRouter');
+const questionRouter = require('./questionRouter');
+
 function route(app) {
   app.use('/api/v1/job-seeker', jobseekerRouter);
   app.use('/api/v1/jobs', jobRouter);
@@ -21,5 +23,6 @@ function route(app) {
   app.use('/api/v1/events', eventRouter);
   app.use('/api/v1/chat', chatRouter);
   app.use('/api/v1/service-package', servicePackageRouter);
+  app.use('/api/v1/question', questionRouter);
 }
 module.exports = route;

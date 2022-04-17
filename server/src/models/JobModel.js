@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 const addressSchema = require('./addressModel');
 const mongoose_delete = require('mongoose-delete');
-
+//const Booking = require('./bookingModel');
 const finishDate = new Date();
 finishDate.setDate(finishDate.getDate() + 7);
 
@@ -107,6 +107,10 @@ const jobSchema = new mongoose.Schema(
     createdAt: {
       type: Date,
     },
+    booking: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Booking',
+    },
   },
   {
     timestamps: true,
@@ -144,10 +148,20 @@ jobSchema.pre('save', async function (next) {
   });
   next();
 });
+// jobSchema.post('save', async function (next) {
+//   const booking = await Booking.findById(this.booking);
+//   await Booking.findByIdAndUpdate(this.booking, {
+//     'servicePackage.extantQuantity': booking.servicePackage.extantQuantity - 1,
+//   });
+// });
 jobSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'company',
     select: 'companyName companyType companyWebsite logo ot',
+  });
+  this.populate({
+    path: 'booking',
+    select: 'servicePackage',
   });
   next();
 });
