@@ -1,11 +1,11 @@
 import { AiOutlineFrown, AiOutlineMeh, AiOutlineSmile } from 'react-icons/ai'
 import { Controller } from 'react-hook-form'
+import { ErrorText } from 'components'
 import { Fragment } from 'react'
 import { Rate } from 'antd'
 import { useTranslation } from 'react-i18next'
-import ErrorText from 'components/ErrorText'
 
-const RatingField = ({
+export const RatingField = ({
   name,
   control,
   allowClear = false,
@@ -81,5 +81,3 @@ const RatingField = ({
     </Fragment>
   )
 }
-
-export default RatingField

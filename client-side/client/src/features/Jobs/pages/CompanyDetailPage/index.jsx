@@ -14,13 +14,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
+import { CompanyIntroduction, JobActiveItem } from 'features/Jobs/components'
+import { LoadingSuspense, ModalSignIn, NotFoundData, PaginationCus } from 'components'
 import classes from './style.module.scss'
-import CompanyIntroduction from 'features/Jobs/components/CompanyIntroduction'
-import JobActiveItem from 'features/Jobs/components/JobActiveItem'
-import LoadingSuspense from 'components/Loading'
-import ModalSignIn from 'components/ModalSignIn'
-import NotFoundData from 'components/NotFoundData'
-import PaginationWrap from 'components/PaginationWrap'
 import parse from 'html-react-parser'
 
 const CompanyDetailPage = () => {
@@ -38,7 +34,7 @@ const CompanyDetailPage = () => {
   const jobCurrentActive = companyDetail?.jobs?.filter((item) => !item.isExpired)
 
   const isReviewed = reviewsOfCampany?.some((item) => item.user?._id === currentUser?._id)
-  
+
   useTitle(companyName)
 
   useEffect(() => {
@@ -185,7 +181,7 @@ const CompanyDetailPage = () => {
                         ? `${companyDetail.ratingsQuantity} ${t('review')}`
                         : `${companyDetail.ratingsQuantity} ${t('reviews')}`}
                     </div>
-                    <PaginationWrap
+                    <PaginationCus
                       array={reviewsOfCampany}
                       currentUser={currentUser}
                       companyName={companyName}

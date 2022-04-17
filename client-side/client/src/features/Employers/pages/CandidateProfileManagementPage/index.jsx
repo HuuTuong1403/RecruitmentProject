@@ -1,18 +1,5 @@
-import {
-  fetchJobsApplicationDeletedAsync,
-  fetchJobsApplicationSavedAsync,
-  fetchJobsApplicationNotSavedAsync,
-  countApplicationStatusAsync,
-} from 'features/Employers/slices/thunks'
-import {
-  selectJobsApplicationNotSaved,
-  selectJobsApplicationSaved,
-  selectJobsApplicationDeleted,
-  selectTabsItem,
-  selectDataFilter,
-  selectCountApplication,
-  selectedStatus,
-} from 'features/Employers/slices/selectors'
+import {  fetchJobsApplicationDeletedAsync,  fetchJobsApplicationSavedAsync,  fetchJobsApplicationNotSavedAsync,  countApplicationStatusAsync,} from 'features/Employers/slices/thunks'
+import {  selectJobsApplicationNotSaved,  selectJobsApplicationSaved,  selectJobsApplicationDeleted,  selectTabsItem,  selectDataFilter, selectCountApplication,  selectedStatus,} from 'features/Employers/slices/selectors'
 import { changeTabsItem } from 'features/Employers/slices'
 import { Fragment, useEffect, useState } from 'react'
 import { ScrollToTop } from 'common/functions'
@@ -21,11 +8,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { useWindowSize } from 'common/hook/useWindowSize'
+import {LoadingSuspense, NotFoundData} from 'components'
+import {SearchJobsApplication, TableJobsApplication} from 'features/Employers/components'
 import classes from './style.module.scss'
-import LoadingSuspense from 'components/Loading'
-import NotFounđData from 'components/NotFoundData'
-import SearchJobsApplication from 'features/Employers/components/SearchJobsApplication'
-import TableJobsApplication from 'features/Employers/components/TableJobsApplication'
 
 const CandidateProfileManagementPage = () => {
   ScrollToTop()
@@ -110,14 +95,14 @@ const CandidateProfileManagementPage = () => {
         >
           <TabPane tab={`${t('Resume Applied')} (${countApplication?.NotSaved})`} key="NotSaved">
             {jobsApplicationNotSaved.length === 0 ? (
-              <NotFounđData title={t('There are currently no resumes applying')} />
+              <NotFoundData title={t('There are currently no resumes applying')} />
             ) : (
               <TableJobsApplication isNotSaved jobsApplication={jobsApplicationNotSaved} />
             )}
           </TabPane>
           <TabPane tab={`${t('Bookmarked Resumes')} (${countApplication?.Saved})`} key="Saved">
             {jobsApplicationSaved.length === 0 ? (
-              <NotFounđData title={t('There are currently no saved profiles')} />
+              <NotFoundData title={t('There are currently no saved profiles')} />
             ) : (
               <TableJobsApplication
                 jobsApplication={jobsApplicationSaved}
@@ -129,7 +114,7 @@ const CandidateProfileManagementPage = () => {
           </TabPane>
           <TabPane tab={`${t('Deleted Resumes')} (${countApplication?.Deleted})`} key="Deleted">
             {jobsApplicationDeleted.length === 0 ? (
-              <NotFounđData title={t('There are currently no deleted profiles')} />
+              <NotFoundData title={t('There are currently no deleted profiles')} />
             ) : (
               <TableJobsApplication isDelete jobsApplication={jobsApplicationDeleted} />
             )}

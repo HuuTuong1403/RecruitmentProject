@@ -1,26 +1,24 @@
-import { dateFormatPicker, dateFormatSendServer } from 'common/constants/dateFormat'
-import { addDataFilter } from 'features/Employers/slices'
-import { clearNullObject } from 'common/functions'
-import { DatePicker } from 'antd'
-import { expiredJobOptions } from 'common/constants/options'
-import { FaSearch } from 'react-icons/fa'
 import {
   fetchJobsApplicationNotSavedAsync,
   fetchJobsApplicationSavedAsync,
   fetchJobsApplicationDeletedAsync,
 } from 'features/Employers/slices/thunks'
+import { addDataFilter } from 'features/Employers/slices'
+import { clearNullObject } from 'common/functions'
+import { dateFormatPicker, dateFormatSendServer } from 'common/constants/dateFormat'
+import { DatePicker } from 'antd'
+import { expiredJobOptions } from 'common/constants/options'
+import { FaSearch } from 'react-icons/fa'
 import { selectDataFilter } from 'features/Employers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
 import moment from 'moment'
 import Select from 'react-select'
 
-const SearchJobsApplication = ({ status }) => {
+export const SearchJobsApplication = ({ status }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const searchFullNameRef = useRef(null)
@@ -196,5 +194,3 @@ const SearchJobsApplication = ({ status }) => {
     </div>
   )
 }
-
-export default SearchJobsApplication

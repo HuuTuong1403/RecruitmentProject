@@ -1,35 +1,33 @@
-import { addFavoriteJob, removeFavoriteJob } from 'features/JobSeekers/api/jobSeeker.api'
-import { addJobToFavorite, removeJobOfFavorire } from 'features/JobSeekers/slices'
-import { selectedJobDetail, selectedStatus } from 'features/Jobs/slices/selectors'
-import { selectFavoriteJobs, selectApplicationJobs } from 'features/JobSeekers/slices/selectors'
-import { AiOutlineHeart, AiFillHeart, AiOutlineGlobal } from 'react-icons/ai'
-import { dateFormatPicker } from 'common/constants/dateFormat'
-import { FaBuilding } from 'react-icons/fa'
 import {
   fetchAllFavoriteJobAsync,
   fetchAllJobApplicationAsync,
 } from 'features/JobSeekers/slices/thunks'
+import { addFavoriteJob, removeFavoriteJob } from 'features/JobSeekers/api/jobSeeker.api'
+import { addJobToFavorite, removeJobOfFavorire } from 'features/JobSeekers/slices'
+import { AiOutlineHeart, AiFillHeart, AiOutlineGlobal } from 'react-icons/ai'
+import { ButtonField } from 'custom-fields'
+import { dateFormatPicker } from 'common/constants/dateFormat'
+import { FaBuilding } from 'react-icons/fa'
+import { FacebookShareButton, FacebookMessengerShareButton } from 'react-share'
+import { FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
 import { fetchJobDetailAsync } from 'features/Jobs/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
 import { IoMdCalendar } from 'react-icons/io'
-import { FacebookShareButton, FacebookMessengerShareButton } from 'react-share'
 import { Link, useParams, useHistory, useLocation } from 'react-router-dom'
 import { MdLocationOn } from 'react-icons/md'
 import { ScrollToTop } from 'common/functions'
+import { selectedJobDetail, selectedStatus } from 'features/Jobs/slices/selectors'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
+import { selectFavoriteJobs, selectApplicationJobs } from 'features/JobSeekers/slices/selectors'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { Tooltip } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import { FaFacebook, FaFacebookMessenger } from 'react-icons/fa'
-import ButtonField from 'custom-fields/ButtonField'
+import { LoadingSuspense, notification, ModalSignIn } from 'components'
+import { ModalApplyJob } from 'features/Jobs/components'
 import classes from './style.module.scss'
-import LoadingSuspense from 'components/Loading'
-import ModalApplyJob from 'features/Jobs/components/ModalApplyJob'
-import ModalSignIn from 'components/ModalSignIn'
 import moment from 'moment'
-import notification from 'components/Notification'
 import parse from 'html-react-parser'
 
 const JobDetailPage = () => {
@@ -246,7 +244,7 @@ const JobDetailPage = () => {
                     </ButtonField>
                   )}
                   <div className={classes['jobDetail__top-infor__actions-share']}>
-                    <div>{t("Share")}:</div>
+                    <div>{t('Share')}:</div>
 
                     <FacebookShareButton
                       url={`https://mst-recruit.web.app/${locationUrl.pathname}`}

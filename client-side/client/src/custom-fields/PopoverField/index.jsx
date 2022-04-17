@@ -1,9 +1,9 @@
 import { Fragment, useState } from 'react'
 import { Popover } from 'antd'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField } from 'custom-fields'
 import classes from './style.module.scss'
 
-const PopoverField = ({
+export const PopoverField = ({
   children,
   title,
   subTitle,
@@ -50,5 +50,3 @@ const PopoverField = ({
     </Popover>
   )
 }
-
-export default PopoverField

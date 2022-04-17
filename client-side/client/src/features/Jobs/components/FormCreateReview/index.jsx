@@ -5,15 +5,17 @@ import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
-import CKEditorField from 'custom-fields/CKEditorField'
+import {
+  ButtonField,
+  CKEditorField,
+  WrappedInput as InputField,
+  LabelField,
+  RatingField,
+} from 'custom-fields'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
-import notification from 'components/Notification'
-import RatingField from 'custom-fields/RatingField'
 
-const FormCreateReview = ({ companyDetail, companyName }) => {
+export const FormCreateReview = ({ companyDetail, companyName }) => {
   const { t } = useTranslation()
   const [reviewOT, setReviewOT] = useState('')
   const [loading, setLoading] = useState(false)
@@ -143,5 +145,3 @@ const FormCreateReview = ({ companyDetail, companyName }) => {
     </form>
   )
 }
-
-export default FormCreateReview

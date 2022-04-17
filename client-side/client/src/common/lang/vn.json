@@ -467,6 +467,7 @@
   "Please log out of the employer account": "Vui lòng đăng xuất tài khoản nhà tuyển dụng",
   "Please log out of the job seeker account": "Vui lòng đăng xuất tài khoản ứng viên tìm việc",
   "Please login to the job seeker account to perform this function": "Vui lòng đăng nhập vào tài khoản người tìm việc để thực hiện chức năng này",
+  "Please login to the employer account to perform this function": "Vui lòng đăng nhập vào tài khoản nhà tuyển dụng để thực hiện chức năng này",
   "Please select candidates to be notified": "Vui lòng chọn ứng viên để thông báo",
   "Please select cover photo": "Vui lòng chọn ảnh bìa",
   "Please select data to export": "Vui lòng chọn dữ liệu để xuất",
@@ -682,5 +683,7 @@
   "You haven't deleted any events yet": "Bạn chưa xóa bất kỳ sự kiện nào",
   "You'll love it": "Bạn sẽ yêu nó",
   "Your account has been activated. Please login to use the system": "Tài khoản của đã được kích hoạt. Vui lòng đăng nhập để sử dụng hệ thống",
-  "Your review will be of great help to the developer community looking for work.": "Đánh giá của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc."
+  "Your review will be of great help to the developer community looking for work.": "Đánh giá của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc.",
+  "List of service packages": "Danh sách gói dịch vụ",
+  "Price list and information of service packages": "Bảng giá và thông tin các gói dịch vụ"
 }

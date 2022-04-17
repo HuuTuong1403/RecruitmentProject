@@ -1,26 +1,24 @@
 import {
+  fetchParticipantsByIdEventAsync,
+  fetchEventDetailAsync,
+} from 'features/Employers/slices/thunks'
+import {
   selectParticipantsEvent,
   selectEventDetailEmployer,
   selectedStatus,
 } from 'features/Employers/slices/selectors'
+import { ButtonField } from 'custom-fields'
 import { exportParticipantExcel } from 'features/Employers/api/employer.api'
-import {
-  fetchParticipantsByIdEventAsync,
-  fetchEventDetailAsync,
-} from 'features/Employers/slices/thunks'
 import { Fragment, useEffect, useState } from 'react'
+import { LoadingSuspense, NotFoundData, notification } from 'components'
 import { RiFileExcel2Fill } from 'react-icons/ri'
 import { ScrollToTop } from 'common/functions'
+import { TableParticipantsEvent } from 'features/Employers/components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
-import notification from 'components/Notification'
-import TableParticipantsEvent from 'features/Employers/components/TableParticipantsEvent'
 
 const ParticipantsEventPage = () => {
   ScrollToTop()

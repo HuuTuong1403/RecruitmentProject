@@ -3,7 +3,13 @@ import { MdEventAvailable } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const StatisticCardItem = ({ title, sum, countCurrent, isEvent, backgroundColor = '#f5365c' }) => {
+export const StatisticCardItem = ({
+  title,
+  sum,
+  countCurrent,
+  isEvent,
+  backgroundColor = '#f5365c',
+}) => {
   const { t } = useTranslation()
 
   return (
@@ -33,5 +39,3 @@ const StatisticCardItem = ({ title, sum, countCurrent, isEvent, backgroundColor 
     </div>
   )
 }
-
-export default StatisticCardItem

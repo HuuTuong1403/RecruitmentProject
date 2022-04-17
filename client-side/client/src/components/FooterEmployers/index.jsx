@@ -8,7 +8,7 @@ import { MdPhone } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const FooterEmployers = () => {
+export const FooterEmployers = () => {
   const { t } = useTranslation()
 
   return (
@@ -28,21 +28,23 @@ const FooterEmployers = () => {
               </a>
             </li>
             <li>
-              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
+              <Link
+                to="/employers/service"
+                className={`${classes['link']} ${classes['link-fz-16']}`}
+              >
                 {t('service')}
-              </a>
-            </li>
-            <li>
-              <a href="/" className={`${classes['link']} ${classes['link-fz-16']}`}>
-                {t('quote')}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
 
         <div className={classes['footer__head-right']}>
           <div>{t('connect now')}</div>
-          <a href="https://www.facebook.com" target="_blank" rel="nofollow noopener noreferrer">
+          <a
+            href="https://www.facebook.com/MstITCompany"
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+          >
             <FaFacebookF />
           </a>
           <img src={DK} alt="Đã đăng ký bộ công thương" />
@@ -107,5 +109,3 @@ const FooterEmployers = () => {
     </footer>
   )
 }
-
-export default FooterEmployers

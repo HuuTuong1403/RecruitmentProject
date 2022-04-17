@@ -12,11 +12,11 @@ import { useHistory, useLocation, NavLink, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowSize } from 'common/hook/useWindowSize'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import notification from 'components/Notification'
 import ReactCountryFlag from 'react-country-flag'
 
-const Header = () => {
+export const Header = () => {
   const history = useHistory()
   const location = useLocation()
   const { t, i18n } = useTranslation()

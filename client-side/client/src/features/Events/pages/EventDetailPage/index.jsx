@@ -1,32 +1,30 @@
-import { Avatar, Tooltip } from 'antd'
-import { dateFormatISO8601, dateFormatHourMinute } from 'common/constants/dateFormat'
-import { FaUsers } from 'react-icons/fa'
-import { fetchDetailEventAsync } from 'features/Events/slices/thunks'
 import {
   getDetailJobSeekerAsync,
   fetchAllEventJoinedAsync,
 } from 'features/JobSeekers/slices/thunks'
-import { MdAccessTime, MdEventAvailable, MdEventBusy } from 'react-icons/md'
-import { ScrollToTop } from 'common/functions'
 import {
   selectedJobSeekerProfile,
   selectJobSeekerLocal,
   selectEventsJoined,
 } from 'features/JobSeekers/slices/selectors'
+import { Avatar, Tooltip } from 'antd'
+import { ButtonField } from 'custom-fields'
+import { dateFormatISO8601, dateFormatHourMinute } from 'common/constants/dateFormat'
+import { FaUsers } from 'react-icons/fa'
+import { fetchDetailEventAsync } from 'features/Events/slices/thunks'
+import { LoadingSuspense, ModalSignIn, notification } from 'components'
+import { MdAccessTime, MdEventAvailable, MdEventBusy } from 'react-icons/md'
+import { ModalJoinEvent } from 'features/Events/components'
+import { ScrollToTop } from 'common/functions'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { selectEventDetail, selectStatus } from 'features/Events/slices/selectors'
-import { useEffect, Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, Fragment, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import LoadingSuspense from 'components/Loading'
-import ModalJoinEvent from 'features/Events/components/ModalJoinEvent'
-import ModalSignIn from 'components/ModalSignIn'
 import moment from 'moment'
-import notification from 'components/Notification'
 import parse from 'html-react-parser'
 import Slider from 'react-slick'
 
@@ -163,7 +161,7 @@ const EventDetailPage = () => {
                           href={`https://www.google.com/maps/place/${address.street}, ${address.ward}, ${address.district}, ${address.city}`}
                           target="_blank"
                           rel="noreferrer"
-                          className={classes["link-no-border"]}
+                          className={classes['link-no-border']}
                         >
                           {location}
                         </a>

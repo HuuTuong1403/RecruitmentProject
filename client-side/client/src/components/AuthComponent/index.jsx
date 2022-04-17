@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import Lottie from 'lottie-react'
 
-const AuthComponent = ({ children, isChangePass = false }) => {
+export const AuthComponent = ({ children, isChangePass = false }) => {
   const { url } = useRouteMatch()
   const { t } = useTranslation()
 
@@ -39,5 +39,3 @@ const AuthComponent = ({ children, isChangePass = false }) => {
     </section>
   )
 }
-
-export default AuthComponent

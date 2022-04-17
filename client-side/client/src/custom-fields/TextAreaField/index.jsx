@@ -1,9 +1,9 @@
-import { Input } from 'antd'
 import { Controller } from 'react-hook-form'
+import { ErrorText } from 'components'
 import { Fragment } from 'react'
-import ErrorText from 'components/ErrorText'
+import { Input } from 'antd'
 
-const TextAreaField = ({
+export const TextAreaField = ({
   name,
   control,
   errors,
@@ -36,5 +36,3 @@ const TextAreaField = ({
     </Fragment>
   )
 }
-
-export default TextAreaField

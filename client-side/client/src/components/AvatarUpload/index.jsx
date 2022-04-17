@@ -4,10 +4,10 @@ import { Fragment, useRef, useEffect } from 'react'
 import { MdHighlightOff } from 'react-icons/md'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import notification from 'components/Notification'
 
-const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
+export const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
   const [avatarSrc, setAvatarSrc] = useState(src)
   const fileRef = useRef(null)
   const { t } = useTranslation()
@@ -87,4 +87,3 @@ const AvatarUpload = ({ src, shape, size, changeAvatar }) => {
     </Fragment>
   )
 }
-export default AvatarUpload

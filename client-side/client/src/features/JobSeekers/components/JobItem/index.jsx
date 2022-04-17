@@ -1,5 +1,6 @@
 import { AiOutlineEyeInvisible } from 'react-icons/ai'
 import { BiDollarCircle } from 'react-icons/bi'
+import { ButtonField, PopoverField } from 'custom-fields'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { FaBuilding } from 'react-icons/fa'
 import { IoMdCalendar, IoMdTime } from 'react-icons/io'
@@ -9,13 +10,11 @@ import { removeJobOfFavorire } from 'features/JobSeekers/slices'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
+import { notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
-import notification from 'components/Notification'
-import PopoverField from 'custom-fields/PopoverField'
 
-const JobItem = ({ data, isApplied = false, createdAt }) => {
+export const JobItem = ({ data, isApplied = false, createdAt }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -141,5 +140,3 @@ const JobItem = ({ data, isApplied = false, createdAt }) => {
     </div>
   )
 }
-
-export default JobItem

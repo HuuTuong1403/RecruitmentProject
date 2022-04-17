@@ -2,13 +2,10 @@ import { Fragment, useState } from 'react'
 import { selectedJobs, selectedStatus } from 'features/Jobs/slices/selectors'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import {LoadingSuspense, ModalSignIn, NotFoundData, PaginationCus} from 'components'
 import classes from './style.module.scss'
-import LoadingSuspense from 'components/Loading'
-import ModalSignIn from 'components/ModalSignIn'
-import NotFoundData from 'components/NotFoundData'
-import PaginationWrap from 'components/PaginationWrap'
 
-const JobSearchList = ({ employer }) => {
+export const JobSearchList = ({ employer }) => {
   const { t } = useTranslation()
   const jobsSearch = useSelector(selectedJobs)
   const loading = useSelector(selectedStatus)
@@ -35,7 +32,7 @@ const JobSearchList = ({ employer }) => {
             {jobsSearch.length === 0 ? (
               <NotFoundData title={t('There are currently no jobs matching your criteria')} />
             ) : (
-              <PaginationWrap
+              <PaginationCus
                 array={jobsSearch}
                 setShowModal={setShowModal}
                 employer={employer}
@@ -48,4 +45,3 @@ const JobSearchList = ({ employer }) => {
     </section>
   )
 }
-export default JobSearchList

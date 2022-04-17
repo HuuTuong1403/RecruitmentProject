@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import moment from 'moment'
 
-const JobActiveItem = ({ jobActive }) => {
+export const JobActiveItem = ({ jobActive }) => {
   const { t } = useTranslation()
   const { jobTitle, company, salary, location, slug, finishDate } = jobActive
 
@@ -42,5 +42,3 @@ const JobActiveItem = ({ jobActive }) => {
     </div>
   )
 }
-
-export default JobActiveItem

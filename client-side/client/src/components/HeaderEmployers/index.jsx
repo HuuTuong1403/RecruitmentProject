@@ -5,19 +5,19 @@ import { IoMenu, IoHome } from 'react-icons/io5'
 import { logoutEmployer } from 'features/HomeEmployers/slices'
 import { MdSettings, MdAccountCircle, MdEvent } from 'react-icons/md'
 import { MSTLogo } from 'assets'
+import { notification } from 'components'
 import { RiFileList3Line } from 'react-icons/ri'
 import { RiLogoutCircleRLine } from 'react-icons/ri'
 import { selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { useDispatch } from 'react-redux'
 import { useHistory, NavLink, Link, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowSize } from 'common/hook/useWindowSize'
 import classes from './style.module.scss'
-import notification from 'components/Notification'
 import ReactCountryFlag from 'react-country-flag'
 
-const HeaderEmployers = () => {
+export const HeaderEmployers = () => {
   const history = useHistory()
   const location = useLocation()
   const dispatch = useDispatch()
@@ -81,17 +81,27 @@ const HeaderEmployers = () => {
       </div>
       <div style={styleResize} className={classes.header__right}>
         {!employer ? (
-          <NavLink
-            activeClassName={classes['header__link--active']}
-            to="/employers/sign-in"
-            className={classes.header__link}
-            onClick={toggleMenuChildClick}
-          >
-            <MdAccountCircle className={classes['icon-gb-18']} />
-            {t('signin')}
-          </NavLink>
+          <Fragment>
+            <NavLink
+              activeClassName={classes['header__link--active']}
+              to="/employers/sign-in"
+              className={classes.header__link}
+              onClick={toggleMenuChildClick}
+            >
+              <MdAccountCircle className={classes['icon-gb-18']} />
+              {t('signin')}
+            </NavLink>
+            <NavLink
+              activeClassName={classes['header__link--active']}
+              to="/employers/sign-up"
+              className={classes.header__link}
+              onClick={toggleMenuChildClick}
+            >
+              {t('signup')}
+            </NavLink>
+          </Fragment>
         ) : (
-          <div>
+          <Fragment>
             <Dropdown
               isOpen={dropdownHover}
               toggle={hoverProfileHandler}
@@ -168,17 +178,7 @@ const HeaderEmployers = () => {
                 </Link>
               </DropdownMenu>
             </Dropdown>
-          </div>
-        )}
-        {!employer && (
-          <NavLink
-            activeClassName={classes['header__link--active']}
-            to="/employers/sign-up"
-            className={classes.header__link}
-            onClick={toggleMenuChildClick}
-          >
-            {t('signup')}
-          </NavLink>
+          </Fragment>
         )}
         <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} className={classes.header__lang}>
           <DropdownToggle caret>{lang.slice(0, 2).toUpperCase()}</DropdownToggle>
@@ -207,5 +207,3 @@ const HeaderEmployers = () => {
     </header>
   )
 }
-
-export default HeaderEmployers

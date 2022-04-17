@@ -1,10 +1,10 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import { Controller } from 'react-hook-form'
+import { ErrorText } from 'components'
 import { Fragment } from 'react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import ErrorText from 'components/ErrorText'
 
-const CKEditorField = ({
+export const CKEditorField = ({
   name,
   control,
   defaultValue,
@@ -47,5 +47,3 @@ const CKEditorField = ({
     </Fragment>
   )
 }
-
-export default CKEditorField

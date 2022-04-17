@@ -3,11 +3,8 @@ import { selectEmployerLocal } from './slices/selectors'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import FooterEmployers from 'components/FooterEmployers'
-import HeaderEmployers from 'components/HeaderEmployers'
-import MenuEmployer from './components/MenuEmployer'
-import NotFoundPage from 'components/404'
-import notification from 'components/Notification'
+import { HeaderEmployers, FooterEmployers, Page404, notification } from 'components'
+import { MenuEmployer } from './components'
 
 const CandidateProfileManagementPage = lazy(() => import('./pages/CandidateProfileManagementPage'))
 const EmployerProfilePage = lazy(() => import('./pages/EmployersProfilePage'))
@@ -57,7 +54,7 @@ const DashboardEmployersPage = () => {
           />
           <Route exact path={`${url}/setting-account`} component={SettingPage} />
           <Route>
-            <NotFoundPage isEmployer />
+            <Page404 isEmployer />
           </Route>
         </Switch>
       </MenuEmployer>

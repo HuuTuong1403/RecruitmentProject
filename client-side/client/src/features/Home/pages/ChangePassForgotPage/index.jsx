@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import ChangePassForgot from 'components/ChangePassForgot'
-import notification from 'components/Notification'
+import { ChangePassForgot, notification } from 'components'
 
 const ChangePassForgotPage = () => {
   ScrollToTop()

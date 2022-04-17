@@ -1,7 +1,11 @@
-import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
-import { AiOutlineSwap } from 'react-icons/ai'
-import { Collapse, Checkbox, Tooltip, Switch } from 'antd'
-import { scaleOptions, companyTypeOptions } from 'common/constants/options'
+import {
+  ButtonField,
+  CKEditorField,
+  InputBorderField,
+  LabelField,
+  SelectField,
+  SelectLocationField,
+} from 'custom-fields'
 import {
   FaMedkit,
   FaPlaneDeparture,
@@ -15,11 +19,16 @@ import {
   FaBlackTie,
   FaHeartbeat,
 } from 'react-icons/fa'
+import { AiOutlineSwap } from 'react-icons/ai'
+import { AvatarUpload, LoadingSuspense, notification } from 'components'
+import { Collapse, Checkbox, Tooltip, Switch } from 'antd'
 import { getDetailEmployerAsync } from 'features/Employers/slices/thunks'
 import { IoLibrary } from 'react-icons/io5'
 import { MdGroup } from 'react-icons/md'
+import { scaleOptions, companyTypeOptions } from 'common/constants/options'
 import { schemaUpdateProfileEmployer } from 'common/constants/schema'
 import { ScrollToTop } from 'common/functions'
+import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { selectEmployerDetail, selectedStatus } from 'features/Employers/slices/selectors'
 import { updateProfileEmployer } from 'features/Employers/api/employer.api'
 import { useEffect, useState } from 'react'
@@ -28,17 +37,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import AvatarUpload from 'components/AvatarUpload'
-import ButtonField from 'custom-fields/ButtonField'
-import CKEditorField from 'custom-fields/CKEditorField'
 import classes from './style.module.scss'
-import InputBorderField from 'custom-fields/InputBorderField'
-import LabelField from 'custom-fields/LabelField'
-import LoadingSuspense from 'components/Loading'
-import notification from 'components/Notification'
 import parse from 'html-react-parser'
-import SelectField from 'custom-fields/SelectField'
-import SelectLocationField from 'custom-fields/SelectLocationField'
 
 const EmployerProfilePage = () => {
   ScrollToTop()

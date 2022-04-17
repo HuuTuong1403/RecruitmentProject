@@ -7,13 +7,11 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
 import Select from 'react-select'
 
-const SearchEventHeader = () => {
+export const SearchEventHeader = () => {
   let query = new URLSearchParams(useLocation().search)
   const history = useHistory()
   const { t } = useTranslation()
@@ -224,5 +222,3 @@ const SearchEventHeader = () => {
     </section>
   )
 }
-
-export default SearchEventHeader

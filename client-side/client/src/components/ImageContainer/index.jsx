@@ -1,7 +1,7 @@
 import { MdClose } from 'react-icons/md'
 import classes from './style.module.scss'
 
-const ImageContainer = ({ src, alt, id, index, onDelete }) => {
+export const ImageContainer = ({ src, alt, id, index, onDelete }) => {
   return (
     <div className={classes.imageItem}>
       <img alt={alt} src={src} />
@@ -9,5 +9,3 @@ const ImageContainer = ({ src, alt, id, index, onDelete }) => {
     </div>
   )
 }
-
-export default ImageContainer

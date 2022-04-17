@@ -15,17 +15,23 @@ export const pathJobSeeker = {
 }
 
 export const pathEmployer = {
-  statistic: '/employers/dashboard/statistics',
   candidateProfileManage: '/employers/dashboard/candidate-profiles',
+  changePass: '/employers/forgot-pass/:token',
   createdEvent: '/employers/dashboard/events/created',
-  deletedEvent: '/employers/dashboard/events/deleted',
   dashboard: '/employers/dashboard',
+  deletedEvent: '/employers/dashboard/events/deleted',
+  forgotPass: '/employers/forgot-pass',
+  home: '/employers',
   jobTrash: '/employers/dashboard/recruit-manage/trash',
   myProfile: '/employers/dashboard/my-profile',
   postEvent: '/employers/dashboard/events/post-event',
   postJob: '/employers/dashboard/post-job',
   recruitManager: '/employers/dashboard/recruit-manage/created',
+  service: '/employers/service',
   settingAccount: '/employers/dashboard/setting-account',
+  signIn: '/employers/sign-in',
+  signUp: '/employers/sign-up',
+  statistic: '/employers/dashboard/statistics',
 }
 
 export const pathEvents = {}

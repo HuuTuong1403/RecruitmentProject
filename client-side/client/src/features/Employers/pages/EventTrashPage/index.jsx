@@ -6,11 +6,9 @@ import { selectEventsDeleted, selectedStatus } from 'features/Employers/slices/s
 import { useDispatch, useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
+import {EventOfEmployerItem} from 'features/Employers/components'
+import {LoadingSuspense, NotFoundData, notification} from 'components'
 import classes from './style.module.scss'
-import EventOfEmployerItem from 'features/Employers/components/EventOfEmployerItem'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
-import notification from 'components/Notification'
 
 const EventTrashPage = () => {
   ScrollToTop()

@@ -3,12 +3,12 @@ import {
   fetchWardsByDistrictsAsync,
 } from 'features/Home/slices/thunks'
 import { Controller } from 'react-hook-form'
+import { ErrorText } from 'components'
 import { Fragment, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import ErrorText from 'components/ErrorText'
 import Select from 'react-select'
 
-const SelectPostJobField = ({
+export const SelectPostJobField = ({
   control,
   defaultValue,
   errors,
@@ -92,5 +92,3 @@ const SelectPostJobField = ({
     </Fragment>
   )
 }
-
-export default SelectPostJobField

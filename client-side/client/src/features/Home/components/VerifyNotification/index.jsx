@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
-const VerifyNotification = () => {
+export const VerifyNotification = () => {
   const { t } = useTranslation()
 
   return (
@@ -12,5 +12,3 @@ const VerifyNotification = () => {
     </Fragment>
   )
 }
-
-export default VerifyNotification

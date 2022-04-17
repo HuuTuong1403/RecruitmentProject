@@ -3,7 +3,7 @@ import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
-const TableParticipantsEvent = ({ participants, onSelect }) => {
+export const TableParticipantsEvent = ({ participants, onSelect }) => {
   const { t } = useTranslation()
 
   const columns = [
@@ -98,5 +98,3 @@ const TableParticipantsEvent = ({ participants, onSelect }) => {
     />
   )
 }
-
-export default TableParticipantsEvent

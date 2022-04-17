@@ -4,7 +4,7 @@ import { Tooltip } from 'antd'
 import { useWindowSize } from 'common/hook/useWindowSize'
 import classes from './style.module.scss'
 
-const BarChartVertical = ({ labels, dataStatistic, labelY, labelDataSet, title, tooltip }) => {
+export const BarChartVertical = ({ labels, dataStatistic, labelY, labelDataSet, title, tooltip }) => {
   const [width] = useWindowSize()
 
   const options = {
@@ -72,4 +72,3 @@ const BarChartVertical = ({ labels, dataStatistic, labelY, labelDataSet, title, 
   )
 }
 
-export default BarChartVertical

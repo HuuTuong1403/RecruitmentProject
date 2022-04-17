@@ -1,7 +1,9 @@
 import { addInfoSignUp } from 'features/HomeEmployers/slices'
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import { companyTypeOptions } from 'common/constants/options'
 import { Fragment, useState } from 'react'
 import { IoMdArrowBack } from 'react-icons/io'
+import { notification } from 'components'
 import { schemaSignUpStep3 } from 'common/constants/schema'
 import { selectInfoSignUp } from 'features/HomeEmployers/slices/selectors'
 import { signUpEmployer } from 'features/HomeEmployers/api/homeEmployer.api'
@@ -11,14 +13,10 @@ import { useForm, Controller } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import LabelField from 'custom-fields/LabelField'
-import notification from 'components/Notification'
 import Select from 'react-select'
 
-const StepThreeSignUp = ({ onBackStep }) => {
+export const StepThreeSignUp = ({ onBackStep }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const infoSignUp = useSelector(selectInfoSignUp)
@@ -139,5 +137,3 @@ const StepThreeSignUp = ({ onBackStep }) => {
     </Fragment>
   )
 }
-
-export default StepThreeSignUp

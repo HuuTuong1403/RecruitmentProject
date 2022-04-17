@@ -1,9 +1,9 @@
-import { addInfoSignUp } from 'features/HomeEmployers/slices'
-import { FaBuilding } from 'react-icons/fa'
 import {
   fetchDistrictsByProvinceAsync,
   fetchWardsByDistrictsAsync,
 } from 'features/Home/slices/thunks'
+import { addInfoSignUp } from 'features/HomeEmployers/slices'
+import { FaBuilding } from 'react-icons/fa'
 import { Fragment } from 'react'
 import { IoMdArrowBack, IoMdArrowForward } from 'react-icons/io'
 import { scaleOptions } from 'common/constants/options'
@@ -14,12 +14,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm, Controller } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, WrappedInput as InputField } from 'custom-fields'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
 import Select from 'react-select'
 
-const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
+export const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const infoSignUp = useSelector(selectInfoSignUp)
@@ -229,5 +228,3 @@ const StepTwoSignUp = ({ onBackStep, onNextStep }) => {
     </Fragment>
   )
 }
-
-export default StepTwoSignUp

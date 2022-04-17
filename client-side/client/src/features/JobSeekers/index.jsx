@@ -3,11 +3,8 @@ import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import Footer from 'components/Footer'
-import Header from 'components/Header'
-import MenuJobSeeker from './components/MenuJobSeeker'
-import NotFoundPage from 'components/404'
-import notification from 'components/Notification'
+import { Footer, Header, Page404, notification } from 'components'
+import { MenuJobSeeker } from './components'
 
 const JobAppliedPage = lazy(() => import('./pages/JobAppliedPage'))
 const EventJoinedPage = lazy(() => import('./pages/EventJoinedPage'))
@@ -38,7 +35,7 @@ const DashboardJobSeekersPage = () => {
           <Route exact path={`${url}/job-saved`} component={JobSavedPage} />
           <Route exact path={`${url}/job-applied`} component={JobAppliedPage} />
           <Route exact path={`${url}/setting-account`} component={UserSettingPage} />
-          <Route component={NotFoundPage} />
+          <Route component={Page404} />
         </Switch>
       </MenuJobSeeker>
       <Footer />

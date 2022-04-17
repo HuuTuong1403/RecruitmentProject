@@ -1,10 +1,9 @@
-import { Modal } from 'antd'
-import { Tooltip } from 'antd'
+import { LabelField } from 'custom-fields'
+import { Modal, Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
-import LabelField from 'custom-fields/LabelField'
 
-const ModalRegisteredInformation = ({ createdAt, data, onCloseModal, showModal }) => {
+export const ModalRegisteredInformation = ({ createdAt, data, onCloseModal, showModal }) => {
   const { t } = useTranslation()
   const { event, fullName, phone, status, address, interestingField } = data
 
@@ -87,5 +86,3 @@ const ModalRegisteredInformation = ({ createdAt, data, onCloseModal, showModal }
     </Modal>
   )
 }
-
-export default ModalRegisteredInformation

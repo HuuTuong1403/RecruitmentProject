@@ -1,8 +1,8 @@
-import { applyJob } from 'features/JobSeekers/api/jobSeeker.api'
 import {
   fetchAllJobApplicationAsync,
   getDetailJobSeekerAsync,
 } from 'features/JobSeekers/slices/thunks'
+import { applyJob } from 'features/JobSeekers/api/jobSeeker.api'
 import { Modal } from 'antd'
 import { schemaApplyJob } from 'common/constants/schema'
 import { selectedJobSeekerProfile } from 'features/JobSeekers/slices/selectors'
@@ -11,15 +11,12 @@ import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import ButtonField from 'custom-fields/ButtonField'
+import { ButtonField, WrappedInput as InputField, LabelField, CKEditorField } from 'custom-fields'
+import { InputUploadCv } from 'features/Jobs/components'
+import { notification } from 'components'
 import classes from './style.module.scss'
-import InputField from 'custom-fields/InputField'
-import InputUploadCv from 'features/Jobs/components/InputUploadCv'
-import LabelField from 'custom-fields/LabelField'
-import notification from 'components/Notification'
-import CKEditorField from 'custom-fields/CKEditorField'
 
-const ModalApplyJob = ({ showModal, onCloseModal, idJob, jobTitle, companyName }) => {
+export const ModalApplyJob = ({ showModal, onCloseModal, idJob, jobTitle, companyName }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const jobSeeker = useSelector(selectedJobSeekerProfile)
@@ -165,5 +162,3 @@ const ModalApplyJob = ({ showModal, onCloseModal, idJob, jobTitle, companyName }
     </Modal>
   )
 }
-
-export default ModalApplyJob

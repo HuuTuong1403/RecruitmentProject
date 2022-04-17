@@ -3,10 +3,8 @@ import { Fragment, useEffect } from 'react'
 import { Route, Switch, useRouteMatch, useLocation } from 'react-router-dom'
 import { ScrollToTop } from 'common/functions'
 import { useDispatch } from 'react-redux'
-import Footer from 'components/Footer'
-import Header from 'components/Header'
+import {Header, Footer, Page404} from 'components'
 import JobDetailPage from './pages/JobDetailPage'
-import NotFoundPage from 'components/404'
 import SearchJobPage from './pages/SearchJobPage'
 import CompanyDetailPage from './pages/CompanyDetailPage'
 import ReviewPage from './pages/ReviewPage'
@@ -33,7 +31,7 @@ const JobsPage = () => {
         <Route exact path={`${url}/employer/:companyName`} component={CompanyDetailPage} />
         <Route exact path={`${url}/:slug`} component={JobDetailPage} />
         <Route exact path={`${url}/employer/:companyName/review`} component={ReviewPage} />
-        <Route component={NotFoundPage} />
+        <Route component={Page404} />
       </Switch>
       <Footer />
     </Fragment>

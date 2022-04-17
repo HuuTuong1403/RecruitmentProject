@@ -5,10 +5,9 @@ import { selectApplicationJobs, selectedStatus } from 'features/JobSeekers/slice
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
+import { JobItem } from 'features/JobSeekers/components'
+import { LoadingSuspense, NotFoundData } from 'components'
 import classes from './style.module.scss'
-import JobItem from 'features/JobSeekers/components/JobItem'
-import LoadingSuspense from 'components/Loading'
-import NotFoundData from 'components/NotFoundData'
 
 const JobAppliedPage = () => {
   ScrollToTop()

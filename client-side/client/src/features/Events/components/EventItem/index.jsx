@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import moment from 'moment'
 
-const EventItem = ({ event }) => {
+export const EventItem = ({ event }) => {
   const { t } = useTranslation()
   const {
     aboutCreated,
@@ -107,5 +107,3 @@ const EventItem = ({ event }) => {
     </div>
   )
 }
-
-export default EventItem

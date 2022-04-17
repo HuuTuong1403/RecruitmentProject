@@ -4,14 +4,13 @@ import {
   fetchApplicationSumStatistic,
   fetchParticipantSumStatistic,
 } from 'features/Employers/api/employer.api'
+import { BarChartVertical, LoadingSuspense } from 'components'
 import { ScrollToTop } from 'common/functions'
+import { StatisticCardItem } from 'features/Employers/components'
 import { useEffect, useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
-import BarChartVertical from 'components/BarChartVertical'
 import classes from './style.module.scss'
-import LoadingSuspense from 'components/Loading'
-import StatisticCardItem from 'features/Employers/components/StatisticCardItem'
 
 const EmployerStatisticPage = () => {
   ScrollToTop()

@@ -1,13 +1,13 @@
-import { Avatar } from 'antd'
-import { fetchCompanyDetailAsync, fetchReviewDetailAsync } from 'features/Jobs/slices/thunks'
-import { Link } from 'react-router-dom'
-import { ScrollToTop } from 'common/functions'
 import {
   selectedCompanyDetail,
   selectedStatus,
   selectedStatusReview,
   selectedReviewDetail,
 } from 'features/Jobs/slices/selectors'
+import { Avatar } from 'antd'
+import { fetchCompanyDetailAsync, fetchReviewDetailAsync } from 'features/Jobs/slices/thunks'
+import { Link } from 'react-router-dom'
+import { ScrollToTop } from 'common/functions'
 import { selectJobSeekerLocal } from 'features/JobSeekers/slices/selectors'
 import { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -15,11 +15,9 @@ import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
+import { FormCreateReview, FormEditReview } from 'features/Jobs/components'
+import { LoadingSuspense, notification } from 'components'
 import classes from './style.module.scss'
-import FormCreateReview from 'features/Jobs/components/FormCreateReview'
-import FormEditReview from 'features/Jobs/components/FormEditReview'
-import LoadingSuspense from 'components/Loading'
-import notification from 'components/Notification'
 
 const ReviewPage = () => {
   ScrollToTop()

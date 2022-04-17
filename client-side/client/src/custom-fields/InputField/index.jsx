@@ -1,10 +1,10 @@
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { ErrorText } from 'components'
 import { Input } from 'reactstrap'
 import { useState, forwardRef } from 'react'
 import classes from './style.module.scss'
-import ErrorText from 'components/ErrorText'
 
-const WrappedInput = forwardRef(({ icon, errors, type, ...props }, ref) => {
+export const WrappedInput = forwardRef(({ icon, errors, type, ...props }, ref) => {
   const [visible, setVisible] = useState(false)
 
   const changeVisibleHandler = () => {
@@ -41,5 +41,3 @@ const WrappedInput = forwardRef(({ icon, errors, type, ...props }, ref) => {
     </div>
   )
 })
-
-export default WrappedInput

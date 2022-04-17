@@ -1,0 +1,116 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.servicePage {
+  max-width: 90%;
+  margin: $pm-20 auto;
+
+  &__title {
+    text-align: center;
+    font-size: $text-xl;
+    font-weight: bold;
+    margin-bottom: $pm-14;
+    text-transform: uppercase;
+    color: $primary-text;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid #e7e7e7;
+    border-left: 1px solid #e7e7e7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  &__item {
+    padding: $pm-32;
+    flex: 0 0 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
+    gap: $pm-14;
+    transition: all 0.25s ease-in-out;
+
+    &__name {
+      text-align: center;
+      font-size: $text-lg;
+      font-weight: 500;
+      color: $primary-text;
+      text-transform: uppercase;
+    }
+
+    &__price {
+      text-align: center;
+      font-size: $text-2xl;
+      color: $price-color;
+      font-weight: bold;
+    }
+
+    &__listService {
+      list-style-type: none;
+      margin-bottom: 0;
+
+      & > li {
+        margin-bottom: $pm-6;
+        font-size: $text-base;
+        position: relative;
+      }
+
+      & > li::before {
+        content: '✅';
+        position: absolute;
+        font-size: $text-xs;
+        top: 12%;
+        left: -25px;
+      }
+    }
+
+    &__actions {
+      margin-top: auto;
+    }
+  }
+
+  &__item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media screen and (max-width: 1028px) {
+  .servicePage {
+    &__item {
+      flex: 0 0 33.33%;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .servicePage {
+    &__item {
+      flex: 0 0 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .servicePage {
+    &__title {
+      font-size: $text-base;
+    }
+
+    &__item {
+      flex: 0 0 100%;
+      gap: $pm-10;
+
+      &__name {
+        font-size: $text-base;
+      }
+
+      &__price {
+        font-size: $text-xl;
+      }
+    }
+  }
+}

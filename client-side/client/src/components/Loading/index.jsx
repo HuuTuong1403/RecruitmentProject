@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import ReactTypingEffect from 'react-typing-effect'
 
-const LoadingSuspense = ({ height, showText = false }) => {
+export const LoadingSuspense = ({ height, showText = false }) => {
   const { t } = useTranslation()
 
   return (
@@ -34,5 +34,3 @@ const LoadingSuspense = ({ height, showText = false }) => {
     </div>
   )
 }
-
-export default LoadingSuspense
