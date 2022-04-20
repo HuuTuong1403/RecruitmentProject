@@ -5,6 +5,16 @@ const CartService = require('./../services/cart');
 const AppError = require('./../utils/appError');
 
 class CartController {
+  getCart = catchAsync(async (req, res, next) => {
+    const response = await CartService.getCart(req.user.id);
+    if (response.statusCode == 200) {
+      return res.status(200).json({
+        status: 'success',
+        data: { data: response.data.data },
+      });
+    }
+    return next(new AppError(response.messsage, response.statusCode));
+  });
   createCart = catchAsync(async (req, res, next) => {
     const servicePackage = await ServicePackage.findById(
       req.params.idServicePackage,

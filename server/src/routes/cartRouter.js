@@ -27,5 +27,11 @@ cartRouter
     authController.protect,
     authController.restrictTo('employer'),
     cartController.deleteCart
+  )
+  .get(
+    authController.protect,
+    authController.restrictTo('employer'),
+    cartController.getCart
   );
+
 module.exports = cartRouter;

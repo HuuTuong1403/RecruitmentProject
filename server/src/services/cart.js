@@ -46,20 +46,32 @@ exports.createCart = async (IDUser, servicePackage, paidPrice) => {
       const newCart = await Cart.findOneAndUpdate(
         {
           employer: IDUser,
-          'servicePackages.$.servicePackage._id':
-            cart.servicePackages[indexExistservicePackage].servicePackage.id,
+          servicePackages: {
+            $elemMatch: {
+              'servicePackage._id':
+                cart.servicePackages[indexExistservicePackage].servicePackage
+                  ._id,
+            },
+          },
         },
         {
-          'servicePackages.$.servicePackage.extantQuantity':
+          'servicePackages.$[cartItem].servicePackage.extantQuantity':
             cart.servicePackages[indexExistservicePackage].servicePackage
               .extantQuantity + servicePackage.extantQuantity,
-          'servicePackages.$.quantity':
+          'servicePackages.$[cartItem].quantity':
             cart.servicePackages[indexExistservicePackage].quantity + 1,
           price: newPrice,
           totalQuantity: cart.totalQuantity + 1,
           paidPrice: newPaidPrice,
         },
         {
+          arrayFilters: [
+            {
+              'cartItem.servicePackage._id':
+                cart.servicePackages[indexExistservicePackage].servicePackage
+                  ._id,
+            },
+          ],
           new: true,
           runValidators: true,
         }
@@ -135,13 +147,18 @@ exports.updateCartItem = async (IDUser, servicePackageId, quantity) => {
     const newCart = await Cart.findOneAndUpdate(
       {
         employer: IDUser,
-        'servicePackages.$.servicePackage._id': servicePackageId,
+        servicePackages: {
+          $elemMatch: {
+            'servicePackage._id':
+              cart.servicePackages[indexExistservicePackage].servicePackage._id,
+          },
+        },
       },
       {
-        'servicePackages.$.servicePackage.extantQuantity':
+        'servicePackages.$[cartItem].servicePackage.extantQuantity':
           cart.servicePackages[indexExistservicePackage].servicePackage
             .extantQuantity * quantity,
-        'servicePackages.$.quantity': quantity,
+        'servicePackages.$[cartItem].quantity': quantity,
         price: newPrice,
         totalQuantity:
           totalQuantity -
@@ -150,6 +167,12 @@ exports.updateCartItem = async (IDUser, servicePackageId, quantity) => {
         paidPrice: newPrice,
       },
       {
+        arrayFilters: [
+          {
+            'cartItem.servicePackage._id':
+              cart.servicePackages[indexExistservicePackage].servicePackage._id,
+          },
+        ],
         new: true,
         runValidators: true,
       }
@@ -228,4 +251,11 @@ exports.deleteCart = async (IDUser) => {
     return { statusCode: 404, messsage: 'Không tìm thấy giỏ hàng' };
   }
   return { statusCode: 204, messsage: 'Xóa giỏ hàng thành công' };
+};
+exports.getCart = async (IDUser) => {
+  const cart = await Cart.findOne({ employer: IDUser });
+  if (!cart) {
+    return { statusCode: 404, messsage: 'Không tìm thấy giỏ hàng' };
+  }
+  return { statusCode: 200, data: { data: cart } };
 };
