@@ -5,6 +5,13 @@ const cartController = require('./../controllers/cartController');
 const authController = require('./../controllers/authController');
 
 cartRouter
+  .route('/checkout')
+  .post(
+    authController.protect,
+    authController.restrictTo('employer'),
+    cartController.checkoutCart
+  );
+cartRouter
   .route('/:idServicePackage')
   .post(
     authController.protect,

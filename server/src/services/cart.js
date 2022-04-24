@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Cart = require('../models/cartModel');
-
+const Order = require('./../models/orderModel');
 exports.createCart = async (IDUser, servicePackage, paidPrice) => {
   const cart = await Cart.findOne({
     employer: IDUser,
@@ -258,4 +258,27 @@ exports.getCart = async (IDUser) => {
     return { statusCode: 404, messsage: 'Không tìm thấy giỏ hàng' };
   }
   return { statusCode: 200, data: { data: cart } };
+};
+exports.checkoutCart = async (IDUser) => {
+  const cart = await Cart.findOne({ employer: IDUser });
+  if (!cart) {
+    return { statusCode: 404, messsage: 'Không tìm thấy giỏ hàng' };
+  }
+  const order = {
+    servicePackages: cart.servicePackages,
+    employer: IDUser,
+    price: cart.price,
+    paidPrice: cart.paidPrice,
+    status: 'NotPaid',
+  };
+  try {
+    const newOrder = await Order.create(order);
+    this.deleteCart(IDUser);
+    return { statusCode: 201, data: { data: newOrder } };
+  } catch (err) {
+    return {
+      statusCode: 500,
+      messsage: 'Có lỗi xảy ra trong quá trình tạo thanh toán',
+    };
+  }
 };

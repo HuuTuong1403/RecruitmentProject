@@ -12,7 +12,7 @@ const reviewRouter = require('./reviewRouter');
 const applicationRouter = require('./applicationRouter');
 const eventRouter = require('./eventRouter');
 const participantRouter = require('./participantRouter');
-// const bookingRouter = require('./bookingRouter');
+const orderRouter = require('./orderRouter');
 const cartRouter = require('./cartRouter');
 
 employerRouter.use('/applications', applicationRouter);
@@ -24,7 +24,7 @@ employerRouter.use(
   eventRouter
 );
 employerRouter.use('/cart', cartRouter);
-// employerRouter.use('/payment', bookingRouter);
+employerRouter.use('/payment', orderRouter);
 employerRouter.use('/participants', participantRouter);
 employerRouter.use(
   '/jobs',

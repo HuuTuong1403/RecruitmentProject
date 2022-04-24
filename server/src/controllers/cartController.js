@@ -78,5 +78,15 @@ class CartController {
     }
     return next(new AppError(response.messsage, response.statusCode));
   });
+  checkoutCart = catchAsync(async (req, res, next) => {
+    const response = await CartService.checkoutCart(req.user.id);
+    if (response.statusCode == 201) {
+      return res.status(201).json({
+        status: 'success',
+        data: { data: response.data.data },
+      });
+    }
+    return next(new AppError(response.messsage, response.statusCode));
+  });
 }
 module.exports = new CartController();

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const ServicePackage = require('./servicePackageModel');
+
 const priceSchema = new mongoose.Schema(
   {
     VND: {
@@ -20,7 +21,16 @@ const priceSchema = new mongoose.Schema(
 orderSchema = new mongoose.Schema(
   {
     servicePackages: [
-      { type: {}, require: [true, 'Đơn hàng phải có gói dịch vụ'] },
+      new mongoose.Schema(
+        {
+          quantity: {
+            type: Number,
+            default: 1,
+          },
+          servicePackage: {},
+        },
+        { _id: false }
+      ),
     ],
     employer: {
       type: mongoose.Schema.ObjectId,
@@ -54,9 +64,17 @@ orderSchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 orderSchema.pre('save', async function (next) {
-  const servicePackagePromises = this.servicePackages.map(
-    async (id) => await ServicePackage.findById(id)
-  );
+  const servicePackagePromises = this.servicePackages.map(async (item) => {
+    return {
+      quantity: this.servicePackages.quantity,
+      servicePackage: await ServicePackage.findById(item.servicePackage, {
+        deleted: 0,
+        createdAt: 0,
+        updatedAt: 0,
+        __v: 0,
+      }),
+    };
+  });
   this.servicePackages = await Promise.all(servicePackagePromises);
   next();
 });
