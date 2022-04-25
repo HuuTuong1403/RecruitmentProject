@@ -12,6 +12,7 @@ import {
   fetchParticipantsByIdEvent,
   fetchAllEventDeleted,
   getDetailEmployer,
+  fetchCart,
 } from '../api/employer.api'
 
 export const getDetailEmployerAsync = createAsyncThunk('employer/getDetailEmployer', async () => {
@@ -103,3 +104,8 @@ export const fetchAllEventDeletedAsync = createAsyncThunk(
     return res.data.data
   }
 )
+
+export const fetchCartAsync = createAsyncThunk('employer/fetchCart', async () => {
+  const res = await fetchCart()
+  return res.data.data
+})

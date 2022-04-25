@@ -1,5 +1,6 @@
 import axiosClient from 'api/axiosClient'
 
+// #region CRUD Employer
 export const getDetailEmployer = async () => {
   try {
     const res = await axiosClient.get('employer')
@@ -26,7 +27,9 @@ export const updateProfileEmployer = async (payload) => {
     console.log(error)
   }
 }
+// #endregion
 
+// #region CRUD Jobs
 export const postJobEmployer = async (payload) => {
   try {
     const res = await axiosClient.post('employer/jobs', payload)
@@ -89,7 +92,9 @@ export const updateJob = async ({ id, data }) => {
     console.log(error)
   }
 }
+// #endregion
 
+// #region CRUD JobsApplication
 export const fetchJobsApplicationNotSaved = async (payload) => {
   try {
     const res = await axiosClient.get('employer/applications/management', {
@@ -170,7 +175,9 @@ export const countApplicationStatus = async () => {
     console.log(error)
   }
 }
+// #endregion
 
+// #region CRUD Event
 export const createEventEmployer = async (payload) => {
   try {
     const res = await axiosClient.post('employer/events', payload)
@@ -271,7 +278,9 @@ export const deleteEvent = async (payload) => {
     console.log(error)
   }
 }
+// #endregion
 
+// #region Statistic
 export const fetchApplicationStatistic = async () => {
   try {
     const res = await axiosClient.get('employer/applications/statistic/application-stat')
@@ -307,3 +316,33 @@ export const fetchParticipantSumStatistic = async () => {
     console.log(error)
   }
 }
+// #endregion
+
+// #region CRUD Cart
+export const createCart = async (payload) => {
+  try {
+    const res = await axiosClient.post(`employer/cart/${payload.id}`, payload.data)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const fetchCart = async () => {
+  try {
+    const res = await axiosClient.get('employer/cart')
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateQuantityServicePackage = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`employer/cart/${payload.idServicePackage}`, payload.data)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+// #endregion

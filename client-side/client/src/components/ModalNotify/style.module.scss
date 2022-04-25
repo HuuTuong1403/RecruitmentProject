@@ -1,0 +1,12 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.modalNotify__actions {
+  margin-top: $pm-24;
+  display: flex;
+  gap: 10px;
+
+  & button {
+    margin-bottom: 0;
+  }
+}

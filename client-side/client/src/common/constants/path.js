@@ -1,3 +1,5 @@
+const rootEmployer = '/employers/dashboard/'
+
 export const PATH = {
   employer: '/employers',
   home: '/home',
@@ -15,23 +17,26 @@ export const pathJobSeeker = {
 }
 
 export const pathEmployer = {
-  candidateProfileManage: '/employers/dashboard/candidate-profiles',
+  candidateProfileManage: rootEmployer + 'candidate-profiles',
   changePass: '/employers/forgot-pass/:token',
-  createdEvent: '/employers/dashboard/events/created',
-  dashboard: '/employers/dashboard',
-  deletedEvent: '/employers/dashboard/events/deleted',
+  createdEvent: rootEmployer + 'events/created',
+  dashboard: rootEmployer,
+  deletedEvent: rootEmployer + 'events/deleted',
   forgotPass: '/employers/forgot-pass',
   home: '/employers',
-  jobTrash: '/employers/dashboard/recruit-manage/trash',
-  myProfile: '/employers/dashboard/my-profile',
-  postEvent: '/employers/dashboard/events/post-event',
-  postJob: '/employers/dashboard/post-job',
-  recruitManager: '/employers/dashboard/recruit-manage/created',
+  deletedJob: rootEmployer + 'recruit-manage/trash',
+  myProfile: rootEmployer + 'my-profile',
+  order: rootEmployer + 'order',
+  postEvent: rootEmployer + 'events/post-event',
+  postJob: rootEmployer + 'post-job',
+  createdJob: rootEmployer + 'recruit-manage/created',
   service: '/employers/service',
-  settingAccount: '/employers/dashboard/setting-account',
+  settingAccount: rootEmployer + 'setting-account',
   signIn: '/employers/sign-in',
   signUp: '/employers/sign-up',
-  statistic: '/employers/dashboard/statistics',
+  statistic: rootEmployer + 'statistics',
+  updateEvent: rootEmployer + 'events/:id/edit',
+  participantEvent: rootEmployer + 'events/:id/participants',
 }
 
 export const pathEvents = {}

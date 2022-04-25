@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ButtonField, WrappedInput as InputField } from 'custom-fields'
 import { notification } from 'components'
 import classes from './style.module.scss'
+import { fetchCartAsync } from 'features/Employers/slices/thunks'
 
 export const ModalSignIn = ({ onCloseModal, showModal, isEmployee = false }) => {
   const { t } = useTranslation()
@@ -39,6 +40,7 @@ export const ModalSignIn = ({ onCloseModal, showModal, isEmployee = false }) => 
         notification(`${t('Signed in successfully')}`, 'success')
         onCloseModal()
         history.push(location.pathname)
+        dispatch(fetchCartAsync())
       } else {
         notification(`${t('Login information is incorrect. Please try again')}`, 'error')
         reset()

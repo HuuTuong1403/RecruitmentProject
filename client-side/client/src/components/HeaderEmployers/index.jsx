@@ -1,21 +1,24 @@
+import { Badge } from 'antd'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import { FaEdit } from 'react-icons/fa'
+import { FaEdit, FaShoppingCart } from 'react-icons/fa'
+import { Fragment, useState } from 'react'
 import { IoIosPeople } from 'react-icons/io'
 import { IoMenu, IoHome } from 'react-icons/io5'
 import { logoutEmployer } from 'features/HomeEmployers/slices'
 import { MdSettings, MdAccountCircle, MdEvent } from 'react-icons/md'
 import { MSTLogo } from 'assets'
 import { notification } from 'components'
+import { pathEmployer } from 'common/constants/path'
 import { RiFileList3Line } from 'react-icons/ri'
 import { RiLogoutCircleRLine } from 'react-icons/ri'
-import { selectEmployerLocal } from 'features/Employers/slices/selectors'
+import { selectCart, selectEmployerLocal } from 'features/Employers/slices/selectors'
 import { useDispatch } from 'react-redux'
 import { useHistory, NavLink, Link, useLocation } from 'react-router-dom'
-import { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowSize } from 'common/hook/useWindowSize'
 import classes from './style.module.scss'
 import ReactCountryFlag from 'react-country-flag'
+import { useSelector } from 'react-redux'
 
 export const HeaderEmployers = () => {
   const history = useHistory()
@@ -28,6 +31,7 @@ export const HeaderEmployers = () => {
   const [width] = useWindowSize()
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [dropdownHover, setDropDownHover] = useState(false)
+  const numOfCart = ((useSelector(selectCart) || {}).servicePackages || []).length
   const toggleDropdown = () => setDropdownOpen((prevState) => !prevState)
 
   const clickLogoHandler = () => {
@@ -75,7 +79,7 @@ export const HeaderEmployers = () => {
           alt="MST LOGO"
           className={classes.header__logo}
         />
-        <NavLink className={classes['link-no-border']} to="/employers">
+        <NavLink className={classes['link-no-border']} to={pathEmployer.home}>
           <IoHome />
         </NavLink>
       </div>
@@ -84,7 +88,7 @@ export const HeaderEmployers = () => {
           <Fragment>
             <NavLink
               activeClassName={classes['header__link--active']}
-              to="/employers/sign-in"
+              to={pathEmployer.signIn}
               className={classes.header__link}
               onClick={toggleMenuChildClick}
             >
@@ -93,7 +97,7 @@ export const HeaderEmployers = () => {
             </NavLink>
             <NavLink
               activeClassName={classes['header__link--active']}
-              to="/employers/sign-up"
+              to={pathEmployer.signUp}
               className={classes.header__link}
               onClick={toggleMenuChildClick}
             >
@@ -112,7 +116,7 @@ export const HeaderEmployers = () => {
               <DropdownToggle caret>
                 <Link
                   className={classes['link-no-border']}
-                  to={`/employers/dashboard/statistics`}
+                  to={pathEmployer.statistic}
                   onClick={toggleMenuChildClick}
                 >
                   <MdAccountCircle className={classes['icon-gb-18']} />
@@ -122,7 +126,7 @@ export const HeaderEmployers = () => {
               <DropdownMenu>
                 <Link
                   className={`${classes['header__lang-profile']} ${classes.link}`}
-                  to={`/employers/dashboard/post-job`}
+                  to={pathEmployer.postJob}
                 >
                   <FaEdit className={classes['icon-gb-18']} />
                   {t('postjobs')}
@@ -130,7 +134,7 @@ export const HeaderEmployers = () => {
 
                 <Link
                   className={`${classes['header__lang-profile']} ${classes.link}`}
-                  to={`/employers/dashboard/recruit-manage/created`}
+                  to={pathEmployer.createdJob}
                 >
                   <RiFileList3Line className={classes['icon-gb-18']} />
                   {t('recruitment manager')}
@@ -138,7 +142,7 @@ export const HeaderEmployers = () => {
 
                 <Link
                   className={`${classes['header__lang-profile']} ${classes.link}`}
-                  to={`/employers/dashboard/events/created`}
+                  to={pathEmployer.createdEvent}
                 >
                   <MdEvent className={classes['icon-gb-18']} />
                   {t('Event management')}
@@ -146,7 +150,7 @@ export const HeaderEmployers = () => {
 
                 <Link
                   className={`${classes['header__lang-profile']} ${classes.link}`}
-                  to={`/employers/dashboard/candidate-profiles`}
+                  to={pathEmployer.candidateProfileManage}
                 >
                   <IoIosPeople className={classes['icon-gb-18']} />
                   {t('Manage candidate profiles')}
@@ -154,7 +158,7 @@ export const HeaderEmployers = () => {
 
                 <Link
                   className={`${classes['header__lang-profile']} ${classes.link}`}
-                  to={`/employers/dashboard/my-profile`}
+                  to={pathEmployer.myProfile}
                 >
                   <MdAccountCircle className={classes['icon-gb-18']} />
                   {t('Account Management')}
@@ -162,7 +166,7 @@ export const HeaderEmployers = () => {
 
                 <Link
                   className={`${classes['header__lang-profile']} ${classes.link}`}
-                  to={`/employers/dashboard/setting-account`}
+                  to={pathEmployer.settingAccount}
                 >
                   <MdSettings className={classes['icon-gb-18']} />
                   {t('Settings')}
@@ -178,6 +182,16 @@ export const HeaderEmployers = () => {
                 </Link>
               </DropdownMenu>
             </Dropdown>
+            <Badge className={classes.badge} count={numOfCart} size="small" offset={[-100, 0]}>
+              <NavLink
+                activeClassName={classes['header__link--active']}
+                className={classes.header__link}
+                to={pathEmployer.order}
+              >
+                <FaShoppingCart className={classes['icon-gb-18']} />
+                {t('My orders')}
+              </NavLink>
+            </Badge>
           </Fragment>
         )}
         <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown} className={classes.header__lang}>

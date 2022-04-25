@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import logger from 'redux-logger'
 import authEmployerReducer from 'features/HomeEmployers/slices'
 import employerReducer from 'features/Employers/slices'
 import homeReducer from 'features/Home/slices'
@@ -15,6 +16,7 @@ const store = configureStore({
     job: jobReducer,
     jobSeeker: jobSeekerReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 })
 
 export default store

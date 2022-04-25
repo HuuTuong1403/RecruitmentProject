@@ -1,0 +1,14 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.order {
+  padding: $pm-10 0;
+
+  &__wrapper {
+    padding: 0 $pm-10;
+  }
+
+  &__stepContent {
+    margin-top: $pm-20;
+  }
+}

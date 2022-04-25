@@ -444,6 +444,7 @@ const PostJobPage = () => {
               options={skills}
               value={selectSkill}
               onChange={changeSkillHandler}
+              closeMenuOnSelect={false}
             />
           </div>
 
