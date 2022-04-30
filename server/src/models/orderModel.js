@@ -25,7 +25,6 @@ orderSchema = new mongoose.Schema(
         {
           quantity: {
             type: Number,
-            default: 1,
           },
           servicePackage: {},
         },
@@ -53,6 +52,10 @@ orderSchema = new mongoose.Schema(
         message: 'Các trạng thái thanh toán là: NotPaid, Paid, Canceled, Fail',
       },
     },
+    totalQuantity: {
+      type: Number,
+      default: 1,
+    },
     paymentMethods: {
       type: String,
       enum: {
@@ -63,20 +66,6 @@ orderSchema = new mongoose.Schema(
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
-orderSchema.pre('save', async function (next) {
-  const servicePackagePromises = this.servicePackages.map(async (item) => {
-    return {
-      quantity: this.servicePackages.quantity,
-      servicePackage: await ServicePackage.findById(item.servicePackage, {
-        deleted: 0,
-        createdAt: 0,
-        updatedAt: 0,
-        __v: 0,
-      }),
-    };
-  });
-  this.servicePackages = await Promise.all(servicePackagePromises);
-  next();
-});
+
 const Order = mongoose.model('Order', orderSchema);
 module.exports = Order;

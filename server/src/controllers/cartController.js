@@ -28,11 +28,7 @@ class CartController {
     if (!servicePackage) {
       return next(new AppError('Không tìm thấy gói dịch vụ', 404));
     }
-    const response = await CartService.createCart(
-      req.user.id,
-      servicePackage,
-      req.body.paidPrice
-    );
+    const response = await CartService.createCart(req.user.id, servicePackage);
     if (response.statusCode == 201) {
       return res.status(201).json({
         status: 'success',
@@ -79,7 +75,10 @@ class CartController {
     return next(new AppError(response.messsage, response.statusCode));
   });
   checkoutCart = catchAsync(async (req, res, next) => {
-    const response = await CartService.checkoutCart(req.user.id);
+    const response = await CartService.checkoutCart(
+      req.user.id,
+      req.body.paidPrice
+    );
     if (response.statusCode == 201) {
       return res.status(201).json({
         status: 'success',

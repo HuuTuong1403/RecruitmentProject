@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Cart = require('../models/cartModel');
 const Order = require('./../models/orderModel');
-exports.createCart = async (IDUser, servicePackage, paidPrice) => {
+exports.createCart = async (IDUser, servicePackage) => {
   const cart = await Cart.findOne({
     employer: IDUser,
   });
@@ -13,7 +13,7 @@ exports.createCart = async (IDUser, servicePackage, paidPrice) => {
       },
       employer: IDUser,
       price: servicePackage.price,
-      paidPrice,
+      paidPrice: servicePackage.price,
     };
     try {
       const cart = await Cart.create(newCart);
@@ -33,11 +33,6 @@ exports.createCart = async (IDUser, servicePackage, paidPrice) => {
       }
     }
     if (indexExistservicePackage >= 0) {
-      newPaidPrice = {
-        VND: cart.paidPrice.VND + paidPrice.VND,
-        USD: cart.paidPrice.USD + paidPrice.USD,
-        EUR: cart.paidPrice.EUR + paidPrice.EUR,
-      };
       newPrice = {
         VND: cart.price.VND + servicePackage.price.VND,
         USD: cart.price.USD + servicePackage.price.USD,
@@ -62,7 +57,7 @@ exports.createCart = async (IDUser, servicePackage, paidPrice) => {
             cart.servicePackages[indexExistservicePackage].quantity + 1,
           price: newPrice,
           totalQuantity: cart.totalQuantity + 1,
-          paidPrice: newPaidPrice,
+          paidPrice: newPrice,
         },
         {
           arrayFilters: [
@@ -78,11 +73,6 @@ exports.createCart = async (IDUser, servicePackage, paidPrice) => {
       );
       return { statusCode: 201, data: { data: newCart } };
     } else {
-      newPaidPrice = {
-        VND: cart.paidPrice.VND + paidPrice.VND,
-        USD: cart.paidPrice.USD + paidPrice.USD,
-        EUR: cart.paidPrice.EUR + paidPrice.EUR,
-      };
       newPrice = {
         VND: cart.price.VND + servicePackage.price.VND,
         USD: cart.price.USD + servicePackage.price.USD,
@@ -101,7 +91,7 @@ exports.createCart = async (IDUser, servicePackage, paidPrice) => {
           },
           price: newPrice,
           totalQuantity: cart.totalQuantity + 1,
-          paidPrice: newPaidPrice,
+          paidPrice: newPrice,
         },
         { new: true, runValidators: true }
       );
@@ -135,15 +125,22 @@ exports.updateCartItem = async (IDUser, servicePackageId, quantity) => {
     }
     newPrice = {
       VND:
+        cart.price.VND +
         cart.servicePackages[indexExistservicePackage].servicePackage.price
-          .VND * quantity,
+          .VND *
+          (quantity - cart.servicePackages[indexExistservicePackage].quantity),
       USD:
+        cart.price.USD +
         cart.servicePackages[indexExistservicePackage].servicePackage.price
-          .USD * quantity,
+          .USD *
+          (quantity - cart.servicePackages[indexExistservicePackage].quantity),
       EUR:
+        cart.price.EUR +
         cart.servicePackages[indexExistservicePackage].servicePackage.price
-          .EUR * quantity,
+          .EUR *
+          (quantity - cart.servicePackages[indexExistservicePackage].quantity),
     };
+    console.log(newPrice);
     const newCart = await Cart.findOneAndUpdate(
       {
         employer: IDUser,
@@ -259,16 +256,17 @@ exports.getCart = async (IDUser) => {
   }
   return { statusCode: 200, data: { data: cart } };
 };
-exports.checkoutCart = async (IDUser) => {
+exports.checkoutCart = async (IDUser, paidPrice) => {
   const cart = await Cart.findOne({ employer: IDUser });
   if (!cart) {
     return { statusCode: 404, messsage: 'Không tìm thấy giỏ hàng' };
   }
   const order = {
     servicePackages: cart.servicePackages,
+    totalQuantity: cart.totalQuantity,
     employer: IDUser,
     price: cart.price,
-    paidPrice: cart.paidPrice,
+    paidPrice: paidPrice,
     status: 'NotPaid',
   };
   try {
