@@ -15,6 +15,7 @@ import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
 import classes from './style.module.scss'
+import { fetchCartAsync } from 'features/Employers/slices/thunks'
 
 const SignInEmployerPage = () => {
   ScrollToTop()
@@ -54,6 +55,7 @@ const SignInEmployerPage = () => {
     if (status === 'success') {
       setLoading(false)
       notification(`${t('Signed in successfully')}`, 'success')
+      dispatch(fetchCartAsync())
     } else {
       setLoading(false)
       reset({

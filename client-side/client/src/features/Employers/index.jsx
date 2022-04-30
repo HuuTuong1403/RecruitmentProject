@@ -1,10 +1,11 @@
 import { Fragment, useEffect, lazy } from 'react'
-import { selectEmployerLocal } from './slices/selectors'
-import { Switch, Route, useRouteMatch } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import { HeaderEmployers, FooterEmployers, Page404, notification } from 'components'
 import { MenuEmployer } from './components'
+import { pathEmployer } from 'common/constants/path'
+import { selectEmployerLocal } from './slices/selectors'
+import { Switch, Route } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const CandidateProfileManagementPage = lazy(() => import('./pages/CandidateProfileManagementPage'))
 const EmployerProfilePage = lazy(() => import('./pages/EmployersProfilePage'))
@@ -18,12 +19,12 @@ const RecruitManagementPage = lazy(() => import('./pages/RecruitManagementPage')
 const RecruitmentTrashPage = lazy(() => import('./pages/RecruitmentTrashPage'))
 const SettingPage = lazy(() => import('./pages/SettingPage'))
 const UpdateEventPage = lazy(() => import('./pages/UpdateEventPage'))
+const OrderPage = lazy(() => import('./pages/OrderPage'))
 
 const DashboardEmployersPage = () => {
   const { t } = useTranslation()
   const employer = selectEmployerLocal()
   const history = useHistory()
-  const { url } = useRouteMatch()
 
   useEffect(() => {
     if (!employer) {
@@ -37,22 +38,23 @@ const DashboardEmployersPage = () => {
       <HeaderEmployers />
       <MenuEmployer>
         <Switch>
-          <Route exact path={`${url}/statistics`} component={EmployerStatisticPage} />
-          <Route exact path={`${url}/my-profile`} component={EmployerProfilePage} />
-          <Route exact path={`${url}/post-job`} component={PostJobPage} />
-          <Route exact path={`${url}/recruit-manage/created`} component={RecruitManagementPage} />
-          <Route exact path={`${url}/recruit-manage/trash`} component={RecruitmentTrashPage} />
-          <Route exact path={`${url}/events/post-event`} component={PostEventPage} />
-          <Route exact path={`${url}/events/:id/edit`} component={UpdateEventPage} />
-          <Route exact path={`${url}/events/:id/participants`} component={ParticipantsEventPage} />
-          <Route exact path={`${url}/events/created`} component={EventManagementPage} />
-          <Route exact path={`${url}/events/deleted`} component={EventTrashPage} />
+          <Route exact path={pathEmployer.statistic} component={EmployerStatisticPage} />
+          <Route exact path={pathEmployer.myProfile} component={EmployerProfilePage} />
+          <Route exact path={pathEmployer.postJob} component={PostJobPage} />
+          <Route exact path={pathEmployer.createdJob} component={RecruitManagementPage} />
+          <Route exact path={pathEmployer.deletedJob} component={RecruitmentTrashPage} />
+          <Route exact path={pathEmployer.postEvent} component={PostEventPage} />
+          <Route exact path={pathEmployer.updateEvent} component={UpdateEventPage} />
+          <Route exact path={pathEmployer.participantEvent} component={ParticipantsEventPage} />
+          <Route exact path={pathEmployer.createdEvent} component={EventManagementPage} />
+          <Route exact path={pathEmployer.deletedEvent} component={EventTrashPage} />
           <Route
             exact
-            path={`${url}/candidate-profiles`}
+            path={pathEmployer.candidateProfileManage}
             component={CandidateProfileManagementPage}
           />
-          <Route exact path={`${url}/setting-account`} component={SettingPage} />
+          <Route exact path={pathEmployer.settingAccount} component={SettingPage} />
+          <Route exact path={pathEmployer.order} component={OrderPage} />
           <Route>
             <Page404 isEmployer />
           </Route>

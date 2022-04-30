@@ -12,11 +12,13 @@ import {
   fetchParticipantsByIdEventAsync,
   getDetailEmployerAsync,
   fetchAllEventDeletedAsync,
+  fetchCartAsync,
 } from 'features/Employers/slices/thunks'
 
 const initialState = {
   applicationCount: null,
   avatar: null,
+  cart: [],
   dataFilter: null,
   employerDetail: null,
   eventDetailEmployer: null,
@@ -78,9 +80,32 @@ const employerSlice = createSlice({
       const id = action.payload
       state.jobsApplicationDeleted = state.jobsApplicationDeleted.filter((job) => job._id !== id)
     },
+    changeQuantity: (state, action) => {
+      const { id, status, quantity } = action.payload
+
+      let _quantity = quantity
+      
+      if (status === 'Increase') {
+        _quantity = quantity + 1
+      } else if (status === 'Decrease') {
+        _quantity = quantity - 1
+      }
+
+      state.cart.servicePackages.forEach((item) => {
+        if (item.servicePackage._id === id) {
+          item.quantity = _quantity
+        }
+      })
+    },
+    clearServicePackageInCart: (state, action) => {
+      const { id } = action.payload
+      state.cart.servicePackages = state.cart.servicePackages.filter(
+        (item) => item.servicePackage._id !== id
+      )
+    },
   },
   extraReducers: {
-    //Get Detail Employer
+    // #region Get Detail Employer
     [getDetailEmployerAsync.pending]: (state) => {
       state.status = true
     },
@@ -92,8 +117,9 @@ const employerSlice = createSlice({
       state.status = false
       state.employerDetail = null
     },
+    // #endregion
 
-    //Fetch Job Posting Of Employer
+    // #region Fetch Job Posting Of Employer
     [fetchJobsOfEmployerAsync.pending]: (state) => {
       state.status = true
     },
@@ -105,8 +131,9 @@ const employerSlice = createSlice({
       state.status = false
       state.jobsOfEmployer = []
     },
+    // #endregion
 
-    //Fetch Job Detail
+    // #region Fetch Job Detail
     [fetchJobDetailOfEmployerAsync.pending]: (state) => {
       state.statusJobDetail = true
     },
@@ -118,8 +145,9 @@ const employerSlice = createSlice({
       state.statusJobDetail = false
       state.jobDetailEmployer = null
     },
+    // #endregion
 
-    //Fetch Job Deleted
+    // #region Fetch Job Deleted
     [fetchJobDeletedAsync.pending]: (state) => {
       state.status = true
     },
@@ -131,8 +159,9 @@ const employerSlice = createSlice({
       state.status = false
       state.jobTrash = []
     },
+    // #endregion
 
-    //Fetch Jobs Application Not Saved
+    // #region Fetch Jobs Application Not Saved
     [fetchJobsApplicationNotSavedAsync.pending]: (state) => {
       state.status = true
     },
@@ -144,8 +173,9 @@ const employerSlice = createSlice({
       state.status = false
       state.jobsApplicationNotSaved = []
     },
+    // #endregion
 
-    //Fetch Jobs Application Saved
+    // #region Fetch Jobs Application Saved
     [fetchJobsApplicationSavedAsync.pending]: (state) => {
       state.status = true
     },
@@ -157,8 +187,9 @@ const employerSlice = createSlice({
       state.status = false
       state.jobsApplicationSaved = []
     },
+    // #endregion
 
-    //Fetch Jobs Application Deleted
+    // #region Fetch Jobs Application Deleted
     [fetchJobsApplicationDeletedAsync.pending]: (state) => {
       state.status = true
     },
@@ -170,8 +201,9 @@ const employerSlice = createSlice({
       state.status = false
       state.jobsApplicationDeleted = []
     },
+    // #endregion
 
-    //Count Application Status
+    // #region Count Application Status
     [countApplicationStatusAsync.pending]: (state) => {
       state.status = true
     },
@@ -183,8 +215,9 @@ const employerSlice = createSlice({
       state.status = false
       state.applicationCount = null
     },
+    // #endregion
 
-    //fetcAllEventOfEmployerAsync
+    // #region fetcAllEventOfEmployerAsync
     [fetchAllEventOfEmployerAsync.pending]: (state) => {
       state.status = true
     },
@@ -196,8 +229,9 @@ const employerSlice = createSlice({
       state.status = false
       state.eventsOfEmployer = []
     },
+    // #endregion
 
-    //Fetc Event Detail
+    // #region Fetch Event Detail
     [fetchEventDetailAsync.pending]: (state) => {
       state.status = true
     },
@@ -209,8 +243,9 @@ const employerSlice = createSlice({
       state.status = false
       state.eventDetailEmployer = null
     },
+    // #endregion
 
-    //Fetch All Participants By idEvent
+    // #region Fetch All Participants By idEvent
     [fetchParticipantsByIdEventAsync.pending]: (state) => {
       state.status = true
     },
@@ -222,8 +257,9 @@ const employerSlice = createSlice({
       state.status = false
       state.participantsEvent = []
     },
+    // #endregion
 
-    //Fetch All Event Deleted
+    // #region Fetch All Event Deleted
     [fetchAllEventDeletedAsync.pending]: (state) => {
       state.status = true
     },
@@ -235,6 +271,21 @@ const employerSlice = createSlice({
       state.status = false
       state.eventsDeleted = []
     },
+    // #endregion
+
+    // #region Fetch Cart
+    [fetchCartAsync.pending]: (state) => {
+      state.status = true
+    },
+    [fetchCartAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.cart = action.payload
+    },
+    [fetchCartAsync.rejected]: (state) => {
+      state.status = false
+      state.cart = []
+    },
+    // #endregion
   },
 })
 
@@ -250,6 +301,8 @@ export const {
   resetDataPostJob,
   restoredJobApplication,
   savedJobApplication,
+  changeQuantity,
+  clearServicePackageInCart,
 } = employerSlice.actions
 
 export default employerSlice.reducer

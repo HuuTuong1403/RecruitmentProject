@@ -1,0 +1,50 @@
+@import 'common/styles/Variables.scss';
+
+.payStep1 {
+  &__table {
+    &__price {
+      font-weight: 500;
+    }
+
+    &__quantity {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & button {
+        border: none;
+        outline: none;
+        background: $third-text;
+        color: $third-color;
+        font-size: $text-base;
+        padding: 0 $pm-12;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background: #f79d259e;
+        }
+      }
+
+      &--prev {
+        border-radius: 50% 0 0 50%;
+      }
+
+      &--next {
+        border-radius: 0 50% 50% 0;
+      }
+
+      &__num {
+        background: $third-text;
+        color: $third-color;
+        padding: $pm-2 $pm-10;
+        border: none;
+        width: 15%;
+        text-align: center;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

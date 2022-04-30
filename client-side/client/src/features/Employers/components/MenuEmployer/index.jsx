@@ -1,5 +1,5 @@
 import { AiFillDashboard, AiOutlineLineChart } from 'react-icons/ai'
-import { FaEdit } from 'react-icons/fa'
+import { FaEdit, FaShoppingCart } from 'react-icons/fa'
 import { IoIosPeople } from 'react-icons/io'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { logoutEmployer } from 'features/HomeEmployers/slices'
@@ -48,6 +48,13 @@ export const MenuEmployer = ({ children }) => {
       onClick: null,
     },
     {
+      key: `${pathEmployer.order}`,
+      title: `${t('My orders')}`,
+      icon: <FaShoppingCart className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
+    },
+    {
       key: `${pathEmployer.postJob}`,
       title: `${t('postjobs')}`,
       icon: <FaEdit className={classes.menuIcon} />,
@@ -59,14 +66,14 @@ export const MenuEmployer = ({ children }) => {
       title: `${t('recruitment manager')}`,
       subMenu: [
         {
-          key: pathEmployer.recruitManager,
+          key: pathEmployer.createdJob,
           title: `${t('Job post created')}`,
           icon: null,
           isLink: false,
           onClick: null,
         },
         {
-          key: pathEmployer.jobTrash,
+          key: pathEmployer.deletedJob,
           title: `${t('Job posting has been deleted')}`,
           icon: null,
           isLink: false,

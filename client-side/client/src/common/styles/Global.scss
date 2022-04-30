@@ -99,6 +99,15 @@
   text-overflow: ellipsis;
 }
 
+.badge {
+  color: $primary-text;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    color: $third-text;
+  }
+}
+
 @media screen and (max-width: 700px) {
   .link-fz-18 {
     font-size: $text-base !important;
@@ -139,6 +148,10 @@
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
+}
+
+.notifyContent {
+  font-size: $text-base;
 }
 
 .status {
@@ -187,9 +200,11 @@
 }
 
 .titleDashboard {
-  font-size: $text-3xl;
-  font-weight: 700;
+  font-size: $text-xl;
+  font-weight: bold;
   border-bottom: 1px solid #e8e8e8;
+  color: $primary-text;
+  text-transform: uppercase;
 
   & > span {
     font-size: $text-sm;
@@ -200,9 +215,10 @@
 }
 
 .subTitleDashboard {
-  font-size: $text-xl;
-  font-weight: 600;
+  font-size: $text-lg;
+  font-weight: 400;
   padding: $pm-10 0;
+  color: $primary-text;
 }
 
 .titleItem {
@@ -287,12 +303,12 @@
 
 @media screen and (max-width: 900px) {
   .titleDashboard {
-    font-size: $text-2xl;
+    font-size: $text-lg;
     text-align: center;
   }
 
   .subTitleDashboard {
-    font-size: $text-xl;
+    font-size: $text-base;
     text-align: center;
   }
 }
@@ -308,7 +324,7 @@
     display: none;
   }
   .titleDashboard {
-    font-size: $text-xl;
+    font-size: $text-base;
     text-align: center;
 
     & > span {
@@ -321,7 +337,7 @@
   }
 
   .subTitleDashboard {
-    font-size: $text-lg;
+    font-size: $text-sm;
     text-align: center;
   }
 

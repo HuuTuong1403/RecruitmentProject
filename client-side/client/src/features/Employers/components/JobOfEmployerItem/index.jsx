@@ -29,6 +29,7 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
     aboutCreated,
     status,
     skills,
+    isExpired,
   } = data
 
   const { t } = useTranslation()
@@ -97,8 +98,15 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
           {isNew && (
             <div className={`${classes.isNew} ${classes['item__top--new']}`}>{t('New')}</div>
           )}
-          {status && (
+          {status && !isExpired && (
             <div className={`${classNameStatus} ${classes['item__top--status']}`}>{t(status)}</div>
+          )}
+          {isExpired && (
+            <div
+              className={`${classes.status} ${classes.statusDenied} ${classes['item__top--status']}`}
+            >
+              {t('Expired')}
+            </div>
           )}
           <img className={classes['item__top-logo']} src={company?.logo} alt={company?.logo} />
         </div>
