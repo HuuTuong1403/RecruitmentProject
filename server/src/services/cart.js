@@ -140,7 +140,6 @@ exports.updateCartItem = async (IDUser, servicePackageId, quantity) => {
           .EUR *
           (quantity - cart.servicePackages[indexExistservicePackage].quantity),
     };
-    console.log(newPrice);
     const newCart = await Cart.findOneAndUpdate(
       {
         employer: IDUser,
@@ -154,7 +153,7 @@ exports.updateCartItem = async (IDUser, servicePackageId, quantity) => {
       {
         'servicePackages.$[cartItem].servicePackage.extantQuantity':
           cart.servicePackages[indexExistservicePackage].servicePackage
-            .extantQuantity * quantity,
+            .postQuantity * quantity,
         'servicePackages.$[cartItem].quantity': quantity,
         price: newPrice,
         totalQuantity:

@@ -29,6 +29,13 @@ orderRouter
     orderController.getAvailableOrder
   );
 orderRouter
+  .route('/available/:idServicePackage')
+  .patch(
+    authController.protect,
+    authController.restrictTo('employer'),
+    orderController.updateOrder
+  );
+orderRouter
   .route('/:id')
   .get(orderController.getOrder)
   .patch(orderController.updateOrder);

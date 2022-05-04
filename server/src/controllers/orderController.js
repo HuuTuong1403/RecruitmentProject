@@ -4,10 +4,8 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const factory = require('./handleFactory');
 const Order = require('../models/orderModel');
-const ServicePackage = require('../models/servicePackageModel');
 const configuration = require('../configuration/paypalConfiguration');
-const currency = require('../services/currency');
-const createBooking = require('../utils/createBooking');
+const OrderService = require('./../services/order');
 paypal.configure(configuration);
 
 class orderController {
@@ -89,7 +87,6 @@ class orderController {
       },
     });
     let servicePackages = [];
-
     for (let i = 0; i < orders.length; i++) {
       for (let j = 0; j < orders[i].servicePackages.length; j++) {
         const index = servicePackages.findIndex((item) => {
@@ -124,6 +121,19 @@ class orderController {
       status: 'success',
       data: { data: servicePackages },
     });
+  };
+  updateOrder = async (req, res, next) => {
+    const response = await OrderService.updateOrder(
+      req.user.id,
+      req.params.idServicePackage
+    );
+    if (response.statusCode == 200) {
+      return res.status(200).json({
+        status: 'success',
+        data: { data: response.data.data },
+      });
+    }
+    return next(new AppError(response.messsage, response.statusCode));
   };
   executePaypalPayment = catchAsync(async (req, res, next) => {
     const payerId = req.query.PayerID;
@@ -344,7 +354,7 @@ class orderController {
   createOrder = factory.createOne(Order);
   getAllOrder = factory.getAll(Order);
   getOrder = factory.getOne(Order);
-  updateOrder = factory.updateOne(Order);
+  //updateOrder = factory.updateOne(Order);
 }
 function sortObject(obj) {
   var sorted = {};

@@ -107,9 +107,9 @@ const jobSchema = new mongoose.Schema(
     createdAt: {
       type: Date,
     },
-    booking: {
+    servicePackage: {
       type: mongoose.Schema.ObjectId,
-      ref: 'Booking',
+      ref: 'ServicePackage',
     },
   },
   {
@@ -160,7 +160,7 @@ jobSchema.pre(/^find/, function (next) {
     select: 'companyName companyType companyWebsite logo ot',
   });
   this.populate({
-    path: 'booking',
+    path: 'servicePackage',
     select: 'servicePackage',
   });
   next();
