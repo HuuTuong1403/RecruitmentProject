@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const slugify = require('slugify');
 const addressSchema = require('./addressModel');
 const mongoose_delete = require('mongoose-delete');
-//const Booking = require('./bookingModel');
+const { updateOrder } = require('./../services/order');
+const AppError = require('./../utils/appError');
 const finishDate = new Date();
 finishDate.setDate(finishDate.getDate() + 7);
 
@@ -146,14 +147,15 @@ jobSchema.pre('save', async function (next) {
   this.slug = slugify(`${this.jobTitle} ${this._id}`, {
     lower: true,
   });
+  response = await updateOrder(
+    this.company.toString(),
+    this.servicePackage.toString()
+  );
+  if (response.statusCode != 200) {
+    next(new AppError(response.messsage, response.statusCode));
+  }
   next();
 });
-// jobSchema.post('save', async function (next) {
-//   const booking = await Booking.findById(this.booking);
-//   await Booking.findByIdAndUpdate(this.booking, {
-//     'servicePackage.extantQuantity': booking.servicePackage.extantQuantity - 1,
-//   });
-// });
 jobSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'company',

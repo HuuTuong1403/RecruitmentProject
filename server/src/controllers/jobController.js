@@ -9,7 +9,6 @@ class jobController {
     if (req.user && req.user.role == 'employer') {
       req.query.company = req.user.id;
     }
-
     next();
   };
   approveJob = (req, res, next) => {
