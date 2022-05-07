@@ -1,3 +1,4 @@
+import { ButtonField } from 'custom-fields'
 import { changeQuantity, clearServicePackageInCart } from 'features/Employers/slices'
 import { notification } from 'components'
 import { Table } from 'antd'
@@ -8,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import NumberFormat from 'react-number-format'
 
-export const PayStep1 = ({ data }) => {
+export const PayStep1 = ({ data, onChangeStep }) => {
   const dispatch = useDispatch()
   const delay = useDelay(500)
   const { t } = useTranslation()
@@ -36,7 +37,7 @@ export const PayStep1 = ({ data }) => {
             thousandsGroupStyle="thousand"
             thousandSeparator={true}
             value={text}
-            suffix="₫"
+            suffix=" ₫"
             displayType={'text'}
           />
         </div>
@@ -82,7 +83,7 @@ export const PayStep1 = ({ data }) => {
             thousandsGroupStyle="thousand"
             thousandSeparator={true}
             value={text}
-            suffix="₫"
+            suffix=" ₫"
             displayType={'text'}
           />
         </div>
@@ -97,8 +98,8 @@ export const PayStep1 = ({ data }) => {
     },
     {
       title: `${t('Sum post quantity')}`,
-      dataIndex: 'sumQuantity',
-      key: 'sumQuantity',
+      dataIndex: 'sumPostQuantity',
+      key: 'sumPostQuantity',
       align: 'right',
     },
     {
@@ -120,7 +121,7 @@ export const PayStep1 = ({ data }) => {
       price: price.VND,
       provisional: quantity * price.VND,
       postQuantity: postQuantity,
-      sumQuantity: postQuantity * quantity,
+      sumPostQuantity: postQuantity * quantity,
       postType: t(postType),
     }
   })
@@ -203,7 +204,64 @@ export const PayStep1 = ({ data }) => {
     }
   }
 
+  const SumPriceFooter = () => {
+    const sumQuantity = data.servicePackages.reduce((preVal, curVal) => {
+      return preVal + curVal.quantity
+    }, 0)
+
+    const sumPrice = data.servicePackages.reduce((preVal, curVal) => {
+      return preVal + curVal.quantity * curVal.servicePackage.price.VND
+    }, 0)
+
+    return (
+      <div className={classes.sumFooter}>
+        <div className={classes.sumFooter__wrap}>
+          <div className={classes.sumFooter__title}>{t('Total order')}</div>
+
+          <div className={classes.sumFooter__content}>
+            <div className={classes.sumFooter__content__tleft}>{t('Total quantity')}:</div>
+            <div className={classes.sumFooter__content__tright}>
+              {sumQuantity} {t('service package')}
+            </div>
+          </div>
+
+          <div className={classes.sumFooter__content}>
+            <div className={classes.sumFooter__content__tleft}>{t('Total price')}:</div>
+            <div className={classes.sumFooter__content__tright}>
+              <NumberFormat
+                thousandsGroupStyle="thousand"
+                thousandSeparator={true}
+                value={sumPrice}
+                suffix=" ₫"
+                displayType={'text'}
+              />
+            </div>
+          </div>
+
+          <hr />
+
+          <ButtonField
+            backgroundcolor="#f79d25"
+            backgroundcolorhover="#f79d259e"
+            radius="5px"
+            margin="10px 0 0"
+            uppercase
+            onClick={onChangeStep}
+          >
+            {t('Proceed to the payment')}
+          </ButtonField>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <Table scroll={{ x: 'max-content' }} columns={columns} dataSource={datas} pagination={false} />
+    <Table
+      scroll={{ x: 'max-content' }}
+      columns={columns}
+      dataSource={datas}
+      pagination={false}
+      footer={() => <SumPriceFooter />}
+    />
   )
 }

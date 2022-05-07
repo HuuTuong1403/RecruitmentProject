@@ -48,3 +48,56 @@
     }
   }
 }
+
+.sumFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  &__wrap {
+    flex: 0 0 30%;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: $text-lg;
+    margin-bottom: $pm-10;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $pm-4;
+    font-size: $text-base;
+
+    &__tleft {
+      flex: 0 0 60%;
+    }
+
+    &__tright {
+      font-weight: 500;
+    }
+  }
+}
+
+@media screen and (max-width: 1190px) {
+  .sumFooter {
+    &__wrap {
+      flex: 0 0 50%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .sumFooter {
+    &__wrap {
+      flex: 0 0 100%;
+    }
+
+    &__title {
+      text-align: center;
+    }
+  }
+}

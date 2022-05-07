@@ -211,3 +211,11 @@ p {
 .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
   color: #f79d25;
 }
+
+.ant-radio-checked .ant-radio-inner {
+  border-color: #f79d25 !important;
+}
+
+.ant-radio-inner::after {
+  background-color: #f79d25;
+}

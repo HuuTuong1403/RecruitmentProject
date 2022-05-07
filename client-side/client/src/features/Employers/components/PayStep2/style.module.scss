@@ -1,1 +1,155 @@
 @import 'common/styles/Variables.scss';
+
+.payStep2 {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  color: $primary-text;
+
+  &__wrap {
+    border-radius: 4px;
+    border: 1px solid #eee;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+    padding: $pm-16 $pm-20;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: $text-lg;
+    text-align: center;
+  }
+
+  &__left {
+    flex: 0 0 54%;
+
+    &__top {
+      font-weight: 500;
+      font-size: $text-base;
+      text-transform: uppercase;
+      border-bottom: 2px solid #eee;
+      padding-bottom: $pm-4;
+    }
+
+    &__center {
+      font-size: $text-base;
+      border-bottom: 2px solid #eee;
+      padding-bottom: $pm-4;
+      margin: $pm-4 0;
+
+      &__quantity {
+        font-weight: 500;
+        & > span {
+          font-size: $text-xs;
+          vertical-align: text-top;
+          font-weight: bold;
+        }
+      }
+
+      &__price {
+        font-size: $text-base;
+        font-weight: 500;
+      }
+    }
+
+    &__sum {
+      font-weight: 500;
+      font-size: $text-base;
+      text-transform: uppercase;
+    }
+  }
+
+  &__right {
+    flex: 0 0 44%;
+  }
+
+  &__payment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & img {
+        height: 150px;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+  }
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: $pm-6 0;
+}
+
+@media screen and (max-width: 1000px) {
+  .payStep2 {
+    flex-direction: column-reverse;
+
+    &__left {
+      flex: 0 0 100%;
+    }
+
+    &__right {
+      margin-bottom: $pm-16;
+      flex: 0 0 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .payStep2 {
+    flex-direction: column-reverse;
+
+    &__wrap {
+      padding: $pm-10 $pm-14;
+    }
+
+    &__title {
+      font-size: $text-sm;
+    }
+
+    &__left {
+      flex: 0 0 100%;
+
+      &__top {
+        font-size: $text-sm;
+      }
+
+      &__center {
+        font-size: $text-sm;
+
+        &__price {
+          font-size: $text-sm;
+        }
+      }
+
+      &__sum {
+        font-size: $text-sm;
+      }
+    }
+
+    &__right {
+      flex: 0 0 100%;
+    }
+
+    &__payment {
+      flex-wrap: wrap;
+
+      &__wrap {
+        flex: 0 0 100%;
+
+        & img {
+          height: 100px;
+        }
+      }
+    }
+  }
+}
