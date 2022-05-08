@@ -10,15 +10,11 @@ import { useForm } from 'react-hook-form'
 import { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
-import {
-  ButtonField,
-  WrappedInput as InputField,
-  LabelField,
-  SelectLocationField,
-} from 'custom-fields'
+import { ButtonField, WrappedInput as InputField, LabelField, SelectField } from 'custom-fields'
 import { notification } from 'components'
 import classes from './style.module.scss'
 import Select from 'react-select'
+import { formatArrayForSelect } from 'common/functions'
 
 export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) => {
   const { t } = useTranslation()
@@ -28,23 +24,20 @@ export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) 
 
   const { _id, eventName, company, slug } = event
 
-  const provinces = useSelector(selectedProvinces)?.map((province) => ({
-    label: province.name,
-    value: province.code,
-  }))
-  provinces.unshift({ label: `${t('choose-province')}`, value: '' })
+  const provinces = formatArrayForSelect(useSelector(selectedProvinces), 'Province', t, true, {
+    name: 'choose-province',
+    code: '',
+  })
 
-  const districts = useSelector(selectedDistricts)?.map((district) => ({
-    label: district.name,
-    value: district.code,
-  }))
-  districts.unshift({ label: `${t('choose-district')}`, value: '' })
+  const districts = formatArrayForSelect(useSelector(selectedDistricts), 'District', t, true, {
+    name: 'choose-district',
+    code: '',
+  })
 
-  const wards = useSelector(selectedWards)?.map((ward) => ({
-    label: ward.name,
-    value: ward.code,
-  }))
-  wards.unshift({ label: `${t('choose-ward')}`, value: '' })
+  const wards = formatArrayForSelect(useSelector(selectedWards), 'Wards', t, true, {
+    name: 'choose-ward',
+    code: '',
+  })
 
   const skills = useSelector(selectedSkills).map((skill, index) => {
     return { value: index, label: skill }
@@ -168,14 +161,15 @@ export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) 
                   <LabelField label={t('Ward')} isCompulsory />
                 </div>
                 <div>
-                  <SelectLocationField
+                  <SelectField
                     setValue={setValue}
                     name="ward"
                     control={control}
                     defaultValue={currentUser.address.ward}
-                    locationList={wards}
+                    optionList={wards}
                     placeholder={t('choose-ward')}
                     errors={errors?.ward?.message}
+                    isLocation
                   />
                 </div>
               </div>
@@ -186,14 +180,15 @@ export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) 
                   <LabelField label={t('District')} isCompulsory />
                 </div>
                 <div>
-                  <SelectLocationField
+                  <SelectField
                     setValue={setValue}
                     name="district"
                     control={control}
                     defaultValue={currentUser.address.district}
-                    locationList={districts}
+                    optionList={districts}
                     placeholder={t('choose-district')}
                     errors={errors?.district?.message}
+                    isLocation
                   />
                 </div>
               </div>
@@ -204,14 +199,15 @@ export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) 
                   <LabelField label={t('Province')} isCompulsory />
                 </div>
                 <div>
-                  <SelectLocationField
+                  <SelectField
                     setValue={setValue}
                     name="city"
                     control={control}
                     defaultValue={currentUser.address.city}
-                    locationList={provinces}
+                    optionList={provinces}
                     placeholder={t('choose-province')}
                     errors={errors?.city?.message}
+                    isLocation
                   />
                 </div>
               </div>
@@ -239,13 +235,14 @@ export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) 
                   <LabelField label={t('Province')} isCompulsory />
                 </div>
                 <div>
-                  <SelectLocationField
+                  <SelectField
                     setValue={setValue}
                     name="city"
                     control={control}
-                    locationList={provinces}
+                    optionList={provinces}
                     placeholder={t('choose-province')}
                     errors={errors?.city?.message}
+                    isLocation
                   />
                 </div>
               </div>
@@ -256,13 +253,14 @@ export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) 
                   <LabelField label={t('District')} isCompulsory />
                 </div>
                 <div>
-                  <SelectLocationField
+                  <SelectField
                     setValue={setValue}
                     name="district"
                     control={control}
-                    locationList={districts}
+                    optionList={districts}
                     placeholder={t('choose-district')}
                     errors={errors?.district?.message}
+                    isLocation
                   />
                 </div>
               </div>
@@ -273,13 +271,14 @@ export const ModalJoinEvent = ({ showModal, onCloseModal, event, currentUser }) 
                   <LabelField label={t('Ward')} isCompulsory />
                 </div>
                 <div>
-                  <SelectLocationField
+                  <SelectField
                     setValue={setValue}
                     name="ward"
                     control={control}
-                    locationList={wards}
+                    optionList={wards}
                     placeholder={t('choose-ward')}
                     errors={errors?.ward?.message}
+                    isLocation
                   />
                 </div>
               </div>

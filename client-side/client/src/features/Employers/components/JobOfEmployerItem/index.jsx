@@ -14,6 +14,7 @@ import { ButtonField, PopoverField } from 'custom-fields'
 import { ModalUpdateJob } from 'features/Employers/components'
 import classes from './style.module.scss'
 import moment from 'moment'
+import { formatArrayForSelect } from 'common/functions'
 
 export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
   const {
@@ -42,23 +43,20 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
     return { value: index, label: skill }
   })
 
-  const provinces = useSelector(selectedProvinces)?.map((province) => ({
-    label: province.name,
-    value: province.code,
-  }))
-  provinces.unshift({ label: `${t('choose-province')}`, value: '' })
+  const provinces = formatArrayForSelect(useSelector(selectedProvinces), 'Province', t, true, {
+    name: 'choose-province',
+    code: '',
+  })
 
-  const districts = useSelector(selectedDistricts)?.map((district) => ({
-    label: district.name,
-    value: district.code,
-  }))
-  districts.unshift({ label: `${t('choose-district')}`, value: '' })
+  const districts = formatArrayForSelect(useSelector(selectedDistricts), 'District', t, true, {
+    name: 'choose-district',
+    code: '',
+  })
 
-  const wards = useSelector(selectedWards)?.map((ward) => ({
-    label: ward.name,
-    value: ward.code,
-  }))
-  wards.unshift({ label: `${t('choose-ward')}`, value: '' })
+  const wards = formatArrayForSelect(useSelector(selectedWards), 'Wards', t, true, {
+    name: 'choose-ward',
+    code: '',
+  })
 
   const handleShowDetail = () => {
     // history.push(`/jobs/${slug}`)

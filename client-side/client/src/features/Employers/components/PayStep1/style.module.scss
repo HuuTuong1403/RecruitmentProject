@@ -1,6 +1,16 @@
 @import 'common/styles/Variables.scss';
 
 .payStep1 {
+  &__action {
+    text-align: right;
+
+    &__icon {
+      font-size: $text-lg;
+      margin-right: $pm-2;
+      vertical-align: text-bottom;
+    }
+  }
+
   &__table {
     &__price {
       font-weight: 500;

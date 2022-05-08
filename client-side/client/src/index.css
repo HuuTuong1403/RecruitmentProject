@@ -29,11 +29,12 @@ p {
 }
 
 .css-9gakcf-option {
-  background-color: white !important;
-  color: black !important;
+  background-color: #f79d25 !important;
+  color: white !important;
 }
 .css-9gakcf-option:hover {
-  background-color: #deebff !important;
+  background-color: #f79c25b9 !important;
+  color: white !important;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: #f79d25 !important;

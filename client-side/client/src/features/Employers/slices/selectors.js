@@ -77,3 +77,7 @@ export const selectEventsDeleted = (state) => {
 export const selectCart = (state) => {
   return state?.employer?.cart
 }
+
+export const selectAvailableSP = (state) => {
+  return state?.employer?.availableSP
+}

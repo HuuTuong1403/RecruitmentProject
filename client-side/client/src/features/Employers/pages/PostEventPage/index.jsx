@@ -1,7 +1,7 @@
 import { createEventEmployer } from 'features/Employers/api/employer.api'
 import { dateFormatWithTime, dateFormatWithTimeSendServer } from 'common/constants/dateFormat'
 import { schemaPostEvent } from 'common/constants/schema'
-import { ScrollToTop } from 'common/functions'
+import { formatArrayForSelect, ScrollToTop } from 'common/functions'
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -16,7 +16,7 @@ import {
   WrappedInput as InputField,
   InputUploadImage,
   LabelField,
-  SelectLocationField,
+  SelectField,
 } from 'custom-fields'
 import { notification } from 'components'
 import classes from './style.module.scss'
@@ -36,23 +36,20 @@ const PostEventPage = () => {
   const [simpleFileName, setSimpleFileName] = useState('')
   const [multipleFileName, setMultipleFileName] = useState('')
 
-  const provinces = useSelector(selectedProvinces)?.map((province) => ({
-    label: province.name,
-    value: province.code,
-  }))
-  provinces.unshift({ label: `${t('choose-province')}`, value: '' })
+  const provinces = formatArrayForSelect(useSelector(selectedProvinces), 'Province', t, true, {
+    name: 'choose-province',
+    code: '',
+  })
 
-  const districts = useSelector(selectedDistricts)?.map((district) => ({
-    label: district.name,
-    value: district.code,
-  }))
-  districts.unshift({ label: `${t('choose-district')}`, value: '' })
+  const districts = formatArrayForSelect(useSelector(selectedDistricts), 'District', t, true, {
+    name: 'choose-district',
+    code: '',
+  })
 
-  const wards = useSelector(selectedWards)?.map((ward) => ({
-    label: ward.name,
-    value: ward.code,
-  }))
-  wards.unshift({ label: `${t('choose-ward')}`, value: '' })
+  const wards = formatArrayForSelect(useSelector(selectedWards), 'Wards', t, true, {
+    name: 'choose-ward',
+    code: '',
+  })
 
   const {
     register,
@@ -273,38 +270,41 @@ const PostEventPage = () => {
               {/* Event City */}
               <div>
                 <LabelField label={t('Province')} isCompulsory />
-                <SelectLocationField
+                <SelectField
                   name="city"
                   control={control}
-                  locationList={provinces}
+                  optionList={provinces}
                   placeholder={t('choose-province')}
                   errors={errors?.city?.message}
                   setValue={setValue}
+                  isLocation
                 />
               </div>
 
               {/* Event District */}
               <div>
                 <LabelField label={t('District')} isCompulsory />
-                <SelectLocationField
+                <SelectField
                   name="district"
                   control={control}
-                  locationList={districts}
+                  optionList={districts}
                   placeholder={t('choose-district')}
                   errors={errors?.district?.message}
                   setValue={setValue}
+                  isLocation
                 />
               </div>
 
               {/* Event Ward */}
               <div>
                 <LabelField label={t('Ward')} isCompulsory />
-                <SelectLocationField
+                <SelectField
                   name="ward"
                   control={control}
-                  locationList={wards}
+                  optionList={wards}
                   placeholder={t('choose-ward')}
                   errors={errors?.ward?.message}
+                  isLocation
                 />
               </div>
             </div>
