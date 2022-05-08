@@ -13,6 +13,7 @@ export const ButtonField = ({
   disabled,
   width = '100%',
   children,
+  margin = '',
   ...props
 }) => {
   const [hover, setHover] = useState(false)
@@ -24,6 +25,7 @@ export const ButtonField = ({
     width: width,
     textTransform: uppercase ? 'uppercase' : '',
     padding: padding,
+    margin: margin,
   }
 
   const styleHover = {

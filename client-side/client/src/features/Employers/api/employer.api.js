@@ -345,4 +345,31 @@ export const updateQuantityServicePackage = async (payload) => {
     console.log(error)
   }
 }
+
+export const checkoutCart = async (payload) => {
+  try {
+    const res = await axiosClient.post('employer/cart/checkout', payload.data)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const createPayPal = async (payload) => {
+  try {
+    const res = await axiosClient.post(`employer/payment/paypal/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const createVnPay = async (payload) => {
+  try {
+    const res = await axiosClient.post(`employer/payment/vnpay/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
 // #endregion

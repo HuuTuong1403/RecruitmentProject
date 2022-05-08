@@ -1,1 +1,65 @@
 @import 'common/styles/Variables.scss';
+
+.payStep3 {
+  &__title {
+    color: $primary-text;
+    text-align: center;
+    font-size: $text-xl;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  &__notify {
+    &__success {
+      width: 25%;
+      margin: 0 auto;
+    }
+
+    &__fail {
+      width: 45%;
+      margin: 0 auto;
+    }
+
+    &__title {
+      text-align: center;
+      font-size: $text-lg;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    &--success {
+      color: #50d05c;
+    }
+
+    &--failure {
+      color: #ff4d4d;
+    }
+
+    &__action {
+      margin-top: $pm-10;
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .payStep3 {
+    &__title {
+      font-size: $text-base;
+    }
+
+    &__notify {
+      &__success {
+        width: 40%;
+      }
+
+      &__fail {
+        width: 70%;
+      }
+
+      &__title {
+        font-size: $text-sm;
+      }
+    }
+  }
+}
