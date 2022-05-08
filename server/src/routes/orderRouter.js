@@ -37,7 +37,11 @@ orderRouter
   );
 orderRouter
   .route('/:id')
-  .get(orderController.getOrder)
+  .get(
+    authController.protect,
+    authController.restrictTo('employer'),
+    orderController.getOrder
+  )
   .patch(orderController.updateOrder);
 orderRouter
   .route('/')
