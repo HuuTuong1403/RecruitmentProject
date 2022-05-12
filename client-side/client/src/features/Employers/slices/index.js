@@ -13,10 +13,12 @@ import {
   getDetailEmployerAsync,
   fetchAllEventDeletedAsync,
   fetchCartAsync,
+  getAvailableServicePackageAsync,
 } from 'features/Employers/slices/thunks'
 
 const initialState = {
   applicationCount: null,
+  availableSP: [],
   avatar: null,
   cart: [],
   dataFilter: null,
@@ -84,7 +86,7 @@ const employerSlice = createSlice({
       const { id, status, quantity } = action.payload
 
       let _quantity = quantity
-      
+
       if (status === 'Increase') {
         _quantity = quantity + 1
       } else if (status === 'Decrease') {
@@ -284,6 +286,20 @@ const employerSlice = createSlice({
     [fetchCartAsync.rejected]: (state) => {
       state.status = false
       state.cart = []
+    },
+    // #endregion
+
+    // #region Fetch Cart
+    [getAvailableServicePackageAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAvailableServicePackageAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.availableSP = action.payload
+    },
+    [getAvailableServicePackageAsync.rejected]: (state) => {
+      state.status = false
+      state.availableSP = []
     },
     // #endregion
   },

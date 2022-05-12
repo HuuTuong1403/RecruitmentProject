@@ -6,11 +6,11 @@ import {
   workingTimeOptions,
 } from 'common/constants/options'
 import { addDataPostJob, resetDataPostJob } from 'features/Employers/slices'
-import { ButtonField, CKEditorField, DatePickerField, LabelField } from 'custom-fields'
-import { clearNullObject } from 'common/functions'
+import { ButtonField, CKEditorField, DatePickerField, LabelField, SelectField } from 'custom-fields'
+import { clearNullObject, formatArrayForSelect } from 'common/functions'
 import { dateFormatPicker, dateFormatSendServer } from 'common/constants/dateFormat'
 import { getDetailEmployerAsync } from 'features/Employers/slices/thunks'
-import { InputPostJobField, SelectPostJobField } from 'features/Employers/components'
+import { InputPostJobField } from 'features/Employers/components'
 import { notification } from 'components'
 import { postJobEmployer } from 'features/Employers/api/employer.api'
 import { schemaPostJobEmployer } from 'common/constants/schema'
@@ -52,43 +52,54 @@ const PostJobPage = () => {
 
   const [selectSkill, setSelectSkill] = useState(postJobData?.skills ?? [])
 
-  const optionsLevel = levelOptions.map((item, index) => ({
-    value: index === 0 ? t('choose-level') : item.value,
-    label: index === 0 ? t('choose-level') : t(item.label),
-  }))
+  const optionsLevel = formatArrayForSelect(
+    levelOptions,
+    'Level',
+    t,
+    false,
+    null,
+    true,
+    'choose-level'
+  )
 
-  const optionsPosition = positionOptions.map((item, index) => ({
-    value: index === 0 ? t('choose-position') : item.value,
-    label: index === 0 ? t('choose-position') : t(item.label),
-  }))
+  const optionsPosition = formatArrayForSelect(
+    positionOptions,
+    'Position',
+    t,
+    false,
+    null,
+    true,
+    'choose-position'
+  )
 
-  const optionsWorkingTime = workingTimeOptions.map((item, index) => ({
-    value: index === 0 ? t(item.value) : item.value,
-    label: t(item.label),
-  }))
+  const optionsWorkingTime = formatArrayForSelect(
+    workingTimeOptions,
+    'Working Time',
+    t,
+    false,
+    null,
+    true,
+    'choose-workingTime'
+  )
 
-  const optionsHideSalary = hideSalaryOptions.map((item) => ({
-    value: item.value,
-    label: t(item.label),
-  }))
+  const optionsHideSalary = formatArrayForSelect(hideSalaryOptions, 'Hide Salary', t, false, null)
 
-  const provinces = useSelector(selectedProvinces)?.map((province) => ({
-    label: province.name,
-    value: province.code,
-  }))
-  provinces.unshift({ label: `${t('choose-province')}`, value: '' })
+  const optionsTypeSalary = formatArrayForSelect(typeSalaryOptions, 'Type Salary', t)
 
-  const districts = useSelector(selectedDistricts)?.map((district) => ({
-    label: district.name,
-    value: district.code,
-  }))
-  districts.unshift({ label: `${t('choose-district')}`, value: '' })
+  const provinces = formatArrayForSelect(useSelector(selectedProvinces), 'Province', t, true, {
+    name: 'choose-province',
+    code: '',
+  })
 
-  const wards = useSelector(selectedWards)?.map((ward) => ({
-    label: ward.name,
-    value: ward.code,
-  }))
-  wards.unshift({ label: `${t('choose-ward')}`, value: '' })
+  const districts = formatArrayForSelect(useSelector(selectedDistricts), 'District', t, true, {
+    name: 'choose-district',
+    code: '',
+  })
+
+  const wards = formatArrayForSelect(useSelector(selectedWards), 'Wards', t, true, {
+    name: 'choose-ward',
+    code: '',
+  })
 
   const {
     handleSubmit,
@@ -230,11 +241,11 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t('Level')} isCompulsory />
                 <div>
-                  <SelectPostJobField
+                  <SelectField
                     name="level"
                     control={control}
                     defaultValue={postJobData?.level ?? `${t('choose-level')}`}
-                    list={optionsLevel}
+                    optionList={optionsLevel}
                     handleAddData={handleAddData}
                     placeholder={t('choose-level')}
                     errors={errors?.level?.message}
@@ -246,11 +257,11 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t('Position')} isCompulsory />
                 <div>
-                  <SelectPostJobField
+                  <SelectField
                     name="position"
                     control={control}
                     defaultValue={postJobData?.position ?? `${t('choose-position')}`}
-                    list={optionsPosition}
+                    optionList={optionsPosition}
                     handleAddData={handleAddData}
                     placeholder={t('choose-position')}
                     errors={errors?.position?.message}
@@ -262,11 +273,11 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t('Working time start')} isCompulsory />
                 <div>
-                  <SelectPostJobField
+                  <SelectField
                     name="workingTimeStart"
                     control={control}
                     defaultValue={postJobData?.workingTimeStart ?? `${t('choose-workingTime')}`}
-                    list={optionsWorkingTime}
+                    optionList={optionsWorkingTime}
                     handleAddData={handleAddData}
                     placeholder={t('choose-workingTime')}
                     errors={errors?.workingTimeStart?.message}
@@ -278,11 +289,11 @@ const PostJobPage = () => {
               <div>
                 <LabelField label={t('Working time finish')} isCompulsory />
                 <div>
-                  <SelectPostJobField
+                  <SelectField
                     name="workingTimeFinish"
                     control={control}
                     defaultValue={postJobData?.workingTimeFinish ?? `${t('choose-workingTime')}`}
-                    list={optionsWorkingTime}
+                    optionList={optionsWorkingTime}
                     handleAddData={handleAddData}
                     placeholder={t('choose-workingTime')}
                     errors={errors?.workingTimeFinish?.message}
@@ -332,45 +343,45 @@ const PostJobPage = () => {
 
                 {/* Job Workplace City */}
                 <div>
-                  <SelectPostJobField
+                  <SelectField
                     name="city"
                     control={control}
                     defaultValue={postJobData?.city ?? employerDetail.address.city}
                     setValue={setValue}
-                    isLocation={true}
-                    list={provinces}
+                    optionList={provinces}
                     handleAddData={handleAddData}
                     placeholder={t('choose-province')}
                     errors={errors?.city?.message}
+                    isLocation
                   />
                 </div>
 
                 {/* Job Workplace District */}
                 <div>
-                  <SelectPostJobField
+                  <SelectField
                     name="district"
                     control={control}
                     defaultValue={postJobData?.district ?? employerDetail.address.district}
                     setValue={setValue}
-                    isLocation={true}
-                    list={districts}
+                    optionList={districts}
                     handleAddData={handleAddData}
                     placeholder={t('choose-district')}
                     errors={errors?.district?.message}
+                    isLocation
                   />
                 </div>
 
                 {/* Job Workplace Ward */}
                 <div>
-                  <SelectPostJobField
+                  <SelectField
                     name="ward"
                     control={control}
                     defaultValue={postJobData?.ward ?? employerDetail.address.ward}
-                    list={wards}
-                    isLocation={true}
+                    optionList={wards}
                     handleAddData={handleAddData}
                     placeholder={t('choose-ward')}
                     errors={errors?.ward?.message}
+                    isLocation
                   />
                 </div>
               </div>
@@ -391,11 +402,11 @@ const PostJobPage = () => {
             {hideSalary ? (
               <div className={classes['postjob__formGroup--salary']}>
                 <div>
-                  <SelectPostJobField
+                  <SelectField
                     name="type"
                     control={control}
                     defaultValue={postJobData?.type ?? 'VND'}
-                    list={typeSalaryOptions}
+                    optionList={optionsTypeSalary}
                     handleAddData={handleAddData}
                   />
                 </div>
@@ -424,11 +435,11 @@ const PostJobPage = () => {
               </div>
             ) : (
               <div>
-                <SelectPostJobField
+                <SelectField
                   name="typeHideSalary"
                   control={control}
                   defaultValue={postJobData?.typeHideSalary ?? "You'll love it"}
-                  list={optionsHideSalary}
+                  optionList={optionsHideSalary}
                   handleAddData={handleAddData}
                 />
               </div>

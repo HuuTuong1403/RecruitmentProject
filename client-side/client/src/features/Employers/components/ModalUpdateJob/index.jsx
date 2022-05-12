@@ -18,7 +18,7 @@ import {
   selectJobsDetailEmployer,
   selectStatusJobDetail,
 } from 'features/Employers/slices/selectors'
-import { clearNullObject } from 'common/functions'
+import { clearNullObject, formatArrayForSelect } from 'common/functions'
 import { Collapse, Switch, Modal } from 'antd'
 import { schemaPostJobEmployer } from 'common/constants/schema'
 import { updateJob } from 'features/Employers/api/employer.api'
@@ -34,7 +34,6 @@ import {
   InputBorderField,
   LabelField,
   SelectField,
-  SelectLocationField,
 } from 'custom-fields'
 import { InputPostJobField } from 'features/Employers/components'
 import { LoadingSuspense, notification } from 'components'
@@ -61,25 +60,15 @@ export const ModalUpdateJob = ({
   const status = useSelector(selectStatusJobDetail)
   const { Panel } = Collapse
 
-  const optionsLevel = levelOptions.map((item, index) => ({
-    value: index === 0 ? t('choose-level') : item.value,
-    label: index === 0 ? t('choose-level') : t(item.label),
-  }))
+  const optionsLevel = formatArrayForSelect(levelOptions, 'Level', t)
 
-  const optionsPosition = positionOptions.map((item, index) => ({
-    value: index === 0 ? t('choose-position') : item.value,
-    label: index === 0 ? t('choose-position') : t(item.label),
-  }))
+  const optionsPosition = formatArrayForSelect(positionOptions, 'Position', t)
 
-  const optionsWorkingTime = workingTimeOptions.map((item, index) => ({
-    value: index === 0 ? t(item.value) : item.value,
-    label: t(item.label),
-  }))
+  const optionsWorkingTime = formatArrayForSelect(workingTimeOptions, 'Working Time', t)
 
-  const optionsHideSalary = hideSalaryOptions.map((item) => ({
-    value: item.value,
-    label: t(item.label),
-  }))
+  const optionsHideSalary = formatArrayForSelect(hideSalaryOptions, 'Hide Salary', t)
+
+  const optionsTypeSalary = formatArrayForSelect(typeSalaryOptions, 'Type Salary', t)
 
   const {
     register,
@@ -216,41 +205,44 @@ export const ModalUpdateJob = ({
                           {/* Province */}
                           <div>
                             <LabelField label={t('Province')} isCompulsory />
-                            <SelectLocationField
+                            <SelectField
                               setValue={setValue}
                               name="city"
                               control={control}
                               defaultValue={jobDetail.location.city}
-                              locationList={provinces}
+                              optionList={provinces}
                               placeholder={t('choose-province')}
                               errors={errors?.city?.message}
+                              isLocation
                             />
                           </div>
 
                           {/* District */}
                           <div>
                             <LabelField label={t('District')} isCompulsory />
-                            <SelectLocationField
+                            <SelectField
                               setValue={setValue}
                               name="district"
                               control={control}
                               defaultValue={jobDetail.location.district}
-                              locationList={districts}
+                              optionList={districts}
                               placeholder={t('choose-district')}
                               errors={errors?.district?.message}
+                              isLocation
                             />
                           </div>
 
                           {/* Ward */}
                           <div>
                             <LabelField label={t('Ward')} isCompulsory />
-                            <SelectLocationField
+                            <SelectField
                               name="ward"
                               control={control}
                               defaultValue={jobDetail.location.ward}
-                              locationList={wards}
+                              optionList={wards}
                               placeholder={t('choose-ward')}
                               errors={errors?.ward?.message}
+                              isLocation
                             />
                           </div>
                         </div>
@@ -365,7 +357,7 @@ export const ModalUpdateJob = ({
                                 name="type"
                                 control={control}
                                 defaultValue={jobDetail.salary.min ? jobDetail.salary?.type : 'VND'}
-                                optionList={typeSalaryOptions}
+                                optionList={optionsTypeSalary}
                               />
                             </div>
 

@@ -13,6 +13,7 @@ import {
   fetchAllEventDeleted,
   getDetailEmployer,
   fetchCart,
+  getAvailableServicePackage,
 } from '../api/employer.api'
 
 export const getDetailEmployerAsync = createAsyncThunk('employer/getDetailEmployer', async () => {
@@ -108,4 +109,10 @@ export const fetchAllEventDeletedAsync = createAsyncThunk(
 export const fetchCartAsync = createAsyncThunk('employer/fetchCart', async () => {
   const res = await fetchCart()
   return res.data.data
+})
+
+export const getAvailableServicePackageAsync = createAsyncThunk('employer/getAvailableServicePackage', async () => {
+  const res = await getAvailableServicePackage()
+  const datas = (res.data || {}).data || []
+  return datas
 })

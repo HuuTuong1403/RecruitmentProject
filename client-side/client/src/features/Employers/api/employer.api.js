@@ -346,6 +346,15 @@ export const updateQuantityServicePackage = async (payload) => {
   }
 }
 
+export const deleteCart = async () => {
+  try {
+    const res = await axiosClient.delete('employer/cart')
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const checkoutCart = async (payload) => {
   try {
     const res = await axiosClient.post('employer/cart/checkout', payload.data)
@@ -367,6 +376,15 @@ export const createPayPal = async (payload) => {
 export const createVnPay = async (payload) => {
   try {
     const res = await axiosClient.post(`employer/payment/vnpay/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAvailableServicePackage = async () => {
+  try {
+    const res = await axiosClient.get('employer/payment/available')
     return res
   } catch (error) {
     console.log(error)

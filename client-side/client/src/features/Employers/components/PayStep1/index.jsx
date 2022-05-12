@@ -1,18 +1,22 @@
-import { ButtonField } from 'custom-fields'
+import { ButtonField, PopoverField } from 'custom-fields'
 import { changeQuantity, clearServicePackageInCart } from 'features/Employers/slices'
 import { notification } from 'components'
 import { Table } from 'antd'
-import { updateQuantityServicePackage } from 'features/Employers/api/employer.api'
+import { deleteCart, updateQuantityServicePackage } from 'features/Employers/api/employer.api'
 import { useDelay } from 'common/hook/useDelay'
 import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import NumberFormat from 'react-number-format'
+import { Fragment, useState } from 'react'
+import { MdDelete } from 'react-icons/md'
+import { fetchCartAsync } from 'features/Employers/slices/thunks'
 
 export const PayStep1 = ({ data, onChangeStep }) => {
   const dispatch = useDispatch()
   const delay = useDelay(500)
   const { t } = useTranslation()
+  const [loadingDelete, setLoadingDelete] = useState(false)
 
   const columns = [
     {
@@ -255,13 +259,49 @@ export const PayStep1 = ({ data, onChangeStep }) => {
     )
   }
 
+  const handleDeleteCart = async () => {
+    setLoadingDelete(true)
+    const res = await deleteCart()
+    if (res.status === 204) {
+      notification(`${t('This cart has been successfully deleted')}`, 'success')
+      dispatch(fetchCartAsync())
+    } else {
+      notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
+    }
+    setLoadingDelete(false)
+  }
+
   return (
-    <Table
-      scroll={{ x: 'max-content' }}
-      columns={columns}
-      dataSource={datas}
-      pagination={false}
-      footer={() => <SumPriceFooter />}
-    />
+    <Fragment>
+      <div className={classes.payStep1__action}>
+        <PopoverField
+          title={t('Confirm delete cart')}
+          subTitle={t('Do you want to delete this cart?')}
+          titleCancel={t('Cancel')}
+          onClickOk={handleDeleteCart}
+          loading={loadingDelete}
+          titleOk={t('Delete')}
+        >
+          <ButtonField
+            backgroundcolor="#dd4b39"
+            backgroundcolorhover="#ff7875"
+            width="20%"
+            uppercase
+            radius="5px"
+            padding="6px 0"
+          >
+            <MdDelete className={classes.payStep1__action__icon} />
+            {t('Delete cart')}
+          </ButtonField>
+        </PopoverField>
+      </div>
+      <Table
+        scroll={{ x: 'max-content' }}
+        columns={columns}
+        dataSource={datas}
+        pagination={false}
+        footer={() => <SumPriceFooter />}
+      />
+    </Fragment>
   )
 }

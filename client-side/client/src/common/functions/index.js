@@ -14,3 +14,37 @@ export const ScrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
 }
+
+export const formatArrayForSelect = (
+  array,
+  labelGroup,
+  translate,
+  isLocation = false,
+  firstObject,
+  isChangeFirst = false,
+  valueChange
+) => {
+  if (Array.isArray(array)) {
+    if (firstObject) {
+      array = [firstObject].concat(array)
+    }
+
+    if (isChangeFirst) {
+      array[0] = { value: translate(valueChange), label: translate(valueChange) }
+    }
+
+    const datas = array.map((item) => ({
+      value: isLocation ? item.code || 0 : item.value || '',
+      label: isLocation ? translate(item.name) : translate(item.label),
+    }))
+
+    return [
+      {
+        label: labelGroup ? labelGroup : 'Group',
+        options: datas,
+      },
+    ]
+  } else {
+    return []
+  }
+}

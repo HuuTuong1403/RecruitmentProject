@@ -4,7 +4,6 @@ import {
   InputBorderField,
   LabelField,
   SelectField,
-  SelectLocationField,
 } from 'custom-fields'
 import {
   FaMedkit,
@@ -39,6 +38,7 @@ import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
 import classes from './style.module.scss'
 import parse from 'html-react-parser'
+import { formatArrayForSelect } from 'common/functions'
 
 const EmployerProfilePage = () => {
   ScrollToTop()
@@ -70,33 +70,24 @@ const EmployerProfilePage = () => {
     }
   }, [employerDetail])
 
-  const optionsScale = scaleOptions.map((item) => ({
-    value: item.value,
-    label: t(item.label),
-  }))
+  const optionsScale = formatArrayForSelect(scaleOptions, 'Scale', t)
 
-  const optionsCompanyType = companyTypeOptions.map((item) => ({
-    value: item.value,
-    label: t(item.label),
-  }))
+  const optionsCompanyType = formatArrayForSelect(companyTypeOptions, 'Company Type', t)
 
-  const provinces = useSelector(selectedProvinces)?.map((province) => ({
-    label: province.name,
-    value: province.code,
-  }))
-  provinces.unshift({ label: `${t('choose-province')}`, value: '' })
+  const provinces = formatArrayForSelect(useSelector(selectedProvinces), 'Province', t, true, {
+    name: 'choose-province',
+    code: '',
+  })
 
-  const districts = useSelector(selectedDistricts)?.map((district) => ({
-    label: district.name,
-    value: district.code,
-  }))
-  districts.unshift({ label: `${t('choose-district')}`, value: '' })
+  const districts = formatArrayForSelect(useSelector(selectedDistricts), 'District', t, true, {
+    name: 'choose-district',
+    code: '',
+  })
 
-  const wards = useSelector(selectedWards)?.map((ward) => ({
-    label: ward.name,
-    value: ward.code,
-  }))
-  wards.unshift({ label: `${t('choose-ward')}`, value: '' })
+  const wards = formatArrayForSelect(useSelector(selectedWards), 'Wards', t, true, {
+    name: 'choose-ward',
+    code: '',
+  })
 
   const {
     register,
@@ -436,41 +427,44 @@ const EmployerProfilePage = () => {
                     {/* Province */}
                     <div>
                       <LabelField label={t('Province')} isCompulsory />
-                      <SelectLocationField
+                      <SelectField
                         setValue={setValue}
                         name="city"
                         control={control}
                         defaultValue={employerDetail.address.city}
-                        locationList={provinces}
+                        optionList={provinces}
                         placeholder={t('choose-province')}
                         errors={errors?.city?.message}
+                        isLocation
                       />
                     </div>
 
                     {/* District */}
                     <div>
                       <LabelField label={t('District')} isCompulsory />
-                      <SelectLocationField
+                      <SelectField
                         setValue={setValue}
                         name="district"
                         control={control}
                         defaultValue={employerDetail.address.district}
-                        locationList={districts}
+                        optionList={districts}
                         placeholder={t('choose-district')}
                         errors={errors?.district?.message}
+                        isLocation
                       />
                     </div>
 
                     {/* Ward */}
                     <div>
                       <LabelField label={t('Ward')} isCompulsory />
-                      <SelectLocationField
+                      <SelectField
                         name="ward"
                         control={control}
                         defaultValue={employerDetail.address.ward}
-                        locationList={wards}
+                        optionList={wards}
                         placeholder={t('choose-ward')}
                         errors={errors?.ward?.message}
+                        isLocation
                       />
                     </div>
                   </div>

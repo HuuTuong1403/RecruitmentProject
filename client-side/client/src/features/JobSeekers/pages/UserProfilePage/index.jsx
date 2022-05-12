@@ -5,7 +5,7 @@ import {
 } from 'common/constants/dateFormat'
 import { getDetailJobSeekerAsync } from 'features/JobSeekers/slices/thunks'
 import { schemaUpdateProfileJobSeeker } from 'common/constants/schema'
-import { ScrollToTop } from 'common/functions'
+import { formatArrayForSelect, ScrollToTop } from 'common/functions'
 import { selectedJobSeekerProfile, selectedStatus } from 'features/JobSeekers/slices/selectors'
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { updateProfileJobSeeker } from 'features/JobSeekers/api/jobSeeker.api'
@@ -20,7 +20,7 @@ import {
   DatePickerField,
   WrappedInput as InputField,
   LabelField,
-  SelectLocationField,
+  SelectField,
 } from 'custom-fields'
 import { notification, LoadingSuspense } from 'components'
 import { ProfileJobSeeker } from 'features/JobSeekers/components'
@@ -42,23 +42,20 @@ const UserProfilePage = () => {
     dispatch(getDetailJobSeekerAsync())
   }, [dispatch])
 
-  const provinces = useSelector(selectedProvinces)?.map((province) => ({
-    label: province.name,
-    value: province.code,
-  }))
-  provinces.unshift({ label: `${t('choose-province')}`, value: '' })
+  const provinces = formatArrayForSelect(useSelector(selectedProvinces), 'Province', t, true, {
+    name: 'choose-province',
+    code: '',
+  })
 
-  const districts = useSelector(selectedDistricts)?.map((district) => ({
-    label: district.name,
-    value: district.code,
-  }))
-  districts.unshift({ label: `${t('choose-district')}`, value: '' })
+  const districts = formatArrayForSelect(useSelector(selectedDistricts), 'District', t, true, {
+    name: 'choose-district',
+    code: '',
+  })
 
-  const wards = useSelector(selectedWards)?.map((ward) => ({
-    label: ward.name,
-    value: ward.code,
-  }))
-  wards.unshift({ label: `${t('choose-ward')}`, value: '' })
+  const wards = formatArrayForSelect(useSelector(selectedWards), 'Wards', t, true, {
+    name: 'choose-ward',
+    code: '',
+  })
 
   const {
     register,
@@ -206,37 +203,40 @@ const UserProfilePage = () => {
               <div className={classes['profile__wrapped--blockRight--form']}>
                 <div>
                   <LabelField label={t('Province')} isCompulsory />
-                  <SelectLocationField
+                  <SelectField
                     name="city"
                     setValue={setValue}
                     control={control}
                     defaultValue={detailJobSeeker.address?.city}
-                    locationList={provinces}
+                    optionList={provinces}
                     placeholder={t('choose-province')}
                     errors={errors?.city?.message}
+                    isLocation
                   />
                 </div>
                 <div>
                   <LabelField label={t('District')} isCompulsory />
-                  <SelectLocationField
+                  <SelectField
                     name="district"
                     control={control}
                     setValue={setValue}
                     defaultValue={detailJobSeeker.address?.district}
-                    locationList={districts}
+                    optionList={districts}
                     placeholder={t('choose-district')}
                     errors={errors?.district?.message}
+                    isLocation
                   />
                 </div>
                 <div>
                   <LabelField label={t('Ward')} isCompulsory />
-                  <SelectLocationField
+                  <SelectField
                     name="ward"
                     control={control}
                     defaultValue={detailJobSeeker.address?.ward}
-                    locationList={wards}
+                    optionList={wards}
                     placeholder={t('choose-ward')}
                     errors={errors?.ward?.message}
+                    isLocation
                   />
                 </div>
                 <div>
