@@ -147,12 +147,14 @@ jobSchema.pre('save', async function (next) {
   this.slug = slugify(`${this.jobTitle} ${this._id}`, {
     lower: true,
   });
-  response = await updateOrder(
-    this.company.toString(),
-    this.servicePackage.toString()
-  );
-  if (response.statusCode != 200) {
-    next(new AppError(response.messsage, response.statusCode));
+  if (this.servicePackage) {
+    response = await updateOrder(
+      this.company.toString(),
+      this.servicePackage.toString()
+    );
+    if (response.statusCode != 200) {
+      return next(new AppError(response.messsage, response.statusCode));
+    }
   }
   next();
 });
@@ -163,7 +165,7 @@ jobSchema.pre(/^find/, function (next) {
   });
   this.populate({
     path: 'servicePackage',
-    select: 'servicePackage',
+    select: 'packageName description postType servicePackageCode services ',
   });
   next();
 });

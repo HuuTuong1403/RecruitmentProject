@@ -1,6 +1,23 @@
 const mongoose = require('mongoose');
 const mongoose_delete = require('mongoose-delete');
 
+const answerSchema = new mongoose.Schema(
+  {
+    choice: String,
+    answer: {
+      contentChoice: {
+        type: String,
+        required: [true, 'Nội dung câu trả lời không được trống'],
+        trim: true,
+      },
+      isCorrect: {
+        type: Boolean,
+        default: false,
+      },
+    },
+  },
+  { _id: false }
+);
 const questionSchema = new mongoose.Schema(
   {
     questionContent: {
@@ -8,7 +25,7 @@ const questionSchema = new mongoose.Schema(
       required: [true, 'Nội dung câu hỏi không được trống'],
       trim: true,
     },
-    correctAnswer: [Boolean],
+    answers: [answerSchema],
     skills: [String],
     questionType: {
       type: String,
@@ -23,7 +40,7 @@ const questionSchema = new mongoose.Schema(
       required: [true, 'Câu hỏi phải có cấp độ khó'],
       enum: {
         values: ['Easy', 'Middle', 'Difficult'],
-        message: 'Cấp độ khó là: Easy, Middle, Senior, Difficult',
+        message: 'Cấp độ khó là: Easy, Middle, Difficult',
       },
     },
     explanation: {

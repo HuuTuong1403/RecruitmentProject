@@ -1,36 +1,7 @@
 const mongoose = require('mongoose');
-const answerSchema = new mongoose.Schema(
-  {
-    choice: String,
-    contentChoice: String,
-  },
-  { _id: false }
-);
-const questionSchema = new mongoose.Schema(
-  {
-    correctAnswer: {
-      type: [answerSchema],
-    },
-    idQuestion: {
-      type: String,
-      required: [true, 'Câu hỏi phải có ID'],
-      unique: true,
-      trim: true,
-    },
-    question: {
-      type: String,
-      required: [true, 'Nhập nội dung câu hỏi'],
-    },
-    point: {
-      type: Number,
-      required: [true, 'Câu hỏi phải có điểm'],
-    },
-    typeQuestion: {
-      type: String,
-    },
-  },
-  { _id: false }
-);
+const mongoose_delete = require('mongoose-delete');
+const Question = require('./questionModel');
+
 const entryTestSchema = new mongoose.Schema(
   {
     company: {
@@ -52,12 +23,18 @@ const entryTestSchema = new mongoose.Schema(
       required: [true, 'Entry test phải có duration'],
     },
     questions: {
-      type: [questionSchema],
+      type: [mongoose.Schema.ObjectId],
       required: [true, 'Entry test phải có danh sách câu hỏi'],
     },
     requiredPass: {
       type: Number,
-      default: 70,
+      default: 0,
+      validate: {
+        validator: function (el) {
+          return el <= this.totalPoint;
+        },
+        message: 'Điểm pass phải bé hơn điềm tổng của bài',
+      },
     },
     skills: [String],
     title: {
@@ -78,5 +55,17 @@ const entryTestSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+servicePackageSchema.pre('save', async function (next) {
+  questionPromises = this.questions.map(idQuestion => {
+    await Question.findById(idQuestion)
+  })
+  questions = await questionPromises()
+
+  next();
+});
+entryTestSchema.plugin(mongoose_delete, {
+  deletedBy: true,
+  overrideMethods: true,
+});
 const EntryTest = mongoose.model('EntryTest', entryTestSchema);
 module.exports = EntryTest;
