@@ -1,1 +1,135 @@
 @import 'common/styles/Variables.scss';
+
+.payStep4 {
+  margin-top: $pm-4;
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: $pm-10 $pm-12;
+
+  &__title {
+    font-size: $text-xs;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+
+    @media screen and (min-width: $big-mobile) {
+      font-size: $text-sm;
+    }
+
+    @media screen and (min-width: $portrait-tablet) {
+      font-size: $text-base;
+    }
+
+    @media screen and (min-width: $landscape-tablet) {
+      font-size: $text-lg;
+    }
+  }
+
+  &__content {
+    @media screen and (min-width: $landscape-tablet) {
+      display: flex;
+      gap: 10px;
+    }
+
+    &__left {
+      margin-top: $pm-4;
+      border-bottom: 1px solid #eee;
+      padding-bottom: $pm-10;
+
+      @media screen and (min-width: $landscape-tablet) {
+        flex: 0 0 49%;
+        border-right: 1px solid #eee;
+        border-bottom: none;
+      }
+
+      &__name {
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: $text-xs;
+
+        @media screen and (min-width: $big-mobile) {
+          font-size: $text-sm;
+        }
+
+        @media screen and (min-width: $portrait-tablet) {
+          font-size: $text-base;
+        }
+
+        @media screen and (min-width: $landscape-tablet) {
+          font-size: $text-lg;
+        }
+      }
+
+      &__info {
+        @media screen and (min-width: $big-mobile) {
+          font-size: $text-sm;
+        }
+
+        @media screen and (min-width: $portrait-tablet) {
+          font-size: $text-base;
+        }
+
+        @media screen and (min-width: $landscape-tablet) {
+          font-size: $text-lg;
+        }
+
+        & > span {
+          display: block;
+
+          & > span {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
+    &__right {
+      margin-top: $pm-4;
+
+      @media screen and (min-width: $landscape-tablet) {
+        flex: 0 0 49%;
+      }
+
+      &__info {
+        @media screen and (min-width: $big-mobile) {
+          font-size: $text-sm;
+        }
+
+        @media screen and (min-width: $portrait-tablet) {
+          font-size: $text-base;
+        }
+
+        @media screen and (min-width: $landscape-tablet) {
+          font-size: $text-lg;
+        }
+
+        & > span {
+          display: block;
+
+          & > span {
+            font-weight: bold;
+          }
+        }
+
+        &--paid {
+          color: #50d05c;
+        }
+
+        &--notPaid {
+          color: #ff4d4d;
+        }
+      }
+    }
+  }
+
+  &__action {
+    @media screen and (min-width: $landscape-tablet) {
+      text-align: end;
+
+      & > button {
+        width: 50% !important;
+      }
+    }
+  }
+}

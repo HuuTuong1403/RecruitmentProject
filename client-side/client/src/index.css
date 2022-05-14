@@ -31,6 +31,13 @@ p {
 .css-9gakcf-option {
   background-color: #f79d25 !important;
   color: white !important;
+  cursor: pointer !important;
+}
+.css-1n7v3ny-option {
+  cursor: pointer !important;
+}
+.css-yt9ioa-option {
+  cursor: pointer !important;
 }
 .css-9gakcf-option:hover {
   background-color: #f79c25b9 !important;

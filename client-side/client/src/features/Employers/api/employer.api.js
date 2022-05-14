@@ -390,4 +390,13 @@ export const getAvailableServicePackage = async () => {
     console.log(error)
   }
 }
+
+export const getOrder = async (payload) => {
+  try {
+    const res = await axiosClient.get(`employer/payment/${payload.id}`)
+    return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
 // #endregion

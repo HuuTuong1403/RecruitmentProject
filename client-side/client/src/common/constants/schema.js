@@ -146,6 +146,7 @@ export const schemaPostJobEmployer = yup.object({
     .string()
     .notOneOf(['Chọn thời gian làm việc...', 'Choose working time...'], 'error-select-workingTime'),
   finishDate: yup.string().required('error-select-date-deadline').nullable(),
+  servicePackage: yup.string().notRequired(),
 })
 
 export const schemaApplyJob = yup.object({

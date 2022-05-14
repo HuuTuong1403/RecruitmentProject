@@ -727,5 +727,13 @@
   "You'll love it": "Bạn sẽ yêu nó",
   "Your account has been activated. Please login to use the system": "Tài khoản của đã được kích hoạt. Vui lòng đăng nhập để sử dụng hệ thống",
   "Your orders": "Đơn hàng của bạn",
-  "Your review will be of great help to the developer community looking for work.": "Đánh giá của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc."
+  "Your review will be of great help to the developer community looking for work.": "Đánh giá của bạn sẽ giúp ích rất nhiều cho cộng đồng Developer đang tìm việc.",
+  "Apply service package": "Áp dụng gói dịch vụ",
+  "choose-servicePackage": "Chọn gói dịch vụ...",
+  "Price": "Giá",
+  "Paid": "Đã thanh toán",
+  "NotPaid": "Chưa thanh toán",
+  "Payment method": "Phương thức thanh toán",
+  "Order status": "Trạng thái đơn hàng",
+  "Complete invoice check": "Hoành thành kiểm tra hóa đơn"
 }
