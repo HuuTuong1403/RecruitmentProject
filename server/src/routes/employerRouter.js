@@ -14,6 +14,7 @@ const eventRouter = require('./eventRouter');
 const participantRouter = require('./participantRouter');
 const orderRouter = require('./orderRouter');
 const cartRouter = require('./cartRouter');
+const entryTestRouter = require('./entryTestRouter');
 
 employerRouter.use('/applications', applicationRouter);
 employerRouter.use('/reviews', reviewRouter);
@@ -26,6 +27,7 @@ employerRouter.use(
 employerRouter.use('/cart', cartRouter);
 employerRouter.use('/payment', orderRouter);
 employerRouter.use('/participants', participantRouter);
+employerRouter.use('/entry-test', entryTestRouter);
 employerRouter.use(
   '/jobs',
   authController.protect,

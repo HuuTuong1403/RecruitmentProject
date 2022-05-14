@@ -16,6 +16,7 @@ const serviceSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'Dịch vụ phải có giá'],
     },
+    tags: [{}],
   },
   {
     timestamps: true,

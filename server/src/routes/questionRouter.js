@@ -2,6 +2,7 @@ const express = require('express');
 
 const QuestionController = require('./../controllers/questionController');
 const authController = require('./../controllers/authController');
+const questionQuery = require('./../middlewares/questionQuery');
 
 const QuestionRouter = express.Router({ mergeParams: true });
 QuestionRouter.use(
@@ -10,7 +11,7 @@ QuestionRouter.use(
 );
 QuestionRouter.route('/')
   .post(QuestionController.createQuestion)
-  .get(QuestionController.getAllQuestion);
+  .get(questionQuery.customQuestionQuery, QuestionController.getAllQuestion);
 QuestionRouter.route('/:id')
   .patch(QuestionController.updateQuestion)
   .get(QuestionController.getQuestion)

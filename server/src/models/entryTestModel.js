@@ -15,12 +15,15 @@ const entryTestSchema = new mongoose.Schema(
     },
     difficultLevel: {
       type: String,
+      enum: {
+        values: ['Easy', 'Middle', 'Difficult'],
+        message: 'Cấp độ khó là: Easy, Middle, Difficult',
+      },
       required: [true, 'Entry test phải có mức độ khó'],
       trim: true,
     },
     duration: {
       type: Number,
-      required: [true, 'Entry test phải có duration'],
     },
     questions: {
       type: [mongoose.Schema.ObjectId],
@@ -29,12 +32,6 @@ const entryTestSchema = new mongoose.Schema(
     requiredPass: {
       type: Number,
       default: 0,
-      validate: {
-        validator: function (el) {
-          return el <= this.totalPoint;
-        },
-        message: 'Điểm pass phải bé hơn điềm tổng của bài',
-      },
     },
     skills: [String],
     title: {
@@ -42,7 +39,7 @@ const entryTestSchema = new mongoose.Schema(
       required: [true, 'Entry test phải có title'],
       trim: true,
     },
-    totalPoint: {
+    totalScore: {
       type: Number,
       default: 0,
     },
@@ -55,12 +52,21 @@ const entryTestSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-servicePackageSchema.pre('save', async function (next) {
-  questionPromises = this.questions.map(idQuestion => {
-    await Question.findById(idQuestion)
-  })
-  questions = await questionPromises()
-
+entryTestSchema.pre('save', async function (next) {
+  questionPromises = this.questions.map(async (idQuestion) => {
+    return await Question.findById(idQuestion);
+  });
+  const questions = await Promise.all(questionPromises);
+  var totalScore = 0;
+  var duration = 0;
+  const totalQuestion = questions.length;
+  for (var i = 0; i < questions.length; i++) {
+    totalScore = totalScore + questions[i].score;
+    duration = duration + questions[i].duration;
+  }
+  this.totalQuestion = totalQuestion;
+  this.totalScore = totalScore;
+  this.duration = duration;
   next();
 });
 entryTestSchema.plugin(mongoose_delete, {

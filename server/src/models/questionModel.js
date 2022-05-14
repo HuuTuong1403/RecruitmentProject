@@ -52,6 +52,17 @@ const questionSchema = new mongoose.Schema(
     score: {
       type: Number,
     },
+    isRandom: {
+      type: Boolean,
+      default: false,
+    },
+    isFullScore: {
+      type: Number,
+      enum: {
+        values: [-1, 0, 1],
+      },
+      default: -1,
+    },
     duration: {
       type: Number,
     },
