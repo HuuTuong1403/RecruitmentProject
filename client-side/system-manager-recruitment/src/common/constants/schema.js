@@ -83,6 +83,8 @@ export const schemaCreateService = yup
     serviceName: yup.string().required('error-serviceName'),
     description: yup.string().required('error-serviceDesc'),
     price: yup.number().typeError('error-servicePriceNum').required('error-servicePrice'),
+    tagName: yup.string().required('error-tagName'),
+    tagValue: yup.string().required('error-tagValue'),
   })
   .required()
 

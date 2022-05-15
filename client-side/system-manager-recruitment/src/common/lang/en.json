@@ -263,5 +263,9 @@
   "Work overtime": "Work overtime",
   "Working time": "Working time",
   "Workplace address": "Workplace address",
-  "You'll love it": "You'll love it"
+  "You'll love it": "You'll love it",
+  "error-tagName": "Please enter tag name",
+  "error-tagValue": "Please enter tag value",
+  "Enter the tag value corresponding to the value of the key used to store the value to display the service. If there are multiple values, each value is separated by a ','. Only true, false, numeric or literal values ​​are accepted. For example: true, false, 30, value,...": "Enter the tag value corresponding to the value of the key used to store the value to display the service. If there are multiple values, each value is separated by a ','. Only true, false, numeric or literal values ​​are accepted. For example: true, false, 30, value,...",
+  "Enter the tag name corresponding to the name of the key used to store the key to display the service. If there are multiple values, each value is separated by a ','. For example: key1, key2,...": "Enter the tag name corresponding to the name of the key used to store the key to display the service. If there are multiple values, each value is separated by a ','. For example: key1, key2,..."
 }

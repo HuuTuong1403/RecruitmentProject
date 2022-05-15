@@ -3,6 +3,18 @@
 .formService {
   padding: $pm-10 $pm-14;
 
+  &__group {
+    @media screen and (min-width: $small-tablet) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & > div {
+        flex: 0 0 49%;
+      }
+    }
+  }
+
   &__actions {
     display: flex;
     justify-content: space-between;
