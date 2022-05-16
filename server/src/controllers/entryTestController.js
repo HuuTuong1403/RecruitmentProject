@@ -2,11 +2,12 @@ const factory = require('./handleFactory');
 const EntryTest = require('./../models/entryTestModel');
 const catchAsync = require('../utils/catchAsync');
 
+
 class EntryTestController {
-  setBodyEntryTest = catchAsync((req, res, next) => {
+  setBodyEntryTest = (req, res, next) => {
     req.body.company = req.user.id;
     next();
-  });
+  };
   setCompany = (req, res, next) => {
     if (req.user && req.user.role == 'employer') {
       req.query.company = req.user.id;

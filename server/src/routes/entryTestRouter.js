@@ -6,10 +6,11 @@ const EntryTestController = require('./../controllers/entryTestController');
 
 entryTestRouter
   .route('/:id')
-  .get(
+  .get(authController.protect, EntryTestController.getEntryTest)
+  .delete(
     authController.protect,
-    EntryTestController.setCompany,
-    EntryTestController.getEntryTest
+    authController.restrictTo('employer'),
+    EntryTestController.deleteEntryTest
   );
 entryTestRouter
   .route('/')
@@ -18,5 +19,31 @@ entryTestRouter
     authController.restrictTo('employer'),
     EntryTestController.setBodyEntryTest,
     EntryTestController.createEntryTest
+  )
+  .get(
+    authController.protect,
+    EntryTestController.setCompany,
+    EntryTestController.getAllEntryTest
+  );
+entryTestRouter
+  .route('/soft-delete/:id')
+  .delete(
+    authController.protect,
+    authController.restrictTo('employer'),
+    EntryTestController.softDeleteEntryTest
+  );
+entryTestRouter
+  .route('/soft-delete/trash')
+  .get(
+    authController.protect,
+    authController.restrictTo('employer'),
+    EntryTestController.getAllDeletedEntryTest
+  );
+entryTestRouter
+  .route('/soft-delete/trash/:id')
+  .get(
+    authController.protect,
+    authController.restrictTo('employer'),
+    EntryTestController.getDeletedEntryTest
   );
 module.exports = entryTestRouter;

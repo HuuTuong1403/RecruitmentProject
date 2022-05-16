@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const mongoose_delete = require('mongoose-delete');
 const Service = require('./serviceModel');
+const finishDate = new Date();
+finishDate.setDate(finishDate.getDate() + 300);
+
 const priceSchema = new mongoose.Schema(
   {
     VND: {
@@ -60,6 +63,10 @@ const servicePackageSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'Gói dịch vụ phải có số lượng bài đăng'],
     },
+    expiredAt: {
+      type: Date,
+      default: finishDate,
+    },
   },
   {
     timestamps: true,
@@ -68,7 +75,12 @@ const servicePackageSchema = new mongoose.Schema(
 servicePackageSchema.pre('save', async function (next) {
   const servicePromises = this.services.map(
     async (id) =>
-      await Service.findById(id, { serviceName: 1, description: 1, price: 1 })
+      await Service.findById(id, {
+        serviceName: 1,
+        description: 1,
+        price: 1,
+        tags: 1,
+      })
   );
   this.services = await Promise.all(servicePromises);
   next();
