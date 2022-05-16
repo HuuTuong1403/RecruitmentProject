@@ -111,8 +111,11 @@ export const fetchCartAsync = createAsyncThunk('employer/fetchCart', async () =>
   return res.data.data
 })
 
-export const getAvailableServicePackageAsync = createAsyncThunk('employer/getAvailableServicePackage', async () => {
-  const res = await getAvailableServicePackage()
-  const datas = (res.data || {}).data || []
-  return datas
-})
+export const getAvailableServicePackageAsync = createAsyncThunk(
+  'employer/getAvailableServicePackage',
+  async () => {
+    const res = await getAvailableServicePackage()
+    const datas = (res.data || {}).data || []
+    return datas
+  }
+)

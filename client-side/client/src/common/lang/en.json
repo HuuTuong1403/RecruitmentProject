@@ -720,5 +720,13 @@
   "You'll love it": "You'll love it",
   "Your account has been activated. Please login to use the system": "Your account has been activated. Please login to use the system",
   "Your orders": "Your orders",
-  "Your review will be of great help to the developer community looking for work.": "Your review will be of great help to the developer community looking for work."
+  "Your review will be of great help to the developer community looking for work.": "Your review will be of great help to the developer community looking for work.",
+  "Apply service package": "Apply service package",
+  "choose-servicePackage": "Choose service package...",
+  "Price": "Price",
+  "Paid": "Paid",
+  "NotPaid": "NotPaid",
+  "Payment method": "Payment method",
+  "Order status": "Order status",
+  "Complete invoice check": "Complete invoice check"
 }

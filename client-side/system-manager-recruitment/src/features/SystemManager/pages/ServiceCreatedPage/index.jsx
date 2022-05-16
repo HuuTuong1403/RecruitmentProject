@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
+import { convertTagArrayToString } from 'common/functions'
 
 const ServiceCreatedPage = () => {
   const history = useHistory()
@@ -172,6 +173,16 @@ const ServiceCreatedPage = () => {
       ),
     },
     {
+      title: `${t('Tag name')}`,
+      dataIndex: 'tagName',
+      key: 'tagName',
+    },
+    {
+      title: `${t('Tag value')}`,
+      dataIndex: 'tagValue',
+      key: 'tagValue',
+    },
+    {
       title: `${t('Created date')}`,
       dataIndex: 'createdAt',
       key: 'createdAt',
@@ -209,14 +220,20 @@ const ServiceCreatedPage = () => {
           <Table
             bordered
             columns={columns}
-            dataSource={services.map((service, index) => ({
-              stt: index + 1,
-              key: service._id,
-              serviceName: service.serviceName,
-              serviceDesc: service.description,
-              servicePrice: service.price,
-              createdAt: moment(service.createdAt).format(dateFormatPicker),
-            }))}
+            dataSource={services.map((service, index) => {
+              const tag = convertTagArrayToString(service.tags)
+              const data = {
+                stt: index + 1,
+                key: service._id,
+                serviceName: service.serviceName,
+                serviceDesc: service.description,
+                servicePrice: service.price,
+                createdAt: moment(service.createdAt).format(dateFormatPicker),
+                tagName: tag.tagName,
+                tagValue: tag.tagValue,
+              }
+              return data
+            })}
             onRow={(record, rowIndex) => {
               return {
                 onClick: (event) => {

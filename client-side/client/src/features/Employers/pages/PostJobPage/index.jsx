@@ -9,7 +9,10 @@ import { addDataPostJob, resetDataPostJob } from 'features/Employers/slices'
 import { ButtonField, CKEditorField, DatePickerField, LabelField, SelectField } from 'custom-fields'
 import { clearNullObject, formatArrayForSelect } from 'common/functions'
 import { dateFormatPicker, dateFormatSendServer } from 'common/constants/dateFormat'
-import { getDetailEmployerAsync } from 'features/Employers/slices/thunks'
+import {
+  getAvailableServicePackageAsync,
+  getDetailEmployerAsync,
+} from 'features/Employers/slices/thunks'
 import { InputPostJobField } from 'features/Employers/components'
 import { notification } from 'components'
 import { postJobEmployer } from 'features/Employers/api/employer.api'
@@ -17,7 +20,11 @@ import { schemaPostJobEmployer } from 'common/constants/schema'
 import { ScrollToTop } from 'common/functions'
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
-import { selectPostJobData, selectEmployerDetail } from 'features/Employers/slices/selectors'
+import {
+  selectPostJobData,
+  selectEmployerDetail,
+  selectAvailableSP,
+} from 'features/Employers/slices/selectors'
 import { Switch } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
@@ -39,6 +46,11 @@ const PostJobPage = () => {
   const [loading, setLoading] = useState(false)
   const [hideSalary, setHideSalary] = useState(true)
   const employerDetail = useSelector(selectEmployerDetail)
+  const servicePackages = useSelector(selectAvailableSP)
+
+  useEffect(() => {
+    dispatch(getAvailableServicePackageAsync())
+  }, [dispatch])
 
   useEffect(() => {
     if (!employerDetail) {
@@ -51,6 +63,17 @@ const PostJobPage = () => {
   })
 
   const [selectSkill, setSelectSkill] = useState(postJobData?.skills ?? [])
+
+  const optionsServicePacakge = formatArrayForSelect(
+    servicePackages,
+    'Service Pacakges',
+    t,
+    false,
+    {
+      label: 'choose-servicePackage',
+      code: '',
+    }
+  )
 
   const optionsLevel = formatArrayForSelect(
     levelOptions,
@@ -133,6 +156,7 @@ const PostJobPage = () => {
       typeHideSalary,
       responsibilities,
       type,
+      servicePackage,
     } = dataPostJob
 
     const payload = {
@@ -161,7 +185,9 @@ const PostJobPage = () => {
       skills: selectSkill.map((item) => item.label),
       level,
       finishDate: moment(finishDate, dateFormatPicker).format(dateFormatSendServer),
+      servicePackage,
     }
+    console.log('payload', payload)
 
     setLoading(true)
     const result = await postJobEmployer(payload)
@@ -189,6 +215,7 @@ const PostJobPage = () => {
       jobTitle: '',
       level: `${t('choose-level')}`,
       position: `${t('choose-position')}`,
+      servicePackage: `${t('choose-servicePackage')}`,
       max: '',
       min: '',
       city: employerDetail?.address?.city,
@@ -201,6 +228,7 @@ const PostJobPage = () => {
     })
     setSelectSkill([])
     dispatch(resetDataPostJob())
+    dispatch(getAvailableServicePackageAsync())
   }
 
   const disabledDate = (current) => {
@@ -318,6 +346,21 @@ const PostJobPage = () => {
                         ? moment(postJobData?.finishDate, dateFormatPicker)
                         : null
                     }
+                  />
+                </div>
+              </div>
+
+              {/* Use Service Package */}
+              <div>
+                <LabelField label={t('Apply service package')} />
+                <div>
+                  <SelectField
+                    name="servicePackage"
+                    control={control}
+                    defaultValue={postJobData?.servicePackage ?? ''}
+                    optionList={optionsServicePacakge}
+                    handleAddData={handleAddData}
+                    placeholder={t('choose-servicePackage')}
                   />
                 </div>
               </div>

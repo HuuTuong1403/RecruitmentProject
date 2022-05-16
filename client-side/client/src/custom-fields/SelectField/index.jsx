@@ -18,6 +18,7 @@ export const SelectField = ({
   isLocation = false,
   handleAddData,
   setValue,
+  ...props
 }) => {
   const dispatch = useDispatch()
 
@@ -26,7 +27,6 @@ export const SelectField = ({
       if (optionList[0].options.length > 1) {
         if (name === 'city') {
           const findLocation = optionList[0].options.find((c) => c.label === defaultValue)
-          console.log('findLocation', findLocation)
           dispatch(fetchDistrictsByProvinceAsync({ code: findLocation?.value }))
         }
       }
@@ -63,6 +63,7 @@ export const SelectField = ({
         render={({ field: { onChange, value } }) => {
           return (
             <Select
+              {...props}
               placeholder={placeholder}
               options={optionList}
               value={

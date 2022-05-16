@@ -7,4 +7,7 @@ export const notification = (content, type) => {
   if (type === 'error') {
     return toast.error(content)
   }
+  if (type === 'warn') {
+    return toast.warn(content)
+  }
 }

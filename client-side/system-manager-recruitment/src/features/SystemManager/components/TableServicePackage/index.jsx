@@ -138,6 +138,7 @@ export const TableServicePackage = ({ datas, isTrash = false }) => {
       title: `${t('Service package description')}`,
       dataIndex: 'description',
       key: 'description',
+      width: 300,
     },
     {
       title: `${t('Post type')}`,
@@ -193,6 +194,7 @@ export const TableServicePackage = ({ datas, isTrash = false }) => {
       title: `${t('Services support')}`,
       dataIndex: 'services',
       key: 'services',
+      width: 300,
       render: (datas) => {
         return datas.map((data) => (
           <div className={classes.table__service} key={data._id}>

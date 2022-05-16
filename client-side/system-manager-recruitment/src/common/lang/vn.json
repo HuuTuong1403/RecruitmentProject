@@ -267,5 +267,13 @@
   "Work overtime": "Làm việc ngoài giờ",
   "Working time": "Thời gian làm việc",
   "Workplace address": "Địa chỉ nơi làm việc",
-  "You'll love it": "Bạn sẽ thích nó"
+  "You'll love it": "Bạn sẽ thích nó",
+  "error-tagName": "Vui lòng nhập tên của tag",
+  "error-tagValue": "Vui lòng nhập giá trị của tag",
+  "Tag name": "Tên tag",
+  "phd-tagName": "Nhập tên tag...",
+  "Tag value": "Giá trị tag",
+  "phd-tagValue": "Nhập giá trị tag...",
+  "Enter the tag value corresponding to the value of the key used to store the value to display the service. If there are multiple values, each value is separated by a ','. Only true, false, numeric or literal values ​​are accepted. For example: true, false, 30, value,...": "Nhập giá trị tag tương ứng với giá trị của khóa dùng để lưu giá trị để hiển thị dịch vụ. Nếu có nhiều giá trị, mỗi giá trị cách nhau bởi dấu ','. Chỉ chấp nhận các giá trị true, false, số hoặc chữ. VD: true, false, 30, value,...",
+  "Enter the tag name corresponding to the name of the key used to store the key to display the service. If there are multiple values, each value is separated by a ','. For example: key1, key2,...": "Nhập tên tag tương ứng với tên của khóa dùng để lưu khóa để hiển thị dịch vụ. Nếu có nhiều giá trị, mỗi giá trị cách nhau bởi dấu ','. VD: key1, key2,..."
 }

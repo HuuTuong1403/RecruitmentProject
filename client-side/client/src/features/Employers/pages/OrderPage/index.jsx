@@ -22,9 +22,10 @@ const OrderPage = () => {
   const loading = useSelector(selectedStatus)
   const [currentStep, setCurrentStep] = useState(0)
   const [payment, setPayment] = useState(null) // 1: Paypal, 2: VnPay
-  const [url, setUrl] = useState('')
+  const [dataUrl, setDataUrl] = useState({})
   const [isProcess, setIsProcess] = useState(false)
   const [loadingStep, setLoadingStep] = useState(false)
+  const [idOrder, setIdOrder] = useState(null)
 
   useEffect(() => {
     dispatch(fetchCartAsync())
@@ -32,6 +33,7 @@ const OrderPage = () => {
 
   const changeStep = (current) => {
     if (currentStep === 3) {
+      setCurrentStep(0)
       return
     }
 
@@ -54,6 +56,12 @@ const OrderPage = () => {
       }
       case 2: {
         handleFetchPrice(current)
+        break
+      }
+      case 3: {
+        if (idOrder) {
+          setCurrentStep(current)
+        }
         break
       }
       default: {
@@ -87,6 +95,7 @@ const OrderPage = () => {
       const { id } = _data
       if (id) {
         handlePayment(id, step)
+        setIdOrder(id)
       }
     } else {
       notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
@@ -98,8 +107,8 @@ const OrderPage = () => {
       payment === 1 ? await createPayPal({ id: idOrder }) : await createVnPay({ id: idOrder })
     if (res.status === 'success') {
       const _data = res.data || {}
-      const _url = payment === 1 ? _data.data : payment === 2 ? _data.data.returnUrl : ''
-      setUrl(_url)
+      const _dataUrl = _data.data
+      setDataUrl(_dataUrl)
       setCurrentStep(step)
       setIsProcess(true)
     } else {
@@ -131,14 +140,25 @@ const OrderPage = () => {
       description: '',
       content: () => (
         <PayStep3
-          url={url}
+          dataUrl={dataUrl}
+          idOrder={idOrder}
           paymentType={payment}
           onChangeStep={() => changeStep(3)}
           onChangeProcess={() => setIsProcess(false)}
         />
       ),
     },
-    { title: 'Check the order', description: '', content: () => <PayStep4 /> },
+    {
+      title: 'Check the order',
+      description: '',
+      content: () => (
+        <PayStep4
+          idOrder={idOrder}
+          onChangeStep={() => changeStep(0)}
+          onSetIdOrder={() => setIdOrder(null)}
+        />
+      ),
+    },
   ]
 
   return loading ? (

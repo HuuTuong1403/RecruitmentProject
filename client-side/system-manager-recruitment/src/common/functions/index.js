@@ -19,3 +19,25 @@ export const equalTwoArrays = (array1, array2) => {
     array1.every((val, index) => val === array2[index])
   )
 }
+
+export const isNunberic = (str) => {
+  if (typeof str != 'string') {
+    return false
+  }
+
+  return !isNaN(str) && !isNaN(parseFloat(str))
+}
+
+export const convertTagArrayToString = (tagArray) => {
+  if (Array.isArray(tagArray)) {
+    let tagName = ''
+    let tagValue = ''
+    tagArray.forEach((tag, index) => {
+      Object.keys(tag).forEach((key) => {
+        tagName += key + `${index !== tagArray.length - 1 ? ',' : ''}`
+        tagValue += tag[key] + `${index !== tagArray.length - 1 ? ',' : ''}`
+      })
+    })
+    return { tagName, tagValue }
+  }
+}
