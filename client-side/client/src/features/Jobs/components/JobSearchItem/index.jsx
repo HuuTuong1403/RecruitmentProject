@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
+import { checkTagService } from 'common/functions'
 
 export const JobSearchItem = ({ job, setShowModal, employer }) => {
   const { t } = useTranslation()
@@ -37,6 +38,7 @@ export const JobSearchItem = ({ job, setShowModal, employer }) => {
     slug,
     isExpired,
     isNew,
+    servicePackage,
   } = job
 
   const handleClickSkill = () => {
@@ -94,7 +96,11 @@ export const JobSearchItem = ({ job, setShowModal, employer }) => {
             <div className={classes['searchItem-block-right__header-left']}>
               <a
                 target="_blank"
-                className={`${classes['link']} ${classes['link-fz-18']} ${classes['bold']}`}
+                className={`${
+                  checkTagService('isHighlight', servicePackage)
+                    ? classes['link-highlight']
+                    : classes['link']
+                } ${classes['link-fz-18']} ${classes['bold']}`}
                 href={`/jobs/${slug}`}
                 rel="noreferrer"
               >

@@ -17,7 +17,7 @@ export const pathJobSeeker = {
 }
 
 export const pathEmployer = {
-  candidateProfileManage: rootEmployer + 'candidate-profiles',
+  candidateProfileManage: rootEmployer + 'candidate-profiles/:id',
   changePass: '/employers/forgot-pass/:token',
   createdEvent: rootEmployer + 'events/created',
   dashboard: rootEmployer,
@@ -37,6 +37,11 @@ export const pathEmployer = {
   statistic: rootEmployer + 'statistics',
   updateEvent: rootEmployer + 'events/:id/edit',
   participantEvent: rootEmployer + 'events/:id/participants',
+  managementServicePackage: rootEmployer + 'service-package',
+  managementEntryTest: rootEmployer + 'entry-tests',
+  createdQuestion: rootEmployer + 'questions/created',
+  managementQuestion: rootEmployer + 'questions',
+  trashQuestion: rootEmployer + 'questions/trash',
 }
 
 export const pathEvents = {}

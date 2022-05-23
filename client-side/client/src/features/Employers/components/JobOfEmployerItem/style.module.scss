@@ -6,6 +6,16 @@
   transition: all 0.3s ease-in-out;
   flex: 0 0 32%;
 
+  &__listTile {
+    font-size: $text-base;
+
+    &__icon {
+      font-size: $text-xl;
+      vertical-align: text-bottom;
+      margin-right: $pm-8;
+    }
+  }
+
   &:hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     transform: translateY(-2px);
@@ -45,6 +55,33 @@
 
   &__bottom {
     padding: 0 $pm-10;
+
+    &__service {
+      font-weight: bold;
+      color: $primary-text;
+    }
+
+    &__jobTitle {
+      display: flex;
+      justify-content: space-between;
+
+      &__link {
+        flex: 1;
+        font-weight: bold;
+        font-size: $text-base !important;
+      }
+
+      &__icon {
+        font-size: $text-2xl;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background-color: #e8e8e8;
+          border-radius: 50%;
+        }
+      }
+    }
   }
 
   &__bottom-salary {

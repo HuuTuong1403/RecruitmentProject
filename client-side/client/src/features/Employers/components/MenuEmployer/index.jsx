@@ -1,6 +1,6 @@
 import { AiFillDashboard, AiOutlineLineChart } from 'react-icons/ai'
-import { FaEdit, FaShoppingCart } from 'react-icons/fa'
-import { IoIosPeople } from 'react-icons/io'
+import { FiPackage } from 'react-icons/fi'
+import { FaShoppingCart, FaQuestionCircle, FaGraduationCap } from 'react-icons/fa'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { logoutEmployer } from 'features/HomeEmployers/slices'
 import { MdMenu } from 'react-icons/md'
@@ -55,9 +55,23 @@ export const MenuEmployer = ({ children }) => {
       onClick: null,
     },
     {
-      key: `${pathEmployer.postJob}`,
-      title: `${t('postjobs')}`,
-      icon: <FaEdit className={classes.menuIcon} />,
+      key: `${pathEmployer.managementServicePackage}`,
+      title: `${t('Registered service package')}`,
+      icon: <FiPackage className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
+    },
+    {
+      key: pathEmployer.managementQuestion,
+      title: `${t('Question & answer management')}`,
+      icon: <FaQuestionCircle className={classes.menuIcon} />,
+      isLink: false,
+      onClick: null,
+    },
+    {
+      key: pathEmployer.managementEntryTest,
+      icon: <FaGraduationCap className={classes.menuIcon} />,
+      title: `${t('Entry test management')}`,
       isLink: false,
       onClick: null,
     },
@@ -65,6 +79,13 @@ export const MenuEmployer = ({ children }) => {
       icon: <RiFileList3Line className={classes.menuIcon} />,
       title: `${t('recruitment manager')}`,
       subMenu: [
+        {
+          key: `${pathEmployer.postJob}`,
+          title: `${t('postjobs')}`,
+          icon: null,
+          isLink: false,
+          onClick: null,
+        },
         {
           key: pathEmployer.createdJob,
           title: `${t('Job post created')}`,
@@ -107,13 +128,6 @@ export const MenuEmployer = ({ children }) => {
           onClick: null,
         },
       ],
-    },
-    {
-      key: `${pathEmployer.candidateProfileManage}`,
-      title: `${t('Manage candidate profiles')}`,
-      icon: <IoIosPeople className={classes.menuIcon} />,
-      isLink: false,
-      onClick: null,
     },
     {
       key: `${pathEmployer.myProfile}`,

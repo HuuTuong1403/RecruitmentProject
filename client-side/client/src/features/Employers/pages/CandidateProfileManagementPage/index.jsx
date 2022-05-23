@@ -1,5 +1,18 @@
-import {  fetchJobsApplicationDeletedAsync,  fetchJobsApplicationSavedAsync,  fetchJobsApplicationNotSavedAsync,  countApplicationStatusAsync,} from 'features/Employers/slices/thunks'
-import {  selectJobsApplicationNotSaved,  selectJobsApplicationSaved,  selectJobsApplicationDeleted,  selectTabsItem,  selectDataFilter, selectCountApplication,  selectedStatus,} from 'features/Employers/slices/selectors'
+import {
+  fetchJobsApplicationDeletedAsync,
+  fetchJobsApplicationSavedAsync,
+  fetchJobsApplicationNotSavedAsync,
+  countApplicationStatusAsync,
+} from 'features/Employers/slices/thunks'
+import {
+  selectJobsApplicationNotSaved,
+  selectJobsApplicationSaved,
+  selectJobsApplicationDeleted,
+  selectTabsItem,
+  selectDataFilter,
+  selectCountApplication,
+  selectedStatus,
+} from 'features/Employers/slices/selectors'
 import { changeTabsItem } from 'features/Employers/slices'
 import { Fragment, useEffect, useState } from 'react'
 import { ScrollToTop } from 'common/functions'
@@ -8,11 +21,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { useWindowSize } from 'common/hook/useWindowSize'
-import {LoadingSuspense, NotFoundData} from 'components'
-import {SearchJobsApplication, TableJobsApplication} from 'features/Employers/components'
+import { LoadingSuspense, NotFoundData } from 'components'
+import { SearchJobsApplication, TableJobsApplication } from 'features/Employers/components'
 import classes from './style.module.scss'
+import { useParams } from 'react-router-dom'
 
 const CandidateProfileManagementPage = () => {
+  const { id } = useParams()
+
   ScrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Manage candidate profiles')}`)

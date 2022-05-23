@@ -1,3 +1,127 @@
+// #region CSS For Service
+.link-no-border-highlight {
+  color: $highlight-color !important;
+  font-weight: bold;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.link-highlight {
+  position: relative;
+  display: inline-block;
+  color: $highlight-color !important;
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+
+  &:hover {
+    &::after {
+      width: 90%;
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background-color: $highlight-color !important;
+    transition: all 0.25s ease-in-out;
+  }
+}
+
+.link-one-line-highlight {
+  position: relative;
+  color: $highlight-color !important;
+  text-decoration: none;
+  transition: all 0.25s ease-in-out;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  max-height: 2rem;
+  overflow: hidden;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+// #endregion
+
+// #region Header Go Back
+.headerBack {
+  display: flex;
+  align-items: center;
+  margin-bottom: $pm-10;
+  border-bottom: 1px solid #eee;
+  padding-bottom: $pm-10;
+
+  & > div:first-child {
+    margin-right: $pm-10;
+    font-size: $text-xl;
+
+    & > svg {
+      cursor: pointer;
+      color: rgba(0, 0, 21, 0.5);
+      transition: all 0.25s ease-in-out;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  & > div:last-child {
+    color: $primary-text;
+    font-size: $text-xl;
+  }
+
+  &__compulsory {
+    font-size: $text-sm;
+    color: red;
+    vertical-align: super;
+    font-weight: normal;
+  }
+}
+// #endregion
+
+// #region Actions
+.actionData {
+  margin: $pm-10 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__icon {
+    margin-right: $pm-4;
+  }
+
+  & > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 15%;
+  }
+}
+// #endregion
+
+// #region FormGroup & FormControl
+.formGroup {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  &__formControl {
+    flex: 0 0 48%;
+  }
+}
+// #endregion
+
 .icon-gb-18 {
   font-size: $text-lg;
   margin: -$pm-2 $pm-2 0 0;
@@ -40,26 +164,26 @@
   color: $primary-text !important;
   text-decoration: none;
   transition: all 0.25s ease-in-out;
-}
 
-.link:hover {
-  color: $third-text !important ;
-}
+  &:hover {
+    color: $third-text !important ;
 
-.link::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  border-radius: 2px;
-  background-color: $third-text !important;
-  transition: all 0.25s ease-in-out;
-}
+    &::after {
+      width: 90%;
+    }
+  }
 
-.link:hover::after {
-  width: 90%;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background-color: $third-text !important;
+    transition: all 0.25s ease-in-out;
+  }
 }
 // #endregion
 
@@ -70,10 +194,10 @@
   color: $primary-text !important;
   text-decoration: none;
   transition: all 0.25s ease-in-out;
-}
 
-.link-no-border:hover {
-  color: $third-text !important ;
+  &:hover {
+    color: $third-text !important ;
+  }
 }
 
 .link-one-line {
@@ -86,10 +210,10 @@
   -webkit-line-clamp: 1;
   max-height: 2rem;
   overflow: hidden;
-}
 
-.link-one-line:hover {
-  color: $third-text !important ;
+  &:hover {
+    color: $third-text !important;
+  }
 }
 // #endregion
 
@@ -212,6 +336,15 @@
     vertical-align: super;
     font-weight: normal;
   }
+}
+
+.titleTable {
+  font-size: $text-xl;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: $pm-6;
+  color: $second-color;
+  font-weight: 500;
 }
 
 .subTitleDashboard {

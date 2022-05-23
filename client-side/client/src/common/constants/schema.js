@@ -267,3 +267,25 @@ export const schemaJoinEvent = yup.object({
     .required('error-select-ward')
     .notOneOf(['Chọn phường/xã...', 'Choose ward...'], 'error-select-ward'),
 })
+
+export const schemaCreateQuestion = yup.object({
+  questionContent: yup.string().required('error-questionContent'),
+  questionType: yup
+    .string()
+    .required('error-questionType')
+    .notOneOf(['Chọn loại câu hỏi...', 'Choose question type...'], 'error-questionType'),
+  level: yup
+    .string()
+    .required('error-questionLevel')
+    .notOneOf(['Chọn độ khó câu hỏi...', 'Choose question level...'], 'error-questionLevel'),
+  explanation: yup.string().required('error-questionExplanation'),
+  tips: yup.string(),
+  score: yup
+    .number()
+    .typeError('error-questionScore')
+    .test('Is positive?', 'error-numberPositive', (value) => value >= 0),
+  duration: yup
+    .number()
+    .typeError('error-questionDuration')
+    .test('Is positive?', 'error-numberPositive', (value) => value >= 0),
+})

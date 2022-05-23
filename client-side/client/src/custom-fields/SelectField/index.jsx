@@ -18,6 +18,7 @@ export const SelectField = ({
   isLocation = false,
   handleAddData,
   setValue,
+  getValue,
   ...props
 }) => {
   const dispatch = useDispatch()
@@ -73,6 +74,10 @@ export const SelectField = ({
               }
               isDisabled={isLocation ? optionList[0].options.length <= 1 : false}
               onChange={(selectedOption) => {
+                if (getValue) {
+                  getValue(selectedOption.value)
+                }
+                
                 if (isLocation) {
                   onChange(selectedOption.label)
                 } else {

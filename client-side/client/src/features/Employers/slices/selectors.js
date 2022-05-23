@@ -81,3 +81,7 @@ export const selectCart = (state) => {
 export const selectAvailableSP = (state) => {
   return state?.employer?.availableSP
 }
+
+export const selectQuestions = (state) => {
+  return state?.employer?.questions
+}

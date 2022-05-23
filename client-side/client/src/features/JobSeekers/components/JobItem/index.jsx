@@ -13,13 +13,25 @@ import { useTranslation } from 'react-i18next'
 import { notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
+import { checkTagService } from 'common/functions'
 
 export const JobItem = ({ data, isApplied = false, createdAt }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
 
-  const { _id, company, jobTitle, salary, location, aboutCreated, finishDate, slug, isNew } = data
+  const {
+    _id,
+    company,
+    jobTitle,
+    salary,
+    location,
+    aboutCreated,
+    finishDate,
+    slug,
+    isNew,
+    servicePackage,
+  } = data
 
   const removeSaveJobHandler = async () => {
     setLoading(true)
@@ -48,7 +60,11 @@ export const JobItem = ({ data, isApplied = false, createdAt }) => {
           <div className={classes['jobItem__container-content__head']}>
             <div className={classes['jobItem__container-content__head__jobTitle']}>
               <a
-                className={`${classes.link} ${classes.bold} ${classes['link-fz-18']}`}
+                className={`${
+                  checkTagService('isHighlight', servicePackage)
+                    ? classes['link-highlight']
+                    : classes.link
+                } ${classes.bold} ${classes['link-fz-18']}`}
                 href={`/jobs/${slug}`}
                 target="_blank"
                 rel="noreferrer"

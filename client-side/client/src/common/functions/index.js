@@ -69,3 +69,31 @@ export const formatArrayForSelect = (
     return []
   }
 }
+
+export const isNumberic = (str) => {
+  if (typeof str != 'string') {
+    return false
+  }
+
+  return !isNaN(str) && !isNaN(parseFloat(str))
+}
+
+export const checkTagService = (tagCheck, servicePackage) => {
+  let isHave = false
+  if (servicePackage) {
+    const { services } = servicePackage
+    if (services && services.length !== 0) {
+      services.forEach((service) => {
+        const { tags } = service
+        if (tags && tags.length !== 0) {
+          tags.forEach((tag) => {
+            if (tag[tagCheck]) {
+              isHave = true
+            }
+          })
+        }
+      })
+    }
+  }
+  return isHave
+}

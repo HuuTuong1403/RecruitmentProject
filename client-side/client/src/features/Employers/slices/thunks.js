@@ -14,6 +14,7 @@ import {
   getDetailEmployer,
   fetchCart,
   getAvailableServicePackage,
+  getAllQuestion,
 } from '../api/employer.api'
 
 export const getDetailEmployerAsync = createAsyncThunk('employer/getDetailEmployer', async () => {
@@ -119,3 +120,9 @@ export const getAvailableServicePackageAsync = createAsyncThunk(
     return datas
   }
 )
+
+export const getAllQuestionAsync = createAsyncThunk('employer/getAllQuestion', async () => {
+  const res = await getAllQuestion()
+  const datas = (res.data || {}).data || []
+  return datas
+})
