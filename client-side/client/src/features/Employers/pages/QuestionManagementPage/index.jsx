@@ -1,13 +1,16 @@
-import { useTitle } from 'common/hook/useTitle'
-import { LoadingSuspense, NotFoundData } from 'components'
 import { ButtonField } from 'custom-fields'
-import { selectedStatus, selectQuestions } from 'features/Employers/slices/selectors'
-import { getAllQuestionAsync } from 'features/Employers/slices/thunks'
+import { FaTrash } from 'react-icons/fa'
 import { Fragment, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import { getAllQuestionAsync } from 'features/Employers/slices/thunks'
+import { LoadingSuspense, NotFoundData } from 'components'
 import { MdAddCircleOutline } from 'react-icons/md'
+import { pathEmployer } from 'common/constants/path'
+import { selectedStatus, selectQuestions } from 'features/Employers/slices/selectors'
+import { TableQuestionAnswer } from 'features/Employers/components'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { useTitle } from 'common/hook/useTitle'
+import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
 const QuestionManagementPage = () => {
@@ -35,16 +38,26 @@ const QuestionManagementPage = () => {
             backgroundcolorhover="#007bffad"
             radius="5px"
             width="15%"
-            onClick={() => history.push('/employers/dashboard/questions/created')}
+            onClick={() => history.push(pathEmployer.createdQuestion)}
           >
             <MdAddCircleOutline style={{ marginRight: '2px' }} /> {t('Add question')}
+          </ButtonField>
+          <span style={{ marginLeft: '5px', marginRight: '5px' }}></span>
+          <ButtonField
+            backgroundcolor="#dd4b39"
+            backgroundcolorhover="#ff7875"
+            radius="5px"
+            width="10%"
+            onClick={() => history.push(pathEmployer.trashQuestion)}
+          >
+            <FaTrash style={{ marginRight: '2px' }} /> {t('Trash')}
           </ButtonField>
         </div>
         {questions.length === 0 ? (
           <NotFoundData title={t('You have not created any questions yet')} />
         ) : (
           <Fragment>
-            <div className={classes.titleTable}>Danh sách câu hỏi</div>
+            <TableQuestionAnswer questions={questions} />
           </Fragment>
         )}
       </Fragment>

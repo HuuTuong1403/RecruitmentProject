@@ -23,6 +23,7 @@ const OrderPage = lazy(() => import('./pages/OrderPage'))
 const ServicePackageManagement = lazy(() => import('./pages/ServicePackageManagement'))
 const QuestionManagementPage = lazy(() => import('./pages/QuestionManagementPage'))
 const QuestionCreatedPage = lazy(() => import('./pages/QuestionCreatedPage'))
+const QuestionTrashPage = lazy(() => import('./pages/QuestionTrashPage'))
 
 const DashboardEmployersPage = () => {
   const { t } = useTranslation()
@@ -47,6 +48,7 @@ const DashboardEmployersPage = () => {
           <Route exact path={pathEmployer.createdJob} component={RecruitManagementPage} />
           <Route exact path={pathEmployer.deletedJob} component={RecruitmentTrashPage} />
           <Route exact path={pathEmployer.managementQuestion} component={QuestionManagementPage} />
+          <Route exact path={pathEmployer.trashQuestion} component={QuestionTrashPage} />
           <Route exact path={pathEmployer.createdQuestion} component={QuestionCreatedPage} />
           <Route exact path={pathEmployer.postEvent} component={PostEventPage} />
           <Route exact path={pathEmployer.updateEvent} component={UpdateEventPage} />

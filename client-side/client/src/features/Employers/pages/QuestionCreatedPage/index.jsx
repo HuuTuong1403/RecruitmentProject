@@ -5,29 +5,91 @@ import { formatArrayForSelect } from 'common/functions'
 import { questionLevelOptions, questionTypeOptions } from 'common/constants/options'
 import { schemaCreateQuestion } from 'common/constants/schema'
 import { useForm } from 'react-hook-form'
-import { useHistory } from 'react-router-dom'
-import { useState } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { yupResolver } from '@hookform/resolvers/yup'
 import classes from './style.module.scss'
-import { notification } from 'components'
+import { ModalNotify, notification } from 'components'
 import { Tooltip } from 'antd'
 import { useSelector } from 'react-redux'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
 import Select from 'react-select'
-import { createQuestion } from 'features/Employers/api/employer.api'
+import {
+  createQuestion,
+  getQuestionById,
+  softDeleteQuestion,
+  updateQuestionById,
+} from 'features/Employers/api/employer.api'
 
 const QuestionCreatedPage = () => {
+  const key = new URLSearchParams(useLocation().search).get('key')
   const { t } = useTranslation()
   const history = useHistory()
   const [isMultiple, setIsMultiple] = useState(false)
   const [answerList, setAnswerList] = useState([])
   const [isFullScore, setIsFullScore] = useState(-1)
   const [isRandom, setIsRandom] = useState(false)
+  const [isUpdate, setIsUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [question, setQuestion] = useState(null)
+  const [idQues, setIDQues] = useState(key ? key : '')
+  const [showModal, setShowModal] = useState(false)
+  const skillAdd = []
+  const skills = useSelector(selectedSkills).map((skill, index) => {
+    return { value: index, label: skill }
+  })
+  const [selectSkill, setSelectSkill] = useState([])
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    setValue,
+  } = useForm({ mode: 'all', resolver: yupResolver(schemaCreateQuestion) })
 
   useTitle(`${t('Add new question & answer')}`)
+
+  useEffect(() => {
+    const getQuestion = async (id) => {
+      const result = await getQuestionById({ id: id })
+      const { data } = result.data
+      if (data) {
+        setQuestion(data)
+        setIsUpdate(true)
+      } else {
+        setIsUpdate(false)
+      }
+    }
+
+    if (idQues) {
+      getQuestion(idQues)
+    }
+  }, [idQues])
+
+  useEffect(() => {
+    if (question) {
+      setValue('questionContent', question.questionContent)
+      setValue('duration', question.duration)
+      setValue('score', question.score)
+      setValue('questionType', question.questionType)
+      setValue('level', question.level)
+      setValue('explanation', question.explanation)
+      setValue('tips', question.tips)
+      setSelectSkill(skills.filter((item) => question.skills.includes(item.label)))
+      setIsRandom(question.isRandom)
+
+      if (question.isFullScore === 0 || question.isFullScore === 1) {
+        setIsMultiple(true)
+        setIsFullScore(question.isFullScore)
+      } else {
+        setIsMultiple(false)
+      }
+
+      setAnswerList(question.answers)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [question, setValue])
 
   const optionsQuestionLevel = formatArrayForSelect(
     questionLevelOptions,
@@ -48,20 +110,6 @@ const QuestionCreatedPage = () => {
     true,
     'choose-questionType'
   )
-
-  const skillAdd = []
-  const skills = useSelector(selectedSkills).map((skill, index) => {
-    return { value: index, label: skill }
-  })
-  const [selectSkill, setSelectSkill] = useState([])
-
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    reset,
-    setValue,
-  } = useForm({ mode: 'all', resolver: yupResolver(schemaCreateQuestion) })
 
   const handleCheckMultiple = (value) => {
     if (value === 'Multi-choice') {
@@ -95,10 +143,34 @@ const QuestionCreatedPage = () => {
     if (result.status === 'success') {
       setLoading(false)
       notification(`${t('Create question successfully')}`, 'success')
+      const { _id } = result.data.data
+      setIDQues(_id)
     } else {
       setLoading(false)
       notification(result.message, 'error')
     }
+  }
+
+  const handleUpdateQuestion = async (data) => {
+    if (!validateData()) {
+      return
+    }
+
+    const _dataSave = {
+      ...data,
+      answers: answerList,
+      isRandom,
+      isFullScore,
+      skills: selectSkill.map((skill) => skill.label),
+    }
+    setLoading(true)
+    const result = await updateQuestionById({ id: idQues, data: _dataSave })
+    if (result.status === 'success') {
+      notification(t('Update question successfully'), 'success')
+    } else {
+      notification(result.message, 'error')
+    }
+    setLoading(false)
   }
 
   const handleAddAnswer = () => {
@@ -210,14 +282,38 @@ const QuestionCreatedPage = () => {
     })
   }
 
+  const handeDeleteQuestion = async () => {
+    const result = await softDeleteQuestion({ id: idQues })
+
+    if (result.status === 204) {
+      notification(t('Move question & answer to trash successfully'), 'success')
+      history.goBack()
+      setIsUpdate(false)
+    } else {
+      notification(t('Error! An error occurred. Please try again later'), 'error')
+    }
+  }
+
   return (
     <div className={classes.questionCreated}>
+      {showModal && (
+        <ModalNotify
+          showModal={showModal}
+          onClose={() => setShowModal(false)}
+          title={t('Move question & answer to trash')}
+          onOk={handeDeleteQuestion}
+        >
+          <div className={classes.notifyContent}>
+            {t('Are you sure to move this question & answer to trash')}?
+          </div>
+        </ModalNotify>
+      )}
       <div className={classes.headerBack}>
         <div>
           <BiArrowBack onClick={() => history.goBack()} />
         </div>
         <div>
-          {t('Add new question & answer')}{' '}
+          {isUpdate ? t('Update question & answer') : t('Add new question & answer')}{' '}
           <span className={classes.headerBack__compulsory}>(*: {t('Compulsory')})</span>
         </div>
       </div>
@@ -229,11 +325,24 @@ const QuestionCreatedPage = () => {
           radius="10px"
           padding="5px"
           loading={loading}
-          onClick={handleSubmit(handleCreateQuestion)}
+          onClick={handleSubmit(isUpdate ? handleUpdateQuestion : handleCreateQuestion)}
         >
           <FaSave className={classes.actionData__icon} />
-          {t('Add new')}
+          {isUpdate ? t('Update') : t('Add new')}
         </ButtonField>
+
+        {isUpdate && (
+          <ButtonField
+            backgroundcolor="#dd4b39"
+            backgroundcolorhover="#ff7875"
+            radius="10px"
+            padding="5px"
+            onClick={() => setShowModal(true)}
+          >
+            <FaTrash className={classes.actionData__icon} />
+            {t('Delete')}
+          </ButtonField>
+        )}
       </div>
 
       <div>
@@ -353,6 +462,7 @@ const QuestionCreatedPage = () => {
           <input
             type="checkbox"
             onChange={(event) => (event.target.checked ? setIsRandom(false) : setIsRandom(true))}
+            checked={isRandom ? false : true}
             className={classes.questionCreated__checkBox}
           />
           <span className={classes.questionCreated__checkBox__content}>{t('Fixed answer')}</span>
@@ -391,6 +501,7 @@ const QuestionCreatedPage = () => {
             <input
               className={classes.questionCreated__answerList__item__inputContent}
               type="text"
+              defaultValue={answer.answer.contentChoice}
               placeholder={`${t('Enter answer content')} ${answer.choice}`}
               onChange={(event) => handleChangeAnswerContent(event, answer)}
             />

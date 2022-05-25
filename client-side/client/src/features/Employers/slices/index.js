@@ -15,6 +15,7 @@ import {
   fetchCartAsync,
   getAvailableServicePackageAsync,
   getAllQuestionAsync,
+  getAllQuestionDeletedAsync,
 } from 'features/Employers/slices/thunks'
 
 const initialState = {
@@ -314,6 +315,20 @@ const employerSlice = createSlice({
       state.questions = action.payload
     },
     [getAllQuestionAsync.rejected]: (state) => {
+      state.status = false
+      state.questions = []
+    },
+    // #endregion
+
+    // #region Get All Question Deleted
+    [getAllQuestionDeletedAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAllQuestionDeletedAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.questions = action.payload
+    },
+    [getAllQuestionDeletedAsync.rejected]: (state) => {
       state.status = false
       state.questions = []
     },

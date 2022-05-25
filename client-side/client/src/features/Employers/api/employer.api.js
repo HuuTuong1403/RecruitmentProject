@@ -431,7 +431,7 @@ export const getQuestionById = async (payload) => {
 
 export const updateQuestionById = async (payload) => {
   try {
-    const res = await axiosClient.patch(`question/${payload.id}`)
+    const res = await axiosClient.patch(`question/${payload.id}`, payload.data)
     return res
   } catch (error) {
     console.log(error)
@@ -447,7 +447,7 @@ export const softDeleteQuestion = async (payload) => {
   }
 }
 
-export const getAllQuestioNDeleted = async () => {
+export const getAllQuestionDeleted = async () => {
   try {
     const res = await axiosClient.get('question/soft-delete/trash')
     return res

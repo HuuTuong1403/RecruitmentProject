@@ -15,6 +15,7 @@ import {
   fetchCart,
   getAvailableServicePackage,
   getAllQuestion,
+  getAllQuestionDeleted,
 } from '../api/employer.api'
 
 export const getDetailEmployerAsync = createAsyncThunk('employer/getDetailEmployer', async () => {
@@ -126,3 +127,12 @@ export const getAllQuestionAsync = createAsyncThunk('employer/getAllQuestion', a
   const datas = (res.data || {}).data || []
   return datas
 })
+
+export const getAllQuestionDeletedAsync = createAsyncThunk(
+  'employer/getAllQuestionDeleted',
+  async () => {
+    const res = await getAllQuestionDeleted()
+    const datas = (res.data || {}).data || []
+    return datas
+  }
+)
