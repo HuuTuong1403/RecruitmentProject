@@ -40,10 +40,10 @@
  | ✅ Đánh giá doanh nghiệp           | ✅ Quản lý sự kiện                      | ✅ Quản lý dịch vụ          |                                     |
  | ✅ Lưu việc làm                    | ✅ Quản lý hồ sơ ứng viên               | ✅ Tạo gói dịch vụ          |                                     |
  | ✅ Quản lý tài khoản               | ✅ Quản lý thành viên tham gia sự kiện  | ✅ Quản lý gói dịch vụ      |                                     |
- | ⬜️ Tạo CV trực tuyến               | ✅ Xem số liệu thống kê                 |                              |                                     |
- | ⬜️ Tham gia Entry Test             | ⬜️ Tạo Entry Test                       |                              |                                     |
+ | ⬜️ Tham gia Entry Test             | ✅ Xem số liệu thống kê                 |                              |                                     |
+ |                                     | ✅ Đăng ký gói dịch vụ                  |                              |                                     |
+ |                                     | ✅ Quản lý câu hỏi & đáp án             |                              |                                     |
  |                                     | ⬜️ Quản lý Entry Test                   |                              |                                     |
- |                                     | ⬜️ Đăng ký gói dịch vụ                  |                              |                                     |
 
 ## Thông tin liên hệ
  - GVHD: Thầy **Nguyễn Thanh Phước**
