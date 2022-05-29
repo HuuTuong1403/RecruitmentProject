@@ -43,7 +43,7 @@
  | ⬜️ Tham gia Entry Test             | ✅ Xem số liệu thống kê                 |                              |                                     |
  |                                     | ✅ Đăng ký gói dịch vụ                  |                              |                                     |
  |                                     | ✅ Quản lý câu hỏi & đáp án             |                              |                                     |
- |                                     | ⬜️ Quản lý Entry Test                   |                              |                                     |
+ |                                     | ✅ Quản lý Entry Test                   |                              |                                     |
 
 ## Thông tin liên hệ
  - GVHD: Thầy **Nguyễn Thanh Phước**
