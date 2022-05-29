@@ -85,3 +85,7 @@ export const selectAvailableSP = (state) => {
 export const selectQuestions = (state) => {
   return state?.employer?.questions
 }
+
+export const selectEntryTests = (state) => {
+  return state?.employer?.entryTests
+}

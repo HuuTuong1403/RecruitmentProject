@@ -1,0 +1,32 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.drawerTitle {
+  text-align: center;
+  color: $primary-text;
+  font-size: $text-lg;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding-bottom: $pm-10;
+  border-bottom: 1px solid #eee;
+}
+
+.header {
+  margin-top: $pm-10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > div {
+    flex: 0 0 48%;
+
+    & > div {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.action {
+  margin-top: $pm-10;
+  text-align: right;
+}

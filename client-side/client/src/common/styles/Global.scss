@@ -122,6 +122,59 @@
 }
 // #endregion
 
+// #region Label With Line Behind
+.labelWithLine {
+  position: relative;
+  padding: $pm-10 0;
+  margin: $pm-6 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: #eee;
+    top: 50%;
+  }
+
+  & > label {
+    position: absolute;
+    font-size: 9px;
+    background: #eee;
+    border-radius: 4px;
+    font-weight: 500;
+    padding: $pm-2 $pm-6;
+    top: 0%;
+    left: 3%;
+    box-shadow: 2px 1px 0px rgba(0, 0, 0, 0.1);
+  }
+}
+// #endregion
+
+// #region Tag List
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $pm-10;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: $pm-4;
+    font-size: 11px;
+    background-color: #eee;
+    padding: $pm-2 $pm-6;
+    border-radius: 4px;
+    font-weight: 500;
+
+    &__icon {
+      font-size: inherit;
+    }
+  }
+}
+// #endregion
+
 .icon-gb-18 {
   font-size: $text-lg;
   margin: -$pm-2 $pm-2 0 0;

@@ -39,9 +39,9 @@ export const pathEmployer = {
   participantEvent: rootEmployer + 'events/:id/participants',
   managementServicePackage: rootEmployer + 'service-package',
   managementEntryTest: rootEmployer + 'entry-tests',
+  createdEntryTest: rootEmployer + 'entry-tests/created',
+  trashEntryTest: rootEmployer + 'entry-tests/trash',
   createdQuestion: rootEmployer + 'questions/created',
   managementQuestion: rootEmployer + 'questions',
   trashQuestion: rootEmployer + 'questions/trash',
 }
-
-export const pathEvents = {}

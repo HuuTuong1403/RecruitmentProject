@@ -1,0 +1,88 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.questionList {
+  margin-top: $pm-10;
+
+  &__questionItem {
+    margin-bottom: $pm-10;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      padding: $pm-6 $pm-10 $pm-4;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+
+      &__left {
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: $pm-2 $pm-6;
+        font-size: 12px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &__right {
+        flex: 0 0 48%;
+        text-align: right;
+
+        & > button {
+          font-size: $text-xs;
+
+          & > svg {
+            font-size: inherit;
+          }
+        }
+      }
+    }
+
+    &__body {
+      padding: $pm-6 $pm-10;
+    }
+
+    &__content {
+      & > span {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.answerList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &__answerItem {
+    flex: 0 0 48%;
+
+    &__isCorrect {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: $pm-4;
+      vertical-align: text-top;
+
+      &--correct {
+        background-color: #00c985;
+      }
+
+      &--notCorrect {
+        background-color: #ec0b43;
+      }
+    }
+  }
+}
+
+.icon {
+  color: $quesIcon-color;
+  font-size: $text-xs;
+}

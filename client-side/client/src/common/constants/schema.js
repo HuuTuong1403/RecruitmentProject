@@ -289,3 +289,16 @@ export const schemaCreateQuestion = yup.object({
     .typeError('error-questionDuration')
     .test('Is positive?', 'error-numberPositive', (value) => value >= 0),
 })
+
+export const schemaCreateEntryTest = yup.object({
+  title: yup.string().required('error-entryTestTitle'),
+  description: yup.string().required('error-entryTestDescription'),
+  difficultLevel: yup
+    .string()
+    .required('error-entryTestLevel')
+    .notOneOf(['Chọn độ khó entry test...', 'Choose level entry test...'], 'error-entryTestLevel'),
+  requiredPass: yup
+    .number()
+    .typeError('error-entryTestRequiredPass')
+    .test('Is positive?', 'error-numberPositive', (value) => value >= 0),
+})

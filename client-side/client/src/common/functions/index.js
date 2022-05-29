@@ -97,3 +97,14 @@ export const checkTagService = (tagCheck, servicePackage) => {
   }
   return isHave
 }
+
+export const convertTime = (time, translate) => {
+  const timeMinute = time / 60
+  if (timeMinute > 1) {
+    return `${Math.floor(timeMinute)} ${translate('minutes')}`
+  } else if (timeMinute === 1) {
+    return `${timeMinute} ${translate('minute')}`
+  } else {
+    return `${time} ${translate('seconds')}`
+  }
+}

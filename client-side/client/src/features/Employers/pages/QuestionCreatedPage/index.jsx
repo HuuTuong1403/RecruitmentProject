@@ -402,7 +402,7 @@ const QuestionCreatedPage = () => {
             control={control}
             defaultValue={`${t('choose-questionLevel')}`}
             optionList={optionsQuestionLevel}
-            placeholder={t('choose-questionLevelLevel')}
+            placeholder={t('choose-questionLevel')}
             errors={errors?.level?.message}
             style={{ marginBottom: '10px' }}
           />

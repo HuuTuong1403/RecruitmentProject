@@ -411,9 +411,14 @@ export const createQuestion = async (payload) => {
   }
 }
 
-export const getAllQuestion = async () => {
+export const getAllQuestion = async (payload) => {
   try {
-    const res = await axiosClient.get('question')
+    let res = null
+    if (payload) {
+      res = await axiosClient.get('question', { params: { ...payload } })
+    } else {
+      res = await axiosClient.get('question')
+    }
     return res
   } catch (error) {
     console.log(error)
@@ -464,12 +469,30 @@ export const restoreQuestion = async (payload) => {
     console.log(error)
   }
 }
+
+export const deleteQuestion = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`question/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
 // #endregion
 
 // #region CRUD Entry Test
 export const createEntryTest = async (payload) => {
   try {
     const res = await axiosClient.post('employer/entry-test', payload)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateEntryTestById = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`employer/entry-test/${payload.id}`, payload.data)
     return res
   } catch (error) {
     console.log(error)
@@ -514,7 +537,16 @@ export const getAllEntryTestDeleted = async () => {
 
 export const restoreEntryTest = async (payload) => {
   try {
-    const res = await axiosClient.patch(`employer/entry-test/soft-delete/trash/${payload.id}`)
+    const res = await axiosClient.patch(`employer/entry-test/restore/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteEntryTest = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`employer/entry-test/${payload.id}`)
     return res
   } catch (error) {
     console.log(error)
