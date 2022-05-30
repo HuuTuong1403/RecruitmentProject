@@ -5,11 +5,15 @@ exports.customQuestionQuery = (req, res, next) => {
       $regex: req.query.questionContent,
       $options: 'si',
     };
+  } else {
+    req.query.questionContent = undefined;
   }
   if (req.query.skills) {
     let skills = req.query.skills;
     skills = skills.split(',');
     req.query.skills = { $in: skills };
+  } else {
+    req.query.skills = undefined;
   }
   const qurStr = JSON.stringify(req.query);
   if (subObjectPatten.test(qurStr)) {

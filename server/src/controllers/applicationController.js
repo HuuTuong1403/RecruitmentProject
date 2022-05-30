@@ -76,7 +76,7 @@ class applicationController {
     }
     var filter = req.query;
     if (req.params.idJob) {
-      filter = { job: req.params.idJob };
+      filter.job = req.params.idJob;
     }
     const features = new APIFeatures(Application.find(), filter)
       .filter()

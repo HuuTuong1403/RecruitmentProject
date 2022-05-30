@@ -26,7 +26,7 @@ const entryTestSchema = new mongoose.Schema(
       type: Number,
     },
     questions: {
-      type: [mongoose.Schema.ObjectId],
+      type: [{}],
       required: [true, 'Entry test phải có danh sách câu hỏi'],
     },
     requiredPass: {
@@ -54,7 +54,12 @@ const entryTestSchema = new mongoose.Schema(
 );
 entryTestSchema.pre('save', async function (next) {
   questionPromises = this.questions.map(async (idQuestion) => {
-    return await Question.findById(idQuestion);
+    return await Question.findById(idQuestion, {
+      createdAt: 0,
+      updatedAt: 0,
+      deletedBy: 0,
+      deleted: 0,
+    });
   });
   const questions = await Promise.all(questionPromises);
   var totalScore = 0;
@@ -64,6 +69,7 @@ entryTestSchema.pre('save', async function (next) {
     totalScore = totalScore + questions[i].score;
     duration = duration + questions[i].duration;
   }
+  this.questions = questions;
   this.totalQuestion = totalQuestion;
   this.totalScore = totalScore;
   this.duration = duration;

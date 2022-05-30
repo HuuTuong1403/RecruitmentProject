@@ -3,7 +3,9 @@ const entryTestRouter = express.Router({ mergeParams: true });
 
 const authController = require('./../controllers/authController');
 const EntryTestController = require('./../controllers/entryTestController');
+const answerSheetRouter = require('./answerSheetRouter');
 
+entryTestRouter.use('/:idEntryTest/answersheets', answerSheetRouter);
 entryTestRouter
   .route('/:id')
   .get(authController.protect, EntryTestController.getEntryTest)
@@ -45,5 +47,12 @@ entryTestRouter
     authController.protect,
     authController.restrictTo('employer'),
     EntryTestController.getDeletedEntryTest
+  );
+entryTestRouter
+  .route('/restore/:id')
+  .patch(
+    authController.protect,
+    authController.restrictTo('employer'),
+    EntryTestController.restoreEntryTest
   );
 module.exports = entryTestRouter;

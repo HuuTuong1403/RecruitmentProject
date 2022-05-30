@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const mongoose_delete = require('mongoose-delete');
 const Service = require('./serviceModel');
-const finishDate = new Date();
-finishDate.setDate(finishDate.getDate() + 300);
-
 const priceSchema = new mongoose.Schema(
   {
     VND: {
@@ -62,10 +59,6 @@ const servicePackageSchema = new mongoose.Schema(
     postQuantity: {
       type: Number,
       required: [true, 'Gói dịch vụ phải có số lượng bài đăng'],
-    },
-    expiredAt: {
-      type: Date,
-      default: finishDate,
     },
   },
   {
