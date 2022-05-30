@@ -3,9 +3,11 @@ import { useHistory } from 'react-router-dom'
 import { MdLocationOn } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
+import { checkTagService } from 'common/functions'
 
 export const JobItem = ({ job }) => {
-  const { jobTitle, salary, location, company, slug } = job
+  const { jobTitle, salary, location, company, slug, servicePackage } = job
+
   const { t } = useTranslation()
   const history = useHistory()
 
@@ -27,7 +29,11 @@ export const JobItem = ({ job }) => {
           <div>
             <a
               href={`/jobs/${slug}`}
-              className={`${classes['jobItem__container-detail__jobTitle']} ${classes['link-no-border']} ${classes.bold}`}
+              className={`${classes['jobItem__container-detail__jobTitle']} ${
+                checkTagService('isHighlight', servicePackage)
+                  ? classes['link-no-border-highlight']
+                  : classes['link-no-border']
+              }`}
               target="_blank"
               rel="noreferrer"
             >

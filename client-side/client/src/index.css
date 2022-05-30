@@ -28,6 +28,10 @@ p {
   margin-bottom: 0 !important;
 }
 
+.Toastify__toast-body {
+  white-space: pre-line;
+}
+
 .css-9gakcf-option {
   background-color: #f79d25 !important;
   color: white !important;

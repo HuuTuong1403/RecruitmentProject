@@ -1,8 +1,9 @@
-import { BiDollarCircle } from 'react-icons/bi'
+import { BiDollarCircle, BiDotsVerticalRounded } from 'react-icons/bi'
 import { dateFormatPicker } from 'common/constants/dateFormat'
 import { fetchJobDetailOfEmployerAsync } from 'features/Employers/slices/thunks'
 import { handChangeJobSlug } from 'features/Employers/slices'
-import { IoMdCalendar, IoMdEye, IoMdTime } from 'react-icons/io'
+import { FiPackage } from 'react-icons/fi'
+import { IoIosPeople, IoMdCalendar, IoMdEye, IoMdTime } from 'react-icons/io'
 import { MdDelete, MdDeleteForever, MdEdit, MdLocationOn, MdRestore } from 'react-icons/md'
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
@@ -10,13 +11,17 @@ import { selectJobSlug } from 'features/Employers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ButtonField, PopoverField } from 'custom-fields'
+import { PopoverField } from 'custom-fields'
 import { ModalUpdateJob } from 'features/Employers/components'
 import classes from './style.module.scss'
 import moment from 'moment'
-import { formatArrayForSelect } from 'common/functions'
+import { checkTagService, formatArrayForSelect } from 'common/functions'
+import { Dropdown, Menu } from 'antd'
+import { useHistory } from 'react-router-dom'
 
 export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
+  const history = useHistory()
+
   const {
     _id,
     jobTitle,
@@ -31,6 +36,7 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
     status,
     skills,
     isExpired,
+    servicePackage,
   } = data
 
   const { t } = useTranslation()
@@ -38,6 +44,7 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
   const dispatch = useDispatch()
   const slugState = useSelector(selectJobSlug)
   const [selectSkill, setSelectSkill] = useState([])
+  const [visible, setVisible] = useState(false)
 
   const skillList = useSelector(selectedSkills).map((skill, index) => {
     return { value: index, label: skill }
@@ -89,6 +96,89 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
       : classes.statusDenied
   }`
 
+  const changeToApplicationPage = () => {
+    history.push(`/employers/dashboard/candidate-profiles/${_id}`)
+  }
+
+  const menuDefault = (
+    <Menu>
+      <Menu.Item key="0">
+        <div onClick={changeToApplicationPage} className={classes.item__listTile}>
+          <IoIosPeople className={classes.item__listTile__icon} />
+          <span>{t('View candidate list')}</span>
+        </div>
+      </Menu.Item>
+      <Menu.Item key="1">
+        <div onClick={handleShowDetail} className={classes.item__listTile}>
+          <IoMdEye className={classes.item__listTile__icon} />
+          <span>{t('Job details')}</span>
+        </div>
+      </Menu.Item>
+
+      {status !== 'approval' && (
+        <Menu.Item key="2">
+          <div onClick={onOpenModal} className={classes.item__listTile}>
+            <MdEdit className={classes.item__listTile__icon} />
+            <span>{t('Edit job postings')}</span>
+          </div>
+        </Menu.Item>
+      )}
+
+      <Menu.Item key="3">
+        <PopoverField
+          title={t('Confirm move job postings to trash')}
+          subTitle={t('Do you want to  move this job postings to trash?')}
+          loading={loading}
+          onClickOk={() => onDelete(_id)}
+          titleCancel={t('Cancel')}
+          titleOk={t('Move')}
+        >
+          <div className={classes.item__listTile}>
+            <MdDelete className={classes.item__listTile__icon} />
+            <span>{t('Move to trash')}</span>
+          </div>
+        </PopoverField>
+      </Menu.Item>
+    </Menu>
+  )
+
+  const menuTrash = (
+    <Menu>
+      <Menu.Item key="0">
+        <PopoverField
+          title={t('Confirm to restore job postings')}
+          subTitle={t('Do you want to restore this job posting?')}
+          loading={loading}
+          onClickOk={() => onRestore(_id)}
+          titleCancel={t('Cancel')}
+          titleOk={t('Restore')}
+          isSwap
+        >
+          <div className={classes.item__listTile}>
+            <MdRestore className={classes.item__listTile__icon} />
+            <span>{t('Restore')}</span>
+          </div>
+        </PopoverField>
+      </Menu.Item>
+
+      <Menu.Item key="1">
+        <PopoverField
+          title={t('Confirm to permanently delete the event')}
+          subTitle={t('Do you want to permanently delete this event?')}
+          loading={loading}
+          onClickOk={() => onDelete(_id)}
+          titleCancel={t('Cancel')}
+          titleOk={t('Delete')}
+        >
+          <div className={classes.item__listTile}>
+            <MdDeleteForever className={classes.item__listTile__icon} />
+            <span>{t('Delete permanently')}</span>
+          </div>
+        </PopoverField>
+      </Menu.Item>
+    </Menu>
+  )
+
   return (
     <div className={classes.item}>
       <div className={classes.item__wrapped}>
@@ -109,14 +199,31 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
           <img className={classes['item__top-logo']} src={company?.logo} alt={company?.logo} />
         </div>
         <div className={classes.item__bottom}>
-          <a
-            href={`/jobs/${slug}`}
-            className={`${classes.titleItem} ${classes['link-one-line']} `}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {jobTitle}
-          </a>
+          <div className={classes.item__bottom__jobTitle}>
+            <a
+              href={`/jobs/${slug}`}
+              className={`${classes.item__bottom__jobTitle__link} ${
+                checkTagService('isHighlight', servicePackage)
+                  ? classes['link-one-line-highlight']
+                  : classes['link-one-line']
+              } `}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {jobTitle}
+            </a>
+
+            <Dropdown
+              overlay={isTrash ? menuTrash : menuDefault}
+              trigger={['click']}
+              placement="bottomRight"
+              visible={visible}
+              onVisibleChange={(visible) => setVisible(visible)}
+              arrow
+            >
+              <BiDotsVerticalRounded className={classes.item__bottom__jobTitle__icon} />
+            </Dropdown>
+          </div>
           {salary && (
             <div className={classes['item__bottom-salary']}>
               <BiDollarCircle style={{ marginRight: '5px' }} />
@@ -146,6 +253,13 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
               .map((string) => t(string))
               .join(' ')}`}
           </div>
+          {servicePackage && (
+            <div>
+              <FiPackage style={{ marginRight: '5px' }} />
+              {`${t('Already applied')}`}:{' '}
+              <span className={classes['item__bottom__service']}>{servicePackage.packageName}</span>
+            </div>
+          )}
 
           <ModalUpdateJob
             provinces={provinces}
@@ -158,65 +272,6 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
             onCloseModal={onCloseModal}
             title={jobTitle}
           />
-
-          {isTrash ? (
-            <div className={classes['item__bottom-actionsTrash']}>
-              <ButtonField backgroundcolor="#dd4b39" backgroundcolorhover="#ff7875" padding="2px">
-                <MdDeleteForever className={classes.item__icon} />
-                {t('Delete permanently')}
-              </ButtonField>
-              <PopoverField
-                title={t('Confirm to restore job postings')}
-                subTitle={t('Do you want to restore this job posting?')}
-                loading={loading}
-                onClickOk={() => onRestore(_id)}
-                titleCancel={t('Cancel')}
-                titleOk={t('Restore')}
-                isSwap
-              >
-                <ButtonField backgroundcolor="#067951" backgroundcolorhover="#2baa7e" padding="2px">
-                  <MdRestore className={classes.item__icon} />
-                  {t('Restore')}
-                </ButtonField>
-              </PopoverField>
-            </div>
-          ) : (
-            <div className={classes['item__bottom-actions']}>
-              <ButtonField
-                backgroundcolor="#0a426e"
-                backgroundcolorhover="#0a436ead"
-                onClick={handleShowDetail}
-                padding="2px"
-              >
-                <IoMdEye className={classes.item__icon} />
-                {t('Details')}
-              </ButtonField>
-              {status !== 'approval' && (
-                <ButtonField
-                  backgroundcolor="#067951"
-                  backgroundcolorhover="#2baa7e"
-                  onClick={onOpenModal}
-                  padding="2px"
-                >
-                  <MdEdit className={classes.item__icon} />
-                  {t('Edit')}
-                </ButtonField>
-              )}
-              <PopoverField
-                title={t('Confirm move job postings to trash')}
-                subTitle={t('Do you want to  move this job postings to trash?')}
-                loading={loading}
-                onClickOk={() => onDelete(_id)}
-                titleCancel={t('Cancel')}
-                titleOk={t('Move')}
-              >
-                <ButtonField backgroundcolor="#dd4b39" backgroundcolorhover="#ff7875" padding="2px">
-                  <MdDelete className={classes.item__icon} />
-                  {t('Delete')}
-                </ButtonField>
-              </PopoverField>
-            </div>
-          )}
         </div>
       </div>
     </div>

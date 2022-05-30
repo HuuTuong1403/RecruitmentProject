@@ -14,6 +14,10 @@ import {
   getDetailEmployer,
   fetchCart,
   getAvailableServicePackage,
+  getAllQuestion,
+  getAllQuestionDeleted,
+  getAllEntryTest,
+  getAllEntryTestDeleted,
 } from '../api/employer.api'
 
 export const getDetailEmployerAsync = createAsyncThunk('employer/getDetailEmployer', async () => {
@@ -115,6 +119,36 @@ export const getAvailableServicePackageAsync = createAsyncThunk(
   'employer/getAvailableServicePackage',
   async () => {
     const res = await getAvailableServicePackage()
+    const datas = (res.data || {}).data || []
+    return datas
+  }
+)
+
+export const getAllQuestionAsync = createAsyncThunk('employer/getAllQuestion', async (payload) => {
+  const res = await getAllQuestion(payload)
+  const datas = (res.data || {}).data || []
+  return datas
+})
+
+export const getAllQuestionDeletedAsync = createAsyncThunk(
+  'employer/getAllQuestionDeleted',
+  async () => {
+    const res = await getAllQuestionDeleted()
+    const datas = (res.data || {}).data || []
+    return datas
+  }
+)
+
+export const getAllEntryTestAsync = createAsyncThunk('employer/getAllEntryTest', async () => {
+  const res = await getAllEntryTest()
+  const datas = (res.data || {}).data || []
+  return datas
+})
+
+export const getAllEntryTestDeletedAsync = createAsyncThunk(
+  'employer/getAllEntryTestDeleted',
+  async () => {
+    const res = await getAllEntryTestDeleted()
     const datas = (res.data || {}).data || []
     return datas
   }

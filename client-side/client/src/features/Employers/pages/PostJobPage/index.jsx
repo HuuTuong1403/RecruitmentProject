@@ -187,7 +187,6 @@ const PostJobPage = () => {
       finishDate: moment(finishDate, dateFormatPicker).format(dateFormatSendServer),
       servicePackage,
     }
-    console.log('payload', payload)
 
     setLoading(true)
     const result = await postJobEmployer(payload)

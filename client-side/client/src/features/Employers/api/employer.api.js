@@ -97,7 +97,7 @@ export const updateJob = async ({ id, data }) => {
 // #region CRUD JobsApplication
 export const fetchJobsApplicationNotSaved = async (payload) => {
   try {
-    const res = await axiosClient.get('employer/applications/management', {
+    const res = await axiosClient.get(`employer/applications/management`, {
       params: payload['filter'],
     })
     return res
@@ -395,6 +395,159 @@ export const getOrder = async (payload) => {
   try {
     const res = await axiosClient.get(`employer/payment/${payload.id}`)
     return res.data.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+// #endregion
+
+// #region CRUD Question & answer
+export const createQuestion = async (payload) => {
+  try {
+    const res = await axiosClient.post('question', payload)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllQuestion = async (payload) => {
+  try {
+    let res = null
+    if (payload) {
+      res = await axiosClient.get('question', { params: { ...payload } })
+    } else {
+      res = await axiosClient.get('question')
+    }
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getQuestionById = async (payload) => {
+  try {
+    const res = await axiosClient.get(`question/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateQuestionById = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`question/${payload.id}`, payload.data)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const softDeleteQuestion = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`question/soft-delete/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllQuestionDeleted = async () => {
+  try {
+    const res = await axiosClient.get('question/soft-delete/trash')
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const restoreQuestion = async (payload) => {
+  try {
+    const res = await axiosClient.get(`question/restore/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteQuestion = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`question/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+// #endregion
+
+// #region CRUD Entry Test
+export const createEntryTest = async (payload) => {
+  try {
+    const res = await axiosClient.post('employer/entry-test', payload)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateEntryTestById = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`employer/entry-test/${payload.id}`, payload.data)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getEntryTestById = async (payload) => {
+  try {
+    const res = await axiosClient.get(`employer/entry-test/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllEntryTest = async () => {
+  try {
+    const res = await axiosClient.get(`employer/entry-test`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const softDeleteEntryTest = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`employer/entry-test/soft-delete/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getAllEntryTestDeleted = async () => {
+  try {
+    const res = await axiosClient.get('employer/entry-test/soft-delete/trash')
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const restoreEntryTest = async (payload) => {
+  try {
+    const res = await axiosClient.patch(`employer/entry-test/restore/${payload.id}`)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deleteEntryTest = async (payload) => {
+  try {
+    const res = await axiosClient.delete(`employer/entry-test/${payload.id}`)
+    return res
   } catch (error) {
     console.log(error)
   }

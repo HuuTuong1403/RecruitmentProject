@@ -18,6 +18,19 @@ export const companyTypeOptions = [
   { value: 'Product', label: 'Product' },
 ]
 
+export const questionLevelOptions = [
+  { value: '', label: '' },
+  { value: 'Easy', label: 'Easy' },
+  { value: 'Middle', label: 'Middle' },
+  { value: 'Difficult', label: 'Difficult' },
+]
+
+export const questionTypeOptions = [
+  { value: '', label: '' },
+  { value: 'Single', label: 'Single' },
+  { value: 'Multi-choice', label: 'Multi-choice' },
+]
+
 export const dateCreatedAtOptions = [
   { value: 'Tất cả', label: 'all' },
   { value: '1', label: '1 day ago' },

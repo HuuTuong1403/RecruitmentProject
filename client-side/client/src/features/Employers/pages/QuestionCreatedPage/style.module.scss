@@ -1,0 +1,64 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.questionCreated {
+  &__checkBox {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    margin-right: $pm-4;
+    vertical-align: text-bottom;
+
+    &__content {
+      font-size: $text-base;
+      color: $primary-color;
+    }
+  }
+
+  &__answerList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    &__item {
+      flex: 0 0 48%;
+      display: flex;
+      align-items: center;
+      margin-bottom: $pm-10;
+
+      &__choice {
+        font-size: $text-lg;
+        font-weight: bold;
+        color: $primary-text;
+        margin-right: $pm-6;
+      }
+
+      &__inputContent {
+        width: 80%;
+        outline: none;
+        border: 1px solid $primary-color;
+        color: $primary-text;
+        border-radius: 8px;
+        font-size: $text-base;
+        padding: $pm-4;
+        text-indent: $pm-4;
+      }
+
+      &__trash {
+        font-size: $text-base;
+        background-color: $primary-color;
+        padding: $pm-4;
+        color: white;
+        cursor: pointer;
+        transition: all 0.25s ease-in-out;
+        margin-left: $pm-6;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: #324554;
+        }
+      }
+    }
+  }
+}

@@ -48,6 +48,16 @@
       font-weight: bold;
     }
 
+    &__desc {
+      text-align: justify;
+
+      & > span {
+        font-weight: bold;
+        font-style: italic;
+        text-decoration: underline;
+      }
+    }
+
     &__listService {
       list-style-type: none;
       margin-bottom: 0;

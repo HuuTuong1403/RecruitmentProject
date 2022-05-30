@@ -101,7 +101,16 @@ const ServicePage = () => {
                     displayType={'text'}
                   />
                 </div>
+                <div className={classes.servicePage__item__desc}>
+                  <span>{t('Detail')}:</span> {item.description}
+                </div>
                 <ul className={classes.servicePage__item__listService}>
+                  <li>
+                    {t('Apply for')}: {t(item.postType)}
+                  </li>
+                  <li>
+                    {t('Maximum number of posts')}: {item.postQuantity}
+                  </li>
                   {item.services.map((service) => (
                     <li key={service._id}>{service.serviceName}</li>
                   ))}

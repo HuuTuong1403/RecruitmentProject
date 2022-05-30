@@ -14,6 +14,10 @@ import {
   fetchAllEventDeletedAsync,
   fetchCartAsync,
   getAvailableServicePackageAsync,
+  getAllQuestionAsync,
+  getAllQuestionDeletedAsync,
+  getAllEntryTestAsync,
+  getAllEntryTestDeletedAsync,
 } from 'features/Employers/slices/thunks'
 
 const initialState = {
@@ -34,6 +38,8 @@ const initialState = {
   jobsOfEmployer: [],
   jobTrash: [],
   participantsEvent: [],
+  questions: [],
+  entryTests: [],
   postJobData: null,
   status: false,
   statusJobDetail: false,
@@ -289,7 +295,7 @@ const employerSlice = createSlice({
     },
     // #endregion
 
-    // #region Fetch Cart
+    // #region Fetch Available Service Package
     [getAvailableServicePackageAsync.pending]: (state) => {
       state.status = true
     },
@@ -300,6 +306,62 @@ const employerSlice = createSlice({
     [getAvailableServicePackageAsync.rejected]: (state) => {
       state.status = false
       state.availableSP = []
+    },
+    // #endregion
+
+    // #region Get All Question
+    [getAllQuestionAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAllQuestionAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.questions = action.payload
+    },
+    [getAllQuestionAsync.rejected]: (state) => {
+      state.status = false
+      state.questions = []
+    },
+    // #endregion
+
+    // #region Get All Question Deleted
+    [getAllQuestionDeletedAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAllQuestionDeletedAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.questions = action.payload
+    },
+    [getAllQuestionDeletedAsync.rejected]: (state) => {
+      state.status = false
+      state.questions = []
+    },
+    // #endregion
+
+    // #region Get All Entry Test
+    [getAllEntryTestAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAllEntryTestAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.entryTests = action.payload
+    },
+    [getAllEntryTestAsync.rejected]: (state) => {
+      state.status = false
+      state.questions = []
+    },
+    // #endregion
+
+    // #region Get All Entry Test Deleted
+    [getAllEntryTestDeletedAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAllEntryTestDeletedAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.entryTests = action.payload
+    },
+    [getAllEntryTestDeletedAsync.rejected]: (state) => {
+      state.status = false
+      state.questions = []
     },
     // #endregion
   },

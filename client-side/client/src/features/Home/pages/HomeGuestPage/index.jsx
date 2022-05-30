@@ -25,7 +25,13 @@ const HomeGuestPage = () => {
   return (
     <Fragment>
       <BannerHome />
-      {loading ? <LoadingSuspense height="40vh" /> : !jobs ? <div>No see jobs</div> : <JobList />}
+      {loading ? (
+        <LoadingSuspense height="40vh" />
+      ) : jobs ? (
+        <JobList jobs={jobs} />
+      ) : (
+        <div>No see jobs</div>
+      )}
     </Fragment>
   )
 }
