@@ -5,6 +5,12 @@ export const PATH = {
   home: '/home',
   jobs: '/jobs',
   events: '/events',
+  entryTests: '/entry-tests',
+}
+
+export const pathEntryTest = {
+  infoExam: '/entry-tests/join/:id',
+  startExam: '/entry-tests/join/:id/start'
 }
 
 export const pathJobSeeker = {

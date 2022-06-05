@@ -1,0 +1,117 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.startExam {
+  padding: $pm-20 0;
+
+  &__title {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: $text-xl;
+    color: $primary-text;
+    font-weight: bold;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  &__numQues {
+    position: fixed;
+    width: 20%;
+    right: 3%;
+    top: 8%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    color: $primary-text;
+
+    &__wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    &__timeCount {
+      background-color: #eee;
+      padding: $pm-8 $pm-10;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+
+      &__countdown {
+        font-size: $text-lg;
+      }
+    }
+  }
+
+  &__questionList {
+    padding: 0 $pm-20;
+    margin: 0 $pm-20;
+  }
+
+  &__questionItem {
+    flex: 0 0 100%;
+    padding-top: $pm-14;
+    margin-bottom: $pm-10;
+    display: flex;
+    align-items: flex-start;
+    color: $primary-text;
+
+    &__left {
+      border: 1px solid $primary-text;
+      border-radius: 4px;
+      padding: $pm-4 $pm-10;
+      background-color: #eee;
+      font-size: $text-xs;
+      margin-right: $pm-10;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+
+      &__title {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: $text-sm;
+      }
+    }
+
+    &__right {
+      flex: 0 0 60%;
+      border: 1px solid $primary-text;
+      padding: $pm-4 $pm-20;
+      border-radius: 4px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+      background-color: #e9f6f8;
+
+      &__content {
+        font-size: $text-base;
+        font-weight: 500;
+      }
+    }
+  }
+
+  &__answerList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__answerItem {
+    flex: 0 0 48%;
+    display: flex;
+    align-items: flex-start;
+    color: $primary-text;
+    font-size: $text-base;
+
+    &__input {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      margin-right: $pm-6;
+      margin-top: $pm-2;
+      flex: 0 0 5%;
+    }
+
+    &__choice {
+      font-weight: 500;
+      margin-right: $pm-2;
+    }
+  }
+}
