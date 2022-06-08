@@ -1,0 +1,67 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.infoPage {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: darkviolet;
+}
+
+.wrapper {
+  background-color: #fff;
+  padding: $pm-20;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 6px;
+  gap: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  color: $primary-text;
+
+  &__title {
+    text-align: center;
+    font-size: $text-lg;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  &__desc {
+    font-size: $text-base;
+  }
+
+  &__infoList {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    &__infoItem {
+      flex: 0 0 48%;
+      background-color: #eee;
+      padding: $pm-4;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 500;
+    }
+  }
+
+  &__action {
+    width: 85%;
+    margin-top: $pm-10;
+
+    &__icon {
+      font-size: $text-lg;
+      margin-right: $pm-4;
+      vertical-align: text-top;
+    }
+
+    & > button {
+      font-weight: 500;
+      font-size: $text-base;
+    }
+  }
+}
