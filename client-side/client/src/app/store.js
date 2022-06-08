@@ -5,6 +5,7 @@ import homeReducer from 'features/Home/slices'
 import jobReducer from 'features/Jobs/slices'
 import jobSeekerReducer from 'features/JobSeekers/slices'
 import eventsReducer from 'features/Events/slices'
+import entryTestReducer from 'features/EntryTest/slices'
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     home: homeReducer,
     job: jobReducer,
     jobSeeker: jobSeekerReducer,
+    entryTest: entryTestReducer,
   },
 })
 

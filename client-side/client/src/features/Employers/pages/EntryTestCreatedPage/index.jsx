@@ -97,9 +97,14 @@ const EntryTestCreatedPage = () => {
       setValue('requiredPass', dataEntryTest.requiredPass)
       setValue('difficultLevel', dataEntryTest.difficultLevel)
       setSkillsSelect(skills.filter((item) => dataEntryTest.skills.includes(item.label)))
-      const newSelectQuestion = questions?.filter((question) =>
-        dataEntryTest.questions.includes(question._id)
-      )
+      const newSelectQuestion = []
+      questions?.forEach((question) => {
+        dataEntryTest.questions.forEach((ques) => {
+          if (question._id === ques._id) {
+            newSelectQuestion.push(question)
+          }
+        })
+      })
       setQuestionsSelect(newSelectQuestion)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

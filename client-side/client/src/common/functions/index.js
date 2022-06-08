@@ -108,3 +108,16 @@ export const convertTime = (time, translate) => {
     return `${time} ${translate('seconds')}`
   }
 }
+
+export const randomArray = (array) => {
+  const arrayRandom = array
+    .map((item) => {
+      return {
+        ...item,
+        sortKey: Math.random() * array.length,
+      }
+    })
+    .sort((a, b) => a.sortKey - b.sortKey)
+
+  return arrayRandom
+}
