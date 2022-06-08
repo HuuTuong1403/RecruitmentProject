@@ -1,8 +1,8 @@
-exports.markAnswer = (answerContents, questions) => {
+exports.markAnswer = async (answerContents, questions) => {
   let totalRightQuestion = 0;
   let achievedFullScore = 0;
   answerContents = answerContents.map((answerContent) => {
-    answerContentTemp = answerContent;
+    let answerContentTemp = answerContent;
     question = questions.find((currentValue) => {
       if (answerContent.idQuestion.toString() == currentValue._id.toString()) {
         return currentValue;
@@ -11,17 +11,14 @@ exports.markAnswer = (answerContents, questions) => {
     let rightAnswerCount = 0;
     answerContent.selectedChoice.forEach((choice) => {
       question.answers.forEach((answer) => {
-        console.log(answer.answer.isCorrect);
-        console.log(choice);
-        if (answer.answer.isCorrect == choice) {
+        if (answer.answer.isCorrect && answer.choice == choice) {
           rightAnswerCount += 1;
         }
       });
     });
-    const rightAnswerTotal = 0;
-    question.answers.reduce((rightAnswerTotal, answer) =>
-      answer.isCorrect ? rightAnswerTotal + 1 : rightAnswerTotal
-    );
+    let rightAnswerTotal = question.answers.filter(
+      (answer) => answer.answer.isCorrect
+    ).length;
     if (rightAnswerCount == 0 || rightAnswerCount > rightAnswerTotal) {
       answerContentTemp.isCorrect = 0;
     } else if (rightAnswerCount == rightAnswerTotal) {
@@ -40,8 +37,8 @@ exports.markAnswer = (answerContents, questions) => {
         totalRightQuestion += 1;
         achievedFullScore += question.score;
       }
-      return answerContentTemp;
     }
+    return answerContentTemp;
   });
   return {
     totalRightQuestion,

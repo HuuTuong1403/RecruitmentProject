@@ -55,11 +55,13 @@ answerSheetSchema.pre('save', async function (next) {
     duration: 1,
     questions: 1,
   });
-  const resultData = answerSheetServices.markAnswer(
+  const resultData = await answerSheetServices.markAnswer(
     this.answerContents,
     this.entryTest.questions
   );
-  console.log(resultData);
+  this.totalRightQuestion = resultData.totalRightQuestion;
+  this.achievedFullScore = resultData.achievedFullScore;
+  this.answerContents = resultData.answerContents;
   next();
 });
 answerSheetSchema.plugin(mongoose_delete, {
