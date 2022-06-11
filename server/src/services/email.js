@@ -46,6 +46,16 @@ const replaceHTMLParticipant = (participant, participantEmail) => {
   );
   return output;
 };
+const replaceHTMLEntryTest = (bodyEmail, entryTestAnnoucement) => {
+  let output = entryTestAnnoucement.replace(
+    /{{%companyName%}}/g,
+    bodyEmail.companyName
+  );
+  output = output.replace(/{{%jobTitle%}}/g, bodyEmail.jobTitle);
+  output = output.replace(/{{%logo%}}/g, bodyEmail.logo);
+  output = output.replace(/{{%url%}}/g, bodyEmail.url);
+  return output;
+};
 module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;
@@ -137,6 +147,20 @@ module.exports = class Email {
     await this.send(
       content,
       `[${this.user.participant.event.company.companyName}] Thông báo đăng ký tham gia sự kiện ${this.user.participant.event.eventName} thành công`
+    );
+  }
+  async sendEntryTestEmail() {
+    const entryTestAnnoucement = fs.readFileSync(
+      `${__dirname}/../public/AnnoucementEmail/EntryTestAnnouncement.html`,
+      'utf-8'
+    );
+    const content = replaceHTMLEntryTest(
+      this.user.bodyEmail,
+      entryTestAnnoucement
+    );
+    await this.send(
+      content,
+      `[${this.user.bodyEmail.companyName}] Thông báo tham gia kiểm tra đánh giá năng lực cho vị trí  ${this.user.bodyEmail.jobTitle}`
     );
   }
 };

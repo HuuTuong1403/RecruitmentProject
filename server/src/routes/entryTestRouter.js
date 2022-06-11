@@ -29,8 +29,16 @@ entryTestRouter
   )
   .get(
     authController.protect,
+    authController.restrictTo('employer', 'jobseeker'),
     EntryTestController.setCompany,
     EntryTestController.getAllEntryTest
+  );
+entryTestRouter
+  .route('/announce-entrytest')
+  .post(
+    authController.protect,
+    authController.restrictTo('employer'),
+    EntryTestController.announceEntryTest
   );
 entryTestRouter
   .route('/soft-delete/:id')

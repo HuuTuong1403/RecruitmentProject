@@ -62,6 +62,9 @@ applicationRouter
   .route('/management/status/count')
   .get(applicationController.countAppicantsAccoridingToStatus);
 applicationRouter
+  .route('/management/status-job/count')
+  .get(applicationController.countAppicantsAccoridingToStatusAndIdJob);
+applicationRouter
   .route('/statistic/application-stat')
   .get(applicationController.getApplicationStas);
 applicationRouter

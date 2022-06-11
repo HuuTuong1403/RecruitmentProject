@@ -195,6 +195,60 @@ class applicationController {
       },
     });
   });
+  countAppicantsAccoridingToStatusAndIdJob = catchAsync(
+    async (req, res, next) => {
+      var result = {
+        NotSaved: 0,
+        Saved: 0,
+        Deleted: 0,
+      };
+      const applicationQuantity = await Application.aggregate([
+        {
+          $lookup: {
+            from: 'jobs', /// Name collection from database, not name from exported schema
+            localField: 'job',
+            foreignField: '_id',
+            as: 'fromjob',
+          },
+        },
+        {
+          $unwind: '$fromjob',
+        }, //
+        {
+          $match: {
+            'fromjob.company': mongoose.Types.ObjectId(req.user.id),
+            'fromjob._id': mongoose.Types.ObjectId(req.params.idJob),
+          },
+        },
+        {
+          $group: { _id: '$status', count: { $sum: 1 } },
+        },
+      ]);
+      for (var i = 0; i < applicationQuantity.length; i++) {
+        switch (applicationQuantity[i]._id) {
+          case 'NotSaved': {
+            result.NotSaved = applicationQuantity[i].count;
+            break;
+          }
+          case 'Saved': {
+            result.Saved = applicationQuantity[i].count;
+            break;
+          }
+          case 'Deleted': {
+            result.Deleted = applicationQuantity[i].count;
+            break;
+          }
+        }
+      }
+      res.status(200).json({
+        status: 'success',
+        lengh: applicationQuantity.length,
+        data: {
+          data: result,
+        },
+      });
+    }
+  );
   getApplicationStas = catchAsync(async (req, res, next) => {
     const application = await Application.aggregate([
       {
