@@ -99,14 +99,26 @@ export const checkTagService = (tagCheck, servicePackage) => {
 }
 
 export const convertTime = (time, translate) => {
-  const timeMinute = time / 60
-  if (timeMinute > 1) {
-    return `${Math.floor(timeMinute)} ${translate('minutes')}`
-  } else if (timeMinute === 1) {
-    return `${timeMinute} ${translate('minute')}`
+  const minutes = Math.floor(time / 60)
+  if (minutes > 1) {
+    const second = time - minutes * 60
+
+    if (second > 1) {
+      return `${checkTime(minutes)} ${translate('minutes')} ${checkTime(second)} ${translate(
+        'seconds'
+      )}`
+    } else {
+      return `${checkTime(minutes)} ${translate('minutes')}`
+    }
+  } else if (minutes === 1) {
+    return `${checkTime(minutes)} ${translate('minute')}`
   } else {
-    return `${time} ${translate('seconds')}`
+    return `${checkTime(time)} ${translate('seconds')}`
   }
+}
+
+const checkTime = (time) => {
+  return `${time < 10 ? '0' + time : time}`
 }
 
 export const randomArray = (array) => {

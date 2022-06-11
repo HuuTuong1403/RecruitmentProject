@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkviolet;
+  background-color: $primary-color;
 }
 
 .wrapper {
@@ -50,6 +50,8 @@
   }
 
   &__action {
+    display: flex;
+    gap: 10px;
     width: 85%;
     margin-top: $pm-10;
 

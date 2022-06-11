@@ -97,8 +97,8 @@ export const updateJob = async ({ id, data }) => {
 // #region CRUD JobsApplication
 export const fetchJobsApplicationNotSaved = async (payload) => {
   try {
-    const res = await axiosClient.get(`employer/applications/management`, {
-      params: payload['filter'],
+    const res = await axiosClient.get(`employer/jobs/${payload.id}/applications/management`, {
+      params: payload.filter,
     })
     return res
   } catch (error) {
@@ -108,8 +108,8 @@ export const fetchJobsApplicationNotSaved = async (payload) => {
 
 export const fetchJobsApplicationSaved = async (payload) => {
   try {
-    const res = await axiosClient.get('employer/applications/management', {
-      params: payload['filter'],
+    const res = await axiosClient.get(`employer/jobs/${payload.id}/applications/management`, {
+      params: payload.filter,
     })
     return res
   } catch (error) {
@@ -119,8 +119,8 @@ export const fetchJobsApplicationSaved = async (payload) => {
 
 export const fetchJobsApplicationDeleted = async (payload) => {
   try {
-    const res = await axiosClient.get('employer/applications/management', {
-      params: payload['filter'],
+    const res = await axiosClient.get(`employer/jobs/${payload.id}/applications/management`, {
+      params: payload.filter,
     })
     return res
   } catch (error) {

@@ -1,6 +1,6 @@
 import { convertTime } from 'common/functions'
 import { useTitle } from 'common/hook/useTitle'
-import { LoadingSuspense } from 'components'
+import { LoadingSuspense, notification } from 'components'
 import { ButtonField } from 'custom-fields'
 import { selectEntryTest, selectStatus } from 'features/EntryTest/slices/selector'
 import { getEntryTestByIdAsync } from 'features/EntryTest/slices/thunks'
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import classes from './style.module.scss'
-import { FaPlay } from 'react-icons/fa'
+import { FaPlay, FaHome } from 'react-icons/fa'
 
 const InfoExamPage = () => {
   const { t } = useTranslation()
@@ -22,8 +22,15 @@ const InfoExamPage = () => {
   useTitle(entryTestData?.title ?? '')
 
   useEffect(() => {
-    dispatch(getEntryTestByIdAsync({ id }))
-  }, [dispatch, id])
+    const getEntryTest = async () => {
+      const result = await dispatch(getEntryTestByIdAsync({ id }))
+      if (result.error) {
+        history.replace('/')
+        notification('Bạn chưa đăng nhập hoặc không có quyền truy cập bài kiểm tra này', 'error')
+      }
+    }
+    getEntryTest()
+  }, [dispatch, history, id])
 
   const handleDoExam = () => {
     history.push(`/entry-tests/join/${id}/start`)
@@ -62,6 +69,16 @@ const InfoExamPage = () => {
           </div>
 
           <div className={classes.wrapper__action}>
+            <ButtonField
+              backgroundcolor="#dd4b39"
+              backgroundcolorhover="#bf0000"
+              uppercase
+              radius="10px"
+              onClick={() => history.replace('/')}
+            >
+              <FaHome className={classes.wrapper__action__icon} /> Quay lại trang chủ
+            </ButtonField>
+
             <ButtonField
               backgroundcolor="#00c985"
               backgroundcolorhover="#34d49d"

@@ -12,6 +12,7 @@ export const ModalNotify = ({
   captionBtnClose = 'Cancel',
   captionBtnOk = 'Accept',
   loading = false,
+  maskClosable = true,
 }) => {
   const { t } = useTranslation()
 

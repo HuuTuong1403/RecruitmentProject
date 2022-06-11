@@ -1,10 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { randomArray } from 'common/functions'
-import { getEntryTestByIdAsync } from './thunks'
+import { getAnswerSheetByIdAsync, getEntryTestByIdAsync } from './thunks'
 
 const initialState = {
   entryTest: null,
-  numQues: [],
+  answerClient: [],
+  answerContent: [],
+  answerSheet: null,
+  showModal: false,
+  timneCountDown: null,
   status: false,
 }
 
@@ -12,36 +16,78 @@ export const entryTestSlice = createSlice({
   name: 'entryTests',
   initialState,
   reducers: {
-    handleChangeChoice: (state, action) => {
+    handleChangeAnswerClient: (state, action) => {
       const { type, idQues, isChecked, choiceClient } = action.payload
-      const _index = state.numQues.findIndex((data) => data.idQuestion === idQues)
+      const _index = state.answerClient.findIndex((data) => data.idQuestion === idQues)
       if (type === 'Multi-choice') {
         if (_index >= 0) {
-          if (state.numQues[_index].selectedChoice.length >= 1) {
+          if (state.answerClient[_index].selectedChoice.length >= 1) {
             if (isChecked) {
-              const oldChoice = state.numQues[_index].selectedChoice
+              const oldChoice = state.answerClient[_index].selectedChoice
               if (!oldChoice.includes(choiceClient)) {
-                state.numQues[_index].selectedChoice = [...oldChoice, ...choiceClient]
+                state.answerClient[_index].selectedChoice = [...oldChoice, ...choiceClient]
               }
             } else {
-              const oldChoice = state.numQues[_index].selectedChoice
-              state.numQues[_index].selectedChoice = oldChoice.filter(
+              const oldChoice = state.answerClient[_index].selectedChoice
+              state.answerClient[_index].selectedChoice = oldChoice.filter(
                 (item) => item !== choiceClient
               )
             }
           } else {
-            state.numQues[_index].selectedChoice = [...choiceClient]
+            state.answerClient[_index].selectedChoice = [...choiceClient]
           }
         } else {
-          state.numQues.push({ idQuestion: idQues, selectedChoice: [...choiceClient] })
+          state.answerClient.push({ idQuestion: idQues, selectedChoice: [...choiceClient] })
         }
       } else {
         if (_index >= 0) {
-          state.numQues[_index].selectedChoice = [...choiceClient]
+          state.answerClient[_index].selectedChoice = [...choiceClient]
         } else {
-          state.numQues.push({ idQuestion: idQues, selectedChoice: [...choiceClient] })
+          state.answerClient.push({ idQuestion: idQues, selectedChoice: [...choiceClient] })
         }
       }
+    },
+    handleChangeAnswerContent: (state, action) => {
+      const { type, idQues, isChecked, choiceContent } = action.payload
+      const _index = state.answerContent.findIndex((data) => data.idQuestion === idQues)
+      if (type === 'Multi-choice') {
+        if (_index >= 0) {
+          if (state.answerContent[_index].selectedChoice.length >= 1) {
+            if (isChecked) {
+              const oldChoice = state.answerContent[_index].selectedChoice
+              if (!oldChoice.includes(choiceContent)) {
+                state.answerContent[_index].selectedChoice = [...oldChoice, ...choiceContent]
+              }
+            } else {
+              const oldChoice = state.answerContent[_index].selectedChoice
+              state.answerContent[_index].selectedChoice = oldChoice.filter(
+                (item) => item !== choiceContent
+              )
+            }
+          } else {
+            state.answerContent[_index].selectedChoice = [...choiceContent]
+          }
+        } else {
+          state.answerContent.push({ idQuestion: idQues, selectedChoice: [...choiceContent] })
+        }
+      } else {
+        if (_index >= 0) {
+          state.answerContent[_index].selectedChoice = [...choiceContent]
+        } else {
+          state.answerContent.push({ idQuestion: idQues, selectedChoice: [...choiceContent] })
+        }
+      }
+    },
+    handleModal: (state) => {
+      state.showModal = !state.showModal
+    },
+    setTimeCountDown: (state, action) => {
+      const { time } = action.payload
+      state.timneCountDown = Date.now() + time * 1000
+    },
+    resetState: (state) => {
+      state.showModal = false
+      state.timneCountDown = null
     },
   },
   extraReducers: {
@@ -67,8 +113,26 @@ export const entryTestSlice = createSlice({
       state.status = false
       state.entryTest = null
     },
+
+    [getAnswerSheetByIdAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAnswerSheetByIdAsync.fulfilled]: (state, action) => {
+      state.answerSheet = action.payload
+      state.status = false
+    },
+    [getAnswerSheetByIdAsync.rejected]: (state) => {
+      state.answerSheet = null
+      state.entryTest = null
+    },
   },
 })
 
-export const { handleChangeChoice } = entryTestSlice.actions
+export const {
+  handleChangeAnswerClient,
+  handleChangeAnswerContent,
+  handleModal,
+  setTimeCountDown,
+  resetState,
+} = entryTestSlice.actions
 export default entryTestSlice.reducer

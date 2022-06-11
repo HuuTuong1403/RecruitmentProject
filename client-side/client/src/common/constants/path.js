@@ -10,7 +10,8 @@ export const PATH = {
 
 export const pathEntryTest = {
   infoExam: '/entry-tests/join/:id',
-  startExam: '/entry-tests/join/:id/start'
+  startExam: '/entry-tests/join/:id/start',
+  resultExam: '/entry-tests/:idEntryTest/result/:id',
 }
 
 export const pathJobSeeker = {

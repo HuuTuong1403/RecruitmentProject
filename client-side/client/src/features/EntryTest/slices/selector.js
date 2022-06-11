@@ -6,6 +6,22 @@ export const selectEntryTest = (state) => {
   return state?.entryTest?.entryTest
 }
 
-export const selectNumQues = (state) => {
-  return state?.entryTest?.numQues
+export const selectAnswerClient = (state) => {
+  return state?.entryTest?.answerClient
+}
+
+export const selectAnswerContent = (state) => {
+  return state?.entryTest?.answerContent
+}
+
+export const selectShowModal = (state) => {
+  return state?.entryTest?.showModal
+}
+
+export const selectTime = (state) => {
+  return state?.entryTest?.timneCountDown
+}
+
+export const selectAnswerSheet = (state) => {
+  return state?.entryTest?.answerSheet
 }

@@ -49,15 +49,15 @@ const CandidateProfileManagementPage = () => {
     let filter = {}
     if (dataFilter) {
       filter = dataFilter
-      dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
+      dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
     } else {
       filter = {
         status: 'NotSaved',
       }
-      dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
+      dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
     }
     dispatch(countApplicationStatusAsync())
-  }, [dispatch, dataFilter])
+  }, [dispatch, dataFilter, id])
 
   //Handle change Tab and Call API
   const handleChangeTabs = (activeKey) => {
@@ -82,13 +82,13 @@ const CandidateProfileManagementPage = () => {
       }
 
       if (activeKey === 'NotSaved') {
-        dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
+        dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
       }
       if (activeKey === 'Saved') {
-        dispatch(fetchJobsApplicationSavedAsync({ filter }))
+        dispatch(fetchJobsApplicationSavedAsync({ id, filter }))
       }
       if (activeKey === 'Deleted') {
-        dispatch(fetchJobsApplicationDeletedAsync({ filter }))
+        dispatch(fetchJobsApplicationDeletedAsync({ id, filter }))
       }
     }
   }
