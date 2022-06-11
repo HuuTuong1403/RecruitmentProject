@@ -113,7 +113,6 @@ exports.getAll = (Model, ModelName) =>
       .limitFields()
       .paginate();
     let docs = await features.query;
-
     if (re) {
       docs = docs.filter((doc) => {
         if (re.test(doc.company.companyName)) {

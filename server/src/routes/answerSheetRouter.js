@@ -12,7 +12,12 @@ answerSheetRouter
     AnswerSheetController.setBodyAnswerSheet,
     AnswerSheetController.createAnswerSheet
   )
-  .get(authController.protect, AnswerSheetController.getAllAnswerSheet);
+  .get(
+    authController.protect,
+    authController.restrictTo('employer'),
+    AnswerSheetController.setQueryAllAnswerSheet,
+    AnswerSheetController.getAllAnswerSheet
+  );
 answerSheetRouter
   .route('/:id')
   .get(authController.protect, AnswerSheetController.getAnswerSheet)

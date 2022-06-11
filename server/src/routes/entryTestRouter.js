@@ -13,6 +13,11 @@ entryTestRouter
     authController.protect,
     authController.restrictTo('employer'),
     EntryTestController.deleteEntryTest
+  )
+  .patch(
+    authController.protect,
+    authController.restrictTo('employer'),
+    EntryTestController.updateEntryTest
   );
 entryTestRouter
   .route('/')

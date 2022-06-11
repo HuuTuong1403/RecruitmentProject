@@ -354,6 +354,36 @@ class orderController {
   createOrder = factory.createOne(Order);
   getAllOrder = factory.getAll(Order);
   getOrder = factory.getOne(Order);
+  // getParticipantStat = catchAsync(async (req, res, next) => {
+  //   const participant = await Participant.aggregate([
+  //     {
+  //       $lookup: {
+  //         from: 'events', /// Name collection from database, not name from exported schema
+  //         localField: 'event',
+  //         foreignField: '_id',
+  //         as: 'fromevent',
+  //       },
+  //     },
+  //     {
+  //       $unwind: '$fromevent',
+  //     }, //
+  //     {
+  //       $match: {
+  //         'fromevent.company': mongoose.Types.ObjectId(req.user.id),
+  //       },
+  //     },
+  //     {
+  //       $group: { _id: '$fromevent.eventName', count: { $sum: 1 } },
+  //     },
+  //   ]);
+  //   res.status(200).json({
+  //     status: 'success',
+  //     lengh: participant.length,
+  //     data: {
+  //       data: participant,
+  //     },
+  //   });
+  // });
   //updateOrder = factory.updateOne(Order);
 }
 function sortObject(obj) {

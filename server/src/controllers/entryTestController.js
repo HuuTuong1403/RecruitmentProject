@@ -2,7 +2,6 @@ const factory = require('./handleFactory');
 const EntryTest = require('./../models/entryTestModel');
 const catchAsync = require('../utils/catchAsync');
 
-
 class EntryTestController {
   setBodyEntryTest = (req, res, next) => {
     req.body.company = req.user.id;
@@ -15,7 +14,19 @@ class EntryTestController {
     next();
   };
   createEntryTest = factory.createOne(EntryTest);
-  updateEntryTest = factory.updateOne(EntryTest);
+  updateEntryTest = catchAsync(async (req, res, next) => {
+    let entryTest = await EntryTest.findById(req.params.id);
+    for (const key in req.body) {
+      entryTest[key] = req.body[key];
+    }
+    await entryTest.save()
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: entryTest,
+      },
+    });
+  });
   softDeleteEntryTest = factory.softDeleteOne(EntryTest);
   getAllDeletedEntryTest = factory.getDeletedAll(EntryTest);
   getDeletedEntryTest = factory.getDeletedOne(EntryTest);
