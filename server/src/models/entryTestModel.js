@@ -75,6 +75,13 @@ entryTestSchema.pre('save', async function (next) {
   this.duration = duration;
   next();
 });
+entryTestSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'company',
+    select: 'companyName companyType companyWebsite logo ot',
+  });
+  next();
+});
 entryTestSchema.plugin(mongoose_delete, {
   deletedBy: true,
   overrideMethods: true,

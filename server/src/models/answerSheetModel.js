@@ -68,6 +68,13 @@ answerSheetSchema.pre('save', async function (next) {
   this.answerContents = resultData.answerContents;
   next();
 });
+answerSheetSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'jobSeeker',
+    select: 'fullname username avatar',
+  });
+  next();
+});
 answerSheetSchema.plugin(mongoose_delete, {
   deletedBy: true,
   overrideMethods: true,
