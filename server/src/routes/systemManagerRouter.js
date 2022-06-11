@@ -13,14 +13,14 @@ const jobseekerRouter = require('./job-seekerRoutes');
 const employerRouter = require('./employerRouter');
 const servicePackageRouter = require('./servicePackageRouter');
 const serviceRouter = require('./serviceRouter');
-
+const orderRouter = require('./orderRouter');
 systemManagerRouter.route('/login').post(authController.loginSystemManager);
-
 systemManagerRouter.use('/jobs', jobRouter);
 systemManagerRouter.use('/job-seeker', jobseekerRouter);
 systemManagerRouter.use('/employer', employerRouter);
 systemManagerRouter.use('/service-package', servicePackageRouter);
 systemManagerRouter.use('/service', serviceRouter);
+systemManagerRouter.use('/order', orderRouter);
 systemManagerRouter.use(
   authController.protect,
   authController.restrictTo('systemmanager')

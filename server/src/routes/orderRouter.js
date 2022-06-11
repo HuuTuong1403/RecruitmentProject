@@ -35,6 +35,14 @@ orderRouter
     authController.restrictTo('employer'),
     orderController.updateOrder
   );
+
+orderRouter
+  .route('/statistic/order-stats')
+  .get(
+    authController.protect,
+    authController.restrictTo('systemmanager'),
+    orderController.getOrderStat
+  );
 orderRouter
   .route('/:id')
   .get(

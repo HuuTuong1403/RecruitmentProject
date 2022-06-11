@@ -54,6 +54,7 @@ answerSheetSchema.pre('save', async function (next) {
     difficultLevel: 1,
     duration: 1,
     questions: 1,
+    title: 1,
   });
   const resultData = await answerSheetServices.markAnswer(
     this.answerContents,
