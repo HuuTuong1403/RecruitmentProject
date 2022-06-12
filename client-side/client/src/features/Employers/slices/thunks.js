@@ -18,6 +18,7 @@ import {
   getAllQuestionDeleted,
   getAllEntryTest,
   getAllEntryTestDeleted,
+  getAnswerSheetById,
 } from '../api/employer.api'
 
 export const getDetailEmployerAsync = createAsyncThunk('employer/getDetailEmployer', async () => {
@@ -72,8 +73,8 @@ export const fetchJobsApplicationDeletedAsync = createAsyncThunk(
 
 export const countApplicationStatusAsync = createAsyncThunk(
   'employer/countApplicationStatus',
-  async () => {
-    const res = await countApplicationStatus()
+  async (payload) => {
+    const res = await countApplicationStatus(payload)
     return res.data.data
   }
 )
@@ -149,6 +150,15 @@ export const getAllEntryTestDeletedAsync = createAsyncThunk(
   'employer/getAllEntryTestDeleted',
   async () => {
     const res = await getAllEntryTestDeleted()
+    const datas = (res.data || {}).data || []
+    return datas
+  }
+)
+
+export const getAnswerSheetByIdAsync = createAsyncThunk(
+  'employer/getAnswerSheetById',
+  async (payload) => {
+    const res = await getAnswerSheetById(payload)
     const datas = (res.data || {}).data || []
     return datas
   }

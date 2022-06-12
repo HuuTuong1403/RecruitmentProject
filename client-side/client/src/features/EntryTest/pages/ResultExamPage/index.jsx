@@ -24,7 +24,7 @@ const ResultExamPage = () => {
   const [loaded, setLoadded] = useState(false)
   const scrollQuesRef = useRef([])
 
-  useTitle(`Kết quả của bài thi: ${((answerSheet || {}).entryTest || {}).title || ''}`)
+  useTitle(`${t('Exam results')}: ${((answerSheet || {}).entryTest || {}).title || ''}`)
 
   useEffect(() => {
     if (id && idEntryTest) {
@@ -50,7 +50,10 @@ const ResultExamPage = () => {
   }
 
   const handleCheckResult = () => {
-    notification(`Cảm ơn bạn đã tham gia bài thi ${answerSheet.entryTest.title || ''}`, 'success')
+    notification(
+      `Thank you for taking part in the entry test ${answerSheet.entryTest.title || ''}`,
+      'success'
+    )
     history.replace('/')
   }
 
@@ -62,34 +65,34 @@ const ResultExamPage = () => {
         <div style={{ width: '65%' }}>
           <div className={classes.card}>
             <div className={classes.resultPage__header}>
-              Kết quả bài thi: {answerSheet.entryTest.title || ''}
+              {t('Exam results')}: {answerSheet.entryTest.title || ''}
             </div>
 
             <table className={classes.table}>
               <tbody>
                 <tr>
-                  <td>Số câu đúng</td>
+                  <td>{t('Total right question')}</td>
                   <td>
                     {answerSheet.totalRightQuestion || 0}/
                     {answerSheet.entryTest.questions.length || 0}
                   </td>
                 </tr>
                 <tr>
-                  <td>Thời gian thực hiện</td>
+                  <td>{t('Exam time')}</td>
                   <td>{convertTime(answerSheet.duration, t)}</td>
                 </tr>
                 <tr>
-                  <td>Số điểm đạt được</td>
+                  <td>{t('Number of points achieved')}</td>
                   <td>
                     {answerSheet.achievedFullScore || 0}/{answerSheet.entryTest.totalScore || 0}
                   </td>
                 </tr>
                 <tr>
-                  <td>Số điểm tối thiểu đạt</td>
+                  <td>{t('Minimum score achieved')}</td>
                   <td>{answerSheet.entryTest.requiredPass || 0}</td>
                 </tr>
                 <tr>
-                  <td>Trạng thái</td>
+                  <td>{t('Status')}</td>
                   <td
                     className={
                       answerSheet.achievedFullScore < answerSheet.entryTest.requiredPass
@@ -104,12 +107,12 @@ const ResultExamPage = () => {
                 </tr>
 
                 <tr>
-                  <td>Ngày hoàn thành</td>
+                  <td>{t('Date finished')}</td>
                   <td>{moment(answerSheet.createdAt || '').format(dateFormatHourMinute)}</td>
                 </tr>
 
                 <tr>
-                  <td>Người thực hiện</td>
+                  <td>{t('Executor')}</td>
                   <td>{answerSheet.jobSeeker.fullname || ''}</td>
                 </tr>
               </tbody>
@@ -168,7 +171,7 @@ const ResultExamPage = () => {
               width="auto"
               onClick={handleCheckResult}
             >
-              Hoàn tất kiểm tra kết quả
+              {t('Finish checking results')}
             </ButtonField>
           </div>
         </div>

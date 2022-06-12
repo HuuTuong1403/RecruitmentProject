@@ -29,6 +29,7 @@ import { ModalApplyJob } from 'features/Jobs/components'
 import classes from './style.module.scss'
 import moment from 'moment'
 import parse from 'html-react-parser'
+import NumberFormat from 'react-number-format'
 
 const JobDetailPage = () => {
   ScrollToTop()
@@ -382,11 +383,28 @@ const JobDetailPage = () => {
                     {salary && (
                       <div>
                         {t('Salary')}:{' '}
-                        <span>
-                          {salary.min
-                            ? `${salary.min} - ${salary.max} ${salary.type}`
-                            : t(salary.type)}
-                        </span>
+                        {salary.min ? (
+                          <Fragment>
+                            <NumberFormat
+                              thousandsGroupStyle="thousand"
+                              thousandSeparator={true}
+                              value={salary.min}
+                              suffix=""
+                              displayType={'text'}
+                            />{' '}
+                            -{' '}
+                            <NumberFormat
+                              thousandsGroupStyle="thousand"
+                              thousandSeparator={true}
+                              value={salary.max}
+                              suffix=""
+                              displayType={'text'}
+                            />{' '}
+                            {salary.type}
+                          </Fragment>
+                        ) : (
+                          <>{t(salary.type)}</>
+                        )}
                       </div>
                     )}
                     {company && (

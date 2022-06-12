@@ -89,3 +89,7 @@ export const selectQuestions = (state) => {
 export const selectEntryTests = (state) => {
   return state?.employer?.entryTests
 }
+
+export const selectAnswerSheets = (state) => {
+  return state?.employer?.answerSheets
+}

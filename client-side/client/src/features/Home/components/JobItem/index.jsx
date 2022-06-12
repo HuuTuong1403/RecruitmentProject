@@ -4,6 +4,8 @@ import { MdLocationOn } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import { checkTagService } from 'common/functions'
+import NumberFormat from 'react-number-format'
+import { Fragment } from 'react'
 
 export const JobItem = ({ job }) => {
   const { jobTitle, salary, location, company, slug, servicePackage } = job
@@ -53,7 +55,28 @@ export const JobItem = ({ job }) => {
           <div className={classes['jobItem__container-detail__salary']}>
             <BiDollarCircle style={{ marginRight: '5px' }} />
             <div>
-              {salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)}
+              {salary.min ? (
+                <Fragment>
+                  <NumberFormat
+                    thousandsGroupStyle="thousand"
+                    thousandSeparator={true}
+                    value={salary.min}
+                    suffix=""
+                    displayType={'text'}
+                  />{' '}
+                  -{' '}
+                  <NumberFormat
+                    thousandsGroupStyle="thousand"
+                    thousandSeparator={true}
+                    value={salary.max}
+                    suffix=""
+                    displayType={'text'}
+                  />{' '}
+                  {salary.type}
+                </Fragment>
+              ) : (
+                <>{t(salary.type)}</>
+              )}
             </div>
           </div>
           {location.city && (

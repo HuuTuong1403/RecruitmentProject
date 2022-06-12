@@ -42,25 +42,25 @@ export const MenuJobSeeker = ({ children }) => {
   const menuJobSeeker = [
     {
       key: pathJobSeeker.myProfile,
-      title: `${t('Account Management')}`,
+      title: t('Account Management'),
       icon: <MdAccountCircle className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       icon: <BsListCheck className={classes.menuIcon} />,
-      title: `${t('My Jobs')}`,
+      title: t('My Jobs'),
       subMenu: [
         {
           key: pathJobSeeker.jobSaved,
-          title: `${t('Saved jobs')}`,
+          title: t('Saved jobs'),
           icon: null,
           isLink: false,
           onClick: null,
         },
         {
           key: pathJobSeeker.jobApplied,
-          title: `${t('Applied jobs')}`,
+          title: t('Applied jobs'),
           icon: null,
           isLink: false,
           onClick: null,
@@ -69,21 +69,21 @@ export const MenuJobSeeker = ({ children }) => {
     },
     {
       key: pathJobSeeker.eventsJoined,
-      title: `${t('Registered events')}`,
+      title: t('Registered events'),
       icon: <MdEvent className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       key: pathJobSeeker.settingAccount,
-      title: `${t('Settings')}`,
+      title: t('Settings'),
       icon: <MdSettings className={classes.menuIcon} />,
       isLink: false,
       onClick: null,
     },
     {
       key: 'logout',
-      title: `${t('Log out')}`,
+      title: t('Log out'),
       icon: <RiLogoutCircleRLine className={classes.menuIcon} />,
       isLink: true,
       onClick: logoutHandler,

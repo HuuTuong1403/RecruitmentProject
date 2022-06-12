@@ -2,7 +2,7 @@ import { Table, Tooltip } from 'antd'
 import { PopoverField } from 'custom-fields'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FaEdit, FaTrash, FaTrashRestore } from 'react-icons/fa'
+import { FaEdit, FaEye, FaTrash, FaTrashRestore } from 'react-icons/fa'
 import classes from './style.module.scss'
 
 export const TableData = ({
@@ -16,10 +16,13 @@ export const TableData = ({
   onRestore,
   onDelete,
   titlePopover,
+  isDetail,
+  onDetail,
+  titleDetail,
 }) => {
   const { t } = useTranslation()
 
-  const ActionData = ({ id }) => {
+  const ActionData = ({ id, title, idEntryTest, idAnswerSheet }) => {
     return (
       <div>
         {isTrash ? (
@@ -47,22 +50,41 @@ export const TableData = ({
           </Fragment>
         ) : (
           <Fragment>
-            <Tooltip title={t('Edit')}>
-              <FaEdit
-                className={`${classes.icon} ${classes.icon__edit}`}
-                onClick={() => onEdit(id)}
-              />
-            </Tooltip>
+            {onEdit && (
+              <Tooltip title={t('Edit')}>
+                <FaEdit
+                  className={`${classes.icon} ${classes.icon__edit}`}
+                  onClick={() => onEdit(id)}
+                />
+              </Tooltip>
+            )}
 
-            <PopoverField
-              title={titlePopover.moveTrash ? t(titlePopover.moveTrash.title) : ''}
-              subTitle={titlePopover.moveTrash ? t(titlePopover.moveTrash.subTitle) + '?' : ''}
-              titleCancel={t('Cancel')}
-              titleOk={t('Move trash')}
-              onClickOk={() => onMoveTrash(id)}
-            >
-              <FaTrash className={`${classes.icon} ${classes.icon__delete}`} />
-            </PopoverField>
+            {onMoveTrash && (
+              <PopoverField
+                title={titlePopover.moveTrash ? t(titlePopover.moveTrash.title) : ''}
+                subTitle={titlePopover.moveTrash ? t(titlePopover.moveTrash.subTitle) + '?' : ''}
+                titleCancel={t('Cancel')}
+                titleOk={t('Move trash')}
+                onClickOk={() => onMoveTrash(id)}
+              >
+                <FaTrash className={`${classes.icon} ${classes.icon__delete}`} />
+              </PopoverField>
+            )}
+
+            {isDetail && (
+              <Tooltip title={titleDetail + ' ' + title}>
+                <FaEye
+                  className={`${classes.icon} ${classes.icon__edit}`}
+                  onClick={() => {
+                    if (idEntryTest && idAnswerSheet) {
+                      onDetail(idEntryTest, idAnswerSheet)
+                    } else {
+                      onDetail(id, title)
+                    }
+                  }}
+                />
+              </Tooltip>
+            )}
           </Fragment>
         )}
       </div>
@@ -80,7 +102,14 @@ export const TableData = ({
       title: '',
       dataIndex: 'action',
       key: 'action',
-      render: (_, record) => <ActionData id={record.key} />,
+      render: (_, record) => (
+        <ActionData
+          id={record.key}
+          title={record.title}
+          idEntryTest={record.idEntryTest}
+          idAnswerSheet={record.idAnswerSheet}
+        />
+      ),
     },
     ...columns,
   ]

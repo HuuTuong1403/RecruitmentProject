@@ -517,6 +517,30 @@
   font-size: $text-base;
 }
 
+.statusJob {
+  font-size: $text-base;
+  padding: $pm-4 $pm-10;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  color: white;
+
+  &--saved {
+    background-color: $restore-color;
+  }
+
+  &--announced {
+    background-color: $primary-color;
+  }
+
+  &--notSaved {
+    background-color: $edit-color;
+  }
+
+  &--deleted {
+    background-color: $delete-color;
+  }
+}
+
 @media screen and (max-width: 900px) {
   .titleDashboard {
     font-size: $text-lg;

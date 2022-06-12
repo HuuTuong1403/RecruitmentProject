@@ -18,6 +18,7 @@ import {
   getAllQuestionDeletedAsync,
   getAllEntryTestAsync,
   getAllEntryTestDeletedAsync,
+  getAnswerSheetByIdAsync,
 } from 'features/Employers/slices/thunks'
 
 const initialState = {
@@ -40,6 +41,7 @@ const initialState = {
   participantsEvent: [],
   questions: [],
   entryTests: [],
+  answerSheets: [],
   postJobData: null,
   status: false,
   statusJobDetail: false,
@@ -361,7 +363,21 @@ const employerSlice = createSlice({
     },
     [getAllEntryTestDeletedAsync.rejected]: (state) => {
       state.status = false
-      state.questions = []
+      state.entryTests = []
+    },
+    // #endregion
+
+    // #region Get All Entry Test Deleted
+    [getAnswerSheetByIdAsync.pending]: (state) => {
+      state.status = true
+    },
+    [getAnswerSheetByIdAsync.fulfilled]: (state, action) => {
+      state.status = false
+      state.answerSheets = action.payload
+    },
+    [getAnswerSheetByIdAsync.rejected]: (state) => {
+      state.status = false
+      state.answerSheets = []
     },
     // #endregion
   },

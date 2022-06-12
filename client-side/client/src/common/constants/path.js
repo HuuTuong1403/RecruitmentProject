@@ -51,4 +51,5 @@ export const pathEmployer = {
   createdQuestion: rootEmployer + 'questions/created',
   managementQuestion: rootEmployer + 'questions',
   trashQuestion: rootEmployer + 'questions/trash',
+  answerSheet: rootEmployer + 'entry-tests/:idEntryTest/answer-sheet',
 }

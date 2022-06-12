@@ -88,6 +88,11 @@ export const entryTestSlice = createSlice({
     resetState: (state) => {
       state.showModal = false
       state.timneCountDown = null
+      state.answerClient = state.entryTest.questions.map((item) => ({
+        idQuestion: item._id,
+        selectedChoice: [],
+      }))
+      state.answerContent = []
     },
   },
   extraReducers: {
@@ -96,7 +101,7 @@ export const entryTestSlice = createSlice({
     },
     [getEntryTestByIdAsync.fulfilled]: (state, action) => {
       state.status = false
-      state.numQues = action.payload.questions.map((item) => ({
+      state.answerClient = action.payload.questions.map((item) => ({
         idQuestion: item._id,
         selectedChoice: [],
       }))

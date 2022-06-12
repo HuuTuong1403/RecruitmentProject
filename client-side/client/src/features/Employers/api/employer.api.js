@@ -167,9 +167,20 @@ export const announceApplication = async (payload) => {
   }
 }
 
-export const countApplicationStatus = async () => {
+export const announceEntryTest = async (payload) => {
   try {
-    const res = await axiosClient.get('employer/applications/management/status/count')
+    const res = await axiosClient.post('employer/entry-test/announce-entrytest', payload)
+    return res
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const countApplicationStatus = async (payload) => {
+  try {
+    const res = await axiosClient.get(
+      `employer/jobs/${payload.id}/applications/management/status-job/count`
+    )
     return res
   } catch (error) {
     console.log(error)
@@ -550,6 +561,15 @@ export const deleteEntryTest = async (payload) => {
     return res
   } catch (error) {
     console.log(error)
+  }
+}
+
+export const getAnswerSheetById = async (payload) => {
+  try {
+    const res = await axiosClient.get(`entry-test/${payload.id}/answersheets`)
+    return res
+  } catch (error) {
+    console.error(error)
   }
 }
 // #endregion

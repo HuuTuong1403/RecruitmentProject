@@ -1,5 +1,4 @@
 import { createRef, useRef, useState } from 'react'
-import { getEntryTestByIdAsync } from 'features/EntryTest/slices/thunks'
 import { LoadingSuspense, ModalNotify, notification } from 'components'
 import {
   selectAnswerClient,
@@ -48,14 +47,7 @@ const StartExamPage = () => {
 
   useEffect(() => {
     if (!entryTestData) {
-      const getEntryTest = async () => {
-        const result = await dispatch(getEntryTestByIdAsync({ id }))
-        if (result.error) {
-          history.replace('/')
-          notification('Bạn chưa đăng nhập hoặc không có quyền truy cập bài kiểm tra này', 'error')
-        }
-      }
-      getEntryTest()
+      history.goBack()
     } else {
       if (!loaded) {
         dispatch(setTimeCountDown({ time: entryTestData.duration }))

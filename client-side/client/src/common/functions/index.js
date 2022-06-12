@@ -54,6 +54,15 @@ export const formatArrayForSelect = (
       ]
     }
 
+    if (labelGroup === 'Entry Test') {
+      const datas = array.map((item) => ({
+        value: item._id ? item._id || '' : '',
+        label: item.title ? item.title || '' : '',
+      }))
+
+      return [{ label: labelGroup, options: datas }]
+    }
+
     const datas = array.map((item) => ({
       value: isLocation ? item.code || 0 : item.value || '',
       label: isLocation ? translate(item.name) : translate(item.label),

@@ -105,6 +105,10 @@ const EntryTestManagementPage = () => {
     }
   }
 
+  const handleGoToAnswerSheet = (id, title) => {
+    history.push(`/employers/dashboard/entry-tests/${id}/answer-sheet?title=${title}`)
+  }
+
   return status ? (
     <LoadingSuspense height="80vh" />
   ) : (
@@ -132,11 +136,13 @@ const EntryTestManagementPage = () => {
             <FaTrash style={{ marginRight: '2px' }} /> {t('Trash')}
           </ButtonField>
         </div>
+
         {entryTests.length === 0 ? (
           <NotFoundData title={t('You have not created any entry test yet')} />
         ) : (
           <Fragment>
             <TableData
+              isDetail={true}
               titleList={t('List entry test created')}
               columns={columns}
               dataSource={entryTests.map((entryTest, index) => {
@@ -158,6 +164,8 @@ const EntryTestManagementPage = () => {
                   subTitle: 'Do you want to move this entry test to trash',
                 },
               }}
+              titleDetail={t('See candidates taking the test')}
+              onDetail={handleGoToAnswerSheet}
               isUseAction
             />
           </Fragment>
