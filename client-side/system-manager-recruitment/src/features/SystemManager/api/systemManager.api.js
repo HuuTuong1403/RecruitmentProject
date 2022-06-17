@@ -6,7 +6,7 @@ export const fetchAlLEmployer = async () => {
     const res = await axiosClient.get('system-manager/manage/employer')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -15,7 +15,7 @@ export const fetchEmployerDetail = async (payload) => {
     const res = await axiosClient.get(`system-manager/manage/employer/${payload}`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -28,7 +28,7 @@ export const issueAccountEmployer = async (payload) => {
     })
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -37,7 +37,7 @@ export const getSystemManagerDetail = async () => {
     const res = await axiosClient.get('system-manager')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -46,7 +46,7 @@ export const updatePasswordSystemManager = async (payload) => {
     const res = axiosClient.patch('system-manager/updatePassword', payload)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -55,7 +55,7 @@ export const upadteProfileSystemManager = async (payload) => {
     const res = await axiosClient.patch('system-manager/updateMe', payload)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 // #endregion
@@ -66,7 +66,7 @@ export const fetchAllJob = async () => {
     const res = await axiosClient.get('system-manager/jobs/view/all')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -75,7 +75,7 @@ export const fetchAllJobDeleted = async () => {
     const res = await axiosClient.get('system-manager/jobs/soft-delete/trash')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -84,7 +84,7 @@ export const approveJobPosting = async (payload) => {
     const res = await axiosClient.patch(`system-manager/jobs/${payload}/approve`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -93,7 +93,7 @@ export const denyJobPosting = async (payload) => {
     const res = await axiosClient.patch(`system-manager/jobs/${payload}/deny`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 // #endregion
@@ -104,7 +104,7 @@ export const fetchSumJobSeeker = async () => {
     const res = await axiosClient.get('system-manager/job-seeker/statistic/jobseeker-comp')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -113,7 +113,7 @@ export const fetchSumEmployer = async () => {
     const res = await axiosClient.get('system-manager/employer/statistic/employer-comp')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -122,7 +122,7 @@ export const fetchJobSeekerStatisticMonthly = async () => {
     const res = await axiosClient.get('system-manager/job-seeker/statistic/jobseeker-stat')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -131,7 +131,20 @@ export const fetchEmployerStatisticMonthly = async () => {
     const res = await axiosClient.get('system-manager/employer/statistic/employer-stat')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
+  }
+}
+
+export const fetchOrderStatisticMonthly = async ({ year }) => {
+  try {
+    const res = await axiosClient.get('system-manager/order/statistic/order-stats', {
+      params: {
+        year,
+      },
+    })
+    return res
+  } catch (error) {
+    console.error(error)
   }
 }
 // #endregion
@@ -142,7 +155,7 @@ export const getAllServicePackage = async () => {
     const res = await axiosClient.get('service-package')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -151,7 +164,7 @@ export const createServicePackage = async (payload) => {
     const res = await axiosClient.post('system-manager/service-package', payload)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -160,7 +173,7 @@ export const getByIdServicePackage = async (payload) => {
     const res = await axiosClient.get(`service-package/${payload}`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -169,7 +182,7 @@ export const updateServicePackage = async (id, data) => {
     const res = await axiosClient.patch(`system-manager/service-package/${id}`, data)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -178,7 +191,7 @@ export const softDeleteServicePackage = async (payload) => {
     const res = await axiosClient.delete(`system-manager/service-package/soft-delete/${payload}`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -187,7 +200,7 @@ export const restoreServicePackage = async (payload) => {
     const res = await axiosClient.patch(`system-manager/service-package/restore/${payload}`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -196,7 +209,7 @@ export const hardDeleteServicePackage = async (payload) => {
     const res = axiosClient.delete(`system-manager/service-package/${payload}`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -205,7 +218,7 @@ export const getAllServicePackageDeleted = async () => {
     const res = await axiosClient.get('system-manager/service-package/soft-delete/trash')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 // #endregion
@@ -216,7 +229,7 @@ export const getAllService = async () => {
     const res = await axiosClient.get('system-manager/service')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -225,7 +238,7 @@ export const createService = async (payload) => {
     const res = await axiosClient.post('system-manager/service', payload)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -234,7 +247,7 @@ export const updateService = async (id, data) => {
     const res = await axiosClient.patch(`system-manager/service/${id}`, data)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -243,7 +256,7 @@ export const softDeleteService = async (payload) => {
     const res = await axiosClient.delete(`system-manager/service/soft-delete/${payload}`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -252,7 +265,7 @@ export const restoreService = async (payload) => {
     const res = await axiosClient.patch(`system-manager/service/restore/${payload}`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -261,7 +274,7 @@ export const hardDeleteService = async (payload) => {
     const res = await axiosClient.delete(`system-manager/service/${payload}`)
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -270,7 +283,7 @@ export const getAllDeletedService = async (payload) => {
     const res = await axiosClient.get('system-manager/service/soft-delete/trash')
     return res
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 // #endregion
