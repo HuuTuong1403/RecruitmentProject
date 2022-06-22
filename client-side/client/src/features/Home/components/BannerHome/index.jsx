@@ -8,17 +8,18 @@ import { WrappedInput as InputField } from 'custom-fields'
 import classes from './style.module.scss'
 import ReactTypingEffect from 'react-typing-effect'
 import Select from 'react-select'
+import { formatArrayForSelect } from 'common/functions'
 
 export const BannerHome = () => {
   const { t } = useTranslation()
   const [searchProvince, setSearchProvince] = useState('Tất cả')
   const searchKeyRef = useRef()
   const history = useHistory()
-  const provinces = useSelector(selectedProvinces).map((province) => ({
-    label: province.name,
-  }))
 
-  const newProvinces = [{ label: 'Tất cả' }, ...provinces]
+  const provinces = formatArrayForSelect(useSelector(selectedProvinces), 'Province', t, true, {
+    name: 'Tất cả',
+    code: '',
+  })
 
   const searchSubmitHandler = (e) => {
     e.preventDefault()
@@ -59,10 +60,7 @@ export const BannerHome = () => {
             <Select
               placeholder={t('choose-province')}
               onChange={changeProvinceHandler}
-              options={newProvinces}
-              value={newProvinces.filter((province) => {
-                return province.label === searchProvince
-              })}
+              options={provinces}
             />
           </div>
           <div>

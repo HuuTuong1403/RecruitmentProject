@@ -130,7 +130,7 @@ export const HeaderEmployers = () => {
                   {employer.companyName}
                 </Link>
               </DropdownToggle>
-              <DropdownMenu>
+              <DropdownMenu style={{ minWidth: '13rem' }}>
                 <Link
                   className={`${classes['header__lang-profile']} ${classes.link}`}
                   to={pathEmployer.postJob}

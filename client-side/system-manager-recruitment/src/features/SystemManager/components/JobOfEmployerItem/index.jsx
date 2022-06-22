@@ -15,6 +15,8 @@ import { useTranslation } from 'react-i18next'
 import { notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
+import NumberFormat from 'react-number-format'
+import { FiPackage } from 'react-icons/fi'
 
 export const JobOfEmployerItem = ({ data, statusJob }) => {
   const { t } = useTranslation()
@@ -34,6 +36,7 @@ export const JobOfEmployerItem = ({ data, statusJob }) => {
     createdAt,
     aboutCreated,
     status,
+    servicePackage,
   } = data
 
   const approveJobPostingHandler = async () => {
@@ -179,9 +182,31 @@ export const JobOfEmployerItem = ({ data, statusJob }) => {
             {salary && (
               <div className={classes['item__bottom--salary']}>
                 <BiDollarCircle style={{ marginRight: '5px' }} />
-                {`${t('Salary')}: ${
-                  salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)
-                }`}
+                {t('Salary')}:{' '}
+                <span>
+                  {salary.min ? (
+                    <Fragment>
+                      <NumberFormat
+                        thousandsGroupStyle="thousand"
+                        thousandSeparator={true}
+                        value={salary.min}
+                        suffix=""
+                        displayType={'text'}
+                      />{' '}
+                      -{' '}
+                      <NumberFormat
+                        thousandsGroupStyle="thousand"
+                        thousandSeparator={true}
+                        value={salary.max}
+                        suffix=""
+                        displayType={'text'}
+                      />{' '}
+                      {salary.type}
+                    </Fragment>
+                  ) : (
+                    <>{t(salary.type)}</>
+                  )}
+                </span>
               </div>
             )}
             {location && (
@@ -205,6 +230,15 @@ export const JobOfEmployerItem = ({ data, statusJob }) => {
                 .map((string) => t(string))
                 .join(' ')}`}
             </div>
+            {servicePackage && (
+              <div>
+                <FiPackage style={{ marginRight: '5px' }} />
+                {t('Already applied')}:{' '}
+                <span className={classes['item__bottom--service']}>
+                  {servicePackage.packageName}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -20,7 +20,9 @@ import classes from './style.module.scss'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
 
-export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
+const defaultFn = () => {}
+
+export const JobOfEmployerItem = ({ data, isTrash, onDelete = defaultFn, loading, onRestore }) => {
   const history = useHistory()
 
   const {
