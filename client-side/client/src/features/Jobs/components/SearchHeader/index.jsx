@@ -154,6 +154,7 @@ export const SearchHeader = () => {
               <Select
                 placeholder={t('choose-province')}
                 options={provinces}
+                value={provinces[0].options?.find((item) => item.label === selectProvince)}
                 onChange={changeProvinceHandler}
               />
             </div>
