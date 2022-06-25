@@ -10,8 +10,15 @@ QuestionRouter.use(
   authController.restrictTo('systemmanager', 'employer')
 );
 QuestionRouter.route('/')
-  .post(QuestionController.createQuestion)
-  .get(questionQuery.customQuestionQuery, QuestionController.getAllQuestion);
+  .post(
+    QuestionController.setBodyCreateQuestion,
+    QuestionController.createQuestion
+  )
+  .get(
+    questionQuery.customQuestionQuery,
+    QuestionController.setBodyGetAllQuestion,
+    QuestionController.getAllQuestion
+  );
 QuestionRouter.route('/:id')
   .patch(QuestionController.updateQuestion)
   .get(QuestionController.getQuestion)

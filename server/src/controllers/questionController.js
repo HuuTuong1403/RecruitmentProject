@@ -1,7 +1,30 @@
 const factory = require('./handleFactory');
 const Question = require('./../models/questionModel');
+const catchAsync = require('../utils/catchAsync');
 
 class QuestionController {
+  setBodyCreateQuestion = catchAsync(async (req, res, next) => {
+    if (req.user.role == 'employer') {
+      req.body.employerCreator = req.user.id;
+    }
+    if (req.user.role == 'systemmanager') {
+      req.body.systemManagerCreator = req.user.id;
+    }
+    next();
+  });
+  setBodyGetAllQuestion = catchAsync(async (req, res, next) => {
+    // if (req.user.role == 'employer') {
+    //   req.query = {
+    //     employerCreator: req.user.id,
+    //     isPrivate: true,
+    //     $or: {
+    //       isPrivate: false,
+    //     },
+    //   };
+    // }
+    // console.log(req.query);
+    next();
+  });
   createQuestion = factory.createOne(Question);
   updateQuestion = factory.updateOne(Question);
   softDeleteQuestion = factory.softDeleteOne(Question);

@@ -25,6 +25,14 @@ const questionSchema = new mongoose.Schema(
       required: [true, 'Nội dung câu hỏi không được trống'],
       trim: true,
     },
+    employerCreator: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Employer',
+    },
+    systemManagerCreator: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'SystemManager',
+    },
     answers: [answerSchema],
     skills: [String],
     questionType: {
@@ -56,6 +64,10 @@ const questionSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isPrivate: {
+      type: Boolean,
+      default: false,
+    },
     isFullScore: {
       type: Number,
       enum: {
@@ -71,6 +83,17 @@ const questionSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+questionSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'employerCreator',
+    select: 'companyName companyType companyWebsite logo',
+  });
+  this.populate({
+    path: 'systemManagerCreator',
+    select: 'avatar fullname',
+  });
+  next();
+});
 questionSchema.plugin(mongoose_delete, {
   deletedBy: true,
   overrideMethods: true,
