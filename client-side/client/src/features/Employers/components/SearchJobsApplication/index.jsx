@@ -17,8 +17,10 @@ import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fiel
 import classes from './style.module.scss'
 import moment from 'moment'
 import Select from 'react-select'
+import { useParams } from 'react-router-dom'
 
 export const SearchJobsApplication = ({ status }) => {
+  const { id } = useParams()
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const searchFullNameRef = useRef(null)
@@ -68,13 +70,13 @@ export const SearchJobsApplication = ({ status }) => {
       })
       dispatch(addDataFilter(filter))
       if (status === 'NotSaved') {
-        dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
+        dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
       }
       if (status === 'Saved') {
-        dispatch(fetchJobsApplicationSavedAsync({ filter }))
+        dispatch(fetchJobsApplicationSavedAsync({ id, filter }))
       }
       if (status === 'Deleted') {
-        dispatch(fetchJobsApplicationDeletedAsync({ filter }))
+        dispatch(fetchJobsApplicationDeletedAsync({ id, filter }))
       }
     } else {
       filter = clearNullObject({
@@ -86,13 +88,13 @@ export const SearchJobsApplication = ({ status }) => {
 
       dispatch(addDataFilter(filter))
       if (status === 'NotSaved') {
-        dispatch(fetchJobsApplicationNotSavedAsync({ filter: { status } }))
+        dispatch(fetchJobsApplicationNotSavedAsync({ id, filter: { status } }))
       }
       if (status === 'Saved') {
-        dispatch(fetchJobsApplicationSavedAsync({ filter: { status } }))
+        dispatch(fetchJobsApplicationSavedAsync({ id, filter: { status } }))
       }
       if (status === 'Deleted') {
-        dispatch(fetchJobsApplicationDeletedAsync({ filter: { status } }))
+        dispatch(fetchJobsApplicationDeletedAsync({ id, filter: { status } }))
       }
     }
   }

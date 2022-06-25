@@ -17,6 +17,7 @@ import { notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
 import { checkTagService } from 'common/functions'
+import NumberFormat from 'react-number-format'
 
 export const JobSearchItem = ({ job, setShowModal, employer }) => {
   const { t } = useTranslation()
@@ -145,7 +146,28 @@ export const JobSearchItem = ({ job, setShowModal, employer }) => {
             <div>
               <BiDollarCircle className={classes['icon-gb-18']} />
               {t('Salary')}:{' '}
-              {salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)}
+              {salary.min ? (
+                <Fragment>
+                  <NumberFormat
+                    thousandsGroupStyle="thousand"
+                    thousandSeparator={true}
+                    value={salary.min}
+                    suffix=""
+                    displayType={'text'}
+                  />{' '}
+                  -{' '}
+                  <NumberFormat
+                    thousandsGroupStyle="thousand"
+                    thousandSeparator={true}
+                    value={salary.max}
+                    suffix=""
+                    displayType={'text'}
+                  />{' '}
+                  {salary.type}
+                </Fragment>
+              ) : (
+                <>{t(salary.type)}</>
+              )}
             </div>
 
             <div>

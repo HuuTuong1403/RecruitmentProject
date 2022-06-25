@@ -76,6 +76,11 @@
       color: #008563;
     }
 
+    &--service {
+      font-weight: bold;
+      color: $primary-text;
+    }
+
     &--actions {
       margin-top: $pm-10;
       display: flex;

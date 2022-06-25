@@ -3,6 +3,7 @@ import {
   fetchJobsApplicationSavedAsync,
   fetchJobsApplicationNotSavedAsync,
   countApplicationStatusAsync,
+  getAllEntryTestAsync,
 } from 'features/Employers/slices/thunks'
 import {
   selectJobsApplicationNotSaved,
@@ -24,11 +25,13 @@ import { useWindowSize } from 'common/hook/useWindowSize'
 import { LoadingSuspense, NotFoundData } from 'components'
 import { SearchJobsApplication, TableJobsApplication } from 'features/Employers/components'
 import classes from './style.module.scss'
-import { useParams } from 'react-router-dom'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
+import { BiArrowBack } from 'react-icons/bi'
 
 const CandidateProfileManagementPage = () => {
   const { id } = useParams()
-
+  const history = useHistory()
+  const title = new URLSearchParams(useLocation().search).get('title')
   ScrollToTop()
   const { t } = useTranslation()
   useTitle(`${t('Manage candidate profiles')}`)
@@ -46,18 +49,22 @@ const CandidateProfileManagementPage = () => {
   const jobsApplicationDeleted = useSelector(selectJobsApplicationDeleted)
 
   useEffect(() => {
+    dispatch(getAllEntryTestAsync())
+  }, [dispatch])
+
+  useEffect(() => {
     let filter = {}
     if (dataFilter) {
       filter = dataFilter
-      dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
+      dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
     } else {
       filter = {
         status: 'NotSaved',
       }
-      dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
+      dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
     }
-    dispatch(countApplicationStatusAsync())
-  }, [dispatch, dataFilter])
+    dispatch(countApplicationStatusAsync({ id }))
+  }, [dispatch, dataFilter, id])
 
   //Handle change Tab and Call API
   const handleChangeTabs = (activeKey) => {
@@ -82,13 +89,13 @@ const CandidateProfileManagementPage = () => {
       }
 
       if (activeKey === 'NotSaved') {
-        dispatch(fetchJobsApplicationNotSavedAsync({ filter }))
+        dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
       }
       if (activeKey === 'Saved') {
-        dispatch(fetchJobsApplicationSavedAsync({ filter }))
+        dispatch(fetchJobsApplicationSavedAsync({ id, filter }))
       }
       if (activeKey === 'Deleted') {
-        dispatch(fetchJobsApplicationDeletedAsync({ filter }))
+        dispatch(fetchJobsApplicationDeletedAsync({ id, filter }))
       }
     }
   }
@@ -97,7 +104,14 @@ const CandidateProfileManagementPage = () => {
     <LoadingSuspense height="80vh" />
   ) : (
     <Fragment>
-      <div className={classes.titleDashboard}>{t('Manage candidate profiles')}</div>
+      <div className={classes.headerBack}>
+        <div>
+          <BiArrowBack onClick={() => history.goBack()} />
+        </div>
+        <div>
+          {t('Manage candidate profiles of job')} <span style={{ fontWeight: 500 }}>{title}</span>
+        </div>
+      </div>
 
       <SearchJobsApplication status={activeTab} />
 

@@ -6,6 +6,8 @@ import { MdLocationOn } from 'react-icons/md'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import moment from 'moment'
+import NumberFormat from 'react-number-format'
+import { Fragment } from 'react'
 
 export const JobActiveItem = ({ jobActive }) => {
   const { t } = useTranslation()
@@ -28,7 +30,28 @@ export const JobActiveItem = ({ jobActive }) => {
         </div>
         <div className={`${classes['jobActive__wrapped-salary']} ${classes.hideText}`}>
           <BiDollarCircle style={{ marginRight: '5px' }} />
-          {salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)}
+          {salary.min ? (
+            <Fragment>
+              <NumberFormat
+                thousandsGroupStyle="thousand"
+                thousandSeparator={true}
+                value={salary.min}
+                suffix=""
+                displayType={'text'}
+              />{' '}
+              -{' '}
+              <NumberFormat
+                thousandsGroupStyle="thousand"
+                thousandSeparator={true}
+                value={salary.max}
+                suffix=""
+                displayType={'text'}
+              />{' '}
+              {salary.type}
+            </Fragment>
+          ) : (
+            <>{t(salary.type)}</>
+          )}
         </div>
         <div className={classes.hideText}>
           <MdLocationOn style={{ marginRight: '5px' }} />

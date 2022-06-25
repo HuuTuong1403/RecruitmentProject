@@ -3,8 +3,9 @@ import {
   fetchSumJobSeeker,
   fetchEmployerStatisticMonthly,
   fetchJobSeekerStatisticMonthly,
+  fetchOrderStatisticMonthly,
 } from 'features/SystemManager/api/systemManager.api'
-import { BarChartVertical, LoadingSuspense } from 'components'
+import { BarChartVertical, LoadingSuspense, LineChart } from 'components'
 import { scrollToTop } from 'common/functions'
 import { StatisticCardItem } from 'features/SystemManager/components'
 import { useEffect, useState } from 'react'
@@ -35,6 +36,8 @@ const StatisticPage = () => {
   const [dataStatisticCurrentPast, setDataStatisticCurrentPast] = useState([])
   const [dataEmployerMonthly, setDataEmployerMonthly] = useState([])
   const [dataJobSeekerMonthly, setDataJobSeekerMonthly] = useState([])
+  const [dataOrderStatisticMonthly, setDataOrderStatisticMonthly] = useState([])
+  const [year, setYear] = useState(new Date().getFullYear())
 
   const getSumEmployer = async () => {
     const result = await fetchSumEmployer()
@@ -86,12 +89,29 @@ const StatisticPage = () => {
     setLoading(false)
   }
 
+  const getOrderStatisticMonthly = async (year) => {
+    const result = await fetchOrderStatisticMonthly({ year })
+    if (result.status === 'success') {
+      setDataOrderStatisticMonthly(result.data.data)
+    } else {
+      setDataOrderStatisticMonthly([])
+    }
+  }
+
+  const handleChangeYear = (date, dateString) => {
+    setYear(dateString)
+  }
+
   useEffect(() => {
     getEmployerStatisticMonthly()
     getJobSeekerStatisticMonthly()
     getSumEmployer()
     getSumJobSeeker()
   }, [])
+
+  useEffect(() => {
+    getOrderStatisticMonthly(year)
+  }, [year])
 
   return loading ? (
     <LoadingSuspense height="80vh" />
@@ -109,6 +129,18 @@ const StatisticPage = () => {
           />
         ))}
       </div>
+      <LineChart
+        dataStatistic={dataOrderStatisticMonthly}
+        labels={MONTH_OF_YEAR.map((item) => t(item))}
+        labelDataset={t('Total revenue of service packages in the year')}
+        title={t('Statistics of total revenue from service packages by month')}
+        labelY={t('Revenue')}
+        tooltip={t(
+          'The chart shows the total revenue of service packages that employers have purchased and used by month in the year'
+        )}
+        year={year}
+        onChangeYear={handleChangeYear}
+      />
       <BarChartVertical
         dataStatistic={dataEmployerMonthly}
         labels={MONTH_OF_YEAR.map((item) => t(item))}

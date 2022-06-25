@@ -1,25 +1,28 @@
 import { BiDollarCircle, BiDotsVerticalRounded } from 'react-icons/bi'
+import { checkTagService, formatArrayForSelect } from 'common/functions'
 import { dateFormatPicker } from 'common/constants/dateFormat'
+import { Dropdown, Menu } from 'antd'
 import { fetchJobDetailOfEmployerAsync } from 'features/Employers/slices/thunks'
-import { handChangeJobSlug } from 'features/Employers/slices'
 import { FiPackage } from 'react-icons/fi'
+import { Fragment, useState } from 'react'
+import { handChangeJobSlug } from 'features/Employers/slices'
 import { IoIosPeople, IoMdCalendar, IoMdEye, IoMdTime } from 'react-icons/io'
 import { MdDelete, MdDeleteForever, MdEdit, MdLocationOn, MdRestore } from 'react-icons/md'
+import { ModalUpdateJob } from 'features/Employers/components'
+import { PopoverField } from 'custom-fields'
 import { selectedProvinces, selectedDistricts, selectedWards } from 'features/Home/slices/selectors'
 import { selectedSkills } from 'features/Jobs/slices/selectors'
 import { selectJobSlug } from 'features/Employers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
-import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { PopoverField } from 'custom-fields'
-import { ModalUpdateJob } from 'features/Employers/components'
 import classes from './style.module.scss'
 import moment from 'moment'
-import { checkTagService, formatArrayForSelect } from 'common/functions'
-import { Dropdown, Menu } from 'antd'
-import { useHistory } from 'react-router-dom'
+import NumberFormat from 'react-number-format'
 
-export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore }) => {
+const defaultFn = () => {}
+
+export const JobOfEmployerItem = ({ data, isTrash, onDelete = defaultFn, loading, onRestore }) => {
   const history = useHistory()
 
   const {
@@ -97,7 +100,7 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
   }`
 
   const changeToApplicationPage = () => {
-    history.push(`/employers/dashboard/candidate-profiles/${_id}`)
+    history.push(`/employers/dashboard/candidate-profiles/${_id}?title=${jobTitle}`)
   }
 
   const menuDefault = (
@@ -227,9 +230,29 @@ export const JobOfEmployerItem = ({ data, isTrash, onDelete, loading, onRestore 
           {salary && (
             <div className={classes['item__bottom-salary']}>
               <BiDollarCircle style={{ marginRight: '5px' }} />
-              {`${t('Salary')}: ${
-                salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)
-              }`}
+              <span>{t('Salary')}:</span>{' '}
+              {salary.min ? (
+                <Fragment>
+                  <NumberFormat
+                    thousandsGroupStyle="thousand"
+                    thousandSeparator={true}
+                    value={salary.min}
+                    suffix=""
+                    displayType={'text'}
+                  />{' '}
+                  -{' '}
+                  <NumberFormat
+                    thousandsGroupStyle="thousand"
+                    thousandSeparator={true}
+                    value={salary.max}
+                    suffix=""
+                    displayType={'text'}
+                  />{' '}
+                  {salary.type}
+                </Fragment>
+              ) : (
+                <>{t(salary.type)}</>
+              )}
             </div>
           )}
           {location && (

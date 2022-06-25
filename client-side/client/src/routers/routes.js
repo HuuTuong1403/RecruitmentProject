@@ -134,4 +134,8 @@ export const routesEmployer = [
     component: lazy(() => import('features/Employers/pages/OrderPage')),
     path: pathEmployer.order,
   },
+  {
+    component: lazy(() => import('features/Employers/pages/EntryTestAnswerSheetPage')),
+    path: pathEmployer.answerSheet,
+  },
 ]

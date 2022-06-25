@@ -7,6 +7,7 @@ import {
   selectEventDetailEmployer,
   selectedStatus,
 } from 'features/Employers/slices/selectors'
+import { BiArrowBack } from 'react-icons/bi'
 import { ButtonField } from 'custom-fields'
 import { exportParticipantExcel } from 'features/Employers/api/employer.api'
 import { Fragment, useEffect, useState } from 'react'
@@ -15,12 +16,13 @@ import { RiFileExcel2Fill } from 'react-icons/ri'
 import { ScrollToTop } from 'common/functions'
 import { TableParticipantsEvent } from 'features/Employers/components'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 
 const ParticipantsEventPage = () => {
+  const history = useHistory()
   ScrollToTop()
   const { t } = useTranslation()
   const { id } = useParams()
@@ -63,9 +65,16 @@ const ParticipantsEventPage = () => {
   ) : (
     participants && (
       <Fragment>
-        <div className={classes.titleDashboard}>
-          {t('Event registration list')} {eventDetail?.eventName}
+        <div className={classes.headerBack}>
+          <div>
+            <BiArrowBack onClick={() => history.goBack()} />
+          </div>
+          <div>
+            {t('Manage candidate profiles of job')}{' '}
+            <span style={{ fontWeight: 500 }}>{eventDetail?.eventName}</span>
+          </div>
         </div>
+
         {participants.length === 0 ? (
           <NotFoundData title={t('There are currently no participants in this event')} />
         ) : (

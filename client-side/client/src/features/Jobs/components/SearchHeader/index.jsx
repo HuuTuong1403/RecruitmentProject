@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import Select from 'react-select'
+import { formatArrayForSelect } from 'common/functions'
 
 export const SearchHeader = () => {
   let query = new URLSearchParams(useLocation().search)
@@ -47,10 +48,10 @@ export const SearchHeader = () => {
     label: index === 0 ? t(item.label) : `${t('From')} ${item.label}`,
   }))
 
-  const provinces = useSelector(selectedProvinces).map((province) => {
-    return { label: province.name }
+  const provinces = formatArrayForSelect(useSelector(selectedProvinces), 'Province', t, true, {
+    name: 'Tất cả',
+    code: '',
   })
-  provinces.unshift({ label: 'Tất cả' })
 
   const skills = useSelector(selectedSkills).map((skill, index) => {
     return { value: index, label: skill }
@@ -153,9 +154,7 @@ export const SearchHeader = () => {
               <Select
                 placeholder={t('choose-province')}
                 options={provinces}
-                value={provinces.filter((province) => {
-                  return province.label === selectProvince
-                })}
+                value={provinces[0].options?.find((item) => item.label === selectProvince)}
                 onChange={changeProvinceHandler}
               />
             </div>

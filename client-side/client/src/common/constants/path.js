@@ -10,7 +10,8 @@ export const PATH = {
 
 export const pathEntryTest = {
   infoExam: '/entry-tests/join/:id',
-  startExam: '/entry-tests/join/:id/start'
+  startExam: '/entry-tests/join/:id/start',
+  resultExam: '/entry-tests/:idEntryTest/result/:id',
 }
 
 export const pathJobSeeker = {
@@ -50,4 +51,5 @@ export const pathEmployer = {
   createdQuestion: rootEmployer + 'questions/created',
   managementQuestion: rootEmployer + 'questions',
   trashQuestion: rootEmployer + 'questions/trash',
+  answerSheet: rootEmployer + 'entry-tests/:idEntryTest/answer-sheet',
 }

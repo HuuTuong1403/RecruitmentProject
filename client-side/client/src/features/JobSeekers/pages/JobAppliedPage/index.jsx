@@ -36,9 +36,17 @@ const JobAppliedPage = () => {
           <NotFoundData title={t('No applied jobs')} />
         ) : (
           <div className={classes.listJob}>
-            {applicationJobs.map((job, index) => (
-              <JobItem isApplied key={index} data={job?.job} createdAt={job?.createdAt} />
-            ))}
+            {applicationJobs.map((job, index) => {
+              return (
+                <JobItem
+                  isApplied
+                  key={index}
+                  data={job?.job}
+                  createdAt={job?.createdAt}
+                  status={job?.status}
+                />
+              )
+            })}
           </div>
         )}
       </Fragment>

@@ -1,8 +1,7 @@
 import { Badge } from 'antd'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import { FaEdit, FaShoppingCart } from 'react-icons/fa'
+import { FaEdit, FaGraduationCap, FaQuestionCircle, FaShoppingCart } from 'react-icons/fa'
 import { Fragment, useState } from 'react'
-import { IoIosPeople } from 'react-icons/io'
 import { IoMenu, IoHome } from 'react-icons/io5'
 import { logoutEmployer } from 'features/HomeEmployers/slices'
 import { MdSettings, MdAccountCircle, MdEvent } from 'react-icons/md'
@@ -19,6 +18,7 @@ import { useWindowSize } from 'common/hook/useWindowSize'
 import classes from './style.module.scss'
 import ReactCountryFlag from 'react-country-flag'
 import { useSelector } from 'react-redux'
+import { FiPackage } from 'react-icons/fi'
 
 export const HeaderEmployers = () => {
   const history = useHistory()
@@ -82,6 +82,13 @@ export const HeaderEmployers = () => {
         <NavLink className={classes['link-no-border']} to={pathEmployer.home}>
           <IoHome />
         </NavLink>
+        <NavLink
+          style={{ marginLeft: '20px', fontSize: '16px' }}
+          className={classes['link-no-border']}
+          to={pathEmployer.service}
+        >
+          <FiPackage style={{ fontSize: '17px' }} /> Gói dịch vụ
+        </NavLink>
       </div>
       <div style={styleResize} className={classes.header__right}>
         {!employer ? (
@@ -123,13 +130,37 @@ export const HeaderEmployers = () => {
                   {employer.companyName}
                 </Link>
               </DropdownToggle>
-              <DropdownMenu>
+              <DropdownMenu style={{ minWidth: '13rem' }}>
                 <Link
                   className={`${classes['header__lang-profile']} ${classes.link}`}
                   to={pathEmployer.postJob}
                 >
                   <FaEdit className={classes['icon-gb-18']} />
                   {t('postjobs')}
+                </Link>
+
+                <Link
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
+                  to={pathEmployer.managementServicePackage}
+                >
+                  <FiPackage className={classes['icon-gb-18']} />
+                  {t('Registered service package')}
+                </Link>
+
+                <Link
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
+                  to={pathEmployer.managementQuestion}
+                >
+                  <FaQuestionCircle className={classes['icon-gb-18']} />
+                  {t('Question & answer management')}
+                </Link>
+
+                <Link
+                  className={`${classes['header__lang-profile']} ${classes.link}`}
+                  to={pathEmployer.managementEntryTest}
+                >
+                  <FaGraduationCap className={classes['icon-gb-18']} />
+                  {t('Entry test management')}
                 </Link>
 
                 <Link
@@ -146,14 +177,6 @@ export const HeaderEmployers = () => {
                 >
                   <MdEvent className={classes['icon-gb-18']} />
                   {t('Event management')}
-                </Link>
-
-                <Link
-                  className={`${classes['header__lang-profile']} ${classes.link}`}
-                  to={pathEmployer.candidateProfileManage}
-                >
-                  <IoIosPeople className={classes['icon-gb-18']} />
-                  {t('Manage candidate profiles')}
                 </Link>
 
                 <Link

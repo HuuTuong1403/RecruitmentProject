@@ -3,6 +3,7 @@ import {
   deleteApplication,
   restoreApplication,
   announceApplication,
+  announceEntryTest,
 } from 'features/Employers/api/employer.api'
 import {
   savedJobApplication,
@@ -17,11 +18,15 @@ import { Table, Tooltip } from 'antd'
 import { useDispatch } from 'react-redux'
 import { useState, Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ButtonField, PopoverField } from 'custom-fields'
+import { ButtonField, LabelField, PopoverField } from 'custom-fields'
 import { ModalViewProfileApplication } from 'features/Employers/components'
-import { notification } from 'components'
+import { ModalNotify, notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
+import { useSelector } from 'react-redux'
+import { selectEntryTests } from 'features/Employers/slices/selectors'
+import { formatArrayForSelect } from 'common/functions'
+import Select from 'react-select'
 
 export const TableJobsApplication = ({
   jobsApplication,
@@ -36,11 +41,14 @@ export const TableJobsApplication = ({
 
   const [showModal, setShowModal] = useState(false)
   const [application, setApplication] = useState({})
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState({ application: false, entryTest: false })
   const [loadingSaved, setLoadingSaved] = useState(false)
   const [loadingDeleted, setLoadingDeleted] = useState(false)
   const [loadingRestore, setLoadingRetore] = useState(false)
+  const [showModalEntryTest, setShowModalEntryTest] = useState(false)
+  const [idEntryTest, setIdEntryTest] = useState('')
 
+  const entryTests = formatArrayForSelect(useSelector(selectEntryTests), 'Entry Test', t, false)
   const onOpenModal = (application) => {
     setApplication(application)
     setShowModal(true)
@@ -115,7 +123,7 @@ export const TableJobsApplication = ({
 
   //Announce Application In Tabs Saved
   const handleClickAnnounceApplication = async () => {
-    setLoading(true)
+    setLoading((prev) => ({ ...prev, application: true }))
     if (selectProfileList.length > 0) {
       const result = await announceApplication({ id: selectProfileList })
       if (result.status === 'success') {
@@ -127,7 +135,60 @@ export const TableJobsApplication = ({
     } else {
       notification(`${t('Please select candidates to be notified')}`, 'error')
     }
-    setLoading(false)
+    setLoading((prev) => ({ ...prev, application: false }))
+  }
+
+  const handleShowModalSelect = () => {
+    if (selectProfileList.length > 0) {
+      setShowModalEntryTest(true)
+    } else {
+      notification(`${t('Please select candidates to be notified')}`, 'error')
+    }
+  }
+
+  const handleChangeSelect = (option) => {
+    setIdEntryTest(option.value)
+  }
+
+  const handleClickAnnounceEntryTest = async () => {
+    setLoading((prev) => ({ ...prev, entryTest: true }))
+    if (idEntryTest) {
+      const { company, jobTitle } = jobsApplication[0].job
+      const emails = []
+      const fullName = []
+
+      selectProfileList.forEach((item) => {
+        const data = jobsApplication.find((application) => application._id === item)
+        if (data) {
+          emails.push(data.jobSeeker.email)
+          fullName.push(data.fullName)
+        }
+      })
+
+      const _dataSend = {
+        emails,
+        companyName: company.companyName,
+        jobTitle,
+        logo: company.logo,
+        url: `https://mst-recruit.web.app/entry-tests/join/${idEntryTest}`,
+      }
+      const result = await announceEntryTest(_dataSend)
+      if (result.status === 'success') {
+        notification(
+          `${t('Send a notice to participate in the test entry for candidate')} ${
+            fullName.length <= 5 ? fullName.join(', ') : ''
+          } ${t('successfully')}`,
+          'success'
+        )
+        setShowModalEntryTest(false)
+        setSelectProfileList([])
+      } else {
+        notification(result.message, 'error')
+      }
+    } else {
+      notification(t('Please select entry test to notification'), 'error')
+    }
+    setLoading((prev) => ({ ...prev, entryTest: false }))
   }
 
   const columns = [
@@ -304,11 +365,39 @@ export const TableJobsApplication = ({
       />
       {isSaved && (
         <div className={classes.table__actions}>
+          {showModalEntryTest && (
+            <ModalNotify
+              showModal={showModalEntryTest}
+              title={t('Select Entry test to notify')}
+              loading={loading.entryTest}
+              onClose={() => setShowModalEntryTest(false)}
+              captionBtnClose={t('Cancel')}
+              captionBtnOk={t('Send notification')}
+              onOk={handleClickAnnounceEntryTest}
+            >
+              <LabelField label={t('choose-entryTest')} />
+              <Select
+                options={entryTests}
+                placeholder={t('choose-entryTest')}
+                onChange={handleChangeSelect}
+              />
+            </ModalNotify>
+          )}
+
+          <ButtonField
+            backgroundcolor="#1e88e5"
+            backgroundcolorhover="#1774c6"
+            onClick={handleShowModalSelect}
+          >
+            <MdNotificationsActive className={classes['table__actions--icon']} />
+            {t('Notice of participating in the entry test')}
+          </ButtonField>
+
           <ButtonField
             backgroundcolor="#067951"
             backgroundcolorhover="#2baa7e"
             onClick={handleClickAnnounceApplication}
-            loading={loading}
+            loading={loading.application}
           >
             <MdNotificationsActive className={classes['table__actions--icon']} />
             {t('Pass notification')}

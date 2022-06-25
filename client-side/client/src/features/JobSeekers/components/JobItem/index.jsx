@@ -1,4 +1,3 @@
-import { AiOutlineEyeInvisible } from 'react-icons/ai'
 import { BiDollarCircle } from 'react-icons/bi'
 import { ButtonField, PopoverField } from 'custom-fields'
 import { dateFormatPicker } from 'common/constants/dateFormat'
@@ -8,14 +7,15 @@ import { MdLocationOn, MdDeleteForever } from 'react-icons/md'
 import { removeFavoriteJob } from 'features/JobSeekers/api/jobSeeker.api'
 import { removeJobOfFavorire } from 'features/JobSeekers/slices'
 import { useDispatch } from 'react-redux'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
 import { checkTagService } from 'common/functions'
+import NumberFormat from 'react-number-format'
 
-export const JobItem = ({ data, isApplied = false, createdAt }) => {
+export const JobItem = ({ data, isApplied = false, createdAt, status }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -43,6 +43,37 @@ export const JobItem = ({ data, isApplied = false, createdAt }) => {
       notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
     }
     setLoading(false)
+  }
+
+  const RenderStatus = ({ status }) => {
+    if (status === 'Saved') {
+      return (
+        <span className={`${classes.statusJob} ${classes['statusJob--saved']}`}>
+          Hồ sơ đã được nhà tuyển dụng lưu lại
+        </span>
+      )
+    }
+    if (status === 'Announced') {
+      return (
+        <span className={`${classes.statusJob} ${classes['statusJob--announced']}`}>
+          Hồ sơ đã được thông báo trúng tuyển
+        </span>
+      )
+    }
+    if (status === 'NotSaved') {
+      return (
+        <span className={`${classes.statusJob} ${classes['statusJob--notSaved']}`}>
+          Hồ sơ đang trong giai đoạn ứng tuyển
+        </span>
+      )
+    }
+    if (status === 'Deleted') {
+      return (
+        <span className={`${classes.statusJob} ${classes['statusJob--deleted']}`}>
+          Hồ sơ đã bị loại
+        </span>
+      )
+    }
   }
 
   return (
@@ -97,7 +128,28 @@ export const JobItem = ({ data, isApplied = false, createdAt }) => {
             <div>
               <BiDollarCircle className={classes['icon-gb-18']} />
               {t('Salary')}:{' '}
-              {salary.min ? `${salary.min} - ${salary.max} ${salary.type}` : t(salary.type)}
+              {salary.min ? (
+                <Fragment>
+                  <NumberFormat
+                    thousandsGroupStyle="thousand"
+                    thousandSeparator={true}
+                    value={salary.min}
+                    suffix=""
+                    displayType={'text'}
+                  />{' '}
+                  -{' '}
+                  <NumberFormat
+                    thousandsGroupStyle="thousand"
+                    thousandSeparator={true}
+                    value={salary.max}
+                    suffix=""
+                    displayType={'text'}
+                  />{' '}
+                  {salary.type}
+                </Fragment>
+              ) : (
+                <>{t(salary.type)}</>
+              )}
             </div>
             <div>
               <MdLocationOn className={classes['icon-gb-18']} />
@@ -121,16 +173,17 @@ export const JobItem = ({ data, isApplied = false, createdAt }) => {
 
           <div className={classes['jobItem__container-content__action']}>
             {isApplied ? (
-              <ButtonField
-                backgroundcolor="#324554"
-                backgroundcolorhover="#333"
-                uppercase
-                padding="5px"
-              >
-                <AiOutlineEyeInvisible style={{ marginRight: '5px' }} />
-                <span>{t('Ẩn')}</span>
-              </ButtonField>
+              <RenderStatus status={status} />
             ) : (
+              // <ButtonField
+              //   backgroundcolor="#324554"
+              //   backgroundcolorhover="#333"
+              //   uppercase
+              //   padding="5px"
+              // >
+              //   <AiOutlineEyeInvisible style={{ marginRight: '5px' }} />
+              //   <span>{t('Ẩn')}</span>
+              // </ButtonField>
               <PopoverField
                 title={t('Confirm deletion of saved job posting')}
                 loading={loading}

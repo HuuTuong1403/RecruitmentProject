@@ -1,0 +1,103 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.resultPage {
+  background-color: $primary-color;
+  display: flex;
+  align-items: flex-start;
+  color: $primary-text;
+  padding-bottom: $pm-10;
+
+  &__header {
+    font-size: $text-lg;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+.card {
+  background-color: white;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: $pm-20;
+  margin-top: $pm-10;
+  margin-left: $pm-10;
+}
+
+.table {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  margin-top: $pm-10;
+
+  & td {
+    border: 1px solid #ccc;
+    padding: $pm-10;
+    font-size: $text-base;
+    font-weight: 500;
+  }
+
+  & tr td:first-child {
+    width: 20%;
+    background-color: $primary-color;
+    color: #fff;
+  }
+  & tr td:last-child {
+    width: 80%;
+    background-color: #eee;
+  }
+}
+
+.pass {
+  color: $restore-color;
+}
+
+.notPass {
+  color: $delete-color;
+}
+
+.numQues {
+  position: fixed;
+  width: 25%;
+  right: 3%;
+  top: 2%;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: $primary-text;
+
+  &__item {
+    font-weight: 500;
+    font-size: $text-lg;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__text {
+      padding: $pm-4 $pm-6;
+    }
+
+    &__icon {
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      width: 100%;
+      color: white;
+      text-align: center;
+      padding: $pm-2 0;
+
+      &--inCorrect {
+        background-color: $delete-color;
+      }
+
+      &--correct {
+        background-color: $restore-color;
+      }
+    }
+  }
+}
