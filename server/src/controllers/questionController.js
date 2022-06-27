@@ -13,16 +13,14 @@ class QuestionController {
     next();
   });
   setBodyGetAllQuestion = catchAsync(async (req, res, next) => {
-    // if (req.user.role == 'employer') {
-    //   req.query = {
-    //     employerCreator: req.user.id,
-    //     isPrivate: true,
-    //     $or: {
-    //       isPrivate: false,
-    //     },
-    //   };
-    // }
-    // console.log(req.query);
+    if (req.user.role == 'employer') {
+      req.query.or = [
+        {
+          isPrivate: false,
+        },
+        { employerCreator: req.user.id, isPrivate: true },
+      ];
+    }
     next();
   });
   createQuestion = factory.createOne(Question);
