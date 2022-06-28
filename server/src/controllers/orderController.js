@@ -170,13 +170,7 @@ class orderController {
               new AppError('Không tìm thấy đơn hàng với id này', 404)
             );
           }
-          res.status(400).json({
-            status: 'failed',
-            data: {
-              message:
-                'Thanh toán đơn hàng thất bại, có lỗi xảy ra trong quá trình thanh toán',
-            },
-          });
+          res.redirect('https://mst-recruit.web.app/payment?type=error');
         } else {
           const order = await Order.findByIdAndUpdate(
             idOrder,
@@ -191,10 +185,7 @@ class orderController {
               new AppError('Không tìm thấy đơn hàng với id này', 404)
             );
           }
-          res.status(201).json({
-            status: 'success',
-            data: { data: order },
-          });
+          res.redirect('https://mst-recruit.web.app/payment?type=success');
         }
       }
     );

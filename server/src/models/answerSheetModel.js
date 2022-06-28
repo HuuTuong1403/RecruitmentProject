@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const mongoose_delete = require('mongoose-delete');
 const EntryTest = require('./entryTestModel');
 const answerSheetServices = require('./../services/answerSheet');
+const Application = require('./../models/application');
 const answerContentSchema = new mongoose.Schema(
   {
     idQuestion: {
@@ -42,6 +43,11 @@ const answerSheetSchema = new mongoose.Schema(
       ref: 'JobSeeker',
       required: [true, 'Anseersheet phải có ứng viên'],
     },
+    application: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Application',
+      required: [true, 'Anseersheet phải tương ứng với hồ sơ xin việc'],
+    },
   },
   {
     timestamps: true,
@@ -66,6 +72,16 @@ answerSheetSchema.pre('save', async function (next) {
   this.totalRightQuestion = resultData.totalRightQuestion;
   this.achievedFullScore = resultData.achievedFullScore;
   this.answerContents = resultData.answerContents;
+  idApplication = this.application;
+  if (this.achievedFullScore < this.entryTest.requiredPass) {
+    const application = await Application.findByIdAndUpdate(idApplication, {
+      status: 'FailedTest',
+    });
+  } else {
+    const application = await Application.findByIdAndUpdate(idApplication, {
+      status: 'PassedTest',
+    });
+  }
   next();
 });
 answerSheetSchema.pre(/^find/, function (next) {

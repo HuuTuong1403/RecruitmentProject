@@ -7,6 +7,7 @@ class AnswerSheetController {
   setBodyAnswerSheet = (req, res, next) => {
     req.body.jobSeeker = req.user.id;
     req.body.entryTest = req.params.idEntryTest;
+    req.body.application = req.query.idApplication;
     next();
   };
   setQueryAllAnswerSheet = async (req, res, next) => {
