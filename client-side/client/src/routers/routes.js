@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 import { PATH, pathJobSeeker, pathEmployer } from 'common/constants/path'
 import EntryTestPage from 'features/EntryTest'
+import { PaymentStatusPage } from 'components'
 
 const DashboardEmployersPage = lazy(() => import('features/Employers'))
 const DashboardJobSeekersPage = lazy(() => import('features/JobSeekers'))
@@ -33,6 +34,11 @@ export const routes = [
   {
     children: <EntryTestPage />,
     path: PATH.entryTests,
+    exact: false,
+  },
+  {
+    children: <PaymentStatusPage />,
+    path: PATH.status,
     exact: false,
   },
 ]

@@ -6,6 +6,7 @@ export const PATH = {
   jobs: '/jobs',
   events: '/events',
   entryTests: '/entry-tests',
+  payment: '/payment',
 }
 
 export const pathEntryTest = {
