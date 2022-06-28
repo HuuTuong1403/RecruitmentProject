@@ -65,13 +65,13 @@ const MenuSystemAdmin = (props) => {
       isLink: false,
       onClick: null,
     },
-    {
-      key: `${pathAdmin.userManager}`,
-      title: `${t('User Management')}`,
-      icon: <FaUsers className={classes.menuIcon} />,
-      isLink: false,
-      onClick: null,
-    },
+    // {
+    //   key: `${pathAdmin.userManager}`,
+    //   title: `${t('User Management')}`,
+    //   icon: <FaUsers className={classes.menuIcon} />,
+    //   isLink: false,
+    //   onClick: null,
+    // },
     {
       key: `${pathAdmin.myProfile}`,
       title: `${t('Account Management')}`,

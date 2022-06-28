@@ -33,6 +33,7 @@ const QuestionManagementPage = () => {
       title: `${t('Question content')}`,
       dataIndex: 'questionContent',
       key: 'questionContent',
+      width: 300,
     },
     {
       title: `${t('Number of answers')}`,
@@ -43,6 +44,29 @@ const QuestionManagementPage = () => {
           {text} {t('answers')}
         </div>
       ),
+    },
+    {
+      title: `${t('Thuộc câu hỏi')}`,
+      dataIndex: 'employerCreator',
+      key: 'employerCreator',
+      width: 220,
+      render: (text, record) => {
+        if (record.isPrivate) {
+          return (
+            <span>
+              {text}
+              <br /> <b>(Không công khai)</b>
+            </span>
+          )
+        } else {
+          return (
+            <span>
+              {text}
+              <br /> <b>(Đã công khai)</b>
+            </span>
+          )
+        }
+      },
     },
     {
       title: `${t('Score')}`,
@@ -123,7 +147,14 @@ const QuestionManagementPage = () => {
             <TableData
               columns={columns}
               dataSource={questions.map((question, index) => {
-                const { _id, skills, answers, ...data } = question
+                const { _id, skills, answers, employerCreator, ...data } = question
+
+                let creator = ''
+                if (employerCreator) {
+                  creator = 'Từ công ty ' + employerCreator.companyName
+                } else {
+                  creator = 'Từ cộng đồng'
+                }
 
                 return {
                   key: _id,
@@ -131,6 +162,7 @@ const QuestionManagementPage = () => {
                   index: index + 1,
                   skillString: skills.join(', '),
                   answersNum: answers.length,
+                  employerCreator: creator,
                 }
               })}
               titleList={t('List question & answer created')}

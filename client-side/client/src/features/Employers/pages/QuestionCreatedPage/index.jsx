@@ -31,6 +31,7 @@ const QuestionCreatedPage = () => {
   const [answerList, setAnswerList] = useState([])
   const [isFullScore, setIsFullScore] = useState(-1)
   const [isRandom, setIsRandom] = useState(false)
+  const [isPrivate, setIsPrivate] = useState(false)
   const [isUpdate, setIsUpdate] = useState(false)
   const [loading, setLoading] = useState(false)
   const [question, setQuestion] = useState(null)
@@ -78,6 +79,7 @@ const QuestionCreatedPage = () => {
       setValue('tips', question.tips)
       setSelectSkill(skills.filter((item) => question.skills.includes(item.label)))
       setIsRandom(question.isRandom)
+      setIsPrivate(question.isPrivate)
 
       if (question.isFullScore === 0 || question.isFullScore === 1) {
         setIsMultiple(true)
@@ -135,6 +137,7 @@ const QuestionCreatedPage = () => {
       answers: answerList,
       isRandom,
       isFullScore,
+      isPrivate,
       skills: selectSkill.map((skill) => skill.label),
     }
 
@@ -161,6 +164,7 @@ const QuestionCreatedPage = () => {
       answers: answerList,
       isRandom,
       isFullScore,
+      isPrivate,
       skills: selectSkill.map((skill) => skill.label),
     }
     setLoading(true)
@@ -467,6 +471,20 @@ const QuestionCreatedPage = () => {
           />
           <span className={classes.questionCreated__checkBox__content}>{t('Fixed answer')}</span>
         </label>
+
+        <Tooltip title={t("Use questions & answers for employers only")}>
+          <label>
+            <input
+              type="checkbox"
+              onChange={(event) =>
+                event.target.checked ? setIsPrivate(true) : setIsPrivate(false)
+              }
+              checked={isPrivate ? true : false}
+              className={classes.questionCreated__checkBox}
+            />
+            <span className={classes.questionCreated__checkBox__content}>{t('Hide questions & answers')}</span>
+          </label>
+        </Tooltip>
 
         {isMultiple && (
           <label>

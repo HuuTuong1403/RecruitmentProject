@@ -3,11 +3,14 @@ import {
   FaCheckSquare,
   FaLevelUpAlt,
   FaListOl,
+  FaLock,
+  FaLockOpen,
   FaPlusCircle,
   FaRandom,
   FaStar,
   FaStopwatch,
   FaTrash,
+  FaUser,
 } from 'react-icons/fa'
 import { ButtonField } from 'custom-fields'
 import { convertTime } from 'common/functions'
@@ -38,11 +41,15 @@ export const QuestionList = ({
           level,
           isRandom,
           skills,
+          employerCreator,
+          isPrivate,
         } = question
+
         const checkQuestion = questionContent.includes('?')
         const isSelected = (selectQuestions || []).some((item) => item._id === _id)
         const durationConvert = convertTime(duration, t)
         const skillString = skills.join(', ')
+        const creator = !!employerCreator ? employerCreator.companyName : 'Community'
 
         const tagItem = [
           {
@@ -73,6 +80,22 @@ export const QuestionList = ({
             icon: <FaListOl className={classes.tagList__item__icon} />,
             titleTooltip: `${t('Skill')}: ${skillString}`,
             content: skillString,
+            isShow: true,
+          },
+          {
+            icon: <FaUser className={classes.tagList__item__icon} />,
+            titleTooltip: `${t('Created by')}: ${t(creator)}`,
+            content: t(creator),
+            isShow: true,
+          },
+          {
+            icon: isPrivate ? (
+              <FaLock className={classes.tagList__item__icon} />
+            ) : (
+              <FaLockOpen className={classes.tagList__item__icon} />
+            ),
+            titleTooltip: isPrivate ? t('Question not public') : t('Question publiced'),
+            content: isPrivate ? t('Not public') : t('Publiced'),
             isShow: true,
           },
         ]

@@ -72,7 +72,7 @@ const Header = (props) => {
           </NavLink>
         </div>
 
-        <div>
+        {/* <div>
           <NavLink
             activeClassName={classes['header__link--active']}
             className={classes['header__link']}
@@ -80,7 +80,7 @@ const Header = (props) => {
           >
             {t('User Management')}
           </NavLink>
-        </div>
+        </div> */}
 
         <div>
           <NavLink
