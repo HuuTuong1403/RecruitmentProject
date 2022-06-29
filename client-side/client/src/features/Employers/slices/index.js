@@ -1,24 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 import {
   countApplicationStatusAsync,
+  fetchAllEventDeletedAsync,
   fetchAllEventOfEmployerAsync,
+  fetchApplicationsAsync,
+  fetchCartAsync,
   fetchEventDetailAsync,
   fetchJobDeletedAsync,
   fetchJobDetailOfEmployerAsync,
-  fetchJobsApplicationDeletedAsync,
-  fetchJobsApplicationNotSavedAsync,
-  fetchJobsApplicationSavedAsync,
   fetchJobsOfEmployerAsync,
   fetchParticipantsByIdEventAsync,
-  getDetailEmployerAsync,
-  fetchAllEventDeletedAsync,
-  fetchCartAsync,
-  getAvailableServicePackageAsync,
-  getAllQuestionAsync,
-  getAllQuestionDeletedAsync,
   getAllEntryTestAsync,
   getAllEntryTestDeletedAsync,
+  getAllQuestionAsync,
+  getAllQuestionDeletedAsync,
   getAnswerSheetByIdAsync,
+  getAvailableServicePackageAsync,
+  getDetailEmployerAsync,
 } from 'features/Employers/slices/thunks'
 
 const initialState = {
@@ -32,9 +30,7 @@ const initialState = {
   eventsOfEmployer: [],
   eventsDeleted: [],
   jobDetailEmployer: null,
-  jobsApplicationDeleted: [],
-  jobsApplicationNotSaved: [],
-  jobsApplicationSaved: [],
+  applications: [],
   jobSlug: null,
   jobsOfEmployer: [],
   jobTrash: [],
@@ -80,15 +76,15 @@ const employerSlice = createSlice({
     },
     savedJobApplication: (state, action) => {
       const id = action.payload
-      state.jobsApplicationNotSaved = state.jobsApplicationNotSaved.filter((job) => job._id !== id)
+      state.applications = state.applications.filter((job) => job._id !== id)
     },
     deletedJobAppication: (state, action) => {
       const id = action.payload
-      state.jobsApplicationNotSaved = state.jobsApplicationNotSaved.filter((job) => job._id !== id)
+      state.applications = state.applications.filter((job) => job._id !== id)
     },
     restoredJobApplication: (state, action) => {
       const id = action.payload
-      state.jobsApplicationDeleted = state.jobsApplicationDeleted.filter((job) => job._id !== id)
+      state.applications = state.applications.filter((job) => job._id !== id)
     },
     changeQuantity: (state, action) => {
       const { id, status, quantity } = action.payload
@@ -172,44 +168,16 @@ const employerSlice = createSlice({
     // #endregion
 
     // #region Fetch Jobs Application Not Saved
-    [fetchJobsApplicationNotSavedAsync.pending]: (state) => {
+    [fetchApplicationsAsync.pending]: (state) => {
       state.status = true
     },
-    [fetchJobsApplicationNotSavedAsync.fulfilled]: (state, action) => {
+    [fetchApplicationsAsync.fulfilled]: (state, action) => {
       state.status = false
-      state.jobsApplicationNotSaved = action.payload
+      state.applications = action.payload
     },
-    [fetchJobsApplicationNotSavedAsync.rejected]: (state) => {
+    [fetchApplicationsAsync.rejected]: (state) => {
       state.status = false
-      state.jobsApplicationNotSaved = []
-    },
-    // #endregion
-
-    // #region Fetch Jobs Application Saved
-    [fetchJobsApplicationSavedAsync.pending]: (state) => {
-      state.status = true
-    },
-    [fetchJobsApplicationSavedAsync.fulfilled]: (state, action) => {
-      state.status = false
-      state.jobsApplicationSaved = action.payload
-    },
-    [fetchJobsApplicationSavedAsync.rejected]: (state) => {
-      state.status = false
-      state.jobsApplicationSaved = []
-    },
-    // #endregion
-
-    // #region Fetch Jobs Application Deleted
-    [fetchJobsApplicationDeletedAsync.pending]: (state) => {
-      state.status = true
-    },
-    [fetchJobsApplicationDeletedAsync.fulfilled]: (state, action) => {
-      state.status = false
-      state.jobsApplicationDeleted = action.payload
-    },
-    [fetchJobsApplicationDeletedAsync.rejected]: (state) => {
-      state.status = false
-      state.jobsApplicationDeleted = []
+      state.applications = []
     },
     // #endregion
 

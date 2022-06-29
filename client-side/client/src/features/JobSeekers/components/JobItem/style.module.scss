@@ -1,6 +1,10 @@
 @import 'common/styles/Variables.scss';
 @import 'common/styles/Global.scss';
 
+.steps {
+  margin-top: $pm-4;
+}
+
 .jobItem {
   margin-bottom: $pm-20;
 

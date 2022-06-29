@@ -51,7 +51,7 @@ const ResultExamPage = () => {
 
   const handleCheckResult = () => {
     notification(
-      `Thank you for taking part in the entry test ${answerSheet.entryTest.title || ''}`,
+      `${t('Thank you for taking part in the entry test')} ${answerSheet.entryTest.title || ''}`,
       'success'
     )
     history.replace('/')

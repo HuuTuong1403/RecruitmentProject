@@ -63,10 +63,16 @@ export const ModalJobDetail = ({
               <div className={classes['jobDetail__top--left--jobTitle']}>{jobTitle}</div>
             )}
             {company?.companyName && (
-              <div className={classes['jobDetail__top--left--companyName']}>
+              <a
+                href={`https://mst-recruit.web.app/jobs/employer/${company.companyName}`}
+                target="_blank"
+                rel="noreferrer"
+                className={classes['jobDetail__top--left--companyName']}
+                style={{ display: 'block' }}
+              >
                 <FaBuilding style={{ marginRight: '8px' }} />
-                {company?.companyName}
-              </div>
+                {company.companyName}
+              </a>
             )}
             {company?.companyWebsite && (
               <a

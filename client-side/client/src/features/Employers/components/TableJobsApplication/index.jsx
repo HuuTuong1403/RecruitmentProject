@@ -24,21 +24,31 @@ import { ModalNotify, notification } from 'components'
 import classes from './style.module.scss'
 import moment from 'moment'
 import { useSelector } from 'react-redux'
-import { selectEntryTests } from 'features/Employers/slices/selectors'
+import {
+  selectDataFilter,
+  selectEntryTests,
+  selectTabsItem,
+} from 'features/Employers/slices/selectors'
 import { formatArrayForSelect } from 'common/functions'
 import Select from 'react-select'
+import { useParams } from 'react-router-dom'
+import {
+  countApplicationStatusAsync,
+  fetchApplicationsAsync,
+} from 'features/Employers/slices/thunks'
 
 export const TableJobsApplication = ({
   jobsApplication,
   isDelete = false,
   isNotSaved = false,
   isSaved = false,
+  isTesting = false,
   selectProfileList,
   setSelectProfileList,
 }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-
+  const { id } = useParams()
   const [showModal, setShowModal] = useState(false)
   const [application, setApplication] = useState({})
   const [loading, setLoading] = useState({ application: false, entryTest: false })
@@ -47,6 +57,8 @@ export const TableJobsApplication = ({
   const [loadingRestore, setLoadingRetore] = useState(false)
   const [showModalEntryTest, setShowModalEntryTest] = useState(false)
   const [idEntryTest, setIdEntryTest] = useState('')
+  const activeTab = useSelector(selectTabsItem)
+  const dataFilter = useSelector(selectDataFilter)
 
   const entryTests = formatArrayForSelect(useSelector(selectEntryTests), 'Entry Test', t, false)
   const onOpenModal = (application) => {
@@ -127,8 +139,10 @@ export const TableJobsApplication = ({
     if (selectProfileList.length > 0) {
       const result = await announceApplication({ id: selectProfileList })
       if (result.status === 'success') {
-        setSelectProfileList([])
         notification(`${t('Notification sent to selected candidate')}`, 'success')
+        setSelectProfileList([])
+        dispatch(fetchApplicationsAsync({ id, filter: { status: activeTab, ...dataFilter } }))
+        dispatch(countApplicationStatusAsync({ id }))
       } else {
         notification(`${t('Error! An error occurred. Please try again later')}`, 'error')
       }
@@ -154,19 +168,19 @@ export const TableJobsApplication = ({
     setLoading((prev) => ({ ...prev, entryTest: true }))
     if (idEntryTest) {
       const { company, jobTitle } = jobsApplication[0].job
-      const emails = []
+      const ids = []
       const fullName = []
 
       selectProfileList.forEach((item) => {
         const data = jobsApplication.find((application) => application._id === item)
         if (data) {
-          emails.push(data.jobSeeker.email)
+          ids.push(data._id)
           fullName.push(data.fullName)
         }
       })
 
       const _dataSend = {
-        emails,
+        id: ids,
         companyName: company.companyName,
         jobTitle,
         logo: company.logo,
@@ -180,6 +194,8 @@ export const TableJobsApplication = ({
           } ${t('successfully')}`,
           'success'
         )
+        dispatch(fetchApplicationsAsync({ id, filter: { status: activeTab, ...dataFilter } }))
+        dispatch(countApplicationStatusAsync({ id }))
         setShowModalEntryTest(false)
         setSelectProfileList([])
       } else {
@@ -193,7 +209,7 @@ export const TableJobsApplication = ({
 
   const columns = [
     {
-      title: `${t('Name of applicant')}`,
+      title: `${t('Applicant fullname')}`,
       dataIndex: 'fullName',
       key: 'fullName',
       sorter: (a, b) => a.fullName.length - b.fullName.length,
@@ -225,10 +241,14 @@ export const TableJobsApplication = ({
       key: 'salary',
     },
     {
-      title: `${t('Status')}`,
+      title: `${t('Profile status')}`,
       dataIndex: 'status',
       key: 'status',
-      render: (text) => t(text),
+      render: (text, record) => (
+        <span>
+          {t(text)} {record.isAnnounced && isSaved && '(Đã thông báo trúng tuyển)'}
+        </span>
+      ),
     },
     {
       title: `${t('Action')}`,
@@ -308,7 +328,7 @@ export const TableJobsApplication = ({
   ]
 
   const data = jobsApplication.map((jobItem) => {
-    const { id, fullName, phone, createdAt, status, job, cvPath } = jobItem
+    const { id, fullName, phone, createdAt, status, job, cvPath, isAnnounced } = jobItem
     return {
       key: id,
       fullName: fullName,
@@ -326,6 +346,7 @@ export const TableJobsApplication = ({
         id: id,
         application: jobItem,
       },
+      isAnnounced,
     }
   })
 

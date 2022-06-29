@@ -1,9 +1,5 @@
-import {
-  fetchJobsApplicationNotSavedAsync,
-  fetchJobsApplicationSavedAsync,
-  fetchJobsApplicationDeletedAsync,
-} from 'features/Employers/slices/thunks'
 import { addDataFilter } from 'features/Employers/slices'
+import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import { clearNullObject } from 'common/functions'
 import { dateFormatPicker, dateFormatSendServer } from 'common/constants/dateFormat'
 import { DatePicker } from 'antd'
@@ -13,14 +9,11 @@ import { selectDataFilter } from 'features/Employers/slices/selectors'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ButtonField, WrappedInput as InputField, LabelField } from 'custom-fields'
 import classes from './style.module.scss'
 import moment from 'moment'
 import Select from 'react-select'
-import { useParams } from 'react-router-dom'
 
 export const SearchJobsApplication = ({ status }) => {
-  const { id } = useParams()
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const searchFullNameRef = useRef(null)
@@ -69,15 +62,6 @@ export const SearchJobsApplication = ({ status }) => {
         isExpired: isExpired === false ? null : true,
       })
       dispatch(addDataFilter(filter))
-      if (status === 'NotSaved') {
-        dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
-      }
-      if (status === 'Saved') {
-        dispatch(fetchJobsApplicationSavedAsync({ id, filter }))
-      }
-      if (status === 'Deleted') {
-        dispatch(fetchJobsApplicationDeletedAsync({ id, filter }))
-      }
     } else {
       filter = clearNullObject({
         status,
@@ -87,15 +71,6 @@ export const SearchJobsApplication = ({ status }) => {
       })
 
       dispatch(addDataFilter(filter))
-      if (status === 'NotSaved') {
-        dispatch(fetchJobsApplicationNotSavedAsync({ id, filter: { status } }))
-      }
-      if (status === 'Saved') {
-        dispatch(fetchJobsApplicationSavedAsync({ id, filter: { status } }))
-      }
-      if (status === 'Deleted') {
-        dispatch(fetchJobsApplicationDeletedAsync({ id, filter: { status } }))
-      }
     }
   }
 

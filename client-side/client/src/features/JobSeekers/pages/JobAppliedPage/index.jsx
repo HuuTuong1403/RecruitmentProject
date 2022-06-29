@@ -44,6 +44,7 @@ const JobAppliedPage = () => {
                   data={job?.job}
                   createdAt={job?.createdAt}
                   status={job?.status}
+                  isAnnounced={job?.isAnnounced}
                 />
               )
             })}
