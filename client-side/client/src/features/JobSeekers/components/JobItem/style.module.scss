@@ -17,6 +17,7 @@
   &__container {
     display: flex;
     overflow: hidden;
+    align-items: flex-start;
     padding: $pm-12;
     border: 1px solid #e5e5e5;
     position: relative;
