@@ -6,7 +6,7 @@ import { getEntryTestByIdAsync } from 'features/EntryTest/slices/thunks'
 import { LoadingSuspense, ModalSignIn } from 'components'
 import { resetState } from 'features/EntryTest/slices'
 import { selectEntryTest, selectStatus } from 'features/EntryTest/slices/selector'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useTitle } from 'common/hook/useTitle'
@@ -19,6 +19,7 @@ const InfoExamPage = () => {
   const history = useHistory()
   const dispatch = useDispatch()
   const entryTestData = useSelector(selectEntryTest)
+  const idApplication = new URLSearchParams(useLocation().search).get('idApplication')
   const status = useSelector(selectStatus)
   const [showModal, setShowModal] = useState(false)
 
@@ -35,7 +36,7 @@ const InfoExamPage = () => {
   }, [dispatch, history, id])
 
   const handleDoExam = () => {
-    history.push(`/entry-tests/join/${id}/start`)
+    history.push(`/entry-tests/join/${id}/start?idApplication=${idApplication}`)
     dispatch(resetState())
   }
 

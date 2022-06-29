@@ -1,6 +1,10 @@
 @import 'common/styles/Variables.scss';
 @import 'common/styles/Global.scss';
 
+.steps {
+  margin-top: $pm-4;
+}
+
 .jobItem {
   margin-bottom: $pm-20;
 
@@ -13,6 +17,7 @@
   &__container {
     display: flex;
     overflow: hidden;
+    align-items: flex-start;
     padding: $pm-12;
     border: 1px solid #e5e5e5;
     position: relative;

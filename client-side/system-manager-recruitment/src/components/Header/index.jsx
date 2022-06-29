@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import ReactCountryFlag from 'react-country-flag'
+import { pathSystemManager } from 'common/constants/path'
 
 export const Header = ({ isShow, onOpen, onClose }) => {
   const dispatch = useDispatch()
@@ -53,7 +54,7 @@ export const Header = ({ isShow, onOpen, onClose }) => {
           <NavLink
             activeClassName={classes['header__link--active']}
             className={classes['header__link']}
-            to="/dashboard/statistic"
+            to={pathSystemManager.statistic}
           >
             {t('Statistic')}
           </NavLink>
@@ -62,7 +63,7 @@ export const Header = ({ isShow, onOpen, onClose }) => {
           <NavLink
             activeClassName={classes['header__link--active']}
             className={classes['header__link']}
-            to="/dashboard/employers"
+            to={pathSystemManager.employerManager}
           >
             {t('Employers')}
           </NavLink>
@@ -71,7 +72,7 @@ export const Header = ({ isShow, onOpen, onClose }) => {
           <NavLink
             activeClassName={classes['header__link--active']}
             className={classes['header__link']}
-            to="/dashboard/recruit-manage/created"
+            to={pathSystemManager.recruitManager}
           >
             {t('Recruitment')}
           </NavLink>
@@ -80,7 +81,7 @@ export const Header = ({ isShow, onOpen, onClose }) => {
           <NavLink
             activeClassName={classes['header__link--active']}
             className={classes['header__link']}
-            to="/dashboard/package-manage/created"
+            to={pathSystemManager.packageListCreated}
           >
             {t('Service Package')}
           </NavLink>
@@ -89,7 +90,7 @@ export const Header = ({ isShow, onOpen, onClose }) => {
           <NavLink
             activeClassName={classes['header__link--active']}
             className={classes['header__link']}
-            to="/dashboard/my-profile"
+            to={pathSystemManager.myProfile}
           >
             {t('Account')}
           </NavLink>
@@ -99,7 +100,7 @@ export const Header = ({ isShow, onOpen, onClose }) => {
           <NavLink
             activeClassName={classes['header__link--active']}
             className={classes['header__link']}
-            to="/dashboard/setting"
+            to={pathSystemManager.settings}
           >
             {t('Setting')}
           </NavLink>

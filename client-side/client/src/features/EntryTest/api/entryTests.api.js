@@ -9,9 +9,11 @@ export const getEntryTestById = async (payload) => {
   }
 }
 
-export const createAnswerSheet = async ({ id, data }) => {
+export const createAnswerSheet = async ({ id, data, idApplication }) => {
   try {
-    const result = await axiosClient.post(`entry-test/${id}/answersheets`, data)
+    const result = await axiosClient.post(`entry-test/${id}/answersheets`, data, {
+      params: { idApplication },
+    })
     return result
   } catch (error) {
     console.error(error)

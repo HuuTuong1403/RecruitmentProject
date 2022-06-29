@@ -34,16 +34,8 @@ export const selectJobTrash = (state) => {
   return state?.employer?.jobTrash
 }
 
-export const selectJobsApplicationNotSaved = (state) => {
-  return state?.employer?.jobsApplicationNotSaved
-}
-
-export const selectJobsApplicationSaved = (state) => {
-  return state?.employer?.jobsApplicationSaved
-}
-
-export const selectJobsApplicationDeleted = (state) => {
-  return state?.employer?.jobsApplicationDeleted
+export const selectApplications = (state) => {
+  return state?.employer?.applications
 }
 
 export const selectTabsItem = (state) => {

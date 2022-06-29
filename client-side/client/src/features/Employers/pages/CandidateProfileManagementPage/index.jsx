@@ -1,32 +1,28 @@
 import {
-  fetchJobsApplicationDeletedAsync,
-  fetchJobsApplicationSavedAsync,
-  fetchJobsApplicationNotSavedAsync,
   countApplicationStatusAsync,
   getAllEntryTestAsync,
+  fetchApplicationsAsync,
 } from 'features/Employers/slices/thunks'
 import {
-  selectJobsApplicationNotSaved,
-  selectJobsApplicationSaved,
-  selectJobsApplicationDeleted,
   selectTabsItem,
   selectDataFilter,
   selectCountApplication,
   selectedStatus,
+  selectApplications,
 } from 'features/Employers/slices/selectors'
+import { BiArrowBack } from 'react-icons/bi'
 import { changeTabsItem } from 'features/Employers/slices'
 import { Fragment, useEffect, useState } from 'react'
+import { LoadingSuspense, NotFoundData } from 'components'
 import { ScrollToTop } from 'common/functions'
+import { SearchJobsApplication, TableJobsApplication } from 'features/Employers/components'
 import { Tabs } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
 import { useWindowSize } from 'common/hook/useWindowSize'
-import { LoadingSuspense, NotFoundData } from 'components'
-import { SearchJobsApplication, TableJobsApplication } from 'features/Employers/components'
 import classes from './style.module.scss'
-import { useHistory, useLocation, useParams } from 'react-router-dom'
-import { BiArrowBack } from 'react-icons/bi'
 
 const CandidateProfileManagementPage = () => {
   const { id } = useParams()
@@ -44,9 +40,7 @@ const CandidateProfileManagementPage = () => {
   const dataFilter = useSelector(selectDataFilter)
   const countApplication = useSelector(selectCountApplication)
 
-  const jobsApplicationNotSaved = useSelector(selectJobsApplicationNotSaved)
-  const jobsApplicationSaved = useSelector(selectJobsApplicationSaved)
-  const jobsApplicationDeleted = useSelector(selectJobsApplicationDeleted)
+  const applications = useSelector(selectApplications)
 
   useEffect(() => {
     dispatch(getAllEntryTestAsync())
@@ -56,14 +50,14 @@ const CandidateProfileManagementPage = () => {
     let filter = {}
     if (dataFilter) {
       filter = dataFilter
-      dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
     } else {
       filter = {
-        status: 'NotSaved',
+        status: activeTab,
       }
-      dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
     }
+    dispatch(fetchApplicationsAsync({ id, filter }))
     dispatch(countApplicationStatusAsync({ id }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, dataFilter, id])
 
   //Handle change Tab and Call API
@@ -88,15 +82,7 @@ const CandidateProfileManagementPage = () => {
         }
       }
 
-      if (activeKey === 'NotSaved') {
-        dispatch(fetchJobsApplicationNotSavedAsync({ id, filter }))
-      }
-      if (activeKey === 'Saved') {
-        dispatch(fetchJobsApplicationSavedAsync({ id, filter }))
-      }
-      if (activeKey === 'Deleted') {
-        dispatch(fetchJobsApplicationDeletedAsync({ id, filter }))
-      }
+      dispatch(fetchApplicationsAsync({ id, filter }))
     }
   }
 
@@ -123,30 +109,62 @@ const CandidateProfileManagementPage = () => {
           onChange={handleChangeTabs}
           centered
         >
-          <TabPane tab={`${t('Resume Applied')} (${countApplication?.NotSaved})`} key="NotSaved">
-            {jobsApplicationNotSaved.length === 0 ? (
+          <TabPane
+            tab={`${t('Resume Applied')} (${countApplication?.NotSaved || 0})`}
+            key="NotSaved"
+          >
+            {applications.length === 0 ? (
               <NotFoundData title={t('There are currently no resumes applying')} />
             ) : (
-              <TableJobsApplication isNotSaved jobsApplication={jobsApplicationNotSaved} />
+              <TableJobsApplication isNotSaved jobsApplication={applications} />
             )}
           </TabPane>
-          <TabPane tab={`${t('Bookmarked Resumes')} (${countApplication?.Saved})`} key="Saved">
-            {jobsApplicationSaved.length === 0 ? (
+          <TabPane tab={`${t('Bookmarked Resumes')} (${countApplication?.Saved || 0})`} key="Saved">
+            {applications.length === 0 ? (
               <NotFoundData title={t('There are currently no saved profiles')} />
             ) : (
               <TableJobsApplication
-                jobsApplication={jobsApplicationSaved}
+                jobsApplication={applications}
                 selectProfileList={selectProfile}
                 setSelectProfileList={setSelectProfile}
                 isSaved
               />
             )}
           </TabPane>
-          <TabPane tab={`${t('Deleted Resumes')} (${countApplication?.Deleted})`} key="Deleted">
-            {jobsApplicationDeleted.length === 0 ? (
+
+          <TabPane
+            tab={`${t('Deleted Resumes')} (${countApplication?.Deleted || 0})`}
+            key="Deleted"
+          >
+            {applications.length === 0 ? (
               <NotFoundData title={t('There are currently no deleted profiles')} />
             ) : (
-              <TableJobsApplication isDelete jobsApplication={jobsApplicationDeleted} />
+              <TableJobsApplication isDelete jobsApplication={applications} />
+            )}
+          </TabPane>
+
+          <TabPane
+            tab={`${t('Testing Resumes')} (${countApplication?.Testing || 0})`}
+            key="Testing"
+          >
+            {applications.length === 0 ? (
+              <NotFoundData title={t('There are currently no profiles announced Entry Test')} />
+            ) : (
+              <TableJobsApplication jobsApplication={applications} isTesting />
+            )}
+          </TabPane>
+          <TabPane tab={`${t('Passed Test Resumes')} (${countApplication?.PassedTest || 0})`} key="PassedTest">
+            {applications.length === 0 ? (
+              <NotFoundData title={t('There are currently no profiles passed Entry Test')} />
+            ) : (
+              <TableJobsApplication jobsApplication={applications} isTesting />
+            )}
+          </TabPane>
+          <TabPane tab={`${t('Failed Test Resumes')} (${countApplication?.FailedTest || 0})`} key="FailedTest">
+            {applications.length === 0 ? (
+              <NotFoundData title={t('There are currently no profiles failed Entry Test')} />
+            ) : (
+              <TableJobsApplication jobsApplication={applications} isTesting />
             )}
           </TabPane>
         </Tabs>

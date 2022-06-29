@@ -1,0 +1,33 @@
+@import 'common/styles/Variables.scss';
+@import 'common/styles/Global.scss';
+
+.wrapper {
+  background-color: $primary-color;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.success {
+  width: 40%;
+}
+
+.fail {
+  width: 70%;
+}
+
+.title {
+  font-size: $text-3xl;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-shadow: 4px 4px 4px rgba(255, 255, 255, 0.2);
+
+  &__success {
+    color: $restore-color;
+  }
+
+  &__fail {
+    color: $highlight-color;
+  }
+}

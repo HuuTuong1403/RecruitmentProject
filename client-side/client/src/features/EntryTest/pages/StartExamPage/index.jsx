@@ -10,7 +10,7 @@ import {
 } from 'features/EntryTest/slices/selector'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useTitle } from 'common/hook/useTitle'
 import { useTranslation } from 'react-i18next'
@@ -30,6 +30,7 @@ import { ButtonField } from 'custom-fields'
 const StartExamPage = () => {
   const { t } = useTranslation()
   const { id } = useParams()
+  const idApplication = new URLSearchParams(useLocation().search).get('idApplication')
   const history = useHistory()
   const dispatch = useDispatch()
   const entryTestData = useSelector(selectEntryTest)
@@ -140,7 +141,7 @@ const StartExamPage = () => {
       duration: entryTestData.duration - timeOut.current / 1000,
     }
 
-    const res = await createAnswerSheet({ id, data })
+    const res = await createAnswerSheet({ id, data, idApplication })
     if (res.status === 'success') {
       const data = (res.data || {}).data || {}
       if (data) {

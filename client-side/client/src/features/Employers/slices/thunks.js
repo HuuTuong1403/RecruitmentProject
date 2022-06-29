@@ -5,9 +5,6 @@ import {
   fetchEventDetail,
   fetchJobDeleted,
   fetchJobDetailOfEmployer,
-  fetchJobsApplicationDeleted,
-  fetchJobsApplicationNotSaved,
-  fetchJobsApplicationSaved,
   fetchJobsOfEmployer,
   fetchParticipantsByIdEvent,
   fetchAllEventDeleted,
@@ -19,6 +16,7 @@ import {
   getAllEntryTest,
   getAllEntryTestDeleted,
   getAnswerSheetById,
+  fetchApplications,
 } from '../api/employer.api'
 
 export const getDetailEmployerAsync = createAsyncThunk('employer/getDetailEmployer', async () => {
@@ -47,26 +45,10 @@ export const fetchJobDeletedAsync = createAsyncThunk('employer/fetchJobDeleted',
   return res.data.data
 })
 
-export const fetchJobsApplicationNotSavedAsync = createAsyncThunk(
-  'employer/fetchJobsApplicationNotSaved',
+export const fetchApplicationsAsync = createAsyncThunk(
+  'employer/fetchApplications',
   async (payload) => {
-    const res = await fetchJobsApplicationNotSaved(payload)
-    return res.data.data
-  }
-)
-
-export const fetchJobsApplicationSavedAsync = createAsyncThunk(
-  'employer/fetchJobsApplicationSaved',
-  async (payload) => {
-    const res = await fetchJobsApplicationSaved(payload)
-    return res.data.data
-  }
-)
-
-export const fetchJobsApplicationDeletedAsync = createAsyncThunk(
-  'employer/fetchJobsApplicationDeleted',
-  async (payload) => {
-    const res = await fetchJobsApplicationDeleted(payload)
+    const res = await fetchApplications(payload)
     return res.data.data
   }
 )
