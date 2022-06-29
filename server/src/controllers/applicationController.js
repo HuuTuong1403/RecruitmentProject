@@ -216,6 +216,9 @@ class applicationController {
         NotSaved: 0,
         Saved: 0,
         Deleted: 0,
+        Testing: 0,
+        PassedTest: 0,
+        FailedTest: 0,
       };
       const applicationQuantity = await Application.aggregate([
         {
@@ -251,6 +254,18 @@ class applicationController {
           }
           case 'Deleted': {
             result.Deleted = applicationQuantity[i].count;
+            break;
+          }
+          case 'PassedTest': {
+            result.PassedTest = applicationQuantity[i].count;
+            break;
+          }
+          case 'Testing': {
+            result.Testing = applicationQuantity[i].count;
+            break;
+          }
+          case 'FailedTest': {
+            result.FailedTest = applicationQuantity[i].count;
             break;
           }
         }
