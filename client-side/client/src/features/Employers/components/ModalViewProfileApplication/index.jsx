@@ -6,7 +6,7 @@ import { MdNotificationsActive } from 'react-icons/md'
 import { MdRestorePage } from 'react-icons/md'
 import { Modal, Avatar } from 'antd'
 import { notification } from 'components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import classes from './style.module.scss'
 import moment from 'moment'
@@ -30,10 +30,26 @@ export const ModalViewProfileApplication = ({
   const { createdAt, cvPath, description, fullName, job, jobSeeker, status, phone, _id } =
     application
   const [loading, setLoading] = useState(false)
+  const [type, setType] = useState('')
 
   const handleDownloadCV = () => {
     window.open(cvPath, '_blank')
   }
+
+  useEffect(() => {
+    if (cvPath) {
+      const cutUrl = cvPath.slice(cvPath.lastIndexOf('/') + 1, cvPath.indexOf('?'))
+      if (cutUrl.includes('.pdf')) {
+        setType('pdf')
+      } else if (cutUrl.includes('.doc')) {
+        setType('doc')
+      }
+    }
+
+    return () => {
+      setType('')
+    }
+  }, [type, cvPath])
 
   //Announce Applicationd
   const handleClickAnnounceApplication = async () => {
@@ -248,6 +264,27 @@ export const ModalViewProfileApplication = ({
               <div className={classes['modalProfile__field--description']}>
                 {parse(description)}
               </div>
+            </div>
+          )}
+
+          {type && (
+            <div className={classes.modalProfile__bottom__file}>
+              <div className={classes.modalProfile__bottom__title}>CV đính kèm từ ứng viên:</div>
+              {type === 'pdf' && (
+                <embed
+                  src={cvPath}
+                  type="application/pdf"
+                  style={{ width: '100%', height: '100%', minHeight: ' 550px' }}
+                />
+              )}
+
+              {type === 'doc' && (
+                <iframe
+                  title="CV Ứng viên"
+                  src={`https://view.officeapps.live.com/op/embed.aspx?src=${cvPath}`}
+                  style={{ width: '100%', height: '100%', maxWidth: '100%', minHeight: '550px' }}
+                ></iframe>
+              )}
             </div>
           )}
         </div>

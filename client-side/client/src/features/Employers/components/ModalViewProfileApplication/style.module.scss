@@ -84,6 +84,17 @@
       color: $primary-text;
       font-size: $text-2xl;
     }
+
+    &__file {
+      margin-top: $pm-16;
+    }
+
+    &__title {
+      color: $primary-text;
+      font-size: $text-xl;
+      font-weight: 600;
+      margin-bottom: $pm-10;
+    }
   }
 }
 
